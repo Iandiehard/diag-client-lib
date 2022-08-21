@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #include "doIP_TransportProtocolHandler.h"
 #include "dcm/connection/udsTransportProtocolManager.h"
 #include "dcm/conversion/conversionManager.h"
@@ -9,7 +17,8 @@ namespace uds_transport{
 
 //ctor
 UdsTransportProtocolManager::UdsTransportProtocolManager(/* pass the protocol kind */)
-                            :doip_transport_handler(std::make_unique<ara::diag::doip::transportProtocolHandler::DoipTransportProtocolHandler>(handler_id_count, *this)) {
+                            :doip_transport_handler(
+                                std::make_unique<ara::diag::doip::transportProtocolHandler::DoipTransportProtocolHandler>(handler_id_count, *this)) {
 }
 
 //dtor

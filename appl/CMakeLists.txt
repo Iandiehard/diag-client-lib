@@ -1,3 +1,10 @@
+#  MANDAREIN Diagnostic Client library CMake File
+#  Copyright (C) 2022  Avijit Dey
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 project(diag-client LANGUAGES CXX)
 
 #set default language
@@ -46,6 +53,7 @@ set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
 # Library header include
 set(lib_header_path ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
+# include directories
 target_include_directories(${PROJECT_NAME} PRIVATE 
     ${include_header_path}
     ${src_header_path} 

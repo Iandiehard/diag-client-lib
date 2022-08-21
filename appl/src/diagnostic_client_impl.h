@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef _DIAGNOSTIC_CLIENT_IMPL_H_
 #define _DIAGNOSTIC_CLIENT_IMPL_H_
 
@@ -35,7 +43,7 @@ private:
     diag::client::common::property_tree ptree;
 
     // dcm client instance
-    std::unique_ptr<diag::client::dcm::DCM> dcm_instance_ptr;
+    std::unique_ptr<diag::client::dcm::DCMClient> dcm_instance_ptr;
     
     // container to hold threads
     std::vector<std::thread> _thread;

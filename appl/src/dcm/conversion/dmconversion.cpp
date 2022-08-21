@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 /* includes */
 #include "dcm/conversion/dmconversion.h"
 #include "dcm/service/dm_uds_message.h"
@@ -22,6 +30,7 @@ DmConversion::DmConversion(ara::diag::conversion_manager::ConversionIdentifierTy
                             ,broadcast_address(conversion_identifier.udp_broadcast_address)
                             ,dm_conversion_handler(std::make_shared<DmConversionHandler>(conversion_identifier.handler_id, *this)) {
     DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
+    // set the size of buffer based on configuration
     payload_rx_buffer.resize(rx_buffer_size);
 }
 
@@ -115,7 +124,7 @@ std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr>
         DLT_LOG(dm_conversion, DLT_LOG_INFO, 
             DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));
         while(conversion_state != ConversionStateType::kIdle) {
-            DLT_LOG(dm_conversion, DLT_LOG_INFO, 
+            DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
                 DLT_CSTRING("Dm coversion state: "), DLT_UINT8(static_cast<std::uint8_t>(conversion_state)));
             switch (conversion_state) {
                 case ConversionStateType::kDiagWaitForRes :
@@ -124,7 +133,7 @@ std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr>
                             one_shot_timer::oneShotSyncTimer::timer_state::kTimeout) {
                         // no response received withing P6Max / P2ClientMax
                         conversion_state = ConversionStateType::kDiagP2MaxTimeout;
-                        DLT_LOG(dm_conversion, DLT_LOG_INFO, 
+                        DLT_LOG(dm_conversion, DLT_LOG_WARN, 
                             DLT_CSTRING("Diagnostic Response P2 Timeout happened"), DLT_INT16(static_cast<int>(p2_client_max)));
                         break;
                     }
@@ -143,7 +152,7 @@ std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr>
                             one_shot_timer::oneShotSyncTimer::timer_state::kTimeout) {
                         // no response received within P6Start/ P2Star
                         conversion_state = ConversionStateType::kDiagP2StarMaxTimeout;
-                        DLT_LOG(dm_conversion, DLT_LOG_INFO, 
+                        DLT_LOG(dm_conversion, DLT_LOG_WARN, 
                             DLT_CSTRING("Diagnostic Response P2 Star Timeout happened"), DLT_INT16(static_cast<int>(p2_star_client_max)));
                         break;
                     }
@@ -209,7 +218,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                     ret_val.first = 
                         ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
                     conversion_state = ConversionStateType::kDiagStartP2StarTimer;
-                    DLT_LOG(dm_conversion, DLT_LOG_INFO, 
+                    DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
                         DLT_CSTRING("Diagnostic Pending response received in Conversion"));
                 }
                 else {
@@ -225,7 +234,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                     ret_val.first = 
                         ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
                     ret_val.second = std::move(uds_message_rx);
-                    DLT_LOG(dm_conversion, DLT_LOG_INFO, 
+                    DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
                         DLT_CSTRING("Diagnostic Final indication received in Conversion"));
                 }
             }
@@ -272,6 +281,7 @@ DmConversionHandler::~DmConversionHandler() {
 // Indication of Vehicle Announcement/Identification Request
 ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult 
     DmConversionHandler::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
+    ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult result;
     if(vehicleInfo_Ref.size() != 0) {
         // Todo : Is vector required ????
         if(vehicleInfo_Ref[0].vehInfoType 
@@ -279,6 +289,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult
 
         }
     }
+    return result;
 }
 
 // transmit confirmation of Vehicle Identification Request

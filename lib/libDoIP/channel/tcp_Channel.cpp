@@ -1,3 +1,10 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #include "channel/tcp_Channel.h"
 #include "sockets/tcp_SocketHandler.h"
@@ -607,7 +614,7 @@ void tcpChannel::ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &p
             }
             diag_state_e.ack_code = ack_code;
         }
-        else if(ackType = kDoip_DiagMessageNegAck_Type) {
+        else if(ackType == kDoip_DiagMessageNegAck_Type) {
             // Send Tx Confirmation to Upper Layer about failed transmission acknowledgement of request
             diag_state_e.state = diagnosticState::kDiagnosticNegativeAckRecvd;
             diag_state_e.ack_code = ack_code;

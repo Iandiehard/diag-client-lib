@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef _PROTOCOL_TYPES_H_
 #define _PROTOCOL_TYPES_H_
 
@@ -25,29 +33,37 @@ class VehicleInfo{
 
 public:
     // Vehicle Info type
-    enum class VehicleInfoType : std::uint8_t
-    {
+    enum class VehicleInfoType : std::uint8_t {
         kVehicleAnnouncementRes         = 0,
         kVehicleIdentificationReq       = 1,
         kVehicleIdentificationReqEID    = 2,
         kVehicleIdentificationReqVIN    = 3
     };
+    
     //VIN
     VINArray vin;
+    
     //EID
     EID_GID_Array eid;
+    
     //GID
     EID_GID_Array gid;
+    
     // Logical address of DOIP entity
     uint16_t logicalAddress;
-    //
+    
+    // Host port number
     uint16_t hostPortNum;
+    
     // Further action bytes received
     uint8_t furtherActionByte;
+    
     // Synchronisation status
     uint8_t vingidSyncStatus;
+    
     // Ip address of Doip Entity
     std::string hostIpAddress; // IPV4 supported
+    
     // Type
     VehicleInfoType vehInfoType;
 };

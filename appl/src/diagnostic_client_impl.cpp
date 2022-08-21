@@ -1,3 +1,10 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #include "diagnostic_client.h"
 #include "diagnostic_client_impl.h"
@@ -17,7 +24,7 @@ DiagClientImpl::DiagClientImpl(std::string dm_client_config)
     json_parser.getJsonPtree(dm_client_config, ptree);
     
     // create single dcm instance and pass the config tree
-    dcm_instance_ptr = std::make_unique<diag::client::dcm::DCM>(ptree);
+    dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
 }
 
 // dtor
@@ -30,7 +37,7 @@ DiagClientImpl::~DiagClientImpl() {
 // Initialize all the resources and load the configs
 void DiagClientImpl::Initialize(void) {
     // start DCM thread here
-    _thread.push_back(std::thread(&diag::client::dcm::DCM::Main, std::ref(*dcm_instance_ptr.get())));
+    _thread.push_back(std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get())));
     DLT_LOG(diagclient_main, DLT_LOG_INFO, DLT_CSTRING("DiagClient Initialize success"));
 }
 
@@ -42,6 +49,7 @@ void DiagClientImpl::DeInitialize(void) {
     for(auto &thread_ptr : _thread) {
         thread_ptr.join();
     }
+    DLT_LOG(diagclient_main, DLT_LOG_INFO, DLT_CSTRING("DiagClient De-Initialize success"));
 }
 
 // Get Required Conversion based on Conversion Name

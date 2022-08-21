@@ -1,10 +1,15 @@
+#  MANDAREIN Diagnostic Client library CMake File
+#  Copyright (C) 2022  Avijit Dey
+# 
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 project(BoostSupportLib)
 
 #set default language
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(BOOST_LIBRARYDIR /opt/boost/lib)
-set(BOOST_INCLUDEDIR /opt/boost/include)
 
 # find needed packages
 find_package(automotive-dlt REQUIRED)
