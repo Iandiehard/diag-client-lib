@@ -1,0 +1,63 @@
+#ifndef ONESHOTTIMER_H
+#define ONESHOTTIMER_H
+
+
+#include "oneShotTimer_Types.h"
+
+namespace libOsAbstraction {
+namespace libBoost {
+namespace libTimer {
+namespace oneShot {
+
+// Clock Type
+using SteadyClock           = boost::asio::steady_timer;
+using HighResolutionClock   = boost::asio::high_resolution_timer;
+
+using BoostTimer            = SteadyClock;
+using msTime                = boost::asio::chrono::milliseconds;
+
+class oneShotAsyncTimer 
+{
+public:
+    //ctor
+    oneShotAsyncTimer();
+    //dtor
+    virtual ~oneShotAsyncTimer();
+    // Start timer
+    void Start(int msec, TimerHandler timerHandler);
+    // Stop Timer
+    void Stop();
+    // Function to check whether timer is active or not
+    bool IsActive();
+private:
+    // io contex 
+    boost::asio::io_context io_e;
+    // flag to terminate the thread
+    std::atomic_bool exit_request_e;
+    // flag th start the thread
+    std::atomic_bool running_e;
+    // threading var
+    std::thread thread_e;
+    // timer - next timeout
+    std::unique_ptr<BoostTimer>  timer_ptr_e;
+    // conditional variable to block the thread
+    std::condition_variable cond_var_e;
+    // locking critical section 
+    mutable std::mutex mutex_e;
+    // handler
+    TimerHandler timerHandler_e;
+    // timeout funtion
+    void Timeout(const boost::system::error_code& error);
+    // function invoked in thread
+    void Run();
+    // Declare dlt logging context
+    DLT_DECLARE_CONTEXT(oneshotasync_timer_ctx);
+};
+
+} // oneShot
+} // libTimer
+} // libBoost
+} // libOsAbstraction
+
+
+#endif // ONESHOTTIMER_H

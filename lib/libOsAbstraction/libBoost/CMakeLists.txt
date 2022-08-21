@@ -1,0 +1,59 @@
+project(BoostSupportLib)
+
+#set default language
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_EXTENSIONS OFF)
+set(BOOST_LIBRARYDIR /opt/boost/lib)
+set(BOOST_INCLUDEDIR /opt/boost/include)
+
+# find needed packages
+find_package(automotive-dlt REQUIRED)
+find_package(Boost 1.78.0)
+
+file(GLOB LIBBOOST_COMMON_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libCommon/*.cpp")
+file(GLOB LIBBOOST_SOCKET_TCP_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libSocket/tcp/*.cpp")
+file(GLOB LIBBOOST_SOCKET_UDP_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libSocket/udp/*.cpp")
+file(GLOB LIBBOOST_SOCKET_ASYNC_TIMER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libTimer/oneShotAsync/*.cpp")
+file(GLOB LIBBOOST_SOCKET_SYNC_TIMER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libTimer/oneShotSync/*.cpp")
+file(GLOB LIBBOOST_JSON_PARSER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/libJsonParser/*.cpp")
+
+set(LIBBOOST_SOCKET_SRCS
+    ${LIBBOOST_SOCKET_TCP_SRCS}
+    ${LIBBOOST_SOCKET_UDP_SRCS}
+)
+
+if(BUILD_SHARED_LIBS)
+    add_library(${PROJECT_NAME} SHARED
+        ${LIBBOOST_COMMON_SRCS}
+        ${LIBBOOST_SOCKET_SRCS}
+        ${LIBBOOST_SOCKET_ASYNC_TIMER_SRCS}
+        ${LIBBOOST_SOCKET_SYNC_TIMER_SRCS}
+        ${LIBBOOST_JSON_PARSER_SRCS}
+    )
+endif(BUILD_SHARED_LIBS)
+
+add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+#include header
+set(boost_header_path 
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+set(BoostSupportLib_Header
+    ${boost_header_path}
+)
+#Link include directory
+target_include_directories(${PROJECT_NAME} PUBLIC 
+  "$<BUILD_INTERFACE:${BoostSupportLib_Header}>"
+  "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
+)
+#link target directory
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+  ara-lib::CommonLibrary
+  Genivi::dlt
+  ${Boost_LIBRARIES}
+)
+
+install(TARGETS ${PROJECT_NAME}
+        EXPORT DiagClientLibTargets
+)

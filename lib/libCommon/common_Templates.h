@@ -1,0 +1,7 @@
+#ifndef COMMON_TEMPLATES_H
+#define COMMON_TEMPLATES_H
+
+
+
+
+#endif // COMMON_TEMPLATES_H

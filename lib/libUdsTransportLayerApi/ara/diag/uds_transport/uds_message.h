@@ -1,0 +1,64 @@
+#ifndef _UDS_MESSAGE_H_
+#define _UDS_MESSAGE_H_
+
+
+#include "protocol_types.h"
+
+namespace ara{
+namespace diag{
+namespace uds_transport{
+
+class UdsMessage {
+  public:
+    // type for UDS source and target addresses
+    using Address = uint16_t;
+    // Ip address
+    using IpAddress = std::string;
+    // Port Number
+    using PortNumber = uint16_t;
+    // Type for the meta information attached to a UdsMessage
+    using MetaInfoMap = std::map<std::string, std::string>;
+    // type of target address in UdsMessage
+    enum class TargetAddressType : std::uint8_t {
+        kPhysical   = 0,
+        kFunctional = 1
+    };
+    // ctor
+    inline UdsMessage() {}
+    UdsMessage (const UdsMessage &other)=default;
+    UdsMessage (UdsMessage &&other) noexcept=default;
+    UdsMessage& operator= (const UdsMessage &other)=default;
+    UdsMessage& operator= (UdsMessage &&other) noexcept=default;
+    // dtor
+    inline virtual ~UdsMessage()=default;
+
+    // add new metaInfo to this message.
+    virtual void AddMetaInfo (std::shared_ptr< const MetaInfoMap > meta_info) = 0;
+    // Get the UDS message data starting with the SID (A_Data as per ISO)
+    virtual const ByteVector& GetPayload () const = 0;
+    // return the underlying buffer for write access
+    virtual ByteVector& GetPayload () = 0;
+    // Get the source address of the uds message.
+    virtual Address GetSa () const noexcept = 0;
+    // Get the target address of the uds message.
+    virtual Address GetTa () const noexcept = 0;
+    // Get the target address type (phys/func) of the uds message.
+    virtual TargetAddressType GetTaType () const noexcept = 0;
+    // Get Host Ip address
+    virtual IpAddress GetHostIpAddress() const noexcept = 0;
+    // Get Host port number
+    virtual PortNumber GetHostPortNumber() const noexcept = 0;
+};
+
+// This is the unique_ptr for constant UdsMessages containing a custom deleter as provided by
+// the generic/core DM part towards the UdsTransportLayer-Plugin
+using UdsMessageConstPtr = std::unique_ptr<const UdsMessage >;
+// This is the unique_ptr for UdsMessages containing a custom deleter as provided by the
+// generic/core DM part towards the UdsTransportLayer-Plugin.
+using UdsMessagePtr = std::unique_ptr<UdsMessage>;
+
+} // uds_transport
+} // diag
+} // ara
+
+#endif // _UDS_MESSAGE_H_
