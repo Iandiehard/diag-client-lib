@@ -84,7 +84,20 @@ DiagClientConversion::ConnectResult DmConversion::ConnectToDiagServer(
                                                                             source_address,
                                                                             target_address,
                                                                             host_ip_addr,
-                                                                            payload);    
+                                                                            payload);   
+    auto start = std::chrono::system_clock::now();
+
+    auto result = sync_timer.Start(p2_client_max);
+
+    auto end = std::chrono::system_clock::now();
+
+    std::chrono::duration<double> elapsed_seconds = end-start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+ 
+    std::cout << "finished computation at " << std::ctime(&end_time)
+              << "elapsed time: " << elapsed_seconds.count() << "s"
+              << std::endl;
+    
     // Send Connect request to doip layer
     return (static_cast<DiagClientConversion::ConnectResult>(
             connection_ptr->ConnectToHost(std::move(uds_message))));
@@ -119,7 +132,7 @@ std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr>
                                                                             payload);
     if(connection_ptr->Transmit(std::move(uds_message)) != 
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
-        // Diagnostic Request Send successful, wait for response
+        // Diagnostic Request Sent successful, wait for response
         conversion_state = ConversionStateType::kDiagWaitForRes;
         DLT_LOG(dm_conversion, DLT_LOG_INFO, 
             DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));

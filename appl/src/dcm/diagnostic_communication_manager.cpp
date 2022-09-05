@@ -93,60 +93,16 @@ diag::client::config_parser::ConversionConfig
         diag::client::config_parser::conversionType conversion;
         
         conversion.conversionName               = conversion_ptr.second.get<std::string>("ConversionName");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("ConversionName : "), 
-            DLT_STRING(conversion.conversionName.c_str()));
-        
-        conversion.p2ClientMax                  = conversion_ptr.second.get<uint16_t>("p2ClientMax");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("p2ClientMax : "), 
-            DLT_UINT16(conversion.p2ClientMax));
-        
-        conversion.p2StarClientMax              = conversion_ptr.second.get<uint16_t>("p2StarClientMax");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("p2StarClientMax : "), 
-            DLT_UINT16(conversion.p2StarClientMax));
-        
-        conversion.txBufferSize                 = conversion_ptr.second.get<uint16_t>("TxBufferSize");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("TxBufferSize : "), 
-            DLT_UINT16(conversion.txBufferSize));
-        
+        conversion.p2ClientMax                  = conversion_ptr.second.get<uint16_t>("p2ClientMax");        
+        conversion.p2StarClientMax              = conversion_ptr.second.get<uint16_t>("p2StarClientMax");        
+        conversion.txBufferSize                 = conversion_ptr.second.get<uint16_t>("TxBufferSize");        
         conversion.rxBufferSize                 = conversion_ptr.second.get<uint16_t>("RxBufferSize");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("RxBufferSize : "), 
-            DLT_UINT16(conversion.rxBufferSize));
-
         conversion.sourceAddress                = conversion_ptr.second.get<uint16_t>("SourceAddress");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("SourceAddress : "), 
-            DLT_UINT16(conversion.sourceAddress));
-
         conversion.targetAddress                = conversion_ptr.second.get<uint16_t>("TargetAddress");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("TargetAddress : "), 
-            DLT_UINT16(conversion.targetAddress));
-
         conversion.network.tcpIpAddress         = conversion_ptr.second.get<std::string>("Network.TcpIpAddress");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("Network.TcpIpAddress : "), 
-            DLT_STRING(conversion.network.tcpIpAddress.c_str()));
-
         conversion.network.udpIpAddress         = conversion_ptr.second.get<std::string>("Network.UdpIpAddress");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("Network.UdpIpAddress : "), 
-            DLT_STRING(conversion.network.udpIpAddress.c_str()));
-
         conversion.network.udpBroadcastAddress  = conversion_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("Network.UdpBroadcastAddress : "), 
-            DLT_STRING(conversion.network.udpBroadcastAddress.c_str()));
-
         conversion.network.portNum              = conversion_ptr.second.get<uint16_t>("Network.Port");
-        DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-            DLT_STRING("Network.Port : "), 
-            DLT_UINT16(conversion.network.portNum));
-
         config.conversions.push_back(conversion);
     }
     return config;

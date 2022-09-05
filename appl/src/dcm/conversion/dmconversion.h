@@ -16,12 +16,13 @@
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "diagnostic_client_conversion.h"
 #include "dcm/timer/oneShotSyncTimer.h"
+#include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace diag{
 namespace client{
 namespace conversion{
 
-
+using conv_sync_timer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 /*
  @ Class Name        : DmConversion
  @ Class Description : Class to establish connection with Diagnostic Server                           
@@ -162,6 +163,8 @@ private:
 
     // timer
     one_shot_timer::oneShotSyncTimer timer_sync;
+    
+    conv_sync_timer sync_timer;
 
     // Uds response pointer
     uds_message::UdsResponseMessagePtr uds_resp_ptr{nullptr};

@@ -27,6 +27,7 @@
 #include <signal.h>
 #include <future>
 #include <chrono>
+#include <ctime>
 #include <dlt/dlt.h>
 
 /* Magic numbers */

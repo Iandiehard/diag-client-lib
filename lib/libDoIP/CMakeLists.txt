@@ -32,7 +32,7 @@ set(LIBDOIP_LIB_SRCS
     ${LIBDOIP_MAIN_SRCS}
 )
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
     ${LIBDOIP_LIB_SRCS}
 )
 

@@ -15,7 +15,7 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 # Cmake options
-option(BUILD_SHARED_LIBS "Build shared library" ON)
+option(BUILD_SHARED_LIBS "Build shared library" OFF)
 
 # Build all the libraries
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib)

@@ -69,7 +69,7 @@ void oneShotAsyncTimer::Run() {
         }
         if (running_e) {
             lck.unlock();
-             DLT_LOG(oneshotasync_timer_ctx, DLT_LOG_INFO, 
+            DLT_LOG(oneshotasync_timer_ctx, DLT_LOG_INFO, 
                 DLT_CSTRING("Oneshot Timer running"));
             io_e.run();
             lck.lock();

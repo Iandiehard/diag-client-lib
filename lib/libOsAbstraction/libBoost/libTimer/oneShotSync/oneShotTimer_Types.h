@@ -10,6 +10,7 @@
 #define ONESHOTTIMER_TYPES_H
 
 #include "libCommon/Boost_Header.h"
+#include "common_Header.h"
 
 //Typedef
 
