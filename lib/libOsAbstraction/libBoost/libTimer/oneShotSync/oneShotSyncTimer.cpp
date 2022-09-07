@@ -45,7 +45,7 @@ oneShotSyncTimer::timer_state
     // check the error code
     if(error_e != boost::asio::error::operation_aborted) {
         DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("return timeout"));
+            DLT_CSTRING("timeout"));
 
         retval = timer_state::kTimeout;
     }

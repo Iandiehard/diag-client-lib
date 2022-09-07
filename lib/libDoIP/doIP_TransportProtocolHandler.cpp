@@ -62,7 +62,10 @@ std::shared_ptr<ara::diag::connection::Connection>
                                                                                     kDoip_String& tcpIpaddress, 
                                                                                     kDoip_String& udpIpaddress, 
                                                                                     uint16_t portNum) {
-    DLT_LOG(doipclient_main, DLT_LOG_INFO, DLT_CSTRING("Doip Connection requested"));
+    std::string tcp_ip_address{tcpIpaddress};
+    DLT_LOG(doipclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("Doip protocol used with tcp ip address: ")
+        DLT_STRING(tcp_ip_address.c_str()));
     return(doip_connection_mgr_ptr->FindOrCreateConnection( conversion, 
                                                             tcpIpaddress, 
                                                             udpIpaddress, 

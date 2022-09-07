@@ -76,19 +76,17 @@ DiagClientConversion::ConnectResult DmConversion::ConnectToDiagServer(
    
     // create a uds message just to get the port number, -
     // source address required from Routing Acitvation
-    ara::diag::uds_transport::ByteVector payload; // empty payload
-    ara::diag::uds_transport::UdsMessagePtr uds_message =
-                    std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                            source_address,
-                                                                            target_address,
-                                                                            host_ip_addr,
-                                                                            payload);   
-    
+    ara::diag::uds_transport::ByteVector payload; // empty payload  
 
     auto result = sync_timer.Start(p2_client_max);    
     // Send Connect request to doip layer
     return (static_cast<DiagClientConversion::ConnectResult>(
-            connection_ptr->ConnectToHost(std::move(uds_message))));
+            connection_ptr->ConnectToHost(std::move(
+                    std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                                                                            source_address,
+                                                                            target_address,
+                                                                            host_ip_addr,
+                                                                            payload)))));
 }
 
 DiagClientConversion::DisconnectResult  
@@ -171,9 +169,8 @@ std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr>
                     }
                 case ConversionStateType::kDiagSuccess:
                     {// change state to idle, form the uds response and return
-                        uds_message::UdsResponseMessagePtr uds_resp_ptr =
-                                std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer);
-                        ret_val.second = std::move(uds_resp_ptr);
+                        ret_val.second = std::move(
+                                std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
                         ret_val.first = DiagClientConversion::DiagResult::kDiagSuccess;
                         conversion_state = ConversionStateType::kIdle;
                         break;
@@ -231,16 +228,15 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                     // positive or negative response, provide valid buffer
                     conversion_state = ConversionStateType::kDiagRecvdFinalRes;
                     timer_sync.StopWait();
-                    payload_rx_buffer.resize(size);
-                    ara::diag::uds_transport::UdsMessagePtr uds_message_rx =
-                            std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                                    source_address,
-                                                                                    target_address,
-                                                                                    "",
-                                                                                    payload_rx_buffer);                    
+                    payload_rx_buffer.resize(size);                  
                     ret_val.first = 
                         ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
-                    ret_val.second = std::move(uds_message_rx);
+                    ret_val.second = std::move(
+                                    std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                                                                                            source_address,
+                                                                                            target_address,
+                                                                                            "",
+                                                                                            payload_rx_buffer));
                 }
             }
             else {
@@ -286,8 +282,6 @@ void DmConversion::HandleMessage (ara::diag::uds_transport::UdsMessagePtr messag
             DLT_LOG(dm_conversion, DLT_LOG_INFO, 
                 DLT_CSTRING("Payload rx buffer: "), DLT_HEX8(payload_rx_buffer[i]));
         }
-
-        //uds_resp_ptr = std::make_unique<diag::client::uds_message::DmUdsResponse>(message->GetPayload());
         conversion_state = ConversionStateType::kDiagSuccess;
     }
 }

@@ -23,7 +23,7 @@ createTcpSocket::createTcpSocket(Boost_String &localIpaddress, uint16_t localpor
                  tcpHandlerRead_e(tcpHandlerRead) {
     DLT_REGISTER_CONTEXT(tcp_socket_ctx,"tcps","Tcp Socket Context");
     tcpSocket_e = std::make_unique<TcpSocket::socket>(io_context);
-    // Start thread to call io_context run for async operation
+    // Start thread to receive messages
     thread_e = std::thread(&createTcpSocket::Run, this);
 }
 
@@ -59,12 +59,14 @@ bool createTcpSocket::Open() {
         else {
             retVal = false;
             DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-                DLT_CSTRING("Tcp Socket Bind failed with message: "), DLT_CSTRING(ec.message().c_str()));
+                DLT_CSTRING("Tcp Socket Bind failed with message: "), 
+                DLT_CSTRING(ec.message().c_str()));
         }
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Opening failed with error: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Tcp Socket Opening failed with error: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
 
     return retVal;
@@ -87,7 +89,8 @@ bool createTcpSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostport
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Connect to host failed with error: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Tcp Socket Connect to host failed with error: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 }
@@ -108,7 +111,8 @@ bool createTcpSocket::DisconnectFromHost() {
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Disconnect from host failed with error: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Tcp Socket Disconnect from host failed with error: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 }
@@ -128,7 +132,8 @@ bool createTcpSocket::Transmit(TcpMessageConstPtr tcpMessage) {
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp message failed with error: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Tcp message failed with error: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 } 
@@ -142,15 +147,13 @@ bool createTcpSocket::Destroy() {
 
 // Handle reading from socket
 void createTcpSocket::HandleMessage() {
-    DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Tcp Message received"));
     TcpErrorCodeType ec;
     TcpMessagePtr tcpRxMessage  = std::make_unique<TcpMessageType>();
     // reserve the buffer
     tcpRxMessage->rxBuffer.resize(kDoipheadrSize);
     // start blocking read to read Header first
     boost::asio::read(*tcpSocket_e.get(),
-                        boost::asio::buffer(&tcpRxMessage->rxBuffer[0], kDoipheadrSize), ec);
+                boost::asio::buffer(&tcpRxMessage->rxBuffer[0], kDoipheadrSize), ec);
     
     // Check for error 
     if(ec.value() == boost::system::errc::success) {
@@ -160,6 +163,9 @@ void createTcpSocket::HandleMessage() {
         tcpRxMessage->rxBuffer.resize(kDoipheadrSize + std::size_t(readnextbytes));
         boost::asio::read(*tcpSocket_e.get(),
                             boost::asio::buffer(&tcpRxMessage->rxBuffer[kDoipheadrSize], readnextbytes), ec);
+        // all message received, transfer to upper layer
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
+                DLT_CSTRING("Tcp Message received"));
         // send data to upper layer
         tcpHandlerRead_e(std::move(tcpRxMessage));
     }
@@ -167,11 +173,13 @@ void createTcpSocket::HandleMessage() {
         // remote disconnection
         running_e = false;
         DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Remote Disconnected with: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Remote Disconnected with: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Remote Disconnected with undefined error: "), DLT_CSTRING(ec.message().c_str()));
+            DLT_CSTRING("Remote Disconnected with undefined error: "), 
+            DLT_CSTRING(ec.message().c_str()));
     }
 }
 

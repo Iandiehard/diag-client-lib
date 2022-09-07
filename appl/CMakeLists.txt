@@ -11,8 +11,6 @@ project(diag-client LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(BUILD_SHARED_LIBS "Build shared library" ON)
-
 # find needed packages
 find_package(Threads REQUIRED)
 find_package(automotive-dlt REQUIRED)
