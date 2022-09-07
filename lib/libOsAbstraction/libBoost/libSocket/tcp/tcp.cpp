@@ -1,3 +1,10 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 // includes
 #include "tcp.h"
@@ -52,12 +59,12 @@ bool createTcpSocket::Open() {
         else {
             retVal = false;
             DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-                DLT_CSTRING("Tcp Socket Bind failed with message: "), DLT_INT(ec.value()));
+                DLT_CSTRING("Tcp Socket Bind failed with message: "), DLT_CSTRING(ec.message().c_str()));
         }
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Opening failed with error: "), DLT_INT(ec.value()));
+            DLT_CSTRING("Tcp Socket Opening failed with error: "), DLT_CSTRING(ec.message().c_str()));
     }
 
     return retVal;
@@ -80,8 +87,7 @@ bool createTcpSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostport
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Connect to host failed with error: "), DLT_INT(ec.value()));
-        std::cout << ec.message() << std::endl;
+            DLT_CSTRING("Tcp Socket Connect to host failed with error: "), DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 }
@@ -102,8 +108,7 @@ bool createTcpSocket::DisconnectFromHost() {
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp Socket Disconnect from host failed with error: "), DLT_INT(ec.value()));
-        std::cout << ec.message() << std::endl;
+            DLT_CSTRING("Tcp Socket Disconnect from host failed with error: "), DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 }
@@ -123,8 +128,7 @@ bool createTcpSocket::Transmit(TcpMessageConstPtr tcpMessage) {
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp message failed with error: "), DLT_INT(ec.value()));
-        std::cout << ec.message() << std::endl;
+            DLT_CSTRING("Tcp message failed with error: "), DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
 } 
@@ -162,12 +166,12 @@ void createTcpSocket::HandleMessage() {
     else if(ec.value() == boost::asio::error::eof) {
         // remote disconnection
         running_e = false;
-        //std::cout << ec.message() << std::endl;
         DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Remote Disconnected with: "), DLT_INT(ec.value()));
+            DLT_CSTRING("Remote Disconnected with: "), DLT_CSTRING(ec.message().c_str()));
     }
     else {
-        //std::cout << ec.message() << std::endl;
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
+            DLT_CSTRING("Remote Disconnected with undefined error: "), DLT_CSTRING(ec.message().c_str()));
     }
 }
 

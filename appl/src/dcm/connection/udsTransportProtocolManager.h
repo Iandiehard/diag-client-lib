@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef _UDS_TRANSPORTPROTOCOLMANAGER_H_
 #define _UDS_TRANSPORTPROTOCOLMANAGER_H_
 
@@ -24,17 +32,22 @@ class UdsTransportProtocolManager : public ::ara::diag::uds_transport::UdsTransp
 public:
     //ctor
     UdsTransportProtocolManager(); 
+    
     //dtor
     virtual ~UdsTransportProtocolManager();
+    
     // initialize all the transport protocol handler
     void Startup();
+    
     // start all the transport protocol handler
     void Run();
+    
     // terminate all the transport protocol handler
     void Shutdown();
 
     // store doip transport handler
     std::unique_ptr<::ara::diag::uds_transport::UdsTransportProtocolHandler> doip_transport_handler;
+    
     // handler id count
     ::ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id_count = 0;
 };

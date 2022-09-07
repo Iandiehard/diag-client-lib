@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef _DIAGNOSTIC_CLIENT_CONVERSION_H_
 #define _DIAGNOSTIC_CLIENT_CONVERSION_H_
 
@@ -39,13 +47,19 @@ public:
     // dtor
     inline ~DiagClientConversion() = default;
     
-    // startup
+    // Description   : Function to start the Diagnostic Client Conversion
+    // @param input  : Nothing
+    // @return value : void
     virtual void Startup() = 0;
     
-    // shutdown
+    // Description   : Function to shutdown the Diagnostic Client Conversion
+    // @param input  : Nothing
+    // @return value : void
     virtual void Shutdown() = 0;
 
-    // function to send Vehicle Identification Request
+    // Description   : Function to send vehicle identification request
+    // @param input  : Nothing
+    // @return value : void
     virtual void SendVehicleIdentificationRequest() = 0;
 
     // Description   : Function to connect to Diagnostic Server
@@ -60,7 +74,7 @@ public:
     virtual DisconnectResult 
             DisconnectFromDiagServer() = 0;
 
-    // Description   : Function to send Diagnostic Activation Request
+    // Description   : Function to send Diagnostic Request and get Diagnostic Response
     // @param input  : UdsRequestMessageConstPtr
     // @return value : DiagResult, UdsResponseMessagePtr
     virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr>  

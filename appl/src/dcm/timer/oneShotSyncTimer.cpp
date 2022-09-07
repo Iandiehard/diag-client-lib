@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 // includes
 #include "oneShotSyncTimer.h"
 
@@ -29,6 +37,8 @@ oneShotSyncTimer::timer_state oneShotSyncTimer::SyncWait(int msec) {
 
 // stop the timer
 void oneShotSyncTimer::StopWait() {
+    std::unique_lock<std::mutex> lck(mutex_e);
+    //std::notify_all_at_thread_exit(cond_var_e,std::move(lck));
     cond_var_e.notify_all();
 }
 

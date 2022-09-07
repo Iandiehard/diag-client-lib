@@ -1,10 +1,10 @@
-/*****************************************************************************************************************************
-  Copyright: 2021 (C) Avijit Dey - All Rights Reserved
-  Code modification and its use in any form is strictly prohibited without written concent of Author ,please refer the license 
-  file for more information.
-  Author : Avijit Dey
-  Date   : 01.08.2021
-******************************************************************************************************************************/
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #ifndef _DOIP_TRANSPORTPROTOCOL_HANDLER_H_
 #define _DOIP_TRANSPORTPROTOCOL_HANDLER_H_

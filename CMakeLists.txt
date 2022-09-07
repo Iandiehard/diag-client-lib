@@ -1,13 +1,21 @@
+#  MANDAREIN Diagnostic Client library CMake File
+#  Copyright (C) 2022  Avijit Dey
+# 
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
 #
-# Main CMake
+# Entry Project CMake
 #
 cmake_minimum_required(VERSION 3.5)
+project(diag-client-lib)
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
 # Cmake options
-option(BUILD_SHARED_LIBS "Build shared library" ON)
+option(BUILD_SHARED_LIBS "Build shared library" OFF)
 
 # Build all the libraries
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib)

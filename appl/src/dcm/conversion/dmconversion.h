@@ -1,3 +1,11 @@
+/* MANDAREIN Diagnostic Client library
+ * Copyright (C) 2022  Avijit Dey
+ * 
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef _DCM_CONVERSION_H
 #define _DCM_CONVERSION_H
 
@@ -8,12 +16,13 @@
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "diagnostic_client_conversion.h"
 #include "dcm/timer/oneShotSyncTimer.h"
+#include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace diag{
 namespace client{
 namespace conversion{
 
-
+using conv_sync_timer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 /*
  @ Class Name        : DmConversion
  @ Class Description : Class to establish connection with Diagnostic Server                           
@@ -154,11 +163,10 @@ private:
 
     // timer
     one_shot_timer::oneShotSyncTimer timer_sync;
+    
+    conv_sync_timer sync_timer;
 
-    // Uds response pointer
-    uds_message::UdsResponseMessagePtr uds_resp_ptr{nullptr};
-
-    // 
+    // rx buffer to store the uds response
     ara::diag::uds_transport::ByteVector payload_rx_buffer;
 
     // Declare dlt logging context
