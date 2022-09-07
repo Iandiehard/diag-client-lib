@@ -166,10 +166,7 @@ private:
     
     conv_sync_timer sync_timer;
 
-    // Uds response pointer
-    uds_message::UdsResponseMessagePtr uds_resp_ptr{nullptr};
-
-    // 
+    // rx buffer to store the uds response
     ara::diag::uds_transport::ByteVector payload_rx_buffer;
 
     // Declare dlt logging context

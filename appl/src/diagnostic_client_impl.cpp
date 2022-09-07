@@ -38,7 +38,10 @@ DiagClientImpl::~DiagClientImpl() {
 void DiagClientImpl::Initialize(void) {
     // start DCM thread here
     _thread.push_back(std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get())));
-    DLT_LOG(diagclient_main, DLT_LOG_INFO, DLT_CSTRING("DiagClient Initialize success"));
+    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("DiagClient Initialize success"), 
+        DLT_STRING(__FILE__),
+        DLT_INT(__LINE__));
 }
 
 // De-initialize all the resource and free memory

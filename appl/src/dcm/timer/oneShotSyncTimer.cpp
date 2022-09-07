@@ -38,8 +38,8 @@ oneShotSyncTimer::timer_state oneShotSyncTimer::SyncWait(int msec) {
 // stop the timer
 void oneShotSyncTimer::StopWait() {
     std::unique_lock<std::mutex> lck(mutex_e);
-    std::notify_all_at_thread_exit(cond_var_e,std::move(lck));
-    //cond_var_e.notify_all();
+    //std::notify_all_at_thread_exit(cond_var_e,std::move(lck));
+    cond_var_e.notify_all();
 }
 
 } // oneShot

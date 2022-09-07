@@ -37,6 +37,7 @@ oneShotSyncTimer::timer_state
     timer_ptr_e->expires_after(msTime(msec));
     timer_ptr_e->async_wait(boost::bind(&oneShotSyncTimer::Timeout, this, 
                             boost::placeholders::_1));
+    auto start = std::chrono::system_clock::now();
     // blocking io call
     io_e.restart();
     io_e.run();
@@ -52,6 +53,15 @@ oneShotSyncTimer::timer_state
         DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_INFO, 
             DLT_CSTRING("return aborted"));       
     }
+    auto end = std::chrono::system_clock::now();
+
+    std::chrono::duration<double> elapsed_seconds = end-start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+ 
+    std::cout << "finished computation at " << std::ctime(&end_time)
+              << "elapsed time: " << elapsed_seconds.count() << "s"
+              << std::endl;
+              
     return retval;
 }
 
