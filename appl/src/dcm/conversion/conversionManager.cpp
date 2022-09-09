@@ -15,8 +15,9 @@ namespace client {
 namespace conversion_manager{
 
 //ctor
-ConversionManager::ConversionManager(diag::client::config_parser::ConversionConfig config, 
-                                     diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
+ConversionManager::ConversionManager(
+            diag::client::config_parser::ConversionConfig config, 
+            diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
                  : uds_transport_mgr_e(uds_transport_mgr) {
     CreateConverionConfig(config);
 }
@@ -33,29 +34,30 @@ void ConversionManager::Startup() {
 void ConversionManager::Shutdown() {
 }
 
-//
+// Get the required conversion
 std::unique_ptr<diag::client::conversion::DmConversion>
-            ConversionManager::GetDiagnosticClientConversion(std::string conversion_name) {
+    ConversionManager::GetDiagnosticClientConversion(std::string conversion_name) {
     std::unique_ptr<diag::client::conversion::DmConversion> dm_coversion {};
     auto it = conversion_config_e.find(conversion_name);
     if(it != conversion_config_e.end()) {
-        dm_coversion = std::make_unique<diag::client::conversion::DmConversion>(it->second);
+        dm_coversion = std::make_unique<diag::client::conversion::DmConversion>(
+                                                                it->first,
+                                                                it->second);
         // Register the connection
         dm_coversion->RegisterConnection(
-                uds_transport_mgr_e.doip_transport_handler->FindorCreateConnection(
-                                            dm_coversion->dm_conversion_handler,
-                                            it->second.tcp_address,
-                                            it->second.udp_address,
-                                            it->second.port_num
-                ));
-
+            uds_transport_mgr_e.doip_transport_handler->FindorCreateConnection(
+                                        dm_coversion->dm_conversion_handler,
+                                        it->second.tcp_address,
+                                        it->second.udp_address,
+                                        it->second.port_num
+            ));
     }
     return dm_coversion;
 }
 
 // function to find or create conversion
-void ConversionManager::CreateConverionConfig(diag::client::config_parser::ConversionConfig config)
-{
+void ConversionManager::CreateConverionConfig(
+    diag::client::config_parser::ConversionConfig config) {
     for(uint8_t conv_count = 0; conv_count < config.num_of_conversion; conv_count ++) {
         ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier;
         conversion_identifier.tx_buffer_size = config.conversions[conv_count].txBufferSize;

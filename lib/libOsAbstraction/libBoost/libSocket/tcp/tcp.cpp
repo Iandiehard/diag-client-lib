@@ -22,6 +22,7 @@ createTcpSocket::createTcpSocket(Boost_String &localIpaddress, uint16_t localpor
                  running_e(false),
                  tcpHandlerRead_e(tcpHandlerRead) {
     DLT_REGISTER_CONTEXT(tcp_socket_ctx,"tcps","Tcp Socket Context");
+    // Create socket
     tcpSocket_e = std::make_unique<TcpSocket::socket>(io_context);
     // Start thread to receive messages
     thread_e = std::thread(&createTcpSocket::Run, this);
@@ -48,19 +49,25 @@ bool createTcpSocket::Open() {
         // Set socket to non blocking
         tcpSocket_e->non_blocking(false);
         //bind to local address and random port
-        tcpSocket_e->bind(TcpSocket::endpoint(TcpIpAddress::from_string(localIpaddress_e), localportNum_e), ec);
+        tcpSocket_e->bind(TcpSocket::endpoint(TcpIpAddress::from_string(localIpaddress_e), 0), ec);
         if(ec.value() == boost::system::errc::success) {
-            // Socket binding failed
-            boost::system::errc::address_family_not_supported;
-            DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-                DLT_CSTRING("Tcp Socket Opened and binded Successfully"));
+            // Socket binding success
+            TcpSocket::endpoint endpoint_ = tcpSocket_e->local_endpoint();
+            DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+                DLT_CSTRING("Tcp Socket Opened and binded to"),
+                DLT_CSTRING("<"),
+                DLT_CSTRING(endpoint_.address().to_string().c_str()),
+                DLT_CSTRING(","),
+                DLT_UINT16(endpoint_.port()),
+                DLT_CSTRING(">"));
             retVal = true;
         }
         else {
-            retVal = false;
+            // Socket binding failed            
             DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
                 DLT_CSTRING("Tcp Socket Bind failed with message: "), 
                 DLT_CSTRING(ec.message().c_str()));
+            retVal = false;
         }
     }
     else {
@@ -80,8 +87,14 @@ bool createTcpSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostport
     tcpSocket_e->connect(TcpSocket::endpoint(TcpIpAddress::from_string(hostIpaddress), hostportNum), 
                             ec);
     if(ec.value() == boost::system::errc::success) {
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Tcp Socket Connect to host Successfull"));
+        TcpSocket::endpoint endpoint_ = tcpSocket_e->remote_endpoint();
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+            DLT_CSTRING("Tcp Socket Connected to host"),
+                DLT_CSTRING("<"),
+                DLT_CSTRING(endpoint_.address().to_string().c_str()),
+                DLT_CSTRING(","),
+                DLT_UINT16(endpoint_.port()),
+                DLT_CSTRING(">"));
         // start reading
         running_e = true;
 	    cond_var_e.notify_all();
@@ -102,8 +115,8 @@ bool createTcpSocket::DisconnectFromHost() {
     // Graceful shutdown
     tcpSocket_e->shutdown(TcpSocket::socket::shutdown_both, ec);
     if(ec.value() == boost::system::errc::success) {
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Tcp Socket Disconnect from host successfully"));
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+            DLT_CSTRING("Tcp Socket Disconnected from host"));
         // Socket shutdown success
         retVal = true;
         // stop reading
@@ -126,13 +139,19 @@ bool createTcpSocket::Transmit(TcpMessageConstPtr tcpMessage) {
                         ec);
     // Check for error 
     if(ec.value() == boost::system::errc::success) {
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Tcp message sent Successfull"));
+        TcpSocket::endpoint endpoint_ = tcpSocket_e->remote_endpoint();
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+            DLT_CSTRING("Tcp message sent to "),
+            DLT_CSTRING("<"),
+            DLT_CSTRING(endpoint_.address().to_string().c_str()),
+            DLT_CSTRING(","),
+            DLT_UINT16(endpoint_.port()),
+            DLT_CSTRING(">"));
         retVal = true;
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-            DLT_CSTRING("Tcp message failed with error: "), 
+            DLT_CSTRING("Tcp message sending failed with error: "), 
             DLT_CSTRING(ec.message().c_str()));
     }
     return retVal;
@@ -164,21 +183,27 @@ void createTcpSocket::HandleMessage() {
         boost::asio::read(*tcpSocket_e.get(),
                             boost::asio::buffer(&tcpRxMessage->rxBuffer[kDoipheadrSize], readnextbytes), ec);
         // all message received, transfer to upper layer
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-                DLT_CSTRING("Tcp Message received"));
+        TcpSocket::endpoint endpoint_ = tcpSocket_e->remote_endpoint();
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+            DLT_CSTRING("Tcp Message received from"),
+            DLT_CSTRING("<"),
+            DLT_CSTRING(endpoint_.address().to_string().c_str()),
+            DLT_CSTRING(","),
+            DLT_UINT16(endpoint_.port()),
+            DLT_CSTRING(">"));
         // send data to upper layer
         tcpHandlerRead_e(std::move(tcpRxMessage));
     }
     else if(ec.value() == boost::asio::error::eof) {
         // remote disconnection
         running_e = false;
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Remote Disconnected with: "), 
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
+            DLT_CSTRING("Remote Disconnected with:"), 
             DLT_CSTRING(ec.message().c_str()));
     }
     else {
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_INFO, 
-            DLT_CSTRING("Remote Disconnected with undefined error: "), 
+        DLT_LOG(tcp_socket_ctx, DLT_LOG_WARN, 
+            DLT_CSTRING("Remote Disconnected with undefined error:"), 
             DLT_CSTRING(ec.message().c_str()));
     }
 }
@@ -197,8 +222,7 @@ void createTcpSocket::Run() {
 }
 
 // function to read next bytes to be received
-uint32_t createTcpSocket::GetNextBytesToReadFrmDoIPHeader(std::vector<uint8_t> doipHeader)
-{
+uint32_t createTcpSocket::GetNextBytesToReadFrmDoIPHeader(std::vector<uint8_t> doipHeader) {
     return((uint32_t)((uint32_t)((doipHeader[4] << 24) & 0xFF000000) | \
                       (uint32_t)((doipHeader[5] << 16) & 0x00FF0000) | \
                       (uint32_t)((doipHeader[6] <<  8) & 0x0000FF00) | \

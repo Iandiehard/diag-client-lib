@@ -25,6 +25,9 @@ DiagClientImpl::DiagClientImpl(std::string dm_client_config)
     
     // create single dcm instance and pass the config tree
     dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
+
+    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("DiagClient instance created"));
 }
 
 // dtor

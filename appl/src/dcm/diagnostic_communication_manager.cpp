@@ -21,7 +21,8 @@ namespace dcm{
 DCMClient::DCMClient(diag::client::common::property_tree &ptree)
         : DiagnosticManager(ptree)
         , uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>())
-        , conversion_mgr(std::make_unique<conversion_manager::ConversionManager>(getConversionConfig(ptree), *uds_transport_protocol_mgr)) {
+        , conversion_mgr(std::make_unique<conversion_manager::ConversionManager>(
+            getConversionConfig(ptree), *uds_transport_protocol_mgr)) {
     DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
 }
 
@@ -71,6 +72,9 @@ diag::client::conversion::DiagClientConversion&
                                     std::move(conversion)
             ));
         ret_conversion = diag_client_conversion_map.at(conversion_name).get();
+        DLT_LOG(dcm_client, DLT_LOG_DEBUG, 
+            DLT_STRING("Requested Diagnostic Client conversion created with name: "), 
+            DLT_STRING(conversion_name.c_str()));
     }
     else {
         // error logging, no conversion found
