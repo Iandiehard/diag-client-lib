@@ -38,12 +38,12 @@ Diagnostic Client library:-
 - boost >= 1.78.0
 
 ```bash
-    sh build.sh
+sh build.sh
 ```
 
 ### Dependencies
 
-Diagnostic Client Library currently has dependencies with BOOST library and COVESA DLT logging.
+Diagnostic Client Library has dependencies with BOOST library and COVESA DLT logging.
 
 BOOST Library is used for asio operations and COVESA DLT logging is used for sending DLT logs
 to user.
@@ -52,9 +52,27 @@ In future use of BOOST library will be removed completely.
 
 ### How to use diag-client-lib
 
-1. Open single tester conversion
+Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage.
 
-2. Open multiple tester conversion
+Diagnostic Client shared library can be built by setting the below CMake Flag to ON
+```bash
+"BUILD_SHARED_LIBS" : "ON",
+```
+
+Main instance of Diagnostic Client Libary should be created using `CreateDiagnosticClient` function call and config json file path should be passed as parameter 
+```bash
+std::unique_ptr<diag::client::DiagClient> diagclient =
+            diag::client::CreateDiagnosticClient("etc/diag_client_config.json");
+```
+
+Multiple tester instance can be created using Diagnostic Client Libary main instance.
+
+More information on the APIs to be used , check [doc_api_definition](doc/API_definitions.md) documentation
+
+More information on the diag client config json file, refer [doc_config_json](doc/Config_Json_file_definitions.md) documentation
+
+Check the example application [Examples](examples/) on how Diagnostic Client Libary should be linked and used.
+
 
 ## Known Defect
 * No defect is identified yet.
@@ -64,13 +82,13 @@ You can add new issues with label `bug` for notifying us about any defect in lib
 ## Future Work
 * Support of Vehicle Discovery Phase (Vehicle Identification/ Announcement) will be added
 * DoIP with TLS
-* Remove use of Boost Library
+* Remove Boost Library dependency
 
 For adding more features you can add new issues with label `enhancement` so that we can work on it.
 
 ## License
 
-Full information of license is available in the LICENSE file of this project.
+Full information of license is available in the [LICENSE](LICENSE) file of this project.
 
 Boost License is available here [LICENSE](lib/libOsAbstraction/libBoost/LICENSE)
 

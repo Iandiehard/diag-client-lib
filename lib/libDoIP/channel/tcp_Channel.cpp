@@ -104,7 +104,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
             if(routing_activation_state_e.state == routingActivateState::kRoutingActivationSuccessful) {
                 routing_activation_state_e.state = routingActivateState::kIdle;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                        DLT_CSTRING("RoutingActivation activated reseted "));
+                    DLT_CSTRING("RoutingActivation activated reseted "));
             }
             ret_val = ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
         }
@@ -159,13 +159,13 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             // do nothing
             diag_state_e.state = diagnosticState::kIdle;
             DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                    DLT_CSTRING("Routing Activation required, please connect to Server First"));
+                DLT_CSTRING("Routing Activation required, please connect to Server First"));
         }
     }
     else {
         // do nothing
         DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                DLT_CSTRING("Socket Offline, please connect to Server First"));
+            DLT_CSTRING("Socket Offline, please connect to Server First"));
     }
     return retval;
 }
@@ -211,9 +211,13 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
         // success, change state
         retval = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
         DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("RoutingActivation Request Sent successfully"));
+            DLT_CSTRING("RoutingActivation requested:"),
+            DLT_CSTRING("source address="),
+            DLT_HEX16(message->GetSa()),
+            DLT_CSTRING(","),
+            DLT_CSTRING("activation type="),
+            DLT_HEX8(kDoip_RoutingActivation_ReqActType_Default));
     }
-    
     return retval;
 }
 
@@ -261,19 +265,19 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     // check the state
     if(routing_activation_state_e.state == routingActivateState::kRoutingActivationSuccessful) {
         result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("RoutingActivation activated successfully"));
+        DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
+            DLT_CSTRING("RoutingActivation activated successfully"));
     }
     else if(routing_activation_state_e.state == routingActivateState::kRoutingActivationResTimeout) {
         result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
         routing_activation_state_e.state = routingActivateState::kIdle;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("RoutingActivation response timedout"));
+        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
+            DLT_CSTRING("RoutingActivation request timeout,no response received"));
     }
     else {
         routing_activation_state_e.state = routingActivateState::kIdle;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("RoutingActivation Failed"));
+        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
+            DLT_CSTRING("RoutingActivation Failed"));
     }
     return result;
 }
@@ -308,12 +312,16 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     // transmit
     if(!(tcpSocket_Handler_e->Transmit(std::move(doipDiagReq)))){
         DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                DLT_CSTRING("Diagnostic Request sending failed"));
+            DLT_CSTRING("Diagnostic Request sending failed"));
     }
     else {
-        retval = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
+        retval = 
+            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
         DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("Diagnostic Request Sent successfully"));
+            DLT_CSTRING("Diagnostic Request Sent:"),
+            DLT_HEX16(message->GetSa()),
+            DLT_CSTRING("->"),
+            DLT_HEX16(message->GetTa()));
     }
     return retval;
 }
@@ -346,7 +354,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
                     // no diagnostic ack received
                     diag_state_e.state = diagnosticState::kDiagnosticAckTimeout;
                     DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-                            DLT_CSTRING("Diagnostic Message Ack timed out"));
+                        DLT_CSTRING("Diagnostic Message Ack timed out"));
                 }
                 else {
                     // response received, 
@@ -366,20 +374,20 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             // wait for Diagnostic response
             diag_state_e.state = diagnosticState::kWaitForDiagnosticResponse;
             retval = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                    DLT_CSTRING("Diagnostic Message Positive Ack received"));
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
+                DLT_CSTRING("Diagnostic Message Positive Ack received"));
         }
         else {
             // change to idle, as diagnostic req was not acknowleged or sending failed
             diag_state_e.state = diagnosticState::kIdle;
             DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-                    DLT_CSTRING("Diagnostic Message Transmission Failed"));
+                DLT_CSTRING("Diagnostic Message Transmission Failed"));
         }
     }
     else {
         // channel not in idle state
         DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-                DLT_CSTRING("Diagnostic Message Transmission already in progress"));
+            DLT_CSTRING("Diagnostic Message Transmission already in progress"));
     }
 
     return retval;
@@ -529,14 +537,14 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
     switch(payloadType)
     {
         case kDoip_RoutingActivation_ResType: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("RoutingActivation Response received"));
             // Process RoutingActivation response
             ProcessDoIPRoutingActivationResponse(payload);
             break;
         }
         case kDoip_DiagMessage_Type: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("Diagnostic Message received"));
             // Process Diagnostic Message Response
             ProcessDoIPDiagnosticMessageResponse(payload);
@@ -544,7 +552,7 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
         }
         case kDoip_DiagMessagePosAck_Type:
         case kDoip_DiagMessageNegAck_Type: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("Diagnostic Acknowledgement received"));
             // Process positive or negative diag ack message
             ProcessDoIPDiagnosticAckMessageResponse(payload, payloadType);
@@ -564,6 +572,13 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
 void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload) {
     
     if(routing_activation_state_e.state == routingActivateState::kWaitForRoutingActivationRes) {
+        // get the logical address of client
+        uint16_t client_address = (uint16_t)((payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
+                                    (uint16_t)(payload[BYTE_POS_ONE] & 0x00FF);
+        // get the logical address of Server
+        uint16_t server_address = (uint16_t)((payload[BYTE_POS_TWO] << 8) & 0xFF00) |
+                                    (uint16_t)(payload[BYTE_POS_THREE] & 0x00FF);
+        // get the ack code
         uint8_t act_type = payload[BYTE_POS_FOUR];
         switch(act_type) {
             case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
@@ -571,18 +586,29 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
                 routing_activation_state_e.state = routingActivateState::kRoutingActivationSuccessful;
                 routing_activation_state_e.ack_code = act_type;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                        DLT_CSTRING("Routing activation successful"));
+                    DLT_CSTRING("Routing activation successful:"),
+                    DLT_CSTRING("client address="),
+                    DLT_HEX16(client_address),
+                    DLT_CSTRING("server address="),
+                    DLT_HEX16(server_address));
             }
             break;
             case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
                 // trigger routing activation after sometime
+                DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
+                    DLT_CSTRING("Not yet implemented, raise an feature request issue"));
             }
             break;
             default:
                 routing_activation_state_e.state = routingActivateState::kRoutingActivationFailed;
                 routing_activation_state_e.ack_code = act_type;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                        DLT_CSTRING("Routing activation failed with ack type: "), DLT_UINT8(act_type));
+                    DLT_CSTRING("Routing activation failed with ack type:"), 
+                    DLT_HEX8(act_type),
+                    DLT_CSTRING("client address="),
+                    DLT_HEX16(client_address),
+                    DLT_CSTRING("server address="),
+                    DLT_HEX16(server_address));
             break;
         }
         timer_sync.StopWait();        
@@ -598,9 +624,11 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
 void tcpChannel::ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &payload, uint16_t ackType) {
     if(diag_state_e.state == diagnosticState::kWaitForDiagnosticAck) {
         // check the logical address of Server
-        uint16_t payload_sa = (uint16_t)(((payload[BYTE_POS_ZERO] & 0xFF) << 8) | (payload[BYTE_POS_ONE] & 0xFF));
+        uint16_t server_address = (uint16_t)(((payload[BYTE_POS_ZERO] & 0xFF) << 8) | 
+                                    (payload[BYTE_POS_ONE] & 0xFF));
         // check the logical address of client
-        uint16_t payload_ta = (uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF));
+        uint16_t client_address = (uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | 
+                                    (payload[BYTE_POS_THREE] & 0xFF));
         // get the ack code
         uint8_t ack_code    = payload[BYTE_POS_FOUR];
         // check ack type and look for positive :D
@@ -610,7 +638,10 @@ void tcpChannel::ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &p
                 // wait for Diag Response 
                 diag_state_e.state = diagnosticState::kDiagnosticPositiveAckRecvd;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                    DLT_CSTRING("Diagnostic Message Pos ACK received"));
+                    DLT_CSTRING("Diagnostic Message Pos ACK received"),
+                    DLT_HEX16(server_address),
+                    DLT_CSTRING("->"),
+                    DLT_HEX16(client_address));
             }
             diag_state_e.ack_code = ack_code;
         }
@@ -619,7 +650,12 @@ void tcpChannel::ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &p
             diag_state_e.state = diagnosticState::kDiagnosticNegativeAckRecvd;
             diag_state_e.ack_code = ack_code;
             DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                DLT_CSTRING("Diagnostic Message NACK received: "), DLT_UINT8(ack_code));
+                DLT_CSTRING("Diagnostic Message NACK received: "), 
+                DLT_HEX8(ack_code),
+                DLT_CSTRING(","),
+                DLT_HEX16(server_address),
+                DLT_CSTRING("->"),
+                DLT_HEX16(client_address));
         }
         else {
             // do nothing            
@@ -639,19 +675,19 @@ void tcpChannel::ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payl
         // create the payload to send to upper layer
         std::vector<uint8_t> payloadinfo;
         // check the logical address of Server
-        uint16_t payload_sa = 
-            (uint16_t)(((payload[BYTE_POS_ZERO] & 0xFF) << 8) | (payload[BYTE_POS_ONE] & 0xFF));
+        uint16_t server_address = (uint16_t)(((payload[BYTE_POS_ZERO] & 0xFF) << 8) | 
+                                (payload[BYTE_POS_ONE] & 0xFF));
         // check the logical address of client
-        uint16_t payload_ta = 
-            (uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF));
+        uint16_t client_address = (uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | 
+                                (payload[BYTE_POS_THREE] & 0xFF));
         // payload except the address
         payloadinfo.resize(payload.size() - 4);
         // copy to application buffer
         std::copy(payload.begin() + 4, payload.end(), payloadinfo.begin());
         // Indicate upper layer about incoming data
         std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr> 
-                retval = tcpTransport_Handler_e.IndicateMessage(ara::diag::uds_transport::UdsMessage::Address(payload_sa),
-                                                               ara::diag::uds_transport::UdsMessage::Address(payload_ta),
+                retval = tcpTransport_Handler_e.IndicateMessage(ara::diag::uds_transport::UdsMessage::Address(server_address),
+                                                               ara::diag::uds_transport::UdsMessage::Address(client_address),
                                                                ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
                                                                channel_id_e, 
                                                                std::size_t(payload.size() - 4), 
@@ -666,15 +702,15 @@ void tcpChannel::ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payl
             // copy to application buffer
             std::copy(payloadinfo.begin(), payloadinfo.end(), retval.second->GetPayload().begin());
             tcpTransport_Handler_e.HandleMessage(std::move(retval.second));
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("Diagnostic Message response reception completed"));
             // make channel idle, since reception complete
             diag_state_e.state = diagnosticState::kIdle;
         }
         else if(retval.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
             // keep channel alive since pending request received, do not change channel state
-            DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("Diagnostic Message Pending response received"));
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
+                DLT_CSTRING("Diagnostic Message Pending response indicated to Convrsn"));
         }
         else { // other errors
             diag_state_e.state = diagnosticState::kIdle;
@@ -701,7 +737,8 @@ void tcpChannel::TCP_GeneralInactivity_Timeout() {
 // @param input  : 
 // @return value : Payload type
 uint16_t tcpChannel::GetDoIPPayloadType(std::vector<uint8_t> payload) {
-    return ((uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
+    return ((uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | 
+                (payload[BYTE_POS_THREE] & 0xFF)));
 }
 
 

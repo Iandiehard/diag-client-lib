@@ -62,7 +62,12 @@ std::shared_ptr<ara::diag::connection::Connection>
                                                                                     kDoip_String& tcpIpaddress, 
                                                                                     kDoip_String& udpIpaddress, 
                                                                                     uint16_t portNum) {
-    DLT_LOG(doipclient_main, DLT_LOG_INFO, DLT_CSTRING("Doip Connection requested"));
+    DLT_LOG(doipclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("Doip protocol requested with local endpoints :"),
+        DLT_CSTRING("<tcp:"), DLT_STRING(tcpIpaddress.c_str()),
+        DLT_CSTRING(">"),
+        DLT_CSTRING("<udp:"), DLT_STRING(udpIpaddress.c_str()),
+        DLT_CSTRING(">"));
     return(doip_connection_mgr_ptr->FindOrCreateConnection( conversion, 
                                                             tcpIpaddress, 
                                                             udpIpaddress, 

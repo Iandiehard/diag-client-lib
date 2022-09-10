@@ -15,7 +15,6 @@
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "diagnostic_client_conversion.h"
-#include "dcm/timer/oneShotSyncTimer.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace diag{
@@ -31,7 +30,9 @@ class DmConversion : public  ::diag::client::conversion::DiagClientConversion {
 
 public:
     // ctor
-    explicit DmConversion(ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
+    explicit DmConversion(
+        std::string conversion_name,
+        ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
     
     // dtor
     ~DmConversion();
@@ -155,15 +156,16 @@ private:
     // remote Ip Address
     std::string remote_address;
 
+    // conversion name
+    std::string convrs_name;
+
     // state of conversion
     ConversionStateType conversion_state;
 
     // Tp connection
     std::shared_ptr<ara::diag::connection::Connection> connection_ptr;
 
-    // timer
-    one_shot_timer::oneShotSyncTimer timer_sync;
-    
+    // timer   
     conv_sync_timer sync_timer;
 
     // rx buffer to store the uds response

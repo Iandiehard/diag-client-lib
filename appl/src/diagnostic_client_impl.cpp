@@ -25,6 +25,9 @@ DiagClientImpl::DiagClientImpl(std::string dm_client_config)
     
     // create single dcm instance and pass the config tree
     dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
+
+    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("DiagClient instance created"));
 }
 
 // dtor
@@ -39,9 +42,7 @@ void DiagClientImpl::Initialize(void) {
     // start DCM thread here
     _thread.push_back(std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get())));
     DLT_LOG(diagclient_main, DLT_LOG_INFO, 
-        DLT_CSTRING("DiagClient Initialize success"), 
-        DLT_STRING(__FILE__),
-        DLT_INT(__LINE__));
+        DLT_CSTRING("DiagClient Initialize success"));
 }
 
 // De-initialize all the resource and free memory
@@ -52,7 +53,8 @@ void DiagClientImpl::DeInitialize(void) {
     for(auto &thread_ptr : _thread) {
         thread_ptr.join();
     }
-    DLT_LOG(diagclient_main, DLT_LOG_INFO, DLT_CSTRING("DiagClient De-Initialize success"));
+    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
+        DLT_CSTRING("DiagClient DeInitialized"));
 }
 
 // Get Required Conversion based on Conversion Name

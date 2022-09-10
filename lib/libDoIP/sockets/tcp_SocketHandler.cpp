@@ -40,13 +40,12 @@ void tcp_SocketHandler::StartListeningFromSocket() {
 
 //
 void tcp_SocketHandler::Start() {
-    //tcpSocket->Open();
+
 }
 
 //
 void tcp_SocketHandler::Stop() {
-    //destroy the socket
-    //tcpSocket->Destroy();
+
 }
 
 //
