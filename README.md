@@ -1,5 +1,8 @@
 # Diagnostic Client Library
-
+Build status:
+|GitHub Action|
+|:-:|
+[![CMake](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml/badge.svg)](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml)
 
 ## Diagnostic Client Library
 
