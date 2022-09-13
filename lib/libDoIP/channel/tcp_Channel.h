@@ -10,10 +10,10 @@
 #define _TCP_CHANNEL_H_
 
 //includes
+#include "common_Header.h"
 #include "common/common_doIP_Types.h"
 #include "sockets/tcp_SocketHandler.h"
-#include "timer/oneShotSyncTimer.h"
-#include "common_Header.h"
+#include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace ara{
 namespace diag{
@@ -30,8 +30,7 @@ namespace tcpChannel{
 using TcpMessage         = ara::diag::doip::tcpSocket::TcpMessage;
 using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
-using TcpChanlSyncTimer  = one_shot_timer::oneShotSyncTimer;
-using TcpHandlerFunc     = std::function<void(void)>;
+using TcpChanlSyncTimer  = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 
 /*
  @ Class Name        : tcpChannel

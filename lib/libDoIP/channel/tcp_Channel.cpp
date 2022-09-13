@@ -246,7 +246,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
             }
             else if(routing_activation_state_e.state == routingActivateState::kWaitForRoutingActivationRes) {
                 // wait for routing activation response till DoIPRoutingActivationTimeout
-                if(timer_sync.SyncWait(kDoIPRoutingActivationTimeout) ==
+                if(timer_sync.Start(kDoIPRoutingActivationTimeout) ==
                         TcpChanlSyncTimer::timer_state::kTimeout) {
                     // no routing activation response received
                     routing_activation_state_e.state = routingActivateState::kRoutingActivationResTimeout;
@@ -349,7 +349,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             }
             else if(diag_state_e.state == diagnosticState::kWaitForDiagnosticAck) {
                 // wait for diagnostic acknowledgement till kDoIPDiagnosticAckTimeout
-                if(timer_sync.SyncWait(kDoIPDiagnosticAckTimeout) ==
+                if(timer_sync.Start(kDoIPDiagnosticAckTimeout) ==
                         TcpChanlSyncTimer::timer_state::kTimeout) {
                     // no diagnostic ack received
                     diag_state_e.state = diagnosticState::kDiagnosticAckTimeout;
@@ -611,7 +611,7 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
                     DLT_HEX16(server_address));
             break;
         }
-        timer_sync.StopWait();        
+        timer_sync.Stop();        
     }
     else {
         /* ignore */
@@ -660,7 +660,7 @@ void tcpChannel::ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &p
         else {
             // do nothing            
         }
-        timer_sync.StopWait();
+        timer_sync.Stop();
     }
     else {
         // ignore
