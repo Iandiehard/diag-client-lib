@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: install dependencies
+    - name: Install Dependencies
       run: sudo sh .github/setup.sh
 
     - name: Configure CMake

@@ -103,7 +103,7 @@ void createUdpSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t b
         // reserve the buffer
         udpRxMessage->rxBuffer.reserve(bytes_recvd);
         // Copy the data
-        for(uint8_t i = 0; i < bytes_recvd; i++)
+        for(std::size_t i = 0; i < bytes_recvd; i++)
         {
             udpRxMessage->rxBuffer[i] = rxbuffer_e[i];
         }

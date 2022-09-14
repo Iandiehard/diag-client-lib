@@ -305,7 +305,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     doipDiagReq->txBuffer.push_back((uint8_t)((message->GetTa() & 0xFF00) >> 8));
     doipDiagReq->txBuffer.push_back((uint8_t)(message->GetTa() & 0x00FF));
     // Add data bytes
-    for (uint8_t i = 0; i < message->GetPayload().size(); i ++) {
+    for (std::size_t i = 0; i < message->GetPayload().size(); i ++) {
         doipDiagReq->txBuffer.push_back(message->GetPayload().at(i));
     }
 
