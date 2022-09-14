@@ -215,7 +215,7 @@ Std_ReturnType udpChannel::SendVehicleIdentificationRequest_VIN(ara::diag::doip:
     // set host port number
     doipVehIdenVINReq->hostportNum = vehicleInfo_Ref.hostPortNum;
     // fill the VIN
-    for(uint8_t i = 0; i < vehicleInfo_Ref.vin.size(); i ++) {
+    for(std::size_t i = 0; i < vehicleInfo_Ref.vin.size(); i ++) {
         doipVehIdenVINReq->txBuffer.push_back((uint8_t)vehicleInfo_Ref.vin[i]);
     }
     // transmit

@@ -1,9 +1,7 @@
 # Diagnostic Client Library
-Build status:
-|GitHub Action|
-|:-:|
-[![CMake](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml/badge.svg)](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml)
 
+[![CMake](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml/badge.svg)](https://github.com/Mandarein/diag-client-lib/actions/workflows/cmake.yml)
+[![CodeQL](https://github.com/Mandarein/diag-client-lib/actions/workflows/codeql.yml/badge.svg)](https://github.com/Mandarein/diag-client-lib/actions/workflows/codeql.yml)
 ## Diagnostic Client Library
 
 Welcome to MANDAREIN Diagnostic Client library which is developed based on motivation taken from
