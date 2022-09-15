@@ -16,7 +16,7 @@ Some internal APIs is implemented based on API Reference mentioned in
 Diagnostic Client library acts as diagnostic tester library which can be easily linked with any application which wants 
 to send any diagnostic request to server and diagnose the ECU.
 
-Diagnostic Client library currently supports below Diagnostic Protocols :-
+Diagnostic Client library supports below Diagnostic Protocols :-
 
 - DoIP 
 - UDS
@@ -37,10 +37,6 @@ Diagnostic Client library:-
 - cmake
 - dlt-daemon
 - boost >= 1.78.0
-
-```bash
-sh build.sh
-```
 
 ### Dependencies
 
