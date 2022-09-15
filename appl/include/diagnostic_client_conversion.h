@@ -74,6 +74,12 @@ public:
     virtual DisconnectResult 
             DisconnectFromDiagServer() = 0;
 
+    // Description   : Function to start communication with remote ECU by sending continuous Tester Present 
+    // @param input  : void
+    // @return value : DiagResult
+    virtual DiagResult
+            StartCommunication() = 0;
+    
     // Description   : Function to send Diagnostic Request and get Diagnostic Response
     // @param input  : UdsRequestMessageConstPtr
     // @return value : DiagResult, UdsResponseMessagePtr

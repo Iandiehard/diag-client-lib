@@ -38,8 +38,8 @@ void DiagnosticManager::Main() {
     Run();
     // Entering infinite loop
     std::unique_lock<std::mutex> lck(_mutex_lock);
-    while (!exit_requested)
-    {// do something , thread paused
+    while (!exit_requested) {
+        // do something , thread paused
         cond_var.wait(lck);
         // Thread exited
     }

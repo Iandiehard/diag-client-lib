@@ -28,13 +28,16 @@ class UdsRequestMessage {
     UdsRequestMessage (UdsRequestMessage &&other) noexcept=default;
     UdsRequestMessage& operator= (const UdsRequestMessage &other)=default;
     UdsRequestMessage& operator= (UdsRequestMessage &&other) noexcept=default;
+    
     // dtor
     inline virtual ~UdsRequestMessage()=default;
 
     // Get the UDS message data starting with the SID (A_Data as per ISO)
     virtual const ByteVector& GetPayload () const = 0;
+    
     // return the underlying buffer for write access
     virtual ByteVector& GetPayload () = 0;
+    
     // Get Host Ip address
     virtual IpAddress GetHostIpAddress() const noexcept = 0;
 };
