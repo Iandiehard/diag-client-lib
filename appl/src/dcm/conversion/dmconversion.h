@@ -163,7 +163,7 @@ private:
     ConversionStateType conversion_state;
 
     // Tp connection
-    std::shared_ptr<ara::diag::connection::Connection> connection_ptr;
+    std::shared_ptr<ara::diag::connection::Connection> connection_ptr{nullptr};
 
     // timer   
     conv_sync_timer sync_timer;

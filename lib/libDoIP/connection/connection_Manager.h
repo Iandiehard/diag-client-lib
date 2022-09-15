@@ -66,27 +66,27 @@ public:
 
     // Connect to host using the ip address
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-            ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message) override;
+        ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message) override;
 
     // Disconnect from Host Server
     ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
-                DisconnectFromHost() override;    
+        DisconnectFromHost() override;    
     
     // Indicate message Diagnostic message reception over TCP to user
     std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
-            ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
-            ara::diag::uds_transport::UdsMessage::Address source_addr,
-            ara::diag::uds_transport::UdsMessage::Address target_addr,
-            ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-            ara::diag::uds_transport::ChannelID channel_id,
-            std::size_t size,
-            ara::diag::uds_transport::Priority priority,
-            ara::diag::uds_transport::ProtocolKind protocol_kind,
-            std::vector<uint8_t> payloadInfo) override;
+        ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
+                ara::diag::uds_transport::UdsMessage::Address source_addr,
+                ara::diag::uds_transport::UdsMessage::Address target_addr,
+                ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+                ara::diag::uds_transport::ChannelID channel_id,
+                std::size_t size,
+                ara::diag::uds_transport::Priority priority,
+                ara::diag::uds_transport::ProtocolKind protocol_kind,
+                std::vector<uint8_t> payloadInfo) override;
     
     // Transmit tcp
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
-            Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) override;
+        Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) override;
     
     // Hands over a valid message to conversion
     void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) override;
