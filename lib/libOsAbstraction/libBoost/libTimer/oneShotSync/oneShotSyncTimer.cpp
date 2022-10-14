@@ -79,6 +79,9 @@ bool oneShotSyncTimer::IsActive() {
 // function called when time elapses
 void oneShotSyncTimer::Timeout(const boost::system::error_code& error) {
     error_e = error;
+    if(error_e == boost::asio::error::operation_aborted) {
+        io_e.stop();
+    }
 }
 
 } // oneShot
