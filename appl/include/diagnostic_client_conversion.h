@@ -10,6 +10,7 @@
 #define _DIAGNOSTIC_CLIENT_CONVERSION_H_
 
 #include "diagnostic_client_uds_message.h"
+#include <cstdint>
 
 namespace diag {
 namespace client {
