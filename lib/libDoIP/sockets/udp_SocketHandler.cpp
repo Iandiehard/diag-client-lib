@@ -53,7 +53,7 @@ bool udp_SocketHandler::Transmit(UdpMessageConstPtr udpTxMessage)
 {
     bool retVal = false;
     retVal = udpSocket->Transmit(std::move(udpTxMessage));
-    if(retVal != false)
+    if(retVal)
     {// success
         TransmitConfirmation(true);
     }

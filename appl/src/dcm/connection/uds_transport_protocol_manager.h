@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _UDS_TRANSPORTPROTOCOLMANAGER_H_
-#define _UDS_TRANSPORTPROTOCOLMANAGER_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 
 #include "ara/diag/uds_transport/protocol_handler.h"
 
@@ -15,8 +15,8 @@ namespace diag {
 namespace client {
 
 // forward declaration
-namespace conversion_manager{
-class ConversionManager;
+namespace conversation_manager{
+class ConversationManager;
 }
 
 namespace uds_transport{
@@ -57,4 +57,4 @@ public:
 } // client
 } // diag
 
-#endif // _UDS_TRANSPORTPROTOCOLMANAGER_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H

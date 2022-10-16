@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,12 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DIAGNOSTIC_CLIENT_H_
-#define _DIAGNOSTIC_CLIENT_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
 
-#include <memory>
-#include <vector>
-#include "diagnostic_client_conversion.h"
+#include <string>
+#include "diagnostic_client_conversation.h"
 
 namespace diag {
 namespace client {
@@ -20,10 +19,10 @@ class DiagClient {
 
 public:
     // ctor
-    inline DiagClient() {}
+    DiagClient() = default;
 
     // dtor
-    inline virtual ~DiagClient() = default;
+    virtual ~DiagClient() = default;
 
     // Initialize
     virtual void Initialize() = 0;
@@ -32,11 +31,11 @@ public:
     virtual void DeInitialize() = 0;
 
     // Get Required Conversion based on Conversion Name
-    virtual diag::client::conversion::DiagClientConversion& 
-                        GetDiagnosticClientConversion(std::string conversion_name) = 0;
+    virtual diag::client::conversation::DiagClientConversation&
+                        GetDiagnosticClientConversation(std::string conversion_name) = 0;
 };
 
 } // client
 } // diag
 
-#endif // _DIAGNOSTIC_CLIENT_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H

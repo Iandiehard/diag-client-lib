@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,8 +7,8 @@
  */
 
 #include "doIP_TransportProtocolHandler.h"
-#include "dcm/connection/udsTransportProtocolManager.h"
-#include "dcm/conversion/conversionManager.h"
+#include "dcm/connection/uds_transport_protocol_manager.h"
+#include "dcm/conversion/conversation_manager.h"
 
 namespace diag {
 namespace client {

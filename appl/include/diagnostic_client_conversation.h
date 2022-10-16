@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,36 +6,36 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DIAGNOSTIC_CLIENT_CONVERSION_H_
-#define _DIAGNOSTIC_CLIENT_CONVERSION_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 
 #include "diagnostic_client_uds_message.h"
 #include <cstdint>
 
 namespace diag {
 namespace client {
-namespace conversion {
+namespace conversation {
 
 
-class DiagClientConversion {
+class DiagClientConversation {
 
 public:   
     // Connect Errors
     enum class ConnectResult : std::uint8_t {
-        kConnectSuccess = 0,
+        kConnectSuccess = 0U,
         kConnectFailed,
         kConnectTimeout
     };
 
     // Disconnect Errors
     enum class DisconnectResult : std::uint8_t {
-        kDisconnectSuccess = 0,
+        kDisconnectSuccess = 0U,
         kDisconnectFailed
     };
 
     // Diagnostics Request Response Error
     enum class DiagResult : std::uint8_t {
-        kDiagRequestSendFailed = 0,
+        kDiagRequestSendFailed = 0U,
         kDiagFailed,
         kDiagAckTimeout,
         kDiagResponseTimeout,
@@ -43,17 +43,17 @@ public:
     };
     
     // ctor
-    inline DiagClientConversion() {}
+    inline DiagClientConversation() = default;
 
     // dtor
-    inline ~DiagClientConversion() = default;
+    inline ~DiagClientConversation() = default;
     
     // Description   : Function to start the Diagnostic Client Conversion
     // @param input  : Nothing
     // @return value : void
     virtual void Startup() = 0;
     
-    // Description   : Function to shutdown the Diagnostic Client Conversion
+    // Description   : Function to shut down the Diagnostic Client Conversion
     // @param input  : Nothing
     // @return value : void
     virtual void Shutdown() = 0;
@@ -83,8 +83,8 @@ public:
 };
 
 
-} // conversion
+} // conversation
 } // client
 } // diag
 
-#endif // _DIAGNOSTIC_CLIENT_CONVERSION_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H

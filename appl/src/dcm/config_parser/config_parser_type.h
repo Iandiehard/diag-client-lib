@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _CONFIG_PARSER_TYPE_H_
-#define _CONFIG_PARSER_TYPE_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONFIG_PARSER_CONFIG_PARSER_TYPE_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONFIG_PARSER_CONFIG_PARSER_TYPE_H
 
 /* includes */
 #include "common_Header.h"
@@ -25,7 +25,7 @@ public:
     uint16_t portNum;
 };
 
-class conversionType {
+class conversationType {
 
 public:
     uint16_t    p2ClientMax;
@@ -34,21 +34,21 @@ public:
     uint16_t    rxBufferSize;
     uint16_t    sourceAddress;
     uint16_t    targetAddress;
-    std::string conversionName;
+    std::string conversationName;
     DoipNetworkType network;
 };
 
-class ConversionConfig{
+class ConversationConfig{
 
 public:
     // number of conversion
-    uint8_t num_of_conversion;
+    uint8_t num_of_conversation;
     // store all conversions
-    std::vector<conversionType> conversions;
+    std::vector<conversationType> conversations;
 };
 
 } // config_parser
 } // client
 } // diag
 
-#endif //  _CONFIG_PARSER_TYPE_H_
+#endif //  DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONFIG_PARSER_CONFIG_PARSER_TYPE_H

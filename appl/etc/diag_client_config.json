@@ -1,7 +1,7 @@
 {
     "Conversation": {
-        "NumberOfConversion": 2,
-        "ConversionProperty": [
+        "NumberOfConversation": 2,
+        "ConversationProperty": [
             {
                 "p2ClientMax": 1000,
                 "p2StarClientMax": 5000,
@@ -20,7 +20,7 @@
                     "EID": "",
                     "VIN": ""
                 },
-                "ConversionName" : "DiagTesterOne"
+                "ConversationName" : "DiagTesterOne"
             },
             {
                 "p2ClientMax" : 2000,
@@ -40,7 +40,7 @@
                     "EID": "",
                     "VIN": ""
                 },
-                "ConversionName" : "DiagTesterTwo"
+                "ConversationName" : "DiagTesterTwo"
             }
         ]
     }

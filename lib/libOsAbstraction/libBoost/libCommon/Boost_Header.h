@@ -16,7 +16,7 @@
 #include <vector>
 #include <algorithm>
 #include <memory>
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <utility>
 #include <functional>

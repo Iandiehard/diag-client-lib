@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -47,7 +47,7 @@ void DiagnosticManager::Main() {
     Shutdown();
 }
 
-// Function to shutdown the component
+// Function to shut down the component
 void DiagnosticManager::SignalShutdown() {
     exit_requested = true;
     cond_var.notify_all();

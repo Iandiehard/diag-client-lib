@@ -23,8 +23,8 @@
 #include <atomic>
 #include <thread>
 #include <condition_variable>
-#include <stdint.h>
-#include <signal.h>
+#include <cstdint>
+#include <csignal>
 #include <future>
 #include <chrono>
 #include <ctime>

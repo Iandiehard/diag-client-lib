@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _COMMON_DIAGNOSTIC_MANAGER_H_
-#define _COMMON_DIAGNOSTIC_MANAGER_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 
 /* includes */
 #include "common_Header.h"
@@ -15,6 +15,11 @@
 
 namespace diag {
 namespace client {
+
+// forward declaration
+namespace conversation{
+    class DiagClientConversation;
+}
 namespace common {
 
 using property_tree = libOsAbstraction::libBoost::jsonparser::boostTree;
@@ -47,6 +52,10 @@ public:
     
     // Shutdown
     virtual void Shutdown() = 0;
+
+    // Function to get the diagnostic client conversion
+    virtual diag::client::conversation::DiagClientConversation&
+        GetDiagnosticClientConversation(std::string conversion_name) = 0;
 protected:
     // store the json tree 
     property_tree &ptree_e;
@@ -68,4 +77,4 @@ private:
 
 
 
-#endif // _COMMON_DIAGNOSTIC_MANAGER_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H

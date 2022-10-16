@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DM_UDS_MESSAGE_H_
-#define _DM_UDS_MESSAGE_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_DM_UDS_MESSAGE_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_DM_UDS_MESSAGE_H
 
 /* includes */
 #include "ara/diag/uds_transport/uds_message.h"
@@ -20,11 +20,14 @@ namespace uds_message{
 class DmUdsMessage : public ara::diag::uds_transport::UdsMessage {
 
 public:
+    // ctor
     DmUdsMessage(Address sa
                 , Address ta
                 , IpAddress hostipaddress
                 , ara::diag::uds_transport::ByteVector& payload);
-    virtual ~DmUdsMessage();
+
+    // dtor
+    ~DmUdsMessage() = default;
 
 private:
     // SA
@@ -74,7 +77,7 @@ public:
     virtual ~DmUdsResponse();
 
 private:
-    // store only UDS payload to be send
+    // store only UDS payload to be sent
     ByteVector& uds_payload;
 
     // Host Ip Address
@@ -95,4 +98,4 @@ private:
 } // diag
 
 
-#endif // _DM_UDS_MESSAGE_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_DM_UDS_MESSAGE_H

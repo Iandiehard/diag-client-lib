@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,9 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _CREATE_DIAGNOSTIC_CLIENT_H_
-#define _CREATE_DIAGNOSTIC_CLIENT_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
 
+#include <memory>
 #include "diagnostic_client.h"
 
 namespace diag {
@@ -23,4 +24,4 @@ std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
 } // client
 } // diag
 
-#endif // _CREATE_DIAGNOSTIC_CLIENT_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
