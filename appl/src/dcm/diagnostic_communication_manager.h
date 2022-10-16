@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,13 +6,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DIAGNOSTIC_COMMUNICATION_MANAGER_H_
-#define _DIAGNOSTIC_COMMUNICATION_MANAGER_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H
 
 /* includes */
 #include "common/diagnostic_manager.h"
-#include "conversion/conversionManager.h"
-#include "dcm/connection/udsTransportProtocolManager.h"
+#include "conversion/conversation_manager.h"
+#include "dcm/connection/uds_transport_protocol_manager.h"
 #include "dcm/config_parser/config_parser_type.h"
 
 
@@ -24,8 +24,8 @@ namespace dcm{
  @ Class Name        : DCM Client
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
  */
-class DCMClient: public diag::client::common::DiagnosticManager
-{
+class DCMClient: public diag::client::common::DiagnosticManager {
+
 public:
     //ctor
     explicit DCMClient(diag::client::common::property_tree &ptree);
@@ -43,21 +43,22 @@ public:
     void Shutdown() override;
     
     // Function to get the diagnostic client conversion
-    diag::client::conversion::DiagClientConversion& 
-                    GetDiagnosticClientConversion(std::string conversion_name);
+    diag::client::conversation::DiagClientConversation&
+            GetDiagnosticClientConversation(std::string conversion_name) override;
 private:
     // uds transport protocol Manager 
     std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
     
     // conversion manager
-    std::unique_ptr<conversion_manager::ConversionManager> conversion_mgr;
+    std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
     
     // map to store conversion pointer along with conversion name
-    std::unordered_map<std::string, std::unique_ptr<diag::client::conversion::DiagClientConversion>> diag_client_conversion_map;
+    std::unordered_map<std::string,
+        std::unique_ptr<diag::client::conversation::DiagClientConversation>> diag_client_conversation_map;
        
     // function to read from property tree to config structure
-    diag::client::config_parser::ConversionConfig 
-            getConversionConfig(diag::client::common::property_tree & ptree);
+    diag::client::config_parser::ConversationConfig
+            getConversationConfig(diag::client::common::property_tree & ptree);
         
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(dcm_client);
@@ -67,6 +68,4 @@ private:
 } // client
 } // diag
 
-
-
-#endif
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H

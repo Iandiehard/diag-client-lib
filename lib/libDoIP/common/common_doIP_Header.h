@@ -15,7 +15,7 @@
 #include <array>
 #include <memory>
 #include <utility>
-#include <stdint.h>
+#include <cstdint>
 #include "ara/diag/uds_transport/protocol_handler.h"
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/conversion_handler.h"

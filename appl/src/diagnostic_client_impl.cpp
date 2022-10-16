@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,7 +14,9 @@ namespace client {
 
 // ctor
 DiagClientImpl::DiagClientImpl(std::string dm_client_config)
-                : diag::client::DiagClient() {
+                : diag::client::DiagClient()
+                , ptree{}
+                , dcm_instance_ptr(nullptr) {
     // dlt register app & context
     DLT_REGISTER_APP("DCLT", "Diag Client Library");
     DLT_REGISTER_CONTEXT(diagclient_main,"main","Diag Client Main Context");
@@ -38,9 +40,12 @@ DiagClientImpl::~DiagClientImpl() {
 }
 
 // Initialize all the resources and load the configs
-void DiagClientImpl::Initialize(void) {
+void DiagClientImpl::Initialize() {
     // start DCM thread here
-    _thread.push_back(std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get())));
+    _thread = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get()));
+
+    // TODO: rename the thread here
+
     DLT_LOG(diagclient_main, DLT_LOG_INFO, 
         DLT_CSTRING("DiagClient Initialize success"));
 }
@@ -49,18 +54,18 @@ void DiagClientImpl::Initialize(void) {
 void DiagClientImpl::DeInitialize(void) {
     // shutdown DCM module here
     dcm_instance_ptr->SignalShutdown();
-    // destroy all threads here
-    for(auto &thread_ptr : _thread) {
-        thread_ptr.join();
-    }
-    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
+
+    // join all threads here
+    _thread.join();
+
+    DLT_LOG(diagclient_main, DLT_LOG_INFO,
         DLT_CSTRING("DiagClient DeInitialized"));
 }
 
 // Get Required Conversion based on Conversion Name
-diag::client::conversion::DiagClientConversion& 
-            DiagClientImpl::GetDiagnosticClientConversion(std::string conversion_name) {
-    return(dcm_instance_ptr->GetDiagnosticClientConversion(conversion_name));
+diag::client::conversation::DiagClientConversation&
+            DiagClientImpl::GetDiagnosticClientConversation(std::string conversion_name) {
+    return(dcm_instance_ptr->GetDiagnosticClientConversation(conversion_name));
 }
 
 } // client

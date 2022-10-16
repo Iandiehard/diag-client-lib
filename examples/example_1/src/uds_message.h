@@ -22,8 +22,10 @@ private:
     diag::client::uds_message::ByteVector& uds_payload;
 
     const diag::client::uds_message::ByteVector& GetPayload () const override { return uds_payload; }
+
     // return the underlying buffer for write access
     diag::client::uds_message::ByteVector& GetPayload () override { return uds_payload; }
+
     // Get Host Ip address
     IpAddress GetHostIpAddress() const noexcept override { return host_ip_address; };
 

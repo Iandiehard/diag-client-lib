@@ -4,10 +4,10 @@
 [![CodeQL](https://github.com/Mandarein/diag-client-lib/actions/workflows/codeql.yml/badge.svg)](https://github.com/Mandarein/diag-client-lib/actions/workflows/codeql.yml)
 ## Diagnostic Client Library
 
-Welcome to MANDAREIN Diagnostic Client library which is developed based on motivation taken from
+Welcome to Diagnostic Client library which is developed based on motivation taken from
 [Adaptive AUTOSAR Diagnostic Specification 20-11](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_SWS_Diagnostics.pdf)
 
-MANDAREIN Diagnostic Client library is developed keeping in mind the requirements needed on the diagnostic tester side.
+Diagnostic Client library is developed keeping in mind the requirements needed on the diagnostic tester side.
 Some internal APIs is implemented based on API Reference mentioned in 
 [Adaptive AUTOSAR Diagnostic Specification 20-11](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_SWS_Diagnostics.pdf)
 
@@ -38,13 +38,14 @@ Diagnostic Client library:-
 - dlt-daemon
 - boost >= 1.78.0
 
-```bash
-sh build.sh
+Execute to install dependencies :-
+```bash 
+sh .github/setup.sh 
 ```
 
 ### Dependencies
 
-Diagnostic Client Library has dependencies with BOOST library and COVESA DLT logging.
+Diagnostic Client Library has dependencies with BOOST library and [COVESA DLT logging](https://github.com/COVESA/dlt-daemon).
 
 BOOST Library is used for asio operations and COVESA DLT logging is used for sending DLT logs
 to user.
@@ -72,7 +73,7 @@ More information on the APIs to be used , check [doc_api_definition](doc/API_def
 
 More information on the diag client config json file, refer [doc_config_json](doc/Config_Json_file_definitions.md) documentation
 
-Check the example application [Examples](examples/) on how Diagnostic Client Libary should be linked and used.
+Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
 
 
 ## Known Defect

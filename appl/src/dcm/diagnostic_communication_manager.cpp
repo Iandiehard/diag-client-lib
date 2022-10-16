@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,8 +21,8 @@ namespace dcm{
 DCMClient::DCMClient(diag::client::common::property_tree &ptree)
         : DiagnosticManager(ptree)
         , uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>())
-        , conversion_mgr(std::make_unique<conversion_manager::ConversionManager>(
-            getConversionConfig(ptree), *uds_transport_protocol_mgr)) {
+        , conversation_mgr(std::make_unique<conversation_manager::ConversationManager>(
+                getConversationConfig(ptree), *uds_transport_protocol_mgr)) {
     DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
 }
 
@@ -34,7 +34,7 @@ DCMClient::~DCMClient() {
 // Initialize
 void DCMClient::Initialize() {
     // start Conversion Manager
-    conversion_mgr->Startup();
+    conversation_mgr->Startup();
     // start all the udsTransportProtocol Layer
     uds_transport_protocol_mgr->Startup();
 
@@ -51,7 +51,7 @@ void DCMClient::Run() {
 // shutdown DCM
 void DCMClient::Shutdown() {
     // shutdown Conversion Manager
-    conversion_mgr->Shutdown();
+    conversation_mgr->Shutdown();
     // shutdown udsTransportProtocol layer
     uds_transport_protocol_mgr->Shutdown();
     
@@ -60,18 +60,18 @@ void DCMClient::Shutdown() {
 }
 
 // Function to get the client conversion
-diag::client::conversion::DiagClientConversion&
-        DCMClient::GetDiagnosticClientConversion(std::string conversion_name) {
-    diag::client::conversion::DiagClientConversion* ret_conversion = nullptr;
-    std::unique_ptr<diag::client::conversion::DiagClientConversion> conversion =
-        conversion_mgr->GetDiagnosticClientConversion(conversion_name);
-    if(conversion != nullptr) {
-        diag_client_conversion_map.insert(
-            std::pair<std::string, std::unique_ptr<diag::client::conversion::DiagClientConversion>>(
+diag::client::conversation::DiagClientConversation&
+        DCMClient::GetDiagnosticClientConversation(std::string conversion_name) {
+    diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
+    std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation =
+            conversation_mgr->GetDiagnosticClientConversion(conversion_name);
+    if(conversation != nullptr) {
+        diag_client_conversation_map.insert(
+            std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
                                     conversion_name,
-                                    std::move(conversion)
+                                    std::move(conversation)
             ));
-        ret_conversion = diag_client_conversion_map.at(conversion_name).get();
+        ret_conversation = diag_client_conversation_map.at(conversion_name).get();
         DLT_LOG(dcm_client, DLT_LOG_DEBUG, 
             DLT_STRING("Requested Diagnostic Client conversion created with name: "), 
             DLT_STRING(conversion_name.c_str()));
@@ -82,32 +82,32 @@ diag::client::conversion::DiagClientConversion&
             DLT_STRING("Requested Diagnostic Client conversion not found with name: "), 
             DLT_STRING(conversion_name.c_str()));
     }
-    return *ret_conversion;
+    return *ret_conversation;
 }
 
 // Function to get read from json tree and return the config structure
-diag::client::config_parser::ConversionConfig
-        DCMClient::getConversionConfig(diag::client::common::property_tree & ptree) {
-    diag::client::config_parser::ConversionConfig config;
+diag::client::config_parser::ConversationConfig
+        DCMClient::getConversationConfig(diag::client::common::property_tree & ptree) {
+    diag::client::config_parser::ConversationConfig config;
     // get total number of conversion
-    config.num_of_conversion =  ptree.get<uint8_t>("Conversation.NumberOfConversion");
+    config.num_of_conversation =  ptree.get<uint8_t>("Conversation.NumberOfConversation");
     // loop through all the conversion
-    for(diag::client::common::property_tree::value_type &conversion_ptr : 
-            ptree.get_child("Conversation.ConversionProperty")) {
-        diag::client::config_parser::conversionType conversion;
-        
-        conversion.conversionName               = conversion_ptr.second.get<std::string>("ConversionName");
-        conversion.p2ClientMax                  = conversion_ptr.second.get<uint16_t>("p2ClientMax");        
-        conversion.p2StarClientMax              = conversion_ptr.second.get<uint16_t>("p2StarClientMax");        
-        conversion.txBufferSize                 = conversion_ptr.second.get<uint16_t>("TxBufferSize");        
-        conversion.rxBufferSize                 = conversion_ptr.second.get<uint16_t>("RxBufferSize");
-        conversion.sourceAddress                = conversion_ptr.second.get<uint16_t>("SourceAddress");
-        conversion.targetAddress                = conversion_ptr.second.get<uint16_t>("TargetAddress");
-        conversion.network.tcpIpAddress         = conversion_ptr.second.get<std::string>("Network.TcpIpAddress");
-        conversion.network.udpIpAddress         = conversion_ptr.second.get<std::string>("Network.UdpIpAddress");
-        conversion.network.udpBroadcastAddress  = conversion_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
-        conversion.network.portNum              = conversion_ptr.second.get<uint16_t>("Network.Port");
-        config.conversions.push_back(conversion);
+    for(diag::client::common::property_tree::value_type &conversation_ptr :
+            ptree.get_child("Conversation.ConversationProperty")) {
+        diag::client::config_parser::conversationType conversation;
+
+        conversation.conversationName             = conversation_ptr.second.get<std::string>("ConversationName");
+        conversation.p2ClientMax                  = conversation_ptr.second.get<uint16_t>("p2ClientMax");
+        conversation.p2StarClientMax              = conversation_ptr.second.get<uint16_t>("p2StarClientMax");
+        conversation.txBufferSize                 = conversation_ptr.second.get<uint16_t>("TxBufferSize");
+        conversation.rxBufferSize                 = conversation_ptr.second.get<uint16_t>("RxBufferSize");
+        conversation.sourceAddress                = conversation_ptr.second.get<uint16_t>("SourceAddress");
+        conversation.targetAddress                = conversation_ptr.second.get<uint16_t>("TargetAddress");
+        conversation.network.tcpIpAddress         = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
+        conversation.network.udpIpAddress         = conversation_ptr.second.get<std::string>("Network.UdpIpAddress");
+        conversation.network.udpBroadcastAddress  = conversation_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
+        conversation.network.portNum              = conversation_ptr.second.get<uint16_t>("Network.Port");
+        config.conversations.emplace_back(conversation);
     }
     return config;
 }

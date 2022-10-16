@@ -137,7 +137,7 @@ bool udpChannel::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
 // @return value : void
 void udpChannel::TransmitConfirmation(bool result) {
     if(udpChannleState_ucast == udpChannelState::kSendVehicleIdentificationReq) {
-        if(result != false) {
+        if(result) {
             // success
             udpChannleState_ucast = udpChannelState::kWaitforVehicleIdentificationRes;
             //start A_DoIP_Ctrl = 2s timer here

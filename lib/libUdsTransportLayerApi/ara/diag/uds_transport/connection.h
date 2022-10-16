@@ -6,8 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _CONNECTION_H
-#define _CONNECTION_H
+#ifndef CONNECTION_H
+#define CONNECTION_H
 
 /* includes */
 #include "protocol_types.h"
@@ -96,4 +96,4 @@ private:
 }   // ara
 
 
-#endif // _CONNECTION_H
+#endif // CONNECTION_H

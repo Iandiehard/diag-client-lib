@@ -16,12 +16,12 @@ namespace diag{
 namespace doip{
 
 /* DoIP Port Number - Unsecured */
-constexpr uint16_t kDoipPort = 13400;
+constexpr uint16_t kDoipPort = 13400U;
 
 /* Udp Channel Length */
-constexpr uint32_t kUdpChannelLength = 41;
+constexpr uint32_t kUdpChannelLength = 41U;
 /* Tcp Channel Length */
-constexpr uint32_t kTcpChannelLength = 4096;
+constexpr uint32_t kTcpChannelLength = 4096u;
 
 /* DoIP Header */
 constexpr uint8_t  kDoipheadrSize                                       = 0x8;

@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,9 +21,6 @@ DmUdsMessage::DmUdsMessage(Address sa
                         , target_address(ta)
                         , host_ip_address(hostipaddress)
                         , uds_payload(payload) {
-}
-
-DmUdsMessage::~DmUdsMessage () {
 }
 
 DmUdsResponse::DmUdsResponse(ByteVector& payload)

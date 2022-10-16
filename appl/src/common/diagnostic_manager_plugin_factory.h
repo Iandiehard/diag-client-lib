@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,14 +6,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H_
-#define _COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H
 
 /* includes */
 
 
-namespace ara {
 namespace diag {
+namespace client {
 namespace common {
 
 /*
@@ -29,7 +29,7 @@ public:
 
 
 } // common
+} // client
 } // diag
-} // ara
 
-#endif // _COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_PLUGIN_FACTORY_H

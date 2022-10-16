@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,40 +6,37 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DCM_CONVERSION_H
-#define _DCM_CONVERSION_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
 
 /* includes */
 #include "common_Header.h"
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
-#include "diagnostic_client_conversion.h"
+#include "diagnostic_client_conversation.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace diag{
 namespace client{
-namespace conversion{
+namespace conversation{
 
 using conv_sync_timer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 /*
- @ Class Name        : DmConversion
+ @ Class Name        : DmConversation
  @ Class Description : Class to establish connection with Diagnostic Server                           
  */
-class DmConversion : public  ::diag::client::conversion::DiagClientConversion {
+class DmConversation : public  ::diag::client::conversation::DiagClientConversation {
 
 public:
     // ctor
-    explicit DmConversion(
+    explicit DmConversation(
         std::string conversion_name,
         ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
     
     // dtor
-    ~DmConversion();
+    ~DmConversation();
     
-    // Get connection
-    std::shared_ptr<ara::diag::connection::Connection> GetConversionName();
-
     // startup
     void Startup() override;
     
@@ -129,7 +126,7 @@ private:
     // Dcm Security
     SecurityLevelType active_security;
     
-    // Transmition buffer
+    // Transmit buffer
     uint32_t tx_buffer_size;
     
     // Reception buffer
@@ -176,18 +173,18 @@ private:
 };
 
 /*
- @ Class Name        : DmConversionHandler
+ @ Class Name        : DmConversationHandler
  @ Class Description : Class to establish connection with Diagnostic Server                           
  */
-class DmConversionHandler : public ara::diag::conversion::ConversionHandler {
+class DmConversationHandler : public ara::diag::conversion::ConversionHandler {
 
 public:
     // ctor
-    explicit DmConversionHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
-                                DmConversion &dm_conversion);
+    explicit DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
+                                 DmConversation &dm_conversion);
 
     // dtor
-    ~DmConversionHandler();
+    ~DmConversationHandler() = default;
 
     // Indication of Vehicle Announcement/Identification Response
     ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult IndicateMessage(
@@ -211,7 +208,7 @@ public:
     // Hands over a valid message to conversion
     void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) override;
 private:
-    DmConversion &dm_coversion_e;
+    DmConversation &dm_conversation_e;
 };
 
 
@@ -220,4 +217,4 @@ private:
 } // diag
 
 
-#endif // _DCM_CONVERSION_H
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H

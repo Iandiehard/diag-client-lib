@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,18 +7,18 @@
  */
 
 /* includes */
-#include "dcm/conversion/dmconversion.h"
+#include "dcm/conversion/dmconversation.h"
 #include "dcm/service/dm_uds_message.h"
 
 namespace diag{
 namespace client{
-namespace conversion{
+namespace conversation{
 
 //ctor
-DmConversion::DmConversion(
+DmConversation::DmConversation(
         std::string conversion_name,
         ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-                            :diag::client::conversion::DiagClientConversion()
+                            :diag::client::conversation::DiagClientConversation()
                             ,activity_status(ActivityStatusType::kInactive)
                             ,active_session(SessionControlType::kDefaultSession)
                             ,active_security(SecurityLevelType::kLocked)
@@ -31,17 +31,17 @@ DmConversion::DmConversion(
                             ,port_num(conversion_identifier.port_num)
                             ,broadcast_address(conversion_identifier.udp_broadcast_address)
                             ,convrs_name(conversion_name)
-                            ,dm_conversion_handler(std::make_shared<DmConversionHandler>(conversion_identifier.handler_id, *this)) {
+                            ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
     DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
 }
 
 //dtor
-DmConversion::~DmConversion() {
+DmConversation::~DmConversation() {
     DLT_UNREGISTER_CONTEXT(dm_conversion);
 }
 
 // startup
-void DmConversion::Startup() {
+void DmConversation::Startup() {
     // initialize the connection
     connection_ptr->Initialize();
     // start the connection
@@ -58,7 +58,7 @@ void DmConversion::Startup() {
 }
 
 // shutdown
-void DmConversion::Shutdown() {
+void DmConversation::Shutdown() {
     // shutdown connection
     connection_ptr->Stop();
     // Change the state to InActive
@@ -73,7 +73,7 @@ void DmConversion::Shutdown() {
 }
 
 // Function to Send Vehicle Identification Request 
-void DmConversion::SendVehicleIdentificationRequest() {
+void DmConversation ::SendVehicleIdentificationRequest() {
 
     DLT_LOG(dm_conversion, DLT_LOG_ERROR,
         DLT_CSTRING("'"),
@@ -95,19 +95,20 @@ void DmConversion::SendVehicleIdentificationRequest() {
         vehicleInfo.vin[vin_indx] = 0x01;
     }
     // Trigger Transmit
-    connection_ptr->Transmit(vehicleInfo); */
+    connection_ptr->Transmit(vehicleInfo);
+    */
 }
 
-DiagClientConversion::ConnectResult DmConversion::ConnectToDiagServer(
+DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
         uds_message::UdsRequestMessage::IpAddress host_ip_addr) {
    
-    // create a uds message just to get the port number
-    // source address required from Routing Acitvation
+    // create an uds message just to get the port number
+    // source address required from Routing Activation
     ara::diag::uds_transport::ByteVector payload; // empty payload  
       
     // Send Connect request to doip layer
-    DiagClientConversion::ConnectResult ret_val = 
-            static_cast<DiagClientConversion::ConnectResult>(
+    DiagClientConversation::ConnectResult ret_val =
+            static_cast<DiagClientConversation::ConnectResult>(
                 connection_ptr->ConnectToHost(std::move(
                         std::make_unique<diag::client::uds_message::DmUdsMessage>(
                                                                                 source_address,
@@ -115,8 +116,8 @@ DiagClientConversion::ConnectResult DmConversion::ConnectToDiagServer(
                                                                                 host_ip_addr,
                                                                                 payload))));
     
-    if(ret_val == 
-        DiagClientConversion::ConnectResult::kConnectSuccess) {
+    if(ret_val ==
+        DiagClientConversation::ConnectResult::kConnectSuccess) {
         remote_address = std::string(host_ip_addr);
         DLT_LOG(dm_conversion, DLT_LOG_INFO,
             DLT_CSTRING("'"),
@@ -138,15 +139,15 @@ DiagClientConversion::ConnectResult DmConversion::ConnectToDiagServer(
     return ret_val;
 }
 
-DiagClientConversion::DisconnectResult  
-        DmConversion::DisconnectFromDiagServer() {
+DiagClientConversation::DisconnectResult
+    DmConversation::DisconnectFromDiagServer() {
     // Send disconnect request to doip layer
-    DiagClientConversion::DisconnectResult ret_val = 
-        static_cast<DiagClientConversion::DisconnectResult>(
+    DiagClientConversation::DisconnectResult ret_val =
+        static_cast<DiagClientConversation::DisconnectResult>(
             connection_ptr->DisconnectFromHost());
 
-    if(ret_val == 
-            DiagClientConversion::DisconnectResult::kDisconnectSuccess) {
+    if(ret_val ==
+            DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
         DLT_LOG(dm_conversion, DLT_LOG_INFO,
             DLT_CSTRING("'"),
             DLT_CSTRING(convrs_name.c_str()),
@@ -167,119 +168,131 @@ DiagClientConversion::DisconnectResult
     return ret_val;
 }
 
-std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr> 
-        DmConversion::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) {
+std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr>
+    DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) {
 
-    std::pair<DiagClientConversion::DiagResult, uds_message::UdsResponseMessagePtr> 
-        ret_val{DiagClientConversion::DiagResult::kDiagFailed, nullptr};
+    std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr>
+        ret_val{DiagClientConversation::DiagResult::kDiagFailed, nullptr};
     
-    // fill the data
-    ara::diag::uds_transport::ByteVector payload;
-    payload.reserve(message->GetPayload().size());
-    for(auto const byte: message->GetPayload()) {
-        payload.emplace_back(byte);
-    }
+    if(message != nullptr) {
+        // fill the data
+        ara::diag::uds_transport::ByteVector payload;
+        payload.reserve(message->GetPayload().size());
+        for(auto const byte: message->GetPayload()) {
+            payload.emplace_back(byte);
+        }
 
-    // create the uds message
-    ara::diag::uds_transport::UdsMessagePtr uds_message =
-                    std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                            source_address,
-                                                                            target_address,
-                                                                            message->GetHostIpAddress(),
-                                                                            payload);
-    if(connection_ptr->Transmit(std::move(uds_message)) != 
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
-        // Diagnostic Request Sent successful, wait for response
-        conversion_state = ConversionStateType::kDiagWaitForRes;
-        DLT_LOG(dm_conversion, DLT_LOG_INFO,
-            DLT_CSTRING("'"),
-            DLT_CSTRING(convrs_name.c_str()),
-            DLT_CSTRING("'"),
-            DLT_CSTRING("->"),
-            DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));
-        while(conversion_state != ConversionStateType::kIdle) {
-            DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
-                DLT_CSTRING("Dm coversion state:"), 
-                DLT_UINT8(static_cast<std::uint8_t>(conversion_state)));
-            switch (conversion_state) {
-                case ConversionStateType::kDiagWaitForRes :
-                    {// start P6Max / P2ClientMax timer
-                        if(sync_timer.Start(p2_client_max) ==
-                                conv_sync_timer::timer_state::kTimeout) {
-                            // no response received withing P6Max / P2ClientMax
-                            conversion_state = ConversionStateType::kDiagP2MaxTimeout;
-                            DLT_LOG(dm_conversion, DLT_LOG_WARN,
-                                DLT_CSTRING("'"),
-                                DLT_CSTRING(convrs_name.c_str()),
-                                DLT_CSTRING("'"),
-                                DLT_CSTRING("->"), 
-                                DLT_CSTRING("Diagnostic Response P2 Timeout happened"), 
-                                DLT_UINT16(p2_client_max));
+        // create the uds message
+        ara::diag::uds_transport::UdsMessagePtr uds_message =
+                        std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                                                                                source_address,
+                                                                                target_address,
+                                                                                message->GetHostIpAddress(),
+                                                                                payload);
+        if(connection_ptr->Transmit(std::move(uds_message)) != 
+            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+            // Diagnostic Request Sent successful, wait for response
+            conversion_state = ConversionStateType::kDiagWaitForRes;
+            DLT_LOG(dm_conversion, DLT_LOG_INFO,
+                DLT_CSTRING("'"),
+                DLT_CSTRING(convrs_name.c_str()),
+                DLT_CSTRING("'"),
+                DLT_CSTRING("->"),
+                DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));
+            while(conversion_state != ConversionStateType::kIdle) {
+                DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
+                    DLT_CSTRING("Dm coversion state:"), 
+                    DLT_UINT8(static_cast<std::uint8_t>(conversion_state)));
+                switch (conversion_state) {
+                    case ConversionStateType::kDiagWaitForRes :
+                        {// start P6Max / P2ClientMax timer
+                            if(sync_timer.Start(p2_client_max) ==
+                                    conv_sync_timer::timer_state::kTimeout) {
+                                // no response received withing P6Max / P2ClientMax
+                                conversion_state = ConversionStateType::kDiagP2MaxTimeout;
+                                DLT_LOG(dm_conversion, DLT_LOG_WARN,
+                                    DLT_CSTRING("'"),
+                                    DLT_CSTRING(convrs_name.c_str()),
+                                    DLT_CSTRING("'"),
+                                    DLT_CSTRING("->"), 
+                                    DLT_CSTRING("Diagnostic Response P2 Timeout happened"), 
+                                    DLT_UINT16(p2_client_max));
+                            }
+                            else {
+                                // response received, state will be handled in callback
+                            }
+                            break;
                         }
-                        else {
-                            // response received, state will be handled in callback
-                        }
+                    case ConversionStateType::kDiagRecvdPendingRes:
+                    case ConversionStateType::kDiagRecvdFinalRes:
+                        // do nothing
                         break;
-                    }
-                case ConversionStateType::kDiagRecvdPendingRes:
-                case ConversionStateType::kDiagRecvdFinalRes:
-                    // do nothing
-                    break;
 
-                case ConversionStateType::kDiagStartP2StarTimer:
-                    {// start P6Star/ P2 star client time
-                        if(sync_timer.Start(p2_star_client_max) ==
-                                conv_sync_timer::timer_state::kTimeout) {
-                            // no response received within P6Start/ P2Star
-                            conversion_state = ConversionStateType::kDiagP2StarMaxTimeout;
-                            DLT_LOG(dm_conversion, DLT_LOG_WARN,
-                                DLT_CSTRING("'"),
-                                DLT_CSTRING(convrs_name.c_str()),
-                                DLT_CSTRING("'"),
-                                DLT_CSTRING("->"), 
-                                DLT_CSTRING("Diagnostic Response P2 Star Timeout happened"), 
-                                DLT_UINT16(p2_star_client_max));                     
+                    case ConversionStateType::kDiagStartP2StarTimer:
+                        {// start P6Star/ P2 star client time
+                            if(sync_timer.Start(p2_star_client_max) ==
+                                    conv_sync_timer::timer_state::kTimeout) {
+                                // no response received within P6Start/ P2Star
+                                conversion_state = ConversionStateType::kDiagP2StarMaxTimeout;
+                                DLT_LOG(dm_conversion, DLT_LOG_WARN,
+                                    DLT_CSTRING("'"),
+                                    DLT_CSTRING(convrs_name.c_str()),
+                                    DLT_CSTRING("'"),
+                                    DLT_CSTRING("->"), 
+                                    DLT_CSTRING("Diagnostic Response P2 Star Timeout happened"), 
+                                    DLT_UINT16(p2_star_client_max));                     
+                            }
+                            else {
+                                // response received, state will be handled in callback
+                            }
+                            break;
                         }
-                        else {
-                            // response received, state will be handled in callback
+                    case ConversionStateType::kDiagP2MaxTimeout:
+                    case ConversionStateType::kDiagP2StarMaxTimeout:
+                        {// Timeout case
+                            conversion_state = ConversionStateType::kIdle;
+                            ret_val.first = DiagClientConversation::DiagResult::kDiagResponseTimeout;
+                            break;
                         }
+                    case ConversionStateType::kDiagSuccess:
+                        {// change state to idle, form the uds response and return
+                            ret_val.second = std::move(
+                                    std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
+                            ret_val.first = DiagClientConversation::DiagResult::kDiagSuccess;
+                            conversion_state = ConversionStateType::kIdle;
+                            break;
+                        }
+                    default:
                         break;
-                    }
-                case ConversionStateType::kDiagP2MaxTimeout:
-                case ConversionStateType::kDiagP2StarMaxTimeout:
-                    {// Timeout case
-                        conversion_state = ConversionStateType::kIdle;
-                        ret_val.first = DiagClientConversion::DiagResult::kDiagResponseTimeout;
-                        break;
-                    }
-                case ConversionStateType::kDiagSuccess:
-                    {// change state to idle, form the uds response and return
-                        ret_val.second = std::move(
-                                std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
-                        ret_val.first = DiagClientConversion::DiagResult::kDiagSuccess;
-                        conversion_state = ConversionStateType::kIdle;
-                        break;
-                    }
-                default:
-                    break;
+                }
             }
+        }
+        else {
+            // Request sending failed
+            ret_val.first = DiagClientConversation::DiagResult::kDiagRequestSendFailed;
         }
     }
     else {
-        // Request sending failed
-        ret_val.first = DiagClientConversion::DiagResult::kDiagRequestSendFailed;
+        DLT_LOG(dm_conversion, DLT_LOG_ERROR,
+            DLT_CSTRING("'"),
+            DLT_CSTRING(convrs_name.c_str()),
+            DLT_CSTRING("'"),
+            DLT_CSTRING("->"), 
+            DLT_CSTRING("Diagnostic Request is empty"), 
+            DLT_UINT16(p2_star_client_max));         
     }
+
     return ret_val;
 }
 
 // 
-void DmConversion::RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection) {
+void DmConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection) {
     connection_ptr = std::move(connection);
 }
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
-                        ara::diag::uds_transport::UdsMessagePtr> DmConversion::IndicateMessage(
+                        ara::diag::uds_transport::UdsMessagePtr> DmConversation::IndicateMessage(
                                             ara::diag::uds_transport::UdsMessage::Address source_addr,
                                             ara::diag::uds_transport::UdsMessage::Address target_addr,
                                             ara::diag::uds_transport::UdsMessage::TargetAddressType type,
@@ -355,7 +368,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
 }
 
 // Hands over a valid message to conversion
-void DmConversion::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
+void DmConversation::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
     if(message != nullptr) {
         DLT_LOG(dm_conversion, DLT_LOG_INFO, 
             DLT_CSTRING("'"),
@@ -370,29 +383,20 @@ void DmConversion::HandleMessage (ara::diag::uds_transport::UdsMessagePtr messag
             DLT_CSTRING("'"),
             DLT_CSTRING("->"),  
             DLT_CSTRING("Total Message Length in HandleMessage: "), DLT_INT16(static_cast<int>(payload_rx_buffer.size())));
-        /*
-        for(uint8_t i = 0; i < payload_rx_buffer.size(); i++) {
-            DLT_LOG(dm_conversion, DLT_LOG_INFO, 
-                DLT_CSTRING("Payload rx buffer: "), DLT_HEX8(payload_rx_buffer[i]));
-        } */
         conversion_state = ConversionStateType::kDiagSuccess;
     }
 }
 
 // ctor
-DmConversionHandler::DmConversionHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
-                                        DmConversion &dm_conversion)
+DmConversationHandler::DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
+                                         DmConversation &dm_conversion)
                     : ara::diag::conversion::ConversionHandler(handler_id),
-                      dm_coversion_e(dm_conversion) {
-}
-
-// dtor
-DmConversionHandler::~DmConversionHandler() {
+                      dm_conversation_e(dm_conversion) {
 }
 
 // Indication of Vehicle Announcement/Identification Request
-ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult 
-    DmConversionHandler::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
+ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult
+    DmConversationHandler::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
     ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult result;
     if(vehicleInfo_Ref.size() != 0) {
         // Todo : Is vector required ????
@@ -405,8 +409,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult
 }
 
 // transmit confirmation of Vehicle Identification Request
-void DmConversionHandler::TransmitConfirmation(bool result) {
-    if(result != false) {
+void DmConversationHandler::TransmitConfirmation(bool result) {
+    if(result) {
     // success
     }
     else {
@@ -415,8 +419,8 @@ void DmConversionHandler::TransmitConfirmation(bool result) {
 }
 
 // Indicate message Diagnostic message reception over TCP to user
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr> 
-                    DmConversionHandler::IndicateMessage(
+std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
+        DmConversationHandler::IndicateMessage(
                                         ara::diag::uds_transport::UdsMessage::Address source_addr,
                                         ara::diag::uds_transport::UdsMessage::Address target_addr,
                                         ara::diag::uds_transport::UdsMessage::TargetAddressType type,
@@ -425,7 +429,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, a
                                         ara::diag::uds_transport::Priority priority,
                                         ara::diag::uds_transport::ProtocolKind protocol_kind,
                                         std::vector<uint8_t> payloadInfo) {
-    return (dm_coversion_e.IndicateMessage(source_addr, 
+    return (dm_conversation_e.IndicateMessage(source_addr,
                                             target_addr, 
                                             type, 
                                             channel_id, 
@@ -436,8 +440,8 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, a
 }
 
 // Hands over a valid message to conversion
-void DmConversionHandler::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
-    dm_coversion_e.HandleMessage(std::move(message));
+void DmConversationHandler::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
+    dm_conversation_e.HandleMessage(std::move(message));
 }
 
 } // conversion
