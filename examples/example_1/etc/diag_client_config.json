@@ -1,7 +1,7 @@
 {
     "Conversation": {
-        "NumberOfConversion": 2,
-        "ConversionProperty": [
+        "NumberOfConversation": 2,
+        "ConversationProperty": [
             {
                 "p2ClientMax": 1000,
                 "p2StarClientMax": 5000,
@@ -12,15 +12,15 @@
                 "TargetAddressType": "Physical",
                 "Network": {
                     "ProtocolKind" : "DoIP",
-                    "TcpIpAddress": "127.0.0.1",
-                    "UdpIpAddress": "127.0.0.1",
+                    "TcpIpAddress": "192.168.0.1",
+                    "UdpIpAddress": "192.168.0.1",
                     "UdpBroadcastAddress" : "255.255.255.255",
                     "TLS": false,
                     "Port": 13400,
                     "EID": "",
                     "VIN": ""
                 },
-                "ConversionName" : "DiagTesterOne"
+                "ConversationName" : "DiagTesterOne"
             },
             {
                 "p2ClientMax" : 2000,
@@ -40,7 +40,7 @@
                     "EID": "",
                     "VIN": ""
                 },
-                "ConversionName" : "DiagTesterTwo"
+                "ConversationName" : "DiagTesterTwo"
             }
         ]
     }
