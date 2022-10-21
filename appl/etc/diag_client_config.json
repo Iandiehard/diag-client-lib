@@ -32,8 +32,8 @@
                 "TargetAddressType": "Functional",
                 "Network": {
                     "ProtocolKind" : "DoIP",
-                    "TcpIpAddress": "127.0.0.1",
-                    "UdpIpAddress": "127.0.0.1",
+                    "TcpIpAddress": "192.168.0.1",
+                    "UdpIpAddress": "192.168.0.1",
                     "UdpBroadcastAddress" : "255.255.255.255",
                     "TLS": false,
                     "Port": 13400,

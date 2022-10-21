@@ -10,7 +10,7 @@
 #define _UDP_SOCKETHANDLER_H_
 
 //includes
-#include "common/common_doIP_Types.h"
+#include "common/common_doip_types.h"
 #include "libSocket/udp/udp.h"
 
 namespace ara{

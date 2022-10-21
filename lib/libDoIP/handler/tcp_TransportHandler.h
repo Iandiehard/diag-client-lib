@@ -10,8 +10,8 @@
 #define _TCP_TRANSPORT_HANDLER_H_
 
 //includes
-#include "common/common_doIP_Types.h"
-#include "channel/tcp_Channel.h"
+#include "common/common_doip_types.h"
+#include "channel/tcp_channel.h"
 
 namespace ara{
 namespace diag{

@@ -10,7 +10,7 @@
 #define _TCP_SOCKET_HANDLER_H_
 
 //includes
-#include "common/common_doIP_Types.h"
+#include "common/common_doip_types.h"
 #include "libSocket/tcp/tcp.h"
 namespace ara{
 namespace diag{

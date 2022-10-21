@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "doIP_TransportProtocolHandler.h"
+#include "doip_transport_protocol_handler.h"
 #include "dcm/connection/uds_transport_protocol_manager.h"
 #include "dcm/conversion/conversation_manager.h"
 

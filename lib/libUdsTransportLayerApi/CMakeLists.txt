@@ -1,4 +1,4 @@
-project(UdsTransportLayerApi)
+project(uds-transport-layer-api)
 
 include(GNUInstallDirs)
 

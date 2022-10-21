@@ -7,7 +7,7 @@
  */
 
 #include "handler/udp_TransportHandler.h"
-#include "connection/connection_Manager.h"
+#include "connection/connection_manager.h"
 
 namespace ara{
 namespace diag{

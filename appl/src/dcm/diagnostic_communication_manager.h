@@ -58,7 +58,7 @@ private:
        
     // function to read from property tree to config structure
     diag::client::config_parser::ConversationConfig
-            getConversationConfig(diag::client::common::property_tree & ptree);
+            GetConversationConfig(diag::client::common::property_tree & ptree);
         
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(dcm_client);

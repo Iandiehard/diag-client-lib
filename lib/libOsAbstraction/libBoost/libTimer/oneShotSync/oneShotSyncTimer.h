@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -55,7 +55,7 @@ private:
     // error
     boost::system::error_code error_e;
 
-    // timeout funtion
+    // timeout function
     void Timeout(const boost::system::error_code& error);
 
     // Declare dlt logging context

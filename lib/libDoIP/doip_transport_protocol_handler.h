@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,11 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _DOIP_TRANSPORTPROTOCOL_HANDLER_H_
-#define _DOIP_TRANSPORTPROTOCOL_HANDLER_H_
+#ifndef LIB_LIBDOIP_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
+#define LIB_LIBDOIP_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
 
 // Includes 
-#include "common/common_doIP_Header.h"
+#include "common/common_doip_header.h"
 
 
 namespace ara{
@@ -30,9 +30,8 @@ namespace transportProtocolHandler{
                        This will inherit uds transport protocol handler                              
  */
 
-class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTransportProtocolHandler
-{
-  public:
+class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTransportProtocolHandler {
+public:
     //ctor
     DoipTransportProtocolHandler(const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
                                  ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
@@ -59,7 +58,7 @@ class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTranspo
                                                                               kDoip_String& udpIpaddress, 
                                                                               uint16_t portNum) override;
 
-  private:    
+private:
     // store handle id
     ara::diag::uds_transport::UdsTransportProtocolHandlerID handle_id_e;
     
@@ -78,5 +77,4 @@ class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTranspo
 } // diag
 } // ara
 
-
-#endif // _DOIP_TRANSPORTPROTOCOL_HANDLER_H_
+#endif // LIB_LIBDOIP_DOIP_TRANSPORT_PROTOCOL_HANDLER_H

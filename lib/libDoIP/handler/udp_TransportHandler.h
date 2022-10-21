@@ -10,7 +10,7 @@
 #define _UDP_TRANSPORT_HANDLER_H_
 
 //includes
-#include "common/common_doIP_Header.h"
+#include "common/common_doip_header.h"
 #include "channel/udp_Channel.h"
 
 namespace ara{

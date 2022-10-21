@@ -10,7 +10,7 @@
 #define _UDP_CHANNEL_H_
 
 //includes
-#include "common/common_doIP_Types.h"
+#include "common/common_doip_types.h"
 #include "sockets/udp_SocketHandler.h"
 #include "libTimer/oneShotAsync/oneShotAsyncTimer.h"
 
