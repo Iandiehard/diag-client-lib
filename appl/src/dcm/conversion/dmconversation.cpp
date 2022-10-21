@@ -285,7 +285,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
     return ret_val;
 }
 
-// 
+// Function to add register Connection to conversion
 void DmConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection) {
     connection_ptr = std::move(connection);
 }

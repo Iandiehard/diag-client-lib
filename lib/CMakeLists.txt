@@ -1,4 +1,4 @@
-#  MANDAREIN Diagnostic Client library CMake File
+#  Diagnostic Client library CMake File
 #  Copyright (C) 2022  Avijit Dey
 # 
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,6 +12,8 @@ project(ara-lib)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libCommon)
 # adding uds transport layer 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUdsTransportLayerApi)
+# adding utility layer
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUtility)
 # adding OsAbstraction library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libOsAbstraction)
 # adding Doip Client library

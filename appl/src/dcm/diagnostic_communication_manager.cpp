@@ -12,6 +12,7 @@
 namespace diag {
 namespace client {
 namespace dcm{
+
 /*
  @ Class Name        : DCM
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
@@ -22,7 +23,7 @@ DCMClient::DCMClient(diag::client::common::property_tree &ptree)
         : DiagnosticManager(ptree)
         , uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>())
         , conversation_mgr(std::make_unique<conversation_manager::ConversationManager>(
-                getConversationConfig(ptree), *uds_transport_protocol_mgr)) {
+                GetConversationConfig(ptree), *uds_transport_protocol_mgr)) {
     DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
 }
 
@@ -87,7 +88,7 @@ diag::client::conversation::DiagClientConversation&
 
 // Function to get read from json tree and return the config structure
 diag::client::config_parser::ConversationConfig
-        DCMClient::getConversationConfig(diag::client::common::property_tree & ptree) {
+        DCMClient::GetConversationConfig(diag::client::common::property_tree & ptree) {
     diag::client::config_parser::ConversationConfig config;
     // get total number of conversion
     config.num_of_conversation =  ptree.get<uint8_t>("Conversation.NumberOfConversation");

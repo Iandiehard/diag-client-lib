@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -15,8 +15,8 @@ namespace libTimer {
 namespace oneShot {
 
 //ctor
-oneShotSyncTimer::oneShotSyncTimer() 
-            :timer_ptr_e(std::make_unique<BoostTimer>(io_e)) {
+oneShotSyncTimer::oneShotSyncTimer()
+        :timer_ptr_e(std::make_unique<BoostTimer>(io_e)) {
     DLT_REGISTER_CONTEXT(oneshotsync_timer_ctx,"osyt","Oneshot timer Context");
 }
 
@@ -56,8 +56,7 @@ oneShotSyncTimer::timer_state
     auto end = std::chrono::system_clock::now();
 
     std::chrono::duration<double> elapsed_seconds = end-start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
- 
+
     DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
         DLT_CSTRING("Elapsed time: "), 
         DLT_FLOAT64(elapsed_seconds.count()),

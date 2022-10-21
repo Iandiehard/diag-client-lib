@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,9 +7,9 @@
  */
 
 //includes
-#include "doIP_TransportProtocolHandler.h"
-#include "common/common_doIP_Types.h"
-#include "connection/connection_Manager.h"
+#include "doip_transport_protocol_handler.h"
+#include "common/common_doip_types.h"
+#include "connection/connection_manager.h"
 
 namespace ara{
 namespace diag{

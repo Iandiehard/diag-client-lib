@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-project(DoIP)
+project(doip-client)
 
 #set default language
 set(CMAKE_CXX_STANDARD 14)
@@ -48,9 +48,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # link library
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
-  ara-lib::CommonLibrary
-  ara-lib::UdsTransportLayerApi
-  ara-lib::BoostSupportLib
+  ara-lib::common
+  ara-lib::utility
+  ara-lib::uds-transport-layer-api
+  ara-lib::boost-support-lib
   Genivi::dlt
 )
 

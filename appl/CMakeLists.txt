@@ -58,10 +58,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 
 # link all static libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ara-lib::CommonLibrary
-    ara-lib::DoIP
-    ara-lib::BoostSupportLib
-    ara-lib::UdsTransportLayerApi
+    ara-lib::common
+    ara-lib::doip-client
+    ara-lib::boost-support-lib
+    ara-lib::uds-transport-layer-api
     Threads::Threads
     Genivi::dlt
 )

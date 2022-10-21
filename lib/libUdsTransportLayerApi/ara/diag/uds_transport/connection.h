@@ -46,7 +46,7 @@ public:
     // Stop the connection
     virtual void Stop () = 0;
     
-    // Indicate reception of Vehicel Announcement over UDP to User
+    // Indicate reception of Vehicle Announcement over UDP to User
     virtual ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult IndicateMessage(
                                     std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) = 0;
 

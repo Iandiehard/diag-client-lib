@@ -1,4 +1,4 @@
-#  MANDAREIN Diagnostic Client library CMake File
+#  Diagnostic Client library CMake File
 #  Copyright (C) 2022  Avijit Dey
 # 
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -43,7 +43,7 @@ install(FILES
 
 # install example directory
 if(INSTALL_EXAMPLES)
-install(DIRECTORY
+    install(DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}/examples
         DESTINATION examples
 )

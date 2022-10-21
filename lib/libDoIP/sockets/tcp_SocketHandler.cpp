@@ -8,7 +8,7 @@
 
 // includes
 #include "sockets/tcp_SocketHandler.h"
-#include "channel/tcp_Channel.h"
+#include "channel/tcp_channel.h"
 
 namespace ara{
 namespace diag{
@@ -27,7 +27,8 @@ tcp_SocketHandler::tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::do
                  channel_e(channel) {
     using namespace std::placeholders;
     //create socket
-    tcpSocket = std::make_unique<TcpSocket>(localIpaddress_e, localportNum_e, std::bind(&tcp_SocketHandler::HandleMessage, this, _1));
+    tcpSocket = std::make_unique<TcpSocket>(localIpaddress_e, localportNum_e,
+                                            std::bind(&tcp_SocketHandler::HandleMessage, this, _1));
 }
 
 //dtor
@@ -68,7 +69,7 @@ bool tcp_SocketHandler::DisconnectFromHost() {
 }
 
 
-//Function to trigger tranmission
+//Function to trigger transmission
 bool tcp_SocketHandler::Transmit(TcpMessageConstPtr tcpMessage) {
     return (tcpSocket->Transmit(std::move(tcpMessage)));
 }
