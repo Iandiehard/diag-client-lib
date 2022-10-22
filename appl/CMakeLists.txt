@@ -45,14 +45,10 @@ set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Src headers
 set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-# Library header include
-set(lib_header_path ${CMAKE_CURRENT_SOURCE_DIR}/lib)
-
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE 
     ${include_header_path}
-    ${src_header_path} 
-    ${lib_header_path} 
+    ${src_header_path}
     "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
 )
 

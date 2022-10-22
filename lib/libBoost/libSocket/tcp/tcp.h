@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -27,8 +27,7 @@ using TcpErrorCodeType  = boost::system::error_code;
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver
 */
-class createTcpSocket
-{
+class createTcpSocket {
 public:
     //ctor
     createTcpSocket(Boost_String& localIpaddress, uint16_t localportNum, TcpHandlerRead tcpHandlerRead);

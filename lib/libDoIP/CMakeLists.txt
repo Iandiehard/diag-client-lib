@@ -37,14 +37,11 @@ add_library(${PROJECT_NAME}
 
 add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-set(DoIP_Header
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-target_include_directories(${PROJECT_NAME} PUBLIC 
-    "$<BUILD_INTERFACE:${DoIP_Header}>"
+target_include_directories(${PROJECT_NAME} PUBLIC
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
     "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
+
 # link library
 target_link_libraries(${PROJECT_NAME}
   PRIVATE

@@ -10,12 +10,14 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_STATE_IMPL_H
 
 #include <cstdint>
-#include "../../libUtility/state/state.h"
+#include "state/state.h"
 
 namespace ara{
 namespace diag{
 namespace doip {
 namespace tcpChannelStateImpl {
+
+using namespace libOsAbstraction::libUtility::state;
 
 /*
  * Transition table:-
@@ -24,7 +26,7 @@ namespace tcpChannelStateImpl {
  */
 class kSendRoutingActivationReq : public State {
 public:
-    void Init() override;
+    void Start() override;
 
     void Update() override;
 };
@@ -36,28 +38,28 @@ public:
  */
 class kWaitForRoutingActivationRes : public State {
 public:
-    void Init() override;
+    void Start() override;
 
     void Update() override;
 };
 
 class kProcessRoutingActivationRes : public State {
 public:
-    void Init() override;
+    void Start() override;
 
     void Update() override;
 };
 
 class kRoutingActivationResTimeout : public State {
 public:
-    void Init() override;
+    void Start() override;
 
     void Update() override;
 };
 
 class kRoutingActivationFailed : public State {
 public:
-    void Init() override;
+    void Start() override;
 
     void Update() override;
 };
@@ -66,7 +68,7 @@ class TcpChannelRoutingActivationStateImpl {
 public:
     // routing activation state
     enum class routingActivateState : std::uint8_t {
-        kIdle   = 0,
+        kIdle   = 0U,
         kSendRoutingActivationReq,
         kWaitForRoutingActivationRes,
         kProcessRoutingActivationRes,
@@ -79,7 +81,7 @@ public:
 
     auto GetActiveStateRef() noexcept -> State&;
 private:
-
+    std::unique_ptr<StateContext> context_;
 
 };
 

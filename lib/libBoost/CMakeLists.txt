@@ -37,18 +37,12 @@ add_library(${PROJECT_NAME}
 
 add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-#include header
-set(boost_header_path 
-    ${CMAKE_CURRENT_SOURCE_DIR}
-)
-set(BoostSupportLib_Header
-    ${boost_header_path}
-)
 #Link include directory
 target_include_directories(${PROJECT_NAME} PUBLIC 
-  "$<BUILD_INTERFACE:${BoostSupportLib_Header}>"
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
   "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
 )
+
 #link target directory
 target_link_libraries(${PROJECT_NAME}
   PRIVATE

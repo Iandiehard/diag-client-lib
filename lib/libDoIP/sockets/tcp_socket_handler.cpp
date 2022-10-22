@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -7,7 +7,7 @@
  */
 
 // includes
-#include "sockets/tcp_SocketHandler.h"
+#include "sockets/tcp_socket_handler.h"
 #include "channel/tcp_channel.h"
 
 namespace ara{

@@ -10,11 +10,11 @@ project(ara-lib)
 
 # adding common library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libCommon)
+# adding utility library
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUtility)
 # adding uds transport layer 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUdsTransportLayerApi)
-# adding utility layer
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUtility)
-# adding OsAbstraction library
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libOsAbstraction)
+# adding Boost support library
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libBoost)
 # adding Doip Client library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libDoIP)
