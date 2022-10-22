@@ -18,6 +18,11 @@ auto TcpChannelRoutingActivationStateImpl::GetActiveState()
 
 }
 
+auto TcpChannelRoutingActivationStateImpl::GetActiveStateRef()
+    noexcept -> State & {
+
+}
+
 } // tcpChannelStateImpl
 } // doip
 } // diag

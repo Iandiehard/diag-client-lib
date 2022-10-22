@@ -7,7 +7,7 @@
  */
 
 #include "channel/tcp_channel.h"
-#include "sockets/tcp_SocketHandler.h"
+#include "sockets/tcp_socket_handler.h"
 #include "handler/tcp_TransportHandler.h"
 
 namespace ara{

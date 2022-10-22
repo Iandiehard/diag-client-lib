@@ -12,7 +12,7 @@
 //includes
 #include "common_Header.h"
 #include "common/common_doip_types.h"
-#include "sockets/tcp_SocketHandler.h"
+#include "sockets/tcp_socket_handler.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace ara{
