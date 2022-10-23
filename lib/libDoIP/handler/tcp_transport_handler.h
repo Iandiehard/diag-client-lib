@@ -29,9 +29,7 @@ namespace tcpTransport{
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-
-class tcp_TransportHandler
-{
+class tcp_TransportHandler {
 public:
     // ctor
     tcp_TransportHandler(kDoip_String& localIpaddress, 
@@ -77,11 +75,13 @@ public:
     // layer to session layer                
     void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
 private:
-    // reference to doip Connection 
-    connection::DoipConnection& doipConnection_e;
+    // reference to doip connection
+    connection::DoipConnection& doipConnection_;
+
+    // routing activation handler
     
     // Tcp channel responsible for transmitting and reception of TCP messages
-    std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel;
+    std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel_;
     
     // Max number of doip channel
     uint8_t max_tcpChannel;    

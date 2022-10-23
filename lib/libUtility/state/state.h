@@ -17,7 +17,6 @@
 #include <iostream>
 #include <typeinfo>
 
-namespace libOsAbstraction {
 namespace libUtility {
 namespace state {
 
@@ -33,25 +32,26 @@ class StateContext;
 class State {
 public:
     // ctor
-    explicit State(std::string name, StateContext *context);
+    explicit State(StateContext *context);
 
     // dtor
     virtual ~State() = default;
 
-    // get the name of state
-    std::string Name();
-
-    // Initialize the state
+    // start the state
     virtual void Start() = 0;
 
     // Update the state
-    virtual void Update() = 0;
+    virtual void Stop() = 0;
 
+    // Handle invoked asynchronously
+    virtual void HandleMessage() = 0;
+
+    // Get the context
+    auto GetContext() noexcept -> StateContext& {
+        return *context_;
+    }
 protected:
     StateContext *context_;
-
-private:
-    std::string name_;
 };
 
 /**
@@ -67,17 +67,24 @@ public:
     // dtor
     ~StateContext() = default;
 
+    // Add the needed state
+    void AddState(std::uint8_t state_indx, std::unique_ptr<State> state);
+
+    // Get the current state
+    auto GetActiveState() noexcept -> State&;
+
     // Function to transition state to provided state
     void TransitionTo(std::uint8_t state_index);
-
-    // Initialize all state
-    void Init(std::uint8_t state_indx, std::unique_ptr<State> state);
-
+private:
+    // Start the current state
     void Start();
 
-    // Update the current state
-    void Update();
-private:
+    // Stop the current state
+    void Stop();
+
+    // Update to new state
+    void Update(std::uint8_t state_index);
+
     // pointer to store the active state
     State* current_state_;
 
@@ -136,6 +143,5 @@ int main() {
 
 } // state
 } // libUtility
-} // libOsAbstraction
 
 #endif // DIAGNOSTIC_CLIENT_LIB_LIB_LIBOSABSTRACTION_LIBUTILITY_STATE_STATE_H

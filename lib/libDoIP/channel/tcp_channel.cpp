@@ -8,7 +8,7 @@
 
 #include "channel/tcp_channel.h"
 #include "sockets/tcp_socket_handler.h"
-#include "handler/tcp_TransportHandler.h"
+#include "handler/tcp_transport_handler.h"
 
 namespace ara{
 namespace diag{
@@ -25,7 +25,7 @@ namespace tcpChannel{
 // @return value : void
 tcpChannel::tcpChannel(kDoip_String& localIpaddress,
                         ara::diag::doip::tcpTransport::tcp_TransportHandler& tcpTransport_Handler)
-           :tcpTransport_Handler_e(tcpTransport_Handler),
+           :tcp_transport_handler_(tcpTransport_Handler),
             tcpSocket_Handler_e(std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)),
             channel_id_e(0) {
     DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
@@ -191,7 +191,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     doipRoutingActReq->txBuffer.push_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
     doipRoutingActReq->txBuffer.push_back((uint8_t)(message->GetSa() & 0x00FF));
     
-    // Add Activation type
+    // Add activation type
     doipRoutingActReq->txBuffer.push_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
     
     // Add reservation byte , default zeroes
@@ -684,7 +684,7 @@ void tcpChannel::ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payl
         std::copy(payload.begin() + 4, payload.end(), payloadinfo.begin());
         // Indicate upper layer about incoming data
         std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr> 
-                retval = tcpTransport_Handler_e.IndicateMessage(ara::diag::uds_transport::UdsMessage::Address(server_address),
+                retval = tcp_transport_handler_.IndicateMessage(ara::diag::uds_transport::UdsMessage::Address(server_address),
                                                                ara::diag::uds_transport::UdsMessage::Address(client_address),
                                                                ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
                                                                channel_id_e, 
@@ -699,7 +699,7 @@ void tcpChannel::ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payl
             diag_state_e.state = diagnosticState::kDiagnosticFinalResRecvd;
             // copy to application buffer
             std::copy(payloadinfo.begin(), payloadinfo.end(), retval.second->GetPayload().begin());
-            tcpTransport_Handler_e.HandleMessage(std::move(retval.second));
+            tcp_transport_handler_.HandleMessage(std::move(retval.second));
             DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("Diagnostic Message response reception completed"));
             // make channel idle, since reception complete

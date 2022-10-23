@@ -37,7 +37,7 @@ class UdsMessage {
     };
     
     // ctor
-    inline UdsMessage() {}
+    UdsMessage() = default;
     
     UdsMessage (const UdsMessage &other)=default;
     UdsMessage (UdsMessage &&other) noexcept=default;

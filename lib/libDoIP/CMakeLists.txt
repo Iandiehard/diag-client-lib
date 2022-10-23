@@ -48,7 +48,7 @@ target_link_libraries(${PROJECT_NAME}
   ara-lib::common
   ara-lib::utility
   ara-lib::uds-transport-layer-api
-  ara-lib::boost-support-lib
+  ara-lib::boost-support
   Genivi::dlt
 )
 

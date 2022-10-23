@@ -84,7 +84,7 @@ public:
         uint8_t ack_code;
     };
 
-    // diagnostic message strucuture
+    // diagnostic message structure
     struct diagnosticStateType {
         diagnosticState state{diagnosticState::kIdle};
         uint8_t ack_code;
@@ -170,7 +170,7 @@ private:
     uint16_t GetDoIPPayloadType(std::vector<uint8_t> payload);
 private:
     // tcp transport handler ref
-    ara::diag::doip::tcpTransport::tcp_TransportHandler& tcpTransport_Handler_e;
+    ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler_;
 
     // tcp socket handler
     std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcpSocket_Handler_e;

@@ -23,12 +23,12 @@ namespace tcpSocket{
 
 //ctor
 tcp_SocketHandler::tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel)
-                :localIpaddress_e(localIpaddress),
-                 channel_e(channel) {
+                :local_ip_address_(localIpaddress),
+                 channel_(channel) {
     using namespace std::placeholders;
     //create socket
-    tcpSocket = std::make_unique<TcpSocket>(localIpaddress_e, localportNum_e,
-                                            std::bind(&tcp_SocketHandler::HandleMessage, this, _1));
+    tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
+                                    std::bind(&tcp_SocketHandler::HandleMessage, this, _1));
 }
 
 //dtor
@@ -49,35 +49,35 @@ void tcp_SocketHandler::Stop() {
 
 }
 
-//
+// Connect to host
 bool tcp_SocketHandler::ConnectToHost(kDoip_String hostIpaddress, 
                                       uint16_t hostportNum) {
     bool ret_val = false;
-    if(tcpSocket->Open()) {
-        ret_val = tcpSocket->ConnectToHost(hostIpaddress, hostportNum);
+    if(tcpSocket_->Open()) {
+        ret_val = tcpSocket_->ConnectToHost(hostIpaddress, hostportNum);
     }
     return ret_val;
 }
 
-//
+// Disconnect from host
 bool tcp_SocketHandler::DisconnectFromHost() {
     bool ret_val = false;
-    if(tcpSocket->DisconnectFromHost()) {
-        ret_val = tcpSocket->Destroy();
+    if(tcpSocket_->DisconnectFromHost()) {
+        ret_val = tcpSocket_->Destroy();
     }
     return ret_val;
 }
 
 
-//Function to trigger transmission
+// Function to trigger transmission
 bool tcp_SocketHandler::Transmit(TcpMessageConstPtr tcpMessage) {
-    return (tcpSocket->Transmit(std::move(tcpMessage)));
+    return (tcpSocket_->Transmit(std::move(tcpMessage)));
 }
 
-// function called when tcp message received on socket
+// Function called when tcp message received on socket
 void tcp_SocketHandler::HandleMessage(TcpMessagePtr tcpMessage) {
     // send data to tcp channel
-    channel_e.HandleMessage(std::move(tcpMessage));
+    channel_.HandleMessage(std::move(tcpMessage));
 }
 
 } // tcpSocket

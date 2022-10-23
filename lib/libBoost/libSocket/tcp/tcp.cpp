@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -54,7 +54,7 @@ bool createTcpSocket::Open() {
             // Socket binding success
             TcpSocket::endpoint endpoint_ = tcpSocket_e->local_endpoint();
             DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
-                DLT_CSTRING("Tcp Socket Opened and binded to"),
+                DLT_CSTRING("Tcp Socket Opened and bound to"),
                 DLT_CSTRING("<"),
                 DLT_CSTRING(endpoint_.address().to_string().c_str()),
                 DLT_CSTRING(","),
@@ -177,11 +177,11 @@ void createTcpSocket::HandleMessage() {
     // Check for error 
     if(ec.value() == boost::system::errc::success) {
         // read the next bytes to read
-        uint32_t readnextbytes = GetNextBytesToReadFrmDoIPHeader(tcpRxMessage->rxBuffer);
+        uint32_t read_next_bytes = GetNextBytesToReadFrmDoIPHeader(tcpRxMessage->rxBuffer);
         // reserve the buffer
-        tcpRxMessage->rxBuffer.resize(kDoipheadrSize + std::size_t(readnextbytes));
+        tcpRxMessage->rxBuffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
         boost::asio::read(*tcpSocket_e.get(),
-                            boost::asio::buffer(&tcpRxMessage->rxBuffer[kDoipheadrSize], readnextbytes), ec);
+                            boost::asio::buffer(&tcpRxMessage->rxBuffer[kDoipheadrSize], read_next_bytes), ec);
         // all message received, transfer to upper layer
         TcpSocket::endpoint endpoint_ = tcpSocket_e->remote_endpoint();
         DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 

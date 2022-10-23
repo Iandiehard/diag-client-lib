@@ -16,7 +16,7 @@ namespace ara{
 namespace diag{
 namespace doip{
 
-// forward decleration
+// forward declaration
 namespace tcpChannel{
     class tcpChannel;
 }
@@ -34,37 +34,46 @@ using TcpMessageConstPtr  = libOsAbstraction::libBoost::libSocket::tcp::TcpMessa
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-class tcp_SocketHandler
-{
-    public: 
-        //ctor
-        tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel);
-        //dtor
-        virtual ~tcp_SocketHandler();
-        //Start listening from socket
-        void StartListeningFromSocket();  //not used
-        //start
-        void Start();
-        //stop
-        void Stop();
-        //Connect to host
-        bool ConnectToHost(kDoip_String hostIpaddress, uint16_t hostportNum);
-        //Disconnect from host
-        bool DisconnectFromHost();
-        //transmit function
-        bool Transmit(TcpMessageConstPtr tcpMessage);
-    private:
-        // local Ip address
-        kDoip_String localIpaddress_e;
-        // local port number
-        uint16_t localportNum_e;
-        // tcp socket
-        std::unique_ptr<TcpSocket> tcpSocket;
-        // store tcp channel reference 
-        ara::diag::doip::tcpChannel::tcpChannel& channel_e;
-    private:
-        // function to handle read
-        void HandleMessage(TcpMessagePtr tcpMessage);
+class tcp_SocketHandler {
+public:
+    // ctor
+    tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel);
+
+    // dtor
+    virtual ~tcp_SocketHandler();
+
+    // Start listening from socket
+    void StartListeningFromSocket();  //not used
+
+    // Start
+    void Start();
+
+    // Stop
+    void Stop();
+
+    // Connect to host
+    bool ConnectToHost(kDoip_String hostIpaddress, uint16_t hostportNum);
+
+    // Disconnect from host
+    bool DisconnectFromHost();
+
+    // Transmit function
+    bool Transmit(TcpMessageConstPtr tcpMessage);
+private:
+    // local Ip address
+    kDoip_String local_ip_address_;
+
+    // local port number
+    uint16_t local_port_num_;
+
+    // tcp socket
+    std::unique_ptr<TcpSocket> tcpSocket_;
+
+    // store tcp channel reference
+    ara::diag::doip::tcpChannel::tcpChannel& channel_;
+private:
+    // function to handle read
+    void HandleMessage(TcpMessagePtr tcpMessage);
 };
 
 } // tcpSocket

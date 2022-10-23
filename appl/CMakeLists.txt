@@ -56,7 +56,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
     ara-lib::common
     ara-lib::doip-client
-    ara-lib::boost-support-lib
+    ara-lib::boost-support
     ara-lib::uds-transport-layer-api
     Threads::Threads
     Genivi::dlt

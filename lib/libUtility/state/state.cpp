@@ -7,17 +7,12 @@
  */
 #include "state.h"
 
-namespace libOsAbstraction {
 namespace libUtility {
 namespace state {
 
-State::State(std::string name, StateContext *context):
-        context_{context},
-        name_{std::move(name)} {
-}
-
-std::string State::Name() {
-    return name_;
+// State ctor
+State::State(StateContext *context):
+        context_{context} {
 }
 
 // State context ctor
@@ -28,7 +23,37 @@ StateContext::StateContext() :
 
 // Function to transition state to supplied state
 void StateContext::TransitionTo(std::uint8_t state_index) {
-    // std::cout << "Context: Transition to " << typeid(*state).name() << ".\n";
+    // stop the current state
+    Stop();
+
+    // Update to new state
+    Update(state_index);
+
+    // Start new state
+    Start();
+}
+
+// Initialize all state
+void StateContext::AddState(std::uint8_t state_indx, std::unique_ptr<State> state) {
+    state_map_.insert(
+            std::pair<std::uint8_t, std::unique_ptr<State>>(
+                    state_indx,
+                    std::move(state)
+            ));
+}
+
+// Start the current state
+void StateContext::Start() {
+    this->current_state_->Start();
+}
+
+// Stop the current state
+void StateContext::Stop() {
+    this->current_state_->Stop();
+}
+
+// Update to new state
+void StateContext::Update(std::uint8_t state_index) {
     auto it = state_map_.find(state_index);
     if(it != state_map_.end()) {
         this->current_state_ = it->second.get();
@@ -38,26 +63,12 @@ void StateContext::TransitionTo(std::uint8_t state_index) {
     }
 }
 
-// Initialize all state
-void StateContext::Init(std::uint8_t state_indx, std::unique_ptr<State> state) {
-    state_map_.insert(
-            std::pair<std::uint8_t, std::unique_ptr<State>>(
-                    state_indx,
-                    std::move(state)
-            ));
-    // transit to 1st state -> Idle state
-    TransitionTo(0);
+//
+auto StateContext::GetActiveState() noexcept -> State& {
+    return *current_state_;
 }
 
-// Start the current state
-void StateContext::Start() {
-    this->current_state_->Start();
-}
-// Update the current state
-void StateContext::Update() {
-    this->current_state_->Update();
-}
+
 
 } // state
 } // libUtility
-} // libOsAbstraction

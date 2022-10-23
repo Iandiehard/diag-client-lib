@@ -10,7 +10,7 @@
 #define TCP_H
 
 // includes
-#include "tcp_Types.h"
+#include "tcp_types.h"
 
 
 namespace libOsAbstraction {

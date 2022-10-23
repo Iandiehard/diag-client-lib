@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "handler/tcp_TransportHandler.h"
+#include "handler/tcp_transport_handler.h"
 #include "connection/connection_manager.h"
 
 namespace ara{
@@ -18,8 +18,8 @@ namespace tcpTransport{
 // ctor
 tcp_TransportHandler::tcp_TransportHandler(kDoip_String &localIpaddress, uint16_t portNum, uint8_t total_tcpChannelReq,
                       connection::DoipConnection& doipConnection)
-                    : doipConnection_e(doipConnection),
-                      tcp_channel(std::make_unique<ara::diag::doip::tcpChannel::tcpChannel>(localIpaddress, *this)) {
+                    : doipConnection_(doipConnection),
+                      tcp_channel_(std::make_unique<ara::diag::doip::tcpChannel::tcpChannel>(localIpaddress, *this)) {
 }
 
 // dtor
@@ -28,29 +28,29 @@ tcp_TransportHandler::~tcp_TransportHandler() {
 
 // Initialize
 ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult tcp_TransportHandler::Initialize() {
-    return (tcp_channel->Initialize());
+    return (tcp_channel_->Initialize());
 }
 
 // start handler
 void tcp_TransportHandler::Start() {
-    tcp_channel->Start();
+    tcp_channel_->Start();
 }
 
 // stop handler
 void tcp_TransportHandler::Stop() {
-    tcp_channel->Stop();
+    tcp_channel_->Stop();
 }
 
 // Connect to remote Host
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
         tcp_TransportHandler::ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message) {
-    return(tcp_channel->ConnectToHost(std::move(message)));
+    return(tcp_channel_->ConnectToHost(std::move(message)));
 }
 
 // Disconnect from remote host
 ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
         tcp_TransportHandler::DisconnectFromHost() {
-    return(tcp_channel->DisconnectFromHost());
+    return(tcp_channel_->DisconnectFromHost());
 }
 
 // Transmit 
@@ -60,7 +60,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     // find the corresponding channel
 
     // Trigger transmit
-    return(tcp_channel->Transmit(std::move(message)));
+    return(tcp_channel_->Transmit(std::move(message)));
 }
 
 // Indicate message Diagnostic message reception over TCP to user
@@ -72,7 +72,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, a
                                                         std::size_t size, ara::diag::uds_transport::Priority priority,
                                                         ara::diag::uds_transport::ProtocolKind protocol_kind,
                                                         std::vector<uint8_t> payloadInfo) {
-    return (doipConnection_e.IndicateMessage(source_addr, 
+    return (doipConnection_.IndicateMessage(source_addr,
                                             target_addr, 
                                             type, 
                                             channel_id, 
@@ -85,7 +85,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, a
 // Hands over a valid received Uds message (currently this is only a request type) from transport
 // layer to session layer                
 void tcp_TransportHandler::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
-    doipConnection_e.HandleMessage(std::move(message));
+    doipConnection_.HandleMessage(std::move(message));
 }
 
 } // tcpTransport
