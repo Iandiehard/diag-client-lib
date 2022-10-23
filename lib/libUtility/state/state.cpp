@@ -7,17 +7,12 @@
  */
 #include "state.h"
 
-namespace libOsAbstraction {
 namespace libUtility {
 namespace state {
 
-State::State(std::string name, StateContext *context):
-        context_{context},
-        name_{std::move(name)} {
-}
-
-std::string State::Name() {
-    return name_;
+// State ctor
+State::State(StateContext *context):
+        context_{context} {
 }
 
 // State context ctor
@@ -39,14 +34,12 @@ void StateContext::TransitionTo(std::uint8_t state_index) {
 }
 
 // Initialize all state
-void StateContext::Init(std::uint8_t state_indx, std::unique_ptr<State> state) {
+void StateContext::AddState(std::uint8_t state_indx, std::unique_ptr<State> state) {
     state_map_.insert(
             std::pair<std::uint8_t, std::unique_ptr<State>>(
                     state_indx,
                     std::move(state)
             ));
-    // transit to 1st state -> Idle state
-    TransitionTo(0);
 }
 
 // Start the current state
@@ -60,4 +53,3 @@ void StateContext::Update() {
 
 } // state
 } // libUtility
-} // libOsAbstraction

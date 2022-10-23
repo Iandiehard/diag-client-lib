@@ -191,7 +191,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     doipRoutingActReq->txBuffer.push_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
     doipRoutingActReq->txBuffer.push_back((uint8_t)(message->GetSa() & 0x00FF));
     
-    // Add Activation type
+    // Add activation type
     doipRoutingActReq->txBuffer.push_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
     
     // Add reservation byte , default zeroes
