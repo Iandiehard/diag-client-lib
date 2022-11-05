@@ -32,7 +32,7 @@ class StateContext;
 class State {
 public:
     // ctor
-    explicit State(StateContext *context);
+    explicit State(StateContext *context, uint8_t state_indx);
 
     // dtor
     virtual ~State() = default;
@@ -50,8 +50,17 @@ public:
     auto GetContext() noexcept -> StateContext& {
         return *context_;
     }
+
+    // Get the State index
+    auto GetStateIndx() noexcept -> uint8_t {
+        return state_indx_;
+    }
 protected:
+    // State context pointer
     StateContext *context_;
+
+    // state index number
+    uint8_t state_indx_;
 };
 
 /**
@@ -59,6 +68,7 @@ protected:
 * reference to an instance of a State subclass, which represents the current
 * state of the Context.
 */
+
 class StateContext {
 public:
     // ctor
@@ -75,6 +85,9 @@ public:
 
     // Function to transition state to provided state
     void TransitionTo(std::uint8_t state_index);
+
+    // Get Context
+    auto GetContext() noexcept-> StateContext* { return this; }
 private:
     // Start the current state
     void Start();

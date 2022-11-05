@@ -13,6 +13,8 @@
 #include <vector>
 #include "state/state.h"
 #include "common/common_doip_types.h"
+#include "channel/tcp_channel.h"
+#include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace ara{
 namespace diag{
@@ -21,11 +23,12 @@ namespace tcpChannelStateImpl {
 
 using namespace libUtility::state;
 using namespace ara::diag::uds_transport;
+using namespace  libOsAbstraction::libBoost::libTimer::oneShot;
 
 class kIdle final: public State {
 public:
     // ctor
-    kIdle(StateContext *context);
+    kIdle(StateContext *context, uint8_t state_indx);
 
     // dtor
     ~kIdle() = default;
@@ -40,28 +43,6 @@ public:
     void HandleMessage() override;
 };
 
-/*
- * Transition table:-
- *  kSendRoutingActivationReq -> kWaitForRoutingActivationRes
- *  kSendRoutingActivationReq -> kRoutingActivationFailed
- */
-class kSendRoutingActivationReq final: public State {
-public:
-    // ctor
-    kSendRoutingActivationReq(StateContext *context);
-
-    // dtor
-    ~kSendRoutingActivationReq() = default;
-
-    // start the state
-    void Start() override;
-
-    // Stop the state
-    void Stop() override;
-
-    // Handle invoked asynchronously
-    void HandleMessage() override;
-};
 
 /*
  * Transition table:-
@@ -71,7 +52,7 @@ public:
 class kWaitForRoutingActivationRes final: public State {
 public:
     // ctor
-    kWaitForRoutingActivationRes(StateContext *context);
+    kWaitForRoutingActivationRes(StateContext *context, uint8_t state_indx);
 
     // dtor
     ~kWaitForRoutingActivationRes() = default;
@@ -84,12 +65,14 @@ public:
 
     // Handle invoked asynchronously
     void HandleMessage() override;
+private:
+    oneShotSyncTimer timer_sync_;
 };
 
 class kProcessRoutingActivationRes : public State {
 public:
     // ctor
-    kProcessRoutingActivationRes(StateContext *context);
+    kProcessRoutingActivationRes(StateContext *context, uint8_t state_indx);
 
     // dtor
     ~kProcessRoutingActivationRes() = default;
@@ -107,7 +90,7 @@ public:
 class kRoutingActivationResTimeout : public State {
 public:
     // ctor
-    kRoutingActivationResTimeout(StateContext *context);
+    kRoutingActivationResTimeout(StateContext *context, uint8_t state_indx);
 
     // dtor
     ~kRoutingActivationResTimeout() = default;
@@ -125,7 +108,7 @@ public:
 class kRoutingActivationFailed : public State {
 public:
     // ctor
-    kRoutingActivationFailed(StateContext *context);
+    kRoutingActivationFailed(StateContext *context, uint8_t state_indx);
 
     // dtor
     ~kRoutingActivationFailed() = default;
@@ -140,12 +123,11 @@ public:
     void HandleMessage() override;
 };
 
-class TcpChannelStateImpl {
+class TcpChannelStateImpl : public StateContext {
 public:
     // routing activation state
     enum class routingActivateState : std::uint8_t {
         kIdle   = 0U,
-        kSendRoutingActivationReq,
         kWaitForRoutingActivationRes,
         kProcessRoutingActivationRes,
         kRoutingActivationResTimeout,
@@ -154,17 +136,18 @@ public:
     };
 
     // ctor
-    TcpChannelStateImpl();
+    TcpChannelStateImpl(tcpChannel::tcpChannel& tcp_channel);
 
     // dtor
     ~TcpChannelStateImpl() = default;
 
+    // Get Tcp Channel reference
+    auto GetTcpChannel()
+        noexcept -> tcpChannel::tcpChannel & { return tcp_channel_; }
 private:
-    // Get the context
-    auto GetContex() noexcept -> StateContext&;
+    // reference to tcp channel
+    tcpChannel::tcpChannel & tcp_channel_;
 
-    // store context
-    std::unique_ptr<StateContext> context_;
 };
 
 } // tcpChannelStateImpl

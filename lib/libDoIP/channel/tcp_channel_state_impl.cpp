@@ -14,40 +14,37 @@ namespace doip {
 namespace tcpChannelStateImpl {
 
 // ctor
-TcpChannelStateImpl::TcpChannelStateImpl()
-        : context_(std::make_unique<StateContext>()) {
+TcpChannelStateImpl::TcpChannelStateImpl(tcpChannel::tcpChannel& tcp_channel)
+        : tcp_channel_{tcp_channel}{
     // create and add state
     // kIdle
-    GetContex().AddState(uint8_t(routingActivateState::kIdle),
-                       std::move(std::make_unique<kIdle>(context_.get())));
-
-    // kSendRoutingActivationReq
-    GetContex().AddState(uint8_t(routingActivateState::kSendRoutingActivationReq),
-                std::move(std::make_unique<kSendRoutingActivationReq>(context_.get())));
+    AddState(uint8_t(routingActivateState::kIdle),
+                       std::move(std::make_unique<kIdle>(GetContext(),
+                                                         uint8_t(routingActivateState::kIdle))));
 
     // kWaitForRoutingActivationRes
-    GetContex().AddState(uint8_t(routingActivateState::kWaitForRoutingActivationRes),
-                       std::move(std::make_unique<kWaitForRoutingActivationRes>(context_.get())));
+    AddState(uint8_t(routingActivateState::kWaitForRoutingActivationRes),
+                       std::move(std::make_unique<kWaitForRoutingActivationRes>(GetContext(),
+                                                                                uint8_t(routingActivateState::kWaitForRoutingActivationRes))));
 
     // kProcessRoutingActivationRes
-    GetContex().AddState(uint8_t(routingActivateState::kProcessRoutingActivationRes),
-                       std::move(std::make_unique<kProcessRoutingActivationRes>(context_.get())));
+    AddState(uint8_t(routingActivateState::kProcessRoutingActivationRes),
+                       std::move(std::make_unique<kProcessRoutingActivationRes>(GetContext(),
+                                                                                uint8_t(routingActivateState::kProcessRoutingActivationRes))));
 
     // kRoutingActivationResTimeout
-    GetContex().AddState(uint8_t(routingActivateState::kRoutingActivationResTimeout),
-                       std::move(std::make_unique<kRoutingActivationResTimeout>(context_.get())));
+    AddState(uint8_t(routingActivateState::kRoutingActivationResTimeout),
+                       std::move(std::make_unique<kRoutingActivationResTimeout>(GetContext(),
+                                                                                uint8_t(routingActivateState::kRoutingActivationResTimeout))));
 
     // kRoutingActivationFailed
-    GetContex().AddState(uint8_t(routingActivateState::kRoutingActivationFailed),
-                       std::move(std::make_unique<kRoutingActivationFailed>(context_.get())));
+    AddState(uint8_t(routingActivateState::kRoutingActivationFailed),
+                       std::move(std::make_unique<kRoutingActivationFailed>(GetContext(),
+                                                                            uint8_t(routingActivateState::kRoutingActivationFailed))));
 }
 
-auto TcpChannelStateImpl::GetContex() noexcept -> StateContext & {
-    return (*context_.get());
-}
-
-kIdle::kIdle(StateContext *context)
-    : State(context) {
+kIdle::kIdle(StateContext *context, uint8_t state_indx)
+    : State(context, state_indx) {
 }
 
 void kIdle::Start() {
@@ -62,34 +59,27 @@ void kIdle::HandleMessage() {
     // do nothing
 }
 
-kSendRoutingActivationReq::kSendRoutingActivationReq(StateContext *context)
-    : State(context){
-}
-
-void kSendRoutingActivationReq::Start() {
-}
-
-void kSendRoutingActivationReq::Stop() {
-}
-
-void kSendRoutingActivationReq::HandleMessage() {
-}
-
-kWaitForRoutingActivationRes::kWaitForRoutingActivationRes(StateContext *context)
-    : State(context) {
+kWaitForRoutingActivationRes::kWaitForRoutingActivationRes(StateContext *context, uint8_t state_indx)
+    : State(context, state_indx) {
 }
 
 void kWaitForRoutingActivationRes::Start() {
+    // wait for routing activation response till DoIPRoutingActivationTimeout
+    timer_sync_.Start(kDoIPRoutingActivationTimeout);
 }
 
 void kWaitForRoutingActivationRes::Stop() {
+    // Stop the timer here
+    timer_sync_.Stop();
 }
 
 void kWaitForRoutingActivationRes::HandleMessage() {
+
+
 }
 
-kProcessRoutingActivationRes::kProcessRoutingActivationRes(StateContext *context)
-    : State(context) {
+kProcessRoutingActivationRes::kProcessRoutingActivationRes(StateContext *context, uint8_t state_indx)
+    : State(context, state_indx) {
 }
 
 void kProcessRoutingActivationRes::Start() {
@@ -104,8 +94,8 @@ void kProcessRoutingActivationRes::HandleMessage() {
 
 }
 
-kRoutingActivationResTimeout::kRoutingActivationResTimeout(StateContext *context) :
-    State(context) {
+kRoutingActivationResTimeout::kRoutingActivationResTimeout(StateContext *context, uint8_t state_indx) :
+    State(context, state_indx) {
 }
 
 void kRoutingActivationResTimeout::Start() {
@@ -120,8 +110,8 @@ void kRoutingActivationResTimeout::HandleMessage() {
 
 }
 
-kRoutingActivationFailed::kRoutingActivationFailed(StateContext *context) :
-    State(context) {
+kRoutingActivationFailed::kRoutingActivationFailed(StateContext *context, uint8_t state_indx) :
+    State(context, state_indx) {
 }
 
 void kRoutingActivationFailed::Start() {

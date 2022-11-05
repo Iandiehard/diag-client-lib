@@ -27,7 +27,9 @@ class oneShotSyncTimer {
 public:
     // timer state
     enum class timer_state : std::uint8_t {
-        kNoTimeout = 0,
+        kIdle = 0,
+        kRunning,
+        kNoTimeout,
         kTimeout
     };
 
@@ -38,25 +40,28 @@ public:
     virtual ~oneShotSyncTimer();
     
     // Start timer
-    timer_state Start(int msec);
+    void Start(int msec);
     
     // Stop Timer
     void Stop();
-    
-    // Function to check whether timer is active or not
-    bool IsActive();
 private:
     // io contex 
     boost::asio::io_context io_e;
 
     // timer - next timeout
-    std::unique_ptr<BoostTimer>  timer_ptr_e;
+    std::unique_ptr<BoostTimer>  timer_ptr_;
+
+    // timer - current state
+    timer_state timer_state_;
 
     // error
     boost::system::error_code error_e;
 
     // timeout function
     void Timeout(const boost::system::error_code& error);
+
+    // Function to check whether timer is active or not
+    bool IsActive();
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(oneshotsync_timer_ctx);

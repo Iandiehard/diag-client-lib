@@ -11,8 +11,9 @@ namespace libUtility {
 namespace state {
 
 // State ctor
-State::State(StateContext *context):
-        context_{context} {
+State::State(StateContext *context, uint8_t state_indx):
+        context_{context} ,
+        state_indx_{state_indx} {
 }
 
 // State context ctor

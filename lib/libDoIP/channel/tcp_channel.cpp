@@ -226,7 +226,23 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
             result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
     
-    if(routing_activation_state_e.state == routingActivateState::kIdle) {
+    if(tcp_channel_state.GetActiveState().GetStateIndx() == uint8_t(TcpChannelState::kIdle)) {
+        if(SendRoutingActivationRequest(message) ==
+           ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+            tcp_channel_state.TransitionTo(
+                    uint8_t(TcpChannelState::kWaitForRoutingActivationRes));
+            // here a sync wait will be performed
+        }
+        else {
+            // failed, do nothing
+            tcp_channel_state.TransitionTo(
+                    uint8_t(TcpChannelState::kRoutingActivationFailed));
+        }
+
+
+
+
+
         // start routing activation
         routing_activation_state_e.state = routingActivateState::kSendRoutingActivationReq;
         // start the state machine 
@@ -569,7 +585,9 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
 // @return value : void
 void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload) {
     
-    if(routing_activation_state_e.state == routingActivateState::kWaitForRoutingActivationRes) {
+    if(tcp_channel_state.GetActiveState().GetStateIndx() ==
+        uint8_t(TcpChannelState::kWaitForRoutingActivationRes)) {
+
         // get the logical address of client
         uint16_t client_address = (uint16_t)((payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
                                     (uint16_t)(payload[BYTE_POS_ONE] & 0x00FF);

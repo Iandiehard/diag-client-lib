@@ -26,54 +26,61 @@ oneShotSyncTimer::~oneShotSyncTimer() {
 }
 
 // start the timer
-oneShotSyncTimer::timer_state 
-    oneShotSyncTimer::Start(int msec) {
+void oneShotSyncTimer::Start(int msec) {
 
     timer_state retval = timer_state::kNoTimeout;
-    
-    DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
-        DLT_CSTRING("Oneshot Timer start requested"));
 
-    timer_ptr_e->expires_after(msTime(msec));
-    timer_ptr_e->async_wait(boost::bind(&oneShotSyncTimer::Timeout, this, 
-                            boost::placeholders::_1));
-    auto start = std::chrono::system_clock::now();
-    // blocking io call
-    io_e.restart();
-    io_e.run();
+    if(timer_state_ == timer_state::kIdle) {
+        DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+                DLT_CSTRING("Oneshot Timer start requested"));
 
-    // check the error code
-    if(error_e != boost::asio::error::operation_aborted) {
-        DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
-            DLT_CSTRING("Oneshot Timer Timed out"));
+        timer_ptr_->expires_after(msTime(msec));
+        timer_ptr_->async_wait(boost::bind(&oneShotSyncTimer::Timeout, this,
+                                           boost::placeholders::_1));
+        auto start = std::chrono::system_clock::now();
 
-        retval = timer_state::kTimeout;
+        // change the state
+        timer_state_ = timer_state::kRunning;
+        // blocking io call
+        io_e.restart();
+        io_e.run();
+
+        // check the error code
+        if(error_e != boost::asio::error::operation_aborted) {
+            DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+                    DLT_CSTRING("Oneshot Timer Timed out"));
+        }
+        else {
+            DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+                    DLT_CSTRING("Oneshot Timer stop requested"));
+        }
+
+        timer_state_ = timer_state::kIdle;
+
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+                DLT_CSTRING("Elapsed time: "),
+                DLT_FLOAT64(elapsed_seconds.count()),
+                DLT_CSTRING("seconds"));
     }
     else {
-        DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
-            DLT_CSTRING("Oneshot Timer stop requested"));       
+        // print error
     }
-    auto end = std::chrono::system_clock::now();
-
-    std::chrono::duration<double> elapsed_seconds = end-start;
-
-    DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
-        DLT_CSTRING("Elapsed time: "), 
-        DLT_FLOAT64(elapsed_seconds.count()),
-        DLT_CSTRING("seconds"));
-    return retval;
 }
 
 // stop the timer
 void oneShotSyncTimer::Stop() {
     DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
         DLT_CSTRING("Oneshot Timer stop requested"));
-    timer_ptr_e->cancel();
+    if(IsActive()) {
+        timer_ptr_->cancel();
+    }
 }
 
 // Is the timer active ?
 bool oneShotSyncTimer::IsActive() {
-    return(!io_e.stopped());
+    return(timer_state_ == timer_state::kRunning);
 }
 // function called when time elapses
 void oneShotSyncTimer::Timeout(const boost::system::error_code& error) {

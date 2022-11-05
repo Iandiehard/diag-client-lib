@@ -14,6 +14,7 @@
 #include "common/common_doip_types.h"
 #include "sockets/tcp_socket_handler.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
+#include "channel/tcp_channel_state_impl.h"
 
 namespace ara{
 namespace diag{
@@ -31,6 +32,7 @@ using TcpMessage         = ara::diag::doip::tcpSocket::TcpMessage;
 using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpChanlSyncTimer  = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
+using TcpChannelState    = tcpChannelStateImpl::TcpChannelStateImpl::routingActivateState;
 
 /*
  @ Class Name        : tcpChannel
@@ -192,6 +194,9 @@ private:
 
     // timer
     TcpChanlSyncTimer timer_sync;
+
+    // tcp channel state
+    tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state;
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(doip_tcp_channel);
