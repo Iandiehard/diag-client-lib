@@ -22,7 +22,6 @@ namespace tcpChannel{
 }
 namespace tcpSocket{
 
-    
 // typedefs
 using TcpSocket           = libOsAbstraction::libBoost::libSocket::tcp::createTcpSocket;
 using TcpMessage          = libOsAbstraction::libBoost::libSocket::tcp::TcpMessageType;

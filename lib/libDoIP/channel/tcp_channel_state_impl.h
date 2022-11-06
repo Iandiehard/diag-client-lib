@@ -34,6 +34,19 @@ enum class routingActivationState : std::uint8_t {
     kRoutingActivationFailed
 };
 
+// Diagnostic state
+enum class diagnosticState: std::uint8_t {
+    kIdle = 0,
+    kSendDiagnosticReq,
+    kSendDiagnosticReqFailed,
+    kWaitForDiagnosticAck,
+    kDiagnosticAckTimeout,
+    kDiagnosticPositiveAckRecvd,
+    kDiagnosticNegativeAckRecvd,
+    kWaitForDiagnosticResponse,
+    kDiagnosticFinalResRecvd
+};
+
 class TcpChannelStateImpl {
 public:
     // ctor

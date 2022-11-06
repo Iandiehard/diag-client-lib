@@ -178,31 +178,31 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
         retval{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
-    TcpMessagePtr doipRoutingActReq = std::make_unique<TcpMessage>();
+    TcpMessagePtr doip_routing_act_req = std::make_unique<TcpMessage>();
     
     // reserve bytes in vector
-    doipRoutingActReq->txBuffer.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
+    doip_routing_act_req->txBuffer.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
     
     // create header
-    CreateDoIPGenericHeader(doipRoutingActReq->txBuffer, 
+    CreateDoIPGenericHeader(doip_routing_act_req->txBuffer,
                             kDoip_RoutingActivation_ReqType, 
                             kDoip_RoutingActivation_ReqMinLen);
     
     // Add source address
-    doipRoutingActReq->txBuffer.push_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
-    doipRoutingActReq->txBuffer.push_back((uint8_t)(message->GetSa() & 0x00FF));
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)(message->GetSa() & 0x00FF));
     
     // Add activation type
-    doipRoutingActReq->txBuffer.push_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
     
     // Add reservation byte , default zeroes
-    doipRoutingActReq->txBuffer.push_back((uint8_t)0x00);
-    doipRoutingActReq->txBuffer.push_back((uint8_t)0x00);
-    doipRoutingActReq->txBuffer.push_back((uint8_t)0x00);
-    doipRoutingActReq->txBuffer.push_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
     
     // transmit
-    if(!(tcp_socket_handler_->Transmit(std::move(doipRoutingActReq)))) {
+    if(!(tcp_socket_handler_->Transmit(std::move(doip_routing_act_req)))) {
         DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                 DLT_CSTRING("RoutingActivation Request Sending failed"));
     }
@@ -227,8 +227,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
             result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
     
-    if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-        TcpChannelState::kIdle) {
+    if(tcp_channel_state.
+        GetRoutingActivationStateContext().GetActiveState().GetState() == TcpChannelState::kIdle) {
         if(SendRoutingActivationRequest(message) ==
            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
             tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(
@@ -242,11 +242,16 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
         }
 
         // check the state
-        switch(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState()) {
+        switch(tcp_channel_state
+            .GetRoutingActivationStateContext()
+            .GetActiveState()
+            .GetState()) {
             case TcpChannelState::kWaitForRoutingActivationRes : {
                 // timeout happened
-                result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
-                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
+                result =
+                        ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
+                tcp_channel_state.
+                    GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                         DLT_CSTRING("RoutingActivation request timeout,no response received"));
             }
@@ -254,14 +259,16 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
 
             case TcpChannelState::kRoutingActivationSuccessful : {
                 // success
-                result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
+                result =
+                        ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
                         DLT_CSTRING("RoutingActivation activated successfully"));
             }
             break;
 
             default:
-                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
+                tcp_channel_state
+                    .GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                         DLT_CSTRING("RoutingActivation Failed"));
             break;
@@ -424,9 +431,8 @@ bool tcpChannel::SendDoIPNACKMessage(uint8_t nackType)
     return retval;
 }
 
-
 // Description   : Function to process DoIP Header
-// @param input  : std::array<uint8_t, kDoipheadrSize> &doipHeader, uint8_t &nackCode
+// @param input  : std::vector<uint8_t> &doipHeader, uint8_t &nackCode
 // @return value : boolean
 bool tcpChannel::ProcessDoIPHeader(std::vector<uint8_t> &doipHeader, uint8_t &nackCode) {
     uint16_t PayloadType;
@@ -564,8 +570,11 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
 // @return value : void
 void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload) {
     
-    if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-            TcpChannelState::kWaitForRoutingActivationRes) {
+    if(tcp_channel_state
+        .GetRoutingActivationStateContext()
+        .GetActiveState()
+        .GetState()
+            == TcpChannelState::kWaitForRoutingActivationRes) {
         TcpChannelState tcp_channel_final_state;
         // get the logical address of client
         uint16_t client_address = (uint16_t)((payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
@@ -606,7 +615,9 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
                     DLT_HEX16(server_address));
             break;
         }
-        tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(tcp_channel_final_state);
+        tcp_channel_state
+            .GetRoutingActivationStateContext()
+            .TransitionTo(tcp_channel_final_state);
     }
     else {
         /* ignore */

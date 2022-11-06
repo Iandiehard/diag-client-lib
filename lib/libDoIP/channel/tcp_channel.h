@@ -97,6 +97,12 @@ public:
     // Function to trigger transmission
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
+
+    // Function to get the channel context
+    auto GetChannelState() noexcept ->
+            tcpChannelStateImpl::TcpChannelStateImpl& {
+            return tcp_channel_state;
+    }
 private:
     // Function to trigger Routing activation request
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult

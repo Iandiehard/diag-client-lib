@@ -72,11 +72,9 @@ class UdsMessage {
     virtual PortNumber GetHostPortNumber() const noexcept = 0;
 };
 
-// This is the unique_ptr for constant UdsMessages containing a custom deleter as provided by
-// the generic/core DM part towards the UdsTransportLayer-Plugin
+// This is the unique_ptr for constant UdsMessages
 using UdsMessageConstPtr = std::unique_ptr<const UdsMessage >;
-// This is the unique_ptr for UdsMessages containing a custom deleter as provided by the
-// generic/core DM part towards the UdsTransportLayer-Plugin.
+// This is the unique_ptr for UdsMessages
 using UdsMessagePtr = std::unique_ptr<UdsMessage>;
 
 } // uds_transport
