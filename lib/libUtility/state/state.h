@@ -20,19 +20,12 @@
 namespace libUtility {
 namespace state {
 
-// forward declaration
-class StateContext;
-
-/**
-* The base State class declares methods that all Concrete State should
-* implement and also provides a backreference to the Context object, associated
-* with the State. This backreference can be used by States to transition the
-* Context to another State.
-*/
+template <typename EnumState>
 class State {
 public:
     // ctor
-    explicit State(StateContext *context, uint8_t state_indx);
+    explicit State(EnumState state):
+            state_{state} {}
 
     // dtor
     virtual ~State() = default;
@@ -46,113 +39,82 @@ public:
     // Handle invoked asynchronously
     virtual void HandleMessage() = 0;
 
-    // Get the context
-    auto GetContext() noexcept -> StateContext& {
-        return *context_;
-    }
-
     // Get the State index
-    auto GetStateIndx() noexcept -> uint8_t {
-        return state_indx_;
+    auto GetState() noexcept -> EnumState {
+        return state_;
     }
 protected:
-    // State context pointer
-    StateContext *context_;
-
     // state index number
-    uint8_t state_indx_;
+    EnumState state_;
 };
 
-/**
-* The Context defines the interface of interest to clients. It also maintains a
-* reference to an instance of a State subclass, which represents the current
-* state of the Context.
-*/
-
+template <typename EnumState>
 class StateContext {
 public:
     // ctor
-    StateContext();
+    StateContext():
+        current_state_{nullptr} ,
+        state_map_() {}
 
     // dtor
     ~StateContext() = default;
 
     // Add the needed state
-    void AddState(std::uint8_t state_indx, std::unique_ptr<State> state);
+    void AddState(EnumState state, std::unique_ptr<State<EnumState>> state_ptr) {
+        state_map_.insert(
+                std::pair<EnumState, std::unique_ptr<State<EnumState>>>(
+                    state,
+                    std::move(state_ptr)
+                ));
+    }
 
     // Get the current state
-    auto GetActiveState() noexcept -> State&;
+    auto GetActiveState() noexcept -> State<EnumState>& {
+        return *current_state_;
+    }
 
     // Function to transition state to provided state
-    void TransitionTo(std::uint8_t state_index);
+    void TransitionTo(EnumState state) {
+        // stop the current state
+        Stop();
+        // Update to new state
+        Update(state);
+        // Start new state
+        Start();
+    }
 
     // Get Context
-    auto GetContext() noexcept-> StateContext* { return this; }
+    auto GetContext() noexcept-> StateContext* {
+        return this;
+    }
 private:
     // Start the current state
-    void Start();
+    void Start() {
+        this->current_state_->Start();
+    }
 
     // Stop the current state
-    void Stop();
+    void Stop() {
+        this->current_state_->Stop();
+    }
 
     // Update to new state
-    void Update(std::uint8_t state_index);
+    void Update(EnumState state) {
+        auto it = state_map_.find(state);
+        if(it != state_map_.end()) {
+            this->current_state_ = it->second.get();
+        }
+        else {
+            // failure condition
+        }
+    }
 
     // pointer to store the active state
-    State* current_state_;
+    State<EnumState>* current_state_;
 
-    // mapping of state num to state ref
-    std::map<std::uint8_t, std::unique_ptr<State>> state_map_;
+    // mapping of state to state ref
+    std::map<EnumState, std::unique_ptr<State<EnumState>>> state_map_;
 };
-
-/**
-* Concrete States implement various behaviors, associated with a state of the
-* Context.
-*/
-/*
-class ConcreteStateA : public State {
-public:
-    void Init() override;
-
-    void Update() override {
-        std::cout << "ConcreteStateA handles request2.\n";
-    }
-};
-
-class ConcreteStateB : public State {
-public:
-    void Start() override {
-        std::cout << "ConcreteStateB handles request1.\n";
-    }
-
-    void Update() override {
-        std::cout << "ConcreteStateB handles request2.\n";
-        std::cout << "ConcreteStateB wants to change the state of the context.\n";
-        context_->TransitionTo(new ConcreteStateA);
-    }
-};
-
-void ConcreteStateA::Start() {
-    {
-        std::cout << "ConcreteStateA handles request1.\n";
-        std::cout << "ConcreteStateA wants to change the state of the context.\n";
-
-        context_->TransitionTo(new ConcreteStateB);
-    }
-}
-
-void ClientCode() {
-    StateContext *context = new StateContext(new ConcreteStateA);
-    context->Start();
-    context->Update();
-    delete context;
-}
-
-int main() {
-    ClientCode();
-    return 0;
-}
- */
 
 } // state
 } // libUtility
