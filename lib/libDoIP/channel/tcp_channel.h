@@ -32,34 +32,15 @@ using TcpMessage         = ara::diag::doip::tcpSocket::TcpMessage;
 using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpChanlSyncTimer  = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
-using TcpChannelState    = tcpChannelStateImpl::TcpChannelStateImpl::routingActivateState;
+using TcpChannelState    = tcpChannelStateImpl::routingActivationState;
 
 /*
  @ Class Name        : tcpChannel
  @ Class Description : Class used to handle Doip Tcp Channel                              
- @ Threads: Per Tcp channel two threads will be spawned 
-            ( one for async timer , one for tcp socker)
+ @ Threads           : Per Tcp channel one threads will be spawned (one for tcp socket)
  */
 class tcpChannel {
 public:
-    // tcp channel state
-    enum class tcpChannelState : std::uint8_t {
-        kIdle                           = 0x00,
-        // Alive Check State
-        kAliveCheckReqReceived,
-        kSendAliveCheckRes
-    };
-
-    // routing activation state
-    enum class routingActivateState : std::uint8_t {
-        kIdle   = 0,
-        kSendRoutingActivationReq,
-        kWaitForRoutingActivationRes,
-        kRoutingActivationSuccessful,
-        kRoutingActivationResTimeout,
-        kRoutingActivationFailed
-    };
-
     // Diagnostic state
     enum class diagnosticState: std::uint8_t {
         kIdle = 0,
@@ -78,12 +59,6 @@ public:
         kIdle                           = 0,
         kSocketOnline,
         kSocketOffline
-    };
-
-    // routing activation structure
-    struct routingActivationStateType {
-        routingActivateState state{routingActivateState::kIdle};
-        uint8_t ack_code;
     };
 
     // diagnostic message structure
@@ -175,10 +150,7 @@ private:
     ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler_;
 
     // tcp socket handler
-    std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcpSocket_Handler_e;
-
-    // routing activation state
-    routingActivationStateType routing_activation_state_e;
+    std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcp_socket_handler_;
 
     // diagnostic state
     diagnosticStateType diag_state_e;

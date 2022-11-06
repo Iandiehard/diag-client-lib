@@ -14,117 +14,85 @@ namespace doip {
 namespace tcpChannelStateImpl {
 
 // ctor
-TcpChannelStateImpl::TcpChannelStateImpl(tcpChannel::tcpChannel& tcp_channel)
-        : tcp_channel_{tcp_channel}{
+TcpChannelStateImpl::TcpChannelStateImpl()
+    : routing_activation_state_context_{std::make_unique<StateContext<routingActivationState>>()} {
     // create and add state
     // kIdle
-    AddState(uint8_t(routingActivateState::kIdle),
-                       std::move(std::make_unique<kIdle>(GetContext(),
-                                                         uint8_t(routingActivateState::kIdle))));
+    GetRoutingActivationStateContext().AddState(routingActivationState::kIdle,
+             std::move(std::make_unique<kIdle>(routingActivationState::kIdle)));
 
     // kWaitForRoutingActivationRes
-    AddState(uint8_t(routingActivateState::kWaitForRoutingActivationRes),
-                       std::move(std::make_unique<kWaitForRoutingActivationRes>(GetContext(),
-                                                                                uint8_t(routingActivateState::kWaitForRoutingActivationRes))));
+    GetRoutingActivationStateContext().AddState(routingActivationState::kWaitForRoutingActivationRes,
+             std::move(std::make_unique<kWaitForRoutingActivationRes>(routingActivationState::kWaitForRoutingActivationRes)));
 
     // kProcessRoutingActivationRes
-    AddState(uint8_t(routingActivateState::kProcessRoutingActivationRes),
-                       std::move(std::make_unique<kProcessRoutingActivationRes>(GetContext(),
-                                                                                uint8_t(routingActivateState::kProcessRoutingActivationRes))));
+    GetRoutingActivationStateContext().AddState(routingActivationState::kProcessRoutingActivationRes,
+             std::move(std::make_unique<kProcessRoutingActivationRes>(routingActivationState::kProcessRoutingActivationRes)));
 
     // kRoutingActivationResTimeout
-    AddState(uint8_t(routingActivateState::kRoutingActivationResTimeout),
-                       std::move(std::make_unique<kRoutingActivationResTimeout>(GetContext(),
-                                                                                uint8_t(routingActivateState::kRoutingActivationResTimeout))));
+    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationResTimeout,
+             std::move(std::make_unique<kRoutingActivationResTimeout>(routingActivationState::kRoutingActivationResTimeout)));
 
     // kRoutingActivationFailed
-    AddState(uint8_t(routingActivateState::kRoutingActivationFailed),
-                       std::move(std::make_unique<kRoutingActivationFailed>(GetContext(),
-                                                                            uint8_t(routingActivateState::kRoutingActivationFailed))));
+    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationFailed,
+             std::move(std::make_unique<kRoutingActivationFailed>(routingActivationState::kRoutingActivationFailed)));
+
+    // transit to idle state
+    GetRoutingActivationStateContext().TransitionTo(routingActivationState::kIdle);
 }
 
-kIdle::kIdle(StateContext *context, uint8_t state_indx)
-    : State(context, state_indx) {
+auto TcpChannelStateImpl::GetRoutingActivationStateContext()
+    noexcept -> StateContext<routingActivationState> & {
+    return *routing_activation_state_context_.get();
 }
 
-void kIdle::Start() {
-    // do something
-}
+kIdle::kIdle(routingActivationState state)
+    : State<routingActivationState>(state) {}
 
-void kIdle::Stop() {
-    //
-}
+void kIdle::Start() {}
 
-void kIdle::HandleMessage() {
-    // do nothing
-}
+void kIdle::Stop() {}
 
-kWaitForRoutingActivationRes::kWaitForRoutingActivationRes(StateContext *context, uint8_t state_indx)
-    : State(context, state_indx) {
-}
+void kIdle::HandleMessage() {}
+
+kWaitForRoutingActivationRes::kWaitForRoutingActivationRes(routingActivationState state)
+    : State<routingActivationState>(state) {}
 
 void kWaitForRoutingActivationRes::Start() {
     // wait for routing activation response till DoIPRoutingActivationTimeout
     timer_sync_.Start(kDoIPRoutingActivationTimeout);
 }
 
-void kWaitForRoutingActivationRes::Stop() {
-    // Stop the timer here
-    timer_sync_.Stop();
-}
+void kWaitForRoutingActivationRes::Stop() { timer_sync_.Stop(); }
 
-void kWaitForRoutingActivationRes::HandleMessage() {
+void kWaitForRoutingActivationRes::HandleMessage() {}
 
+kProcessRoutingActivationRes::kProcessRoutingActivationRes(routingActivationState state)
+    : State<routingActivationState>(state) {}
 
-}
+void kProcessRoutingActivationRes::Start() {}
 
-kProcessRoutingActivationRes::kProcessRoutingActivationRes(StateContext *context, uint8_t state_indx)
-    : State(context, state_indx) {
-}
+void kProcessRoutingActivationRes::Stop() {}
 
-void kProcessRoutingActivationRes::Start() {
+void kProcessRoutingActivationRes::HandleMessage() {}
 
-}
+kRoutingActivationResTimeout::kRoutingActivationResTimeout(routingActivationState state)
+    : State<routingActivationState>(state) {}
 
-void kProcessRoutingActivationRes::Stop() {
+void kRoutingActivationResTimeout::Start() {}
 
-}
+void kRoutingActivationResTimeout::Stop() {}
 
-void kProcessRoutingActivationRes::HandleMessage() {
+void kRoutingActivationResTimeout::HandleMessage() {}
 
-}
+kRoutingActivationFailed::kRoutingActivationFailed(routingActivationState state)
+    : State<routingActivationState>(state) {}
 
-kRoutingActivationResTimeout::kRoutingActivationResTimeout(StateContext *context, uint8_t state_indx) :
-    State(context, state_indx) {
-}
+void kRoutingActivationFailed::Start() {}
 
-void kRoutingActivationResTimeout::Start() {
+void kRoutingActivationFailed::Stop() {}
 
-}
-
-void kRoutingActivationResTimeout::Stop() {
-
-}
-
-void kRoutingActivationResTimeout::HandleMessage() {
-
-}
-
-kRoutingActivationFailed::kRoutingActivationFailed(StateContext *context, uint8_t state_indx) :
-    State(context, state_indx) {
-}
-
-void kRoutingActivationFailed::Start() {
-
-}
-
-void kRoutingActivationFailed::Stop() {
-    GetContext().TransitionTo(uint8_t(TcpChannelStateImpl::routingActivateState::kIdle));
-}
-
-void kRoutingActivationFailed::HandleMessage() {
-
-}
+void kRoutingActivationFailed::HandleMessage() {}
 
 } // tcpChannelStateImpl
 } // doip

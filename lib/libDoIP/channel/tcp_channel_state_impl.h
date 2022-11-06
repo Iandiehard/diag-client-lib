@@ -13,7 +13,6 @@
 #include <vector>
 #include "state/state.h"
 #include "common/common_doip_types.h"
-#include "channel/tcp_channel.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace ara{
@@ -23,12 +22,40 @@ namespace tcpChannelStateImpl {
 
 using namespace libUtility::state;
 using namespace ara::diag::uds_transport;
-using namespace  libOsAbstraction::libBoost::libTimer::oneShot;
+using namespace libOsAbstraction::libBoost::libTimer::oneShot;
 
-class kIdle final: public State {
+// routing activation state
+enum class routingActivationState : std::uint8_t {
+    kIdle   = 0U,
+    kWaitForRoutingActivationRes,
+    kProcessRoutingActivationRes,
+    kRoutingActivationResTimeout,
+    kRoutingActivationSuccessful,
+    kRoutingActivationFailed
+};
+
+class TcpChannelStateImpl {
 public:
     // ctor
-    kIdle(StateContext *context, uint8_t state_indx);
+    TcpChannelStateImpl();
+
+    // dtor
+    ~TcpChannelStateImpl() = default;
+
+    // Function to get the Routing Activation State context
+    auto GetRoutingActivationStateContext()
+        noexcept -> StateContext<routingActivationState>&;
+
+private:
+    // routing activation state
+    std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
+
+};
+
+class kIdle final: public State <routingActivationState> {
+public:
+    // ctor
+    kIdle(routingActivationState state);
 
     // dtor
     ~kIdle() = default;
@@ -43,16 +70,10 @@ public:
     void HandleMessage() override;
 };
 
-
-/*
- * Transition table:-
- *  kWaitForRoutingActivationRes -> kProcessRoutingActivationRes
- *  kWaitForRoutingActivationRes -> kRoutingActivationResTimeout
- */
-class kWaitForRoutingActivationRes final: public State {
+class kWaitForRoutingActivationRes final: public State <routingActivationState> {
 public:
     // ctor
-    kWaitForRoutingActivationRes(StateContext *context, uint8_t state_indx);
+    kWaitForRoutingActivationRes(routingActivationState state);
 
     // dtor
     ~kWaitForRoutingActivationRes() = default;
@@ -69,10 +90,10 @@ private:
     oneShotSyncTimer timer_sync_;
 };
 
-class kProcessRoutingActivationRes : public State {
+class kProcessRoutingActivationRes final: public State <routingActivationState> {
 public:
     // ctor
-    kProcessRoutingActivationRes(StateContext *context, uint8_t state_indx);
+    kProcessRoutingActivationRes(routingActivationState state);
 
     // dtor
     ~kProcessRoutingActivationRes() = default;
@@ -87,10 +108,10 @@ public:
     void HandleMessage() override;
 };
 
-class kRoutingActivationResTimeout : public State {
+class kRoutingActivationResTimeout final: public State <routingActivationState> {
 public:
     // ctor
-    kRoutingActivationResTimeout(StateContext *context, uint8_t state_indx);
+    kRoutingActivationResTimeout(routingActivationState state);
 
     // dtor
     ~kRoutingActivationResTimeout() = default;
@@ -105,10 +126,10 @@ public:
     void HandleMessage() override;
 };
 
-class kRoutingActivationFailed : public State {
+class kRoutingActivationFailed final: public State <routingActivationState> {
 public:
     // ctor
-    kRoutingActivationFailed(StateContext *context, uint8_t state_indx);
+    kRoutingActivationFailed(routingActivationState state);
 
     // dtor
     ~kRoutingActivationFailed() = default;
@@ -121,33 +142,6 @@ public:
 
     // Handle invoked asynchronously
     void HandleMessage() override;
-};
-
-class TcpChannelStateImpl : public StateContext {
-public:
-    // routing activation state
-    enum class routingActivateState : std::uint8_t {
-        kIdle   = 0U,
-        kWaitForRoutingActivationRes,
-        kProcessRoutingActivationRes,
-        kRoutingActivationResTimeout,
-        kRoutingActivationSuccessful,
-        kRoutingActivationFailed
-    };
-
-    // ctor
-    TcpChannelStateImpl(tcpChannel::tcpChannel& tcp_channel);
-
-    // dtor
-    ~TcpChannelStateImpl() = default;
-
-    // Get Tcp Channel reference
-    auto GetTcpChannel()
-        noexcept -> tcpChannel::tcpChannel & { return tcp_channel_; }
-private:
-    // reference to tcp channel
-    tcpChannel::tcpChannel & tcp_channel_;
-
 };
 
 } // tcpChannelStateImpl

@@ -30,7 +30,7 @@ using TcpMessagePtr       = libOsAbstraction::libBoost::libSocket::tcp::TcpMessa
 using TcpMessageConstPtr  = libOsAbstraction::libBoost::libSocket::tcp::TcpMessageConstPtr;
 
 /*
- @ Class Name        : tcpSocket
+ @ Class Name        : tcp_SocketHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */

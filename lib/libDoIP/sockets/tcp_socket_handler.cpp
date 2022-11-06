@@ -16,7 +16,7 @@ namespace doip{
 namespace tcpSocket{
 
 /*
- @ Class Name        : tcpSocket
+ @ Class Name        : tcp_SocketHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */

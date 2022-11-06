@@ -16,7 +16,7 @@ namespace oneShot {
 
 //ctor
 oneShotSyncTimer::oneShotSyncTimer()
-        :timer_ptr_e(std::make_unique<BoostTimer>(io_e)) {
+        :timer_ptr_(std::make_unique<BoostTimer>(io_e)) {
     DLT_REGISTER_CONTEXT(oneshotsync_timer_ctx,"osyt","Oneshot timer Context");
 }
 

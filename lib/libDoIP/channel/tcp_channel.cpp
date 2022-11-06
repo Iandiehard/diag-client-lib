@@ -26,7 +26,7 @@ namespace tcpChannel{
 tcpChannel::tcpChannel(kDoip_String& localIpaddress,
                         ara::diag::doip::tcpTransport::tcp_TransportHandler& tcpTransport_Handler)
            :tcp_transport_handler_(tcpTransport_Handler),
-            tcpSocket_Handler_e(std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)),
+            tcp_socket_handler_(std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)),
             channel_id_e(0) {
     DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
 }
@@ -50,14 +50,14 @@ ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult
 // @param input  : void
 // @return value : void
 void tcpChannel::Start() {
-    tcpSocket_Handler_e->Start();
+    tcp_socket_handler_->Start();
 }
 
 // Description   : Function to terminate the channel
 // @param input  : void
 // @return value : void
 void tcpChannel::Stop() {
-    tcpSocket_Handler_e->Stop();
+    tcp_socket_handler_->Stop();
 }
 
 // Function to connect to host
@@ -69,7 +69,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     
     if(tcpSocketState_e == tcpSocketState::kSocketOffline) {
         // sync connect to change the socket state
-        if(tcpSocket_Handler_e->ConnectToHost(message->GetHostIpAddress()
+        if(tcp_socket_handler_->ConnectToHost(message->GetHostIpAddress()
                                                 ,message->GetHostPortNumber())) {
             // set socket state, tcp connection established
             tcpSocketState_e = tcpSocketState::kSocketOnline;
@@ -98,10 +98,11 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
         ret_val{ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
     if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
-        if(tcpSocket_Handler_e->DisconnectFromHost()) {
+        if(tcp_socket_handler_->DisconnectFromHost()) {
             tcpSocketState_e = tcpSocketState::kSocketOffline;
-            if(routing_activation_state_e.state == routingActivateState::kRoutingActivationSuccessful) {
-                routing_activation_state_e.state = routingActivateState::kIdle;
+            if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState()
+                == TcpChannelState ::kRoutingActivationSuccessful) {
+                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                     DLT_CSTRING("RoutingActivation activated reseted "));
             }
@@ -149,8 +150,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
     if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
-        if(routing_activation_state_e.state == 
-            routingActivateState::kRoutingActivationSuccessful) {
+        if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+                TcpChannelState::kRoutingActivationSuccessful) {
             retval = HandleDiagnosticRequestState(message);
         }
         else {
@@ -201,7 +202,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     doipRoutingActReq->txBuffer.push_back((uint8_t)0x00);
     
     // transmit
-    if(!(tcpSocket_Handler_e->Transmit(std::move(doipRoutingActReq)))) {
+    if(!(tcp_socket_handler_->Transmit(std::move(doipRoutingActReq)))) {
         DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                 DLT_CSTRING("RoutingActivation Request Sending failed"));
     }
@@ -226,72 +227,48 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
             result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
     
-    if(tcp_channel_state.GetActiveState().GetStateIndx() == uint8_t(TcpChannelState::kIdle)) {
+    if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+        TcpChannelState::kIdle) {
         if(SendRoutingActivationRequest(message) ==
            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-            tcp_channel_state.TransitionTo(
-                    uint8_t(TcpChannelState::kWaitForRoutingActivationRes));
-            // here a sync wait will be performed
+            tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(
+                    TcpChannelState::kWaitForRoutingActivationRes);
+            // here a sync wait will be performed until timeout or response received
         }
         else {
             // failed, do nothing
-            tcp_channel_state.TransitionTo(
-                    uint8_t(TcpChannelState::kRoutingActivationFailed));
+            tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(
+                    TcpChannelState::kRoutingActivationFailed);
         }
 
-
-
-
-
-        // start routing activation
-        routing_activation_state_e.state = routingActivateState::kSendRoutingActivationReq;
-        // start the state machine 
-        while(routing_activation_state_e.state != routingActivateState::kIdle) {            
-            if(routing_activation_state_e.state == routingActivateState::kSendRoutingActivationReq) {
-                // Initiate routing activation request
-                if(SendRoutingActivationRequest(message) == 
-                    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-                    routing_activation_state_e.state = routingActivateState::kWaitForRoutingActivationRes;                
-                }
-                else {
-                    // failed, do nothing
-                    routing_activation_state_e.state = routingActivateState::kRoutingActivationFailed;
-                }
+        // check the state
+        switch(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState()) {
+            case TcpChannelState::kWaitForRoutingActivationRes : {
+                // timeout happened
+                result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
+                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
+                DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
+                        DLT_CSTRING("RoutingActivation request timeout,no response received"));
             }
-            else if(routing_activation_state_e.state == routingActivateState::kWaitForRoutingActivationRes) {
-                // wait for routing activation response till DoIPRoutingActivationTimeout
-                if(timer_sync.Start(kDoIPRoutingActivationTimeout) ==
-                        TcpChanlSyncTimer::timer_state::kTimeout) {
-                    // no routing activation response received
-                    routing_activation_state_e.state = routingActivateState::kRoutingActivationResTimeout;
-                }
-                else {
-                    // response received, state will be handled in callback
-                }
-                break;
+            break;
+
+            case TcpChannelState::kRoutingActivationSuccessful : {
+                // success
+                result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
+                DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
+                        DLT_CSTRING("RoutingActivation activated successfully"));
             }
-            else {
-                // case kRoutingActivationSuccessful or kRoutingActivationFailed
-                break;
-            }
+            break;
+
+            default:
+                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
+                DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
+                        DLT_CSTRING("RoutingActivation Failed"));
+            break;
         }
-    }
-    // check the state
-    if(routing_activation_state_e.state == routingActivateState::kRoutingActivationSuccessful) {
-        result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
-            DLT_CSTRING("RoutingActivation activated successfully"));
-    }
-    else if(routing_activation_state_e.state == routingActivateState::kRoutingActivationResTimeout) {
-        result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
-        routing_activation_state_e.state = routingActivateState::kIdle;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-            DLT_CSTRING("RoutingActivation request timeout,no response received"));
     }
     else {
-        routing_activation_state_e.state = routingActivateState::kIdle;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-            DLT_CSTRING("RoutingActivation Failed"));
+        // channel not free
     }
     return result;
 }
@@ -324,7 +301,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     }
 
     // transmit
-    if(!(tcpSocket_Handler_e->Transmit(std::move(doipDiagReq)))){
+    if(!(tcp_socket_handler_->Transmit(std::move(doipDiagReq)))){
         DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
             DLT_CSTRING("Diagnostic Request sending failed"));
     }
@@ -363,14 +340,17 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             }
             else if(diag_state_e.state == diagnosticState::kWaitForDiagnosticAck) {
                 // wait for diagnostic acknowledgement till kDoIPDiagnosticAckTimeout
-                if(timer_sync.Start(kDoIPDiagnosticAckTimeout) ==
-                        TcpChanlSyncTimer::timer_state::kTimeout) {
+                //if(timer_sync.Start(kDoIPDiagnosticAckTimeout) ==
+                //         TcpChanlSyncTimer::timer_state::kTimeout)
+                timer_sync.Start(kDoIPDiagnosticAckTimeout);
+                {
                     // no diagnostic ack received
                     diag_state_e.state = diagnosticState::kDiagnosticAckTimeout;
                     DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
                         DLT_CSTRING("Diagnostic Message Ack timed out"));
                 }
-                else {
+                //else
+                {
                     // response received, 
                     // state kDiagnosticPositiveAckRecvd, kDiagnosticNegativeAckRecvd 
                     // will be handled in callback
@@ -437,7 +417,7 @@ bool tcpChannel::SendDoIPNACKMessage(uint8_t nackType)
     // fill the nack code
     doipNackBuff->txBuffer.push_back(nackType);
     // transmit
-    if(!(tcpSocket_Handler_e->Transmit(std::move(doipNackBuff))))
+    if(!(tcp_socket_handler_->Transmit(std::move(doipNackBuff))))
     {// error
         retval = false;
     }
@@ -548,8 +528,7 @@ bool tcpChannel::ProcessDoIPPayloadLength(uint32_t payloadLen, uint16_t payloadT
 // @return value : void
 void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &payload)
 {
-    switch(payloadType)
-    {
+    switch(payloadType) {
         case kDoip_RoutingActivation_ResType: {
             DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
                 DLT_CSTRING("RoutingActivation Response received"));
@@ -585,9 +564,9 @@ void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &
 // @return value : void
 void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload) {
     
-    if(tcp_channel_state.GetActiveState().GetStateIndx() ==
-        uint8_t(TcpChannelState::kWaitForRoutingActivationRes)) {
-
+    if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+            TcpChannelState::kWaitForRoutingActivationRes) {
+        TcpChannelState tcp_channel_final_state;
         // get the logical address of client
         uint16_t client_address = (uint16_t)((payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
                                     (uint16_t)(payload[BYTE_POS_ONE] & 0x00FF);
@@ -599,8 +578,8 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
         switch(act_type) {
             case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
                 // routing successful
-                routing_activation_state_e.state = routingActivateState::kRoutingActivationSuccessful;
-                routing_activation_state_e.ack_code = act_type;
+                tcp_channel_final_state = TcpChannelState::kRoutingActivationSuccessful;
+
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                     DLT_CSTRING("Routing activation successful:"),
                     DLT_CSTRING("client address="),
@@ -616,8 +595,8 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
             }
             break;
             default:
-                routing_activation_state_e.state = routingActivateState::kRoutingActivationFailed;
-                routing_activation_state_e.ack_code = act_type;
+                tcp_channel_final_state = TcpChannelState::kRoutingActivationFailed;
+
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
                     DLT_CSTRING("Routing activation failed with ack type:"), 
                     DLT_HEX8(act_type),
@@ -627,7 +606,7 @@ void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payl
                     DLT_HEX16(server_address));
             break;
         }
-        timer_sync.Stop();        
+        tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(tcp_channel_final_state);
     }
     else {
         /* ignore */
@@ -744,7 +723,7 @@ void tcpChannel::ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payl
 // @return value : void
 void tcpChannel::TCP_GeneralInactivity_Timeout() {
     // disconnect from host
-    tcpSocket_Handler_e->DisconnectFromHost();
+    tcp_socket_handler_->DisconnectFromHost();
     //tcpChannelState_e = tcpChannelState::kIdle;
     tcpSocketState_e  = tcpSocketState::kSocketOffline;
 }
