@@ -28,8 +28,6 @@ using namespace libOsAbstraction::libBoost::libTimer::oneShot;
 enum class routingActivationState : std::uint8_t {
     kIdle   = 0U,
     kWaitForRoutingActivationRes,
-    kProcessRoutingActivationRes,
-    kRoutingActivationResTimeout,
     kRoutingActivationSuccessful,
     kRoutingActivationFailed
 };
@@ -103,31 +101,13 @@ private:
     oneShotSyncTimer timer_sync_;
 };
 
-class kProcessRoutingActivationRes final: public State <routingActivationState> {
+class kRoutingActivationSuccessful final: public State <routingActivationState> {
 public:
     // ctor
-    kProcessRoutingActivationRes(routingActivationState state);
+    kRoutingActivationSuccessful(routingActivationState state);
 
     // dtor
-    ~kProcessRoutingActivationRes() = default;
-
-    // start the state
-    void Start() override;
-
-    // Stop the state
-    void Stop() override;
-
-    // Handle invoked asynchronously
-    void HandleMessage() override;
-};
-
-class kRoutingActivationResTimeout final: public State <routingActivationState> {
-public:
-    // ctor
-    kRoutingActivationResTimeout(routingActivationState state);
-
-    // dtor
-    ~kRoutingActivationResTimeout() = default;
+    ~kRoutingActivationSuccessful() = default;
 
     // start the state
     void Start() override;

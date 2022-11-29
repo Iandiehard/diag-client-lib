@@ -15,6 +15,7 @@
 #include "sockets/tcp_socket_handler.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
 #include "channel/tcp_channel_state_impl.h"
+#include "channel/tcp_channel_handler_impl.h"
 
 namespace ara{
 namespace diag{
@@ -101,13 +102,9 @@ public:
     // Function to get the channel context
     auto GetChannelState() noexcept ->
             tcpChannelStateImpl::TcpChannelStateImpl& {
-            return tcp_channel_state;
+            return tcp_channel_state_;
     }
 private:
-    // Function to trigger Routing activation request
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-            SendRoutingActivationRequest(ara::diag::uds_transport::UdsMessageConstPtr& message);
-
     // Function to handle the routing states
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
             HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message);
@@ -128,18 +125,6 @@ private:
                                 uint16_t payloadType,
                                 uint32_t payloadLen);
 
-    // Function to process DoIP Header
-    bool ProcessDoIPHeader(std::vector<uint8_t> &doipHeader, uint8_t &nackCode);
-
-    // Function to verify payload length of various payload type
-    bool ProcessDoIPPayloadLength(uint32_t payloadLen, uint16_t payloadType);
-
-    // Function to process DoIP payload responses
-    void ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &payload);
-
-    // Function to process Routing activation response
-    void ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload);
-
     // Function to process Diagnostic Message Acknowledgement message
     void ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &payload, uint16_t ackType);
 
@@ -148,9 +133,6 @@ private:
 
     // Function called during General Inactivity timeout
     void TCP_GeneralInactivity_Timeout();
-
-    // function to get payload type
-    uint16_t GetDoIPPayloadType(std::vector<uint8_t> payload);
 private:
     // tcp transport handler ref
     ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler_;
@@ -174,7 +156,10 @@ private:
     TcpChanlSyncTimer timer_sync;
 
     // tcp channel state
-    tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state;
+    tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
+
+    // tcp channel handler
+    tcpChannelHandlerImpl::TcpChannelHandlerImpl tcp_channel_handler_;
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(doip_tcp_channel);

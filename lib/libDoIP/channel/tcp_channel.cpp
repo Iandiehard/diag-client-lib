@@ -27,7 +27,8 @@ tcpChannel::tcpChannel(kDoip_String& localIpaddress,
                         ara::diag::doip::tcpTransport::tcp_TransportHandler& tcpTransport_Handler)
            :tcp_transport_handler_(tcpTransport_Handler),
             tcp_socket_handler_(std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)),
-            channel_id_e(0) {
+            channel_id_e(0),
+            tcp_channel_handler_{*(tcp_socket_handler_.get()), *this} {
     DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
 }
 
@@ -100,9 +101,9 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
     if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
         if(tcp_socket_handler_->DisconnectFromHost()) {
             tcpSocketState_e = tcpSocketState::kSocketOffline;
-            if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState()
+            if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState()
                 == TcpChannelState ::kRoutingActivationSuccessful) {
-                tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);;
+                tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);;
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                     DLT_CSTRING("RoutingActivation activated reseted "));
             }
@@ -120,24 +121,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
 // @param input  : TcpMessagePtr tcpRxMessage
 // @return value : void
 void tcpChannel::HandleMessage(TcpMessagePtr tcpRxMessage) {
-    uint8_t nackCode;   
-    // Process the Doip Generic header check
-    if(ProcessDoIPHeader(tcpRxMessage->rxBuffer, nackCode)) {
-        std::vector<uint8_t> rxmessage;
-
-        rxmessage.resize(tcpRxMessage->rxBuffer.size() - kDoipheadrSize);
-        // copy payload locally 
-        std::copy(tcpRxMessage->rxBuffer.begin() + kDoipheadrSize, 
-                    tcpRxMessage->rxBuffer.begin() + kDoipheadrSize + tcpRxMessage->rxBuffer.size(), 
-                    rxmessage.begin());
-        ProcessDoIPPayload(GetDoIPPayloadType(tcpRxMessage->rxBuffer), rxmessage);
-    }
-    else {
-        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-            DLT_CSTRING("Doip Header check failed with NACK: "), DLT_UINT8(nackCode));
-        // send NACK or ignore
-        SendDoIPNACKMessage(nackCode);
-    }
+    tcp_channel_handler_.HandleMessage(std::move(tcpRxMessage));
 }
 
 // Description   : Function to trigger diagnostic message request transmission
@@ -150,7 +134,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
     if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
-        if(tcp_channel_state.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+        if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
                 TcpChannelState::kRoutingActivationSuccessful) {
             retval = HandleDiagnosticRequestState(message);
         }
@@ -169,88 +153,35 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     return retval;
 }
 
-// Description   : Function to trigger Routing activation request
-// @param input  : tcpSocketState state
-// @return value : void
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
-    tcpChannel::SendRoutingActivationRequest(ara::diag::uds_transport::UdsMessageConstPtr& message) {
-    
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
-        retval{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-
-    TcpMessagePtr doip_routing_act_req = std::make_unique<TcpMessage>();
-    
-    // reserve bytes in vector
-    doip_routing_act_req->txBuffer.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
-    
-    // create header
-    CreateDoIPGenericHeader(doip_routing_act_req->txBuffer,
-                            kDoip_RoutingActivation_ReqType, 
-                            kDoip_RoutingActivation_ReqMinLen);
-    
-    // Add source address
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)(message->GetSa() & 0x00FF));
-    
-    // Add activation type
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
-    
-    // Add reservation byte , default zeroes
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    
-    // transmit
-    if(!(tcp_socket_handler_->Transmit(std::move(doip_routing_act_req)))) {
-        DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                DLT_CSTRING("RoutingActivation Request Sending failed"));
-    }
-    else {
-        // success, change state
-        retval = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-        DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-            DLT_CSTRING("RoutingActivation requested:"),
-            DLT_CSTRING("source address="),
-            DLT_HEX16(message->GetSa()),
-            DLT_CSTRING(","),
-            DLT_CSTRING("activation type="),
-            DLT_HEX8(kDoip_RoutingActivation_ReqActType_Default));
-    }
-    return retval;
-}
-
-//
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
         tcpChannel::HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
     
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
             result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
     
-    if(tcp_channel_state.
+    if(tcp_channel_state_.
         GetRoutingActivationStateContext().GetActiveState().GetState() == TcpChannelState::kIdle) {
-        if(SendRoutingActivationRequest(message) ==
+        if(tcp_channel_handler_.SendRoutingActivationRequest(message) ==
            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-            tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(
+            tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
                     TcpChannelState::kWaitForRoutingActivationRes);
             // here a sync wait will be performed until timeout or response received
         }
         else {
             // failed, do nothing
-            tcp_channel_state.GetRoutingActivationStateContext().TransitionTo(
+            tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
                     TcpChannelState::kRoutingActivationFailed);
         }
 
         // check the state
-        switch(tcp_channel_state
+        switch(tcp_channel_state_
             .GetRoutingActivationStateContext()
             .GetActiveState()
             .GetState()) {
             case TcpChannelState::kWaitForRoutingActivationRes : {
                 // timeout happened
-                result =
-                        ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
-                tcp_channel_state.
+                result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
+                tcp_channel_state_.
                     GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                         DLT_CSTRING("RoutingActivation request timeout,no response received"));
@@ -267,7 +198,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
             break;
 
             default:
-                tcp_channel_state
+                // failed
+                tcp_channel_state_
                     .GetRoutingActivationStateContext().TransitionTo(TcpChannelState::kIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                         DLT_CSTRING("RoutingActivation Failed"));
@@ -431,199 +363,6 @@ bool tcpChannel::SendDoIPNACKMessage(uint8_t nackType)
     return retval;
 }
 
-// Description   : Function to process DoIP Header
-// @param input  : std::vector<uint8_t> &doipHeader, uint8_t &nackCode
-// @return value : boolean
-bool tcpChannel::ProcessDoIPHeader(std::vector<uint8_t> &doipHeader, uint8_t &nackCode) {
-    uint16_t PayloadType;
-    uint32_t PayloadLength;
-    bool RetVal = false;
-
-    /* Check the header synchronisation pattern */
-    if (((doipHeader[0] == kDoip_ProtocolVersion) && (doipHeader[1] == (uint8_t)(~(kDoip_ProtocolVersion)))) ||
-        ((doipHeader[0] == kDoip_ProtocolVersion_Def) && (doipHeader[1] == (uint8_t)(~(kDoip_ProtocolVersion_Def))))) {
-        /* get the payload type */
-        PayloadType = (uint16_t)(((doipHeader[2] & 0xFF) << 8) | (doipHeader[3] & 0xFF));
-        /* Check the supported payload type */
-        if ((PayloadType == kDoip_RoutingActivation_ResType) ||
-            (PayloadType == kDoip_DiagMessagePosAck_Type)    ||
-            (PayloadType == kDoip_DiagMessageNegAck_Type)    ||
-            (PayloadType == kDoip_DiagMessage_Type)          ||
-            (PayloadType == kDoip_AliveCheck_ReqType)) {
-            // get payload length
-            PayloadLength = (uint32_t)((doipHeader[4] << 24) & 0xFF000000) | (uint32_t)((doipHeader[5] << 16) & 0x00FF0000) | \
-                            (uint32_t)((doipHeader[6] <<  8) & 0x0000FF00) | (uint32_t)((doipHeader[7] & 0x000000FF));
-
-            /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00017] */
-            if (PayloadLength <= kDoip_Protocol_MaxPayload) {
-                /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */
-                if (PayloadLength <= kTcpChannelLength) {
-                    /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
-                    if (ProcessDoIPPayloadLength(PayloadLength, PayloadType)) {
-                        RetVal = true;
-                    }
-                    else  {
-                        // Send NACK code 0x04, close the socket
-                        nackCode = kDoip_GenericHeader_InvalidPayloadLen;
-                        // socket closure ??
-                    }
-                }
-                else {
-                    // Send NACK code 0x03, discard message
-                    nackCode = kDoip_GenericHeader_OutOfMemory;
-                }
-            }
-            else {
-                // Send NACK code 0x02, discard message
-                nackCode = kDoip_GenericHeader_MessageTooLarge;
-            }
-        }
-        else {// Send NACK code 0x01, discard message
-            nackCode = kDoip_GenericHeader_UnknownPayload;
-        }
-    }
-    else {// Send NACK code 0x00, close the socket
-        nackCode = kDoip_GenericHeader_IncorrectPattern;
-        // socket closure
-    }
-    return RetVal;
-}
-
-// Description   : Function to process routing activation response
-// @param input  : uint16_t payloadType, std::vector<uint8_t> &payload
-// @return value : void
-bool tcpChannel::ProcessDoIPPayloadLength(uint32_t payloadLen, uint16_t payloadType) {
-    bool retval = false;
-    switch(payloadType)
-    {
-        case kDoip_RoutingActivation_ResType:
-        {
-            if(payloadLen <= (uint32_t)kDoip_RoutingActivation_ResMaxLen)
-                retval = true;
-            break;
-        }
-        case kDoip_DiagMessagePosAck_Type:
-        case kDoip_DiagMessageNegAck_Type:
-        {
-            if(payloadLen >= (uint32_t)kDoip_DiagMessageAck_ResMinLen)
-                retval = true;
-            break;
-        }        
-        case kDoip_DiagMessage_Type:
-        {
-            // Req - [20-11][AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00122]
-            if(payloadLen >= (uint32_t)(kDoip_DiagMessage_ReqResMinLen + 1u))
-                retval = true;
-            break;
-        }
-        case kDoip_AliveCheck_ReqType:
-        {
-            if(payloadLen <= (uint32_t)kDoip_RoutingActivation_ResMaxLen)
-                retval = true;
-            break;
-        }
-        default:
-            // do nothing
-            break;     
-    }
-    return retval;
-}
-
-// Description   : Function to process routing activation response
-// @param input  : uint16_t payloadType, std::vector<uint8_t> &payload
-// @return value : void
-void tcpChannel::ProcessDoIPPayload(uint16_t payloadType, std::vector<uint8_t> &payload)
-{
-    switch(payloadType) {
-        case kDoip_RoutingActivation_ResType: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
-                DLT_CSTRING("RoutingActivation Response received"));
-            // Process RoutingActivation response
-            ProcessDoIPRoutingActivationResponse(payload);
-            break;
-        }
-        case kDoip_DiagMessage_Type: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
-                DLT_CSTRING("Diagnostic Message received"));
-            // Process Diagnostic Message Response
-            ProcessDoIPDiagnosticMessageResponse(payload);
-            break;
-        }
-        case kDoip_DiagMessagePosAck_Type:
-        case kDoip_DiagMessageNegAck_Type: {
-            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, 
-                DLT_CSTRING("Diagnostic Acknowledgement received"));
-            // Process positive or negative diag ack message
-            ProcessDoIPDiagnosticAckMessageResponse(payload, payloadType);
-            break;
-        }
-        default:
-            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-                DLT_CSTRING("Invalid Message received, Ignore"));
-            /* do nothing */
-        break; 
-    }
-}
-
-// Description   : Function to process routing activation response
-// @param input  : std::vector<uint8_t> &payload
-// @return value : void
-void tcpChannel::ProcessDoIPRoutingActivationResponse(std::vector<uint8_t> &payload) {
-    
-    if(tcp_channel_state
-        .GetRoutingActivationStateContext()
-        .GetActiveState()
-        .GetState()
-            == TcpChannelState::kWaitForRoutingActivationRes) {
-        TcpChannelState tcp_channel_final_state;
-        // get the logical address of client
-        uint16_t client_address = (uint16_t)((payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
-                                    (uint16_t)(payload[BYTE_POS_ONE] & 0x00FF);
-        // get the logical address of Server
-        uint16_t server_address = (uint16_t)((payload[BYTE_POS_TWO] << 8) & 0xFF00) |
-                                    (uint16_t)(payload[BYTE_POS_THREE] & 0x00FF);
-        // get the ack code
-        uint8_t act_type = payload[BYTE_POS_FOUR];
-        switch(act_type) {
-            case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
-                // routing successful
-                tcp_channel_final_state = TcpChannelState::kRoutingActivationSuccessful;
-
-                DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
-                    DLT_CSTRING("Routing activation successful:"),
-                    DLT_CSTRING("client address="),
-                    DLT_HEX16(client_address),
-                    DLT_CSTRING("server address="),
-                    DLT_HEX16(server_address));
-            }
-            break;
-            case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
-                // trigger routing activation after sometime
-                DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-                    DLT_CSTRING("Not yet implemented, raise an feature request issue"));
-            }
-            break;
-            default:
-                tcp_channel_final_state = TcpChannelState::kRoutingActivationFailed;
-
-                DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
-                    DLT_CSTRING("Routing activation failed with ack type:"), 
-                    DLT_HEX8(act_type),
-                    DLT_CSTRING("client address="),
-                    DLT_HEX16(client_address),
-                    DLT_CSTRING("server address="),
-                    DLT_HEX16(server_address));
-            break;
-        }
-        tcp_channel_state
-            .GetRoutingActivationStateContext()
-            .TransitionTo(tcp_channel_final_state);
-    }
-    else {
-        /* ignore */
-    }
-}
-
 // Description   : Function to process Diag Ack Message
 // @param input  : void
 // @return value : void
@@ -738,15 +477,6 @@ void tcpChannel::TCP_GeneralInactivity_Timeout() {
     //tcpChannelState_e = tcpChannelState::kIdle;
     tcpSocketState_e  = tcpSocketState::kSocketOffline;
 }
-
-// Description   : Function to get payload type
-// @param input  : 
-// @return value : Payload type
-uint16_t tcpChannel::GetDoIPPayloadType(std::vector<uint8_t> payload) {
-    return ((uint16_t)(((payload[BYTE_POS_TWO] & 0xFF) << 8) | 
-                (payload[BYTE_POS_THREE] & 0xFF)));
-}
-
 
 } // tcpChannel
 } // doip

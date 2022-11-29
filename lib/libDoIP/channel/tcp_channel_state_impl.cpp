@@ -25,13 +25,9 @@ TcpChannelStateImpl::TcpChannelStateImpl()
     GetRoutingActivationStateContext().AddState(routingActivationState::kWaitForRoutingActivationRes,
              std::move(std::make_unique<kWaitForRoutingActivationRes>(routingActivationState::kWaitForRoutingActivationRes)));
 
-    // kProcessRoutingActivationRes
-    GetRoutingActivationStateContext().AddState(routingActivationState::kProcessRoutingActivationRes,
-             std::move(std::make_unique<kProcessRoutingActivationRes>(routingActivationState::kProcessRoutingActivationRes)));
-
-    // kRoutingActivationResTimeout
-    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationResTimeout,
-             std::move(std::make_unique<kRoutingActivationResTimeout>(routingActivationState::kRoutingActivationResTimeout)));
+    // kRoutingActivationSuccessful
+    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationSuccessful,
+             std::move(std::make_unique<kRoutingActivationSuccessful>(routingActivationState::kRoutingActivationSuccessful)));
 
     // kRoutingActivationFailed
     GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationFailed,
@@ -67,23 +63,14 @@ void kWaitForRoutingActivationRes::Stop() { timer_sync_.Stop(); }
 
 void kWaitForRoutingActivationRes::HandleMessage() {}
 
-kProcessRoutingActivationRes::kProcessRoutingActivationRes(routingActivationState state)
+kRoutingActivationSuccessful::kRoutingActivationSuccessful(routingActivationState state)
     : State<routingActivationState>(state) {}
 
-void kProcessRoutingActivationRes::Start() {}
+void kRoutingActivationSuccessful::Start() {}
 
-void kProcessRoutingActivationRes::Stop() {}
+void kRoutingActivationSuccessful::Stop() {}
 
-void kProcessRoutingActivationRes::HandleMessage() {}
-
-kRoutingActivationResTimeout::kRoutingActivationResTimeout(routingActivationState state)
-    : State<routingActivationState>(state) {}
-
-void kRoutingActivationResTimeout::Start() {}
-
-void kRoutingActivationResTimeout::Stop() {}
-
-void kRoutingActivationResTimeout::HandleMessage() {}
+void kRoutingActivationSuccessful::HandleMessage() {}
 
 kRoutingActivationFailed::kRoutingActivationFailed(routingActivationState state)
     : State<routingActivationState>(state) {}

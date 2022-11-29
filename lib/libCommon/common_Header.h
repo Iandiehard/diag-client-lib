@@ -36,6 +36,9 @@
 #define BYTE_POS_TWO                    (uint8_t(2))
 #define BYTE_POS_THREE                  (uint8_t(3))
 #define BYTE_POS_FOUR                   (uint8_t(4))
+#define BYTE_POS_FIVE                   (uint8_t(5))
+#define BYTE_POS_SIX                    (uint8_t(6))
+#define BYTE_POS_SEVEN                  (uint8_t(7))
 
 typedef enum
 {
