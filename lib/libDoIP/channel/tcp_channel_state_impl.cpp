@@ -15,8 +15,9 @@ namespace tcpChannelStateImpl {
 
 // ctor
 TcpChannelStateImpl::TcpChannelStateImpl()
-    : routing_activation_state_context_{std::make_unique<StateContext<routingActivationState>>()} {
-    // create and add state
+    : routing_activation_state_context_{std::make_unique<StateContext<routingActivationState>>()},
+      diagnostic_message_state_context_{std::make_unique<StateContext<diagnosticState>>()} {
+    // create and add state for routing activation
     // kIdle
     GetRoutingActivationStateContext().AddState(routingActivationState::kIdle,
              std::move(std::make_unique<kIdle>(routingActivationState::kIdle)));
@@ -40,6 +41,11 @@ TcpChannelStateImpl::TcpChannelStateImpl()
 auto TcpChannelStateImpl::GetRoutingActivationStateContext()
     noexcept -> StateContext<routingActivationState> & {
     return *routing_activation_state_context_.get();
+}
+
+auto TcpChannelStateImpl::GetDiagnosticMessageStateContext()
+    noexcept -> StateContext<diagnosticState> & {
+    return *diagnostic_message_state_context_.get();
 }
 
 kIdle::kIdle(routingActivationState state)

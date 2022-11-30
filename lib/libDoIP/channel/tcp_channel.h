@@ -32,9 +32,8 @@ namespace tcpChannel{
 using TcpMessage         = ara::diag::doip::tcpSocket::TcpMessage;
 using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
-using TcpChanlSyncTimer  = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
-using TcpChannelState    = tcpChannelStateImpl::routingActivationState;
-
+using TcpRoutingActivationChannelState    = tcpChannelStateImpl::routingActivationState;
+using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 /*
  @ Class Name        : tcpChannel
  @ Class Description : Class used to handle Doip Tcp Channel                              
@@ -42,30 +41,11 @@ using TcpChannelState    = tcpChannelStateImpl::routingActivationState;
  */
 class tcpChannel {
 public:
-    // Diagnostic state
-    enum class diagnosticState: std::uint8_t {
-        kIdle = 0,
-        kSendDiagnosticReq,
-        kSendDiagnosticReqFailed,
-        kWaitForDiagnosticAck,
-        kDiagnosticAckTimeout,
-        kDiagnosticPositiveAckRecvd,
-        kDiagnosticNegativeAckRecvd,
-        kWaitForDiagnosticResponse,
-        kDiagnosticFinalResRecvd
-    };
-
     //  socket state
     enum class tcpSocketState : std::uint8_t {
         kIdle                           = 0,
         kSocketOnline,
         kSocketOffline
-    };
-
-    // diagnostic message structure
-    struct diagnosticStateType {
-        diagnosticState state{diagnosticState::kIdle};
-        uint8_t ack_code;
     };
 
     //ctor
@@ -86,74 +66,38 @@ public:
 
     // Function to connect to host
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-            ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
+        ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
 
     // Function to disconnect from host
     ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
-            DisconnectFromHost();
+        DisconnectFromHost();
 
     // Function to Hand over all the message received
     void HandleMessage(TcpMessagePtr tcpRxMessage);
 
     // Function to trigger transmission
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-            Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
+        Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
 
     // Function to get the channel context
     auto GetChannelState() noexcept ->
-            tcpChannelStateImpl::TcpChannelStateImpl& {
-            return tcp_channel_state_;
+        tcpChannelStateImpl::TcpChannelStateImpl& {
+        return tcp_channel_state_;
     }
 private:
     // Function to handle the routing states
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
             HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message);
 
-    // Function to trigger Diagnostic Request
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-            SendDiagnosticRequest(ara::diag::uds_transport::UdsMessageConstPtr& message);
-
     // Function to handle the diagnostic request response state
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr& message);
-
-    // Function to send Doip Generic NACK message
-    bool SendDoIPNACKMessage(uint8_t nackType);
-
-    // Function to create Generic Header
-    void CreateDoIPGenericHeader(std::vector<uint8_t> &doipHeader,
-                                uint16_t payloadType,
-                                uint32_t payloadLen);
-
-    // Function to process Diagnostic Message Acknowledgement message
-    void ProcessDoIPDiagnosticAckMessageResponse(std::vector<uint8_t> &payload, uint16_t ackType);
-
-    // Function to process Diagnostic Message response
-    void ProcessDoIPDiagnosticMessageResponse(std::vector<uint8_t> &payload);
-
-    // Function called during General Inactivity timeout
-    void TCP_GeneralInactivity_Timeout();
 private:
-    // tcp transport handler ref
-    ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler_;
-
     // tcp socket handler
     std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcp_socket_handler_;
 
-    // diagnostic state
-    diagnosticStateType diag_state_e;
-
     // tcp socket state
     tcpSocketState tcpSocketState_e{tcpSocketState::kSocketOffline};
-
-    // message request
-    ara::diag::uds_transport::UdsMessageConstPtr message_e;
-
-    // store channel number
-    ara::diag::uds_transport::ChannelID channel_id_e;
-
-    // timer
-    TcpChanlSyncTimer timer_sync;
 
     // tcp channel state
     tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
@@ -164,7 +108,6 @@ private:
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(doip_tcp_channel);
 };
-
 
 } // tcpChannel
 } // doip

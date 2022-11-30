@@ -35,10 +35,8 @@ enum class routingActivationState : std::uint8_t {
 // Diagnostic state
 enum class diagnosticState: std::uint8_t {
     kIdle = 0,
-    kSendDiagnosticReq,
     kSendDiagnosticReqFailed,
     kWaitForDiagnosticAck,
-    kDiagnosticAckTimeout,
     kDiagnosticPositiveAckRecvd,
     kDiagnosticNegativeAckRecvd,
     kWaitForDiagnosticResponse,
@@ -57,10 +55,16 @@ public:
     auto GetRoutingActivationStateContext()
         noexcept -> StateContext<routingActivationState>&;
 
+    // Function to get Diagnostic Message State context
+    auto GetDiagnosticMessageStateContext()
+        noexcept -> StateContext<diagnosticState>&;
+
 private:
     // routing activation state
     std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
 
+    // diagnostic state
+    std::unique_ptr<StateContext<diagnosticState>> diagnostic_message_state_context_;
 };
 
 class kIdle final: public State <routingActivationState> {
