@@ -17,7 +17,8 @@ namespace tcpChannel{
 
 tcpChannel::tcpChannel(kDoip_String& localIpaddress,
                         ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler)
-           :tcp_socket_handler_(std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)),
+           :tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)},
+            tcp_socket_state_{tcpSocketState::kSocketOffline},
             tcp_channel_handler_{*(tcp_socket_handler_.get()), tcp_transport_handler, *this} {
     DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
 }
@@ -45,12 +46,12 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
         ret_val{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
     
-    if(tcpSocketState_e == tcpSocketState::kSocketOffline) {
+    if(tcp_socket_state_ == tcpSocketState::kSocketOffline) {
         // sync connect to change the socket state
         if(tcp_socket_handler_->ConnectToHost(message->GetHostIpAddress()
                                                 ,message->GetHostPortNumber())) {
             // set socket state, tcp connection established
-            tcpSocketState_e = tcpSocketState::kSocketOnline;
+            tcp_socket_state_ = tcpSocketState::kSocketOnline;
         }
         else {// failure
             DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
@@ -64,7 +65,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
     }
     
     // If socket online, send routing activation req and get response
-    if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
+    if(tcp_socket_state_ == tcpSocketState::kSocketOnline) {
         // send routing activation request and get response
         ret_val = HandleRoutingActivationState(message);
     }
@@ -75,9 +76,9 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
     tcpChannel::DisconnectFromHost() {
     ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
         ret_val{ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
-    if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
+    if(tcp_socket_state_ == tcpSocketState::kSocketOnline) {
         if(tcp_socket_handler_->DisconnectFromHost()) {
-            tcpSocketState_e = tcpSocketState::kSocketOffline;
+            tcp_socket_state_ = tcpSocketState::kSocketOffline;
             if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState()
                 == TcpRoutingActivationChannelState ::kRoutingActivationSuccessful) {
                 tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);;
@@ -104,7 +105,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult retval {
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
-    if(tcpSocketState_e == tcpSocketState::kSocketOnline) {
+    if(tcp_socket_state_ == tcpSocketState::kSocketOnline) {
         // routing activation should be active before sending diag request
         if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
                 TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
@@ -124,7 +125,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
 }
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-        tcpChannel::HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
+    tcpChannel::HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
     
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
             result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
@@ -189,7 +190,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
         result{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
     if(tcp_channel_state_
-        .GetDiagnosticMessageStateContext().GetActiveState().GetState() == TcpDiagnosticMessageChannelState::kIdle) {
+        .GetDiagnosticMessageStateContext().GetActiveState().GetState() == TcpDiagnosticMessageChannelState::kDiagIdle) {
         if(tcp_channel_handler_.SendDiagnosticRequest(message) ==
             ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
             tcp_channel_state_
@@ -212,7 +213,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
                 // timeout happened
                 result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
                 tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                        TcpDiagnosticMessageChannelState::kIdle);
+                        TcpDiagnosticMessageChannelState::kDiagIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
                         DLT_CSTRING("Diagnostic Message Ack Request timed out"));
             }
@@ -231,7 +232,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             default:
                 // change to idle, as diagnostic req was not acknowledged or sending failed
                 tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                        TcpDiagnosticMessageChannelState::kIdle);
+                        TcpDiagnosticMessageChannelState::kDiagIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
                         DLT_CSTRING("Diagnostic Message Transmission Failed"));
             break;

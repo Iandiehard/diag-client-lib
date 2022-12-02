@@ -36,6 +36,33 @@ TcpChannelStateImpl::TcpChannelStateImpl()
 
     // transit to idle state
     GetRoutingActivationStateContext().TransitionTo(routingActivationState::kIdle);
+
+    // create and add state for Diagnostic State
+    // kDiagIdle
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagIdle,
+                       std::move(std::make_unique<kDiagIdle>(diagnosticState::kDiagIdle)));
+
+    // kWaitForDiagnosticAck
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticAck,
+                                                std::move(std::make_unique<kWaitForDiagnosticAck>(diagnosticState::kWaitForDiagnosticAck)));
+
+    // kSendDiagnosticReqFailed
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kSendDiagnosticReqFailed,
+                                                std::move(std::make_unique<kSendDiagnosticReqFailed>(diagnosticState::kSendDiagnosticReqFailed)));
+
+    // kDiagnosticPositiveAckRecvd
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticPositiveAckRecvd,
+                                                std::move(std::make_unique<kDiagnosticPositiveAckRecvd>(diagnosticState::kDiagnosticPositiveAckRecvd)));
+
+    // kDiagnosticNegativeAckRecvd
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticNegativeAckRecvd,
+                                                std::move(std::make_unique<kDiagnosticNegativeAckRecvd>(diagnosticState::kDiagnosticNegativeAckRecvd)));
+
+    // kWaitForDiagnosticResponse
+    GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticResponse,
+                                                std::move(std::make_unique<kWaitForDiagnosticResponse>(diagnosticState::kWaitForDiagnosticResponse)));
+    // transit to idle state
+    GetDiagnosticMessageStateContext().TransitionTo(diagnosticState::kDiagIdle);
 }
 
 auto TcpChannelStateImpl::GetRoutingActivationStateContext()
@@ -86,6 +113,61 @@ void kRoutingActivationFailed::Start() {}
 void kRoutingActivationFailed::Stop() {}
 
 void kRoutingActivationFailed::HandleMessage() {}
+
+kDiagIdle::kDiagIdle(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kDiagIdle::Start() {}
+
+void kDiagIdle::Stop() {}
+
+void kDiagIdle::HandleMessage() {}
+
+kWaitForDiagnosticAck::kWaitForDiagnosticAck(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kWaitForDiagnosticAck::Start() {
+    // wait for diagnostic acknowledgement till kDoIPDiagnosticAckTimeout
+    timer_sync_.Start(kDoIPDiagnosticAckTimeout);
+}
+
+void kWaitForDiagnosticAck::Stop() { timer_sync_.Stop(); }
+
+void kWaitForDiagnosticAck::HandleMessage() {}
+
+kSendDiagnosticReqFailed::kSendDiagnosticReqFailed(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kSendDiagnosticReqFailed::Start() {}
+
+void kSendDiagnosticReqFailed::Stop() {}
+
+void kSendDiagnosticReqFailed::HandleMessage() {}
+
+kDiagnosticPositiveAckRecvd::kDiagnosticPositiveAckRecvd(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kDiagnosticPositiveAckRecvd::Start() {}
+
+void kDiagnosticPositiveAckRecvd::Stop() {}
+
+kDiagnosticNegativeAckRecvd::kDiagnosticNegativeAckRecvd(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kDiagnosticNegativeAckRecvd::Start() {}
+
+void kDiagnosticNegativeAckRecvd::Stop() {}
+
+void kDiagnosticNegativeAckRecvd::HandleMessage() {}
+
+kWaitForDiagnosticResponse::kWaitForDiagnosticResponse(diagnosticState state)
+    : State<diagnosticState>(state) {}
+
+void kWaitForDiagnosticResponse::Start() {}
+
+void kWaitForDiagnosticResponse::Stop() {}
+
+void kWaitForDiagnosticResponse::HandleMessage() {}
 
 } // tcpChannelStateImpl
 } // doip

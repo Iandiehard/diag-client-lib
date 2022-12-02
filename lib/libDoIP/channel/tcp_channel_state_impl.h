@@ -34,7 +34,7 @@ enum class routingActivationState : std::uint8_t {
 
 // Diagnostic state
 enum class diagnosticState: std::uint8_t {
-    kIdle = 0,
+    kDiagIdle = 0U,
     kSendDiagnosticReqFailed,
     kWaitForDiagnosticAck,
     kDiagnosticPositiveAckRecvd,
@@ -130,6 +130,116 @@ public:
 
     // dtor
     ~kRoutingActivationFailed() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+};
+
+class kDiagIdle final: public State <diagnosticState> {
+public:
+    // ctor
+    kDiagIdle(diagnosticState state);
+
+    // dtor
+    ~kDiagIdle() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+};
+
+class kWaitForDiagnosticAck final: public State <diagnosticState> {
+public:
+    // ctor
+    kWaitForDiagnosticAck(diagnosticState state);
+
+    // dtor
+    ~kWaitForDiagnosticAck() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+private:
+    oneShotSyncTimer timer_sync_;
+};
+
+class kSendDiagnosticReqFailed final: public State <diagnosticState> {
+public:
+    // ctor
+    kSendDiagnosticReqFailed(diagnosticState state);
+
+    // dtor
+    ~kSendDiagnosticReqFailed() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+};
+
+class kDiagnosticPositiveAckRecvd final: public State <diagnosticState> {
+public:
+    // ctor
+    kDiagnosticPositiveAckRecvd(diagnosticState state);
+
+    // dtor
+    ~kDiagnosticPositiveAckRecvd() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+};
+
+class kDiagnosticNegativeAckRecvd final: public State <diagnosticState> {
+public:
+    // ctor
+    kDiagnosticNegativeAckRecvd(diagnosticState state);
+
+    // dtor
+    ~kDiagnosticNegativeAckRecvd() = default;
+
+    // start the state
+    void Start() override;
+
+    // Stop the state
+    void Stop() override;
+
+    // Handle invoked asynchronously
+    void HandleMessage() override;
+};
+
+class kWaitForDiagnosticResponse final: public State <diagnosticState> {
+public:
+    // ctor
+    kWaitForDiagnosticResponse(diagnosticState state);
+
+    // dtor
+    ~kWaitForDiagnosticResponse() = default;
 
     // start the state
     void Start() override;

@@ -160,7 +160,6 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
 
 auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
         DoipMessage &doip_payload) noexcept -> void {
-    DiagnosticMessageChannelState final_state{DiagnosticMessageChannelState::kWaitForDiagnosticResponse};
 
     if(channel_
         .GetChannelState()
@@ -191,25 +190,27 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
                                                                 "DoIP",
                                                                 payload_info);
 
-        // Check result and udsMessagePtr
-        if((retval.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
-           (retval.second != nullptr)) {
-            final_state = DiagnosticMessageChannelState::kDiagnosticFinalResRecvd;
-            // copy to application buffer
-            std::copy(payload_info.begin(), payload_info.end(), retval.second->GetPayload().begin());
-            tcp_transport_handler_.HandleMessage(std::move(retval.second));
-        }
-        else if(retval.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
+        if(retval.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
             // keep channel alive since pending request received, do not change channel state
         }
-        else { // other errors
-            final_state = DiagnosticMessageChannelState::kIdle;
+        else {
+            // Check result and udsMessagePtr
+            if((retval.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
+               (retval.second != nullptr)) {
+                // copy to application buffer
+                std::copy(payload_info.begin(), payload_info.end(), retval.second->GetPayload().begin());
+                tcp_transport_handler_.HandleMessage(std::move(retval.second));
+            }
+            else {
+                // other errors
+                // set to idle
+                // raise error
+            }
+            channel_
+                    .GetChannelState()
+                    .GetDiagnosticMessageStateContext()
+                    .TransitionTo(DiagnosticMessageChannelState::kDiagIdle);
         }
-
-        channel_
-            .GetChannelState()
-            .GetDiagnosticMessageStateContext()
-            .TransitionTo(final_state);
     }
     else {
         // ignore

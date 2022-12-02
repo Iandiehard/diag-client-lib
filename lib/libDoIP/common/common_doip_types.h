@@ -21,7 +21,7 @@ constexpr uint16_t kDoipPort = 13400U;
 /* Udp Channel Length */
 constexpr uint32_t kUdpChannelLength = 41U;
 /* Tcp Channel Length */
-constexpr uint32_t kTcpChannelLength = 4096u;
+constexpr uint32_t kTcpChannelLength = 4096U;
 
 /* DoIP Header */
 constexpr uint8_t  kDoipheadrSize                                       = 0x8;

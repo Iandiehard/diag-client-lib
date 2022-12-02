@@ -14,8 +14,6 @@
 #include <map>
 #include <memory>
 #include <cstdint>
-#include <iostream>
-#include <typeinfo>
 
 namespace libUtility {
 namespace state {
@@ -54,7 +52,7 @@ public:
     // ctor
     StateContext():
         current_state_{nullptr} ,
-        state_map_() {}
+        state_map_{} {}
 
     // dtor
     ~StateContext() = default;

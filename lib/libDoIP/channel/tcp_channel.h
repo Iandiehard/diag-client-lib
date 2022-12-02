@@ -34,6 +34,7 @@ using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpRoutingActivationChannelState    = tcpChannelStateImpl::routingActivationState;
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
+
 /*
  @ Class Name        : tcpChannel
  @ Class Description : Class used to handle Doip Tcp Channel                              
@@ -43,9 +44,8 @@ class tcpChannel {
 public:
     //  socket state
     enum class tcpSocketState : std::uint8_t {
-        kIdle                           = 0,
-        kSocketOnline,
-        kSocketOffline
+        kSocketOffline = 0U,
+        kSocketOnline
     };
 
     //ctor
@@ -97,7 +97,7 @@ private:
     std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcp_socket_handler_;
 
     // tcp socket state
-    tcpSocketState tcpSocketState_e{tcpSocketState::kSocketOffline};
+    tcpSocketState tcp_socket_state_{tcpSocketState::kSocketOffline};
 
     // tcp channel state
     tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
