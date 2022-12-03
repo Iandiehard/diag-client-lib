@@ -238,7 +238,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
                             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                                     TcpDiagnosticMessageChannelState::kDiagIdle);
                             DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                                    DLT_CSTRING("Diagnostic Message Transmission Failed"));
+                                    DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
                         }
                     },
             kDoIPDiagnosticAckTimeout);

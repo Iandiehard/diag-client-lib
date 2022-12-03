@@ -205,36 +205,36 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
 
             // Wait P6Max / P2ClientMax
             WaitForResponse(
-            [&](){
-                DLT_LOG(dm_conversion, DLT_LOG_WARN,
-                        DLT_CSTRING("'"),
-                        DLT_CSTRING(convrs_name.c_str()),
-                        DLT_CSTRING("'"),
-                        DLT_CSTRING("->"),
-                        DLT_CSTRING("Diagnostic Response P2 Timeout happened"),
-                        DLT_UINT16(p2_client_max));
+                [&](){
+                    DLT_LOG(dm_conversion, DLT_LOG_WARN,
+                            DLT_CSTRING("'"),
+                            DLT_CSTRING(convrs_name.c_str()),
+                            DLT_CSTRING("'"),
+                            DLT_CSTRING("->"),
+                            DLT_CSTRING("Diagnostic Response P2 Timeout happened"),
+                            DLT_UINT16(p2_client_max));
 
-                conversation_state_.GetConversationStateContext().TransitionTo(
-                        ConversationState::kIdle);
-                },
-            [&](){
-                    // pending or pos/neg response
-                    if(conversation_state_
-                        .GetConversationStateContext()
-                        .GetActiveState()
-                        .GetState() == ConversationState::kDiagRecvdFinalRes){
-                        // pos/neg response received
-                    }
-                    else if(conversation_state_
-                        .GetConversationStateContext()
-                        .GetActiveState()
-                        .GetState() == ConversationState::kDiagRecvdPendingRes) {
-                        // first pending received
-                        conversation_state_.GetConversationStateContext().TransitionTo(
-                                ConversationState::kDiagStartP2StarTimer);
-                    }
-                },
-            p2_client_max);
+                    conversation_state_.GetConversationStateContext().TransitionTo(
+                            ConversationState::kIdle);
+                    },
+                [&](){
+                        // pending or pos/neg response
+                        if(conversation_state_
+                            .GetConversationStateContext()
+                            .GetActiveState()
+                            .GetState() == ConversationState::kDiagRecvdFinalRes){
+                            // pos/neg response received
+                        }
+                        else if(conversation_state_
+                            .GetConversationStateContext()
+                            .GetActiveState()
+                            .GetState() == ConversationState::kDiagRecvdPendingRes) {
+                            // first pending received
+                            conversation_state_.GetConversationStateContext().TransitionTo(
+                                    ConversationState::kDiagStartP2StarTimer);
+                        }
+                    },
+                p2_client_max);
 
             while(conversation_state_
                 .GetConversationStateContext()
@@ -297,7 +297,6 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                                 }
                             },
                             p2_star_client_max);
-
                         }
                     break;
 

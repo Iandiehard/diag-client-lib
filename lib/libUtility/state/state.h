@@ -88,12 +88,16 @@ public:
 private:
     // Start the current state
     void Start() {
-        this->current_state_->Start();
+        if(this->current_state_ != nullptr) {
+            this->current_state_->Start();
+        }        
     }
 
     // Stop the current state
     void Stop() {
-        this->current_state_->Stop();
+        if(this->current_state_ != nullptr) {   
+            this->current_state_->Stop();
+        }
     }
 
     // Update to new state
