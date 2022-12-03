@@ -34,7 +34,8 @@ using TcpMessagePtr      = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpRoutingActivationChannelState    = tcpChannelStateImpl::routingActivationState;
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
-
+using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
+using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
 /*
  @ Class Name        : tcpChannel
  @ Class Description : Class used to handle Doip Tcp Channel                              
@@ -84,6 +85,12 @@ public:
         tcpChannelStateImpl::TcpChannelStateImpl& {
         return tcp_channel_state_;
     }
+
+    // Function to wait for response
+    void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+
+    // Function to cancel the synchronous wait
+    void WaitCancel();
 private:
     // Function to handle the routing states
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
@@ -104,6 +111,9 @@ private:
 
     // tcp channel handler
     tcpChannelHandlerImpl::TcpChannelHandlerImpl tcp_channel_handler_;
+
+    // sync timer
+    SyncTimer sync_timer_;
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(doip_tcp_channel);

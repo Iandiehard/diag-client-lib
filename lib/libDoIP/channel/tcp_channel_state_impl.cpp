@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "tcp_channel_state_impl.h"
+#include "channel/tcp_channel_state_impl.h"
 
 namespace ara{
 namespace diag{
@@ -87,12 +87,9 @@ void kIdle::HandleMessage() {}
 kWaitForRoutingActivationRes::kWaitForRoutingActivationRes(routingActivationState state)
     : State<routingActivationState>(state) {}
 
-void kWaitForRoutingActivationRes::Start() {
-    // wait for routing activation response till DoIPRoutingActivationTimeout
-    timer_sync_.Start(kDoIPRoutingActivationTimeout);
-}
+void kWaitForRoutingActivationRes::Start() {}
 
-void kWaitForRoutingActivationRes::Stop() { timer_sync_.Stop(); }
+void kWaitForRoutingActivationRes::Stop() {}
 
 void kWaitForRoutingActivationRes::HandleMessage() {}
 
@@ -126,12 +123,9 @@ void kDiagIdle::HandleMessage() {}
 kWaitForDiagnosticAck::kWaitForDiagnosticAck(diagnosticState state)
     : State<diagnosticState>(state) {}
 
-void kWaitForDiagnosticAck::Start() {
-    // wait for diagnostic acknowledgement till kDoIPDiagnosticAckTimeout
-    timer_sync_.Start(kDoIPDiagnosticAckTimeout);
-}
+void kWaitForDiagnosticAck::Start() {}
 
-void kWaitForDiagnosticAck::Stop() { timer_sync_.Stop(); }
+void kWaitForDiagnosticAck::Stop() {}
 
 void kWaitForDiagnosticAck::HandleMessage() {}
 
@@ -150,6 +144,8 @@ kDiagnosticPositiveAckRecvd::kDiagnosticPositiveAckRecvd(diagnosticState state)
 void kDiagnosticPositiveAckRecvd::Start() {}
 
 void kDiagnosticPositiveAckRecvd::Stop() {}
+
+void kDiagnosticPositiveAckRecvd::HandleMessage() {}
 
 kDiagnosticNegativeAckRecvd::kDiagnosticNegativeAckRecvd(diagnosticState state)
     : State<diagnosticState>(state) {}

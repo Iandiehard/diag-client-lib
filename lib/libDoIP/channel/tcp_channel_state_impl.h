@@ -13,7 +13,6 @@
 #include <vector>
 #include "state/state.h"
 #include "common/common_doip_types.h"
-#include "libTimer/oneShotSync/oneShotSyncTimer.h"
 
 namespace ara{
 namespace diag{
@@ -22,7 +21,6 @@ namespace tcpChannelStateImpl {
 
 using namespace libUtility::state;
 using namespace ara::diag::uds_transport;
-using namespace libOsAbstraction::libBoost::libTimer::oneShot;
 
 // routing activation state
 enum class routingActivationState : std::uint8_t {
@@ -58,7 +56,6 @@ public:
     // Function to get Diagnostic Message State context
     auto GetDiagnosticMessageStateContext()
         noexcept -> StateContext<diagnosticState>&;
-
 private:
     // routing activation state
     std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
@@ -101,8 +98,6 @@ public:
 
     // Handle invoked asynchronously
     void HandleMessage() override;
-private:
-    oneShotSyncTimer timer_sync_;
 };
 
 class kRoutingActivationSuccessful final: public State <routingActivationState> {
@@ -175,8 +170,6 @@ public:
 
     // Handle invoked asynchronously
     void HandleMessage() override;
-private:
-    oneShotSyncTimer timer_sync_;
 };
 
 class kSendDiagnosticReqFailed final: public State <diagnosticState> {

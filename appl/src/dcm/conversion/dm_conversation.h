@@ -11,23 +11,25 @@
 
 /* includes */
 #include "common_Header.h"
+#include "diagnostic_client_conversation.h"
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
-#include "diagnostic_client_conversation.h"
 #include "libTimer/oneShotSync/oneShotSyncTimer.h"
+#include "dcm/conversion/dm_conversation_state_impl.h"
 
 namespace diag{
 namespace client{
 namespace conversation{
 
-using conv_sync_timer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
+using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
+using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+using ConversationState = conversation_state_impl::ConversationState;
 /*
  @ Class Name        : DmConversation
  @ Class Description : Class to establish connection with Diagnostic Server                           
  */
 class DmConversation : public  ::diag::client::conversation::DiagClientConversation {
-
 public:
     // ctor
     explicit DmConversation(
@@ -49,41 +51,40 @@ public:
     // Description   : Function to connect to Diagnostic Server
     // @param input  : Nothing
     // @return value : ConnectResult
-    ConnectResult ConnectToDiagServer(
-            uds_message::UdsRequestMessage::IpAddress host_ip_addr) override;
+    ConnectResult ConnectToDiagServer(uds_message::UdsRequestMessage::IpAddress host_ip_addr) override;
 
     // Description   : Function to disconnect from Diagnostic Server
     // @param input  : Nothing
     // @return value : DisconnectResult
-    DisconnectResult 
-            DisconnectFromDiagServer() override;
+    DisconnectResult DisconnectFromDiagServer() override;
 
-    // function to send Diagnostic Activation Request
+    // Description   : Function to send Diagnostic Request and receive response
+    // @param input  : Nothing
+    // @return value : DisconnectResult
     std::pair<DiagResult, uds_message::UdsResponseMessagePtr> 
-            SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) override;
+        SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) override;
 
     // Register Connection
     void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
 
     // Indicate message Diagnostic message reception over TCP to user
     std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
-            ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
-                                ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                ara::diag::uds_transport::ChannelID channel_id,
-                                std::size_t size,
-                                ara::diag::uds_transport::Priority priority,
-                                ara::diag::uds_transport::ProtocolKind protocol_kind,
-                                std::vector<uint8_t> payloadInfo) ;
+        ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
+            ara::diag::uds_transport::UdsMessage::Address source_addr,
+            ara::diag::uds_transport::UdsMessage::Address target_addr,
+            ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+            ara::diag::uds_transport::ChannelID channel_id,
+            std::size_t size,
+            ara::diag::uds_transport::Priority priority,
+            ara::diag::uds_transport::ProtocolKind protocol_kind,
+            std::vector<uint8_t> payloadInfo);
 
     // Hands over a valid message to conversion
     void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
 
     // shared pointer to store the conversion handler
     std::shared_ptr<ara::diag::conversion::ConversionHandler> dm_conversion_handler;
-    
-private:  
+private:
     // Type for active diagnostic session
     enum class SessionControlType : uint8_t {
         kDefaultSession      = 0x01,
@@ -104,18 +105,11 @@ private:
         kInactive           = 0x01
     };
 
-    enum class ConversionStateType : uint8_t {
-        kIdle               = 0x00,
-        kDiagReqSent,
-        kDiagWaitForRes,
-        kDiagStartP2StarTimer,
-        kDiagP2MaxTimeout,
-        kDiagP2StarMaxTimeout,
-        kDiagRecvdPendingRes,
-        kDiagRecvdFinalRes,
-        kDiagSuccess,
-        kDiagIncorrectRes,
-    };
+    // Function to wait for response
+    void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+
+    // Function to cancel the synchronous wait
+    void WaitCancel();
 
     // Conversion activity Status
     ActivityStatusType activity_status;
@@ -156,17 +150,17 @@ private:
     // conversion name
     std::string convrs_name;
 
-    // state of conversion
-    ConversionStateType conversion_state;
-
     // Tp connection
     std::shared_ptr<ara::diag::connection::Connection> connection_ptr;
 
     // timer   
-    conv_sync_timer sync_timer;
+    SyncTimer sync_timer_;
 
     // rx buffer to store the uds response
     ara::diag::uds_transport::ByteVector payload_rx_buffer;
+
+    // conversation state
+    conversation_state_impl::ConversationStateImpl conversation_state_;
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(dm_conversion);

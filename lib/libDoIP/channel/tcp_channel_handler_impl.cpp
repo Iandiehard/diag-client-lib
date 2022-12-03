@@ -51,11 +51,11 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
                 // failure, do nothing
             break;
         }
-
         channel_
             .GetChannelState()
             .GetRoutingActivationStateContext()
             .TransitionTo(final_state);
+        channel_.WaitCancel();
     }
     else {
         /* ignore */
@@ -142,16 +142,16 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
             }
         }
         else if(doip_payload.payload_type == kDoip_DiagMessageNegAck_Type) {
-
+            // do nothing
         }
         else {
             // do nothing
         }
-
         channel_
             .GetChannelState()
             .GetDiagnosticMessageStateContext()
             .TransitionTo(final_state);
+        channel_.WaitCancel();
     }
     else {
         // ignore
@@ -207,9 +207,9 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
                 // raise error
             }
             channel_
-                    .GetChannelState()
-                    .GetDiagnosticMessageStateContext()
-                    .TransitionTo(DiagnosticMessageChannelState::kDiagIdle);
+                .GetChannelState()
+                .GetDiagnosticMessageStateContext()
+                .TransitionTo(DiagnosticMessageChannelState::kDiagIdle);
         }
     }
     else {

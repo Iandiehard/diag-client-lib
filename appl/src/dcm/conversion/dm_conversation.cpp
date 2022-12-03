@@ -7,7 +7,7 @@
  */
 
 /* includes */
-#include "dcm/conversion/dmconversation.h"
+#include "dcm/conversion/dm_conversation.h"
 #include "dcm/service/dm_uds_message.h"
 
 namespace diag{
@@ -108,13 +108,13 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
       
     // Send Connect request to doip layer
     DiagClientConversation::ConnectResult ret_val =
-            static_cast<DiagClientConversation::ConnectResult>(
-                connection_ptr->ConnectToHost(std::move(
-                        std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                                source_address,
-                                                                                target_address,
-                                                                                host_ip_addr,
-                                                                                payload))));
+        static_cast<DiagClientConversation::ConnectResult>(
+            connection_ptr->ConnectToHost(std::move(
+                std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                                                                            source_address,
+                                                                            target_address,
+                                                                            host_ip_addr,
+                                                                            payload))));
     
     if(ret_val ==
         DiagClientConversation::ConnectResult::kConnectSuccess) {
@@ -143,8 +143,7 @@ DiagClientConversation::DisconnectResult
     DmConversation::DisconnectFromDiagServer() {
     // Send disconnect request to doip layer
     DiagClientConversation::DisconnectResult ret_val =
-        static_cast<DiagClientConversation::DisconnectResult>(
-            connection_ptr->DisconnectFromHost());
+        static_cast<DiagClientConversation::DisconnectResult>(connection_ptr->DisconnectFromHost());
 
     if(ret_val ==
             DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
@@ -184,85 +183,136 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
 
         // create the uds message
         ara::diag::uds_transport::UdsMessagePtr uds_message =
-                        std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                                source_address,
-                                                                                target_address,
-                                                                                message->GetHostIpAddress(),
-                                                                                payload);
+            std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                source_address,
+                target_address,
+                message->GetHostIpAddress(),
+                payload);
+
+        // Initiate Send
         if(connection_ptr->Transmit(std::move(uds_message)) != 
             ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
-            // Diagnostic Request Sent successful, wait for response
-            conversion_state = ConversionStateType::kDiagWaitForRes;
+            // Diagnostic Request Sent successful
             DLT_LOG(dm_conversion, DLT_LOG_INFO,
-                DLT_CSTRING("'"),
-                DLT_CSTRING(convrs_name.c_str()),
-                DLT_CSTRING("'"),
-                DLT_CSTRING("->"),
-                DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));
-            while(conversion_state != ConversionStateType::kIdle) {
-                DLT_LOG(dm_conversion, DLT_LOG_VERBOSE, 
-                    DLT_CSTRING("Dm coversion state:"), 
-                    DLT_UINT8(static_cast<std::uint8_t>(conversion_state)));
-                switch (conversion_state) {
-                    case ConversionStateType::kDiagWaitForRes :
-                        {// start P6Max / P2ClientMax timer
-                            if(sync_timer.Start(p2_client_max) ==
-                                    conv_sync_timer::timer_state::kTimeout) {
-                                // no response received withing P6Max / P2ClientMax
-                                conversion_state = ConversionStateType::kDiagP2MaxTimeout;
-                                DLT_LOG(dm_conversion, DLT_LOG_WARN,
-                                    DLT_CSTRING("'"),
-                                    DLT_CSTRING(convrs_name.c_str()),
-                                    DLT_CSTRING("'"),
-                                    DLT_CSTRING("->"), 
-                                    DLT_CSTRING("Diagnostic Response P2 Timeout happened"), 
-                                    DLT_UINT16(p2_client_max));
-                            }
-                            else {
-                                // response received, state will be handled in callback
-                            }
-                            break;
-                        }
-                    case ConversionStateType::kDiagRecvdPendingRes:
-                    case ConversionStateType::kDiagRecvdFinalRes:
-                        // do nothing
-                        break;
+                    DLT_CSTRING("'"),
+                    DLT_CSTRING(convrs_name.c_str()),
+                    DLT_CSTRING("'"),
+                    DLT_CSTRING("->"),
+                    DLT_CSTRING("Diagnostic Request Sent & Positive Ack received"));
 
-                    case ConversionStateType::kDiagStartP2StarTimer:
-                        {// start P6Star/ P2 star client time
-                            if(sync_timer.Start(p2_star_client_max) ==
-                                    conv_sync_timer::timer_state::kTimeout) {
-                                // no response received within P6Start/ P2Star
-                                conversion_state = ConversionStateType::kDiagP2StarMaxTimeout;
+            conversation_state_.GetConversationStateContext().TransitionTo(
+                    ConversationState::kDiagWaitForRes);
+
+            // Wait P6Max / P2ClientMax
+            WaitForResponse(
+            [&](){
+                DLT_LOG(dm_conversion, DLT_LOG_WARN,
+                        DLT_CSTRING("'"),
+                        DLT_CSTRING(convrs_name.c_str()),
+                        DLT_CSTRING("'"),
+                        DLT_CSTRING("->"),
+                        DLT_CSTRING("Diagnostic Response P2 Timeout happened"),
+                        DLT_UINT16(p2_client_max));
+
+                conversation_state_.GetConversationStateContext().TransitionTo(
+                        ConversationState::kIdle);
+                },
+            [&](){
+                    // pending or pos/neg response
+                    if(conversation_state_
+                        .GetConversationStateContext()
+                        .GetActiveState()
+                        .GetState() == ConversationState::kDiagRecvdFinalRes){
+                        // pos/neg response received
+                    }
+                    else if(conversation_state_
+                        .GetConversationStateContext()
+                        .GetActiveState()
+                        .GetState() == ConversationState::kDiagRecvdPendingRes) {
+                        // first pending received
+                        conversation_state_.GetConversationStateContext().TransitionTo(
+                                ConversationState::kDiagStartP2StarTimer);
+                    }
+                },
+            p2_client_max);
+
+            while(conversation_state_
+                .GetConversationStateContext()
+                .GetActiveState()
+                .GetState() != ConversationState::kIdle) {
+
+                DLT_LOG(dm_conversion, DLT_LOG_VERBOSE,
+                    DLT_CSTRING("Dm conversation state:"),
+                    DLT_UINT8(static_cast<std::uint8_t>(conversation_state_
+                                .GetConversationStateContext()
+                                .GetActiveState()
+                                .GetState())));
+
+                switch (conversation_state_
+                        .GetConversationStateContext()
+                        .GetActiveState()
+                        .GetState()) {
+
+                    case ConversationState::kDiagRecvdPendingRes: {
+                        conversation_state_.GetConversationStateContext().TransitionTo(
+                                ConversationState::kDiagStartP2StarTimer);
+                    }
+                    break;
+
+                    case ConversationState::kDiagRecvdFinalRes:
+                        // do nothing
+                    break;
+
+                    case ConversationState::kDiagStartP2StarTimer: {
+                        // wait P6Star/ P2 star client time
+                        WaitForResponse(
+                            [&](){
                                 DLT_LOG(dm_conversion, DLT_LOG_WARN,
-                                    DLT_CSTRING("'"),
-                                    DLT_CSTRING(convrs_name.c_str()),
-                                    DLT_CSTRING("'"),
-                                    DLT_CSTRING("->"), 
-                                    DLT_CSTRING("Diagnostic Response P2 Star Timeout happened"), 
-                                    DLT_UINT16(p2_star_client_max));                     
-                            }
-                            else {
-                                // response received, state will be handled in callback
-                            }
-                            break;
+                                        DLT_CSTRING("'"),
+                                        DLT_CSTRING(convrs_name.c_str()),
+                                        DLT_CSTRING("'"),
+                                        DLT_CSTRING("->"),
+                                        DLT_CSTRING("Diagnostic Response P2 Star Timeout happened"),
+                                        DLT_UINT16(p2_star_client_max));
+
+                                ret_val.first = DiagClientConversation::DiagResult::kDiagResponseTimeout;
+                                conversation_state_.GetConversationStateContext().TransitionTo(
+                                        ConversationState::kIdle);
+                            },
+                            [&](){
+                                // pending or pos/neg response
+                                if(conversation_state_
+                                           .GetConversationStateContext()
+                                           .GetActiveState()
+                                           .GetState() == ConversationState::kDiagRecvdFinalRes){
+                                    // pos/neg response received
+                                }
+                                else if(conversation_state_
+                                                .GetConversationStateContext()
+                                                .GetActiveState()
+                                                .GetState() == ConversationState::kDiagRecvdPendingRes) {
+                                    // pending received again
+                                    conversation_state_.GetConversationStateContext().TransitionTo(
+                                            ConversationState::kDiagStartP2StarTimer);
+                                }
+                            },
+                            p2_star_client_max);
+
                         }
-                    case ConversionStateType::kDiagP2MaxTimeout:
-                    case ConversionStateType::kDiagP2StarMaxTimeout:
-                        {// Timeout case
-                            conversion_state = ConversionStateType::kIdle;
-                            ret_val.first = DiagClientConversation::DiagResult::kDiagResponseTimeout;
-                            break;
-                        }
-                    case ConversionStateType::kDiagSuccess:
-                        {// change state to idle, form the uds response and return
-                            ret_val.second = std::move(
-                                    std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
-                            ret_val.first = DiagClientConversation::DiagResult::kDiagSuccess;
-                            conversion_state = ConversionStateType::kIdle;
-                            break;
-                        }
+                    break;
+
+                    case ConversationState::kDiagSuccess: {
+                        // change state to idle, form the uds response and return
+                        ret_val.second = std::move(
+                                std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
+                        ret_val.first = DiagClientConversation::DiagResult::kDiagSuccess;
+                        conversation_state_.GetConversationStateContext().TransitionTo(
+                                ConversationState::kIdle);
+                    }
+                    break;
+
                     default:
+                        // nothing
                         break;
                 }
             }
@@ -281,7 +331,6 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
             DLT_CSTRING("Diagnostic Request is empty"), 
             DLT_UINT16(p2_star_client_max));         
     }
-
     return ret_val;
 }
 
@@ -317,11 +366,10 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                     DLT_CSTRING("'"),
                     DLT_CSTRING("->"), 
                     DLT_CSTRING("Diagnostic Pending response received in Conversion"));
-                conversion_state = ConversionStateType::kDiagRecvdPendingRes;
-                sync_timer.Stop();
                 ret_val.first = 
                     ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
-                conversion_state = ConversionStateType::kDiagStartP2StarTimer;
+                conversation_state_.GetConversationStateContext().TransitionTo(
+                        ConversationState::kDiagRecvdPendingRes);
             }
             else {
                 DLT_LOG(dm_conversion, DLT_LOG_DEBUG,
@@ -331,9 +379,8 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                     DLT_CSTRING("->"),  
                     DLT_CSTRING("Diagnostic Final response received in Conversion"));
                 // positive or negative response, provide valid buffer
-                conversion_state = ConversionStateType::kDiagRecvdFinalRes;
-                sync_timer.Stop();
-                payload_rx_buffer.resize(size);                  
+                // resize the global rx buffer
+                payload_rx_buffer.resize(size);
                 ret_val.first = 
                     ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
                 ret_val.second = std::move(
@@ -342,7 +389,11 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                                                                                         target_address,
                                                                                         "",
                                                                                         payload_rx_buffer));
+
+                conversation_state_.GetConversationStateContext().TransitionTo(
+                        ConversationState::kDiagRecvdFinalRes);
             }
+            WaitCancel();
         }
         else {
             DLT_LOG(dm_conversion, DLT_LOG_ERROR,
@@ -351,7 +402,8 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
                 DLT_CSTRING("'"),
                 DLT_CSTRING("->"), 
                 DLT_CSTRING("Diagnostic Conversion Error Indication Overflow"));
-            ret_val.first = 
+
+            ret_val.first =
                 ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOverflow;
         }
     }
@@ -383,8 +435,25 @@ void DmConversation::HandleMessage (ara::diag::uds_transport::UdsMessagePtr mess
             DLT_CSTRING("'"),
             DLT_CSTRING("->"),  
             DLT_CSTRING("Total Message Length in HandleMessage: "), DLT_INT16(static_cast<int>(payload_rx_buffer.size())));
-        conversion_state = ConversionStateType::kDiagSuccess;
+        conversation_state_.GetConversationStateContext().TransitionTo(
+                ConversationState::kDiagSuccess);
     }
+}
+
+void DmConversation::WaitForResponse(
+    std::function<void()> timeout_func,
+    std::function<void()> cancel_func,
+    int msec) {
+    if(sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
+        timeout_func();
+    }
+    else {
+        cancel_func();
+    }
+}
+
+void DmConversation::WaitCancel() {
+    sync_timer_.Stop();
 }
 
 // ctor

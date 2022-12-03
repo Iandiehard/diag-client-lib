@@ -26,7 +26,7 @@ class UdsRequestMessage {
     // Ip address
     using IpAddress = std::string;
 
-    // ctor
+    // Ctor
     UdsRequestMessage() = default;
 
     UdsRequestMessage (const UdsRequestMessage &other)=default;
@@ -34,13 +34,13 @@ class UdsRequestMessage {
     UdsRequestMessage& operator= (const UdsRequestMessage &other)=default;
     UdsRequestMessage& operator= (UdsRequestMessage &&other) noexcept=default;
 
-    // dtor
+    // Dtor
     inline virtual ~UdsRequestMessage()=default;
 
     // Get the UDS message data starting with the SID (A_Data as per ISO)
     virtual const ByteVector& GetPayload () const = 0;
 
-    // return the underlying buffer for write access
+    // Return the underlying buffer for write access
     virtual ByteVector& GetPayload () = 0;
 
     // Get Host Ip address
@@ -49,9 +49,11 @@ class UdsRequestMessage {
 
 // This is the unique_ptr for constant UdsRequestMessage 
 using UdsRequestMessageConstPtr = std::unique_ptr<const UdsRequestMessage>;
-// This is the unique_ptr for UdsRequestMessage 
+
+// This is the unique_ptr for Request Message
 using UdsRequestMessagePtr = std::unique_ptr<UdsRequestMessage>;
 
+// This is the unique_ptr for Response Message
 using UdsResponseMessagePtr = std::unique_ptr<UdsRequestMessage>;
 
 } // uds_message

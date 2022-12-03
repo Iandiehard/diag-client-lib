@@ -82,7 +82,6 @@ public:
             SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) = 0;
 };
 
-
 } // conversation
 } // client
 } // diag

@@ -8,7 +8,7 @@
 
 /* includes */
 #include "dcm/conversion/conversation_manager.h"
-#include "dcm/conversion/dmconversation.h"
+#include "dcm/conversion/dm_conversation.h"
 
 namespace diag {
 namespace client {
