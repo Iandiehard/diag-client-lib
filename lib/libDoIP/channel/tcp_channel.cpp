@@ -166,9 +166,9 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
                 },
                 [&](){
                     if(tcp_channel_state_
-                           .GetRoutingActivationStateContext()
-                           .GetActiveState()
-                           .GetState() == TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
+                            .GetRoutingActivationStateContext()
+                            .GetActiveState()
+                            .GetState() == TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
                         // success
                         result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
                         DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
@@ -181,7 +181,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
                         DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                                 DLT_CSTRING("RoutingActivation Failed"));
                     }
-                },kDoIPRoutingActivationTimeout);
+                },
+                kDoIPRoutingActivationTimeout);
         }
         else {
             // failed, do nothing
@@ -214,34 +215,34 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                         TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
             WaitForResponse(
-                    [&](){
-                        result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
+                [&](){
+                    result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
+                    tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                            TcpDiagnosticMessageChannelState::kDiagIdle);
+                    DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
+                            DLT_CSTRING("Diagnostic Message Ack Request timed out"));
+                },
+                [&](){
+                    if(tcp_channel_state_
+                        .GetDiagnosticMessageStateContext()
+                        .GetActiveState()
+                        .GetState() == tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
+                        // success
+                        result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
+                        tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                                TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
+                        DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
+                                DLT_CSTRING("Diagnostic Message Positive Ack received"));
+                    }
+                    else {
+                        // failed
                         tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                                 TcpDiagnosticMessageChannelState::kDiagIdle);
                         DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                                DLT_CSTRING("Diagnostic Message Ack Request timed out"));
-                    },
-                    [&](){
-                        if(tcp_channel_state_
-                            .GetDiagnosticMessageStateContext()
-                            .GetActiveState()
-                            .GetState() == tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
-                            // success
-                            result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-                            tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                                    TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
-                            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
-                                    DLT_CSTRING("Diagnostic Message Positive Ack received"));
-                        }
-                        else {
-                            // failed
-                            tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                                    TcpDiagnosticMessageChannelState::kDiagIdle);
-                            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                                    DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
-                        }
-                    },
-            kDoIPDiagnosticAckTimeout);
+                                DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
+                    }
+                },
+                kDoIPDiagnosticAckTimeout);
         }
         else {
             // failed, do nothing

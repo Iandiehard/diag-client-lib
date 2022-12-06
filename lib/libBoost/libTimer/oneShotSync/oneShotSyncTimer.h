@@ -56,9 +56,6 @@ private:
     // error
     boost::system::error_code error_e;
 
-    // timeout function
-    void Timeout(const boost::system::error_code& error);
-
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(oneshotsync_timer_ctx);
 };
