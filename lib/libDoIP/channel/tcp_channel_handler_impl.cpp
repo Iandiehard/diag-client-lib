@@ -70,25 +70,25 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(
     TcpMessagePtr doip_routing_act_req = std::make_unique<TcpMessage>();
 
     // reserve bytes in vector
-    doip_routing_act_req->txBuffer.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
+    doip_routing_act_req->txBuffer_.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
 
     // create header
-    CreateDoipGenericHeader(doip_routing_act_req->txBuffer,
+    CreateDoipGenericHeader(doip_routing_act_req->txBuffer_,
                             kDoip_RoutingActivation_ReqType,
                             kDoip_RoutingActivation_ReqMinLen);
 
     // Add source address
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)(message->GetSa() & 0x00FF));
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)(message->GetSa() & 0x00FF));
 
     // Add activation type
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)kDoip_RoutingActivation_ReqActType_Default);
 
     // Add reservation byte , default zeroes
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
-    doip_routing_act_req->txBuffer.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)0x00);
+    doip_routing_act_req->txBuffer_.emplace_back((uint8_t)0x00);
 
     // transmit
     if(!tcp_socket_handler_.Transmit(std::move(doip_routing_act_req))) {
@@ -224,21 +224,21 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(
 
     TcpMessagePtr doipDiagReq = std::make_unique<TcpMessage>();
     // reserve bytes in vector
-    doipDiagReq->txBuffer.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
+    doipDiagReq->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
 
     // create header
-    CreateDoipGenericHeader(doipDiagReq->txBuffer,
+    CreateDoipGenericHeader(doipDiagReq->txBuffer_,
                             kDoip_DiagMessage_Type,
                             kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
     // Add source address
-    doipDiagReq->txBuffer.push_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
-    doipDiagReq->txBuffer.push_back((uint8_t)(message->GetSa() & 0x00FF));
+    doipDiagReq->txBuffer_.push_back((uint8_t)((message->GetSa() & 0xFF00) >> 8));
+    doipDiagReq->txBuffer_.push_back((uint8_t)(message->GetSa() & 0x00FF));
     // Add target address
-    doipDiagReq->txBuffer.push_back((uint8_t)((message->GetTa() & 0xFF00) >> 8));
-    doipDiagReq->txBuffer.push_back((uint8_t)(message->GetTa() & 0x00FF));
+    doipDiagReq->txBuffer_.push_back((uint8_t)((message->GetTa() & 0xFF00) >> 8));
+    doipDiagReq->txBuffer_.push_back((uint8_t)(message->GetTa() & 0x00FF));
     // Add data bytes
     for (std::size_t i = 0; i < message->GetPayload().size(); i ++) {
-        doipDiagReq->txBuffer.push_back(message->GetPayload().at(i));
+        doipDiagReq->txBuffer_.push_back(message->GetPayload().at(i));
     }
 
     // transmit
@@ -278,17 +278,17 @@ auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept
     uint8_t nackCode;
     DoipMessage doip_rx_message;
 
-    doip_rx_message.protocol_version = tcp_rx_message->rxBuffer[0];
-    doip_rx_message.protocol_version_inv = tcp_rx_message->rxBuffer[1];
-    doip_rx_message.payload_type = GetDoIPPayloadType(tcp_rx_message->rxBuffer);
-    doip_rx_message.payload_length = GetDoIPPayloadLength(tcp_rx_message->rxBuffer);
+    doip_rx_message.protocol_version = tcp_rx_message->rxBuffer_[0];
+    doip_rx_message.protocol_version_inv = tcp_rx_message->rxBuffer_[1];
+    doip_rx_message.payload_type = GetDoIPPayloadType(tcp_rx_message->rxBuffer_);
+    doip_rx_message.payload_length = GetDoIPPayloadLength(tcp_rx_message->rxBuffer_);
 
     // Process the Doip Generic header check
     if(ProcessDoIPHeader(doip_rx_message, nackCode)) {
-        doip_rx_message.payload.resize(tcp_rx_message->rxBuffer.size() - kDoipheadrSize);
+        doip_rx_message.payload.resize(tcp_rx_message->rxBuffer_.size() - kDoipheadrSize);
         // copy payload locally
-        std::copy(tcp_rx_message->rxBuffer.begin() + kDoipheadrSize,
-                  tcp_rx_message->rxBuffer.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer.size(),
+        std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
+                  tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer_.size(),
                   doip_rx_message.payload.begin());
         ProcessDoIPPayload(doip_rx_message);
     }

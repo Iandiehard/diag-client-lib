@@ -7,7 +7,7 @@
  */
 
 // includes
-#include "oneShotSyncTimer.h"
+#include "one_shotsync_timer.h"
 
 namespace libOsAbstraction {
 namespace libBoost {
@@ -37,9 +37,9 @@ auto oneShotSyncTimer::Start(int msec)
     timer_ptr_->expires_after(msTime(msec));
     // Register completion handler triggered from async_wait
     timer_ptr_->async_wait([&](const boost::system::error_code& error){
-        error_e = error;
+        error_ = error;
         // timer stop was requested
-        if(error_e == boost::asio::error::operation_aborted) { io_e.stop(); }
+        if(error_ == boost::asio::error::operation_aborted) { io_e.stop(); }
     });
 
     auto start = std::chrono::system_clock::now();
@@ -55,9 +55,9 @@ auto oneShotSyncTimer::Start(int msec)
             DLT_FLOAT64(elapsed_seconds.count()),
             DLT_CSTRING("seconds"));
 
-    return (error_e != 
+    return (error_ !=
         boost::asio::error::operation_aborted? 
-        timer_state::kTimeout: timer_state::kCancelRequested));
+        timer_state::kTimeout: timer_state::kCancelRequested);
 }
 
 // stop the timer

@@ -1,10 +1,10 @@
 /* Diagnostic Client library
- * Copyright (C) 2022  Avijit Dey
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
+* Copyright (C) 2022  Avijit Dey
+*
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
 
 #ifndef TCP_TYPES_H
 #define TCP_TYPES_H
@@ -20,47 +20,47 @@ namespace tcp {
 
 // tcp message type
 class TcpMessageType {
-  public:
-      enum class tcpSocketState : std::uint8_t {
-          // Socket state
-          kIdle                           = 0x00,
-          kSocketOnline,
-          kSocketOffline,
-          kSocketRxMessageReceived,
-          kSocketTxMessageSend,
-          kSocketTxMessageConf,
-          kSocketError
-      };
+public:
+    enum class tcpSocketState : std::uint8_t {
+        // Socket state
+        kIdle                           = 0x00,
+        kSocketOnline,
+        kSocketOffline,
+        kSocketRxMessageReceived,
+        kSocketTxMessageSend,
+        kSocketTxMessageConf,
+        kSocketError
+    };
 
-      enum class tcpSocketError : std::uint8_t {
-          // state
-          kNone                           = 0x00
-      };
+    enum class tcpSocketError : std::uint8_t {
+        // state
+        kNone                           = 0x00
+    };
 
-      // buffer type
-      using buffType = std::vector<uint8_t>;
+    // buffer type
+    using buffType = std::vector<uint8_t>;
 
-      // ip address type
-      using ipAddressType = std::string;
+    // ip address type
+    using ipAddressType = std::string;
 
-      // ctor
-      TcpMessageType() = default;
+    // ctor
+    TcpMessageType() = default;
 
-      // dtor
-      virtual ~TcpMessageType() = default;
-  public:
-      // socket state
+    // dtor
+    virtual ~TcpMessageType() = default;
+public:
+    // socket state
 
-      tcpSocketState tcpSocketState_e{tcpSocketState::kIdle};
+    tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
 
-      // socket error
-      tcpSocketError tcpSocketError_e{tcpSocketError::kNone};
+    // socket error
+    tcpSocketError tcp_socket_error_{tcpSocketError::kNone};
 
-      // Receive buffer
-      buffType rxBuffer;
+    // Receive buffer
+    buffType rxBuffer_;
 
-      // Transmit buffer
-      buffType txBuffer;
+    // Transmit buffer
+    buffType txBuffer_;
 };
 
 // unique pointer to const TcpMessage
@@ -68,9 +68,6 @@ using TcpMessageConstPtr = std::unique_ptr<const TcpMessageType>;
 
 // unique pointer to TcpMessage
 using TcpMessagePtr = std::unique_ptr<TcpMessageType>;
-
-// Tcp function template used for reception
-using TcpHandlerRead = std::function<void(TcpMessagePtr )>;
 
 // Doip HeaderSize
 constexpr uint8_t kDoipheadrSize = 0x8;

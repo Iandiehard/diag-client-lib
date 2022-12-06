@@ -13,7 +13,7 @@
 #include "common_Header.h"
 #include "common/common_doip_types.h"
 #include "sockets/tcp_socket_handler.h"
-#include "libTimer/oneShotSync/oneShotSyncTimer.h"
+#include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "channel/tcp_channel_state_impl.h"
 #include "channel/tcp_channel_handler_impl.h"
 

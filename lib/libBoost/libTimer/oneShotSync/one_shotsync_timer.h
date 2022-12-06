@@ -9,7 +9,8 @@
 #ifndef ONESHOTSYNCTIMER_H
 #define ONESHOTSYNCTIMER_H
 
-#include "oneShotTimer_Types.h"
+#include <boost/asio.hpp>
+#include "common_Header.h"
 
 namespace libOsAbstraction {
 namespace libBoost {
@@ -54,7 +55,7 @@ private:
     timer_state timer_state_;
 
     // error
-    boost::system::error_code error_e;
+    boost::system::error_code error_;
 
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(oneshotsync_timer_ctx);

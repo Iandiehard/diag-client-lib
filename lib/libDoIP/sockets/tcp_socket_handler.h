@@ -70,9 +70,6 @@ private:
 
     // store tcp channel reference
     ara::diag::doip::tcpChannel::tcpChannel& channel_;
-private:
-    // function to handle read
-    void HandleMessage(TcpMessagePtr tcpMessage);
 };
 
 } // tcpSocket

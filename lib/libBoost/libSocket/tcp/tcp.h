@@ -29,6 +29,9 @@ using TcpErrorCodeType  = boost::system::error_code;
 */
 class createTcpSocket {
 public:
+    // Tcp function template used for reception
+    using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
+public:
     //ctor
     createTcpSocket(Boost_String& localIpaddress, uint16_t localportNum, TcpHandlerRead tcpHandlerRead);
     
@@ -57,41 +60,35 @@ private:
     uint16_t localportNum_e;
     
     // tcp socket
-    std::unique_ptr<TcpSocket::socket> tcpSocket_e;
+    std::unique_ptr<TcpSocket::socket> tcp_socket_;
     
     // boost io context 
-    boost::asio::io_context io_context;
+    boost::asio::io_context io_context_;
     
     // flag to terminate the thread
-    std::atomic_bool exit_request_e;
+    std::atomic_bool exit_request_;
     
     // flag th start the thread
-    std::atomic_bool running_e;
+    std::atomic_bool running_;
     
     // conditional variable to block the thread
-    std::condition_variable cond_var_e;
+    std::condition_variable cond_var_;
     
     // threading var
-    std::thread thread_e;
+    std::thread thread_;
     
     // locking critical section   
-    mutable std::mutex mutex_e;
+    mutable std::mutex mutex_;
     
     // Handler invoked during read operation
-    TcpHandlerRead tcpHandlerRead_e;
+    TcpHandlerRead tcp_handler_read_;
     
     // Rxbuffer
     uint8_t rxbuffer_e[8];
   private:
     // function to handle read
     void HandleMessage();
-    
-    // function to handle run
-    void Run();
-    
-    // function to manage DoIP header
-    uint32_t GetNextBytesToReadFrmDoIPHeader(std::vector<uint8_t> doipHeader);
-    
+
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(tcp_socket_ctx);
 };

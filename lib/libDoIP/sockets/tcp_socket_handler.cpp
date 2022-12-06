@@ -25,10 +25,10 @@ namespace tcpSocket{
 tcp_SocketHandler::tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel)
                 :local_ip_address_(localIpaddress),
                  channel_(channel) {
-    using namespace std::placeholders;
     //create socket
     tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
-                                    std::bind(&tcp_SocketHandler::HandleMessage, this, _1));
+                                             [&](TcpMessagePtr tcpMessage){
+                                            channel_.HandleMessage(std::move(tcpMessage)); });
 }
 
 //dtor
@@ -72,12 +72,6 @@ bool tcp_SocketHandler::DisconnectFromHost() {
 // Function to trigger transmission
 bool tcp_SocketHandler::Transmit(TcpMessageConstPtr tcpMessage) {
     return (tcpSocket_->Transmit(std::move(tcpMessage)));
-}
-
-// Function called when tcp message received on socket
-void tcp_SocketHandler::HandleMessage(TcpMessagePtr tcpMessage) {
-    // send data to tcp channel
-    channel_.HandleMessage(std::move(tcpMessage));
 }
 
 } // tcpSocket
