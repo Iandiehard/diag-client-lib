@@ -1,0 +1,20 @@
+{
+    "name": "diag-client",
+    "runArgs": [
+        "--privileged",
+        "--network=host"
+      ],
+    "image": "dev-build-env:latest",
+    "settings": {},
+    "extensions": [
+    	"ms-vscode.cpptools",
+    	"mhutchie.git-graph",
+    	"twxs.cmake",
+    	"ms-vscode.cmake-tools",
+    	"ms-vscode.cpptools-extension-pack",
+    	"austin.code-gnu-global",
+      "BazelBuild.vscode-bazel"
+    ],
+    "postCreateCommand":
+    	"bash ${containerWorkspaceFolder}/.devcontainer/post_start.sh"
+}

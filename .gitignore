@@ -34,3 +34,4 @@
 # Others
 .idea
 cmake-build*
+build*
