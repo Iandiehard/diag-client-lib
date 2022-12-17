@@ -157,14 +157,14 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
             tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
                     TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
             WaitForResponse(
-                [&](){
+                [&]() {
                     result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
                     tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
                             TcpRoutingActivationChannelState::kIdle);
                     DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
                             DLT_CSTRING("RoutingActivation request timeout,no response received"));
-                },
-                [&](){
+                    },
+                [&]() {
                     if(tcp_channel_state_
                             .GetRoutingActivationStateContext()
                             .GetActiveState()
@@ -215,14 +215,14 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                         TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
             WaitForResponse(
-                [&](){
+                [&]() {
                     result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
                     tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                             TcpDiagnosticMessageChannelState::kDiagIdle);
                     DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
                             DLT_CSTRING("Diagnostic Message Ack Request timed out"));
                 },
-                [&](){
+                [&]() {
                     if(tcp_channel_state_
                         .GetDiagnosticMessageStateContext()
                         .GetActiveState()

@@ -7,14 +7,15 @@
     "image": "dev-build-env:latest",
     "settings": {},
     "extensions": [
-    	"ms-vscode.cpptools",
-    	"mhutchie.git-graph",
-    	"twxs.cmake",
-    	"ms-vscode.cmake-tools",
-    	"ms-vscode.cpptools-extension-pack",
-    	"austin.code-gnu-global",
-      "BazelBuild.vscode-bazel"
-    ],
+		"ms-vscode.cpptools",
+		"mhutchie.git-graph",
+		"twxs.cmake",
+		"ms-vscode.cmake-tools",
+		"ms-vscode.cpptools-extension-pack",
+		"austin.code-gnu-global",
+		"BazelBuild.vscode-bazel",
+		"DavidSchuldenfrei.gtest-adapter"
+	],
     "postCreateCommand":
     	"bash ${containerWorkspaceFolder}/.devcontainer/post_start.sh"
 }

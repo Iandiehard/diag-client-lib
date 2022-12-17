@@ -60,10 +60,10 @@ public:
     // Add the needed state
     void AddState(EnumState state, std::unique_ptr<State<EnumState>> state_ptr) {
         state_map_.insert(
-                std::pair<EnumState, std::unique_ptr<State<EnumState>>>(
-                    state,
-                    std::move(state_ptr)
-                ));
+            std::pair<EnumState, std::unique_ptr<State<EnumState>>>(
+                state,
+                std::move(state_ptr)
+            ));
     }
 
     // Get the current state
