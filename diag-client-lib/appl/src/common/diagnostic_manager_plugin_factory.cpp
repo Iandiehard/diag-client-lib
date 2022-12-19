@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "diagnostic_manager_plugin_factory.h"
+#include "src/common/diagnostic_manager_plugin_factory.h"
 
 namespace ara {
 namespace diag {

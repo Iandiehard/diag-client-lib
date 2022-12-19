@@ -9,8 +9,8 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_CLIENT_IMPL_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_CLIENT_IMPL_H
 
-#include "diagnostic_client.h"
-#include "diagnostic_client_conversation.h"
+#include "include/diagnostic_client.h"
+#include "include/diagnostic_client_conversation.h"
 #include "common_Header.h"
 #include "libJsonParser/jsonParser.h"
 #include "dcm/diagnostic_communication_manager.h"

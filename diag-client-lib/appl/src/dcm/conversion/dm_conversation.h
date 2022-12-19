@@ -11,12 +11,12 @@
 
 /* includes */
 #include "common_Header.h"
-#include "diagnostic_client_conversation.h"
+#include "include/diagnostic_client_conversation.h"
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
-#include "dcm/conversion/dm_conversation_state_impl.h"
+#include "src/dcm/conversion/dm_conversation_state_impl.h"
 
 namespace diag{
 namespace client{

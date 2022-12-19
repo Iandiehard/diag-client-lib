@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "dcm/service/dm_uds_message.h"
+#include "src/dcm/service/dm_uds_message.h"
 
 namespace diag{
 namespace client{

@@ -7,8 +7,8 @@
  */
 
 #include "doip_transport_protocol_handler.h"
-#include "dcm/connection/uds_transport_protocol_manager.h"
-#include "dcm/conversion/conversation_manager.h"
+#include "src/dcm/connection/uds_transport_protocol_manager.h"
+#include "src/dcm/conversion/conversation_manager.h"
 
 namespace diag {
 namespace client {

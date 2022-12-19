@@ -11,7 +11,7 @@
 
 /* includes */
 #include "ara/diag/uds_transport/uds_message.h"
-#include "diagnostic_client_uds_message.h"
+#include "include/diagnostic_client_uds_message.h"
 
 namespace diag{
 namespace client{

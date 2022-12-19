@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "dcm/conversion/dm_conversation_state_impl.h"
+#include "src/dcm/conversion/dm_conversation_state_impl.h"
 
 namespace diag{
 namespace client{

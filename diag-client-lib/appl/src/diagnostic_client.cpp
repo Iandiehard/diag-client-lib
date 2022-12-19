@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "diagnostic_client.h"
+#include "include/diagnostic_client.h"
 #include "diagnostic_client_impl.h"
 
 namespace diag {

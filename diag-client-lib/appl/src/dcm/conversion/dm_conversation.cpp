@@ -7,8 +7,8 @@
  */
 
 /* includes */
-#include "dcm/conversion/dm_conversation.h"
-#include "dcm/service/dm_uds_message.h"
+#include "src/dcm/conversion/dm_conversation.h"
+#include "src/dcm/service/dm_uds_message.h"
 
 namespace diag{
 namespace client{

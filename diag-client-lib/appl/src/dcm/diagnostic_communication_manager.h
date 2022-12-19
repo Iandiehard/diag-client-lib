@@ -10,10 +10,10 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H
 
 /* includes */
-#include "common/diagnostic_manager.h"
-#include "conversion/conversation_manager.h"
-#include "dcm/connection/uds_transport_protocol_manager.h"
-#include "dcm/config_parser/config_parser_type.h"
+#include "src/common/diagnostic_manager.h"
+#include "src/dcm/conversion/conversation_manager.h"
+#include "src/dcm/connection/uds_transport_protocol_manager.h"
+#include "src/dcm/config_parser/config_parser_type.h"
 
 
 namespace diag {

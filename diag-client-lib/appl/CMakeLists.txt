@@ -15,7 +15,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Threads REQUIRED)
 find_package(automotive-dlt REQUIRED)
 
-#find main sources
+# out headers
+file(GLOB OUT_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+# main sources
 file(GLOB MAIN_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 file(GLOB MAIN_COMMON_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/*.cpp")
 file(GLOB MAIN_DCM_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/*.cpp")
@@ -46,10 +48,9 @@ set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # include directories
-target_include_directories(${PROJECT_NAME} PRIVATE 
-    ${include_header_path}
-    ${src_header_path}
-    "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
+target_include_directories(${PROJECT_NAME} PUBLIC 
+    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
 # link all static libraries
@@ -76,7 +77,6 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 # install include files
-install(DIRECTORY
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/
-    DESTINATION include
+install(FILES ${OUT_HDRS}
+    DESTINATION include/${PROJECT_NAME}
 )

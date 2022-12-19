@@ -11,9 +11,9 @@
 
 /* includes */
 #include "common_Header.h"
-#include "dcm/connection/uds_transport_protocol_manager.h"
-#include "dcm/config_parser/config_parser_type.h"
-#include "dcm/conversion/dm_conversation.h"
+#include "src/dcm/connection/uds_transport_protocol_manager.h"
+#include "src/dcm/config_parser/config_parser_type.h"
+#include "src/dcm/conversion/dm_conversation.h"
 
 namespace diag {
 namespace client {
