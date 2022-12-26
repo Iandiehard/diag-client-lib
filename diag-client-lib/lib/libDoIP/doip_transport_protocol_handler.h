@@ -12,7 +12,6 @@
 // Includes 
 #include "common/common_doip_header.h"
 
-
 namespace ara{
 namespace diag{
 namespace doip{
@@ -25,7 +24,7 @@ namespace connection{
 namespace transportProtocolHandler{
 
 /*
- @ Class Name        : doipTransportProtocolHandler
+ @ Class Name        : DoipTransportProtocolHandler
  @ Class Description : This class must be instantiated by user for using the DoIP functionalities.  
                        This will inherit uds transport protocol handler                              
  */

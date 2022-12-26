@@ -36,6 +36,7 @@ using TcpRoutingActivationChannelState    = tcpChannelStateImpl::routingActivati
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+
 /*
  @ Class Name        : tcpChannel
  @ Class Description : Class used to handle Doip Tcp Channel                              

@@ -67,12 +67,9 @@ public:
     // Type
     VehicleInfoType vehInfoType;
 };
-
 } //doip
 
-
-namespace uds_transport{
-
+namespace uds_transport {
 // This is the type of ByteVector
 using ByteVector = std::vector<uint8_t>;
 // This is the type of Channel Id
@@ -83,16 +80,14 @@ using Priority = uint8_t;
 using ProtocolKind = std::string;
 // UdsTransportProtocolHandler are flexible "plugins", which need an identification
 using UdsTransportProtocolHandlerID = uint8_t;
-
 } // uds_transport
 
-namespace conversion_manager{
+namespace conversion_manager {
 // Conversion identification needed by user
 using ConversionHandlerID = uint8_t;
 // Conversion identifier Type can be used by user 
-typedef struct
-{
-    // Transmition buffer
+struct ConversionIdentifierType {
+    // Transmission buffer
     uint32_t tx_buffer_size;
     // Reception buffer
     uint32_t rx_buffer_size;
@@ -115,7 +110,7 @@ typedef struct
     // conversion handler ID   
     ConversionHandlerID handler_id;
     
-}ConversionIdentifierType;
+};
 
 } // conversion manager
 

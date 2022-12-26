@@ -11,7 +11,8 @@
 
 //includes
 #include "common/common_doip_types.h"
-#include "libSocket/tcp/tcp.h"
+#include "libSocket/tcp/tcp_client.h"
+
 namespace ara{
 namespace diag{
 namespace doip{
@@ -23,10 +24,10 @@ namespace tcpChannel{
 namespace tcpSocket{
 
 // typedefs
-using TcpSocket           = libOsAbstraction::libBoost::libSocket::tcp::createTcpSocket;
-using TcpMessage          = libOsAbstraction::libBoost::libSocket::tcp::TcpMessageType;
-using TcpMessagePtr       = libOsAbstraction::libBoost::libSocket::tcp::TcpMessagePtr;
-using TcpMessageConstPtr  = libOsAbstraction::libBoost::libSocket::tcp::TcpMessageConstPtr;
+using TcpSocket           = libBoost::libSocket::tcp::CreateTcpClientSocket;
+using TcpMessage          = libBoost::libSocket::tcp::TcpMessageType;
+using TcpMessagePtr       = libBoost::libSocket::tcp::TcpMessagePtr;
+using TcpMessageConstPtr  = libBoost::libSocket::tcp::TcpMessageConstPtr;
 
 /*
  @ Class Name        : tcp_SocketHandler
@@ -40,9 +41,6 @@ public:
 
     // dtor
     virtual ~tcp_SocketHandler();
-
-    // Start listening from socket
-    void StartListeningFromSocket();  //not used
 
     // Start
     void Start();

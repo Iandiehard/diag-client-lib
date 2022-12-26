@@ -35,18 +35,10 @@ tcp_SocketHandler::tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::do
 tcp_SocketHandler::~tcp_SocketHandler() {
 }
 
-//Function to Start listening from socket
-void tcp_SocketHandler::StartListeningFromSocket() {    
-}
-
-//
 void tcp_SocketHandler::Start() {
-
 }
 
-//
 void tcp_SocketHandler::Stop() {
-
 }
 
 // Connect to host

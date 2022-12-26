@@ -18,20 +18,20 @@ namespace conversation{
 DmConversation::DmConversation(
         std::string conversion_name,
         ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-                            :diag::client::conversation::DiagClientConversation()
-                            ,activity_status(ActivityStatusType::kInactive)
-                            ,active_session(SessionControlType::kDefaultSession)
-                            ,active_security(SecurityLevelType::kLocked)
-                            ,tx_buffer_size(conversion_identifier.tx_buffer_size)
-                            ,rx_buffer_size(conversion_identifier.rx_buffer_size)
-                            ,p2_client_max(conversion_identifier.p2_client_max)
-                            ,p2_star_client_max(conversion_identifier.p2_star_client_max)
-                            ,source_address(conversion_identifier.source_address)
-                            ,target_address(conversion_identifier.target_address)
-                            ,port_num(conversion_identifier.port_num)
-                            ,broadcast_address(conversion_identifier.udp_broadcast_address)
-                            ,convrs_name(conversion_name)
-                            ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
+            :diag::client::conversation::DiagClientConversation()
+            ,activity_status(ActivityStatusType::kInactive)
+            ,active_session(SessionControlType::kDefaultSession)
+            ,active_security(SecurityLevelType::kLocked)
+            ,tx_buffer_size(conversion_identifier.tx_buffer_size)
+            ,rx_buffer_size(conversion_identifier.rx_buffer_size)
+            ,p2_client_max(conversion_identifier.p2_client_max)
+            ,p2_star_client_max(conversion_identifier.p2_star_client_max)
+            ,source_address(conversion_identifier.source_address)
+            ,target_address(conversion_identifier.target_address)
+            ,port_num(conversion_identifier.port_num)
+            ,broadcast_address(conversion_identifier.udp_broadcast_address)
+            ,convrs_name(conversion_name)
+            ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
     DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
 }
 
@@ -72,36 +72,9 @@ void DmConversation::Shutdown() {
         DLT_CSTRING("Shutdown completed"));
 }
 
-// Function to Send Vehicle Identification Request 
-void DmConversation ::SendVehicleIdentificationRequest() {
+DiagClientConversation::ConnectResult
+  DmConversation::ConnectToDiagServer(IpAddress host_ip_addr) {
 
-    DLT_LOG(dm_conversion, DLT_LOG_ERROR,
-        DLT_CSTRING("'"),
-        DLT_CSTRING(convrs_name.c_str()),
-        DLT_CSTRING("'"),
-        DLT_CSTRING("->"),
-        DLT_CSTRING("Vehicle Discovery phase not supported yet"),
-        DLT_CSTRING(":Check 'https://github.com/Mandarein/diag-client-lib/issues/5'"));
-    
-    /* [TODO] : https://github.com/Mandarein/diag-client-lib/issues/5
-    ara::diag::doip::VehicleInfo vehicleInfo;
-    // Veh Identification with VIN
-    vehicleInfo.vehInfoType = ara::diag::doip::VehicleInfo::VehicleInfoType::kVehicleIdentificationReqVIN;
-    // Assign broadcast ip & port number
-    vehicleInfo.hostIpAddress = broadcast_address;
-    vehicleInfo.hostPortNum = port_num;
-    // Fill VIN
-    for(uint8_t vin_indx = 0; vin_indx < ara::diag::doip::kDoip_VIN_Size; vin_indx ++) {
-        vehicleInfo.vin[vin_indx] = 0x01;
-    }
-    // Trigger Transmit
-    connection_ptr->Transmit(vehicleInfo);
-    */
-}
-
-DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
-        uds_message::UdsRequestMessage::IpAddress host_ip_addr) {
-   
     // create an uds message just to get the port number
     // source address required from Routing Activation
     ara::diag::uds_transport::ByteVector payload; // empty payload  
@@ -111,10 +84,10 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
         static_cast<DiagClientConversation::ConnectResult>(
             connection_ptr->ConnectToHost(std::move(
                 std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                            source_address,
-                                                                            target_address,
-                                                                            host_ip_addr,
-                                                                            payload))));
+                                                                  source_address,
+                                                                  target_address,
+                                                                  host_ip_addr,
+                                                                  payload))));
     
     if(ret_val ==
         DiagClientConversation::ConnectResult::kConnectSuccess) {

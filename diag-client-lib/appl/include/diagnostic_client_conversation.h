@@ -9,7 +9,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 
-#include "diagnostic_client_uds_message.h"
+#include "diagnostic_client_message_type.h"
 #include <cstdint>
 
 namespace diag {
@@ -18,7 +18,6 @@ namespace conversation {
 
 
 class DiagClientConversation {
-
 public:   
     // Connect Errors
     enum class ConnectResult : std::uint8_t {
@@ -58,26 +57,28 @@ public:
     // @return value : void
     virtual void Shutdown() = 0;
 
-    // Description   : Function to send vehicle identification request
-    // @param input  : Nothing
-    // @return value : void
-    virtual void SendVehicleIdentificationRequest() = 0;
-
     // Description   : Function to connect to Diagnostic Server
-    // @param input  : Nothing
+    // @param input  : host_ip_addr
+    //                 remote server IP Address to connect with  
     // @return value : ConnectResult
+    //                 Result returned
     virtual ConnectResult 
-            ConnectToDiagServer(uds_message::UdsRequestMessage::IpAddress host_ip_addr) = 0;
+            ConnectToDiagServer(IpAddress host_ip_addr) = 0;
 
     // Description   : Function to disconnect from Diagnostic Server
     // @param input  : Nothing
     // @return value : DisconnectResult
+    //                 Result returned 
     virtual DisconnectResult 
             DisconnectFromDiagServer() = 0;
 
     // Description   : Function to send Diagnostic Request and get Diagnostic Response
     // @param input  : UdsRequestMessageConstPtr
-    // @return value : DiagResult, UdsResponseMessagePtr
+    //                 Diagnostic request message to be sent to remote server
+    // @return value : DiagResult 
+    //                 Result returned 
+    // @return value : UdsResponseMessagePtr
+    //                 Diagnostic Response message received, null_ptr incase of error  
     virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr>  
             SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) = 0;
 };

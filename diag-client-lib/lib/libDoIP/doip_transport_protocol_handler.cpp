@@ -22,8 +22,8 @@ namespace transportProtocolHandler{
                        This will inherit uds transport protocol handler                              
  */
 //ctor
-DoipTransportProtocolHandler::DoipTransportProtocolHandler(                                                             \
-                              const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,                 \
+DoipTransportProtocolHandler::DoipTransportProtocolHandler(                                                             
+                              const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,                 
                               ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
                              : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr)
                              , handle_id_e(handler_id)

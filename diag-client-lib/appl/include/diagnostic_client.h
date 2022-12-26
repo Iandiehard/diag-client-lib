@@ -16,7 +16,6 @@ namespace diag {
 namespace client {
 
 class DiagClient {
-
 public:
     // ctor
     DiagClient() = default;
@@ -30,9 +29,18 @@ public:
     // De-Initialize
     virtual void DeInitialize() = 0;
 
-    // Get Required Conversion based on Conversion Name
+    // Description   : Function to get Required Conversation based on Conversation Name
+    // @param input  : conversation_name
+    //                 Name of conversation configured to be passed
+    // @return value : DiagClientConversation&
+    //                  Reference to conversation     
     virtual diag::client::conversation::DiagClientConversation&
-                        GetDiagnosticClientConversation(std::string conversion_name) = 0;
+        GetDiagnosticClientConversation(std::string conversation_name) = 0;
+    
+    // Description   : Function to send vehicle identification request
+    // @param input  : Nothing
+    // @return value : void
+    virtual void SendVehicleIdentificationRequest() = 0;
 };
 
 } // client

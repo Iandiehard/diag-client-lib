@@ -8,6 +8,7 @@
 
 #include "include/diagnostic_client.h"
 #include "diagnostic_client_impl.h"
+#include <pthread.h>
 
 namespace diag {
 namespace client {
@@ -16,7 +17,7 @@ namespace client {
 DiagClientImpl::DiagClientImpl(std::string dm_client_config)
                 : diag::client::DiagClient()
                 , ptree{}
-                , dcm_instance_ptr(nullptr) {
+                , dcm_instance_ptr{nullptr} {
     // dlt register app & context
     DLT_REGISTER_APP("DCLT", "Diag Client Library");
     DLT_REGISTER_CONTEXT(diagclient_main,"main","Diag Client Main Context");
@@ -42,21 +43,18 @@ DiagClientImpl::~DiagClientImpl() {
 // Initialize all the resources and load the configs
 void DiagClientImpl::Initialize() {
     // start DCM thread here
-    _thread = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get()));
-
-    // TODO: rename the thread here
-
+    dcm_thread_ = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get()));
+    pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
+    
     DLT_LOG(diagclient_main, DLT_LOG_INFO, 
         DLT_CSTRING("DiagClient Initialize success"));
 }
 
 // De-initialize all the resource and free memory
-void DiagClientImpl::DeInitialize(void) {
+void DiagClientImpl::DeInitialize() {
     // shutdown DCM module here
     dcm_instance_ptr->SignalShutdown();
-
-    // join all threads here
-    _thread.join();
+    dcm_thread_.join();
 
     DLT_LOG(diagclient_main, DLT_LOG_INFO,
         DLT_CSTRING("DiagClient DeInitialized"));
@@ -64,8 +62,8 @@ void DiagClientImpl::DeInitialize(void) {
 
 // Get Required Conversion based on Conversion Name
 diag::client::conversation::DiagClientConversation&
-            DiagClientImpl::GetDiagnosticClientConversation(std::string conversion_name) {
-    return(dcm_instance_ptr->GetDiagnosticClientConversation(conversion_name));
+            DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
+    return(dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
 }
 
 } // client

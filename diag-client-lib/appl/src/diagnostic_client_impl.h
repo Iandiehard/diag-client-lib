@@ -20,7 +20,6 @@ namespace diag {
 namespace client {
 
 class DiagClientImpl : public diag::client::DiagClient {
-
 public:
     // ctor
     DiagClientImpl(std::string dm_client_config);
@@ -38,6 +37,8 @@ public:
     diag::client::conversation::DiagClientConversation&
         GetDiagnosticClientConversation(std::string conversion_name) override;
 
+    void SendVehicleIdentificationRequest() override;    
+
 private:
     // Used to read json 
     diag::client::common::property_tree ptree;
@@ -46,7 +47,7 @@ private:
     std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
     
     // thread to hold dcm client instance
-    std::thread _thread;
+    std::thread dcm_thread_;
     
     // Declare dlt logging context
     DLT_DECLARE_CONTEXT(diagclient_main);

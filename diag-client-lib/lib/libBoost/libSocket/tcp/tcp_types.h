@@ -13,7 +13,6 @@
 #include "libCommon/Boost_Header.h"
 #include "common_Header.h"
 
-namespace libOsAbstraction {
 namespace libBoost {
 namespace libSocket {
 namespace tcp {
@@ -75,6 +74,5 @@ constexpr uint8_t kDoipheadrSize = 0x8;
 } // tcp
 } // libSocket
 } // libBoost
-} // libOsAbstraction
 
 #endif // TCP_TYPES_H

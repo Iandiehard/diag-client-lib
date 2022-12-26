@@ -32,7 +32,7 @@ using ConversationState = conversation_state_impl::ConversationState;
 class DmConversation : public  ::diag::client::conversation::DiagClientConversation {
 public:
     // ctor
-    explicit DmConversation(
+    DmConversation(
         std::string conversion_name,
         ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
     
@@ -45,13 +45,10 @@ public:
     // shutdown
     void Shutdown() override;
 
-    // function to send Vehicle Identification Request
-    void SendVehicleIdentificationRequest() override;
-
     // Description   : Function to connect to Diagnostic Server
     // @param input  : Nothing
     // @return value : ConnectResult
-    ConnectResult ConnectToDiagServer(uds_message::UdsRequestMessage::IpAddress host_ip_addr) override;
+    ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) override;
 
     // Description   : Function to disconnect from Diagnostic Server
     // @param input  : Nothing

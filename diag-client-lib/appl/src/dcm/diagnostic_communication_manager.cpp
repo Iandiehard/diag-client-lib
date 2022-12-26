@@ -38,7 +38,7 @@ void DCMClient::Initialize() {
     conversation_mgr->Startup();
     // start all the udsTransportProtocol Layer
     uds_transport_protocol_mgr->Startup();
-
+    
     DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
         DLT_STRING("DCM Client Initialize done"));
 }

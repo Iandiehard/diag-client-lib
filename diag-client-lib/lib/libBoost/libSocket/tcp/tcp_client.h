@@ -12,8 +12,6 @@
 // includes
 #include "tcp_types.h"
 
-
-namespace libOsAbstraction {
 namespace libBoost {
 namespace libSocket {
 namespace tcp {
@@ -27,16 +25,16 @@ using TcpErrorCodeType  = boost::system::error_code;
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver
 */
-class createTcpSocket {
+class CreateTcpClientSocket {
 public:
     // Tcp function template used for reception
     using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
 public:
     //ctor
-    createTcpSocket(Boost_String& localIpaddress, uint16_t localportNum, TcpHandlerRead tcpHandlerRead);
+    CreateTcpClientSocket(Boost_String& local_ip_address, uint16_t local_port_num, TcpHandlerRead tcp_handler_read);
     
     //dtor
-    virtual ~createTcpSocket();
+    virtual ~CreateTcpClientSocket();
     
     // Function to Open the socket
     bool Open();
@@ -54,10 +52,10 @@ public:
     bool Destroy();
 private:
     // local Ip address
-    Boost_String localIpaddress_e;
+    Boost_String local_ip_address_;
     
     // local port number
-    uint16_t localportNum_e;
+    uint16_t local_port_num_;
     
     // tcp socket
     std::unique_ptr<TcpSocket::socket> tcp_socket_;
@@ -96,8 +94,5 @@ private:
 } // tcp
 } // libSocket
 } // libBoost
-} // libOsAbstraction
-
-
 
 #endif // TCP_H

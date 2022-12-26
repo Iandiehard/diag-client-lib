@@ -7,20 +7,19 @@
  */
 
 // includes
-#include "tcp.h"
+#include "tcp_client.h"
 
-namespace libOsAbstraction {
 namespace libBoost {
 namespace libSocket {
 namespace tcp {
 
 // ctor
-createTcpSocket::createTcpSocket(Boost_String &localIpaddress, uint16_t localportNum, TcpHandlerRead tcpHandlerRead)
-                :localIpaddress_e{localIpaddress},
-                 localportNum_e{localportNum},
+CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead tcp_handler_read)
+                :local_ip_address_{local_ip_address},
+                 local_port_num_{local_port_num},
                  exit_request_{false},
                  running_{false},
-                 tcp_handler_read_{tcpHandlerRead} {
+                 tcp_handler_read_{tcp_handler_read} {
     DLT_REGISTER_CONTEXT(tcp_socket_ctx,"tcps","Tcp Socket Context");
     // Create socket
     tcp_socket_ = std::make_unique<TcpSocket::socket>(io_context_);
@@ -39,30 +38,30 @@ createTcpSocket::createTcpSocket(Boost_String &localIpaddress, uint16_t localpor
 }
 
 // dtor
-createTcpSocket::~createTcpSocket() {
-    exit_request_ = true;
+CreateTcpClientSocket::~CreateTcpClientSocket() {
+  exit_request_ = true;
 	running_ = false;
 	cond_var_.notify_all();
 	thread_.join();
-    DLT_UNREGISTER_CONTEXT(tcp_socket_ctx);
+  DLT_UNREGISTER_CONTEXT(tcp_socket_ctx);
 }
 
-bool createTcpSocket::Open() {
+bool CreateTcpClientSocket::Open() {
     TcpErrorCodeType ec;
     bool retVal = false;
     // Open the socket
     tcp_socket_->open(TcpSocket::v4(), ec);
     if(ec.value() == boost::system::errc::success) {
         // reuse address
-        boost::asio::socket_base::reuse_address reuseaddress_option(true);
-        tcp_socket_->set_option(reuseaddress_option);
+        boost::asio::socket_base::reuse_address reuse_address_option{true};
+        tcp_socket_->set_option(reuse_address_option);
         // Set socket to non blocking
         tcp_socket_->non_blocking(false);
         //bind to local address and random port
-        tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(localIpaddress_e), 0), ec);
+        tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(local_ip_address_), 0), ec);
         if(ec.value() == boost::system::errc::success) {
             // Socket binding success
-            TcpSocket::endpoint endpoint_ = tcp_socket_->local_endpoint();
+            TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};
             DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
                 DLT_CSTRING("Tcp Socket Opened and bound to"),
                 DLT_CSTRING("<"),
@@ -90,25 +89,25 @@ bool createTcpSocket::Open() {
 }
 
 // connect to host
-bool createTcpSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostportNum) {
+bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostportNum) {
     TcpErrorCodeType ec;
     bool retVal = false;
     // connect to provided ipAddress
     tcp_socket_->connect(TcpSocket::endpoint(TcpIpAddress::from_string(hostIpaddress), hostportNum),
                             ec);
     if(ec.value() == boost::system::errc::success) {
-        TcpSocket::endpoint endpoint_ = tcp_socket_->remote_endpoint();
-        DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
-            DLT_CSTRING("Tcp Socket Connected to host"),
-                DLT_CSTRING("<"),
-                DLT_CSTRING(endpoint_.address().to_string().c_str()),
-                DLT_CSTRING(","),
-                DLT_UINT16(endpoint_.port()),
-                DLT_CSTRING(">"));
-        // start reading
-        running_ = true;
-	    cond_var_.notify_all();
-        retVal = true;
+      TcpSocket::endpoint endpoint_ = tcp_socket_->remote_endpoint();
+      DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG,
+        DLT_CSTRING("Tcp Socket Connected to host"),
+          DLT_CSTRING("<"),
+          DLT_CSTRING(endpoint_.address().to_string().c_str()),
+          DLT_CSTRING(","),
+          DLT_UINT16(endpoint_.port()),
+          DLT_CSTRING(">"));
+      // start reading
+      running_ = true;
+      cond_var_.notify_all();
+      retVal = true;
     }
     else {
         DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
@@ -119,7 +118,7 @@ bool createTcpSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostport
 }
 
 // Disconnect from Host
-bool createTcpSocket::DisconnectFromHost() {
+bool CreateTcpClientSocket::DisconnectFromHost() {
     TcpErrorCodeType ec;
     bool retVal = false;
     // Graceful shutdown
@@ -141,7 +140,7 @@ bool createTcpSocket::DisconnectFromHost() {
 }
 
 // Function to transmit tcp messages
-bool createTcpSocket::Transmit(TcpMessageConstPtr tcpMessage) {
+bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
     TcpErrorCodeType ec;
     bool retVal = false;
     boost::asio::write(*tcp_socket_.get(),
@@ -168,14 +167,14 @@ bool createTcpSocket::Transmit(TcpMessageConstPtr tcpMessage) {
 } 
 
 // Destroy the socket
-bool createTcpSocket::Destroy() {
+bool CreateTcpClientSocket::Destroy() {
     // destroy the socket
     tcp_socket_->close();
     return true;
 }
 
 // Handle reading from socket
-void createTcpSocket::HandleMessage() {
+void CreateTcpClientSocket::HandleMessage() {
     TcpErrorCodeType ec;
     TcpMessagePtr tcp_rx_message  = std::make_unique<TcpMessageType>();
     // reserve the buffer
@@ -227,4 +226,3 @@ void createTcpSocket::HandleMessage() {
 } // tcp
 } // libSocket
 } // libBoost
-} // libOsAbstraction
