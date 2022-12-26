@@ -16,8 +16,11 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+file(GLOB TEST_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/test_case/*.cpp")
+
 add_executable(${PROJECT_NAME}
   main.cpp
+  ${TEST_SRCS}
 )
 
 target_link_libraries(${PROJECT_NAME}
