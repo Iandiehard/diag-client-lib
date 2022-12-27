@@ -59,20 +59,25 @@ using UdsResponseMessagePtr = std::unique_ptr<UdsRequestMessage>;
 
 namespace vehicle_info {
 
+struct VehicleAddrInfoResponse {
+  IpAddress ip_address;
+  uint16_t logical_address;
+  std::string vin;
+  std::string eid;
+};
+
+struct VehicleAddrInfoRequest {
+  bool preselection_mode {0U};
+  std::string preselection_value;
+};
+
+using VehicleInfoListResponseType = std::vector<VehicleAddrInfoResponse>;
+using VehicleInfoListRequestType = VehicleAddrInfoRequest;
 // Message type for vehicle identification request/ response / announcement
 class VehicleInfoMessage {
 public:
-  struct VehicleAddrInfo {
-    IpAddress ip_address;
-    uint16_t logical_address;
-    std::string vin;
-    std::string eid;
-  };
-
-  using VehicleInfoListType = std::vector<VehicleAddrInfo>;
   // ctor
   VehicleInfoMessage() = default;
-
   VehicleInfoMessage (const VehicleInfoMessage &other)=default;
   VehicleInfoMessage (VehicleInfoMessage &&other) noexcept=default;
   VehicleInfoMessage& operator= (const VehicleInfoMessage &other)=default;
@@ -82,8 +87,11 @@ public:
   virtual ~VehicleInfoMessage() = default;
 
   // Get the list of vehicle available in the network
-  virtual VehicleInfoListType& GetVehicleList() = 0;
+  virtual VehicleInfoListResponseType& GetVehicleList() = 0;
 };
+
+// This is the unique_ptr for Response Message
+using VehicleInfoMessageResponsePtr = std::unique_ptr<VehicleInfoMessage>;
 
 } // vehicle_info
 

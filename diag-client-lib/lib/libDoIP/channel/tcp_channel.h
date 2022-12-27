@@ -95,11 +95,11 @@ public:
 private:
     // Function to handle the routing states
     ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-            HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message);
+      HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message);
 
     // Function to handle the diagnostic request response state
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-            HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr& message);
+      HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr& message);
 private:
     // tcp socket handler
     std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcp_socket_handler_;

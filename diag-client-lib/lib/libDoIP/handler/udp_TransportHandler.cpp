@@ -15,18 +15,18 @@ namespace doip{
 namespace udpTransport{
 
 // ctor
-udp_TransportHandler::udp_TransportHandler(kDoip_String &localIpaddress, uint16_t portNum,
-                      connection::DoipConnection& doipConnection)
-                    : doipConnection_e(doipConnection),
+UdpTransportHandler::UdpTransportHandler(kDoip_String &localIpaddress, uint16_t portNum,
+                      connection::DoipUdpConnection& doip_connection)
+                    : doip_connection_{doip_connection},
                       udp_channel(std::make_unique<ara::diag::doip::udpChannel::udpChannel>(localIpaddress, portNum, *this)) {
 }
 
 // dtor
-udp_TransportHandler::~udp_TransportHandler() {
+UdpTransportHandler::~UdpTransportHandler() {
 }
 
 //Initialize the Udp Transport Handler
-uds_transport::UdsTransportProtocolHandler::InitializationResult udp_TransportHandler::Initialize() {
+uds_transport::UdsTransportProtocolHandler::InitializationResult UdpTransportHandler::Initialize() {
     ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult RetVal =                    \
             ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeFailed;
     RetVal = udp_channel->Initialize();
@@ -34,27 +34,27 @@ uds_transport::UdsTransportProtocolHandler::InitializationResult udp_TransportHa
 }
 
 // start handler
-void udp_TransportHandler::Start() {
+void UdpTransportHandler::Start() {
     udp_channel->Start();
 }
 
 // stop handler
-void udp_TransportHandler::Stop() {
+void UdpTransportHandler::Stop() {
     udp_channel->Stop();
 }
 
 // Trigger vehicle identification requests
-bool udp_TransportHandler::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
+bool UdpTransportHandler::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
     return(udp_channel->Transmit(vehicleInfo_Ref));
 }
 
 // function to indicate reception of vehicle announcement to doip transpot handler
-ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult udp_TransportHandler::Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
-   return (doipConnection_e.IndicateMessage(vehicleInfo_Ref));
+ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult UdpTransportHandler::Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
+   return (doip_connection_.IndicateMessage(vehicleInfo_Ref));
 }
 
-void udp_TransportHandler::TransmitConfirmation(bool result) {
-    doipConnection_e.TransmitConfirmation(result);
+void UdpTransportHandler::TransmitConfirmation(bool result) {
+    doip_connection_.TransmitConfirmation(result);
 }
 
 } // udpTransport

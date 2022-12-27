@@ -25,43 +25,42 @@ namespace dcm{
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
  */
 class DCMClient: public diag::client::common::DiagnosticManager {
-
 public:
-    //ctor
-    explicit DCMClient(diag::client::common::property_tree &ptree);
-    
-    //dtor
-    virtual ~DCMClient();
-    
-    // Initialize
-    void Initialize() override;
-    
-    // Run
-    void Run() override;
-    
-    // Shutdown
-    void Shutdown() override;
-    
-    // Function to get the diagnostic client conversion
-    diag::client::conversation::DiagClientConversation&
-            GetDiagnosticClientConversation(std::string conversion_name) override;
+  //ctor
+  explicit DCMClient(diag::client::common::property_tree &ptree);
+
+  //dtor
+  virtual ~DCMClient();
+
+  // Initialize
+  void Initialize() override;
+
+  // Run
+  void Run() override;
+
+  // Shutdown
+  void Shutdown() override;
+
+  // Function to get the diagnostic client conversion
+  diag::client::conversation::DiagClientConversation&
+    GetDiagnosticClientConversation(std::string conversion_name) override;
 private:
-    // uds transport protocol Manager 
-    std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
-    
-    // conversion manager
-    std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
-    
-    // map to store conversion pointer along with conversion name
-    std::unordered_map<std::string,
-        std::unique_ptr<diag::client::conversation::DiagClientConversation>> diag_client_conversation_map;
-       
-    // function to read from property tree to config structure
-    diag::client::config_parser::ConversationConfig
-            GetConversationConfig(diag::client::common::property_tree & ptree);
-        
-    // Declare dlt logging context
-    DLT_DECLARE_CONTEXT(dcm_client);
+  // uds transport protocol Manager
+  std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
+
+  // conversion manager
+  std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
+
+  // map to store conversion pointer along with conversion name
+  std::unordered_map<std::string,
+    std::unique_ptr<diag::client::conversation::DiagClientConversation>> diag_client_conversation_map;
+
+  // function to read from property tree to config structure
+  diag::client::config_parser::ConversationConfig
+    GetConversationConfig(diag::client::common::property_tree & ptree);
+
+  // Declare dlt logging context
+  DLT_DECLARE_CONTEXT(dcm_client);
 };
 
 } // dcm

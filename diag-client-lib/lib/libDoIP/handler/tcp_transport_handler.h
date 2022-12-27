@@ -19,7 +19,7 @@ namespace doip{
 
 //forward declaration
 namespace  connection{
-class DoipConnection;
+class DoipTcpConnection;
 }
 
 namespace tcpTransport{
@@ -29,62 +29,65 @@ namespace tcpTransport{
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-class tcp_TransportHandler {
+class TcpTransportHandler {
 public:
-    // ctor
-    tcp_TransportHandler(kDoip_String& localIpaddress, 
-                         uint16_t portNum, 
-                         uint8_t total_tcpChannelReq,
-                         connection::DoipConnection& doipConnection);
-    
-    // dtor
-    ~tcp_TransportHandler();
-    
-    // Initialize
-    ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();    
-    
-    // Start
-    void Start();
-    
-    // Stop
-    void Stop();
-    
-    // Connect to remote Host
-    ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
-            ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
+  // ctor
+  TcpTransportHandler(kDoip_String& localIpaddress,
+                       uint16_t portNum,
+                       uint8_t total_tcpChannelReq,
+                       connection::DoipTcpConnection& doip_connection);
 
-    // Disconnect from remote Host
-    ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
-            DisconnectFromHost();
+  // dtor
+  ~TcpTransportHandler();
 
-    // Transmit
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
-            Transmit (ara::diag::uds_transport::UdsMessageConstPtr message, ara::diag::uds_transport::ChannelID channel_id);
-    
-    // Indicate message Diagnostic message reception over TCP to user
-    std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-                                        IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                                        ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                                        ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                                        ara::diag::uds_transport::ChannelID channel_id,
-                                                        std::size_t size, ara::diag::uds_transport::Priority priority,
-                                                        ara::diag::uds_transport::ProtocolKind protocol_kind,
-                                                        std::vector<uint8_t> payloadInfo);
-    
-    // Hands over a valid received Uds message (currently this is only a request type) from transport
-    // layer to session layer                
-    void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
+  // Initialize
+  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+
+  // Start
+  void Start();
+
+  // Stop
+  void Stop();
+
+  // Connect to remote Host
+  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
+    ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
+
+  // Disconnect from remote Host
+  ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
+    DisconnectFromHost();
+
+  // Transmit
+  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
+    Transmit (
+      ara::diag::uds_transport::UdsMessageConstPtr message,
+      ara::diag::uds_transport::ChannelID channel_id);
+
+  // Indicate message Diagnostic message reception over TCP to user
+  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
+    IndicateMessage(
+      ara::diag::uds_transport::UdsMessage::Address source_addr,
+      ara::diag::uds_transport::UdsMessage::Address target_addr,
+      ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+      ara::diag::uds_transport::ChannelID channel_id,
+      std::size_t size, ara::diag::uds_transport::Priority priority,
+      ara::diag::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo);
+
+  // Hands over a valid received Uds message (currently this is only a request type) from transport
+  // layer to session layer
+  void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
 private:
-    // reference to doip connection
-    connection::DoipConnection& doipConnection_;
+  // reference to doip connection
+  connection::DoipTcpConnection& doip_connection_;
 
-    // routing activation handler
-    
-    // Tcp channel responsible for transmitting and reception of TCP messages
-    std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel_;
-    
-    // Max number of doip channel
-    uint8_t max_tcpChannel;    
+  // routing activation handler
+
+  // Tcp channel responsible for transmitting and reception of TCP messages
+  std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel_;
+
+  // Max number of doip channel
+  uint8_t max_tcpChannel;
 };
 
 } // tcpTransport

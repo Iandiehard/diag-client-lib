@@ -19,26 +19,24 @@ namespace doip{
 
 //forward declaration
 namespace  connection{
-class DoipConnection;
+class DoipUdpConnection;
 }
 
 namespace udpTransport{
-
 
 /*
  @ Class Name        : udp_TransportHandler
  @ Class Description : Class used to create a udp transport handler to initiate transmission
                        and reception of udp message from/to user                            
 */
-class udp_TransportHandler
-{
+class UdpTransportHandler {
 public:
     // ctor
-    udp_TransportHandler(kDoip_String& localIpaddress, 
+    UdpTransportHandler(kDoip_String& localIpaddress,
                          uint16_t portNum,
-                         connection::DoipConnection& doipConnection);
+                         connection::DoipUdpConnection& doipConnection);
     // dtor
-    ~udp_TransportHandler();
+    ~UdpTransportHandler();
     // Initialize
     ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize ();
     // Start
@@ -53,7 +51,7 @@ public:
     void TransmitConfirmation(bool result);
 private:
     // reference to doip Connection 
-    connection::DoipConnection& doipConnection_e;
+    connection::DoipUdpConnection& doip_connection_;
     // Udp channel responsible for transmitting and reception of UDP messages
     std::unique_ptr<ara::diag::doip::udpChannel::udpChannel> udp_channel;
 };

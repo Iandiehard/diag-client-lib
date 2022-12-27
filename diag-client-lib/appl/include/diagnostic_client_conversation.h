@@ -42,10 +42,10 @@ public:
     };
     
     // ctor
-    inline DiagClientConversation() = default;
+    DiagClientConversation() = default;
 
     // dtor
-    inline ~DiagClientConversation() = default;
+    ~DiagClientConversation() = default;
     
     // Description   : Function to start the Diagnostic Client Conversion
     // @param input  : Nothing

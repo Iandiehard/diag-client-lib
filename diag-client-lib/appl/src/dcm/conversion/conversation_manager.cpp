@@ -23,12 +23,10 @@ ConversationManager::ConversationManager(
 }
 
 // Initialize
-void ConversationManager::Startup() {
-}
+void ConversationManager::Startup() {}
 
 // Shutdown
-void ConversationManager::Shutdown() {
-}
+void ConversationManager::Shutdown() {}
 
 // Get the required conversion
 std::unique_ptr<diag::client::conversation::DmConversation>
@@ -36,17 +34,17 @@ std::unique_ptr<diag::client::conversation::DmConversation>
     std::unique_ptr<diag::client::conversation::DmConversation> dm_conversation {};
     auto it = conversation_config_e.find(conversation_name);
     if(it != conversation_config_e.end()) {
-        dm_conversation = std::make_unique<diag::client::conversation::DmConversation>(
-                                                                it->first,
-                                                                it->second);
-        // Register the connection
-        dm_conversation->RegisterConnection(
-            uds_transport_mgr_e.doip_transport_handler->FindorCreateConnection(
-                                      dm_conversation->dm_conversion_handler,
-                                            it->second.tcp_address,
-                                            it->second.udp_address,
-                                       it->second.port_num
-            ));
+      dm_conversation = std::make_unique<diag::client::conversation::DmConversation>(
+                                                              it->first,
+                                                              it->second);
+      // Register the connection
+      dm_conversation->RegisterConnection(
+        uds_transport_mgr_e.doip_transport_handler->FindOrCreateTcpConnection(
+          dm_conversation->dm_conversion_handler,
+            it->second.tcp_address,
+            it->second.udp_address,
+            it->second.port_num
+        ));
     }
     return dm_conversation;
 }

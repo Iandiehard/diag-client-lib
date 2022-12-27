@@ -58,20 +58,21 @@ void DoipTransportProtocolHandler::Stop() {
 
 // Get or Create connection
 std::shared_ptr<ara::diag::connection::Connection> 
-    DoipTransportProtocolHandler::FindorCreateConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
-                                                                                    kDoip_String& tcpIpaddress, 
-                                                                                    kDoip_String& udpIpaddress, 
-                                                                                    uint16_t portNum) {
-    DLT_LOG(doipclient_main, DLT_LOG_INFO, 
-        DLT_CSTRING("Doip protocol requested with local endpoints :"),
-        DLT_CSTRING("<tcp:"), DLT_STRING(tcpIpaddress.c_str()),
-        DLT_CSTRING(">"),
-        DLT_CSTRING("<udp:"), DLT_STRING(udpIpaddress.c_str()),
-        DLT_CSTRING(">"));
-    return(doip_connection_mgr_ptr->FindOrCreateConnection( conversion, 
-                                                            tcpIpaddress, 
-                                                            udpIpaddress, 
-                                                            portNum));
+  DoipTransportProtocolHandler::FindOrCreateTcpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    kDoip_String& tcp_ip_address,
+    kDoip_String& udp_ip_address,
+    uint16_t port_num) {
+  DLT_LOG(doipclient_main, DLT_LOG_INFO,
+      DLT_CSTRING("Doip protocol requested with local endpoints :"),
+      DLT_CSTRING("<tcp:"), DLT_STRING(tcp_ip_address.c_str()),
+      DLT_CSTRING(">"),
+      DLT_CSTRING("<udp:"), DLT_STRING(udp_ip_address.c_str()),
+      DLT_CSTRING(">"));
+  return(doip_connection_mgr_ptr->FindOrCreateConnection( conversion,
+                                                          tcp_ip_address,
+                                                          udp_ip_address,
+                                                          port_num));
 }
 
 } // transportProtocolHandler

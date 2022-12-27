@@ -51,11 +51,11 @@ public:
     void Stop() override;
 
     // Get or Create connection
-    std::shared_ptr<ara::diag::connection::Connection> 
-                        FindorCreateConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
-                                                                              kDoip_String& tcpIpaddress, 
-                                                                              kDoip_String& udpIpaddress, 
-                                                                              uint16_t portNum) override;
+    std::shared_ptr<ara::diag::connection::Connection>
+      FindOrCreateTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+                                                                              kDoip_String& tcp_ip_address,
+                                                                              kDoip_String& udp_ip_address,
+                                                                              uint16_t port_num) override;
 
 private:
     // store handle id

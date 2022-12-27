@@ -35,12 +35,13 @@ public:
     // @return value : DiagClientConversation&
     //                  Reference to conversation     
     virtual diag::client::conversation::DiagClientConversation&
-        GetDiagnosticClientConversation(std::string conversation_name) = 0;
-    
+      GetDiagnosticClientConversation(std::string conversation_name) = 0;
+
     // Description   : Function to send vehicle identification request
     // @param input  : Nothing
     // @return value : void
-    virtual void SendVehicleIdentificationRequest() = 0;
+    virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+      GetDiagnosticServerList(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
 };
 
 } // client

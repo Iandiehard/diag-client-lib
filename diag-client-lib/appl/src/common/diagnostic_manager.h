@@ -28,8 +28,7 @@ using property_tree = libOsAbstraction::libBoost::jsonparser::boostTree;
  @ Class Name        : DiagnosticManager
  @ Class Description : Parent class to create DCM and DEM class                            
  */
-class DiagnosticManager
-{
+class DiagnosticManager {
 public:
     //ctor
     explicit DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */ 

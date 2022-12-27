@@ -24,65 +24,65 @@ namespace connection {
  */
 
 // ctor
-DoipConnection::DoipConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
+DoipTcpConnection::DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
                                 kDoip_String& tcpIpaddress,
                                 kDoip_String& udpIpaddress, 
                                 uint16_t portNum)
                                 :ara::diag::connection::Connection(1, conversion),
-                                tcp_transport_handler_e(std::make_unique<ara::diag::doip::tcpTransport::tcp_TransportHandler>(tcpIpaddress, 
+                                tcp_transport_handler_(std::make_unique<ara::diag::doip::tcpTransport::TcpTransportHandler>(tcpIpaddress,
                                                                                                                               portNum, 
                                                                                                                               1, 
                                                                                                                               *this)),
-                                udp_transport_handler_e(std::make_unique<ara::diag::doip::udpTransport::udp_TransportHandler>(udpIpaddress, 
+                                udp_transport_handler_(std::make_unique<ara::diag::doip::udpTransport::udp_TransportHandler>(udpIpaddress,
                                                                                                                               portNum, 
                                                                                                                               *this)) {
 }
 
 //dtor
-DoipConnection::~DoipConnection() {
+DoipTcpConnection::~DoipTcpConnection() {
 }
 
 // Initialize
-InitializationResult DoipConnection::Initialize () {
+InitializationResult DoipTcpConnection::Initialize () {
     InitializationResult retVal = InitializationResult::kInitializeFailed;
-    retVal = udp_transport_handler_e->Initialize();
-    retVal = tcp_transport_handler_e->Initialize();
+    retVal = udp_transport_handler_->Initialize();
+    retVal = tcp_transport_handler_->Initialize();
     return (retVal);
 }
 
 // Start the Tp Handlers
-void DoipConnection::Start() {
-    udp_transport_handler_e->Start();
-    tcp_transport_handler_e->Start();
+void DoipTcpConnection::Start() {
+    udp_transport_handler_->Start();
+    tcp_transport_handler_->Start();
 }
 
 // Stop the Tp handlers
-void DoipConnection::Stop() {
-    udp_transport_handler_e->Stop();
-    tcp_transport_handler_e->Stop();
+void DoipTcpConnection::Stop() {
+    udp_transport_handler_->Stop();
+    tcp_transport_handler_->Stop();
 }
 
 // Indicate reception of Vehicle Announcement over UDP to User
 ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult 
-    DoipConnection::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
+    DoipTcpConnection::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
     return conversion_e->IndicateMessage(vehicleInfo_Ref);
 }
 
 // Connect to host server
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-        DoipConnection::ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message) {
-    return(tcp_transport_handler_e->ConnectToHost(std::move(message)));
+        DoipTcpConnection::ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message) {
+    return(tcp_transport_handler_->ConnectToHost(std::move(message)));
 }
 
 // Disconnect from host server
 ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
-        DoipConnection::DisconnectFromHost() {
-    return(tcp_transport_handler_e->DisconnectFromHost());
+        DoipTcpConnection::DisconnectFromHost() {
+    return(tcp_transport_handler_->DisconnectFromHost());
 }
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
-        ara::diag::uds_transport::UdsMessagePtr> DoipConnection::IndicateMessage(
+        ara::diag::uds_transport::UdsMessagePtr> DoipTcpConnection::IndicateMessage(
         ara::diag::uds_transport::UdsMessage::Address source_addr,
         ara::diag::uds_transport::UdsMessage::Address target_addr,
         ara::diag::uds_transport::UdsMessage::TargetAddressType type,
@@ -104,48 +104,34 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
 
 // Function to transmit the uds message
 ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
-            DoipConnection::Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) {
+            DoipTcpConnection::Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) {
     ara::diag::uds_transport::ChannelID channel_id = 0;
-    return(tcp_transport_handler_e->Transmit(std::move(message), channel_id));
+    return(tcp_transport_handler_->Transmit(std::move(message), channel_id));
 }
 
 // Transmit udp data
-bool DoipConnection::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
-    return(udp_transport_handler_e->Transmit(vehicleInfo_Ref));
+bool DoipTcpConnection::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
+    return(udp_transport_handler_->Transmit(vehicleInfo_Ref));
 }
 
 // Transmit confirmation for udp message 
-void DoipConnection::TransmitConfirmation(bool result) {
+void DoipTcpConnection::TransmitConfirmation(bool result) {
     conversion_e->TransmitConfirmation(result);
 }
 
 // Hands over a valid message to conversion
-void DoipConnection::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
+void DoipTcpConnection::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
     // send full message to conversion
     conversion_e->HandleMessage(std::move(message));
 }
 
-
-/*
- @ Class Name        : DoipConnectionManager
- @ Class Description : Class manages Doip Connection                              
- */
-
-// ctor
-DoipConnectionManager::DoipConnectionManager() {
-}
-
-// dtor
-DoipConnectionManager::~DoipConnectionManager() {
-}
-
 // Function to create new connection to handle doip request and response
-std::shared_ptr<DoipConnection> DoipConnectionManager::FindOrCreateConnection(  
+std::shared_ptr<DoipTcpConnection> DoipConnectionManager::FindOrCreateConnection(
         const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
         kDoip_String& tcp_ip_address,
         kDoip_String& udp_ip_address,
         uint16_t port_num) {
-    return (std::make_shared<DoipConnection>(conversion,
+    return (std::make_shared<DoipTcpConnection>(conversion,
                                              tcp_ip_address,
                                              udp_ip_address,
                                              port_num));

@@ -18,30 +18,29 @@ namespace doip{
 
 //forward declaration
 namespace tcpTransport{
-  class tcp_TransportHandler;
+  class TcpTransportHandler;
 }
 namespace udpTransport{
-  class udp_TransportHandler;
+  class UdpTransportHandler;
 }
 
 using InitializationResult = ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult;
 
 namespace connection {
 /*
- @ Class Name        : DoipConnection
- @ Class Description : Class to create connection to tcp & udp handler                              
+ @ Class Name        : DoipTcpConnection
+ @ Class Description : Class to create connection to tcp handler
  */
-
-class DoipConnection : public ara::diag::connection::Connection {
+class DoipTcpConnection : public ara::diag::connection::Connection {
 public:
     // ctor
-    DoipConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
+    DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
                     kDoip_String& tcpIpaddress, 
                     kDoip_String& udpIpaddress, 
                     uint16_t portNum);
     
     // dtor
-    virtual ~DoipConnection();
+    virtual ~DoipTcpConnection();
     
     // Initialize
     InitializationResult Initialize () override;
@@ -90,10 +89,10 @@ public:
     void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
 private:
     // Tcp Transport Handler
-    std::unique_ptr<ara::diag::doip::tcpTransport::tcp_TransportHandler> tcp_transport_handler_e;
+    std::unique_ptr<ara::diag::doip::tcpTransport::TcpTransportHandler> tcp_transport_handler_;
 
     // Udp Transport Handler
-    std::unique_ptr<ara::diag::doip::udpTransport::udp_TransportHandler> udp_transport_handler_e;
+    std::unique_ptr<ara::diag::doip::udpTransport::UdpTransportHandler> udp_transport_handler_;
 
 };
 
@@ -101,21 +100,21 @@ private:
  @ Class Name        : DoipConnectionManager
  @ Class Description : Class manages Doip Connection                              
  */
-
 class DoipConnectionManager {
 public:
-    // ctor
-    DoipConnectionManager();
-    
-    // dtor
-    ~DoipConnectionManager();
-    
-    // Function to create new connection to handle doip request and response 
-    std::shared_ptr<DoipConnection>
-        FindOrCreateConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                                                            kDoip_String& tcp_ip_address,
-                                                            kDoip_String& udp_ip_address,
-                                                            uint16_t port_num);
+  // ctor
+  DoipConnectionManager() = default;
+
+  // dtor
+  ~DoipConnectionManager() = default;
+
+  // Function to create new connection to handle doip request and response
+  std::shared_ptr<DoipTcpConnection>
+    FindOrCreateConnection(
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+      kDoip_String& tcp_ip_address,
+      kDoip_String& udp_ip_address,
+      uint16_t port_num);
 };
 
 } // connection

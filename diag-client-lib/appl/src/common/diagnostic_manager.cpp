@@ -30,21 +30,18 @@ DiagnosticManager::~DiagnosticManager() {
 
 // Main function which keeps DCM alive
 void DiagnosticManager::Main() {
-    // Comp Main thread started, logging
-
-    // Initialize the module
-    Initialize();
-    // Run the module
-    Run();
-    // Entering infinite loop
+  // Initialize the module
+  Initialize();
+  // Run the module
+  Run();
+  // Entering infinite loop
+  while (!exit_requested) {
     std::unique_lock<std::mutex> lck(_mutex_lock);
-    while (!exit_requested)
-    {// do something , thread paused
-        cond_var.wait(lck);
-        // Thread exited
-    }
-    // Shutdown Module
-    Shutdown();
+    cond_var.wait(lck);
+    // Thread exited
+  }
+  // Shutdown Module
+  Shutdown();
 }
 
 // Function to shut down the component
