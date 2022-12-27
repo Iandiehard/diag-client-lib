@@ -26,7 +26,7 @@ namespace tcpChannel{
 class tcpChannel;
 }
 namespace tcpTransport{
-    class tcp_TransportHandler;
+    class TcpTransportHandler;
 }
 
 namespace tcpChannelHandlerImpl {
@@ -76,7 +76,7 @@ class DiagnosticMessageHandler {
 public:
     // ctor
     DiagnosticMessageHandler(tcpSocket::tcp_SocketHandler& tcp_socket_handler,
-                             tcpTransport::tcp_TransportHandler& tcp_transport_handler,
+                             tcpTransport::TcpTransportHandler& tcp_transport_handler,
                              tcpChannel::tcpChannel &channel) :
         tcp_socket_handler_{tcp_socket_handler},
         tcp_transport_handler_{tcp_transport_handler},
@@ -102,7 +102,7 @@ private:
     tcpSocket::tcp_SocketHandler& tcp_socket_handler_;
 
     // transport handler reference
-    tcpTransport::tcp_TransportHandler& tcp_transport_handler_;
+    tcpTransport::TcpTransportHandler& tcp_transport_handler_;
 
     // channel reference
     tcpChannel::tcpChannel &channel_;
@@ -116,7 +116,7 @@ class TcpChannelHandlerImpl {
 public:
     // ctor
     TcpChannelHandlerImpl(tcpSocket::tcp_SocketHandler& tcp_socket_handler,
-                          tcpTransport::tcp_TransportHandler& tcp_transport_handler,
+                          tcpTransport::TcpTransportHandler& tcp_transport_handler,
                           tcpChannel::tcpChannel &channel) :
         routing_activation_handler_{tcp_socket_handler, channel},
         diagnostic_message_handler_{tcp_socket_handler, tcp_transport_handler, channel}

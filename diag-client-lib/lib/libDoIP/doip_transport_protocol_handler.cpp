@@ -75,6 +75,14 @@ std::shared_ptr<ara::diag::connection::Connection>
                                                           port_num));
 }
 
+std::shared_ptr<ara::diag::connection::Connection> 
+  DoipTransportProtocolHandler::FindOrCreateUdpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    kDoip_String& udpIpaddress,
+    uint16_t portNum) {
+
+}
+
 } // transportProtocolHandler
 } // doip
 } // diag

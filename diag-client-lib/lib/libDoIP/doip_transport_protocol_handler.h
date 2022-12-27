@@ -50,13 +50,20 @@ public:
     // Method to indicate that this UdsTransportProtocolHandler should terminate
     void Stop() override;
 
-    // Get or Create connection
+    // Get or Create Tcp connection
     std::shared_ptr<ara::diag::connection::Connection>
-      FindOrCreateTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                                                                              kDoip_String& tcp_ip_address,
-                                                                              kDoip_String& udp_ip_address,
-                                                                              uint16_t port_num) override;
-
+      FindOrCreateTcpConnection(
+        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+        kDoip_String& tcp_ip_address,
+        kDoip_String& udp_ip_address,
+        uint16_t port_num) override;
+    
+    // Get or Create Udp connection
+    std::shared_ptr<ara::diag::connection::Connection> 
+      FindOrCreateUdpConnection(
+        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+        kDoip_String& udpIpaddress,
+        uint16_t portNum) override;
 private:
     // store handle id
     ara::diag::uds_transport::UdsTransportProtocolHandlerID handle_id_e;

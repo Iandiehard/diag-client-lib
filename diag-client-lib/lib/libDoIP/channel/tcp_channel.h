@@ -23,7 +23,7 @@ namespace doip{
 
 // forward declaration
 namespace tcpTransport{
-class tcp_TransportHandler;
+class TcpTransportHandler;
 }
 
 namespace tcpChannel{
@@ -52,7 +52,7 @@ public:
 
     //ctor
     tcpChannel(kDoip_String& localIpaddress,
-                ara::diag::doip::tcpTransport::tcp_TransportHandler& tcpTransport_Handler);
+                ara::diag::doip::tcpTransport::TcpTransportHandler& tcpTransport_Handler);
 
     //dtor
     ~tcpChannel();

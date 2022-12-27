@@ -16,7 +16,7 @@ namespace doip{
 namespace tcpChannel{
 
 tcpChannel::tcpChannel(kDoip_String& localIpaddress,
-                        ara::diag::doip::tcpTransport::tcp_TransportHandler& tcp_transport_handler)
+                        ara::diag::doip::tcpTransport::TcpTransportHandler& tcp_transport_handler)
            :tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::tcp_SocketHandler>(localIpaddress, *this)},
             tcp_socket_state_{tcpSocketState::kSocketOffline},
             tcp_channel_handler_{*(tcp_socket_handler_.get()), tcp_transport_handler, *this} {
