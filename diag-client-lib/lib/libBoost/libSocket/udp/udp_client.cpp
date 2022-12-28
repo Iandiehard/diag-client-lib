@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -111,15 +111,9 @@ bool createUdpSocket::Destroy() {
 void createUdpSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd) {
   if(error.value() == boost::system::errc::success) {
     UdpMessagePtr udp_rx_message = std::make_unique<UdpMessageType>();
-    
-    // reserve the buffer
-    udp_rx_message->rx_buffer_.reserve(bytes_recvd);
-    
+        
     // Copy the data
-    for(std::size_t i = 0; i < bytes_recvd; i++)
-    {
-        udp_rx_message->rx_buffer_[i] = rxbuffer_[i];
-    }
+    udp_rx_message->rx_buffer_.insert(udp_rx_message->rx_buffer_.end(), rxbuffer_, rxbuffer_ + bytes_recvd); 
     
     // fill the remote endpoints
     udp_rx_message->host_ip_address_ = remote_endpoint_.address().to_string();

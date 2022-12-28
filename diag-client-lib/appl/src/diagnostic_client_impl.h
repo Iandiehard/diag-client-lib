@@ -22,7 +22,7 @@ namespace client {
 class DiagClientImpl : public diag::client::DiagClient {
 public:
     // ctor
-    DiagClientImpl(std::string dm_client_config);
+    explicit DiagClientImpl(std::string dm_client_config);
 
     // dtor
     ~DiagClientImpl();
@@ -33,11 +33,12 @@ public:
     // De-Initialize
     void DeInitialize() override;
 
-    // Get Required Conversion based on Conversion Name
+    // Get Required Conversation based on Conversation Name
     diag::client::conversation::DiagClientConversation&
-        GetDiagnosticClientConversation(std::string conversion_name) override;
+      GetDiagnosticClientConversation(std::string conversation_name) override;
 
-    void SendVehicleIdentificationRequest() override;    
+    diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+      GetDiagnosticServerList(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;    
 
 private:
     // Used to read json 

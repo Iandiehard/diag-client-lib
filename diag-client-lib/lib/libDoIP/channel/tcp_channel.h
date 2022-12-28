@@ -102,7 +102,7 @@ private:
       HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr& message);
 private:
     // tcp socket handler
-    std::unique_ptr<ara::diag::doip::tcpSocket::tcp_SocketHandler> tcp_socket_handler_;
+    std::unique_ptr<ara::diag::doip::tcpSocket::TcpSocketHandler> tcp_socket_handler_;
 
     // tcp socket state
     tcpSocketState tcp_socket_state_{tcpSocketState::kSocketOffline};

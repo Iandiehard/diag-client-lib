@@ -20,45 +20,45 @@ namespace tcp {
 // tcp message type
 class TcpMessageType {
 public:
-    enum class tcpSocketState : std::uint8_t {
-        // Socket state
-        kIdle                           = 0x00,
-        kSocketOnline,
-        kSocketOffline,
-        kSocketRxMessageReceived,
-        kSocketTxMessageSend,
-        kSocketTxMessageConf,
-        kSocketError
-    };
+  enum class tcpSocketState : std::uint8_t {
+    // Socket state
+    kIdle                           = 0x00,
+    kSocketOnline,
+    kSocketOffline,
+    kSocketRxMessageReceived,
+    kSocketTxMessageSend,
+    kSocketTxMessageConf,
+    kSocketError
+  };
 
-    enum class tcpSocketError : std::uint8_t {
-        // state
-        kNone                           = 0x00
-    };
+  enum class tcpSocketError : std::uint8_t {
+    // state
+    kNone                           = 0x00
+  };
 
-    // buffer type
-    using buffType = std::vector<uint8_t>;
+  // buffer type
+  using buffType = std::vector<uint8_t>;
 
-    // ip address type
-    using ipAddressType = std::string;
+  // ip address type
+  using ipAddressType = std::string;
 public:
-    // ctor
-    TcpMessageType() = default;
+  // ctor
+  TcpMessageType() = default;
 
-    // dtor
-    virtual ~TcpMessageType() = default;
+  // dtor
+  virtual ~TcpMessageType() = default;
 
-    // socket state
-    tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
+  // socket state
+  tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
 
-    // socket error
-    tcpSocketError tcp_socket_error_{tcpSocketError::kNone};
+  // socket error
+  tcpSocketError tcp_socket_error_{tcpSocketError::kNone};
 
-    // Receive buffer
-    buffType rxBuffer_;
+  // Receive buffer
+  buffType rxBuffer_;
 
-    // Transmit buffer
-    buffType txBuffer_;
+  // Transmit buffer
+  buffType txBuffer_;
 };
 
 // unique pointer to const TcpMessage

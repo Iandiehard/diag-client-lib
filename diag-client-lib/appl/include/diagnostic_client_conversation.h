@@ -47,12 +47,12 @@ public:
     // dtor
     ~DiagClientConversation() = default;
     
-    // Description   : Function to start the Diagnostic Client Conversion
+    // Description   : Function to start the Diagnostic Client Conversation
     // @param input  : Nothing
     // @return value : void
     virtual void Startup() = 0;
     
-    // Description   : Function to shut down the Diagnostic Client Conversion
+    // Description   : Function to shut down the Diagnostic Client Conversation
     // @param input  : Nothing
     // @return value : void
     virtual void Shutdown() = 0;

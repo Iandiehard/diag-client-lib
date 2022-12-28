@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "handler/udp_TransportHandler.h"
+#include "handler/udp_transport_handler.h"
 #include "connection/connection_manager.h"
 
 namespace ara{
@@ -43,18 +43,14 @@ void UdpTransportHandler::Stop() {
     udp_channel->Stop();
 }
 
-// Trigger vehicle identification requests
-bool UdpTransportHandler::Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref) {
-    return(udp_channel->Transmit(vehicleInfo_Ref));
-}
+// Transmit 
+ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult 
+        UdpTransportHandler::Transmit(ara::diag::uds_transport::UdsMessageConstPtr message,
+                                            ara::diag::uds_transport::ChannelID channel_id) {
+    // find the corresponding channel
 
-// function to indicate reception of vehicle announcement to doip transpot handler
-ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult UdpTransportHandler::Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
-   return (doip_connection_.IndicateMessage(vehicleInfo_Ref));
-}
-
-void UdpTransportHandler::TransmitConfirmation(bool result) {
-    doip_connection_.TransmitConfirmation(result);
+    // Trigger transmit
+    return(udp_channel->Transmit(std::move(message)));
 }
 
 } // udpTransport

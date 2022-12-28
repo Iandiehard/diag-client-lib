@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -59,7 +59,6 @@ public:
   virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
     const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
     kDoip_String& tcpIpaddress,
-    kDoip_String& udpIpaddress,
     uint16_t portNum) = 0;
 
   // Get or Create connection a Udp Connection

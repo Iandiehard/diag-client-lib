@@ -21,7 +21,7 @@ Diagnostic Client library currently supports below Diagnostic Protocols :-
 - DoIP 
 - UDS
 
-The main advantage of Diagnostic Client library is that you can open multiple conversion(tester instance) for diagnosing multiple ECU at same time. 
+The main advantage of Diagnostic Client library is that you can open multiple conversation(tester instance) for diagnosing multiple ECU at same time. 
 You can check section [how to use diag-client-lib](#how-to-use-diag-client-lib) for more details
 
 ## Get Started

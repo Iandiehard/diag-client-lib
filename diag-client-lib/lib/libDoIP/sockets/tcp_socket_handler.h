@@ -34,40 +34,40 @@ using TcpMessageConstPtr  = libBoost::libSocket::tcp::TcpMessageConstPtr;
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-class tcp_SocketHandler {
+class TcpSocketHandler {
 public:
-    // ctor
-    tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel);
+  // ctor
+  TcpSocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel);
 
-    // dtor
-    virtual ~tcp_SocketHandler();
+  // dtor
+  ~TcpSocketHandler() = default;
 
-    // Start
-    void Start();
+  // Start
+  void Start();
 
-    // Stop
-    void Stop();
+  // Stop
+  void Stop();
 
-    // Connect to host
-    bool ConnectToHost(kDoip_String hostIpaddress, uint16_t hostportNum);
+  // Connect to host
+  bool ConnectToHost(kDoip_String host_ip_address, uint16_t host_port_num);
 
-    // Disconnect from host
-    bool DisconnectFromHost();
+  // Disconnect from host
+  bool DisconnectFromHost();
 
-    // Transmit function
-    bool Transmit(TcpMessageConstPtr tcpMessage);
+  // Transmit function
+  bool Transmit(TcpMessageConstPtr tcp_message);
 private:
-    // local Ip address
-    kDoip_String local_ip_address_;
+  // local Ip address
+  kDoip_String local_ip_address_;
 
-    // local port number
-    uint16_t local_port_num_;
+  // local port number
+  uint16_t local_port_num_;
 
-    // tcp socket
-    std::unique_ptr<TcpSocket> tcpSocket_;
+  // tcp socket
+  std::unique_ptr<TcpSocket> tcpSocket_;
 
-    // store tcp channel reference
-    ara::diag::doip::tcpChannel::tcpChannel& channel_;
+  // store tcp channel reference
+  ara::diag::doip::tcpChannel::tcpChannel& channel_;
 };
 
 } // tcpSocket

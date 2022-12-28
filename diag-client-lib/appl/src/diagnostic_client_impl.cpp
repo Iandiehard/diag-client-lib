@@ -60,7 +60,7 @@ void DiagClientImpl::DeInitialize() {
         DLT_CSTRING("DiagClient DeInitialized"));
 }
 
-// Get Required Conversion based on Conversion Name
+// Get Required Conversation based on Conversation Name
 diag::client::conversation::DiagClientConversation&
             DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
     return(dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));

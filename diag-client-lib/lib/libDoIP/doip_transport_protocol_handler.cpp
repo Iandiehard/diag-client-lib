@@ -61,26 +61,28 @@ std::shared_ptr<ara::diag::connection::Connection>
   DoipTransportProtocolHandler::FindOrCreateTcpConnection(
     const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
     kDoip_String& tcp_ip_address,
-    kDoip_String& udp_ip_address,
     uint16_t port_num) {
   DLT_LOG(doipclient_main, DLT_LOG_INFO,
-      DLT_CSTRING("Doip protocol requested with local endpoints :"),
+      DLT_CSTRING("Doip tcp protocol requested with local endpoints :"),
       DLT_CSTRING("<tcp:"), DLT_STRING(tcp_ip_address.c_str()),
-      DLT_CSTRING(">"),
-      DLT_CSTRING("<udp:"), DLT_STRING(udp_ip_address.c_str()),
       DLT_CSTRING(">"));
-  return(doip_connection_mgr_ptr->FindOrCreateConnection( conversion,
+  return(doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversion,
                                                           tcp_ip_address,
-                                                          udp_ip_address,
                                                           port_num));
 }
 
 std::shared_ptr<ara::diag::connection::Connection> 
   DoipTransportProtocolHandler::FindOrCreateUdpConnection(
     const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-    kDoip_String& udpIpaddress,
-    uint16_t portNum) {
-
+    kDoip_String& udp_ip_address,
+    uint16_t port_num) {
+  DLT_LOG(doipclient_main, DLT_LOG_INFO,
+      DLT_CSTRING("Doip udp protocol requested with local endpoints :"),
+      DLT_CSTRING("<udp:"), DLT_STRING(udp_ip_address.c_str()),
+      DLT_CSTRING(">"));
+  return(doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversion,
+                                                          udp_ip_address,
+                                                          port_num));
 }
 
 } // transportProtocolHandler

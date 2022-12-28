@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -36,10 +36,7 @@ public:
   
   // Transmit buffer
   buffType tx_buffer_;
-  
-  // Local ipaddress
-  ipAddressType local_ip_address_;
-  
+   
   // host ipaddress
   ipAddressType host_ip_address_;
   

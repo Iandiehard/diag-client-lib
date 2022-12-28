@@ -6,9 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "channel/udp_Channel.h"
-#include "sockets/udp_SocketHandler.h"
-#include "handler/udp_TransportHandler.h"
+#include "channel/udp_channel.h"
+#include "sockets/udp_socket_handler.h"
+#include "handler/udp_transport_handler.h"
 
 namespace ara{
 namespace diag{

@@ -52,9 +52,9 @@ public:
     // Shutdown
     virtual void Shutdown() = 0;
 
-    // Function to get the diagnostic client conversion
+    // Function to get the diagnostic client conversation
     virtual diag::client::conversation::DiagClientConversation&
-        GetDiagnosticClientConversation(std::string conversion_name) = 0;
+        GetDiagnosticClientConversation(std::string conversation_name) = 0;
 protected:
     // store the json tree 
     property_tree &ptree_e;

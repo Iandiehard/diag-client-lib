@@ -34,7 +34,7 @@ DCMClient::~DCMClient() {
 
 // Initialize
 void DCMClient::Initialize() {
-    // start Conversion Manager
+    // start Conversation Manager
     conversation_mgr->Startup();
     // start all the udsTransportProtocol Layer
     uds_transport_protocol_mgr->Startup();
@@ -51,7 +51,7 @@ void DCMClient::Run() {
 
 // shutdown DCM
 void DCMClient::Shutdown() {
-    // shutdown Conversion Manager
+    // shutdown Conversation Manager
     conversation_mgr->Shutdown();
     // shutdown udsTransportProtocol layer
     uds_transport_protocol_mgr->Shutdown();
@@ -60,28 +60,28 @@ void DCMClient::Shutdown() {
         DLT_STRING("DCM Client Shutdown done"));
 }
 
-// Function to get the client conversion
+// Function to get the client Conversation
 diag::client::conversation::DiagClientConversation&
-        DCMClient::GetDiagnosticClientConversation(std::string conversion_name) {
+        DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
     diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
     std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation =
-            conversation_mgr->GetDiagnosticClientConversion(conversion_name);
+            conversation_mgr->GetDiagnosticClientConversion(conversation_name);
     if(conversation != nullptr) {
         diag_client_conversation_map.insert(
             std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
-                                    conversion_name,
+                                    conversation_name,
                                     std::move(conversation)
             ));
-        ret_conversation = diag_client_conversation_map.at(conversion_name).get();
+        ret_conversation = diag_client_conversation_map.at(conversation_name).get();
         DLT_LOG(dcm_client, DLT_LOG_DEBUG, 
-            DLT_STRING("Requested Diagnostic Client conversion created with name: "), 
-            DLT_STRING(conversion_name.c_str()));
+            DLT_STRING("Requested Diagnostic Client conversation created with name: "), 
+            DLT_STRING(conversation_name.c_str()));
     }
     else {
-        // error logging, no conversion found
+        // error logging, no conversation found
         DLT_LOG(dcm_client, DLT_LOG_ERROR, 
-            DLT_STRING("Requested Diagnostic Client conversion not found with name: "), 
-            DLT_STRING(conversion_name.c_str()));
+            DLT_STRING("Requested Diagnostic Client conversation not found with name: "), 
+            DLT_STRING(conversation_name.c_str()));
     }
     return *ret_conversation;
 }
@@ -90,9 +90,9 @@ diag::client::conversation::DiagClientConversation&
 diag::client::config_parser::ConversationConfig
         DCMClient::GetConversationConfig(diag::client::common::property_tree & ptree) {
     diag::client::config_parser::ConversationConfig config;
-    // get total number of conversion
+    // get total number of conversation
     config.num_of_conversation =  ptree.get<uint8_t>("Conversation.NumberOfConversation");
-    // loop through all the conversion
+    // loop through all the conversation
     for(diag::client::common::property_tree::value_type &conversation_ptr :
             ptree.get_child("Conversation.ConversationProperty")) {
         diag::client::config_parser::conversationType conversation;

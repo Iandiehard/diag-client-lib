@@ -41,17 +41,17 @@ public:
   // Shutdown
   void Shutdown() override;
 
-  // Function to get the diagnostic client conversion
+  // Function to get the diagnostic client conversation
   diag::client::conversation::DiagClientConversation&
-    GetDiagnosticClientConversation(std::string conversion_name) override;
+    GetDiagnosticClientConversation(std::string conversation_name) override;
 private:
   // uds transport protocol Manager
   std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
 
-  // conversion manager
+  // conversation manager
   std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
 
-  // map to store conversion pointer along with conversion name
+  // map to store conversation pointer along with conversation name
   std::unordered_map<std::string,
     std::unique_ptr<diag::client::conversation::DiagClientConversation>> diag_client_conversation_map;
 

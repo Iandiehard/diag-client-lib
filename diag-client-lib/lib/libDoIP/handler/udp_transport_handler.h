@@ -11,7 +11,7 @@
 
 //includes
 #include "common/common_doip_header.h"
-#include "channel/udp_Channel.h"
+#include "channel/udp_channel.h"
 
 namespace ara{
 namespace diag{
@@ -25,33 +25,43 @@ class DoipUdpConnection;
 namespace udpTransport{
 
 /*
- @ Class Name        : udp_TransportHandler
+ @ Class Name        : UdpTransportHandler
  @ Class Description : Class used to create a udp transport handler to initiate transmission
                        and reception of udp message from/to user                            
 */
 class UdpTransportHandler {
 public:
-    // ctor
-    UdpTransportHandler(kDoip_String& localIpaddress,
-                         uint16_t portNum,
-                         connection::DoipUdpConnection& doipConnection);
-    // dtor
-    ~UdpTransportHandler();
-    // Initialize
-    ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize ();
-    // Start
-    void Start();
-    // Stop
-    void Stop();
-    // Transmit
-    bool Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-    // Indicate Message
-    ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref);
-    // Transmit confirmation
-    void TransmitConfirmation(bool result);
+  // ctor
+  UdpTransportHandler(kDoip_String& localIpaddress,
+                        uint16_t portNum,
+                        connection::DoipUdpConnection& doipConnection);
+
+  // dtor
+  ~UdpTransportHandler();
+
+  // Initialize
+  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize ();
+
+  // Start
+  void Start();
+
+  // Stop
+  void Stop();
+
+  // Transmit
+  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
+    Transmit (
+      ara::diag::uds_transport::UdsMessageConstPtr message,
+      ara::diag::uds_transport::ChannelID channel_id);
+
+  // Indicate Message
+  ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult 
+    Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref);
+
 private:
     // reference to doip Connection 
     connection::DoipUdpConnection& doip_connection_;
+
     // Udp channel responsible for transmitting and reception of UDP messages
     std::unique_ptr<ara::diag::doip::udpChannel::udpChannel> udp_channel;
 };

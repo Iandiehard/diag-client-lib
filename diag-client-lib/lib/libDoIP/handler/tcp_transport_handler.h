@@ -22,8 +22,7 @@ namespace  connection{
 class DoipTcpConnection;
 }
 
-namespace tcpTransport{
-
+namespace tcpTransport {
 /*
  @ Class Name        : tcp_TransportHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
@@ -32,9 +31,9 @@ namespace tcpTransport{
 class TcpTransportHandler {
 public:
   // ctor
-  TcpTransportHandler(kDoip_String& localIpaddress,
-                       uint16_t portNum,
-                       uint8_t total_tcpChannelReq,
+  TcpTransportHandler(kDoip_String& local_ip_address,
+                       uint16_t port_num,
+                       uint8_t total_tcp_channel_req,
                        connection::DoipTcpConnection& doip_connection);
 
   // dtor
@@ -64,13 +63,15 @@ public:
       ara::diag::uds_transport::ChannelID channel_id);
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
+  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+  ara::diag::uds_transport::UdsMessagePtr>
     IndicateMessage(
       ara::diag::uds_transport::UdsMessage::Address source_addr,
       ara::diag::uds_transport::UdsMessage::Address target_addr,
       ara::diag::uds_transport::UdsMessage::TargetAddressType type,
       ara::diag::uds_transport::ChannelID channel_id,
-      std::size_t size, ara::diag::uds_transport::Priority priority,
+      std::size_t size,
+      ara::diag::uds_transport::Priority priority,
       ara::diag::uds_transport::ProtocolKind protocol_kind,
       std::vector<uint8_t> payloadInfo);
 
@@ -80,8 +81,6 @@ public:
 private:
   // reference to doip connection
   connection::DoipTcpConnection& doip_connection_;
-
-  // routing activation handler
 
   // Tcp channel responsible for transmitting and reception of TCP messages
   std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel_;

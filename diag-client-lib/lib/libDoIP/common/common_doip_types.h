@@ -66,10 +66,10 @@ constexpr uint8_t kDoip_DiagMessageAck_ResMinLen                        = 5;  //
 
 /* Generic DoIP Header NACK codes */
 constexpr uint8_t kDoip_GenericHeader_IncorrectPattern                  = 0x00;
-constexpr uint8_t kDoip_GenericHeader_UnknownPayload			        = 0x01;
-constexpr uint8_t kDoip_GenericHeader_MessageTooLarge			        = 0x02;
-constexpr uint8_t kDoip_GenericHeader_OutOfMemory					    = 0x03;
-constexpr uint8_t kDoip_GenericHeader_InvalidPayloadLen				    = 0x04;
+constexpr uint8_t kDoip_GenericHeader_UnknownPayload			              = 0x01;
+constexpr uint8_t kDoip_GenericHeader_MessageTooLarge			              = 0x02;
+constexpr uint8_t kDoip_GenericHeader_OutOfMemory					              = 0x03;
+constexpr uint8_t kDoip_GenericHeader_InvalidPayloadLen				          = 0x04;
 
 /* Routing Activation request activation types */
 constexpr uint8_t kDoip_RoutingActivation_ReqActType_Default            = 0x00;

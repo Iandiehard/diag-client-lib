@@ -43,7 +43,7 @@ using TcpMessagePtr                 = tcpSocket::TcpMessagePtr;
 class RoutingActivationHandler {
 public:
     // ctor
-    RoutingActivationHandler(tcpSocket::tcp_SocketHandler& tcp_socket_handler, tcpChannel::tcpChannel &channel) :
+    RoutingActivationHandler(tcpSocket::TcpSocketHandler& tcp_socket_handler, tcpChannel::tcpChannel &channel) :
         tcp_socket_handler_{tcp_socket_handler},
         channel_{channel} {}
 
@@ -62,7 +62,7 @@ private:
                                  uint32_t payloadLen) noexcept -> void;
 
     // socket reference
-    tcpSocket::tcp_SocketHandler& tcp_socket_handler_;
+    tcpSocket::TcpSocketHandler& tcp_socket_handler_;
 
     // channel reference
     tcpChannel::tcpChannel &channel_;
@@ -75,7 +75,7 @@ private:
 class DiagnosticMessageHandler {
 public:
     // ctor
-    DiagnosticMessageHandler(tcpSocket::tcp_SocketHandler& tcp_socket_handler,
+    DiagnosticMessageHandler(tcpSocket::TcpSocketHandler& tcp_socket_handler,
                              tcpTransport::TcpTransportHandler& tcp_transport_handler,
                              tcpChannel::tcpChannel &channel) :
         tcp_socket_handler_{tcp_socket_handler},
@@ -99,7 +99,7 @@ private:
                                  uint32_t payloadLen) noexcept -> void;
 
     // socket reference
-    tcpSocket::tcp_SocketHandler& tcp_socket_handler_;
+    tcpSocket::TcpSocketHandler& tcp_socket_handler_;
 
     // transport handler reference
     tcpTransport::TcpTransportHandler& tcp_transport_handler_;
@@ -115,7 +115,7 @@ private:
 class TcpChannelHandlerImpl {
 public:
     // ctor
-    TcpChannelHandlerImpl(tcpSocket::tcp_SocketHandler& tcp_socket_handler,
+    TcpChannelHandlerImpl(tcpSocket::TcpSocketHandler& tcp_socket_handler,
                           tcpTransport::TcpTransportHandler& tcp_transport_handler,
                           tcpChannel::tcpChannel &channel) :
         routing_activation_handler_{tcp_socket_handler, channel},

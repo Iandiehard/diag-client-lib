@@ -16,54 +16,52 @@ namespace doip{
 namespace tcpSocket{
 
 /*
- @ Class Name        : tcp_SocketHandler
+ @ Class Name        : TcpSocketHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
 
 //ctor
-tcp_SocketHandler::tcp_SocketHandler(kDoip_String& localIpaddress, ara::diag::doip::tcpChannel::tcpChannel& channel)
-                :local_ip_address_(localIpaddress),
-                 channel_(channel) {
-    //create socket
-    tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
-                                             [&](TcpMessagePtr tcpMessage){
+TcpSocketHandler::TcpSocketHandler(
+  kDoip_String& localIpaddress,
+  ara::diag::doip::tcpChannel::tcpChannel& channel)
+  : local_ip_address_{localIpaddress},
+    local_port_num_{0U},
+    channel_{channel} {
+  //create socket
+  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
+                                           [&](TcpMessagePtr tcpMessage){
                                             channel_.HandleMessage(std::move(tcpMessage)); });
 }
 
-//dtor
-tcp_SocketHandler::~tcp_SocketHandler() {
+void TcpSocketHandler::Start() {
 }
 
-void tcp_SocketHandler::Start() {
-}
-
-void tcp_SocketHandler::Stop() {
+void TcpSocketHandler::Stop() {
 }
 
 // Connect to host
-bool tcp_SocketHandler::ConnectToHost(kDoip_String hostIpaddress, 
-                                      uint16_t hostportNum) {
-    bool ret_val = false;
-    if(tcpSocket_->Open()) {
-        ret_val = tcpSocket_->ConnectToHost(hostIpaddress, hostportNum);
-    }
-    return ret_val;
+bool TcpSocketHandler::ConnectToHost(kDoip_String host_ip_address,
+                                      uint16_t host_port_num) {
+  bool ret_val = false;
+  if(tcpSocket_->Open()) {
+    ret_val = tcpSocket_->ConnectToHost(host_ip_address, host_port_num);
+  }
+  return ret_val;
 }
 
 // Disconnect from host
-bool tcp_SocketHandler::DisconnectFromHost() {
-    bool ret_val = false;
-    if(tcpSocket_->DisconnectFromHost()) {
-        ret_val = tcpSocket_->Destroy();
-    }
-    return ret_val;
+bool TcpSocketHandler::DisconnectFromHost() {
+  bool ret_val = false;
+  if(tcpSocket_->DisconnectFromHost()) {
+    ret_val = tcpSocket_->Destroy();
+  }
+  return ret_val;
 }
 
-
 // Function to trigger transmission
-bool tcp_SocketHandler::Transmit(TcpMessageConstPtr tcpMessage) {
-    return (tcpSocket_->Transmit(std::move(tcpMessage)));
+bool TcpSocketHandler::Transmit(TcpMessageConstPtr tcp_message) {
+    return (tcpSocket_->Transmit(std::move(tcp_message)));
 }
 
 } // tcpSocket

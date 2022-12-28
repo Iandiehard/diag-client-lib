@@ -55,7 +55,6 @@ public:
       FindOrCreateTcpConnection(
         const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
         kDoip_String& tcp_ip_address,
-        kDoip_String& udp_ip_address,
         uint16_t port_num) override;
     
     // Get or Create Udp connection

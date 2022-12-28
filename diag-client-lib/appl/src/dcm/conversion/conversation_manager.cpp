@@ -28,7 +28,7 @@ void ConversationManager::Startup() {}
 // Shutdown
 void ConversationManager::Shutdown() {}
 
-// Get the required conversion
+// Get the required conversation
 std::unique_ptr<diag::client::conversation::DmConversation>
     ConversationManager::GetDiagnosticClientConversion(std::string conversation_name) {
     std::unique_ptr<diag::client::conversation::DmConversation> dm_conversation {};
@@ -42,14 +42,13 @@ std::unique_ptr<diag::client::conversation::DmConversation>
         uds_transport_mgr_e.doip_transport_handler->FindOrCreateTcpConnection(
           dm_conversation->dm_conversion_handler,
             it->second.tcp_address,
-            it->second.udp_address,
             it->second.port_num
         ));
     }
     return dm_conversation;
 }
 
-// function to find or create conversion
+// function to find or create conversation
 void ConversationManager::CreateConversationConfig(
     diag::client::config_parser::ConversationConfig config) {
     for(uint8_t conv_count = 0; conv_count < config.num_of_conversation; conv_count ++) {

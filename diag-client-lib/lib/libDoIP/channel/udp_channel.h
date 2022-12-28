@@ -11,7 +11,7 @@
 
 //includes
 #include "common/common_doip_types.h"
-#include "sockets/udp_SocketHandler.h"
+#include "sockets/udp_socket_handler.h"
 #include "libTimer/oneShotAsync/oneShotAsyncTimer.h"
 
 namespace ara{
@@ -20,7 +20,7 @@ namespace doip{
 
 // Forward declaration
 namespace udpTransport {
-class udp_TransportHandler;
+class UdpTransportHandler;
 }
 
 namespace udpChannel{
@@ -34,8 +34,7 @@ using udpChanlTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotAsyn
  @ Class Name        : udpChannel
  @ Class Description : Class used to handle Doip Udp Channel
  */
-class udpChannel
-{
+class udpChannel {
     public:
         enum class udpChannelState : std::uint8_t
         {
@@ -88,11 +87,11 @@ class udpChannel
         bool CheckForDuplicateVehicleInfo(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
     private:
         // udp transport handler ref
-        ara::diag::doip::udpTransport::udp_TransportHandler& udpTransport_Handler_e;
+        ara::diag::doip::udpTransport::UdpTransportHandler& udpTransport_Handler_e;
         // //udp socket handler broadcast
-        std::unique_ptr<ara::diag::doip::udpSocket::udp_SocketHandler> udpSocket_Handler_bcast;
+        std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udpSocket_Handler_bcast;
         //udp socket handler unicast
-        std::unique_ptr<ara::diag::doip::udpSocket::udp_SocketHandler> udpSocket_Handler_ucast;
+        std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udpSocket_Handler_ucast;
         //udp channel state for broadcast
         udpChannelState udpChannleState_bcast{udpChannelState::kIdle};
         //udp channel state for broadcast

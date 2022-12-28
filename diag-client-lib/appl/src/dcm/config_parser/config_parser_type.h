@@ -41,9 +41,9 @@ public:
 class ConversationConfig{
 
 public:
-    // number of conversion
+    // number of conversation
     uint8_t num_of_conversation;
-    // store all conversions
+    // store all conversations
     std::vector<conversationType> conversations;
 };
 

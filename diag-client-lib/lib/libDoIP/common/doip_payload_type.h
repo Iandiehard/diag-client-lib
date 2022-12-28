@@ -23,16 +23,16 @@ public:
     DoipMessage& operator= (DoipMessage &&other) noexcept = default;
 
     // doip protocol version
-    uint8_t protocol_version;
+    uint8_t protocol_version{};
 
     // doip protocol inverse version
-    uint8_t protocol_version_inv;
+    uint8_t protocol_version_inv{};
 
     // doip payload type
-    uint16_t payload_type;
+    uint16_t payload_type{};
 
     // doip payload length
-    uint32_t payload_length;
+    uint32_t payload_length{};
 
     // doip payload
     std::vector<uint8_t> payload;
