@@ -41,15 +41,14 @@ public:
 
     // ip address type
     using ipAddressType = std::string;
-
+public:
     // ctor
     TcpMessageType() = default;
 
     // dtor
     virtual ~TcpMessageType() = default;
-public:
-    // socket state
 
+    // socket state
     tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
 
     // socket error
@@ -69,7 +68,7 @@ using TcpMessageConstPtr = std::unique_ptr<const TcpMessageType>;
 using TcpMessagePtr = std::unique_ptr<TcpMessageType>;
 
 // Doip HeaderSize
-constexpr uint8_t kDoipheadrSize = 0x8;
+constexpr uint8_t kDoipheadrSize = 8U;
 
 } // tcp
 } // libSocket
