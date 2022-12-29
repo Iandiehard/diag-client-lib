@@ -1,13 +1,13 @@
 /* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
-#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H
 
 /* includes */
 #include "common_Header.h"
@@ -25,16 +25,17 @@ namespace conversation{
 using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
 using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
 using ConversationState = conversation_state_impl::ConversationState;
+
 /*
- @ Class Name        : DmConversation
- @ Class Description : Class to establish connection with Diagnostic Server                           
+ @ Class Name        : VdConversation
+ @ Class Description : Class to query Diagnostic Server list
  */
-class DmConversation : public ::diag::client::conversation::DiagClientConversation {
+class VdConversation {
 public:
   // ctor
-  DmConversation(
-      std::string conversion_name,
-      ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
+  VdConversation(
+    std::string conversion_name,
+    ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
   
   // dtor
   ~DmConversation();
@@ -44,41 +45,41 @@ public:
   
   // shutdown
   void Shutdown() override;
-
+  
   // Description   : Function to connect to Diagnostic Server
   // @param input  : Nothing
   // @return value : ConnectResult
   ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) override;
-
+  
   // Description   : Function to disconnect from Diagnostic Server
   // @param input  : Nothing
   // @return value : DisconnectResult
   DisconnectResult DisconnectFromDiagServer() override;
-
+  
   // Description   : Function to send Diagnostic Request and receive response
   // @param input  : Nothing
   // @return value : DisconnectResult
   std::pair<DiagResult, uds_message::UdsResponseMessagePtr>
-    SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) override;
-
+  SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) override;
+  
   // Register Connection
   void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
-
+  
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
     ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
-      ara::diag::uds_transport::UdsMessage::Address source_addr,
-      ara::diag::uds_transport::UdsMessage::Address target_addr,
-      ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-      ara::diag::uds_transport::ChannelID channel_id,
-      std::size_t size,
-      ara::diag::uds_transport::Priority priority,
-      ara::diag::uds_transport::ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo);
-
+    ara::diag::uds_transport::UdsMessage::Address source_addr,
+    ara::diag::uds_transport::UdsMessage::Address target_addr,
+    ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+    ara::diag::uds_transport::ChannelID channel_id,
+    std::size_t size,
+    ara::diag::uds_transport::Priority priority,
+    ara::diag::uds_transport::ProtocolKind protocol_kind,
+    std::vector<uint8_t> payloadInfo);
+  
   // Hands over a valid message to conversion
   void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
-
+  
   // shared pointer to store the conversion handler
   std::shared_ptr<ara::diag::conversion::ConversionHandler> dm_conversion_handler;
 private:
@@ -101,13 +102,13 @@ private:
     kActive             = 0x00,
     kInactive           = 0x01
   };
-
+  
   // Function to wait for response
   void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
-
+  
   // Function to cancel the synchronous wait
   void WaitCancel();
-
+  
   // Conversion activity Status
   ActivityStatusType activity_status;
   
@@ -128,70 +129,70 @@ private:
   
   // p2 star Client time
   uint16_t p2_star_client_max;
-
+  
   // logical Source address
   uint16_t source_address;
-
+  
   // logical target address
   uint16_t target_address;
-
+  
   // port number
   uint16_t port_num;
-
+  
   // Vehicle broadcast address
   std::string broadcast_address;
-
+  
   // remote Ip Address
   std::string remote_address;
-
-  // conversion name
+  
+  // conversation name
   std::string convrs_name;
-
+  
   // Tp connection
   std::shared_ptr<ara::diag::connection::Connection> connection_ptr;
-
+  
   // timer
   SyncTimer sync_timer_;
-
+  
   // rx buffer to store the uds response
   ara::diag::uds_transport::ByteVector payload_rx_buffer;
-
+  
   // conversation state
   conversation_state_impl::ConversationStateImpl conversation_state_;
-
+  
   // Declare dlt logging context
   DLT_DECLARE_CONTEXT(dm_conversion);
 };
 
 /*
  @ Class Name        : DmConversationHandler
- @ Class Description : Class to establish connection with Diagnostic Server                           
+ @ Class Description : Class to establish connection with Diagnostic Server
  */
 class DmConversationHandler : public ara::diag::conversion::ConversionHandler {
 public:
   // ctor
   DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
-                               DmConversation &dm_conversion);
-
+                        DmConversation &dm_conversion);
+  
   // dtor
   ~DmConversationHandler() = default;
   
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
     ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
-      ara::diag::uds_transport::UdsMessage::Address source_addr,
-      ara::diag::uds_transport::UdsMessage::Address target_addr,
-      ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-      ara::diag::uds_transport::ChannelID channel_id,
-      std::size_t size,
-      ara::diag::uds_transport::Priority priority,
-      ara::diag::uds_transport::ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo) override;
-
+    ara::diag::uds_transport::UdsMessage::Address source_addr,
+    ara::diag::uds_transport::UdsMessage::Address target_addr,
+    ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+    ara::diag::uds_transport::ChannelID channel_id,
+    std::size_t size,
+    ara::diag::uds_transport::Priority priority,
+    ara::diag::uds_transport::ProtocolKind protocol_kind,
+    std::vector<uint8_t> payloadInfo) override;
+  
   // Hands over a valid message to conversion
   void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) override;
 private:
-    DmConversation &dm_conversation_e;
+  DmConversation &dm_conversation_e;
 };
 
 
@@ -200,4 +201,4 @@ private:
 } // diag
 
 
-#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
+#endif // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H

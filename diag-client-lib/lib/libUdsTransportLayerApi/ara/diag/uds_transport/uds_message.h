@@ -9,6 +9,7 @@
 #ifndef _UDS_MESSAGE_H_
 #define _UDS_MESSAGE_H_
 
+#include <map>
 #include "protocol_types.h"
 
 namespace ara{

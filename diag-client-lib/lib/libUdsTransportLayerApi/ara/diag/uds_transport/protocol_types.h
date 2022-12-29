@@ -11,79 +11,28 @@
 
 #include <vector>
 #include <functional>
-#include <tuple>
-#include <map>
 #include <string>
 #include <memory>
 
 namespace ara{
 namespace diag{
 
-namespace doip{
-
-constexpr uint8_t kDoip_VIN_Size            = 17;
-constexpr uint8_t kDoip_EID_GID_Size        = 6;
-
-// vin type
-using VINArray = std::array<uint8_t, kDoip_VIN_Size>;
-// eid/gid type
-using EID_GID_Array = std::array<uint8_t, kDoip_EID_GID_Size>;
-
-class VehicleInfo {
-public:
-  // Vehicle Info type
-  enum class VehicleInfoType : std::uint8_t {
-      kVehicleAnnouncementRes         = 0,
-      kVehicleIdentificationReq       = 1,
-      kVehicleIdentificationReqEID    = 2,
-      kVehicleIdentificationReqVIN    = 3
-  };
-  
-  //VIN
-  VINArray vin;
-  
-  //EID
-  EID_GID_Array eid;
-  
-  //GID
-  EID_GID_Array gid;
-  
-  // Logical address of DOIP entity
-  uint16_t logicalAddress;
-  
-  // Host port number
-  uint16_t hostPortNum;
-  
-  // Further action bytes received
-  uint8_t furtherActionByte;
-  
-  // Synchronisation status
-  uint8_t vingidSyncStatus;
-  
-  // Ip address of Doip Entity
-  std::string hostIpAddress; // IPV4 supported
-  
-  // Type
-  VehicleInfoType vehInfoType;
-};
-} //doip
-
 namespace uds_transport {
 // This is the type of ByteVector
-using ByteVector = std::vector<uint8_t>;
+using ByteVector = std::vector<std::uint8_t>;
 // This is the type of Channel Id
 using ChannelID = uint32_t;
 // This is the type of Priority
-using Priority = uint8_t;
+using Priority = std::uint8_t;
 // This is the type of Protocol Kind
 using ProtocolKind = std::string;
 // UdsTransportProtocolHandler are flexible "plugins", which need an identification
-using UdsTransportProtocolHandlerID = uint8_t;
+using UdsTransportProtocolHandlerID = std::uint8_t;
 } // uds_transport
 
 namespace conversion_manager {
 // Conversion identification needed by user
-using ConversionHandlerID = uint8_t;
+using ConversionHandlerID = std::uint8_t;
 // Conversion identifier Type can be used by user 
 struct ConversionIdentifierType {
   // Transmission buffer
@@ -119,14 +68,36 @@ struct ConversionIdentifierType {
   // conversion handler ID   
   ConversionHandlerID handler_id;
 };
-
 } // conversion manager
 
 namespace connection{
 // connection identification needed by user
 using ConnectionId = uint8_t;
-
 } // connection
+
+namespace doip {
+
+/*
+ * This struct is used to serialize/deserialize data exchange 
+ * between doip-client and diag-client library
+ */
+struct DoipUdpMessageType {
+  /*
+   * 0U -> Vehicle Identification Req
+   * 1U -> Power Mode Req
+   * 2U -> Entity Status Req
+   */
+  std::uint8_t message_type_;
+  
+  /*
+   * Vehicle Identification req -> preselection_mode + preselection_value(VIN/EID)
+   * Power Mode Req -> Empty
+   * Entity Status Req -> Empty   
+   */
+  std::vector<std::uint8_t> message_payload_;
+};
+
+} // doip
 
 } // diag
 } // ara

@@ -19,7 +19,7 @@ namespace client {
 // @param input  : path to diag client config file 
 // @return value : unique_ptr to diag client object
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
-                                                            std::string diag_client_config_path);
+  const std::string& diag_client_config_path);
 
 } // client
 } // diag

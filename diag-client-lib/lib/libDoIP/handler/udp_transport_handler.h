@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -33,8 +33,8 @@ class UdpTransportHandler {
 public:
   // ctor
   UdpTransportHandler(kDoip_String& localIpaddress,
-                        uint16_t portNum,
-                        connection::DoipUdpConnection& doipConnection);
+                      uint16_t portNum,
+                      connection::DoipUdpConnection& doipConnection);
 
   // dtor
   ~UdpTransportHandler();
@@ -53,17 +53,29 @@ public:
     Transmit (
       ara::diag::uds_transport::UdsMessageConstPtr message,
       ara::diag::uds_transport::ChannelID channel_id);
+        
+  // Indicate message Diagnostic message reception over UDP to user
+  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+  ara::diag::uds_transport::UdsMessagePtr>
+    IndicateMessage(
+      ara::diag::uds_transport::UdsMessage::Address source_addr,
+      ara::diag::uds_transport::UdsMessage::Address target_addr,
+      ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+      ara::diag::uds_transport::ChannelID channel_id,
+      std::size_t size,
+      ara::diag::uds_transport::Priority priority,
+      ara::diag::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo);
 
-  // Indicate Message
-  ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult 
-    Indicate(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref);
-
+  // Hands over a valid received UDP message (currently this is only a request type) from transport
+  // layer to session layer
+  void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message);
 private:
     // reference to doip Connection 
     connection::DoipUdpConnection& doip_connection_;
 
     // Udp channel responsible for transmitting and reception of UDP messages
-    std::unique_ptr<ara::diag::doip::udpChannel::udpChannel> udp_channel;
+    std::unique_ptr<ara::diag::doip::udpChannel::UdpChannel> udp_channel;
 };
 
 } // udpTransport

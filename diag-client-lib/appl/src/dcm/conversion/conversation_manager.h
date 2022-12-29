@@ -23,36 +23,33 @@ namespace conversation_manager {
  @ Class Name        : ConversationManager
  @ Class Description : Class to manage all the conversion created from usr request                           
  */
-class ConversationManager
-{
+class ConversationManager {
 public:
-    
-    // ctor
-    explicit ConversationManager(diag::client::config_parser::ConversationConfig config,
-                                 diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr);
-    
-    // dtor
-    ~ConversationManager() = default;
-    
-    // startup
-    void Startup();
-    
-    // shutdown
-    void Shutdown();
+  // ctor
+  ConversationManager(diag::client::config_parser::ConversationConfig config,
+                               diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr);
+  
+  // dtor
+  ~ConversationManager() = default;
+  
+  // startup
+  void Startup();
+  
+  // shutdown
+  void Shutdown();
 
-    // Get the required conversion
-    std::unique_ptr<diag::client::conversation::DmConversation>
-                GetDiagnosticClientConversion(std::string conversion_name);
+  // Get the required conversion
+  std::unique_ptr<diag::client::conversation::DmConversation>
+              GetDiagnosticClientConversion(std::string conversion_name);
 private:
-    
-    // store uds transport manager
-    uds_transport::UdsTransportProtocolManager &uds_transport_mgr_e;
-    
-    // store the conversion name with conversion configurations
-    std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_e;
+  // store uds transport manager
+  uds_transport::UdsTransportProtocolManager &uds_transport_mgr_e;
+  
+  // store the conversion name with conversion configurations
+  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_e;
 
-    // function to create or find new conversion
-    void CreateConversationConfig(diag::client::config_parser::ConversationConfig config);
+  // function to create or find new conversion
+  void CreateConversationConfig(diag::client::config_parser::ConversationConfig config);
 };
 
 

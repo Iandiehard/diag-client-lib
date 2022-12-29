@@ -16,64 +16,60 @@ namespace ara{
 namespace diag{
 namespace uds_transport{
 
-class UdsTransportProtocolMgr
-{
-    public:
-        // Type of tuple to pack UdsTransportProtocolHandlerID and ChannelID together, to form a global
-        // unique (among all used UdsTransportProtocolHandlers within DM) identifier of a UdsTransport
-        // Protocol channel.
-        using GlobalChannelIdentifier = std::tuple<UdsTransportProtocolHandlerID, ChannelID>;
-        
-        // Result for Indication of message received
-        enum class IndicationResult : std::uint8_t {
-            kIndicationOk = 0,
-            kIndicationOccupied,
-            kIndicationOverflow,
-            kIndicationUnknownTargetAddress,
-            kIndicationPending,
-            kIndicationNOk
-        };
-        
-        // Result for transmission of message sent
-        enum class TransmissionResult : std::uint8_t {
-            kTransmitOk = 0,
-            kTransmitFailed,
-            kNoTransmitAckRevd      
-        };
+class UdsTransportProtocolMgr {
+public:
+  // Type of tuple to pack UdsTransportProtocolHandlerID and ChannelID together, to form a global
+  // unique (among all used UdsTransportProtocolHandlers within DM) identifier of a UdsTransport
+  // Protocol channel.
+  using GlobalChannelIdentifier = std::tuple<UdsTransportProtocolHandlerID, ChannelID>;
+  
+  // Result for Indication of message received
+  enum class IndicationResult : std::uint8_t {
+    kIndicationOk = 0U,
+    kIndicationOccupied,
+    kIndicationOverflow,
+    kIndicationUnknownTargetAddress,
+    kIndicationPending,
+    kIndicationNOk
+  };
+  
+  // Result for transmission of message sent
+  enum class TransmissionResult : std::uint8_t {
+    kTransmitOk = 0U,
+    kTransmitFailed,
+    kNoTransmitAckRevd,
+    kTransmitOkResponseRecvd,
+    kTransmitOkNoResponse
+  };
 
-        // Result for connection to remote endpoint
-        enum class ConnectionResult : std::uint8_t {
-            kConnectionOk = 0,
-            kConnectionFailed,
-            kConnectionTimeout
-        };
+  // Result for connection to remote endpoint
+  enum class ConnectionResult : std::uint8_t {
+    kConnectionOk = 0U,
+    kConnectionFailed,
+    kConnectionTimeout
+  };
 
-        // Result for disconnection to remote endpoint
-        enum class DisconnectionResult : std::uint8_t {
-            kDisconnectionOk = 0,
-            kDisconnectionFailed
-        };
+  // Result for disconnection to remote endpoint
+  enum class DisconnectionResult : std::uint8_t {
+    kDisconnectionOk = 0U,
+    kDisconnectionFailed
+  };
 
-        //ctor
-        inline UdsTransportProtocolMgr(){};
-        
-        //dtor
-        virtual ~UdsTransportProtocolMgr() = default;
-        
-        // initialize all the transport protocol handler
-        virtual void Startup() = 0;
-        
-        // start all the transport protocol handler
-        virtual void Run() = 0;
-        
-        // terminate all the transport protocol handler
-        virtual void Shutdown() = 0;
+  //ctor
+  UdsTransportProtocolMgr() = default;
+  
+  //dtor
+  virtual ~UdsTransportProtocolMgr() = default;
+  
+  // initialize all the transport protocol handler
+  virtual void Startup() = 0;
+  
+  // start all the transport protocol handler
+  virtual void Run() = 0;
+  
+  // terminate all the transport protocol handler
+  virtual void Shutdown() = 0;
 };
-
-
-
-
-
 
 } // uds_transport
 } // diag

@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -31,14 +31,14 @@
 #include <dlt/dlt.h>
 
 /* Magic numbers */
-#define BYTE_POS_ZERO                   (uint8_t(0))
-#define BYTE_POS_ONE                    (uint8_t(1))
-#define BYTE_POS_TWO                    (uint8_t(2))
-#define BYTE_POS_THREE                  (uint8_t(3))
-#define BYTE_POS_FOUR                   (uint8_t(4))
-#define BYTE_POS_FIVE                   (uint8_t(5))
-#define BYTE_POS_SIX                    (uint8_t(6))
-#define BYTE_POS_SEVEN                  (uint8_t(7))
+constexpr uint8_t BYTE_POS_ZERO                   = 0x00;
+constexpr uint8_t BYTE_POS_ONE                    = 0x01;
+constexpr uint8_t BYTE_POS_TWO                    = 0x02;
+constexpr uint8_t BYTE_POS_THREE                  = 0x03;
+constexpr uint8_t BYTE_POS_FOUR                   = 0x04;
+constexpr uint8_t BYTE_POS_FIVE                   = 0x05;
+constexpr uint8_t BYTE_POS_SIX                    = 0x06;
+constexpr uint8_t BYTE_POS_SEVEN                  = 0x07;
 
 typedef enum
 {

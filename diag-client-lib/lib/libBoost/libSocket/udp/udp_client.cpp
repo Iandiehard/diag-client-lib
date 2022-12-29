@@ -76,16 +76,19 @@ bool createUdpSocket::Open() {
 
 // function to transmit udp messages
 bool createUdpSocket::Transmit(UdpMessageConstPtr udp_message) {
-  bool retVal = false;
+  bool ret_val{false};
   
   try {
     // Transmit to remote endpoints
-    std::size_t send_size = udp_socket_->send_to(boost::asio::buffer(udp_message->tx_buffer_, std::size_t(udp_message->tx_buffer_.size())), 
-                                UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_), udp_message->host_port_num_));
+    std::size_t send_size{udp_socket_->send_to(
+      boost::asio::buffer(udp_message->tx_buffer_,
+      std::size_t(udp_message->tx_buffer_.size())),
+      UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_),
+      udp_message->host_port_num_))};
     
     if(send_size == udp_message->tx_buffer_.size()) {
       // successful
-      retVal = true;
+      ret_val = true;
       // start async receive
       udp_socket_->async_receive_from(boost::asio::buffer(rxbuffer_, kDoipUdpResSize),
                                       remote_endpoint_, 
@@ -97,7 +100,7 @@ bool createUdpSocket::Transmit(UdpMessageConstPtr udp_message) {
       UdpErrorCodeType error = ec.code();
       std::cerr << error.message() << "\n";
   }
-  return retVal;
+  return ret_val;
 }
 
 // Function to destroy the socket

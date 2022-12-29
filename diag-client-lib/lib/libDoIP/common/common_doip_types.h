@@ -106,25 +106,32 @@ constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_InvalidSA          = 0x02;
 
 
 /* Vehicle identification parameter (invalidity pattern) */
-constexpr uint8_t  kDoip_VIN_Invalid_FF                            = 0xFF;
-constexpr uint8_t  kDoip_VIN_Invalid_00                            = 0x00;
-constexpr uint16_t kDoip_LogAddress_Invalid                        = 0xFFFF;
-constexpr uint8_t  kDoip_EID_Invalid_FF                            = 0xFF;
-constexpr uint8_t  kDoip_EID_Invalid_00                            = 0x00;
-constexpr uint8_t  kDoip_GID_Invalid_FF                            = 0xFF;
-constexpr uint8_t  kDoip_GID_Invalid_00                            = 0x00;
+constexpr uint8_t  kDoip_VIN_Invalid_FF                               = 0xFF;
+constexpr uint8_t  kDoip_VIN_Invalid_00                               = 0x00;
+constexpr uint16_t kDoip_LogAddress_Invalid                           = 0xFFFF;
+constexpr uint8_t  kDoip_EID_Invalid_FF                               = 0xFF;
+constexpr uint8_t  kDoip_EID_Invalid_00                               = 0x00;
+constexpr uint8_t  kDoip_GID_Invalid_FF                               = 0xFF;
+constexpr uint8_t  kDoip_GID_Invalid_00                               = 0x00;
 
 /* DoIP timing and communication parameter (in millisecond) */
 /* Description: This is used to configure the
                 timeout value for a DoIP Routing Activation request */
-constexpr uint32_t kDoIPRoutingActivationTimeout                   = 1000;       // 1 sec
+constexpr uint32_t kDoIPRoutingActivationTimeout                      = 1000;       // 1 sec
 
 /* Description: This timeout specifies the maximum time that
                 the test equipment waits for a confirmation ACK or NACK
                 from the DoIP entity after the last byte of a DoIP Diagnostic
-                request message has been sent */
-constexpr uint32_t kDoIPDiagnosticAckTimeout                       = 2000;       // 2 sec
+                request message has been sent
+*/
+constexpr uint32_t kDoIPDiagnosticAckTimeout                         = 2000;       // 2 sec
 
+/* Description: This timeout specifies the maximum time that the
+                client waits for response to a previously sent UDP message.
+                This includes max time to wait and collect multiple responses
+                to previous broadcast(UDP only)
+ * */
+constexpr uint32_t kDoIPCtrl                                         = 2000;       // 2 sec
 } //doip
 } //diag
 } //ara

@@ -11,7 +11,7 @@
 
 #include <cstdint>
 #include <vector>
-#include "state/state.h"
+#include "utility/state.h"
 #include "common/common_doip_types.h"
 
 namespace ara{
@@ -24,44 +24,44 @@ using namespace ara::diag::uds_transport;
 
 // routing activation state
 enum class routingActivationState : std::uint8_t {
-    kIdle   = 0U,
-    kWaitForRoutingActivationRes,
-    kRoutingActivationSuccessful,
-    kRoutingActivationFailed
+  kIdle   = 0U,
+  kWaitForRoutingActivationRes,
+  kRoutingActivationSuccessful,
+  kRoutingActivationFailed
 };
 
 // Diagnostic state
 enum class diagnosticState: std::uint8_t {
-    kDiagIdle = 0U,
-    kSendDiagnosticReqFailed,
-    kWaitForDiagnosticAck,
-    kDiagnosticPositiveAckRecvd,
-    kDiagnosticNegativeAckRecvd,
-    kWaitForDiagnosticResponse,
-    kDiagnosticFinalResRecvd
+  kDiagIdle = 0U,
+  kSendDiagnosticReqFailed,
+  kWaitForDiagnosticAck,
+  kDiagnosticPositiveAckRecvd,
+  kDiagnosticNegativeAckRecvd,
+  kWaitForDiagnosticResponse,
+  kDiagnosticFinalResRecvd
 };
 
 class TcpChannelStateImpl {
 public:
-    // ctor
-    TcpChannelStateImpl();
+  // ctor
+  TcpChannelStateImpl();
 
-    // dtor
-    ~TcpChannelStateImpl() = default;
+  // dtor
+  ~TcpChannelStateImpl() = default;
 
-    // Function to get the Routing Activation State context
-    auto GetRoutingActivationStateContext()
-        noexcept -> StateContext<routingActivationState>&;
+  // Function to get the Routing Activation State context
+  auto GetRoutingActivationStateContext()
+    noexcept -> StateContext<routingActivationState>&;
 
-    // Function to get Diagnostic Message State context
-    auto GetDiagnosticMessageStateContext()
-        noexcept -> StateContext<diagnosticState>&;
+  // Function to get Diagnostic Message State context
+  auto GetDiagnosticMessageStateContext()
+    noexcept -> StateContext<diagnosticState>&;
 private:
-    // routing activation state
-    std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
+  // routing activation state
+  std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
 
-    // diagnostic state
-    std::unique_ptr<StateContext<diagnosticState>> diagnostic_message_state_context_;
+  // diagnostic state
+  std::unique_ptr<StateContext<diagnosticState>> diagnostic_message_state_context_;
 };
 
 class kIdle final: public State <routingActivationState> {

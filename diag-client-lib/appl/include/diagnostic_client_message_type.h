@@ -61,18 +61,30 @@ namespace vehicle_info {
 
 struct VehicleAddrInfoResponse {
   IpAddress ip_address;
-  uint16_t logical_address;
+  std::uint16_t logical_address;
   std::string vin;
   std::string eid;
+  std::string gid;
 };
 
 struct VehicleAddrInfoRequest {
-  bool preselection_mode {0U};
+  /*
+    0U : No preselection
+    1U : DoIP Entities with given VIN
+    2U : DoIP Entities with given EID
+   */
+  std::uint8_t preselection_mode {0U};
+  /*
+    VIN when preselection_mode = 1U
+    EID when preselection_mode = 2U
+    Empty when preselection_mode = 0U
+   */
   std::string preselection_value;
 };
 
 using VehicleInfoListResponseType = std::vector<VehicleAddrInfoResponse>;
 using VehicleInfoListRequestType = VehicleAddrInfoRequest;
+
 // Message type for vehicle identification request/ response / announcement
 class VehicleInfoMessage {
 public:

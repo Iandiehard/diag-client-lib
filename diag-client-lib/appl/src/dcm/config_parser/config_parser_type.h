@@ -19,32 +19,30 @@ namespace config_parser{
 class DoipNetworkType{
 
 public:
-    std::string tcpIpAddress;
-    std::string udpIpAddress;
-    std::string udpBroadcastAddress;
-    uint16_t portNum;
+  std::string tcpIpAddress;
+  std::string udpIpAddress;
+  std::string udpBroadcastAddress;
+  uint16_t portNum;
 };
 
 class conversationType {
-
 public:
-    uint16_t    p2ClientMax;
-    uint16_t    p2StarClientMax;
-    uint16_t    txBufferSize;
-    uint16_t    rxBufferSize;
-    uint16_t    sourceAddress;
-    uint16_t    targetAddress;
-    std::string conversationName;
-    DoipNetworkType network;
+  uint16_t    p2ClientMax;
+  uint16_t    p2StarClientMax;
+  uint16_t    txBufferSize;
+  uint16_t    rxBufferSize;
+  uint16_t    sourceAddress;
+  uint16_t    targetAddress;
+  std::string conversationName;
+  DoipNetworkType network;
 };
 
-class ConversationConfig{
-
+class ConversationConfig {
 public:
-    // number of conversation
-    uint8_t num_of_conversation;
-    // store all conversations
-    std::vector<conversationType> conversations;
+  // number of conversation
+  uint8_t num_of_conversation;
+  // store all conversations
+  std::vector<conversationType> conversations;
 };
 
 } // config_parser

@@ -34,9 +34,10 @@ namespace connection {
 class DoipTcpConnection : public ara::diag::connection::Connection {
 public:
   // ctor
-  DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                  kDoip_String& tcp_ip_address,
-                  uint16_t port_num);
+  DoipTcpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    kDoip_String& tcp_ip_address,
+    uint16_t port_num);
   
   // dtor
   ~DoipTcpConnection() = default;
@@ -88,9 +89,10 @@ private:
 class DoipUdpConnection : public ara::diag::connection::Connection {
 public:
   // ctor
-  DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                  kDoip_String& udp_ip_address, 
-                  uint16_t port_num);
+  DoipUdpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    kDoip_String& udp_ip_address,
+    uint16_t port_num);
   
   // dtor
   ~DoipUdpConnection() = default;
@@ -151,14 +153,14 @@ public:
   // Function to create new connection to handle doip tcp request and response
   std::shared_ptr<DoipTcpConnection>
     FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
       kDoip_String& tcp_ip_address,
       uint16_t port_num);
 
   // Function to create new connection to handle doip udp request and response
   std::shared_ptr<DoipUdpConnection>
     FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
       kDoip_String& udp_ip_address,
       uint16_t port_num);
 };

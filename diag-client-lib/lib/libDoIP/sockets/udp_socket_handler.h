@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -19,7 +19,7 @@ namespace doip{
 
 // forward class declaration
 namespace udpChannel {
-class udpChannel;
+class UdpChannel;
 }
 
 namespace udpSocket{
@@ -47,7 +47,7 @@ public:
     kDoip_String& local_ip_address,
     uint16_t port_num,
     PortType port_type,
-    ara::diag::doip::udpChannel::udpChannel& channel);
+    ara::diag::doip::udpChannel::UdpChannel& channel);
 
   //dtor
   ~UdpSocketHandler() = default;
@@ -77,7 +77,7 @@ private:
   std::unique_ptr<UdpSocket> udp_socket_;
 
   // store tcp channel reference
-  ara::diag::doip::udpChannel::udpChannel& channel_;
+  ara::diag::doip::udpChannel::UdpChannel& channel_;
 };
 
 } // udpSocket

@@ -21,37 +21,42 @@ namespace client {
 
 class DiagClientImpl : public diag::client::DiagClient {
 public:
-    // ctor
-    explicit DiagClientImpl(std::string dm_client_config);
+  // ctor
+  explicit DiagClientImpl(std::string dm_client_config);
 
-    // dtor
-    ~DiagClientImpl();
+  // dtor
+  ~DiagClientImpl();
 
-    // Initialize
-    void Initialize() override;
+  // Initialize
+  void Initialize() override;
 
-    // De-Initialize
-    void DeInitialize() override;
+  // De-Initialize
+  void DeInitialize() override;
 
-    // Get Required Conversation based on Conversation Name
-    diag::client::conversation::DiagClientConversation&
-      GetDiagnosticClientConversation(std::string conversation_name) override;
-
-    diag::client::vehicle_info::VehicleInfoMessageResponsePtr
-      GetDiagnosticServerList(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;    
-
+  // Get Required Conversation based on Conversation Name
+  diag::client::conversation::DiagClientConversation&
+    GetDiagnosticClientConversation(std::string conversation_name) override;
+  
+  // Send Vehicle Identification Request and get response
+  diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+    SendVehicleIdentificationRequest(
+      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
+  
+  // Get the list of available Diagnostic Server
+  diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+    GetDiagnosticServerList() override;
 private:
-    // Used to read json 
-    diag::client::common::property_tree ptree;
+  // Used to read json
+  diag::client::common::property_tree ptree;
 
-    // dcm client instance
-    std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
-    
-    // thread to hold dcm client instance
-    std::thread dcm_thread_;
-    
-    // Declare dlt logging context
-    DLT_DECLARE_CONTEXT(diagclient_main);
+  // dcm client instance
+  std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
+  
+  // thread to hold dcm client instance
+  std::thread dcm_thread_;
+  
+  // Declare dlt logging context
+  DLT_DECLARE_CONTEXT(diagclient_main);
 };
 
 } // client

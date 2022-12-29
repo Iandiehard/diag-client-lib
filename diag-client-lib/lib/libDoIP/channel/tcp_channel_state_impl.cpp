@@ -67,12 +67,12 @@ TcpChannelStateImpl::TcpChannelStateImpl()
 
 auto TcpChannelStateImpl::GetRoutingActivationStateContext()
     noexcept -> StateContext<routingActivationState> & {
-    return *routing_activation_state_context_.get();
+    return *routing_activation_state_context_;
 }
 
 auto TcpChannelStateImpl::GetDiagnosticMessageStateContext()
     noexcept -> StateContext<diagnosticState> & {
-    return *diagnostic_message_state_context_.get();
+    return *diagnostic_message_state_context_;
 }
 
 kIdle::kIdle(routingActivationState state)

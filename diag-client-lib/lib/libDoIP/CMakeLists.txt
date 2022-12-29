@@ -1,4 +1,4 @@
-#  MANDAREIN Diagnostic Client library CMake File
+#   Diagnostic Client library CMake File
 #  Copyright (C) 2022  Avijit Dey
 # 
 # This Source Code Form is subject to the terms of the Mozilla Public
@@ -8,7 +8,7 @@
 project(doip-client)
 
 #set default language
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # find needed packages

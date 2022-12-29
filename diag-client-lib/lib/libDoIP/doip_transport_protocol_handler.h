@@ -28,7 +28,6 @@ namespace transportProtocolHandler{
  @ Class Description : This class must be instantiated by user for using the DoIP functionalities.  
                        This will inherit uds transport protocol handler                              
  */
-
 class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTransportProtocolHandler {
 public:
     //ctor
@@ -36,7 +35,7 @@ public:
                                  ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
     
     //dtor
-    virtual ~DoipTransportProtocolHandler();
+    ~DoipTransportProtocolHandler();
     
     // Return the UdsTransportProtocolHandlerID, which was given to the implementation during construction (ctor call).
     ara::diag::uds_transport::UdsTransportProtocolHandlerID GetHandlerID () const override;
@@ -53,16 +52,16 @@ public:
     // Get or Create Tcp connection
     std::shared_ptr<ara::diag::connection::Connection>
       FindOrCreateTcpConnection(
-        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
         kDoip_String& tcp_ip_address,
         uint16_t port_num) override;
     
     // Get or Create Udp connection
     std::shared_ptr<ara::diag::connection::Connection> 
       FindOrCreateUdpConnection(
-        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-        kDoip_String& udpIpaddress,
-        uint16_t portNum) override;
+        const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
+        kDoip_String& udp_ip_address,
+        uint16_t port_num) override;
 private:
     // store handle id
     ara::diag::uds_transport::UdsTransportProtocolHandlerID handle_id_e;

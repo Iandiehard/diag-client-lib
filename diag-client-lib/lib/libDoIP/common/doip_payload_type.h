@@ -11,31 +11,46 @@
 
 #include <cstdint>
 #include <vector>
+#include <string>
 
 class DoipMessage {
 public:
-    // ctor
-    DoipMessage() = default;
+  enum class rx_socket_type: std::uint8_t {
+    kBroadcast,
+    kUnicast
+  };
+  
+  // ip address type
+  using IpAddressType = std::string;
+public:
+  // ctor
+  DoipMessage() = default;
 
-    DoipMessage (const DoipMessage &other)=default;
-    DoipMessage (DoipMessage &&other) noexcept=default;
-    DoipMessage& operator= (const DoipMessage &other) = default;
-    DoipMessage& operator= (DoipMessage &&other) noexcept = default;
+  DoipMessage (const DoipMessage &other)=default;
+  DoipMessage (DoipMessage &&other) noexcept=default;
+  DoipMessage& operator= (const DoipMessage &other) = default;
+  DoipMessage& operator= (DoipMessage &&other) noexcept = default;
+  
+  // rx type -> broadcast, unicast
+  rx_socket_type rx_socket{rx_socket_type::kUnicast};
+  
+  // remote ip address;
+  IpAddressType host_ip_address;
+  
+  // doip protocol version
+  uint8_t protocol_version{};
 
-    // doip protocol version
-    uint8_t protocol_version{};
+  // doip protocol inverse version
+  uint8_t protocol_version_inv{};
 
-    // doip protocol inverse version
-    uint8_t protocol_version_inv{};
+  // doip payload type
+  uint16_t payload_type{};
 
-    // doip payload type
-    uint16_t payload_type{};
+  // doip payload length
+  uint32_t payload_length{};
 
-    // doip payload length
-    uint32_t payload_length{};
-
-    // doip payload
-    std::vector<uint8_t> payload;
+  // doip payload
+  std::vector<uint8_t> payload;
 };
 
 

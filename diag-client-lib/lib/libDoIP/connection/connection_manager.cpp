@@ -74,14 +74,15 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
         ara::diag::uds_transport::ProtocolKind protocol_kind,
         std::vector<uint8_t> payloadInfo) {
   // Send Indication to conversion
-  return (conversion_->IndicateMessage(source_addr, 
-                                      target_addr, 
-                                      type, 
-                                      channel_id, 
-                                      size,
-                                      priority, 
-                                      protocol_kind, 
-                                      payloadInfo)); 
+  return (conversion_->IndicateMessage(
+    source_addr, 
+    target_addr, 
+    type, 
+    channel_id, 
+    size,
+    priority, 
+    protocol_kind, 
+    payloadInfo)); 
 }
 
 // Function to transmit the uds message
@@ -144,16 +145,26 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
-        ara::diag::uds_transport::UdsMessagePtr> DoipUdpConnection::IndicateMessage(
-        ara::diag::uds_transport::UdsMessage::Address source_addr,
-        ara::diag::uds_transport::UdsMessage::Address target_addr,
-        ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-        ara::diag::uds_transport::ChannelID channel_id,
-        std::size_t size,
-        ara::diag::uds_transport::Priority priority,
-        ara::diag::uds_transport::ProtocolKind protocol_kind,
-        std::vector<uint8_t> payloadInfo) {
-  
+        ara::diag::uds_transport::UdsMessagePtr> 
+  DoipUdpConnection::IndicateMessage(
+  ara::diag::uds_transport::UdsMessage::Address source_addr,
+  ara::diag::uds_transport::UdsMessage::Address target_addr,
+  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+  ara::diag::uds_transport::ChannelID channel_id,
+  std::size_t size,
+  ara::diag::uds_transport::Priority priority,
+  ara::diag::uds_transport::ProtocolKind protocol_kind,
+  std::vector<uint8_t> payloadInfo) {
+  // Send Indication to conversion
+  return (conversion_->IndicateMessage(
+    source_addr,
+    target_addr,
+    type,
+    channel_id,
+    size,
+    priority,
+    protocol_kind,
+    payloadInfo));
 }
 
 // Function to transmit the uds message
@@ -166,25 +177,28 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
 // Hands over a valid message to conversion
 void DoipUdpConnection::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
   // send full message to conversion
+  conversion_->HandleMessage(std::move(message));
 }
 
 // Function to create new connection to handle doip request and response
 std::shared_ptr<DoipTcpConnection> DoipConnectionManager::FindOrCreateTcpConnection(
-  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion, 
+  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
   kDoip_String& tcp_ip_address,
   uint16_t port_num) {
-  return (std::make_shared<DoipTcpConnection>(conversion,
-                                            tcp_ip_address,
-                                            port_num));
+  return (std::make_shared<DoipTcpConnection>(
+    conversation,
+    tcp_ip_address,
+    port_num));
 }
 
 std::shared_ptr<DoipUdpConnection> DoipConnectionManager::FindOrCreateUdpConnection(
-  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
   kDoip_String& udp_ip_address,
   uint16_t port_num) {
-  return (std::make_shared<DoipUdpConnection>(conversion,
-                                            udp_ip_address,
-                                            port_num));    
+  return (std::make_shared<DoipUdpConnection>(
+    conversation,
+    udp_ip_address,
+    port_num));
 }
 
 } // connection

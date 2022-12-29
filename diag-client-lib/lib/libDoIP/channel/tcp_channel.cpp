@@ -15,16 +15,17 @@ namespace diag{
 namespace doip{
 namespace tcpChannel{
 
-tcpChannel::tcpChannel(kDoip_String& localIpaddress,
-                        ara::diag::doip::tcpTransport::TcpTransportHandler& tcp_transport_handler)
-           :tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
-            tcp_socket_state_{tcpSocketState::kSocketOffline},
-            tcp_channel_handler_{*(tcp_socket_handler_.get()), tcp_transport_handler, *this} {
-    DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
+tcpChannel::tcpChannel(
+  kDoip_String& localIpaddress,
+  ara::diag::doip::tcpTransport::TcpTransportHandler& tcp_transport_handler)
+ :tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
+  tcp_socket_state_{tcpSocketState::kSocketOffline},
+  tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {
+  DLT_REGISTER_CONTEXT(doip_tcp_channel,"dtcp","DoipClient Tcp Channel Context");
 }
 
 tcpChannel::~tcpChannel() {
-    DLT_UNREGISTER_CONTEXT(doip_tcp_channel);
+  DLT_UNREGISTER_CONTEXT(doip_tcp_channel);
 }
 
 ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult
@@ -81,7 +82,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
             tcp_socket_state_ = tcpSocketState::kSocketOffline;
             if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState()
                 == TcpRoutingActivationChannelState ::kRoutingActivationSuccessful) {
-                tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);;
+                tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
                 DLT_LOG(doip_tcp_channel, DLT_LOG_INFO, 
                     DLT_CSTRING("RoutingActivation activated reseted "));
             }
@@ -95,21 +96,21 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
     return ret_val;
 }
 
-void tcpChannel::HandleMessage(TcpMessagePtr tcpRxMessage) {
-    tcp_channel_handler_.HandleMessage(std::move(tcpRxMessage));
+void tcpChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
+    tcp_channel_handler_.HandleMessage(std::move(tcp_rx_message));
 }
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     tcpChannel::Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) {
 
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult retval {
+    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val {
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
     if(tcp_socket_state_ == tcpSocketState::kSocketOnline) {
         // routing activation should be active before sending diag request
         if(tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
                 TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-            retval = HandleDiagnosticRequestState(message);
+          ret_val = HandleDiagnosticRequestState(message);
         }
         else {
             DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
@@ -121,19 +122,19 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
         DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR, 
             DLT_CSTRING("Socket Offline, please connect to Server First"));
     }
-    return retval;
+    return ret_val;
 }
 
 void tcpChannel::WaitForResponse(
-    std::function<void()> timeout_func,
-    std::function<void()> cancel_func,
-    int msec) {
-    if(sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
-        timeout_func();
-    }
-    else {
-        cancel_func();
-    }
+  std::function<void()> timeout_func,
+  std::function<void()> cancel_func,
+  int msec) {
+  if(sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
+      timeout_func();
+  }
+  else {
+      cancel_func();
+  }
 }
 
 void tcpChannel::WaitCancel() {
@@ -141,122 +142,117 @@ void tcpChannel::WaitCancel() {
 }
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
-    tcpChannel::HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
-    
-    ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult 
-            result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-    
-    if(tcp_channel_state_
-        .GetRoutingActivationStateContext()
-        .GetActiveState()
-        .GetState() == TcpRoutingActivationChannelState::kIdle) {
+  tcpChannel::HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
+  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
+    result{ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
+  
+  if(tcp_channel_state_
+    .GetRoutingActivationStateContext()
+    .GetActiveState()
+    .GetState() == TcpRoutingActivationChannelState::kIdle) {
 
-        if(tcp_channel_handler_.SendRoutingActivationRequest(message) ==
-            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+    if(tcp_channel_handler_.SendRoutingActivationRequest(message) ==
+      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
 
-            tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-                    TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
-            WaitForResponse(
-                [&]() {
-                    result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
-                    tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-                            TcpRoutingActivationChannelState::kIdle);
-                    DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
-                            DLT_CSTRING("RoutingActivation request timeout,no response received"));
-                    },
-                [&]() {
-                    if(tcp_channel_state_
-                            .GetRoutingActivationStateContext()
-                            .GetActiveState()
-                            .GetState() == TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-                        // success
-                        result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
-                        DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
-                                DLT_CSTRING("RoutingActivation activated successfully"));
-                    }
-                    else {
-                        // failed
-                        tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-                                TcpRoutingActivationChannelState::kIdle);
-                        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
-                                DLT_CSTRING("RoutingActivation Failed"));
-                    }
-                },
-                kDoIPRoutingActivationTimeout);
-        }
-        else {
-            // failed, do nothing
-            tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-                    TcpRoutingActivationChannelState::kIdle);
-            DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
-                    DLT_CSTRING("RoutingActivation Failed"));
-        }
+      tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
+              TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
+      WaitForResponse(
+        [&]() {
+          result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
+          tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
+                  TcpRoutingActivationChannelState::kIdle);
+          DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
+                  DLT_CSTRING("RoutingActivation request timeout,no response received"));
+          },
+      [&]() {
+          if(tcp_channel_state_
+            .GetRoutingActivationStateContext()
+            .GetActiveState()
+            .GetState() == TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
+            // success
+            result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
+            DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
+                DLT_CSTRING("RoutingActivation activated successfully"));
+          }
+          else {// failed
+              tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
+                      TcpRoutingActivationChannelState::kIdle);
+              DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
+                      DLT_CSTRING("RoutingActivation Failed"));
+          }
+        },
+        kDoIPRoutingActivationTimeout);
     }
     else {
-        // channel not free
+        // failed, do nothing
+        tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
+                TcpRoutingActivationChannelState::kIdle);
+        DLT_LOG(doip_tcp_channel, DLT_LOG_ERROR,
+                DLT_CSTRING("RoutingActivation Failed"));
     }
-    return result;
+  }
+  else {
+      // channel not free
+  }
+  return result;
 }
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
     tcpChannel::HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr& message) {
 
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-        result{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
+      result{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
 
-    if(tcp_channel_state_
-        .GetDiagnosticMessageStateContext()
-        .GetActiveState()
-        .GetState() == TcpDiagnosticMessageChannelState::kDiagIdle) {
+  if(tcp_channel_state_
+    .GetDiagnosticMessageStateContext()
+    .GetActiveState()
+    .GetState() == TcpDiagnosticMessageChannelState::kDiagIdle) {
 
-        if(tcp_channel_handler_.SendDiagnosticRequest(message) ==
-            ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+    if(tcp_channel_handler_.SendDiagnosticRequest(message) ==
+      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
 
-            tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                        TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
-            WaitForResponse(
-                [&]() {
-                    result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
-                    tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                            TcpDiagnosticMessageChannelState::kDiagIdle);
-                    DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                            DLT_CSTRING("Diagnostic Message Ack Request timed out"));
-                },
-                [&]() {
-                    if(tcp_channel_state_
-                        .GetDiagnosticMessageStateContext()
-                        .GetActiveState()
-                        .GetState() == tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
-                        // success
-                        result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-                        tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                                TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
-                        DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG,
-                                DLT_CSTRING("Diagnostic Message Positive Ack received"));
-                    }
-                    else {
-                        // failed
-                        tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                                TcpDiagnosticMessageChannelState::kDiagIdle);
-                        DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                                DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
-                    }
-                },
-                kDoIPDiagnosticAckTimeout);
+      tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                  TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
+      WaitForResponse(
+      [&]() {
+        result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
+        tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                TcpDiagnosticMessageChannelState::kDiagIdle);
+        DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, DLT_CSTRING("Diagnostic Message Ack Request timed out"));
+      },
+      [&]() {
+        if(tcp_channel_state_
+          .GetDiagnosticMessageStateContext()
+          .GetActiveState()
+          .GetState() == tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
+          // success
+          result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
+          tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                  TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
+          DLT_LOG(doip_tcp_channel, DLT_LOG_DEBUG, DLT_CSTRING("Diagnostic Message Positive Ack received"));
         }
         else {
-            // failed, do nothing
+            // failed
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                     TcpDiagnosticMessageChannelState::kDiagIdle);
-            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
-                    DLT_CSTRING("Diagnostic Message Transmission Failed"));
+            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
         }
+      },
+      kDoIPDiagnosticAckTimeout);
     }
     else {
-        // channel not in idle state
-        DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, 
-            DLT_CSTRING("Diagnostic Message Transmission already in progress"));
+        // failed, do nothing
+        tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
+                TcpDiagnosticMessageChannelState::kDiagIdle);
+        DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
+                DLT_CSTRING("Diagnostic Message Transmission Failed"));
     }
+  }
+  else {
+      // channel not in idle state
+      DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
+          DLT_CSTRING("Diagnostic Message Transmission already in progress"));
+  }
 
     return result;
 }

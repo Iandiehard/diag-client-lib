@@ -20,97 +20,108 @@ namespace dcm{
 
 // ctor
 DCMClient::DCMClient(diag::client::common::property_tree &ptree)
-        : DiagnosticManager(ptree)
-        , uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>())
-        , conversation_mgr(std::make_unique<conversation_manager::ConversationManager>(
-                GetConversationConfig(ptree), *uds_transport_protocol_mgr)) {
-    DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
+  : DiagnosticManager(ptree),
+    uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>()),
+    conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(
+      GetConversationConfig(ptree), *uds_transport_protocol_mgr)} {
+  DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
 }
 
 // dtor
 DCMClient::~DCMClient() {
-    DLT_UNREGISTER_CONTEXT(dcm_client);
+  DLT_UNREGISTER_CONTEXT(dcm_client);
 }
 
 // Initialize
 void DCMClient::Initialize() {
-    // start Conversation Manager
-    conversation_mgr->Startup();
-    // start all the udsTransportProtocol Layer
-    uds_transport_protocol_mgr->Startup();
-    
-    DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-        DLT_STRING("DCM Client Initialize done"));
+  // start Conversation Manager
+  conversation_mgr->Startup();
+  // start all the udsTransportProtocol Layer
+  uds_transport_protocol_mgr->Startup();
+  
+  DLT_LOG(dcm_client, DLT_LOG_VERBOSE,
+      DLT_STRING("DCM Client Initialize done"));
 }
 
 // Run
 void DCMClient::Run() {
-    // run udsTransportProtocol layer
-    uds_transport_protocol_mgr->Run();
+  // run udsTransportProtocol layer
+  uds_transport_protocol_mgr->Run();
 }
 
 // shutdown DCM
 void DCMClient::Shutdown() {
-    // shutdown Conversation Manager
-    conversation_mgr->Shutdown();
-    // shutdown udsTransportProtocol layer
-    uds_transport_protocol_mgr->Shutdown();
-    
-    DLT_LOG(dcm_client, DLT_LOG_VERBOSE, 
-        DLT_STRING("DCM Client Shutdown done"));
+  // shutdown Conversation Manager
+  conversation_mgr->Shutdown();
+  // shutdown udsTransportProtocol layer
+  uds_transport_protocol_mgr->Shutdown();
+  
+  DLT_LOG(dcm_client, DLT_LOG_VERBOSE,
+      DLT_STRING("DCM Client Shutdown done"));
 }
 
 // Function to get the client Conversation
 diag::client::conversation::DiagClientConversation&
-        DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
-    diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
-    std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation =
-            conversation_mgr->GetDiagnosticClientConversion(conversation_name);
-    if(conversation != nullptr) {
-        diag_client_conversation_map.insert(
-            std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
-                                    conversation_name,
-                                    std::move(conversation)
-            ));
-        ret_conversation = diag_client_conversation_map.at(conversation_name).get();
-        DLT_LOG(dcm_client, DLT_LOG_DEBUG, 
-            DLT_STRING("Requested Diagnostic Client conversation created with name: "), 
-            DLT_STRING(conversation_name.c_str()));
-    }
-    else {
-        // error logging, no conversation found
-        DLT_LOG(dcm_client, DLT_LOG_ERROR, 
-            DLT_STRING("Requested Diagnostic Client conversation not found with name: "), 
-            DLT_STRING(conversation_name.c_str()));
-    }
-    return *ret_conversation;
+  DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
+  diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
+  std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation =
+          conversation_mgr->GetDiagnosticClientConversion(conversation_name);
+  if(conversation != nullptr) {
+    diag_client_conversation_map.insert(
+      std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
+        conversation_name,
+        std::move(conversation)
+      ));
+    ret_conversation = diag_client_conversation_map.at(conversation_name).get();
+    DLT_LOG(dcm_client, DLT_LOG_DEBUG,
+        DLT_STRING("Requested Diagnostic Client conversation created with name: "),
+        DLT_STRING(conversation_name.c_str()));
+  }
+  else {
+    // error logging, no conversation found
+    DLT_LOG(dcm_client, DLT_LOG_ERROR,
+      DLT_STRING("Requested Diagnostic Client conversation not found with name: "),
+      DLT_STRING(conversation_name.c_str()));
+  }
+  return *ret_conversation;
 }
 
 // Function to get read from json tree and return the config structure
 diag::client::config_parser::ConversationConfig
         DCMClient::GetConversationConfig(diag::client::common::property_tree & ptree) {
-    diag::client::config_parser::ConversationConfig config;
-    // get total number of conversation
-    config.num_of_conversation =  ptree.get<uint8_t>("Conversation.NumberOfConversation");
-    // loop through all the conversation
-    for(diag::client::common::property_tree::value_type &conversation_ptr :
-            ptree.get_child("Conversation.ConversationProperty")) {
-        diag::client::config_parser::conversationType conversation;
+  diag::client::config_parser::ConversationConfig config;
+  // get total number of conversation
+  config.num_of_conversation =  ptree.get<uint8_t>("Conversation.NumberOfConversation");
+  // loop through all the conversation
+  for(diag::client::common::property_tree::value_type &conversation_ptr :
+    ptree.get_child("Conversation.ConversationProperty")) {
+      diag::client::config_parser::conversationType conversation;
+    
+      conversation.conversationName             = conversation_ptr.second.get<std::string>("ConversationName");
+      conversation.p2ClientMax                  = conversation_ptr.second.get<uint16_t>("p2ClientMax");
+      conversation.p2StarClientMax              = conversation_ptr.second.get<uint16_t>("p2StarClientMax");
+      conversation.txBufferSize                 = conversation_ptr.second.get<uint16_t>("TxBufferSize");
+      conversation.rxBufferSize                 = conversation_ptr.second.get<uint16_t>("RxBufferSize");
+      conversation.sourceAddress                = conversation_ptr.second.get<uint16_t>("SourceAddress");
+      conversation.targetAddress                = conversation_ptr.second.get<uint16_t>("TargetAddress");
+      conversation.network.tcpIpAddress         = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
+      conversation.network.udpIpAddress         = conversation_ptr.second.get<std::string>("Network.UdpIpAddress");
+      conversation.network.udpBroadcastAddress  = conversation_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
+      conversation.network.portNum              = conversation_ptr.second.get<uint16_t>("Network.Port");
+      config.conversations.emplace_back(conversation);
+  }
+  return config;
+}
 
-        conversation.conversationName             = conversation_ptr.second.get<std::string>("ConversationName");
-        conversation.p2ClientMax                  = conversation_ptr.second.get<uint16_t>("p2ClientMax");
-        conversation.p2StarClientMax              = conversation_ptr.second.get<uint16_t>("p2StarClientMax");
-        conversation.txBufferSize                 = conversation_ptr.second.get<uint16_t>("TxBufferSize");
-        conversation.rxBufferSize                 = conversation_ptr.second.get<uint16_t>("RxBufferSize");
-        conversation.sourceAddress                = conversation_ptr.second.get<uint16_t>("SourceAddress");
-        conversation.targetAddress                = conversation_ptr.second.get<uint16_t>("TargetAddress");
-        conversation.network.tcpIpAddress         = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
-        conversation.network.udpIpAddress         = conversation_ptr.second.get<std::string>("Network.UdpIpAddress");
-        conversation.network.udpBroadcastAddress  = conversation_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
-        conversation.network.portNum              = conversation_ptr.second.get<uint16_t>("Network.Port");
-        config.conversations.emplace_back(conversation);
-    }
-    return config;
+diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  DCMClient::SendVehicleIdentificationRequest(
+    diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
+
+}
+
+diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  DCMClient::GetDiagnosticServerList() {
+
 }
 
 } // dcm

@@ -8,29 +8,20 @@
 project(utility)
 
 #set default language
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # find needed packages
 find_package(automotive-dlt REQUIRED)
 
-file(GLOB STATE_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/state/*.cpp")
+file(GLOB STATE_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 
-add_library(${PROJECT_NAME}
-            ${STATE_SRCS}
-)
+add_library(${PROJECT_NAME} INTERFACE)
 
 add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-        )
-
-#link target directory
-target_link_libraries(${PROJECT_NAME}
-        PRIVATE
-        Genivi::dlt
+target_include_directories(${PROJECT_NAME}
+        INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
         )
 
 install(TARGETS ${PROJECT_NAME}

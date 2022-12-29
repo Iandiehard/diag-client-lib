@@ -23,7 +23,7 @@ public:
     // ctor
     DmUdsMessage(Address sa
                 , Address ta
-                , IpAddress hostipaddress
+                , IpAddress host_ip_address
                 , ara::diag::uds_transport::ByteVector& payload);
 
     // dtor

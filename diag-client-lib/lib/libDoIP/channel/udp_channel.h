@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,13 +6,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _UDP_CHANNEL_H_
-#define _UDP_CHANNEL_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_UDP_CHANNEL_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_UDP_CHANNEL_H
 
 //includes
+#include <functional>
 #include "common/common_doip_types.h"
 #include "sockets/udp_socket_handler.h"
-#include "libTimer/oneShotAsync/oneShotAsyncTimer.h"
+#include "libTimer/oneShotSync/one_shotsync_timer.h"
+#include "channel/udp_channel_handler_impl.h"
+#include "channel/udp_channel_state_impl.h"
+#include "utility/executor.h"
 
 namespace ara{
 namespace diag{
@@ -26,88 +30,98 @@ class UdpTransportHandler;
 namespace udpChannel{
 
 //typedefs
-using UdpMessage    = ara::diag::doip::udpSocket::UdpMessage;
 using UdpMessagePtr = ara::diag::doip::udpSocket::UdpMessagePtr;
-using udpChanlTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotAsyncTimer;
+using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
+using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
 
 /*
- @ Class Name        : udpChannel
+ @ Class Name        : UdpChannel
  @ Class Description : Class used to handle Doip Udp Channel
  */
-class udpChannel {
-    public:
-        enum class udpChannelState : std::uint8_t
-        {
-            kIdle = 0,
-            kWaitforVehicleAnnouncement,
-            kSendVehicleIdentificationReq,
-            kWaitforVehicleIdentificationRes,
-            kA_DoIP_Ctrl_Timeout
-        };
-        //ctor
-        udpChannel(kDoip_String& localIpaddress, uint16_t portNum, ara::diag::doip::udpTransport::udp_TransportHandler& udpTransport_Handler);
-        //dtor
-        ~udpChannel();
-        // Initialize
-        ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize ();
-        //Start
-        void Start();
-        // Stop
-        void Stop();
-        // function to handle read broadcast
-        void HandleMessageBroadcast(UdpMessagePtr udpRxMessage);
-        // function to handle read unicast
-        void HandleMessageUnicast(UdpMessagePtr udpRxMessage);
-        // Function to indicate a message start
-        void IndicateMessage(UdpMessage& udpRxMessage);
-        // Function to notify failure
-        void NotifyMessageFailure();
-        // Function to trigger transmission
-        bool Transmit(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-        // Function to confirm transmission
-        void TransmitConfirmation(bool result);
-    private:
-        // Function to trigger Vehicle Identification req
-        Std_ReturnType SendVehicleIdentificationRequest(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-        // Function to trigger Vehicle Identification req with EID
-        Std_ReturnType SendVehicleIdentificationRequest_EID(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-        // Function to trigger Vehicle Identification req with VIN
-        Std_ReturnType SendVehicleIdentificationRequest_VIN(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-        //
-        void ProcessVehicleIdentificationResponse(UdpMessagePtr udpRxMessage);
-        // Function Called during DoIP_Ctrl timeout
-        void DoIP_CtrlTimeout(void);
-        // Function to create Generic Header
-        void CreateDoIPGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType, uint32_t payloadLen);
-        // Function to send Doip Generic NACK message
-        bool SendDoIPNACKMessage(uint8_t nackType);
-        // Function to process DoIP Header
-        bool ProcessDoIPHeader(std::vector<uint8_t> &doipHeader, uint8_t &nackCode);
-        // Function to check for duplicate Vehicle info received
-        bool CheckForDuplicateVehicleInfo(ara::diag::doip::VehicleInfo &vehicleInfo_Ref);
-    private:
-        // udp transport handler ref
-        ara::diag::doip::udpTransport::UdpTransportHandler& udpTransport_Handler_e;
-        // //udp socket handler broadcast
-        std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udpSocket_Handler_bcast;
-        //udp socket handler unicast
-        std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udpSocket_Handler_ucast;
-        //udp channel state for broadcast
-        udpChannelState udpChannleState_bcast{udpChannelState::kIdle};
-        //udp channel state for broadcast
-        udpChannelState udpChannleState_ucast{udpChannelState::kIdle};
-        //vector to store all vehicle info
-        std::vector<ara::diag::doip::VehicleInfo> vehicle_info;
-        // timer broadcast
-        std::unique_ptr<udpChanlTimer> timer_bcast;
-        // timer unicast
-        std::unique_ptr<udpChanlTimer> timer_ucast;
+class UdpChannel {
+public:
+  enum class udpChannelState : std::uint8_t {
+    kIdle = 0U,
+    kWaitForVehicleAnnouncement,
+    kSendVehicleIdentificationReq,
+    kWaitForVehicleIdentificationRes,
+    kDoIPCtrlTimeout
+  };
+  
+  //ctor
+  UdpChannel(
+    kDoip_String& local_ip_address, 
+    uint16_t port_num, 
+    ara::diag::doip::udpTransport::UdpTransportHandler& udp_transport_handler);
+  
+  //dtor
+  ~UdpChannel() = default;
+  
+  // Initialize
+  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize ();
+  
+  //Start
+  void Start();
+  
+  // Stop
+  void Stop();
+  
+  // function to handle read broadcast
+  void HandleMessageBroadcast(UdpMessagePtr udp_rx_message);
+  
+  // function to handle read unicast
+  void HandleMessageUnicast(UdpMessagePtr udp_rx_message);
+     
+  // Function to trigger transmission of vehicle identification request
+  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
+    Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
+  
+  // Function to get the channel context
+  auto GetChannelState() noexcept ->
+  udpChannelStateImpl::UdpChannelStateImpl& {
+    return udp_channel_state_;
+  }
+  
+  // Function to add job to executor
+  auto SendVehicleInformationToUser() noexcept -> void;
+  
+  // Function to wait for response
+  void WaitForResponse(std::function<void()> timeout_func,
+                       std::function<void()> cancel_func,
+                       int msec);
+  
+  // Function to cancel the synchronous wait
+  void WaitCancel();
+private:
+  // udp transport handler ref
+  ara::diag::doip::udpTransport::UdpTransportHandler& udp_transport_handler_;
+  
+  // udp socket handler broadcast
+  std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udp_socket_handler_bcast_;
+  
+  // udp socket handler unicast
+  std::unique_ptr<ara::diag::doip::udpSocket::UdpSocketHandler> udp_socket_handler_ucast_;
+  
+  // udp channel state
+  udpChannelStateImpl::UdpChannelStateImpl udp_channel_state_;
+  
+  // tcp channel handler
+  udpChannelHandlerImpl::UdpChannelHandlerImpl udp_channel_handler_;
+  
+  // Executor
+  TaskExecutor task_executor_;
+  
+  // sync timer
+  SyncTimer sync_timer_;
+  
+  // Declare dlt logging context
+  DLT_DECLARE_CONTEXT(doip_udp_channel);
 };
 
-
-} // tcpChannel
+} // udpChannel
 } // doip
 } // diag
 } // ara
 
-#endif // _UDP_CHANNEL_H_
+#endif // DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_UDP_CHANNEL_H

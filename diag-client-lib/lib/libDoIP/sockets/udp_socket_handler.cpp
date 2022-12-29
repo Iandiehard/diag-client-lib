@@ -1,4 +1,4 @@
-/* MANDAREIN Diagnostic Client library
+/* Diagnostic Client library
  * Copyright (C) 2022  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -18,7 +18,7 @@ UdpSocketHandler::UdpSocketHandler(
   kDoip_String& local_ip_address,
   uint16_t port_num,
   PortType port_type,
-  ara::diag::doip::udpChannel::udpChannel &channel)
+  ara::diag::doip::udpChannel::UdpChannel &channel)
     : local_ip_address_{local_ip_address},
       port_num_{port_num},
       port_type_{port_type},

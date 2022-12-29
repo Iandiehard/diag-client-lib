@@ -22,7 +22,7 @@ public:
   // buffer type
   using buffType = std::vector<uint8_t> ;
   
-  // ip addresstype
+  // ip address type
   using ipAddressType = std::string;
 public:
   // ctor
@@ -40,7 +40,7 @@ public:
   // host ipaddress
   ipAddressType host_ip_address_;
   
-  // host portnum
+  // host port num
   uint16_t host_port_num_;
 };
 //

@@ -16,23 +16,23 @@ namespace conversation{
 
 //ctor
 DmConversation::DmConversation(
-        std::string conversion_name,
-        ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-            :diag::client::conversation::DiagClientConversation()
-            ,activity_status(ActivityStatusType::kInactive)
-            ,active_session(SessionControlType::kDefaultSession)
-            ,active_security(SecurityLevelType::kLocked)
-            ,tx_buffer_size(conversion_identifier.tx_buffer_size)
-            ,rx_buffer_size(conversion_identifier.rx_buffer_size)
-            ,p2_client_max(conversion_identifier.p2_client_max)
-            ,p2_star_client_max(conversion_identifier.p2_star_client_max)
-            ,source_address(conversion_identifier.source_address)
-            ,target_address(conversion_identifier.target_address)
-            ,port_num(conversion_identifier.port_num)
-            ,broadcast_address(conversion_identifier.udp_broadcast_address)
-            ,convrs_name(conversion_name)
-            ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
-    DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
+  std::string conversion_name,
+  ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
+    :diag::client::conversation::DiagClientConversation()
+    ,activity_status(ActivityStatusType::kInactive)
+    ,active_session(SessionControlType::kDefaultSession)
+    ,active_security(SecurityLevelType::kLocked)
+    ,tx_buffer_size(conversion_identifier.tx_buffer_size)
+    ,rx_buffer_size(conversion_identifier.rx_buffer_size)
+    ,p2_client_max(conversion_identifier.p2_client_max)
+    ,p2_star_client_max(conversion_identifier.p2_star_client_max)
+    ,source_address(conversion_identifier.source_address)
+    ,target_address(conversion_identifier.target_address)
+    ,port_num(conversion_identifier.port_num)
+    ,broadcast_address(conversion_identifier.udp_broadcast_address)
+    ,convrs_name(conversion_name)
+    ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
+  DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
 }
 
 //dtor
@@ -429,60 +429,38 @@ void DmConversation::WaitCancel() {
 }
 
 // ctor
-DmConversationHandler::DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
-                                         DmConversation &dm_conversion)
-                    : ara::diag::conversion::ConversionHandler(handler_id),
-                      dm_conversation_e(dm_conversion) {
-}
-
-// Indication of Vehicle Announcement/Identification Request
-ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult
-    DmConversationHandler::IndicateMessage(std::vector<ara::diag::doip::VehicleInfo> &vehicleInfo_Ref) {
-    ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult result;
-    if(vehicleInfo_Ref.size() != 0) {
-        // Todo : Is vector required ????
-        if(vehicleInfo_Ref[0].vehInfoType 
-            == ara::diag::doip::VehicleInfo::VehicleInfoType::kVehicleAnnouncementRes) {
-
-        }
-    }
-    return result;
-}
-
-// transmit confirmation of Vehicle Identification Request
-void DmConversationHandler::TransmitConfirmation(bool result) {
-    if(result) {
-    // success
-    }
-    else {
-    // failure
-    }
-}
+DmConversationHandler::DmConversationHandler(
+  ara::diag::conversion_manager::ConversionHandlerID handler_id,
+  DmConversation &dm_conversion)
+  : ara::diag::conversion::ConversionHandler{handler_id},
+    dm_conversation_e{dm_conversion} {}
 
 // Indicate message Diagnostic message reception over TCP to user
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-        DmConversationHandler::IndicateMessage(
-                                        ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                        ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                        ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                        ara::diag::uds_transport::ChannelID channel_id,
-                                        std::size_t size,
-                                        ara::diag::uds_transport::Priority priority,
-                                        ara::diag::uds_transport::ProtocolKind protocol_kind,
-                                        std::vector<uint8_t> payloadInfo) {
-    return (dm_conversation_e.IndicateMessage(source_addr,
-                                            target_addr, 
-                                            type, 
-                                            channel_id, 
-                                            size,
-                                            priority, 
-                                            protocol_kind, 
-                                            payloadInfo));
+std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, 
+  ara::diag::uds_transport::UdsMessagePtr>
+  DmConversationHandler::IndicateMessage(
+    ara::diag::uds_transport::UdsMessage::Address source_addr,
+    ara::diag::uds_transport::UdsMessage::Address target_addr,
+    ara::diag::uds_transport::UdsMessage::TargetAddressType type,
+    ara::diag::uds_transport::ChannelID channel_id,
+    std::size_t size,
+    ara::diag::uds_transport::Priority priority,
+    ara::diag::uds_transport::ProtocolKind protocol_kind,
+    std::vector<uint8_t> payloadInfo) {
+  return (dm_conversation_e.IndicateMessage(
+    source_addr,
+    target_addr, 
+    type, 
+    channel_id, 
+    size,
+    priority, 
+    protocol_kind, 
+    payloadInfo));
 }
 
 // Hands over a valid message to conversion
 void DmConversationHandler::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
-    dm_conversation_e.HandleMessage(std::move(message));
+  dm_conversation_e.HandleMessage(std::move(message));
 }
 
 } // conversion

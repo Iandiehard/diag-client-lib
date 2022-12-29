@@ -15,55 +15,65 @@ namespace client {
 
 // ctor
 DiagClientImpl::DiagClientImpl(std::string dm_client_config)
-                : diag::client::DiagClient()
-                , ptree{}
-                , dcm_instance_ptr{nullptr} {
-    // dlt register app & context
-    DLT_REGISTER_APP("DCLT", "Diag Client Library");
-    DLT_REGISTER_CONTEXT(diagclient_main,"main","Diag Client Main Context");
-
-    // start parsing the config json file
-    libOsAbstraction::libBoost::jsonparser::createJsonParser json_parser;
-    json_parser.getJsonPtree(dm_client_config, ptree);
-    
-    // create single dcm instance and pass the config tree
-    dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
-
-    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
-        DLT_CSTRING("DiagClient instance created"));
+  : diag::client::DiagClient(),
+    ptree{},
+    dcm_instance_ptr{nullptr} {
+  // dlt register app & context
+  DLT_REGISTER_APP("DCLT", "Diag Client Library");
+  DLT_REGISTER_CONTEXT(diagclient_main,"main","Diag Client Main Context");
+  
+  // start parsing the config json file
+  libOsAbstraction::libBoost::jsonparser::createJsonParser json_parser;
+  json_parser.getJsonPtree(dm_client_config, ptree);
+  
+  // create single dcm instance and pass the config tree
+  dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
+  
+  DLT_LOG(diagclient_main, DLT_LOG_INFO,
+          DLT_CSTRING("DiagClient instance created"));
 }
 
 // dtor
 DiagClientImpl::~DiagClientImpl() {
-    // de-register from dlt
-    DLT_UNREGISTER_CONTEXT(diagclient_main);
-    DLT_UNREGISTER_APP();
+  // de-register from dlt
+  DLT_UNREGISTER_CONTEXT(diagclient_main);
+  DLT_UNREGISTER_APP();
 }
 
 // Initialize all the resources and load the configs
 void DiagClientImpl::Initialize() {
-    // start DCM thread here
-    dcm_thread_ = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get()));
-    pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
-    
-    DLT_LOG(diagclient_main, DLT_LOG_INFO, 
-        DLT_CSTRING("DiagClient Initialize success"));
+  // start DCM thread here
+  dcm_thread_ = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr.get()));
+  pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
+  
+  DLT_LOG(diagclient_main, DLT_LOG_INFO,
+    DLT_CSTRING("DiagClient Initialize success"));
 }
 
 // De-initialize all the resource and free memory
 void DiagClientImpl::DeInitialize() {
-    // shutdown DCM module here
-    dcm_instance_ptr->SignalShutdown();
-    dcm_thread_.join();
+  // shutdown DCM module here
+  dcm_instance_ptr->SignalShutdown();
+  dcm_thread_.join();
 
-    DLT_LOG(diagclient_main, DLT_LOG_INFO,
-        DLT_CSTRING("DiagClient DeInitialized"));
+  DLT_LOG(diagclient_main, DLT_LOG_INFO,
+      DLT_CSTRING("DiagClient DeInitialized"));
 }
 
-// Get Required Conversation based on Conversation Name
 diag::client::conversation::DiagClientConversation&
-            DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
-    return(dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
+  DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
+  return(dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
+}
+
+diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  DiagClientImpl::SendVehicleIdentificationRequest(
+  diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
+  return (dcm_instance_ptr->SendVehicleIdentificationRequest(vehicle_info_request));
+}
+
+diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  DiagClientImpl::GetDiagnosticServerList() {
+  return (dcm_instance_ptr->GetDiagnosticServerList());
 }
 
 } // client

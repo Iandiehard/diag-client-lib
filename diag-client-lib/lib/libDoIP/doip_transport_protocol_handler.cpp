@@ -29,12 +29,12 @@ DoipTransportProtocolHandler::DoipTransportProtocolHandler(
                              , handle_id_e(handler_id)
                              , transport_protocol_mgr_e(transport_protocol_mgr)
                              , doip_connection_mgr_ptr(std::make_unique<connection::DoipConnectionManager>()) {
-    DLT_REGISTER_CONTEXT(doipclient_main,"dphl","DoipClient TpHandler Context");
+  DLT_REGISTER_CONTEXT(doipclient_main,"dphl","DoipClient Tp Handler Context");
 }
 
 //dtor
 DoipTransportProtocolHandler::~DoipTransportProtocolHandler() {
-    DLT_UNREGISTER_CONTEXT(doipclient_main);
+  DLT_UNREGISTER_CONTEXT(doipclient_main);
 }
 
 // Return the UdsTransportProtocolHandlerID, which was given to the implementation during
@@ -59,28 +59,28 @@ void DoipTransportProtocolHandler::Stop() {
 // Get or Create connection
 std::shared_ptr<ara::diag::connection::Connection> 
   DoipTransportProtocolHandler::FindOrCreateTcpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
     kDoip_String& tcp_ip_address,
     uint16_t port_num) {
   DLT_LOG(doipclient_main, DLT_LOG_INFO,
       DLT_CSTRING("Doip tcp protocol requested with local endpoints :"),
       DLT_CSTRING("<tcp:"), DLT_STRING(tcp_ip_address.c_str()),
       DLT_CSTRING(">"));
-  return(doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversion,
+  return(doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation,
                                                           tcp_ip_address,
                                                           port_num));
 }
 
 std::shared_ptr<ara::diag::connection::Connection> 
   DoipTransportProtocolHandler::FindOrCreateUdpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
     kDoip_String& udp_ip_address,
     uint16_t port_num) {
   DLT_LOG(doipclient_main, DLT_LOG_INFO,
       DLT_CSTRING("Doip udp protocol requested with local endpoints :"),
       DLT_CSTRING("<udp:"), DLT_STRING(udp_ip_address.c_str()),
       DLT_CSTRING(">"));
-  return(doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversion,
+  return(doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversation,
                                                           udp_ip_address,
                                                           port_num));
 }

@@ -75,7 +75,7 @@ public:
         DisconnectFromHost();
 
     // Function to Hand over all the message received
-    void HandleMessage(TcpMessagePtr tcpRxMessage);
+    void HandleMessage(TcpMessagePtr tcp_rx_message);
 
     // Function to trigger transmission
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
@@ -88,7 +88,9 @@ public:
     }
 
     // Function to wait for response
-    void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+    void WaitForResponse(std::function<void()> timeout_func,
+                         std::function<void()> cancel_func,
+                         int msec);
 
     // Function to cancel the synchronous wait
     void WaitCancel();

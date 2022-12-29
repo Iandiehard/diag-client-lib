@@ -8,6 +8,7 @@
 
 // includes
 #include "tcp_client.h"
+#include <sstream>
 
 namespace libBoost {
 namespace libSocket {
@@ -28,15 +29,15 @@ CreateTcpClientSocket::CreateTcpClientSocket(
   tcp_socket_ = std::make_unique<TcpSocket::socket>(io_context_);
   // Start thread to receive messages
   thread_ = std::thread([&](){
-      std::unique_lock<std::mutex> lck(mutex_);
-      while (!exit_request_) {
-          if (!running_) {
-              cond_var_.wait(lck);
-          }
-          if (running_) {
-              HandleMessage();
-          }
+    std::unique_lock<std::mutex> lck(mutex_);
+    while (!exit_request_) {
+      if (!running_) {
+        cond_var_.wait(lck);
       }
+      if (running_) {
+        HandleMessage();
+      }
+    }
   });
 }
 
@@ -55,37 +56,39 @@ bool CreateTcpClientSocket::Open() {
   // Open the socket
   tcp_socket_->open(TcpSocket::v4(), ec);
   if(ec.value() == boost::system::errc::success) {
-      // reuse address
-      boost::asio::socket_base::reuse_address reuse_address_option{true};
-      tcp_socket_->set_option(reuse_address_option);
-      // Set socket to non blocking
-      tcp_socket_->non_blocking(false);
-      //bind to local address and random port
-      tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(local_ip_address_), 0), ec);
-      if(ec.value() == boost::system::errc::success) {
-          // Socket binding success
-          TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};
-          DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
-              DLT_CSTRING("Tcp Socket Opened and bound to"),
-              DLT_CSTRING("<"),
-              DLT_CSTRING(endpoint_.address().to_string().c_str()),
-              DLT_CSTRING(","),
-              DLT_UINT16(endpoint_.port()),
-              DLT_CSTRING(">"));
-          retVal = true;
-      }
-      else {
-          // Socket binding failed            
-          DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-              DLT_CSTRING("Tcp Socket Bind failed with message: "), 
-              DLT_CSTRING(ec.message().c_str()));
-          retVal = false;
-      }
+    // reuse address
+    boost::asio::socket_base::reuse_address reuse_address_option{true};
+    tcp_socket_->set_option(reuse_address_option);
+    // Set socket to non blocking
+    tcp_socket_->non_blocking(false);
+    //bind to local address and random port
+    tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(local_ip_address_), 0), ec);
+    if(ec.value() == boost::system::errc::success) {
+      // Socket binding success
+      TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};
+      std::stringstream msg;
+      msg << endpoint_.address().to_string();
+      DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG,
+        DLT_CSTRING("Tcp Socket Opened and bound to"),
+        DLT_CSTRING("<"),
+        DLT_CSTRING(msg.str().c_str()),
+        DLT_CSTRING(","),
+        DLT_UINT16(endpoint_.port()),
+        DLT_CSTRING(">"));
+      retVal = true;
+    }
+    else {
+      // Socket binding failed
+      DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
+        DLT_CSTRING("Tcp Socket Bind failed with message: "),
+        DLT_CSTRING(ec.message().c_str()));
+      retVal = false;
+    }
   }
   else {
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-          DLT_CSTRING("Tcp Socket Opening failed with error: "), 
-          DLT_CSTRING(ec.message().c_str()));
+    DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
+      DLT_CSTRING("Tcp Socket Opening failed with error: "),
+      DLT_CSTRING(ec.message().c_str()));
   }
   return retVal;
 }
@@ -112,9 +115,9 @@ bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t ho
     retVal = true;
   }
   else {
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-          DLT_CSTRING("Tcp Socket Connect to host failed with error: "), 
-          DLT_CSTRING(ec.message().c_str()));
+    DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
+      DLT_CSTRING("Tcp Socket Connect to host failed with error: "),
+      DLT_CSTRING(ec.message().c_str()));
   }
   return retVal;
 }
