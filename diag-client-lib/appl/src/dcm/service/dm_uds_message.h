@@ -42,11 +42,13 @@ private:
     // Host Ip Address
     IpAddress host_ip_address;
 
-    // store only UDS payload to be send
+    // store only UDS payload to be sent
     ara::diag::uds_transport::ByteVector& uds_payload;
     
     // add new metaInfo to this message.
-    void AddMetaInfo (std::shared_ptr< const MetaInfoMap > meta_info) override {}
+    void AddMetaInfo (std::shared_ptr< const MetaInfoMap > meta_info) override {
+      // Todo [Add meta info information]
+    }
     
     // Get the UDS message data starting with the SID (A_Data as per ISO)
     const ara::diag::uds_transport::ByteVector& GetPayload () const override { return uds_payload; }

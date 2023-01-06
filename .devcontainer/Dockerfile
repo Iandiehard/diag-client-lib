@@ -1,20 +1,30 @@
 ARG VARIANT=ubuntu-20.04
 FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-${VARIANT}
 
-# Install packages
-RUN apt update && \
-    apt-get -y install python3-dev && \
-    apt-get -y install build-essential qt5-default libqt5serialport5-dev && \
-    apt-get -y install can-utils && \
-    apt-get -y install libsocketcan-dev &&\
-    apt-get -y install cmake zlib1g-dev libdbus-glib-1-dev
-
-# Install bazel
-RUN echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
-    curl https://bazel.build/bazel-release.pub.gpg | apt-key add - 
-
-RUN apt-get update && apt-get install bazel && \
-    apt-get install --only-upgrade bazel
+# Install necessary dependencies
+RUN apt-get update &&\
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        autoconf \
+        automake \
+        libtool \
+        pkg-config \
+        apt-transport-https \
+        ca-certificates \
+        software-properties-common \
+        wget \
+        git \
+        curl \
+        gnupg \
+        zlib1g-dev \
+        swig \
+        vim \
+        gdb \
+        valgrind \
+        locales \
+        cmake \
+        locales-all &&\
+    apt-get clean
 
 # Install Boost libraries and compile it for x86_64 linux
 ARG BOOST_MAJOR_VERSION="1"
@@ -42,11 +52,3 @@ RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v2.18.8.tar.gz"
     cmake -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build --config Release && \
     cmake --install build --config Release
-
-RUN apt-get update && \
-      apt-get -y install sudo
-
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-
-USER docker
-CMD /bin/bash

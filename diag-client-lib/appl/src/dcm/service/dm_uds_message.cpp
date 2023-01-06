@@ -14,12 +14,12 @@ namespace uds_message{
 
 DmUdsMessage::DmUdsMessage(Address sa
                         , Address ta
-                        , IpAddress hostipaddress
+                        , IpAddress host_ip_address
                         , ara::diag::uds_transport::ByteVector& payload) 
                         : ara::diag::uds_transport::UdsMessage()
                         , source_address(sa)
                         , target_address(ta)
-                        , host_ip_address(hostipaddress)
+                        , host_ip_address(host_ip_address)
                         , uds_payload(payload) {
 }
 

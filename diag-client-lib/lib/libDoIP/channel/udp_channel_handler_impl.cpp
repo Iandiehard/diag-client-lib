@@ -94,7 +94,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
           channel_.GetChannelState().GetVehicleIdentificationStateContext()
             .TransitionTo(UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
         },
-        [&](){
+        [&]() {
           // do nothing
         },
         kDoIPCtrl

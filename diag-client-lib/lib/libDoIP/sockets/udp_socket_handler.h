@@ -25,7 +25,6 @@ class UdpChannel;
 namespace udpSocket{
     
 // typedefs
-constexpr uint8_t kDoIPHeaderSize = 8;
 using UdpSocket             = libBoost::libSocket::udp::createUdpSocket;
 using UdpMessage            = libBoost::libSocket::udp::UdpMessageType;
 using UdpMessagePtr         = libBoost::libSocket::udp::UdpMessagePtr;

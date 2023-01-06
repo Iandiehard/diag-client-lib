@@ -41,14 +41,6 @@ using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
  */
 class UdpChannel {
 public:
-  enum class udpChannelState : std::uint8_t {
-    kIdle = 0U,
-    kWaitForVehicleAnnouncement,
-    kSendVehicleIdentificationReq,
-    kWaitForVehicleIdentificationRes,
-    kDoIPCtrlTimeout
-  };
-  
   //ctor
   UdpChannel(
     kDoip_String& local_ip_address, 
