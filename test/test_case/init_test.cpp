@@ -13,14 +13,12 @@
 namespace doip_client{
 
 TEST_F(DoipClientFixture, StartupAndTermination) {
-  // Expect two strings not to be equal.
-  EXPECT_STRNE("hello", "world");
-  // Expect equality.
-  EXPECT_EQ(7 * 6, 42);
-  
   // Get conversation for tester one
-  diag::client::conversation::DiagClientConversation& diag_client_conversation1 =
-    GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne");
+  diag::client::conversation::DiagClientConversation& diag_client_conversation1{
+    GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+  
+  diag_client_conversation1.Startup();
+  diag_client_conversation1.Shutdown();
 }
 
 } // doip_client

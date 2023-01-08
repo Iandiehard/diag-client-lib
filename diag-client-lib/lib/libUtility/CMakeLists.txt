@@ -22,7 +22,7 @@ add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 target_include_directories(${PROJECT_NAME}
         INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        )
+)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets

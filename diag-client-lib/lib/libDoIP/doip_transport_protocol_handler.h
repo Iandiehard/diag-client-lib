@@ -22,7 +22,6 @@ namespace connection{
 }
 
 namespace transportProtocolHandler{
-
 /*
  @ Class Name        : DoipTransportProtocolHandler
  @ Class Description : This class must be instantiated by user for using the DoIP functionalities.  
@@ -31,17 +30,20 @@ namespace transportProtocolHandler{
 class DoipTransportProtocolHandler : public ara::diag::uds_transport::UdsTransportProtocolHandler {
 public:
     //ctor
-    DoipTransportProtocolHandler(const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
-                                 ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
+    DoipTransportProtocolHandler(
+      const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
+      ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
     
     //dtor
     ~DoipTransportProtocolHandler();
     
     // Return the UdsTransportProtocolHandlerID, which was given to the implementation during construction (ctor call).
-    ara::diag::uds_transport::UdsTransportProtocolHandlerID GetHandlerID () const override;
+    ara::diag::uds_transport::UdsTransportProtocolHandlerID
+      GetHandlerID () const override;
     
     // Initializes handler
-    ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize () override;
+    ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult
+      Initialize () override;
     
     // Start processing the implemented Uds Transport Protocol
     void Start() override;
@@ -67,7 +69,7 @@ private:
     ara::diag::uds_transport::UdsTransportProtocolHandlerID handle_id_e;
     
     // store the transport protocol manager
-    ara::diag::uds_transport::UdsTransportProtocolMgr& transport_protocol_mgr_e;
+    ara::diag::uds_transport::UdsTransportProtocolMgr& transport_protocol_mgr_;
   
     // Create Doip Connection Manager
     std::unique_ptr<ara::diag::doip::connection::DoipConnectionManager> doip_connection_mgr_ptr;

@@ -59,10 +59,8 @@ bool createUdpSocket::Open() {
   udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
   
   if(ec) {
-      // Socket binding failed
-      boost::system::errc::address_family_not_supported;
-      std::cerr << ec.message() << "\n";
-      retVal = false;
+    // Socket binding failed
+    retVal = false;
   }
   
   // start async receive

@@ -9,6 +9,7 @@
 /* includes */
 #include "src/dcm/conversion/dm_conversation.h"
 #include "src/dcm/service/dm_uds_message.h"
+#include "src/common/logger.h"
 
 namespace diag{
 namespace client{
@@ -32,44 +33,40 @@ DmConversation::DmConversation(
     ,broadcast_address(conversion_identifier.udp_broadcast_address)
     ,convrs_name(conversion_name)
     ,dm_conversion_handler(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {
-  DLT_REGISTER_CONTEXT(dm_conversion,"dmcv","Dm Conversion Context");
 }
 
 //dtor
 DmConversation::~DmConversation() {
-    DLT_UNREGISTER_CONTEXT(dm_conversion);
 }
 
 // startup
 void DmConversation::Startup() {
-    // initialize the connection
-    connection_ptr->Initialize();
-    // start the connection
-    connection_ptr->Start();
-    // Change the state to Active
-    activity_status = ActivityStatusType::kActive;
-
-    DLT_LOG(dm_conversion, DLT_LOG_INFO,
-        DLT_CSTRING("'"),
-        DLT_CSTRING(convrs_name.c_str()),
-        DLT_CSTRING("'"),
-        DLT_CSTRING("->"),
-        DLT_CSTRING("Startup completed"));
+  // initialize the connection
+  connection_ptr->Initialize();
+  // start the connection
+  connection_ptr->Start();
+  // Change the state to Active
+  activity_status = ActivityStatusType::kActive;
+  
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+    __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+      msg << "'" << convrs_name << "'" << "->"
+        << "Startup completed";
+    });
 }
 
 // shutdown
 void DmConversation::Shutdown() {
-    // shutdown connection
-    connection_ptr->Stop();
-    // Change the state to InActive
-    activity_status = ActivityStatusType::kInactive;
-    
-    DLT_LOG(dm_conversion, DLT_LOG_INFO,
-        DLT_CSTRING("'"),
-        DLT_CSTRING(convrs_name.c_str()),
-        DLT_CSTRING("'"),
-        DLT_CSTRING("->"),
-        DLT_CSTRING("Shutdown completed"));
+  // shutdown connection
+  connection_ptr->Stop();
+  // Change the state to InActive
+  activity_status = ActivityStatusType::kInactive;
+  
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+    __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+      msg << "'" << convrs_name << "'" << "->"
+          << "Shutdown completed";
+    });
 }
 
 DiagClientConversation::ConnectResult
@@ -77,37 +74,33 @@ DiagClientConversation::ConnectResult
 
     // create an uds message just to get the port number
     // source address required from Routing Activation
-    ara::diag::uds_transport::ByteVector payload; // empty payload  
+    ara::diag::uds_transport::ByteVector payload{}; // empty payload
       
     // Send Connect request to doip layer
-    DiagClientConversation::ConnectResult ret_val =
-        static_cast<DiagClientConversation::ConnectResult>(
-            connection_ptr->ConnectToHost(std::move(
-                std::make_unique<diag::client::uds_message::DmUdsMessage>(
-                                                                  source_address,
-                                                                  target_address,
-                                                                  host_ip_addr,
-                                                                  payload))));
+    DiagClientConversation::ConnectResult ret_val {
+      static_cast<DiagClientConversation::ConnectResult>(
+        connection_ptr->ConnectToHost(std::move(
+          std::make_unique<diag::client::uds_message::DmUdsMessage>(
+                                                            source_address,
+                                                            target_address,
+                                                            host_ip_addr,
+                                                            payload))))};
     
     if(ret_val ==
-        DiagClientConversation::ConnectResult::kConnectSuccess) {
-        remote_address = std::string(host_ip_addr);
-        DLT_LOG(dm_conversion, DLT_LOG_INFO,
-            DLT_CSTRING("'"),
-            DLT_CSTRING(convrs_name.c_str()),
-            DLT_CSTRING("'"),
-            DLT_CSTRING("->"),
-            DLT_CSTRING("Successfully connected to Server with ip"),
-            DLT_CSTRING(host_ip_addr.c_str()));
+      DiagClientConversation::ConnectResult::kConnectSuccess) {
+      remote_address = std::string(host_ip_addr);
+      logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+        __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+          msg << "'" << convrs_name << "'" << "->"
+            << "Successfully connected to Server with ip: " << host_ip_addr;
+        });
     }
     else {
-        DLT_LOG(dm_conversion, DLT_LOG_INFO,
-            DLT_CSTRING("'"),
-            DLT_CSTRING(convrs_name.c_str()),
-            DLT_CSTRING("'"),
-            DLT_CSTRING("->"),
-            DLT_CSTRING("Failed connecting to Server with ip"),
-            DLT_CSTRING(host_ip_addr.c_str()));
+      logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
+        __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+          msg << "'" << convrs_name << "'" << "->"
+            << "Failed connecting to Server with ip: " << host_ip_addr;
+        });
     }
     return ret_val;
 }

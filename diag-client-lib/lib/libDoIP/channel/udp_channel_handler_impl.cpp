@@ -46,9 +46,9 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
       ara::diag::uds_transport::UdsMessage::Address(0U),
       ara::diag::uds_transport::UdsMessage::Address(0U),
       ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-      0,
+      0U,
       std::size_t(doip_payload.payload.size()),
-      0,
+      0U,
       "DoIPUdp",
       doip_payload.payload)};
     
@@ -113,7 +113,8 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
 }
 
 auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsMessageConstPtr &message)
+  noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   
@@ -158,7 +159,8 @@ auto VehicleDiscoveryHandler::CreateDoipGenericHeader(
 }
 
 auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(
-  std::uint8_t preselection_mode ) noexcept -> const std::pair<std::uint16_t, std::uint8_t > {
+  std::uint8_t preselection_mode )
+  noexcept -> const std::pair<std::uint16_t, std::uint8_t > {
   std::pair<std::uint16_t, std::uint8_t > ret_val{0,0};
   switch (preselection_mode) {
     case 0U: {

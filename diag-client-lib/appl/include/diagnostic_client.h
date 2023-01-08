@@ -37,7 +37,7 @@ public:
   virtual diag::client::conversation::DiagClientConversation&
     GetDiagnosticClientConversation(std::string conversation_name) = 0;
 
-  // Description   : Function to send vehicle identification request and get latest Diagnostic Server list
+  // Description   : Function to send vehicle identification request and get the latest Diagnostic Server list
   // @param input  : Nothing
   // @return value : void
   virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr

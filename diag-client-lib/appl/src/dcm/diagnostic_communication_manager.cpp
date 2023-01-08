@@ -8,6 +8,7 @@
 
 /* includes */
 #include "diagnostic_communication_manager.h"
+#include "src/common/logger.h"
 
 namespace diag {
 namespace client {
@@ -24,12 +25,10 @@ DCMClient::DCMClient(diag::client::common::property_tree &ptree)
     uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>()),
     conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(
       GetConversationConfig(ptree), *uds_transport_protocol_mgr)} {
-  DLT_REGISTER_CONTEXT(dcm_client,"dcmc","DCM Client Context");
 }
 
 // dtor
 DCMClient::~DCMClient() {
-  DLT_UNREGISTER_CONTEXT(dcm_client);
 }
 
 // Initialize
@@ -39,8 +38,10 @@ void DCMClient::Initialize() {
   // start all the udsTransportProtocol Layer
   uds_transport_protocol_mgr->Startup();
   
-  DLT_LOG(dcm_client, DLT_LOG_VERBOSE,
-      DLT_STRING("DCM Client Initialize done"));
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+    __FILE__, __LINE__, __func__ , [](std::stringstream& msg) {
+      msg << "Dcm Client Initialized";
+    });
 }
 
 // Run
@@ -56,16 +57,18 @@ void DCMClient::Shutdown() {
   // shutdown udsTransportProtocol layer
   uds_transport_protocol_mgr->Shutdown();
   
-  DLT_LOG(dcm_client, DLT_LOG_VERBOSE,
-      DLT_STRING("DCM Client Shutdown done"));
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+    __FILE__, __LINE__, __func__ , [](std::stringstream& msg) {
+      msg << "Dcm Client Shutdown done";
+    });
 }
 
 // Function to get the client Conversation
 diag::client::conversation::DiagClientConversation&
   DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
   diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
-  std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation =
-          conversation_mgr->GetDiagnosticClientConversion(conversation_name);
+  std::unique_ptr<diag::client::conversation::DiagClientConversation> 
+    conversation{conversation_mgr->GetDiagnosticClientConversion(conversation_name)};
   if(conversation != nullptr) {
     diag_client_conversation_map.insert(
       std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
@@ -73,15 +76,20 @@ diag::client::conversation::DiagClientConversation&
         std::move(conversation)
       ));
     ret_conversation = diag_client_conversation_map.at(conversation_name).get();
-    DLT_LOG(dcm_client, DLT_LOG_DEBUG,
-        DLT_STRING("Requested Diagnostic Client conversation created with name: "),
-        DLT_STRING(conversation_name.c_str()));
+    
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
+      __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+        msg << "Requested Diagnostic Client conversation created with name: "
+          << conversation_name;
+      });
   }
   else {
     // error logging, no conversation found
-    DLT_LOG(dcm_client, DLT_LOG_ERROR,
-      DLT_STRING("Requested Diagnostic Client conversation not found with name: "),
-      DLT_STRING(conversation_name.c_str()));
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
+      __FILE__, __LINE__, __func__ , [&](std::stringstream& msg) {
+        msg << "Requested Diagnostic Client conversation not found with name: "
+            << conversation_name;
+      });
   }
   return *ret_conversation;
 }

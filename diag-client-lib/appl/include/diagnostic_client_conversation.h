@@ -45,7 +45,7 @@ public:
     DiagClientConversation() = default;
 
     // dtor
-    ~DiagClientConversation() = default;
+    virtual ~DiagClientConversation() = default;
     
     // Description   : Function to start the Diagnostic Client Conversation
     // @param input  : Nothing

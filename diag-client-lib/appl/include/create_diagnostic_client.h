@@ -10,14 +10,19 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
 
 #include <memory>
-#include "diagnostic_client.h"
 
 namespace diag {
 namespace client {
 
-// Description   : Function to create an instance of Diagnostic Client
-// @param input  : path to diag client config file 
-// @return value : unique_ptr to diag client object
+// forward declaration
+class DiagClient;
+
+/**
+ * Function to get the instance of Diagnostic Client Object.
+ * This instance to be further used for all the functionalities.
+ * @param diag_client_config_path path to diag client config file
+ * @return Unique pointer to diag client object
+ */
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
   const std::string& diag_client_config_path);
 

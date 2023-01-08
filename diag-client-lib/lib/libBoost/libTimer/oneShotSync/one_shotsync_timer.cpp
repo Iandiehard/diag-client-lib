@@ -28,43 +28,41 @@ oneShotSyncTimer::~oneShotSyncTimer() {
 // start the timer
 auto oneShotSyncTimer::Start(int msec)
     noexcept -> timer_state {
+  
+  DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+    DLT_CSTRING("One shot Timer start requested"));
 
-    timer_state retval {timer_state::kIdle};
+  timer_ptr_->expires_after(msTime(msec));
+  // Register completion handler triggered from async_wait
+  timer_ptr_->async_wait([&](const boost::system::error_code& error){
+    error_ = error;
+    // timer stop was requested
+    if(error_ == boost::asio::error::operation_aborted) { io_e.stop(); }
+  });
 
-    DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
-            DLT_CSTRING("Oneshot Timer start requested"));
+  auto start = std::chrono::system_clock::now();
 
-    timer_ptr_->expires_after(msTime(msec));
-    // Register completion handler triggered from async_wait
-    timer_ptr_->async_wait([&](const boost::system::error_code& error){
-        error_ = error;
-        // timer stop was requested
-        if(error_ == boost::asio::error::operation_aborted) { io_e.stop(); }
-    });
+  // blocking io call
+  io_e.restart();
+  io_e.run();
 
-    auto start = std::chrono::system_clock::now();
+  auto end = std::chrono::system_clock::now();
+  std::chrono::duration<double> elapsed_seconds = end-start;
+  DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+    DLT_CSTRING("Elapsed time: "),
+    DLT_FLOAT64(elapsed_seconds.count()),
+    DLT_CSTRING("seconds"));
 
-    // blocking io call
-    io_e.restart();
-    io_e.run();
-
-    auto end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
-            DLT_CSTRING("Elapsed time: "),
-            DLT_FLOAT64(elapsed_seconds.count()),
-            DLT_CSTRING("seconds"));
-
-    return (error_ !=
-        boost::asio::error::operation_aborted? 
-        timer_state::kTimeout: timer_state::kCancelRequested);
+  return (error_ !=
+    boost::asio::error::operation_aborted?
+    timer_state::kTimeout: timer_state::kCancelRequested);
 }
 
 // stop the timer
 auto oneShotSyncTimer::Stop() noexcept -> void {
-    DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG, 
-        DLT_CSTRING("Oneshot Timer stop requested"));
-    timer_ptr_->cancel();
+  DLT_LOG(oneshotsync_timer_ctx, DLT_LOG_DEBUG,
+      DLT_CSTRING("Oneshot Timer stop requested"));
+  timer_ptr_->cancel();
 }
 
 } // oneShot

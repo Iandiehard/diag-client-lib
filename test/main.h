@@ -8,6 +8,7 @@
 
 #include <gtest/gtest.h>
 #include "include/create_diagnostic_client.h"
+#include "include/diagnostic_client.h"
 
 namespace doip_client{
 
@@ -15,7 +16,7 @@ class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
     : diag_client_{diag::client::CreateDiagnosticClient(
-      "/workspaces/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")}
+      "/workspace/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")}
     {}
   
   ~DoipClientFixture() = default;
@@ -31,7 +32,8 @@ protected:
   }
   
   // Function to Diag client library reference
-  auto GetDiagClientRef() noexcept-> diag::client::DiagClient& {
+  auto GetDiagClientRef()
+    noexcept-> diag::client::DiagClient& {
     return *diag_client_;
   }
 private:
