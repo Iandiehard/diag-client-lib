@@ -6,3 +6,4 @@ project(diag-client)
 
 add_subdirectory(diag-client-lib)
 add_subdirectory(test)
+add_subdirectory(docs)

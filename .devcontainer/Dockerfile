@@ -23,6 +23,7 @@ RUN apt-get update &&\
         valgrind \
         locales \
         cmake \
+        doxygen \
         locales-all &&\
     apt-get clean
 

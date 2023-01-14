@@ -69,9 +69,9 @@ std::unique_ptr<diag::client::DiagClient> diagclient =
 
 Multiple tester instance can be created using Diagnostic Client Libary main instance.
 
-More information on the APIs to be used , check [doc_api_definition](doc/API_definitions.md) documentation
+More information on the APIs to be used , check [doc_api_definition](docs/API_definitions.md) documentation
 
-More information on the diag client config json file, refer [doc_config_json](doc/Config_Json_file_definitions.md) documentation
+More information on the diag client config json file, refer [doc_config_json](docs/Config_Json_file_definitions.md) documentation
 
 Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
 
