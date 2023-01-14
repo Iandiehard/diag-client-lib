@@ -74,7 +74,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
         ara::diag::uds_transport::ProtocolKind protocol_kind,
         std::vector<uint8_t> payloadInfo) {
   // Send Indication to conversion
-  return (conversion_->IndicateMessage(
+  return (conversation_->IndicateMessage(
     source_addr, 
     target_addr, 
     type, 
@@ -96,7 +96,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
 // Hands over a valid message to conversion
 void DoipTcpConnection::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
     // send full message to conversion
-    conversion_->HandleMessage(std::move(message));
+    conversation_->HandleMessage(std::move(message));
 }
 
 /*
@@ -156,7 +156,7 @@ std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
   ara::diag::uds_transport::ProtocolKind protocol_kind,
   std::vector<uint8_t> payloadInfo) {
   // Send Indication to conversion
-  return (conversion_->IndicateMessage(
+  return (conversation_->IndicateMessage(
     source_addr,
     target_addr,
     type,
@@ -177,7 +177,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
 // Hands over a valid message to conversion
 void DoipUdpConnection::HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) {
   // send full message to conversion
-  conversion_->HandleMessage(std::move(message));
+  conversation_->HandleMessage(std::move(message));
 }
 
 // Function to create new connection to handle doip request and response

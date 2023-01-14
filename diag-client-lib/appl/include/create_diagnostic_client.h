@@ -6,6 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/** @file create_diagnostic_client.h
+ *  @brief Entry function to create Diagnostic Client library
+ *  @author Avijit Dey
+ */
+
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H
 
@@ -18,11 +23,11 @@ namespace client {
 class DiagClient;
 
 /**
- * Function to get the instance of Diagnostic Client Object.
- * This instance to be further used for all the functionalities.
- * @param diag_client_config_path path to diag client config file
- * @return Unique pointer to diag client object
- */
+ * @brief      Function to get the instance of Diagnostic Client Object.
+ *              This instance to be further used for all the functionalities.
+ * @param[in]   diag_client_config_path  path to diag client config file
+ * @return      std::unique_ptr<diag::client::DiagClient> Unique pointer to diag client object
+*/
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
   const std::string& diag_client_config_path);
 

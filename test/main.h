@@ -9,6 +9,7 @@
 #include <gtest/gtest.h>
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
+#include "doip_handler/udp_socket_handler.h"
 
 namespace doip_client{
 
@@ -16,7 +17,7 @@ class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
     : diag_client_{diag::client::CreateDiagnosticClient(
-      "/workspace/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")}
+      "/tmp/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")}
     {}
   
   ~DoipClientFixture() = default;

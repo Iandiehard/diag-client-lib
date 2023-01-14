@@ -86,9 +86,6 @@ private:
   private:
     // function to handle read
     void HandleMessage();
-
-    // Declare dlt logging context
-    DLT_DECLARE_CONTEXT(tcp_socket_ctx);
 };
 
 } // tcp

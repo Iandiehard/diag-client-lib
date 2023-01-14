@@ -35,10 +35,10 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
   DoipMessage &doip_payload) noexcept -> void {
   
   if(channel_
-       .GetChannelState()
-       .GetVehicleIdentificationStateContext()
-       .GetActiveState()
-       .GetState() == UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
+   .GetChannelState()
+   .GetVehicleIdentificationStateContext()
+   .GetActiveState()
+   .GetState() == UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
     
     // Deserialize data to indicate to upper layer
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>

@@ -38,21 +38,21 @@ bool createUdpSocket::Open() {
   // Open the socket
   udp_socket_->open(UdpSocket::v4(), ec);
   if(ec) {
-      // Socket Open failed
-      std::cerr << ec.message() << "\n";
-      retVal = false;
+    // Socket Open failed
+    std::cerr << ec.message() << "\n";
+    retVal = false;
   }
   else {
-      // check the port type
-      if(port_type_ == PortType::kUdp_Broadcast) {
-          // set broadcast option
-          boost::asio::socket_base::broadcast broadcast_option(true);
-          udp_socket_->set_option(broadcast_option);
-      }
-      
-      // reuse address
-      boost::asio::socket_base::reuse_address reuseaddress_option(true);
-      udp_socket_->set_option(reuseaddress_option);
+    // check the port type
+    if(port_type_ == PortType::kUdp_Broadcast) {
+        // set broadcast option
+        boost::asio::socket_base::broadcast broadcast_option(true);
+        udp_socket_->set_option(broadcast_option);
+    }
+
+    // reuse address
+    boost::asio::socket_base::reuse_address reuse_address_option(true);
+    udp_socket_->set_option(reuse_address_option);
   }
   
   //bind to local address and random port
@@ -95,8 +95,8 @@ bool createUdpSocket::Transmit(UdpMessageConstPtr udp_message) {
     }
   }
   catch (boost::system::system_error const& ec) {
-      UdpErrorCodeType error = ec.code();
-      std::cerr << error.message() << "\n";
+    UdpErrorCodeType error = ec.code();
+    std::cerr << error.message() << "\n";
   }
   return ret_val;
 }

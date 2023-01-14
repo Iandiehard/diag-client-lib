@@ -33,7 +33,7 @@ public:
     msg << " [" << file_name << ": " << line_no << "]";
     DLT_LOG(contxt, DLT_LOG_FATAL,
             DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[FATAL]: " << msg.str() << std::endl;
+    std::cout << "[FATAL]:   " << msg.str() << std::endl;
   }
   
   template<typename Func>
@@ -47,7 +47,7 @@ public:
     msg << " [" << file_name << ": " << line_no << "]";
     DLT_LOG(contxt, DLT_LOG_ERROR,
             DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[ERROR]: " << msg.str() << std::endl;
+    std::cout << "[ERROR]:   " << msg.str() << std::endl;
   }
   
   template<typename Func>
@@ -61,7 +61,7 @@ public:
     msg << " [" << file_name << ": " << line_no << "]";
     DLT_LOG(contxt, DLT_LOG_WARN,
             DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[WARN]: " << msg.str() << std::endl;
+    std::cout << "[WARN]:    " << msg.str() << std::endl;
   }
   
   template<typename Func>
@@ -75,7 +75,7 @@ public:
     msg << " [" << file_name << ": " << line_no << "]";
     DLT_LOG(contxt, DLT_LOG_INFO,
       DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[INFO]: " << msg.str() << std::endl;
+    std::cout << "[INFO]:    " << msg.str() << std::endl;
   }
   
   template<typename Func>
@@ -89,7 +89,7 @@ public:
     msg << " [" << file_name << ": " << line_no << "]";
     DLT_LOG(contxt, DLT_LOG_DEBUG,
       DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[DEBUG]: " << msg.str() << std::endl;
+    std::cout << "[DEBUG]:   " << msg.str() << std::endl;
   }
   
   template<typename Func>

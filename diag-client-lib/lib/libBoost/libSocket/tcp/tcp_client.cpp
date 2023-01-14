@@ -8,7 +8,7 @@
 
 // includes
 #include "tcp_client.h"
-#include <sstream>
+#include "libCommon/logger.h"
 
 namespace libBoost {
 namespace libSocket {
@@ -24,7 +24,6 @@ CreateTcpClientSocket::CreateTcpClientSocket(
     exit_request_{false},
     running_{false},
     tcp_handler_read_{tcp_handler_read} {
-  DLT_REGISTER_CONTEXT(tcp_socket_ctx,"tcps","Tcp Socket Context");
   // Create socket
   tcp_socket_ = std::make_unique<TcpSocket::socket>(io_context_);
   // Start thread to receive messages
@@ -47,7 +46,6 @@ CreateTcpClientSocket::~CreateTcpClientSocket() {
 	running_ = false;
 	cond_var_.notify_all();
 	thread_.join();
-  DLT_UNREGISTER_CONTEXT(tcp_socket_ctx);
 }
 
 bool CreateTcpClientSocket::Open() {
@@ -66,29 +64,30 @@ bool CreateTcpClientSocket::Open() {
     if(ec.value() == boost::system::errc::success) {
       // Socket binding success
       TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};
-      std::stringstream msg;
-      msg << endpoint_.address().to_string();
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG,
-        DLT_CSTRING("Tcp Socket Opened and bound to"),
-        DLT_CSTRING("<"),
-        DLT_CSTRING(msg.str().c_str()),
-        DLT_CSTRING(","),
-        DLT_UINT16(endpoint_.port()),
-        DLT_CSTRING(">"));
+      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+        __FILE__, __LINE__, __func__ , [endpoint_](std::stringstream& msg) {
+          msg << "Tcp Socket Opened and bound to"
+            << "<" << endpoint_.address().to_string() << ","
+            << endpoint_.port() << ">";
+        });
       retVal = true;
     }
     else {
       // Socket binding failed
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
-        DLT_CSTRING("Tcp Socket Bind failed with message: "),
-        DLT_CSTRING(ec.message().c_str()));
+      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+        __FILE__, __LINE__, __func__ , [ec](std::stringstream& msg) {
+          msg << "Tcp Socket Bind failed with message: "
+              << ec.message();
+        });
       retVal = false;
     }
   }
   else {
-    DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
-      DLT_CSTRING("Tcp Socket Opening failed with error: "),
-      DLT_CSTRING(ec.message().c_str()));
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+      __FILE__, __LINE__, __func__ , [ec](std::stringstream& msg) {
+        msg << "Tcp Socket Opening failed with error: "
+            << ec.message();
+      });
   }
   return retVal;
 }
@@ -102,23 +101,25 @@ bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t ho
                           ec);
   if(ec.value() == boost::system::errc::success) {
     TcpSocket::endpoint endpoint_ = tcp_socket_->remote_endpoint();
-    DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG,
-      DLT_CSTRING("Tcp Socket Connected to host"),
-        DLT_CSTRING("<"),
-        DLT_CSTRING(endpoint_.address().to_string().c_str()),
-        DLT_CSTRING(","),
-        DLT_UINT16(endpoint_.port()),
-        DLT_CSTRING(">"));
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+      __FILE__, __LINE__, __func__ , [endpoint_](std::stringstream& msg) {
+        msg << "Tcp Socket Connected to host"
+            << "<" << endpoint_.address().to_string() << ","
+            << endpoint_.port() << ">";
+      });
     // start reading
     running_ = true;
     cond_var_.notify_all();
     retVal = true;
   }
   else {
-    DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR,
-      DLT_CSTRING("Tcp Socket Connect to host failed with error: "),
-      DLT_CSTRING(ec.message().c_str()));
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+      __FILE__, __LINE__, __func__ , [ec](std::stringstream& msg) {
+        msg << "Tcp Socket Connect to host failed with error: "
+            << ec.message();
+      });
   }
+
   return retVal;
 }
 
@@ -129,17 +130,17 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
   // Graceful shutdown
   tcp_socket_->shutdown(TcpSocket::socket::shutdown_both, ec);
   if(ec.value() == boost::system::errc::success) {
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_DEBUG, 
-          DLT_CSTRING("Tcp Socket Disconnected from host"));
-      // Socket shutdown success
-      retVal = true;
-      // stop reading
-      running_ = false;
+    // Socket shutdown success
+    retVal = true;
+    // stop reading
+    running_ = false;
   }
   else {
-      DLT_LOG(tcp_socket_ctx, DLT_LOG_ERROR, 
-          DLT_CSTRING("Tcp Socket Disconnect from host failed with error: "), 
-          DLT_CSTRING(ec.message().c_str()));
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+      __FILE__, __LINE__, __func__ , [ec](std::stringstream& msg) {
+        msg << "Tcp Socket Disconnect from host failed with error: "
+            << ec.message();
+      });
   }
   return retVal;
 }

@@ -14,7 +14,8 @@
 		"ms-vscode.cpptools-extension-pack",
 		"austin.code-gnu-global",
 		"BazelBuild.vscode-bazel",
-		"DavidSchuldenfrei.gtest-adapter"
+		"piotrkosek.vscode-gtest-test-adapter-with-code-lens",
+		"monokai.theme-monokai-pro-vscode"
 	],
     "postCreateCommand":
     	"bash ${containerWorkspaceFolder}/.devcontainer/post_start.sh"

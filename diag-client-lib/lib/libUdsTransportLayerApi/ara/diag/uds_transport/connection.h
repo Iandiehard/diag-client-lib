@@ -27,13 +27,15 @@ using InitializationResult = uds_transport::UdsTransportProtocolHandler::Initial
 class Connection {
 public:
   // ctor
-  Connection(ConnectionId connection_id, const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion)
-    : conversion_{conversion},
+  Connection(
+    ConnectionId connection_id,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation)
+    : conversation_{conversation},
       connection_id_{connection_id} {
   }
   
   // dtor
-  ~Connection() = default;
+  virtual ~Connection() = default;
   
   // Initialize
   virtual InitializationResult Initialize () = 0;
@@ -72,8 +74,8 @@ public:
   // Hands over a valid message to conversion
   virtual void HandleMessage (ara::diag::uds_transport::UdsMessagePtr message) = 0;
 protected:
-    // Store the conversion
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_;    
+  // Store the conversion
+  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation_;
 private:
   // store the connection id
   ConnectionId connection_id_;

@@ -6,6 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+/** @file create_diagnostic_client.h
+ *  @brief Header file for diagnostic client conversation
+ *  @author Avijit Dey
+ */
+
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 
@@ -47,14 +52,16 @@ public:
     // dtor
     virtual ~DiagClientConversation() = default;
     
-    // Description   : Function to start the Diagnostic Client Conversation
-    // @param input  : Nothing
-    // @return value : void
+    /**
+     * @brief      Function to start the Diagnostic Client Conversation
+     * @return     void
+     */
     virtual void Startup() = 0;
     
-    // Description   : Function to shut down the Diagnostic Client Conversation
-    // @param input  : Nothing
-    // @return value : void
+    /**
+     * @brief      Function to shut down the Diagnostic Client Conversation
+     * @return     void
+     */
     virtual void Shutdown() = 0;
 
     // Description   : Function to connect to Diagnostic Server
