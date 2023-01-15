@@ -5,20 +5,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 /* includes */
 #include "src/dcm/conversion/conversation_manager.h"
+
 #include "src/dcm/conversion/dm_conversation.h"
 
 namespace diag {
 namespace client {
-namespace conversation_manager{
-
+namespace conversation_manager {
 //ctor
 ConversationManager::ConversationManager(
-            diag::client::config_parser::ConversationConfig config,
-            diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
-                 : uds_transport_mgr_e(uds_transport_mgr) {
+  diag::client::config_parser::ConversationConfig config,
+  diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
+    : uds_transport_mgr_e(uds_transport_mgr) {
   CreateConversationConfig(config);
 }
 
@@ -30,20 +29,19 @@ void ConversationManager::Shutdown() {}
 
 // Get the required conversation
 std::unique_ptr<diag::client::conversation::DmConversation>
-    ConversationManager::GetDiagnosticClientConversion(std::string conversation_name) {
-    std::unique_ptr<diag::client::conversation::DmConversation> dm_conversation {};
+ConversationManager::GetDiagnosticClientConversion(std::string conversation_name) {
+  std::unique_ptr<diag::client::conversation::DmConversation> dm_conversation{};
   auto it = conversation_config_e.find(conversation_name);
-  if(it != conversation_config_e.end()) {
+  if (it != conversation_config_e.end()) {
     dm_conversation = std::make_unique<diag::client::conversation::DmConversation>(
-                                                            it->first,
-                                                            it->second);
+      it->first,
+      it->second);
     // Register the connection
     dm_conversation->RegisterConnection(
       uds_transport_mgr_e.doip_transport_handler->FindOrCreateTcpConnection(
         dm_conversation->dm_conversion_handler,
-          it->second.tcp_address,
-          it->second.port_num
-      ));
+        it->second.tcp_address,
+        it->second.port_num));
   }
   return dm_conversation;
 }
@@ -51,7 +49,7 @@ std::unique_ptr<diag::client::conversation::DmConversation>
 // function to find or create conversation
 void ConversationManager::CreateConversationConfig(
   diag::client::config_parser::ConversationConfig config) {
-  for(uint8_t conv_count = 0; conv_count < config.num_of_conversation; conv_count ++) {
+  for (uint8_t conv_count = 0; conv_count < config.num_of_conversation; conv_count++) {
     ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier;
     conversion_identifier.tx_buffer_size = config.conversations[conv_count].txBufferSize;
     conversion_identifier.rx_buffer_size = config.conversations[conv_count].rxBufferSize;
@@ -70,7 +68,6 @@ void ConversationManager::CreateConversationConfig(
         conversion_identifier));
   }
 }
-
-} // conversation_manager
-} // client
-} // diag
+}  // namespace conversation_manager
+}  // namespace client
+}  // namespace diag

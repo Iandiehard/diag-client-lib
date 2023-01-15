@@ -5,74 +5,60 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #include "channel/tcp_channel_state_impl.h"
 
-namespace ara{
-namespace diag{
+namespace ara {
+namespace diag {
 namespace doip {
 namespace tcpChannelStateImpl {
-
 // ctor
 TcpChannelStateImpl::TcpChannelStateImpl()
     : routing_activation_state_context_{std::make_unique<StateContext<routingActivationState>>()},
       diagnostic_message_state_context_{std::make_unique<StateContext<diagnosticState>>()} {
-    // create and add state for routing activation
-    // kIdle
-    GetRoutingActivationStateContext().AddState(routingActivationState::kIdle,
-             std::move(std::make_unique<kIdle>(routingActivationState::kIdle)));
-
-    // kWaitForRoutingActivationRes
-    GetRoutingActivationStateContext().AddState(routingActivationState::kWaitForRoutingActivationRes,
-             std::move(std::make_unique<kWaitForRoutingActivationRes>(routingActivationState::kWaitForRoutingActivationRes)));
-
-    // kRoutingActivationSuccessful
-    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationSuccessful,
-             std::move(std::make_unique<kRoutingActivationSuccessful>(routingActivationState::kRoutingActivationSuccessful)));
-
-    // kRoutingActivationFailed
-    GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationFailed,
-             std::move(std::make_unique<kRoutingActivationFailed>(routingActivationState::kRoutingActivationFailed)));
-
-    // transit to idle state
-    GetRoutingActivationStateContext().TransitionTo(routingActivationState::kIdle);
-
-    // create and add state for Diagnostic State
-    // kDiagIdle
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagIdle,
-                       std::move(std::make_unique<kDiagIdle>(diagnosticState::kDiagIdle)));
-
-    // kWaitForDiagnosticAck
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticAck,
-                                                std::move(std::make_unique<kWaitForDiagnosticAck>(diagnosticState::kWaitForDiagnosticAck)));
-
-    // kSendDiagnosticReqFailed
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kSendDiagnosticReqFailed,
-                                                std::move(std::make_unique<kSendDiagnosticReqFailed>(diagnosticState::kSendDiagnosticReqFailed)));
-
-    // kDiagnosticPositiveAckRecvd
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticPositiveAckRecvd,
-                                                std::move(std::make_unique<kDiagnosticPositiveAckRecvd>(diagnosticState::kDiagnosticPositiveAckRecvd)));
-
-    // kDiagnosticNegativeAckRecvd
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticNegativeAckRecvd,
-                                                std::move(std::make_unique<kDiagnosticNegativeAckRecvd>(diagnosticState::kDiagnosticNegativeAckRecvd)));
-
-    // kWaitForDiagnosticResponse
-    GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticResponse,
-                                                std::move(std::make_unique<kWaitForDiagnosticResponse>(diagnosticState::kWaitForDiagnosticResponse)));
-    // transit to idle state
-    GetDiagnosticMessageStateContext().TransitionTo(diagnosticState::kDiagIdle);
+  // create and add state for routing activation
+  // kIdle
+  GetRoutingActivationStateContext().AddState(routingActivationState::kIdle,
+                                              std::move(std::make_unique<kIdle>(routingActivationState::kIdle)));
+  // kWaitForRoutingActivationRes
+  GetRoutingActivationStateContext().AddState(routingActivationState::kWaitForRoutingActivationRes,
+                                              std::move(std::make_unique<kWaitForRoutingActivationRes>(routingActivationState::kWaitForRoutingActivationRes)));
+  // kRoutingActivationSuccessful
+  GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationSuccessful,
+                                              std::move(std::make_unique<kRoutingActivationSuccessful>(routingActivationState::kRoutingActivationSuccessful)));
+  // kRoutingActivationFailed
+  GetRoutingActivationStateContext().AddState(routingActivationState::kRoutingActivationFailed,
+                                              std::move(std::make_unique<kRoutingActivationFailed>(routingActivationState::kRoutingActivationFailed)));
+  // transit to idle state
+  GetRoutingActivationStateContext().TransitionTo(routingActivationState::kIdle);
+  // create and add state for Diagnostic State
+  // kDiagIdle
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagIdle,
+                                              std::move(std::make_unique<kDiagIdle>(diagnosticState::kDiagIdle)));
+  // kWaitForDiagnosticAck
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticAck,
+                                              std::move(std::make_unique<kWaitForDiagnosticAck>(diagnosticState::kWaitForDiagnosticAck)));
+  // kSendDiagnosticReqFailed
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kSendDiagnosticReqFailed,
+                                              std::move(std::make_unique<kSendDiagnosticReqFailed>(diagnosticState::kSendDiagnosticReqFailed)));
+  // kDiagnosticPositiveAckRecvd
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticPositiveAckRecvd,
+                                              std::move(std::make_unique<kDiagnosticPositiveAckRecvd>(diagnosticState::kDiagnosticPositiveAckRecvd)));
+  // kDiagnosticNegativeAckRecvd
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kDiagnosticNegativeAckRecvd,
+                                              std::move(std::make_unique<kDiagnosticNegativeAckRecvd>(diagnosticState::kDiagnosticNegativeAckRecvd)));
+  // kWaitForDiagnosticResponse
+  GetDiagnosticMessageStateContext().AddState(diagnosticState::kWaitForDiagnosticResponse,
+                                              std::move(std::make_unique<kWaitForDiagnosticResponse>(diagnosticState::kWaitForDiagnosticResponse)));
+  // transit to idle state
+  GetDiagnosticMessageStateContext().TransitionTo(diagnosticState::kDiagIdle);
 }
 
-auto TcpChannelStateImpl::GetRoutingActivationStateContext()
-    noexcept -> StateContext<routingActivationState> & {
-    return *routing_activation_state_context_;
+auto TcpChannelStateImpl::GetRoutingActivationStateContext() noexcept -> StateContext<routingActivationState>& {
+  return *routing_activation_state_context_;
 }
 
-auto TcpChannelStateImpl::GetDiagnosticMessageStateContext()
-    noexcept -> StateContext<diagnosticState> & {
-    return *diagnostic_message_state_context_;
+auto TcpChannelStateImpl::GetDiagnosticMessageStateContext() noexcept -> StateContext<diagnosticState>& {
+  return *diagnostic_message_state_context_;
 }
 
 kIdle::kIdle(routingActivationState state)
@@ -164,8 +150,7 @@ void kWaitForDiagnosticResponse::Start() {}
 void kWaitForDiagnosticResponse::Stop() {}
 
 void kWaitForDiagnosticResponse::HandleMessage() {}
-
-} // tcpChannelStateImpl
-} // doip
-} // diag
-} // ara
+}  // namespace tcpChannelStateImpl
+}  // namespace doip
+}  // namespace diag
+}  // namespace ara

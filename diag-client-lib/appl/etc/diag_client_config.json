@@ -1,49 +1,45 @@
 {
-    "UdpIpAddress": "192.168.0.1",
-    "UdpBroadcastAddress" : "255.255.255.255",
-    "Conversation": {
-        "NumberOfConversation": 2,
-        "ConversationProperty": [
-            {
-                "p2ClientMax": 1000,
-                "p2StarClientMax": 5000,
-                "TxBufferSize": 4095,
-                "RxBufferSize": 4095,
-                "SourceAddress": 1,
-                "TargetAddress": 1234, 
-                "TargetAddressType": "Physical",
-                "Network": {
-                    "ProtocolKind" : "DoIP",
-                    "TcpIpAddress": "192.168.0.1",
-                    "UdpIpAddress": "192.168.0.1",
-                    "UdpBroadcastAddress" : "255.255.255.255",
-                    "TLS": false,
-                    "Port": 13400,
-                    "EID": "",
-                    "VIN": ""
-                },
-                "ConversationName" : "DiagTesterOne"
-            },
-            {
-                "p2ClientMax" : 2000,
-                "p2StarClientMax" : 5000,
-                "TxBufferSize" : 4095,
-                "RxBufferSize" : 4095,
-                "SourceAddress": 2,
-                "TargetAddress": 1235,
-                "TargetAddressType": "Functional",
-                "Network": {
-                    "ProtocolKind" : "DoIP",
-                    "TcpIpAddress": "192.168.0.1",
-                    "UdpIpAddress": "192.168.0.1",
-                    "UdpBroadcastAddress" : "255.255.255.255",
-                    "TLS": false,
-                    "Port": 13400,
-                    "EID": "",
-                    "VIN": ""
-                },
-                "ConversationName" : "DiagTesterTwo"
-            }
-        ]
-    }
+  "UdpIpAddress": "192.168.0.1",
+  "UdpBroadcastAddress": "255.255.255.255",
+  "Conversation": {
+    "NumberOfConversation": 2,
+    "ConversationProperty": [
+      {
+        "p2ClientMax": 1000,
+        "p2StarClientMax": 5000,
+        "TxBufferSize": 4095,
+        "RxBufferSize": 4095,
+        "SourceAddress": 1,
+        "TargetAddress": 1234,
+        "TargetAddressType": "Physical",
+        "Network": {
+          "ProtocolKind": "DoIP",
+          "TcpIpAddress": "192.168.0.1",
+          "TLS": false,
+          "Port": 13400,
+          "EID": "",
+          "VIN": ""
+        },
+        "ConversationName": "DiagTesterOne"
+      },
+      {
+        "p2ClientMax": 2000,
+        "p2StarClientMax": 5000,
+        "TxBufferSize": 4095,
+        "RxBufferSize": 4095,
+        "SourceAddress": 2,
+        "TargetAddress": 1235,
+        "TargetAddressType": "Functional",
+        "Network": {
+          "ProtocolKind": "DoIP",
+          "TcpIpAddress": "192.168.0.1",
+          "TLS": false,
+          "Port": 13400,
+          "EID": "",
+          "VIN": ""
+        },
+        "ConversationName": "DiagTesterTwo"
+      }
+    ]
+  }
 }

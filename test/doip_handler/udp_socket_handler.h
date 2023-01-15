@@ -10,7 +10,7 @@
 #define _UDP_SOCKETHANDLER_H_
 
 //includes
-#include "common/common_doip_types.h"
+#include <string>
 #include "libSocket/udp/udp_client.h"
 
 namespace ara{
@@ -25,11 +25,11 @@ class UdpChannel;
 namespace udpSocket{
     
 // typedefs
-using UdpSocket             = libBoost::libSocket::udp::createUdpSocket;
+using UdpSocket             = libBoost::libSocket::udp::createUdpClientSocket;
 using UdpMessage            = libBoost::libSocket::udp::UdpMessageType;
 using UdpMessagePtr         = libBoost::libSocket::udp::UdpMessagePtr;
 using UdpMessageConstPtr    = libBoost::libSocket::udp::UdpMessageConstPtr;
-
+using kDoip_String          = std::string;
 
 /*
  @ Class Name        : UdpSocketHandler
@@ -39,7 +39,7 @@ using UdpMessageConstPtr    = libBoost::libSocket::udp::UdpMessageConstPtr;
 class UdpSocketHandler {
 public:
   // Port Type
-  using PortType = libBoost::libSocket::udp::createUdpSocket::PortType;
+  using PortType = libBoost::libSocket::udp::createUdpClientSocket::PortType;
 public:
   //ctor
   UdpSocketHandler(

@@ -5,17 +5,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef JSON_PARSER_H
 #define JSON_PARSER_H
-
 // includes
 #include "libCommon/Boost_Header.h"
 
 namespace libOsAbstraction {
 namespace libBoost {
 namespace jsonparser {
-
 using boostTree = boost::property_tree::ptree;
 
 /*
@@ -23,21 +20,16 @@ using boostTree = boost::property_tree::ptree;
  @ Class Description : Class used to create a udp socket for handling transmission
                        and reception of udp message from driver
 */
-
 class createJsonParser {
-
 public:
-    // ctor
-    createJsonParser();
-    // dtor
-    ~createJsonParser();
-    // function to get the property tree
-    void getJsonPtree(std::string jsonPath, boostTree &jsontree);
-
+  // ctor
+  createJsonParser();
+  // dtor
+  ~createJsonParser();
+  // function to get the property tree
+  void getJsonPtree(std::string jsonPath, boostTree &jsontree);
 };
-
-} // jsonparser
-} // libBoost
-} // libOsAbstraction
-
-#endif // JSON_PARSER_H
+}  // namespace jsonparser
+}  // namespace libBoost
+}  // namespace libOsAbstraction
+#endif  // JSON_PARSER_H

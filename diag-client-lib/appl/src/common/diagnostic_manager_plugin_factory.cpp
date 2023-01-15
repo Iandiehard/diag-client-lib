@@ -5,21 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #include "src/common/diagnostic_manager_plugin_factory.h"
 
 namespace ara {
 namespace diag {
 namespace common {
-
-
-
-
-
-
-
-
-
-} // common
-} // diag
-} // ara
+}  // namespace common
+}  // namespace diag
+}  // namespace ara

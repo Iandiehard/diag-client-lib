@@ -26,20 +26,20 @@ file(GLOB MAIN_DCM_CONVERSION_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/conversi
 file(GLOB MAIN_DCM_CONFIGPARSER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/config_parser/*.cpp")
 file(GLOB MAIN_DCM_SERVICE "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/service/*.cpp")
 
-set(LIB_MAIN_SRCS 
-    ${MAIN_SRCS} 
-    ${MAIN_COMMON_SRCS} 
-    ${MAIN_DCM_SRCS} 
-    ${MAIN_DCM_CONNECTION_SRCS} 
-    ${MAIN_DCM_CONVERSION_SRCS}
-    ${MAIN_DCM_TIMER_SRCS}
-    ${MAIN_DCM_CONFIGPARSER_SRCS}
-    ${MAIN_DCM_SERVICE}
-)
+set(LIB_MAIN_SRCS
+  ${MAIN_SRCS}
+  ${MAIN_COMMON_SRCS}
+  ${MAIN_DCM_SRCS}
+  ${MAIN_DCM_CONNECTION_SRCS}
+  ${MAIN_DCM_CONVERSION_SRCS}
+  ${MAIN_DCM_TIMER_SRCS}
+  ${MAIN_DCM_CONFIGPARSER_SRCS}
+  ${MAIN_DCM_SERVICE}
+  )
 
 add_library(${PROJECT_NAME}
-${LIB_MAIN_SRCS}
-)
+  ${LIB_MAIN_SRCS}
+  )
 
 # Include headers
 set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -48,35 +48,35 @@ set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # include directories
-target_include_directories(${PROJECT_NAME} PUBLIC 
-    "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-    "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-)
+target_include_directories(${PROJECT_NAME} PUBLIC
+  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+  "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+  )
 
 # link all static libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
-    ara-lib::common
-    ara-lib::utility
-    ara-lib::doip-client
-    ara-lib::boost-support
-    ara-lib::uds-transport-layer-api
-    Threads::Threads
-    Genivi::dlt
-)
+  ara-lib::common
+  ara-lib::utility
+  ara-lib::doip-client
+  ara-lib::boost-support
+  ara-lib::uds-transport-layer-api
+  Threads::Threads
+  Genivi::dlt
+  )
 
 # install etc files
 install(DIRECTORY
-    ${CMAKE_CURRENT_SOURCE_DIR}/etc/
-    DESTINATION etc
-)
+  ${CMAKE_CURRENT_SOURCE_DIR}/etc/
+  DESTINATION etc
+  )
 
 # install diag.client
 install(TARGETS ${PROJECT_NAME}
-    EXPORT DiagClientLibTargets
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
+  EXPORT DiagClientLibTargets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  )
 
 # install include files
 install(FILES ${OUT_HDRS}
-    DESTINATION include/${PROJECT_NAME}
-)
+  DESTINATION include/${PROJECT_NAME}
+  )

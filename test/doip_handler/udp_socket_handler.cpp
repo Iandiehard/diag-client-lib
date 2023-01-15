@@ -6,8 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "sockets/udp_socket_handler.h"
-#include "channel/udp_channel.h"
+#include "doip_handler/udp_socket_handler.h"
 
 namespace ara{
 namespace diag{
@@ -30,7 +29,7 @@ UdpSocketHandler::UdpSocketHandler(
       port_num_,
       port_type_ ,
       [this](UdpMessagePtr udp_rx_message){
-        channel_.HandleMessageBroadcast(std::move(udp_rx_message));
+        //channel_.HandleMessageBroadcast(std::move(udp_rx_message));
       });
   }
   else {
@@ -39,7 +38,7 @@ UdpSocketHandler::UdpSocketHandler(
       port_num_,
       port_type_ ,
       [this](UdpMessagePtr udp_rx_message){
-        channel_.HandleMessageUnicast(std::move(udp_rx_message));
+        //channel_.HandleMessageUnicast(std::move(udp_rx_message));
       });
   }
 }

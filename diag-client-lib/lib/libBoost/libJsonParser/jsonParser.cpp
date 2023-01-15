@@ -5,14 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 // includes
 #include "jsonParser.h"
 
 namespace libOsAbstraction {
 namespace libBoost {
 namespace jsonparser {
-
 // ctor
 createJsonParser::createJsonParser() {
 }
@@ -23,9 +21,8 @@ createJsonParser::~createJsonParser() {
 
 // function to get the property tree
 void createJsonParser::getJsonPtree(std::string jsonPath, boostTree &jsontree) {
-    boost::property_tree::read_json(jsonPath, jsontree);
+  boost::property_tree::read_json(jsonPath, jsontree);
 }
-
-} // jsonparser
-} // libBoost
-} // libOsAbstraction
+}  // namespace jsonparser
+}  // namespace libBoost
+}  // namespace libOsAbstraction
