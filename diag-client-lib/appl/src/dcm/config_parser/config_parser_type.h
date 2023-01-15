@@ -16,8 +16,6 @@ namespace config_parser {
 class DoipNetworkType {
 public:
   std::string tcpIpAddress;
-  std::string udpIpAddress;
-  std::string udpBroadcastAddress;
   uint16_t portNum;
 };
 
@@ -35,6 +33,10 @@ public:
 
 class ConversationConfig {
 public:
+  // local udp address
+  std::string udp_ip_address;
+  // broadcast address
+  std::string udp_broadcast_address;
   // number of conversation
   uint8_t num_of_conversation;
   // store all conversations

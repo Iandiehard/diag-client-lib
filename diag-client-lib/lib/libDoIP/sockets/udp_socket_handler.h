@@ -43,12 +43,16 @@ public:
     uint16_t port_num,
     PortType port_type,
     ara::diag::doip::udpChannel::UdpChannel &channel);
+  
   //dtor
   ~UdpSocketHandler() = default;
+  
   //start
   void Start();
+  
   //stop
   void Stop();
+  
   // function to trigger transmission
   bool Transmit(UdpMessageConstPtr udp_tx_message);
 

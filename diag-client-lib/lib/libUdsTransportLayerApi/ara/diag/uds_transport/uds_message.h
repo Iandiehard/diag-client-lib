@@ -7,6 +7,7 @@
  */
 #ifndef _UDS_MESSAGE_H_
 #define _UDS_MESSAGE_H_
+
 #include <map>
 
 #include "protocol_types.h"
@@ -29,28 +30,42 @@ public:
     kPhysical = 0,
     kFunctional = 1
   };
+  
   // ctor
   UdsMessage() = default;
-  UdsMessage(const UdsMessage& other) = default;
-  UdsMessage(UdsMessage&& other) noexcept = default;
-  UdsMessage& operator=(const UdsMessage& other) = default;
-  UdsMessage& operator=(UdsMessage&& other) noexcept = default;
+  
+  UdsMessage(const UdsMessage &other) = default;
+  
+  UdsMessage(UdsMessage &&other) noexcept = default;
+  
+  UdsMessage &operator=(const UdsMessage &other) = default;
+  
+  UdsMessage &operator=(UdsMessage &&other) noexcept = default;
+  
   // dtor
   inline virtual ~UdsMessage() = default;
+  
   // add new metaInfo to this message.
   virtual void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) = 0;
+  
   // Get the UDS message data starting with the SID (A_Data as per ISO)
-  virtual const ByteVector& GetPayload() const = 0;
+  virtual const ByteVector &GetPayload() const = 0;
+  
   // return the underlying buffer for write access
-  virtual ByteVector& GetPayload() = 0;
+  virtual ByteVector &GetPayload() = 0;
+  
   // Get the source address of the uds message.
   virtual Address GetSa() const noexcept = 0;
+  
   // Get the target address of the uds message.
   virtual Address GetTa() const noexcept = 0;
+  
   // Get the target address type (phys/func) of the uds message.
   virtual TargetAddressType GetTaType() const noexcept = 0;
+  
   // Get Host Ip address
   virtual IpAddress GetHostIpAddress() const noexcept = 0;
+  
   // Get Host port number
   virtual PortNumber GetHostPortNumber() const noexcept = 0;
 };

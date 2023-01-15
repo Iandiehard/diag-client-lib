@@ -14,9 +14,9 @@ namespace libTimer {
 namespace oneShot {
 //ctor
 oneShotAsyncTimer::oneShotAsyncTimer()
-    : exit_request_e(false),
-      running_e(false),
-      timer_ptr_e(std::make_unique<BoostTimer>(io_e)) {
+  : exit_request_e(false),
+    running_e(false),
+    timer_ptr_e(std::make_unique<BoostTimer>(io_e)) {
   DLT_REGISTER_CONTEXT(oneshotasync_timer_ctx, "osasync", "Oneshot timer Context");
   thread_e = std::thread(&oneShotAsyncTimer::Run, this);
 }
@@ -76,7 +76,7 @@ void oneShotAsyncTimer::Run() {
 }
 
 // function called when time elapses
-void oneShotAsyncTimer::Timeout(const boost::system::error_code& error) {
+void oneShotAsyncTimer::Timeout(const boost::system::error_code &error) {
   if (error != boost::asio::error::operation_aborted) {
     timerHandler_e();
     DLT_LOG(oneshotasync_timer_ctx, DLT_LOG_INFO,

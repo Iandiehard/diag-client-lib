@@ -8,36 +8,35 @@
 
 #include "doip_handler/udp_socket_handler.h"
 
-namespace ara{
-namespace diag{
-namespace doip{
-namespace udpSocket{
+namespace ara {
+namespace diag {
+namespace doip {
+namespace udpSocket {
 
 UdpSocketHandler::UdpSocketHandler(
-  kDoip_String& local_ip_address,
+  kDoip_String &local_ip_address,
   uint16_t port_num,
   PortType port_type,
   ara::diag::doip::udpChannel::UdpChannel &channel)
-    : local_ip_address_{local_ip_address},
-      port_num_{port_num},
-      port_type_{port_type},
-      channel_{channel} {
+  : local_ip_address_{local_ip_address},
+    port_num_{port_num},
+    port_type_{port_type},
+    channel_{channel} {
   // create sockets and start receiving
-  if(port_type == UdpSocket::PortType::kUdp_Broadcast) {
+  if (port_type == UdpSocket::PortType::kUdp_Broadcast) {
     udp_socket_ = std::make_unique<UdpSocket>(
       local_ip_address_,
       port_num_,
-      port_type_ ,
-      [this](UdpMessagePtr udp_rx_message){
+      port_type_,
+      [this](UdpMessagePtr udp_rx_message) {
         //channel_.HandleMessageBroadcast(std::move(udp_rx_message));
       });
-  }
-  else {
+  } else {
     udp_socket_ = std::make_unique<UdpSocket>(
       local_ip_address_,
       port_num_,
-      port_type_ ,
-      [this](UdpMessagePtr udp_rx_message){
+      port_type_,
+      [this](UdpMessagePtr udp_rx_message) {
         //channel_.HandleMessageUnicast(std::move(udp_rx_message));
       });
   }

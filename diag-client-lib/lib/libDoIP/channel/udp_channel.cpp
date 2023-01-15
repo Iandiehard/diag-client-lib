@@ -23,22 +23,22 @@ UdpChannel::UdpChannel(
   kDoip_String &local_ip_address,
   uint16_t port_num,
   ara::diag::doip::udpTransport::UdpTransportHandler &udp_transport_handler)
-    : udp_transport_handler_{udp_transport_handler},
-      udp_socket_handler_bcast_{
-        std::make_unique<ara::diag::doip::udpSocket::UdpSocketHandler>(
-          local_ip_address,
-          port_num,
-          udpSocket::UdpSocketHandler::PortType::kUdp_Broadcast,
-          *this)},
-      udp_socket_handler_ucast_{
-        std::make_unique<ara::diag::doip::udpSocket::UdpSocketHandler>(
-          local_ip_address,
-          port_num,
-          udpSocket::UdpSocketHandler::PortType::kUdp_Unicast,
-          *this)},
-      udp_channel_handler_{*(udp_socket_handler_bcast_),
-                           *(udp_socket_handler_ucast_),
-                           udp_transport_handler_, *this} {
+  : udp_transport_handler_{udp_transport_handler},
+    udp_socket_handler_bcast_{
+      std::make_unique<ara::diag::doip::udpSocket::UdpSocketHandler>(
+        local_ip_address,
+        port_num,
+        udpSocket::UdpSocketHandler::PortType::kUdp_Broadcast,
+        *this)},
+    udp_socket_handler_ucast_{
+      std::make_unique<ara::diag::doip::udpSocket::UdpSocketHandler>(
+        local_ip_address,
+        port_num,
+        udpSocket::UdpSocketHandler::PortType::kUdp_Unicast,
+        *this)},
+    udp_channel_handler_{*(udp_socket_handler_bcast_),
+                         *(udp_socket_handler_ucast_),
+                         udp_transport_handler_, *this} {
   DLT_REGISTER_CONTEXT(doip_udp_channel, "dudp", "DoipClient Udp Channel Context");
 }
 

@@ -23,22 +23,29 @@ namespace dcm {
 class DCMClient : public diag::client::common::DiagnosticManager {
 public:
   //ctor
-  explicit DCMClient(diag::client::common::property_tree& ptree);
+  explicit DCMClient(diag::client::common::property_tree &ptree);
+  
   //dtor
   virtual ~DCMClient();
+  
   // Initialize
   void Initialize() override;
+  
   // Run
   void Run() override;
+  
   // Shutdown
   void Shutdown() override;
+  
   // Function to get the diagnostic client conversation
-  diag::client::conversation::DiagClientConversation&
+  diag::client::conversation::DiagClientConversation &
   GetDiagnosticClientConversation(std::string conversation_name) override;
+  
   // Send Vehicle Identification Request and get response
   diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
+  
   // Get the list of available Diagnostic Server
   diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   GetDiagnosticServerList() override;
@@ -50,11 +57,14 @@ private:
   std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
   // map to store conversation pointer along with conversation name
   std::unordered_map<std::string,
-                     std::unique_ptr<diag::client::conversation::DiagClientConversation>>
+    std::unique_ptr<diag::client::conversation::DiagClientConversation>>
     diag_client_conversation_map;
+  // store the diag client conversation for vehicle discovery
+  std::unique_ptr<conversation::VdConversation> diag_client_vehicle_discovery_conversation;
+  
   // function to read from property tree to config structure
   diag::client::config_parser::ConversationConfig
-  GetConversationConfig(diag::client::common::property_tree& ptree);
+  GetConversationConfig(diag::client::common::property_tree &ptree);
   // Declare dlt logging context
   DLT_DECLARE_CONTEXT(dcm_client);
 };

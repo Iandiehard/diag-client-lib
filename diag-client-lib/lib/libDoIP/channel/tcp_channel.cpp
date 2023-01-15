@@ -17,9 +17,9 @@ namespace tcpChannel {
 tcpChannel::tcpChannel(
   kDoip_String &localIpaddress,
   ara::diag::doip::tcpTransport::TcpTransportHandler &tcp_transport_handler)
-    : tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
-      tcp_socket_state_{tcpSocketState::kSocketOffline},
-      tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {
+  : tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
+    tcp_socket_state_{tcpSocketState::kSocketOffline},
+    tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {
   DLT_REGISTER_CONTEXT(doip_tcp_channel, "dtcp", "DoipClient Tcp Channel Context");
 }
 
@@ -73,7 +73,8 @@ tcpChannel::DisconnectFromHost() {
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
     if (tcp_socket_handler_->DisconnectFromHost()) {
       tcp_socket_state_ = tcpSocketState::kSocketOffline;
-      if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() == TcpRoutingActivationChannelState ::kRoutingActivationSuccessful) {
+      if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+          TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
         tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
         DLT_LOG(doip_tcp_channel, DLT_LOG_INFO,
                 DLT_CSTRING("RoutingActivation activated reseted "));
@@ -210,7 +211,8 @@ tcpChannel::HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageCon
             // failed
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
               TcpDiagnosticMessageChannelState::kDiagIdle);
-            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN, DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
+            DLT_LOG(doip_tcp_channel, DLT_LOG_WARN,
+                    DLT_CSTRING("Diagnostic Message Transmission Failed Neg Ack Received"));
           }
         },
         kDoIPDiagnosticAckTimeout);

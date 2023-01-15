@@ -23,25 +23,25 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/appl)
 
 #Export library
 install(EXPORT DiagClientLibTargets
-  FILE DiagClientLibTargets.cmake
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
-  )
+        FILE DiagClientLibTargets.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
+        )
 
 configure_package_config_file(
-  ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
-  "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
+        "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
 )
 
 install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
-  )
+        "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
+        )
 
 # install example directory
 if (INSTALL_EXAMPLES)
-  install(DIRECTORY
-    ${CMAKE_CURRENT_SOURCE_DIR}/examples
-    DESTINATION examples
-    )
+    install(DIRECTORY
+            ${CMAKE_CURRENT_SOURCE_DIR}/examples
+            DESTINATION examples
+            )
 endif (INSTALL_EXAMPLES)

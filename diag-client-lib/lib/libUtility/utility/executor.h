@@ -7,6 +7,7 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_EXECUTOR_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_EXECUTOR_H
+
 #include <condition_variable>
 #include <cstdint>
 #include <functional>
@@ -21,8 +22,8 @@ class Executor {
 public:
   // ctor
   Executor()
-      : exit_request_{false},
-        running_{false} {
+    : exit_request_{false},
+      running_{false} {
     thread_ = std::thread([&]() {
       std::unique_lock<std::mutex> exit_lck(exit_mutex_lock_);
       while (!exit_request_.load()) {
@@ -43,7 +44,7 @@ public:
       }
     });
   }
-
+  
   // dtor
   ~Executor() {
     exit_request_ = true;
@@ -51,7 +52,7 @@ public:
     cond_var_.notify_one();
     thread_.join();
   }
-
+  
   // function to add job to executor
   void AddExecute(ExecutorHandler executor_handler) {
     std::unique_lock<std::mutex> lck(mutex_lock_);

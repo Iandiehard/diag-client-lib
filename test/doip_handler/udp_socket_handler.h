@@ -13,23 +13,23 @@
 #include <string>
 #include "libSocket/udp/udp_client.h"
 
-namespace ara{
-namespace diag{
-namespace doip{
+namespace ara {
+namespace diag {
+namespace doip {
 
 // forward class declaration
 namespace udpChannel {
 class UdpChannel;
 }
 
-namespace udpSocket{
-    
+namespace udpSocket {
+
 // typedefs
-using UdpSocket             = libBoost::libSocket::udp::createUdpClientSocket;
-using UdpMessage            = libBoost::libSocket::udp::UdpMessageType;
-using UdpMessagePtr         = libBoost::libSocket::udp::UdpMessagePtr;
-using UdpMessageConstPtr    = libBoost::libSocket::udp::UdpMessageConstPtr;
-using kDoip_String          = std::string;
+using UdpSocket = libBoost::libSocket::udp::createUdpClientSocket;
+using UdpMessage = libBoost::libSocket::udp::UdpMessageType;
+using UdpMessagePtr = libBoost::libSocket::udp::UdpMessagePtr;
+using UdpMessageConstPtr = libBoost::libSocket::udp::UdpMessageConstPtr;
+using kDoip_String = std::string;
 
 /*
  @ Class Name        : UdpSocketHandler
@@ -43,40 +43,41 @@ public:
 public:
   //ctor
   UdpSocketHandler(
-    kDoip_String& local_ip_address,
+    kDoip_String &local_ip_address,
     uint16_t port_num,
     PortType port_type,
-    ara::diag::doip::udpChannel::UdpChannel& channel);
-
+    ara::diag::doip::udpChannel::UdpChannel &channel);
+  
   //dtor
   ~UdpSocketHandler() = default;
-
+  
   //start
   void Start();
-
+  
   //stop
   void Stop();
-
+  
   // function to trigger transmission
   bool Transmit(UdpMessageConstPtr udp_tx_message);
+
 private:
   // local Ip address
   kDoip_String local_ip_address_;
-
+  
   // Host Ip address
   kDoip_String host_ip_address_;
-
+  
   // Host port number
   uint16_t port_num_;
-
+  
   // Port type
   UdpSocket::PortType port_type_;
-
+  
   // udp socket
   std::unique_ptr<UdpSocket> udp_socket_;
-
+  
   // store tcp channel reference
-  ara::diag::doip::udpChannel::UdpChannel& channel_;
+  ara::diag::doip::udpChannel::UdpChannel &channel_;
 };
 
 } // udpSocket

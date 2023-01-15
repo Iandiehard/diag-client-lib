@@ -34,10 +34,12 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
       case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationChannelState::kRoutingActivationSuccessful;
-      } break;
+      }
+        break;
       case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
-      } break;
+      }
+        break;
       default:
         // failure, do nothing
         break;
@@ -152,14 +154,14 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
       ret_val{tcp_transport_handler_.IndicateMessage(
-        ara::diag::uds_transport::UdsMessage::Address(server_address),
-        ara::diag::uds_transport::UdsMessage::Address(client_address),
-        ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-        0,
-        std::size_t(doip_payload.payload.size() - 4),
-        0,
-        "DoIPTcp",
-        payload_info)};
+      ara::diag::uds_transport::UdsMessage::Address(server_address),
+      ara::diag::uds_transport::UdsMessage::Address(client_address),
+      ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
+      0,
+      std::size_t(doip_payload.payload.size() - 4),
+      0,
+      "DoIPTcp",
+      payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {
@@ -263,8 +265,10 @@ auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept
 auto TcpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool {
   bool ret_val = false;
   /* Check the header synchronisation pattern */
-  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) && (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
-      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) && (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
+  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) &&
+       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
+      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) &&
+       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
     /* Check the supported payload type */
     if ((doip_rx_message.payload_type == kDoip_RoutingActivation_ResType) ||
         (doip_rx_message.payload_type == kDoip_DiagMessagePosAck_Type) ||
@@ -277,7 +281,7 @@ auto TcpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint
         if (doip_rx_message.payload_length <= kTcpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
           if (ProcessDoIPPayloadLength(
-                doip_rx_message.payload_length, doip_rx_message.payload_type)) {
+            doip_rx_message.payload_length, doip_rx_message.payload_type)) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
@@ -339,7 +343,8 @@ auto TcpChannelHandlerImpl::GetDoIPPayloadType(std::vector<uint8_t> payload) noe
 }
 
 auto TcpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
-  return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24) & 0xFF000000) | (uint32_t) ((payload[BYTE_POS_FIVE] << 16) & 0x00FF0000) |
+  return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24) & 0xFF000000) |
+          (uint32_t) ((payload[BYTE_POS_FIVE] << 16) & 0x00FF0000) |
           (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
 }
 

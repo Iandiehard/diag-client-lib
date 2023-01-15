@@ -24,8 +24,10 @@ class createJsonParser {
 public:
   // ctor
   createJsonParser();
+  
   // dtor
   ~createJsonParser();
+  
   // function to get the property tree
   void getJsonPtree(std::string jsonPath, boostTree &jsontree);
 };

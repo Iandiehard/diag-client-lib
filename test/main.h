@@ -11,14 +11,13 @@
 #include "include/diagnostic_client.h"
 #include "doip_handler/udp_socket_handler.h"
 
-namespace doip_client{
+namespace doip_client {
 
 class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
     : diag_client_{diag::client::CreateDiagnosticClient(
-      "/tmp/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")}
-    {}
+    "/tmp/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")} {}
   
   ~DoipClientFixture() = default;
   
@@ -34,9 +33,10 @@ protected:
   
   // Function to Diag client library reference
   auto GetDiagClientRef()
-    noexcept-> diag::client::DiagClient& {
+  noexcept -> diag::client::DiagClient & {
     return *diag_client_;
   }
+
 private:
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;

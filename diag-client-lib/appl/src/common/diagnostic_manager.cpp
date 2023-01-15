@@ -16,9 +16,9 @@ namespace common {
  */
 //ctor
 DiagnosticManager::DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-                                     property_tree &ptree)
-    : ptree_e(ptree),
-      exit_requested(false) {
+  property_tree &ptree)
+  : ptree_e(ptree),
+    exit_requested(false) {
 }
 
 //dtor

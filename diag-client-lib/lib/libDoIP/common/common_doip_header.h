@@ -7,6 +7,7 @@
  */
 #ifndef COMMON_DOIP_HEADER_H
 #define COMMON_DOIP_HEADER_H
+
 #include <algorithm>
 #include <array>
 #include <cstdint>

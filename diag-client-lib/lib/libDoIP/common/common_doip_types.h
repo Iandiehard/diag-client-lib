@@ -7,6 +7,7 @@
  */
 #ifndef LIB_LIBDOIP_COMMON_COMMON_DOIP_TYPES_H_
 #define LIB_LIBDOIP_COMMON_COMMON_DOIP_TYPES_H_
+
 #include "common_doip_header.h"
 
 namespace ara {

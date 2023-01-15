@@ -45,38 +45,48 @@ public:
     kSocketOffline = 0U,
     kSocketOnline
   };
+  
   //ctor
   tcpChannel(kDoip_String &localIpaddress,
              ara::diag::doip::tcpTransport::TcpTransportHandler &tcpTransport_Handler);
+  
   //dtor
   ~tcpChannel();
+  
   // Initialize
   ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  
   //Start
   void Start();
+  
   // Stop
   void Stop();
+  
   // Function to connect to host
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
   ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
+  
   // Function to disconnect from host
   ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
   DisconnectFromHost();
+  
   // Function to Hand over all the message received
   void HandleMessage(TcpMessagePtr tcp_rx_message);
+  
   // Function to trigger transmission
   ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
   Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
-
+  
   // Function to get the channel context
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & {
     return tcp_channel_state_;
   }
-
+  
   // Function to wait for response
   void WaitForResponse(std::function<void()> timeout_func,
                        std::function<void()> cancel_func,
                        int msec);
+  
   // Function to cancel the synchronous wait
   void WaitCancel();
 
@@ -84,6 +94,7 @@ private:
   // Function to handle the routing states
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
   HandleRoutingActivationState(ara::diag::uds_transport::UdsMessageConstPtr &message);
+  
   // Function to handle the diagnostic request response state
   ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
   HandleDiagnosticRequestState(ara::diag::uds_transport::UdsMessageConstPtr &message);

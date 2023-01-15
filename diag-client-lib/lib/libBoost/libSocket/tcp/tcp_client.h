@@ -30,19 +30,25 @@ public:
 public:
   //ctor
   CreateTcpClientSocket(
-    Boost_String& local_ip_address,
+    Boost_String &local_ip_address,
     uint16_t local_port_num,
     TcpHandlerRead tcp_handler_read);
+  
   //dtor
   virtual ~CreateTcpClientSocket();
+  
   // Function to Open the socket
   bool Open();
+  
   // Function to Connect to host
   bool ConnectToHost(Boost_String hostIpaddress, uint16_t hostportNum);
+  
   // Function to Disconnect from host
   bool DisconnectFromHost();
+  
   // Function to trigger transmission
   bool Transmit(TcpMessageConstPtr tcpMessage);
+  
   // Function to destroy the socket
   bool Destroy();
 

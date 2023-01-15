@@ -7,6 +7,7 @@
  */
 #ifndef ONESHOTSYNCTIMER_H
 #define ONESHOTSYNCTIMER_H
+
 #include <boost/asio.hpp>
 
 #include "common_Header.h"
@@ -29,12 +30,16 @@ public:
     kCancelRequested,
     kTimeout
   };
+  
   //ctor
   oneShotSyncTimer();
+  
   //dtor
   virtual ~oneShotSyncTimer();
+  
   // Start timer
   auto Start(int msec) noexcept -> timer_state;
+  
   // Stop Timer
   auto Stop() noexcept -> void;
 

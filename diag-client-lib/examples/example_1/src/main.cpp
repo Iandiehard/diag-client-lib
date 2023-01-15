@@ -16,12 +16,12 @@ int main(void) {
   // Initialize the Diagnostic Client library
   diagclient->Initialize();
   // Get conversation for tester one
-  diag::client::conversation::DiagClientConversation& diag_client_conversation1 =
+  diag::client::conversation::DiagClientConversation &diag_client_conversation1 =
     diagclient->GetDiagnosticClientConversation("DiagTesterOne");
   // Start the conversation for tester one
   diag_client_conversation1.Startup();
   // Get conversation for tester two
-  diag::client::conversation::DiagClientConversation& diag_client_conversation2 =
+  diag::client::conversation::DiagClientConversation &diag_client_conversation2 =
     diagclient->GetDiagnosticClientConversation("DiagTesterTwo");
   // Start the conversation for tester two
   diag_client_conversation2.Startup();

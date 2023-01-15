@@ -19,8 +19,8 @@ TcpTransportHandler::TcpTransportHandler(
   uint16_t port_num,
   uint8_t total_tcp_channel_req,
   connection::DoipTcpConnection &doip_connection)
-    : doip_connection_{doip_connection},
-      tcp_channel_(std::make_unique<ara::diag::doip::tcpChannel::tcpChannel>(local_ip_address, *this)) {
+  : doip_connection_{doip_connection},
+    tcp_channel_(std::make_unique<ara::diag::doip::tcpChannel::tcpChannel>(local_ip_address, *this)) {
   (void) port_num;
   (void) total_tcp_channel_req;
 }
@@ -67,7 +67,7 @@ TcpTransportHandler::Transmit(ara::diag::uds_transport::UdsMessageConstPtr messa
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-          ara::diag::uds_transport::UdsMessagePtr>
+  ara::diag::uds_transport::UdsMessagePtr>
 TcpTransportHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
                                      ara::diag::uds_transport::UdsMessage::Address target_addr,
                                      ara::diag::uds_transport::UdsMessage::TargetAddressType type,

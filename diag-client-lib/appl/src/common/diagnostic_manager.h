@@ -35,26 +35,35 @@ class DiagnosticManager {
 public:
   //ctor
   explicit DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-                             property_tree &ptree);
+    property_tree &ptree);
+  
   // dtor
   virtual ~DiagnosticManager();
+  
   // main function
   virtual void Main();
+  
   // signal shutdown
   virtual void SignalShutdown();
+  
   // Initialize
   virtual void Initialize() = 0;
+  
   // Run
   virtual void Run() = 0;
+  
   // Shutdown
   virtual void Shutdown() = 0;
+  
   // Function to get the diagnostic client conversation
   virtual diag::client::conversation::DiagClientConversation &
   GetDiagnosticClientConversation(std::string conversation_name) = 0;
+  
   // Send Vehicle Identification Request and get response
   virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
+  
   // Get the list of available Diagnostic Server
   virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   GetDiagnosticServerList() = 0;

@@ -14,7 +14,7 @@ namespace libTimer {
 namespace oneShot {
 //ctor
 oneShotSyncTimer::oneShotSyncTimer()
-    : timer_ptr_(std::make_unique<BoostTimer>(io_e)) {
+  : timer_ptr_(std::make_unique<BoostTimer>(io_e)) {
   DLT_REGISTER_CONTEXT(oneshotsync_timer_ctx, "osyt", "Oneshot timer Context");
 }
 
@@ -29,7 +29,7 @@ auto oneShotSyncTimer::Start(int msec) noexcept -> timer_state {
           DLT_CSTRING("One shot Timer start requested"));
   timer_ptr_->expires_after(msTime(msec));
   // Register completion handler triggered from async_wait
-  timer_ptr_->async_wait([&](const boost::system::error_code& error) {
+  timer_ptr_->async_wait([&](const boost::system::error_code &error) {
     error_ = error;
     // timer stop was requested
     if (error_ == boost::asio::error::operation_aborted) { io_e.stop(); }
@@ -45,9 +45,9 @@ auto oneShotSyncTimer::Start(int msec) noexcept -> timer_state {
           DLT_FLOAT64(elapsed_seconds.count()),
           DLT_CSTRING("seconds"));
   return (error_ !=
-              boost::asio::error::operation_aborted
-            ? timer_state::kTimeout
-            : timer_state::kCancelRequested);
+          boost::asio::error::operation_aborted
+          ? timer_state::kTimeout
+          : timer_state::kCancelRequested);
 }
 
 // stop the timer

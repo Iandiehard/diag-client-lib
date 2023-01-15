@@ -13,15 +13,15 @@ namespace libSocket {
 namespace udp {
 // ctor
 createUdpClientSocket::createUdpClientSocket(
-  Boost_String& local_ip_address,
+  Boost_String &local_ip_address,
   uint16_t local_port_num,
   PortType port_type,
   UdpHandlerRead udp_handler_read)
-    : local_ip_address_{local_ip_address},
-      local_port_num_{local_port_num},
-      port_type_{port_type},
-      udp_handler_read_{udp_handler_read},
-      rxbuffer_{} {
+  : local_ip_address_{local_ip_address},
+    local_port_num_{local_port_num},
+    port_type_{port_type},
+    udp_handler_read_{udp_handler_read},
+    rxbuffer_{} {
   udp_socket_ = std::make_unique<UdpSocket::socket>(io_context_);
 }
 
@@ -82,7 +82,7 @@ bool createUdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
                                       boost::bind(&createUdpClientSocket::HandleMessage, this,
                                                   boost::placeholders::_1, boost::placeholders::_2));
     }
-  } catch (boost::system::system_error const& ec) {
+  } catch (boost::system::system_error const &ec) {
     UdpErrorCodeType error = ec.code();
     std::cerr << error.message() << "\n";
   }
@@ -97,7 +97,7 @@ bool createUdpClientSocket::Destroy() {
 }
 
 // function invoked when datagram is received
-void createUdpClientSocket::HandleMessage(const UdpErrorCodeType& error, std::size_t bytes_recvd) {
+void createUdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd) {
   if (error.value() == boost::system::errc::success) {
     UdpMessagePtr udp_rx_message = std::make_unique<UdpMessageType>();
     // Copy the data

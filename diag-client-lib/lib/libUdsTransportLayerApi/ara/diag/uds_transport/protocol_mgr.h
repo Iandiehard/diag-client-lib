@@ -7,6 +7,7 @@
  */
 #ifndef _PROTOCOL_MANAGER_H_
 #define _PROTOCOL_MANAGER_H_
+
 #include "uds_message.h"
 
 namespace ara {
@@ -46,14 +47,19 @@ public:
     kDisconnectionOk = 0U,
     kDisconnectionFailed
   };
+  
   //ctor
   UdsTransportProtocolMgr() = default;
+  
   //dtor
   virtual ~UdsTransportProtocolMgr() = default;
+  
   // initialize all the transport protocol handler
   virtual void Startup() = 0;
+  
   // start all the transport protocol handler
   virtual void Run() = 0;
+  
   // terminate all the transport protocol handler
   virtual void Shutdown() = 0;
 };

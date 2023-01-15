@@ -7,6 +7,7 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_DOIP_PAYLOAD_TYPE_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_DOIP_PAYLOAD_TYPE_H
+
 #include <cstdint>
 #include <string>
 #include <vector>
@@ -23,10 +24,15 @@ public:
 public:
   // ctor
   DoipMessage() = default;
+  
   DoipMessage(const DoipMessage &other) = default;
+  
   DoipMessage(DoipMessage &&other) noexcept = default;
+  
   DoipMessage &operator=(const DoipMessage &other) = default;
+  
   DoipMessage &operator=(DoipMessage &&other) noexcept = default;
+  
   // rx type -> broadcast, unicast
   rx_socket_type rx_socket{rx_socket_type::kUnicast};
   // remote ip address;
@@ -42,4 +48,5 @@ public:
   // doip payload
   std::vector<uint8_t> payload;
 };
+
 #endif  //DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_DOIP_PAYLOAD_TYPE_H

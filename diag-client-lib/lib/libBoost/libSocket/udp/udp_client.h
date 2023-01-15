@@ -35,16 +35,20 @@ public:
 public:
   // ctor
   createUdpClientSocket(
-    Boost_String& local_ip_address,
+    Boost_String &local_ip_address,
     uint16_t local_port_num,
     PortType port_type,
     UdpHandlerRead udp_handler_read);
+  
   // dtor
   virtual ~createUdpClientSocket();
+  
   // Function to Open the socket
   bool Open();
+  
   // Transmit
   bool Transmit(UdpMessageConstPtr udp_message);
+  
   // Function to destroy the socket
   bool Destroy();
 
@@ -68,7 +72,7 @@ private:
 
 private:
   // function to handle read
-  void HandleMessage(const UdpErrorCodeType& error, std::size_t bytes_recvd);
+  void HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd);
 };
 }  // namespace udp
 }  // namespace libSocket

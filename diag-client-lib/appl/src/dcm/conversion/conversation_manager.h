@@ -12,6 +12,7 @@
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
 #include "src/dcm/conversion/dm_conversation.h"
+#include "src/dcm/conversion/vd_conversation.h"
 
 namespace diag {
 namespace client {
@@ -25,21 +26,34 @@ public:
   // ctor
   ConversationManager(diag::client::config_parser::ConversationConfig config,
                       diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr);
+  
   // dtor
   ~ConversationManager() = default;
+  
   // startup
   void Startup();
+  
   // shutdown
   void Shutdown();
+  
   // Get the required conversion
   std::unique_ptr<diag::client::conversation::DmConversation>
   GetDiagnosticClientConversion(std::string conversion_name);
+  
+  // Get the required conversion
+  std::unique_ptr<diag::client::conversation::VdConversation>
+  GetDiagnosticClientVehicleDiscoveryConversation(std::string conversion_name);
 
 private:
   // store uds transport manager
   uds_transport::UdsTransportProtocolManager &uds_transport_mgr_e;
+  
   // store the conversion name with conversion configurations
-  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_e;
+  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_;
+  
+  // store the vehicle discovery with conversation configuration
+  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> vd_conversation_config_;
+  
   // function to create or find new conversion
   void CreateConversationConfig(diag::client::config_parser::ConversationConfig config);
 };

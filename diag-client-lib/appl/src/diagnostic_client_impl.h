@@ -24,19 +24,25 @@ class DiagClientImpl : public diag::client::DiagClient {
 public:
   // ctor
   explicit DiagClientImpl(std::string dm_client_config);
+  
   // dtor
   ~DiagClientImpl();
+  
   // Initialize
   void Initialize() override;
+  
   // De-Initialize
   void DeInitialize() override;
+  
   // Get Required Conversation based on Conversation Name
-  diag::client::conversation::DiagClientConversation&
+  diag::client::conversation::DiagClientConversation &
   GetDiagnosticClientConversation(std::string conversation_name) override;
+  
   // Send Vehicle Identification Request and get response
   diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
+  
   // Get the list of available Diagnostic Server
   diag::client::vehicle_info::VehicleInfoMessageResponsePtr
   GetDiagnosticServerList() override;

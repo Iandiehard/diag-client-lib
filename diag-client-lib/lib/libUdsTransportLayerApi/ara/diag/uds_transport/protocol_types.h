@@ -7,6 +7,7 @@
  */
 #ifndef _PROTOCOL_TYPES_H_
 #define _PROTOCOL_TYPES_H_
+
 #include <functional>
 #include <memory>
 #include <string>

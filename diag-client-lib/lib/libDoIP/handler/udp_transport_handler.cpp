@@ -18,9 +18,9 @@ UdpTransportHandler::UdpTransportHandler(
   kDoip_String &localIpaddress,
   uint16_t portNum,
   connection::DoipUdpConnection &doip_connection)
-    : doip_connection_{doip_connection},
-      udp_channel{
-        std::make_unique<ara::diag::doip::udpChannel::UdpChannel>(localIpaddress, portNum, *this)} {
+  : doip_connection_{doip_connection},
+    udp_channel{
+      std::make_unique<ara::diag::doip::udpChannel::UdpChannel>(localIpaddress, portNum, *this)} {
 }
 
 // dtor
@@ -51,7 +51,7 @@ UdpTransportHandler::Transmit(ara::diag::uds_transport::UdsMessageConstPtr messa
 }
 
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-          ara::diag::uds_transport::UdsMessagePtr>
+  ara::diag::uds_transport::UdsMessagePtr>
 UdpTransportHandler::IndicateMessage(
   ara::diag::uds_transport::UdsMessage::Address source_addr,
   ara::diag::uds_transport::UdsMessage::Address target_addr,

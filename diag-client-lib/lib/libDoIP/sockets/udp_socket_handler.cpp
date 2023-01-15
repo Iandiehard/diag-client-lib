@@ -18,10 +18,10 @@ UdpSocketHandler::UdpSocketHandler(
   uint16_t port_num,
   PortType port_type,
   ara::diag::doip::udpChannel::UdpChannel &channel)
-    : local_ip_address_{local_ip_address},
-      port_num_{port_num},
-      port_type_{port_type},
-      channel_{channel} {
+  : local_ip_address_{local_ip_address},
+    port_num_{port_num},
+    port_type_{port_type},
+    channel_{channel} {
   // create sockets and start receiving
   if (port_type == UdpSocket::PortType::kUdp_Broadcast) {
     udp_socket_ = std::make_unique<UdpSocket>(

@@ -19,16 +19,16 @@ namespace diag {
 namespace client {
 // ctor
 DiagClientImpl::DiagClientImpl(std::string dm_client_config)
-    : diag::client::DiagClient(),
-      ptree{},
-      dcm_instance_ptr{nullptr} {
+  : diag::client::DiagClient(),
+    ptree{},
+    dcm_instance_ptr{nullptr} {
   // start parsing the config json file
   libOsAbstraction::libBoost::jsonparser::createJsonParser json_parser;
   json_parser.getJsonPtree(dm_client_config, ptree);
   // create single dcm instance and pass the config tree
   dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-    __FILE__, __LINE__, __func__, [](std::stringstream& msg) {
+    __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
       msg << "DiagClient instance created";
     });
 }
@@ -43,7 +43,7 @@ void DiagClientImpl::Initialize() {
   dcm_thread_ = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr));
   pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-    __FILE__, __LINE__, __func__, [](std::stringstream& msg) {
+    __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
       msg << "DiagClient Initialized";
     });
 }
@@ -54,12 +54,12 @@ void DiagClientImpl::DeInitialize() {
   dcm_instance_ptr->SignalShutdown();
   dcm_thread_.join();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-    __FILE__, __LINE__, __func__, [](std::stringstream& msg) {
+    __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
       msg << "DiagClient De-Initialized";
     });
 }
 
-diag::client::conversation::DiagClientConversation&
+diag::client::conversation::DiagClientConversation &
 DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
   return (dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
 }

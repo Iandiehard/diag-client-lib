@@ -23,12 +23,14 @@ namespace tcpSocket {
 TcpSocketHandler::TcpSocketHandler(
   kDoip_String &localIpaddress,
   ara::diag::doip::tcpChannel::tcpChannel &channel)
-    : local_ip_address_{localIpaddress},
-      local_port_num_{0U},
-      channel_{channel} {
+  : local_ip_address_{localIpaddress},
+    local_port_num_{0U},
+    channel_{channel} {
   //create socket
   tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
-                                           [&](TcpMessagePtr tcpMessage) { channel_.HandleMessage(std::move(tcpMessage)); });
+                                           [&](TcpMessagePtr tcpMessage) {
+                                             channel_.HandleMessage(std::move(tcpMessage));
+                                           });
 }
 
 void TcpSocketHandler::Start() {

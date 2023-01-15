@@ -37,14 +37,14 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
     // Deserialize data to indicate to upper layer
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
       ret_val{udp_transport_handler_.IndicateMessage(
-        ara::diag::uds_transport::UdsMessage::Address(0U),
-        ara::diag::uds_transport::UdsMessage::Address(0U),
-        ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-        0U,
-        std::size_t(doip_payload.payload.size()),
-        0U,
-        "DoIPUdp",
-        doip_payload.payload)};
+      ara::diag::uds_transport::UdsMessage::Address(0U),
+      ara::diag::uds_transport::UdsMessage::Address(0U),
+      ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
+      0U,
+      std::size_t(doip_payload.payload.size()),
+      0U,
+      "DoIPUdp",
+      doip_payload.payload)};
     if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
@@ -73,17 +73,20 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
         .GetState() == UdpVehicleIdentificationState::kViIdle) {
     if (HandleVehicleIdentificationRequest(message) ==
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-      channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
+      channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
+        UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
       // Wait for 2 sec to collect all the vehicle identification response
       channel_.WaitForResponse(
         [&]() {
-          channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
+          channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
+            UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
         },
         [&]() {
           // do nothing
         },
         kDoIPCtrl);
-      channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(UdpVehicleIdentificationState::kViIdle);
+      channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
+        UdpVehicleIdentificationState::kViIdle);
     } else {
       // failed, do nothing
     }
@@ -99,14 +102,14 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   UdpMessagePtr doip_vehicle_ident_req{std::make_unique<UdpMessage>()};
   // get the payload type & length
-  auto doip_vehicle_payload_type{
+  VehiclePayloadType doip_vehicle_payload_type{
     GetVehicleIdentificationPayloadType(message->GetPayload()[BYTE_POS_ONE])};
   // create header
   doip_vehicle_ident_req->tx_buffer_.reserve(kDoipheadrSize);
   CreateDoipGenericHeader(doip_vehicle_ident_req->tx_buffer_,
                           doip_vehicle_payload_type.first,
                           doip_vehicle_payload_type.second);
-  // Copy if containing VIN / EID
+  // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
     doip_vehicle_ident_req->tx_buffer_.insert(
       doip_vehicle_ident_req->tx_buffer_.end(),
@@ -134,21 +137,21 @@ auto VehicleDiscoveryHandler::CreateDoipGenericHeader(
 }
 
 auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(
-  std::uint8_t preselection_mode) noexcept -> const std::pair<std::uint16_t, std::uint8_t> {
-  std::pair<std::uint16_t, std::uint8_t> ret_val{0, 0};
+  std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType {
+  VehiclePayloadType ret_val{0, 0};
   switch (preselection_mode) {
-    case 0U: {
+    case 0U:
       ret_val.first = kDoip_VehicleIdentification_ReqType;
       ret_val.second = kDoip_VehicleIdentification_ReqLen;
-    } break;
-    case 1U: {
+      break;
+    case 1U:
       ret_val.first = kDoip_VehicleIdentificationVIN_ReqType;
       ret_val.second = kDoip_VehicleIdentificationVIN_ReqLen;
-    } break;
-    case 2U: {
+      break;
+    case 2U:
       ret_val.first = kDoip_VehicleIdentificationEID_ReqType;
       ret_val.second = kDoip_VehicleIdentificationEID_ReqLen;
-    } break;
+      break;
     default:
       break;
   }
@@ -161,15 +164,12 @@ auto UdpChannelHandlerImpl::Transmit(
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   // deserialize and send to proper handler
   switch (message->GetPayload()[BYTE_POS_ZERO]) {
-    case 0U: {
+    case 0U: 
       // 0U -> Vehicle Identification Req
       ret_val = vehicle_identification_handler_.SendVehicleIdentificationRequest(message);
-    } break;
-    case 1U: {
+      break;
+    case 1U:
       // 1U -> Power Mode Req
-    } break;
-    default:
-      // nothing
       break;
   }
   return ret_val;
@@ -227,8 +227,10 @@ auto UdpChannelHandlerImpl::ProcessDoIPHeader(
   uint8_t &nackCode) noexcept -> bool {
   bool ret_val{false};
   /* Check the header synchronisation pattern */
-  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) && (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
-      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) && (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
+  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) &&
+       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
+      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) &&
+       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
     /* Check the supported payload type */
     if ((doip_rx_message.payload_type == kDoip_RoutingActivation_ResType) ||
         (doip_rx_message.payload_type == kDoip_DiagMessagePosAck_Type) ||
@@ -241,7 +243,7 @@ auto UdpChannelHandlerImpl::ProcessDoIPHeader(
         if (doip_rx_message.payload_length <= kUdpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
           if (ProcessDoIPPayloadLength(
-                doip_rx_message.payload_length, doip_rx_message.payload_type)) {
+            doip_rx_message.payload_length, doip_rx_message.payload_type)) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket

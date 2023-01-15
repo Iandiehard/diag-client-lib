@@ -33,30 +33,38 @@ public:
   DmConversation(
     std::string conversion_name,
     ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
+  
   // dtor
   ~DmConversation();
+  
   // startup
   void Startup() override;
+  
   // shutdown
   void Shutdown() override;
+  
   // Description   : Function to connect to Diagnostic Server
   // @param input  : Nothing
   // @return value : ConnectResult
   ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) override;
+  
   // Description   : Function to disconnect from Diagnostic Server
   // @param input  : Nothing
   // @return value : DisconnectResult
   DisconnectResult DisconnectFromDiagServer() override;
+  
   // Description   : Function to send Diagnostic Request and receive response
   // @param input  : Nothing
   // @return value : DisconnectResult
   std::pair<DiagResult, uds_message::UdsResponseMessagePtr>
   SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) override;
+  
   // Register Connection
   void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
+  
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
+    ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
     ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -66,10 +74,12 @@ public:
     ara::diag::uds_transport::Priority priority,
     ara::diag::uds_transport::ProtocolKind protocol_kind,
     std::vector<uint8_t> payloadInfo);
+  
   // Hands over a valid message to conversion
   void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);
+  
   // shared pointer to store the conversion handler
-  std::shared_ptr<ara::diag::conversion::ConversionHandler> dm_conversion_handler;
+  std::shared_ptr<ara::diag::conversion::ConversionHandler> dm_conversion_handler_;
 
 private:
   // Type for active diagnostic session
@@ -89,38 +99,41 @@ private:
     kActive = 0x00,
     kInactive = 0x01
   };
+  
   // Function to wait for response
   void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+  
   // Function to cancel the synchronous wait
   void WaitCancel();
+  
   // Conversion activity Status
-  ActivityStatusType activity_status;
+  ActivityStatusType activity_status_;
   // Dcm session
-  SessionControlType active_session;
+  SessionControlType active_session_;
   // Dcm Security
-  SecurityLevelType active_security;
+  SecurityLevelType active_security_;
   // Transmit buffer
-  uint32_t tx_buffer_size;
+  uint32_t tx_buffer_size_;
   // Reception buffer
-  uint32_t rx_buffer_size;
+  uint32_t rx_buffer_size_;
   // p2 client time
-  uint16_t p2_client_max;
+  uint16_t p2_client_max_;
   // p2 star Client time
-  uint16_t p2_star_client_max;
+  uint16_t p2_star_client_max_;
   // logical Source address
-  uint16_t source_address;
+  uint16_t source_address_;
   // logical target address
-  uint16_t target_address;
+  uint16_t target_address_;
   // port number
-  uint16_t port_num;
+  uint16_t port_num_;
   // Vehicle broadcast address
   std::string broadcast_address;
   // remote Ip Address
-  std::string remote_address;
+  std::string remote_address_;
   // conversion name
-  std::string convrs_name;
+  std::string conversation_name_;
   // Tp connection
-  std::shared_ptr<ara::diag::connection::Connection> connection_ptr;
+  std::shared_ptr<ara::diag::connection::Connection> connection_ptr_;
   // timer
   SyncTimer sync_timer_;
   // rx buffer to store the uds response
@@ -140,11 +153,13 @@ public:
   // ctor
   DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
                         DmConversation &dm_conversion);
+  
   // dtor
   ~DmConversationHandler() = default;
+  
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
+    ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
     ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -154,6 +169,7 @@ public:
     ara::diag::uds_transport::Priority priority,
     ara::diag::uds_transport::ProtocolKind protocol_kind,
     std::vector<uint8_t> payloadInfo) override;
+  
   // Hands over a valid message to conversion
   void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
 

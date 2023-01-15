@@ -24,10 +24,10 @@ namespace transportProtocolHandler {
 DoipTransportProtocolHandler::DoipTransportProtocolHandler(
   const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
   ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
-    : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
-      handle_id_e{handler_id},
-      transport_protocol_mgr_{transport_protocol_mgr},
-      doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {
+  : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
+    handle_id_e{handler_id},
+    transport_protocol_mgr_{transport_protocol_mgr},
+    doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {
   DLT_REGISTER_CONTEXT(doipclient_main, "dphl", "DoipClient Tp Handler Context");
 }
 

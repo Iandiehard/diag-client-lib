@@ -27,6 +27,7 @@
 #include <thread>
 #include <unordered_map>
 #include <vector>
+
 /* Magic numbers */
 constexpr uint8_t BYTE_POS_ZERO = 0x00;
 constexpr uint8_t BYTE_POS_ONE = 0x01;

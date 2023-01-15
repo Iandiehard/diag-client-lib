@@ -7,6 +7,7 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
+
 #include "ara/diag/uds_transport/protocol_handler.h"
 
 namespace diag {
@@ -26,14 +27,19 @@ class UdsTransportProtocolManager : public ::ara::diag::uds_transport::UdsTransp
 public:
   //ctor
   UdsTransportProtocolManager();
+  
   //dtor
   ~UdsTransportProtocolManager() = default;
+  
   // initialize all the transport protocol handler
   void Startup() override;
+  
   // start all the transport protocol handler
   void Run() override;
+  
   // terminate all the transport protocol handler
   void Shutdown() override;
+  
   // store doip transport handler
   std::unique_ptr<::ara::diag::uds_transport::UdsTransportProtocolHandler> doip_transport_handler;
   // handler id count

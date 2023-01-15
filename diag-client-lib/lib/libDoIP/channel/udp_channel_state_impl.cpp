@@ -13,8 +13,8 @@ namespace doip {
 namespace udpChannelStateImpl {
 // ctor
 UdpChannelStateImpl::UdpChannelStateImpl()
-    : vehicle_discovery_state_context_{std::make_unique<StateContext<VehicleDiscoveryState>>()},
-      vehicle_identification_state_context_{std::make_unique<StateContext<VehicleIdentificationState>>()} {
+  : vehicle_discovery_state_context_{std::make_unique<StateContext<VehicleDiscoveryState>>()},
+    vehicle_identification_state_context_{std::make_unique<StateContext<VehicleIdentificationState>>()} {
   // create and add state for vehicle discovery
   // kVdIdle
   GetVehicleDiscoveryStateContext().AddState(
@@ -38,11 +38,13 @@ UdpChannelStateImpl::UdpChannelStateImpl()
   // kViSendVehicleIdentificationReq
   GetVehicleIdentificationStateContext().AddState(
     VehicleIdentificationState::kViSendVehicleIdentificationReq,
-    std::move(std::make_unique<kViSendVehicleIdentificationReq>(VehicleIdentificationState::kViSendVehicleIdentificationReq)));
+    std::move(
+      std::make_unique<kViSendVehicleIdentificationReq>(VehicleIdentificationState::kViSendVehicleIdentificationReq)));
   // kViWaitForVehicleIdentificationRes
   GetVehicleIdentificationStateContext().AddState(
     VehicleIdentificationState::kViWaitForVehicleIdentificationRes,
-    std::move(std::make_unique<kViWaitForVehicleIdentificationRes>(VehicleIdentificationState::kViWaitForVehicleIdentificationRes)));
+    std::move(std::make_unique<kViWaitForVehicleIdentificationRes>(
+      VehicleIdentificationState::kViWaitForVehicleIdentificationRes)));
   // kViDoIPCtrlTimeout
   GetVehicleIdentificationStateContext().AddState(
     VehicleIdentificationState::kViDoIPCtrlTimeout,
@@ -51,16 +53,17 @@ UdpChannelStateImpl::UdpChannelStateImpl()
   GetVehicleIdentificationStateContext().TransitionTo(VehicleIdentificationState::kViIdle);
 }
 
-auto UdpChannelStateImpl::GetVehicleDiscoveryStateContext() noexcept -> StateContext<VehicleDiscoveryState>& {
+auto UdpChannelStateImpl::GetVehicleDiscoveryStateContext() noexcept -> StateContext<VehicleDiscoveryState> & {
   return *vehicle_discovery_state_context_;
 }
 
-auto UdpChannelStateImpl::GetVehicleIdentificationStateContext() noexcept -> StateContext<VehicleIdentificationState>& {
+auto
+UdpChannelStateImpl::GetVehicleIdentificationStateContext() noexcept -> StateContext<VehicleIdentificationState> & {
   return *vehicle_identification_state_context_;
 }
 
 kVdIdle::kVdIdle(VehicleDiscoveryState state)
-    : State(state) {}
+  : State(state) {}
 
 void kVdIdle::Start() {}
 
@@ -69,7 +72,7 @@ void kVdIdle::Stop() {}
 void kVdIdle::HandleMessage() {}
 
 kWaitForVehicleAnnouncement::kWaitForVehicleAnnouncement(VehicleDiscoveryState state)
-    : State(state) {}
+  : State(state) {}
 
 void kWaitForVehicleAnnouncement::Start() {}
 
@@ -78,7 +81,7 @@ void kWaitForVehicleAnnouncement::Stop() {}
 void kWaitForVehicleAnnouncement::HandleMessage() {}
 
 kVdDoIPCtrlTimeout::kVdDoIPCtrlTimeout(VehicleDiscoveryState state)
-    : State(state) {}
+  : State(state) {}
 
 void kVdDoIPCtrlTimeout::Start() {}
 
@@ -87,7 +90,7 @@ void kVdDoIPCtrlTimeout::Stop() {}
 void kVdDoIPCtrlTimeout::HandleMessage() {}
 
 kViIdle::kViIdle(VehicleIdentificationState state)
-    : State(state) {}
+  : State(state) {}
 
 void kViIdle::Start() {}
 
@@ -96,7 +99,7 @@ void kViIdle::Stop() {}
 void kViIdle::HandleMessage() {}
 
 kViSendVehicleIdentificationReq::kViSendVehicleIdentificationReq(VehicleIdentificationState state)
-    : State(state) {}
+  : State(state) {}
 
 void kViSendVehicleIdentificationReq::Start() {}
 
@@ -105,7 +108,7 @@ void kViSendVehicleIdentificationReq::Stop() {}
 void kViSendVehicleIdentificationReq::HandleMessage() {}
 
 kViWaitForVehicleIdentificationRes::kViWaitForVehicleIdentificationRes(VehicleIdentificationState state)
-    : State(state) {}
+  : State(state) {}
 
 void kViWaitForVehicleIdentificationRes::Start() {}
 
@@ -114,7 +117,7 @@ void kViWaitForVehicleIdentificationRes::Stop() {}
 void kViWaitForVehicleIdentificationRes::HandleMessage() {}
 
 kViDoIPCtrlTimeout::kViDoIPCtrlTimeout(VehicleIdentificationState state)
-    : State(state) {}
+  : State(state) {}
 
 void kViDoIPCtrlTimeout::Start() {}
 

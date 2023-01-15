@@ -32,28 +32,36 @@ public:
                       uint16_t port_num,
                       uint8_t total_tcp_channel_req,
                       connection::DoipTcpConnection &doip_connection);
+  
   // dtor
   ~TcpTransportHandler();
+  
   // Initialize
   ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  
   // Start
   void Start();
+  
   // Stop
   void Stop();
+  
   // Connect to remote Host
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult
   ConnectToHost(ara::diag::uds_transport::UdsMessageConstPtr message);
+  
   // Disconnect from remote Host
   ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult
   DisconnectFromHost();
+  
   // Transmit
   ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
   Transmit(
     ara::diag::uds_transport::UdsMessageConstPtr message,
     ara::diag::uds_transport::ChannelID channel_id);
+  
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
+    ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
     ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -63,6 +71,7 @@ public:
     ara::diag::uds_transport::Priority priority,
     ara::diag::uds_transport::ProtocolKind protocol_kind,
     std::vector<uint8_t> payloadInfo);
+  
   // Hands over a valid received Uds message (currently this is only a request type) from transport
   // layer to session layer
   void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);

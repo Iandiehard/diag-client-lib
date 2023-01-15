@@ -23,11 +23,11 @@ namespace connection {
 DoipTcpConnection::DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
                                      kDoip_String &tcp_ip_address,
                                      uint16_t port_num)
-    : ara::diag::connection::Connection(1, conversion),
-      tcp_transport_handler_(std::make_unique<ara::diag::doip::tcpTransport::TcpTransportHandler>(tcp_ip_address,
-                                                                                                  port_num,
-                                                                                                  1,
-                                                                                                  *this)) {
+  : ara::diag::connection::Connection(1, conversion),
+    tcp_transport_handler_(std::make_unique<ara::diag::doip::tcpTransport::TcpTransportHandler>(tcp_ip_address,
+                                                                                                port_num,
+                                                                                                1,
+                                                                                                *this)) {
 }
 
 // Initialize
@@ -60,7 +60,7 @@ DoipTcpConnection::DisconnectFromHost() {
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-          ara::diag::uds_transport::UdsMessagePtr>
+  ara::diag::uds_transport::UdsMessagePtr>
 DoipTcpConnection::IndicateMessage(
   ara::diag::uds_transport::UdsMessage::Address source_addr,
   ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -103,10 +103,10 @@ void DoipTcpConnection::HandleMessage(ara::diag::uds_transport::UdsMessagePtr me
 DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
                                      kDoip_String &udp_ip_address,
                                      uint16_t port_num)
-    : ara::diag::connection::Connection(1, conversion),
-      udp_transport_handler_(std::make_unique<ara::diag::doip::udpTransport::UdpTransportHandler>(udp_ip_address,
-                                                                                                  port_num,
-                                                                                                  *this)) {
+  : ara::diag::connection::Connection(1, conversion),
+    udp_transport_handler_(std::make_unique<ara::diag::doip::udpTransport::UdpTransportHandler>(udp_ip_address,
+                                                                                                port_num,
+                                                                                                *this)) {
 }
 
 // Initialize
@@ -140,7 +140,7 @@ DoipUdpConnection::DisconnectFromHost() {
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-          ara::diag::uds_transport::UdsMessagePtr>
+  ara::diag::uds_transport::UdsMessagePtr>
 DoipUdpConnection::IndicateMessage(
   ara::diag::uds_transport::UdsMessage::Address source_addr,
   ara::diag::uds_transport::UdsMessage::Address target_addr,

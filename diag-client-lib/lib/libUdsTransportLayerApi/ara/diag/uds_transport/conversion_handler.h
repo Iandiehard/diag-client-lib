@@ -23,13 +23,14 @@ public:
   // ctor
   explicit ConversionHandler(
     ara::diag::conversion_manager::ConversionHandlerID handler_id)
-      : handler_id_(handler_id) {}
-
+    : handler_id_(handler_id) {}
+  
   // dtor
   ~ConversionHandler() = default;
+  
   // Indicate message Diagnostic message reception over TCP to user
   virtual std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-                    ara::diag::uds_transport::UdsMessagePtr>
+    ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
     ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -39,6 +40,7 @@ public:
     ara::diag::uds_transport::Priority priority,
     ara::diag::uds_transport::ProtocolKind protocol_kind,
     std::vector<uint8_t> payloadInfo) = 0;
+  
   // Hands over a valid message to conversion
   virtual void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) = 0;
 

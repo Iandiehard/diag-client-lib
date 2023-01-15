@@ -11,21 +11,28 @@
  */
 #ifndef DIAG_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H_
 #define DIAG_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H_
+
 #include <memory>
 #include <string>
 
 namespace diag {
 namespace client {
+
 // forward declaration
 class DiagClient;
+
 /**
- * @brief      Function to get the instance of Diagnostic Client Object.
+ * @brief       Function to get the instance of Diagnostic Client Object.
  *              This instance to be further used for all the functionalities.
- * @param[in]   diag_client_config_path  path to diag client config file
- * @return      std::unique_ptr<diag::client::DiagClient> Unique pointer to diag client object
-*/
+ * @param[in]   diag_client_config_path
+ *              path to diag client config file
+ * @return      std::unique_ptr<diag::client::DiagClient>
+ *              Unique pointer to diag client object
+ */
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
   const std::string &diag_client_config_path);
+
 }  // namespace client
 }  // namespace diag
+
 #endif  // DIAG_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H_

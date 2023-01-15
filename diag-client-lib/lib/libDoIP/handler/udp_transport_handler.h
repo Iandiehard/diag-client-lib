@@ -31,22 +31,28 @@ public:
   UdpTransportHandler(kDoip_String &localIpaddress,
                       uint16_t portNum,
                       connection::DoipUdpConnection &doipConnection);
+  
   // dtor
   ~UdpTransportHandler();
+  
   // Initialize
   ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  
   // Start
   void Start();
+  
   // Stop
   void Stop();
+  
   // Transmit
   ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
   Transmit(
     ara::diag::uds_transport::UdsMessageConstPtr message,
     ara::diag::uds_transport::ChannelID channel_id);
+  
   // Indicate message Diagnostic message reception over UDP to user
   std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
+    ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
     ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -56,6 +62,7 @@ public:
     ara::diag::uds_transport::Priority priority,
     ara::diag::uds_transport::ProtocolKind protocol_kind,
     std::vector<uint8_t> payloadInfo);
+  
   // Hands over a valid received UDP message (currently this is only a request type) from transport
   // layer to session layer
   void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);

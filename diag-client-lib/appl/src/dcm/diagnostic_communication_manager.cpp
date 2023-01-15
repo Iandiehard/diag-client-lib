@@ -7,7 +7,6 @@
  */
 /* includes */
 #include "diagnostic_communication_manager.h"
-
 #include "src/common/logger.h"
 
 namespace diag {
@@ -17,12 +16,13 @@ namespace dcm {
  @ Class Name        : DCM
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
  */
-// ctor
-DCMClient::DCMClient(diag::client::common::property_tree& ptree)
-    : DiagnosticManager(ptree),
-      uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>()),
-      conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(
-        GetConversationConfig(ptree), *uds_transport_protocol_mgr)} {
+DCMClient::DCMClient(diag::client::common::property_tree &ptree)
+  : DiagnosticManager(ptree),
+    uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>()),
+    conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(
+      GetConversationConfig(ptree), *uds_transport_protocol_mgr)},
+    diag_client_vehicle_discovery_conversation{
+      conversation_mgr->GetDiagnosticClientVehicleDiscoveryConversation("VehicleDiscovery")} {
 }
 
 // dtor
@@ -33,10 +33,12 @@ DCMClient::~DCMClient() {
 void DCMClient::Initialize() {
   // start Conversation Manager
   conversation_mgr->Startup();
+  // start Vehicle Discovery
+  diag_client_vehicle_discovery_conversation->Startup();
   // start all the udsTransportProtocol Layer
   uds_transport_protocol_mgr->Startup();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-    __FILE__, __LINE__, __func__, [](std::stringstream& msg) {
+    __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
       msg << "Dcm Client Initialized";
     });
 }
@@ -49,20 +51,22 @@ void DCMClient::Run() {
 
 // shutdown DCM
 void DCMClient::Shutdown() {
+  // shutdown Vehicle Discovery
+  diag_client_vehicle_discovery_conversation->Shutdown();
   // shutdown Conversation Manager
   conversation_mgr->Shutdown();
   // shutdown udsTransportProtocol layer
   uds_transport_protocol_mgr->Shutdown();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-    __FILE__, __LINE__, __func__, [](std::stringstream& msg) {
+    __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
       msg << "Dcm Client Shutdown done";
     });
 }
 
 // Function to get the client Conversation
-diag::client::conversation::DiagClientConversation&
+diag::client::conversation::DiagClientConversation &
 DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
-  diag::client::conversation::DiagClientConversation* ret_conversation = nullptr;
+  diag::client::conversation::DiagClientConversation *ret_conversation = nullptr;
   std::unique_ptr<diag::client::conversation::DiagClientConversation>
     conversation{conversation_mgr->GetDiagnosticClientConversion(conversation_name)};
   if (conversation != nullptr) {
@@ -72,14 +76,14 @@ DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
         std::move(conversation)));
     ret_conversation = diag_client_conversation_map.at(conversation_name).get();
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
-      __FILE__, __LINE__, __func__, [&](std::stringstream& msg) {
+      __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
         msg << "Requested Diagnostic Client conversation created with name: "
             << conversation_name;
       });
   } else {
     // error logging, no conversation found
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-      __FILE__, __LINE__, __func__, [&](std::stringstream& msg) {
+      __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
         msg << "Requested Diagnostic Client conversation not found with name: "
             << conversation_name;
       });
@@ -89,13 +93,16 @@ DCMClient::GetDiagnosticClientConversation(std::string conversation_name) {
 
 // Function to get read from json tree and return the config structure
 diag::client::config_parser::ConversationConfig
-DCMClient::GetConversationConfig(diag::client::common::property_tree& ptree) {
+DCMClient::GetConversationConfig(diag::client::common::property_tree &ptree) {
   diag::client::config_parser::ConversationConfig config;
+  // get the udp info for vehicle discovery
+  config.udp_ip_address = ptree.get<std::string>("UdpIpAddress");
+  config.udp_broadcast_address = ptree.get<std::string>("UdpBroadcastAddress");
   // get total number of conversation
   config.num_of_conversation = ptree.get<uint8_t>("Conversation.NumberOfConversation");
   // loop through all the conversation
-  for (diag::client::common::property_tree::value_type& conversation_ptr:
-       ptree.get_child("Conversation.ConversationProperty")) {
+  for (diag::client::common::property_tree::value_type &conversation_ptr:
+    ptree.get_child("Conversation.ConversationProperty")) {
     diag::client::config_parser::conversationType conversation;
     conversation.conversationName = conversation_ptr.second.get<std::string>("ConversationName");
     conversation.p2ClientMax = conversation_ptr.second.get<uint16_t>("p2ClientMax");
@@ -105,8 +112,6 @@ DCMClient::GetConversationConfig(diag::client::common::property_tree& ptree) {
     conversation.sourceAddress = conversation_ptr.second.get<uint16_t>("SourceAddress");
     conversation.targetAddress = conversation_ptr.second.get<uint16_t>("TargetAddress");
     conversation.network.tcpIpAddress = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
-    conversation.network.udpIpAddress = conversation_ptr.second.get<std::string>("Network.UdpIpAddress");
-    conversation.network.udpBroadcastAddress = conversation_ptr.second.get<std::string>("Network.UdpBroadcastAddress");
     conversation.network.portNum = conversation_ptr.second.get<uint16_t>("Network.Port");
     config.conversations.emplace_back(conversation);
   }
@@ -116,10 +121,12 @@ DCMClient::GetConversationConfig(diag::client::common::property_tree& ptree) {
 diag::client::vehicle_info::VehicleInfoMessageResponsePtr
 DCMClient::SendVehicleIdentificationRequest(
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
+  return diag_client_vehicle_discovery_conversation->SendVehicleIdentificationRequest(vehicle_info_request);
 }
 
 diag::client::vehicle_info::VehicleInfoMessageResponsePtr
 DCMClient::GetDiagnosticServerList() {
+  return diag_client_vehicle_discovery_conversation->GetDiagnosticServerList();
 }
 }  // namespace dcm
 }  // namespace client

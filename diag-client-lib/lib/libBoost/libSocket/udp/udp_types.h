@@ -23,8 +23,10 @@ public:
 public:
   // ctor
   UdpMessageType() = default;
+  
   // dtor
   virtual ~UdpMessageType() = default;
+  
   // Receive buffer
   buffType rx_buffer_;
   // Transmit buffer

@@ -10,15 +10,15 @@
 #include "main.h"
 #include "include/create_diagnostic_client.h"
 
-namespace doip_client{
+namespace doip_client {
 
 TEST_F(DoipClientFixture, StartupAndTermination) {
   // Get conversation for tester one
-  diag::client::conversation::DiagClientConversation& diag_client_conversation1{
+  diag::client::conversation::DiagClientConversation &diag_client_conversation{
     GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
-  
-  diag_client_conversation1.Startup();
-  diag_client_conversation1.Shutdown();
+
+  diag_client_conversation.Startup();
+  diag_client_conversation.Shutdown();
 }
 
 } // doip_client

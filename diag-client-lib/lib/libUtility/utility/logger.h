@@ -7,6 +7,7 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
+
 #include <dlt/dlt.h>
 
 #include <iostream>
@@ -22,9 +23,9 @@ class Logger {
 public:
   template<typename Func>
   auto LogFatal(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -33,12 +34,12 @@ public:
             DLT_CSTRING(msg.str().c_str()));
     std::cout << "[FATAL]:   " << msg.str() << std::endl;
   }
-
+  
   template<typename Func>
   auto LogError(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -47,12 +48,12 @@ public:
             DLT_CSTRING(msg.str().c_str()));
     std::cout << "[ERROR]:   " << msg.str() << std::endl;
   }
-
+  
   template<typename Func>
   auto LogWarn(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -61,12 +62,12 @@ public:
             DLT_CSTRING(msg.str().c_str()));
     std::cout << "[WARN]:    " << msg.str() << std::endl;
   }
-
+  
   template<typename Func>
   auto LogInfo(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -75,12 +76,12 @@ public:
             DLT_CSTRING(msg.str().c_str()));
     std::cout << "[INFO]:    " << msg.str() << std::endl;
   }
-
+  
   template<typename Func>
   auto LogDebug(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -89,12 +90,12 @@ public:
             DLT_CSTRING(msg.str().c_str()));
     std::cout << "[DEBUG]:   " << msg.str() << std::endl;
   }
-
+  
   template<typename Func>
   auto LogVerbose(
-    const std::string& file_name,
+    const std::string &file_name,
     int line_no,
-    const std::string& func_name,
+    const std::string &func_name,
     Func func) noexcept -> void {
     std::stringstream msg;
     func(msg);
@@ -105,15 +106,15 @@ public:
   }
 
 public:
-  explicit Logger(const std::string& context_id) {
+  explicit Logger(const std::string &context_id) {
     DLT_REGISTER_CONTEXT(contxt, context_id.c_str(), "Application Context");
   }
-
-  Logger(const std::string& app_id, const std::string& context_id) {
+  
+  Logger(const std::string &app_id, const std::string &context_id) {
     DLT_REGISTER_APP(app_id.c_str(), "Application Id");
     DLT_REGISTER_CONTEXT(contxt, context_id.c_str(), "Application Context");
   }
-
+  
   ~Logger() {
     DLT_UNREGISTER_CONTEXT(contxt);
     DLT_UNREGISTER_APP();

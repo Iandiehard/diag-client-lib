@@ -35,16 +35,22 @@ class TcpSocketHandler {
 public:
   // ctor
   TcpSocketHandler(kDoip_String &localIpaddress, ara::diag::doip::tcpChannel::tcpChannel &channel);
+  
   // dtor
   ~TcpSocketHandler() = default;
+  
   // Start
   void Start();
+  
   // Stop
   void Stop();
+  
   // Connect to host
   bool ConnectToHost(kDoip_String host_ip_address, uint16_t host_port_num);
+  
   // Disconnect from host
   bool DisconnectFromHost();
+  
   // Transmit function
   bool Transmit(TcpMessageConstPtr tcp_message);
 
