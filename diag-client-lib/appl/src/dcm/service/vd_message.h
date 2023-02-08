@@ -18,7 +18,8 @@ namespace vd_message {
 class VdMessage final: public ara::diag::uds_transport::UdsMessage {
 public:
   // ctor
-  VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request);
+  VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request,
+            IpAddress host_ip_address);
 
   // dtor
   ~VdMessage() noexcept = default;

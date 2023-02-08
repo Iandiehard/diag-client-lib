@@ -142,7 +142,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
 // Function to transmit tcp messages
 bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
   TcpErrorCodeType ec;
-  bool retVal = false;
+  bool ret_val {false};
   boost::asio::write(*tcp_socket_.get(),
                      boost::asio::buffer(tcpMessage->txBuffer_, std::size_t(tcpMessage->txBuffer_.size())),
                      ec);
@@ -155,7 +155,7 @@ bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
             << "<" << endpoint_.address().to_string() << ","
             << endpoint_.port() << ">";
       });
-    retVal = true;
+    ret_val = true;
   } else {
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
       __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
@@ -163,7 +163,7 @@ bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
             << ec.message();
       });
   }
-  return retVal;
+  return ret_val;
 }
 
 // Destroy the socket

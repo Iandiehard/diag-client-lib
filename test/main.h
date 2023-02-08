@@ -7,9 +7,10 @@
  */
 
 #include <gtest/gtest.h>
+#include <thread>
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
-#include "doip_handler/udp_socket_handler.h"
+#include "doip_handler/doip_udp_handler.h"
 
 namespace doip_client {
 
@@ -17,9 +18,16 @@ class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
     : diag_client_{diag::client::CreateDiagnosticClient(
-    "/tmp/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")} {}
+    "/workspace/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")},
+      doip_udp_handler_{"172.16.25.128", 13400u} {
+    // Initialize doip test handler
+    doip_udp_handler_.Initialize();
+  }
   
-  ~DoipClientFixture() = default;
+  ~DoipClientFixture() {
+    // De-initialize doip test handler
+    doip_udp_handler_.DeInitialize();
+  }
   
   void SetUp() override {
     // Initialize diag client library
@@ -31,15 +39,24 @@ protected:
     diag_client_->DeInitialize();
   }
   
-  // Function to Diag client library reference
+  // Function to get Diag client library reference
   auto GetDiagClientRef()
   noexcept -> diag::client::DiagClient & {
     return *diag_client_;
   }
 
+  // Function to get Doip Test Handler reference
+  auto GetDoipTestUdpHandlerRef()
+    noexcept -> ara::diag::doip::DoipUdpHandler & {
+    return doip_udp_handler_;
+  }
+
 private:
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;
+
+  // doip test handler
+  ara::diag::doip::DoipUdpHandler doip_udp_handler_;
 };
 
 } // doip_client

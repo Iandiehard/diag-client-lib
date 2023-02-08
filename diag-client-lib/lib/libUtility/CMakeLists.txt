@@ -14,15 +14,23 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # find needed packages
 find_package(automotive-dlt REQUIRED)
 
-file(GLOB STATE_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
+file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 
-add_library(${PROJECT_NAME} INTERFACE)
+add_library(${PROJECT_NAME}
+        ${SRCS}
+        )
 
 add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_include_directories(${PROJECT_NAME}
-        INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+target_include_directories(${PROJECT_NAME} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         )
+
+#link target directory
+target_link_libraries(${PROJECT_NAME}
+PRIVATE
+Genivi::dlt
+)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets

@@ -27,12 +27,15 @@ public:
     int line_no,
     const std::string &func_name,
     Func func) noexcept -> void {
-    std::stringstream msg;
-    func(msg);
-    msg << " [" << file_name << ": " << line_no << "]";
-    DLT_LOG(contxt, DLT_LOG_FATAL,
-            DLT_CSTRING(msg.str().c_str()));
-    std::cout << "[FATAL]:   " << msg.str() << std::endl;
+      
+    if(DLT_IS_LOG_LEVEL_ENABLED(contxt,DLT_LOG_FATAL)) {
+      std::stringstream msg;
+      func(msg);
+      msg << " [" << file_name << ": " << line_no << "]";
+      DLT_LOG(contxt, DLT_LOG_FATAL,
+              DLT_CSTRING(msg.str().c_str()));
+      std::cout << "[FATAL]:   " << msg.str() << std::endl;
+    }
   }
   
   template<typename Func>
@@ -106,20 +109,11 @@ public:
   }
 
 public:
-  explicit Logger(const std::string &context_id) {
-    DLT_REGISTER_CONTEXT(contxt, context_id.c_str(), "Application Context");
-  }
+  explicit Logger(const std::string &context_id);
   
-  Logger(const std::string &app_id, const std::string &context_id) {
-    DLT_REGISTER_APP(app_id.c_str(), "Application Id");
-    DLT_REGISTER_CONTEXT(contxt, context_id.c_str(), "Application Context");
-  }
-  
-  ~Logger() {
-    DLT_UNREGISTER_CONTEXT(contxt);
-    DLT_UNREGISTER_APP();
-  }
+  Logger(const std::string &app_id, const std::string &context_id);
 
+  ~Logger();
 private:
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt);

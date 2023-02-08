@@ -11,9 +11,6 @@ project(doip-client)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# find needed packages
-find_package(automotive-dlt REQUIRED)
-
 # find DoIP sources
 file(GLOB LIBDOIP_CHANNEL_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/channel/*.cpp")
 file(GLOB LIBDOIP_COMMON_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/common/*.cpp")
@@ -49,7 +46,6 @@ target_link_libraries(${PROJECT_NAME}
         ara-lib::utility
         ara-lib::uds-transport-layer-api
         ara-lib::boost-support
-        Genivi::dlt
         )
 
 install(TARGETS ${PROJECT_NAME}

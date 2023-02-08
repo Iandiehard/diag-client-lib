@@ -59,6 +59,18 @@ private:
   uint16_t local_port_num_;
   // udp socket
   std::unique_ptr<UdpSocket::socket> udp_socket_;
+  // boost io context
+  boost::asio::io_context io_context_;
+  // flag to terminate the thread
+  std::atomic_bool exit_request_;
+  // flag th start the thread
+  std::atomic_bool running_;
+  // conditional variable to block the thread
+  std::condition_variable cond_var_;
+  // threading var
+  std::thread thread_;
+  // locking critical section
+  mutable std::mutex mutex_;
   // end points
   UdpSocket::endpoint remote_endpoint_;
   // port type - broadcast / unicast
@@ -67,8 +79,6 @@ private:
   UdpHandlerRead udp_handler_read_;
   // Rxbuffer
   uint8_t rxbuffer_[kDoipUdpResSize];
-  // boost io context
-  boost::asio::io_context io_context_;
 
 private:
   // function to handle read

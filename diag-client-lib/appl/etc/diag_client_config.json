@@ -1,6 +1,6 @@
 {
-  "UdpIpAddress": "192.168.0.1",
-  "UdpBroadcastAddress": "255.255.255.255",
+  "UdpIpAddress": "172.16.25.127",
+  "UdpBroadcastAddress": "172.16.255.255",
   "Conversation": {
     "NumberOfConversation": 2,
     "ConversationProperty": [
@@ -14,7 +14,7 @@
         "TargetAddressType": "Physical",
         "Network": {
           "ProtocolKind": "DoIP",
-          "TcpIpAddress": "192.168.0.1",
+          "TcpIpAddress": "172.16.25.127",
           "TLS": false,
           "Port": 13400,
           "EID": "",
@@ -32,7 +32,7 @@
         "TargetAddressType": "Functional",
         "Network": {
           "ProtocolKind": "DoIP",
-          "TcpIpAddress": "192.168.0.1",
+          "TcpIpAddress": "172.16.25.127",
           "TLS": false,
           "Port": 13400,
           "EID": "",

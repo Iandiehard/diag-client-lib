@@ -31,10 +31,10 @@ DCMClient::~DCMClient() {
 
 // Initialize
 void DCMClient::Initialize() {
-  // start Conversation Manager
-  conversation_mgr->Startup();
   // start Vehicle Discovery
   diag_client_vehicle_discovery_conversation->Startup();
+  // start Conversation Manager
+  conversation_mgr->Startup();
   // start all the udsTransportProtocol Layer
   uds_transport_protocol_mgr->Startup();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(

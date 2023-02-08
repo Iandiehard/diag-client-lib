@@ -12,17 +12,18 @@
 namespace diag {
 namespace client {
 namespace vd_message {
-VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request)
+VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request,
+                     IpAddress host_ip_address)
     : ara::diag::uds_transport::UdsMessage(),
       source_address_{0u},
       target_address_{0u},
-      host_ip_address_{"255.255.255.255"},
+      host_ip_address_{host_ip_address},
       vehicle_info_payload_{SerializeVehicleInfoList(vehicle_info_request)} {
 }
 
 ara::diag::uds_transport::ByteVector
 VdMessage::SerializeVehicleInfoList(vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
-  ara::diag::uds_transport::ByteVector payload{vehicle_info_request.preselection_mode};
+  ara::diag::uds_transport::ByteVector payload{0u, vehicle_info_request.preselection_mode};
   std::stringstream  preselection_value{vehicle_info_request.preselection_value};
 
   for(auto count = 0; count < vehicle_info_request.preselection_value.length(); count++) {

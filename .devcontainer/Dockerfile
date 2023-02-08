@@ -22,6 +22,7 @@ RUN apt-get update &&\
         gdb \
         valgrind \
         locales \
+        tcpdump \
         cmake \
         doxygen \
         locales-all &&\

@@ -54,7 +54,7 @@ public:
   
   // Function to send vehicle identification request
   auto SendVehicleIdentificationRequest(
-    uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+    uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
   
   // Function to process Vehicle announcement response
   auto ProcessVehicleAnnouncementResponse(DoipMessage &doip_payload) noexcept -> void;
@@ -65,7 +65,7 @@ public:
 private:
   // Function to handle Vehicle Identification Request
   auto HandleVehicleIdentificationRequest(
-    uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+    uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
   
   static auto CreateDoipGenericHeader(
     std::vector<uint8_t> &doipHeader,
@@ -103,7 +103,7 @@ public:
   
   // Function to trigger transmission
   auto Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr &message)
+    ara::diag::uds_transport::UdsMessageConstPtr message)
       noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
   
   // process message unicast

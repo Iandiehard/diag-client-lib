@@ -81,6 +81,9 @@ private:
   
   // conversation name
   std::string conversation_name_;
+
+  // Vehicle broadcast address
+  std::string broadcast_address_;
   
   // Tp connection
   std::shared_ptr<ara::diag::connection::Connection> connection_ptr_;

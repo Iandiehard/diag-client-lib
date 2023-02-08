@@ -63,7 +63,7 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
 }
 
 auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   if (channel_
@@ -71,7 +71,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
         .GetVehicleIdentificationStateContext()
         .GetActiveState()
         .GetState() == UdpVehicleIdentificationState::kViIdle) {
-    if (HandleVehicleIdentificationRequest(message) ==
+    if (HandleVehicleIdentificationRequest(std::move(message)) ==
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
         UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
@@ -97,7 +97,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
 }
 
 auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   UdpMessagePtr doip_vehicle_ident_req{std::make_unique<UdpMessage>()};
@@ -109,6 +109,8 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
   CreateDoipGenericHeader(doip_vehicle_ident_req->tx_buffer_,
                           doip_vehicle_payload_type.first,
                           doip_vehicle_payload_type.second);
+  // set remote ip
+  doip_vehicle_ident_req->host_ip_address_ = message->GetHostIpAddress();
   // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
     doip_vehicle_ident_req->tx_buffer_.insert(
@@ -159,14 +161,14 @@ auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(
 }
 
 auto UdpChannelHandlerImpl::Transmit(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   // deserialize and send to proper handler
   switch (message->GetPayload()[BYTE_POS_ZERO]) {
     case 0U: 
       // 0U -> Vehicle Identification Req
-      ret_val = vehicle_identification_handler_.SendVehicleIdentificationRequest(message);
+      ret_val = vehicle_identification_handler_.SendVehicleIdentificationRequest(std::move(message));
       break;
     case 1U:
       // 1U -> Power Mode Req

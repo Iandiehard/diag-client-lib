@@ -6,11 +6,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#ifndef _UDP_SOCKETHANDLER_H_
-#define _UDP_SOCKETHANDLER_H_
+#ifndef DIAG_CLIENT_UDP_SOCKET_HANDLER_H
+#define DIAG_CLIENT_UDP_SOCKET_HANDLER_H
 
 //includes
+#include <functional>
 #include <string>
+
 #include "libSocket/udp/udp_client.h"
 
 namespace ara {
@@ -30,61 +32,58 @@ using UdpMessage = libBoost::libSocket::udp::UdpMessageType;
 using UdpMessagePtr = libBoost::libSocket::udp::UdpMessagePtr;
 using UdpMessageConstPtr = libBoost::libSocket::udp::UdpMessageConstPtr;
 using kDoip_String = std::string;
+using UdpMessageFunctor = std::function<void(UdpMessagePtr)>;
 
 /*
  @ Class Name        : UdpSocketHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver
  */
-class UdpSocketHandler {
+class DoipUdpSocketHandler {
 public:
   // Port Type
   using PortType = libBoost::libSocket::udp::createUdpClientSocket::PortType;
+
 public:
   //ctor
-  UdpSocketHandler(
+  DoipUdpSocketHandler(
     kDoip_String &local_ip_address,
     uint16_t port_num,
     PortType port_type,
-    ara::diag::doip::udpChannel::UdpChannel &channel);
-  
+    UdpMessageFunctor udp_handler);
+
   //dtor
-  ~UdpSocketHandler() = default;
-  
+  ~DoipUdpSocketHandler() = default;
+
   //start
   void Start();
-  
+
   //stop
   void Stop();
-  
+
   // function to trigger transmission
   bool Transmit(UdpMessageConstPtr udp_tx_message);
 
 private:
   // local Ip address
   kDoip_String local_ip_address_;
-  
+
   // Host Ip address
   kDoip_String host_ip_address_;
-  
+
   // Host port number
   uint16_t port_num_;
-  
+
   // Port type
   UdpSocket::PortType port_type_;
-  
+
   // udp socket
   std::unique_ptr<UdpSocket> udp_socket_;
-  
-  // store tcp channel reference
-  ara::diag::doip::udpChannel::UdpChannel &channel_;
 };
 
-} // udpSocket
-} // doip
-} // diag
-} // ara
+}  // namespace udpSocket
+}  // namespace doip
+}  // namespace diag
+}  // namespace ara
 
-
-
-#endif // _UDP_SOCKETHANDLER_H_
+#endif  // DIAG_CLIENT_UDP_SOCKET_HANDLER_H

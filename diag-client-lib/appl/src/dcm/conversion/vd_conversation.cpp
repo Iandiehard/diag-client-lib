@@ -18,8 +18,8 @@ namespace conversation {
 
 VdConversation::VdConversation(std::string conversion_name,
                                ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-: conversation_name_{conversion_name} {
-  
+: conversation_name_{conversion_name},
+  broadcast_address_{conversion_identifier.udp_broadcast_address} {
 }
 
 void VdConversation::Startup() {
@@ -43,7 +43,7 @@ VdConversation::SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRe
   vehicle_info::VehicleInfoMessageResponsePtr response{};
 
   if(connection_ptr_->Transmit(std::move(
-        std::make_unique<diag::client::vd_message::VdMessage>(vehicle_info_request)
+        std::make_unique<diag::client::vd_message::VdMessage>(vehicle_info_request, broadcast_address_)
         )) != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
     // Vehicle Identification Request Sent & response received
 

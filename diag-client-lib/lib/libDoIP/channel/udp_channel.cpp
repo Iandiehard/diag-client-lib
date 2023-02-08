@@ -72,7 +72,7 @@ void UdpChannel::HandleMessageUnicast(UdpMessagePtr udp_rx_message) {
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
 UdpChannel::Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) {
-  return udp_channel_handler_.Transmit(message);
+  return udp_channel_handler_.Transmit(std::move(message));
 }
 
 void UdpChannel::WaitForResponse(

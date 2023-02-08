@@ -27,23 +27,23 @@ public:
   // Connect Errors
   enum class ConnectResult : std::uint8_t {
     kConnectSuccess = 0U,
-    kConnectFailed,
-    kConnectTimeout
+    kConnectFailed = 1U,
+    kConnectTimeout = 2U
   };
   
   // Disconnect Errors
   enum class DisconnectResult : std::uint8_t {
     kDisconnectSuccess = 0U,
-    kDisconnectFailed
+    kDisconnectFailed = 1U
   };
   
   // Diagnostics Request Response Error
   enum class DiagResult : std::uint8_t {
     kDiagRequestSendFailed = 0U,
-    kDiagFailed,
-    kDiagAckTimeout,
-    kDiagResponseTimeout,
-    kDiagSuccess
+    kDiagFailed = 1U,
+    kDiagAckTimeout = 2U,
+    kDiagResponseTimeout = 3U,
+    kDiagSuccess = 4U
   };
   
   // ctor
