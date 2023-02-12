@@ -20,7 +20,7 @@ createJsonParser::~createJsonParser() {
 }
 
 // function to get the property tree
-void createJsonParser::getJsonPtree(std::string jsonPath, boostTree &jsontree) {
+void createJsonParser::getJsonPtree(std::string &jsonPath, boostTree &jsontree) {
   boost::property_tree::read_json(jsonPath, jsontree);
 }
 }  // namespace jsonparser

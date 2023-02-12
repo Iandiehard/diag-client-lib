@@ -15,16 +15,15 @@ namespace diag {
 namespace client {
 namespace conversation {
 
-
 VdConversation::VdConversation(std::string conversion_name,
                                ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-: conversation_name_{conversion_name},
-  broadcast_address_{conversion_identifier.udp_broadcast_address} {
+  : conversation_name_{conversion_name},
+    broadcast_address_{conversion_identifier.udp_broadcast_address} {
 }
 
 void VdConversation::Startup() {
   // initialize the connection
-  connection_ptr_->Initialize();
+  (void) connection_ptr_->Initialize();
   // start the connection
   connection_ptr_->Start();
 }
@@ -38,27 +37,32 @@ void VdConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::C
   connection_ptr_ = std::move(connection);
 }
 
-vehicle_info::VehicleInfoMessageResponsePtr
+VdConversation::VehicleIdentificationResponseResult
 VdConversation::SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
-  vehicle_info::VehicleInfoMessageResponsePtr response{};
-
-  if(connection_ptr_->Transmit(std::move(
-        std::make_unique<diag::client::vd_message::VdMessage>(vehicle_info_request, broadcast_address_)
-        )) != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
-    // Vehicle Identification Request Sent & response received
-
-    // Collect the response and create response
-
+  VehicleIdentificationResponseResult ret_val{VehicleResponseResult::kTransmitFailed, nullptr};
+  
+  if (VerifyVehicleInfoRequest(vehicle_info_request)) {
+    if (connection_ptr_->Transmit(std::move(
+      std::make_unique<diag::client::vd_message::VdMessage>
+        (vehicle_info_request, broadcast_address_)
+    )) != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+      // Vehicle Identification Request Sent & response received
+      
+      // Collect the response and create response
+      
+    }
+  } else {
+    ret_val.first = VehicleResponseResult::kInvalidParameters;
   }
-
-  return response;
+  return ret_val;
 }
 
-vehicle_info::VehicleInfoMessageResponsePtr VdConversation::GetDiagnosticServerList() {
-  return diag::client::vehicle_info::VehicleInfoMessageResponsePtr();
+vehicle_info::VehicleInfoMessageResponsePtr
+VdConversation::GetDiagnosticServerList() {
+  return nullptr;
 }
 
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+std::pair<VdConversation::IndicationResult,
   ara::diag::uds_transport::UdsMessagePtr>
 VdConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
                                 ara::diag::uds_transport::UdsMessage::Address target_addr,
@@ -67,22 +71,44 @@ VdConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
                                 ara::diag::uds_transport::Priority priority,
                                 ara::diag::uds_transport::ProtocolKind protocol_kind,
                                 std::vector<uint8_t> payloadInfo) {
-  return std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>();
+  std::pair<IndicationResult,
+    ara::diag::uds_transport::UdsMessagePtr>
+    ret_val{
+    IndicationResult::kIndicationNOk,
+    nullptr};
+  if (!payloadInfo.empty()) {
+    ret_val.first = IndicationResult::kIndicationOk;
+    ret_val.second = std::move(
+      std::make_unique<diag::client::vd_message::VdMessage>()
+    );
+  }
+  return ret_val;
 }
 
 void VdConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+  if (message != nullptr) {
+    
+  }
+}
 
+bool VdConversation::VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request) {
+  return true;
 }
 
 void VdConversation::WaitForResponse(
   std::function<void()> timeout_func,
   std::function<void()> cancel_func,
   int msec) {
-
+  
 }
 
 void VdConversation::WaitCancel() {
 
+}
+
+std::shared_ptr<ara::diag::conversion::ConversionHandler> &
+VdConversation::GetConversationHandler() {
+  return vd_conversion_handler;
 }
 
 VdConversationHandler::VdConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,

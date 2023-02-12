@@ -20,7 +20,7 @@ namespace dcm {
  @ Class Name        : DCM Client
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
  */
-class DCMClient : public diag::client::common::DiagnosticManager {
+class DCMClient final : public diag::client::common::DiagnosticManager {
 public:
   //ctor
   explicit DCMClient(diag::client::common::property_tree &ptree);
@@ -42,7 +42,8 @@ public:
   GetDiagnosticClientConversation(std::string conversation_name) override;
   
   // Send Vehicle Identification Request and get response
-  diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
   

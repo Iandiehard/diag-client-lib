@@ -104,7 +104,7 @@ public:
   // Function to trigger transmission
   auto Transmit(
     ara::diag::uds_transport::UdsMessageConstPtr message)
-      noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+  noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
   
   // process message unicast
   auto HandleMessage(UdpMessagePtr udp_rx_message) noexcept -> void;

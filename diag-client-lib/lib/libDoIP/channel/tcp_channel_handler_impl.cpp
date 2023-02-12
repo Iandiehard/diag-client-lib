@@ -148,18 +148,19 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
     auto client_address = (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) |
                                       (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
     // payload except the address
-    payload_info.resize(doip_payload.payload.size() - 4);
+    payload_info.resize(doip_payload.payload.size() - 4U);
     // copy to application buffer
-    std::copy(doip_payload.payload.begin() + 4, doip_payload.payload.end(), payload_info.begin());
+    (void) std::copy(doip_payload.payload.begin() + 4,
+                     doip_payload.payload.end(), payload_info.begin());
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
       ret_val{tcp_transport_handler_.IndicateMessage(
-      ara::diag::uds_transport::UdsMessage::Address(server_address),
-      ara::diag::uds_transport::UdsMessage::Address(client_address),
+      static_cast<ara::diag::uds_transport::UdsMessage::Address>(server_address),
+      static_cast<ara::diag::uds_transport::UdsMessage::Address>(client_address),
       ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-      0,
-      std::size_t(doip_payload.payload.size() - 4),
-      0,
+      0U,
+      static_cast<std::size_t>(doip_payload.payload.size() - 4U),
+      0U,
       "DoIPTcp",
       payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
@@ -169,7 +170,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
       if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
           (ret_val.second != nullptr)) {
         // copy to application buffer
-        std::copy(payload_info.begin(), payload_info.end(), ret_val.second->GetPayload().begin());
+        (void) std::copy(payload_info.begin(), payload_info.end(), ret_val.second->GetPayload().begin());
         tcp_transport_handler_.HandleMessage(std::move(ret_val.second));
       } else {
         // other errors
@@ -204,8 +205,8 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(
   doip_diag_req->txBuffer_.push_back((uint8_t) ((message->GetTa() & 0xFF00) >> 8));
   doip_diag_req->txBuffer_.push_back((uint8_t) (message->GetTa() & 0x00FF));
   // Add data bytes
-  for (std::size_t i = 0; i < message->GetPayload().size(); i++) {
-    doip_diag_req->txBuffer_.push_back(message->GetPayload().at(i));
+  for (std::uint8_t byte: message->GetPayload()) {
+    doip_diag_req->txBuffer_.push_back(byte);
   }
   // transmit
   if (!(tcp_socket_handler_.Transmit(std::move(doip_diag_req)))) {
@@ -251,9 +252,9 @@ auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept
   if (ProcessDoIPHeader(doip_rx_message, nackCode)) {
     doip_rx_message.payload.resize(tcp_rx_message->rxBuffer_.size() - kDoipheadrSize);
     // copy payload locally
-    std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
-              tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer_.size(),
-              doip_rx_message.payload.begin());
+    (void) std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
+                     tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer_.size(),
+                     doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {
     // send NACK or ignore

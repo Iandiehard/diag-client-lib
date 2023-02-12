@@ -142,7 +142,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
 // Function to transmit tcp messages
 bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
   TcpErrorCodeType ec;
-  bool ret_val {false};
+  bool ret_val{false};
   boost::asio::write(*tcp_socket_.get(),
                      boost::asio::buffer(tcpMessage->txBuffer_, std::size_t(tcpMessage->txBuffer_.size())),
                      ec);

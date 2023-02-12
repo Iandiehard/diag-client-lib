@@ -33,10 +33,6 @@ DiagClientImpl::DiagClientImpl(std::string dm_client_config)
     });
 }
 
-// dtor
-DiagClientImpl::~DiagClientImpl() {
-}
-
 // Initialize all the resources and load the configs
 void DiagClientImpl::Initialize() {
   // start DCM thread here
@@ -64,7 +60,8 @@ DiagClientImpl::GetDiagnosticClientConversation(std::string conversation_name) {
   return (dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
 }
 
-diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+std::pair<diag::client::DiagClient::VehicleResponseResult,
+  diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
 DiagClientImpl::SendVehicleIdentificationRequest(
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   return (dcm_instance_ptr->SendVehicleIdentificationRequest(vehicle_info_request));

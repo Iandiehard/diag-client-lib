@@ -29,8 +29,11 @@ public:
   UdsRequestMessage() = default;
   
   UdsRequestMessage(const UdsRequestMessage &other) = default;
+  
   UdsRequestMessage(UdsRequestMessage &&other) noexcept = default;
+  
   UdsRequestMessage &operator=(const UdsRequestMessage &other) = default;
+  
   UdsRequestMessage &operator=(UdsRequestMessage &&other) noexcept = default;
   
   // Dtor
@@ -60,11 +63,30 @@ namespace vehicle_info {
  * @brief       Struct containing available Vehicle Address Information
  */
 struct VehicleAddrInfoResponse {
-  IpAddress ip_address;
-  std::uint16_t logical_address;
-  std::string vin;
-  std::string eid;
-  std::string gid;
+  /**
+   * @brief       IP address of the vehicle
+   */
+  IpAddress ip_address{};
+  
+  /**
+   * @brief       Logical address of the vehicle
+   */
+  std::uint16_t logical_address{};
+  
+  /**
+   * @brief       VIN of the vehicle
+   */
+  std::string vin{};
+  
+  /**
+   * @brief       Entity Identification of the vehicle
+   */
+  std::string eid{};
+  
+  /**
+   * @brief       Group Identification of the vehicle
+   */
+  std::string gid{};
 };
 
 /**
@@ -88,7 +110,9 @@ struct VehicleAddrInfoRequest {
   std::string preselection_value{};
 };
 
-// Message type for vehicle identification request/ response / announcement
+/**
+ * @brief       VehicleInfoMessage Class for vehicle identification/announcement response
+ */
 class VehicleInfoMessage {
 public:
   using VehicleInfoListResponseType = std::vector<VehicleAddrInfoResponse>;
@@ -99,14 +123,21 @@ public:
   
   // default copy/move constructor/operator
   VehicleInfoMessage(const VehicleInfoMessage &other) = default;
+  
   VehicleInfoMessage(VehicleInfoMessage &&other) noexcept = default;
+  
   VehicleInfoMessage &operator=(const VehicleInfoMessage &other) = default;
+  
   VehicleInfoMessage &operator=(VehicleInfoMessage &&other) noexcept = default;
   
   // dtor
   virtual ~VehicleInfoMessage() = default;
   
-  // Get the list of vehicle available in the network
+  /**
+   * @brief       Function to get the list of vehicle available in the network.
+   * @return      VehicleInfoListResponseType
+   *              Result returned
+   */
   virtual VehicleInfoListResponseType &GetVehicleList() = 0;
 };
 

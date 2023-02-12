@@ -14,6 +14,7 @@
 #include "common_Header.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "include/diagnostic_client_message_type.h"
+#include "include/diagnostic_client.h"
 
 namespace diag {
 namespace client {
@@ -27,6 +28,15 @@ using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyn
  @ Class Description : Class to query Diagnostic Server list
  */
 class VdConversation {
+public:
+  /*
+   * */
+  using VehicleIdentificationResponseResult = std::pair<diag::client::DiagClient::VehicleResponseResult,
+    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>;
+  
+  using IndicationResult = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult;
+private:
+  using VehicleResponseResult = diag::client::DiagClient::VehicleResponseResult;
 public:
   // ctor
   VdConversation(
@@ -46,7 +56,7 @@ public:
   void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
   
   // Send Vehicle Identification Request and get response
-  vehicle_info::VehicleInfoMessageResponsePtr
+  VehicleIdentificationResponseResult
   SendVehicleIdentificationRequest(
     vehicle_info::VehicleInfoListRequestType vehicle_info_request);
   
@@ -55,7 +65,7 @@ public:
   GetDiagnosticServerList();
   
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+  std::pair<IndicationResult,
     ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address source_addr,
@@ -70,18 +80,26 @@ public:
   // Hands over a valid message to conversion
   void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);
   
-  // shared pointer to store the conversion handler
-  std::shared_ptr<ara::diag::conversion::ConversionHandler> vd_conversion_handler;
+  // Get Conversation Handlers
+  std::shared_ptr<ara::diag::conversion::ConversionHandler> &
+  GetConversationHandler();
+
 private:
+  // Function to verify Vehicle Info requests
+  bool VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request);
+  
   // Function to wait for response
   void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
   
   // Function to cancel the synchronous wait
   void WaitCancel();
   
+  // shared pointer to store the conversion handler
+  std::shared_ptr<ara::diag::conversion::ConversionHandler> vd_conversion_handler;
+  
   // conversation name
   std::string conversation_name_;
-
+  
   // Vehicle broadcast address
   std::string broadcast_address_;
   

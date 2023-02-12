@@ -8,35 +8,40 @@
 
 #include <gtest/gtest.h>
 #include <thread>
+#include <string>
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
 #include "doip_handler/doip_udp_handler.h"
 
 namespace doip_client {
 
+// Diag Test Server Udp Ip Address
+const std::string DiagUdpIpAddress{"172.16.25.128"};
+constexpr std::uint16_t DiagUdpPortNum{13400u};
+
 class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
     : diag_client_{diag::client::CreateDiagnosticClient(
-    "/workspace/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")},
-      doip_udp_handler_{"172.16.25.128", 13400u} {
+    "/workspaces/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")},
+      doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
+    // Initialize diag client library
+    diag_client_->Initialize();
   }
   
   ~DoipClientFixture() {
+    // De-initialize diag client library
+    diag_client_->DeInitialize();
     // De-initialize doip test handler
     doip_udp_handler_.DeInitialize();
   }
   
   void SetUp() override {
-    // Initialize diag client library
-    diag_client_->Initialize();
   }
   
   void TearDown() override {
-    // De-initialize diag client library
-    diag_client_->DeInitialize();
   }
   
   // Function to get Diag client library reference

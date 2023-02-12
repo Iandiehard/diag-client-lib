@@ -27,8 +27,8 @@ public:
     int line_no,
     const std::string &func_name,
     Func func) noexcept -> void {
-      
-    if(DLT_IS_LOG_LEVEL_ENABLED(contxt,DLT_LOG_FATAL)) {
+    
+    if (DLT_IS_LOG_LEVEL_ENABLED(contxt, DLT_LOG_FATAL)) {
       std::stringstream msg;
       func(msg);
       msg << " [" << file_name << ": " << line_no << "]";
@@ -112,8 +112,9 @@ public:
   explicit Logger(const std::string &context_id);
   
   Logger(const std::string &app_id, const std::string &context_id);
-
+  
   ~Logger();
+
 private:
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt);

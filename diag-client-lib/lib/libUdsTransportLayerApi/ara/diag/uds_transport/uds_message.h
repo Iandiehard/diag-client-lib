@@ -27,8 +27,8 @@ public:
   using MetaInfoMap = std::map<std::string, std::string>;
   // type of target address in UdsMessage
   enum class TargetAddressType : std::uint8_t {
-    kPhysical = 0,
-    kFunctional = 1
+    kPhysical = 0U,
+    kFunctional = 1U
   };
   
   // ctor

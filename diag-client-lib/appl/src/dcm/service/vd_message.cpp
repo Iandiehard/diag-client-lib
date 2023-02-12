@@ -14,19 +14,27 @@ namespace client {
 namespace vd_message {
 VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request,
                      IpAddress host_ip_address)
-    : ara::diag::uds_transport::UdsMessage(),
-      source_address_{0u},
-      target_address_{0u},
-      host_ip_address_{host_ip_address},
-      vehicle_info_payload_{SerializeVehicleInfoList(vehicle_info_request)} {
+  : ara::diag::uds_transport::UdsMessage(),
+    source_address_{0U},
+    target_address_{0U},
+    target_address_type{TargetAddressType::kPhysical},
+    host_ip_address_{host_ip_address},
+    vehicle_info_payload_{SerializeVehicleInfoList(vehicle_info_request)} {
+}
+
+VdMessage::VdMessage() noexcept
+  : ara::diag::uds_transport::UdsMessage(),
+    source_address_{0U},
+    target_address_{0U},
+    target_address_type{TargetAddressType::kPhysical} {
 }
 
 ara::diag::uds_transport::ByteVector
 VdMessage::SerializeVehicleInfoList(vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
-  ara::diag::uds_transport::ByteVector payload{0u, vehicle_info_request.preselection_mode};
-  std::stringstream  preselection_value{vehicle_info_request.preselection_value};
-
-  for(auto count = 0; count < vehicle_info_request.preselection_value.length(); count++) {
+  ara::diag::uds_transport::ByteVector payload{0U, vehicle_info_request.preselection_mode};
+  std::stringstream preselection_value{vehicle_info_request.preselection_value};
+  
+  for (auto count = 0U; count < vehicle_info_request.preselection_value.length(); count++) {
     std::string each_byte{static_cast<char>(preselection_value.get())};
     payload.emplace_back(std::stoi(each_byte));
   }

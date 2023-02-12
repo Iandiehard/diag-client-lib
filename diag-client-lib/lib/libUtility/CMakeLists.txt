@@ -11,8 +11,14 @@ project(utility)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+include(FetchContent)
+FetchContent_Declare(
+        automotive-dlt
+        URL https://github.com/COVESA/dlt-daemon/archive/refs/tags/v2.18.8.tar.gz
+)
 # find needed packages
-find_package(automotive-dlt REQUIRED)
+# find_package(automotive-dlt REQUIRED)
+FetchContent_MakeAvailable(automotive-dlt)
 
 file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 
@@ -28,9 +34,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 #link target directory
 target_link_libraries(${PROJECT_NAME}
-PRIVATE
-Genivi::dlt
-)
+        PRIVATE
+        Genivi::dlt
+        )
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets

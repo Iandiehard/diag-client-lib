@@ -38,7 +38,7 @@ private:
   
   // store only UDS payload to be sent
   ara::diag::uds_transport::ByteVector &uds_payload;
-
+  
   // add new metaInfo to this message.
   void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
     // Todo [Add meta info information]

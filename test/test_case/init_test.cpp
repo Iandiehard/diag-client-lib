@@ -13,7 +13,7 @@
 
 namespace doip_client {
 
-TEST_F(DoipClientFixture, DISABLED_StartupAndTermination) {
+TEST_F(DoipClientFixture, StartupAndTermination) {
   // Get conversation for tester one
   diag::client::conversation::DiagClientConversation &diag_client_conversation{
     GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
@@ -23,11 +23,9 @@ TEST_F(DoipClientFixture, DISABLED_StartupAndTermination) {
 }
 
 TEST_F(DoipClientFixture, SendVehicleIdentification) {
-
-  std::this_thread::sleep_for(std::chrono::seconds(1));
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
   GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request);
-  std::this_thread::sleep_for(std::chrono::seconds(1));
+  // std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 } // doip_client

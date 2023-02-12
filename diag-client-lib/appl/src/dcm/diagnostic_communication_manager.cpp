@@ -118,7 +118,8 @@ DCMClient::GetConversationConfig(diag::client::common::property_tree &ptree) {
   return config;
 }
 
-diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+std::pair<diag::client::DiagClient::VehicleResponseResult,
+  diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
 DCMClient::SendVehicleIdentificationRequest(
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   return diag_client_vehicle_discovery_conversation->SendVehicleIdentificationRequest(vehicle_info_request);

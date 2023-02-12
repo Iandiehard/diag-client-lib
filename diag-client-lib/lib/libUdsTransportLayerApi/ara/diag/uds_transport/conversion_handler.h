@@ -28,7 +28,7 @@ public:
   // dtor
   ~ConversionHandler() = default;
   
-  // Indicate message Diagnostic message reception over TCP to user
+  // Indicate message Diagnostic message reception over TCP/UDP to user
   virtual std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
     ara::diag::uds_transport::UdsMessagePtr>
   IndicateMessage(

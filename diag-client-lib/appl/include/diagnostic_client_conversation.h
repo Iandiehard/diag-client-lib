@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/** @file create_diagnostic_client.h
- *  @brief Header file for diagnostic client conversation
+/** @file diagnostic_client_conversation.h
+ *  @brief Header file of diagnostic client conversation
  *  @author Avijit Dey
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
@@ -20,7 +20,7 @@ namespace client {
 namespace conversation {
 
 /**
- * @brief 
+ * @brief   Conversation class to establish connection with a Diagnostic Server
  */
 class DiagClientConversation {
 public:
@@ -53,13 +53,13 @@ public:
   virtual ~DiagClientConversation() = default;
   
   /**
-   * @brief      Function to start the Diagnostic Client Conversation
+   * @brief      Function to startup the Diagnostic Client Conversation
    * @return     void
    */
   virtual void Startup() = 0;
   
   /**
-   * @brief      Function to shut down the Diagnostic Client Conversation
+   * @brief      Function to shutdown the Diagnostic Client Conversation
    * @return     void
    */
   virtual void Shutdown() = 0;

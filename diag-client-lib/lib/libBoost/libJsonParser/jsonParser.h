@@ -29,7 +29,7 @@ public:
   ~createJsonParser();
   
   // function to get the property tree
-  void getJsonPtree(std::string jsonPath, boostTree &jsontree);
+  void getJsonPtree(std::string &jsonPath, boostTree &jsontree);
 };
 }  // namespace jsonparser
 }  // namespace libBoost

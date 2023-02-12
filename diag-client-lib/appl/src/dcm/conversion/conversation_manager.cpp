@@ -59,7 +59,7 @@ ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string
     // Register the connection
     vd_conversation->RegisterConnection(
       uds_transport_mgr_e.doip_transport_handler->FindOrCreateUdpConnection(
-        vd_conversation->vd_conversion_handler,
+        vd_conversation->GetConversationHandler(),
         it->second.udp_address,
         it->second.port_num));
   }
@@ -73,14 +73,14 @@ void ConversationManager::CreateConversationConfig(
     ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier;
     conversion_identifier.udp_address = config.udp_ip_address;
     conversion_identifier.udp_broadcast_address = config.udp_broadcast_address;
-    vd_conversation_config_.insert(
+    (void) vd_conversation_config_.insert(
       std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>(
         "VehicleDiscovery",
         conversion_identifier));
   }
-
+  
   { // Conversation config
-    for (uint8_t conv_count = 0; conv_count < config.num_of_conversation; conv_count++) {
+    for (uint8_t conv_count = 0U; conv_count < config.num_of_conversation; conv_count++) {
       ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier;
       conversion_identifier.tx_buffer_size = config.conversations[conv_count].txBufferSize;
       conversion_identifier.rx_buffer_size = config.conversations[conv_count].rxBufferSize;
@@ -91,7 +91,7 @@ void ConversationManager::CreateConversationConfig(
       conversion_identifier.tcp_address = config.conversations[conv_count].network.tcpIpAddress;
       conversion_identifier.port_num = config.conversations[conv_count].network.portNum;
       // push to config map
-      conversation_config_.insert(
+      (void) conversation_config_.insert(
         std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>(
           config.conversations[conv_count].conversationName,
           conversion_identifier));

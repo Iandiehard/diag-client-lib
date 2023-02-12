@@ -35,17 +35,19 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
         .GetActiveState()
         .GetState() == UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
     // Deserialize data to indicate to upper layer
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult,
+      ara::diag::uds_transport::UdsMessagePtr>
       ret_val{udp_transport_handler_.IndicateMessage(
-      ara::diag::uds_transport::UdsMessage::Address(0U),
-      ara::diag::uds_transport::UdsMessage::Address(0U),
+      static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
+      static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
       ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
       0U,
-      std::size_t(doip_payload.payload.size()),
+      static_cast<std::size_t>(doip_payload.payload.size()),
       0U,
       "DoIPUdp",
       doip_payload.payload)};
-    if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
+    if ((ret_val.first ==
+         uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
       uds_transport::UdsMessage::MetaInfoMap meta_info_map{
@@ -53,8 +55,8 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
       ret_val.second->AddMetaInfo(std::move(
         std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map)));
       // copy to application buffer
-      std::copy(doip_payload.payload.begin(), doip_payload.payload.end(),
-                ret_val.second->GetPayload().begin());
+      (void) std::copy(doip_payload.payload.begin(), doip_payload.payload.end(),
+                       ret_val.second->GetPayload().begin());
       udp_transport_handler_.HandleMessage(std::move(ret_val.second));
     }
   } else {
@@ -166,7 +168,7 @@ auto UdpChannelHandlerImpl::Transmit(
     ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   // deserialize and send to proper handler
   switch (message->GetPayload()[BYTE_POS_ZERO]) {
-    case 0U: 
+    case 0U:
       // 0U -> Vehicle Identification Req
       ret_val = vehicle_identification_handler_.SendVehicleIdentificationRequest(std::move(message));
       break;
@@ -190,9 +192,9 @@ auto UdpChannelHandlerImpl::HandleMessage(
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
     // copy payload locally
-    std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
-              udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
-              doip_rx_message.payload.begin());
+    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
+                     udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
+                     doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {
     // send NACK or ignore
@@ -213,9 +215,9 @@ auto UdpChannelHandlerImpl::HandleMessageBroadcast(
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
     // copy payload locally
-    std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
-              udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
-              doip_rx_message.payload.begin());
+    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
+                     udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
+                     doip_rx_message.payload.begin());
     vehicle_discovery_handler_.ProcessVehicleAnnouncementResponse(doip_rx_message);
   } else {
     // send NACK or ignore

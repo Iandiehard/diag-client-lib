@@ -31,7 +31,7 @@ class DiagClient;
  */
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
   const std::string &diag_client_config_path);
-
+  
 }  // namespace client
 }  // namespace diag
 

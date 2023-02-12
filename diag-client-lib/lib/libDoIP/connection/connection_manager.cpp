@@ -112,7 +112,7 @@ DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<ara::diag::conversion
 // Initialize
 InitializationResult DoipUdpConnection::Initialize() {
   (void) udp_transport_handler_->Initialize();
-  return (InitializationResult::kInitializeOk);
+  return InitializationResult::kInitializeOk;
 }
 
 // Start the Tp Handlers

@@ -10,6 +10,7 @@
 /* includes */
 #include "common_Header.h"
 #include "include/diagnostic_client_message_type.h"
+#include "include/diagnostic_client.h"
 #include "libJsonParser/jsonParser.h"
 
 namespace diag {
@@ -19,11 +20,6 @@ namespace conversation {
 class DiagClientConversation;
 }
 
-/*
-namespace vehicle_info {
-  class VehicleInfoMessageResponsePtr;
-  class VehicleInfoListRequestType;
-}*/
 namespace common {
 using property_tree = libOsAbstraction::libBoost::jsonparser::boostTree;
 
@@ -60,7 +56,8 @@ public:
   GetDiagnosticClientConversation(std::string conversation_name) = 0;
   
   // Send Vehicle Identification Request and get response
-  virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
+    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
   

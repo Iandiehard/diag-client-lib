@@ -55,8 +55,8 @@ constexpr uint8_t kDoip_RoutingActivation_ResMinLen = 9;   //without OEM specifi
 constexpr uint8_t kDoip_RoutingActivation_ReqMaxLen = 11;  //with OEM specific use byte
 constexpr uint8_t kDoip_RoutingActivation_ResMaxLen = 13;  //with OEM specific use byte
 //constexpr uint8_t kDoipALIVE_CHECK_RES_LEN							1
-constexpr uint8_t kDoip_DiagMessage_ReqResMinLen = 4;  // considering SA and TA
-constexpr uint8_t kDoip_DiagMessageAck_ResMinLen = 5;  // considering SA, TA, Ack code
+constexpr uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
+constexpr uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
 /* Generic DoIP Header NACK codes */
 constexpr uint8_t kDoip_GenericHeader_IncorrectPattern = 0x00;
 constexpr uint8_t kDoip_GenericHeader_UnknownPayload = 0x01;
@@ -101,19 +101,19 @@ constexpr uint8_t kDoip_GID_Invalid_00 = 0x00;
 /* DoIP timing and communication parameter (in millisecond) */
 /* Description: This is used to configure the
                 timeout value for a DoIP Routing Activation request */
-constexpr uint32_t kDoIPRoutingActivationTimeout = 1000;  // 1 sec
+constexpr uint32_t kDoIPRoutingActivationTimeout = 1000U;  // 1 sec
 /* Description: This timeout specifies the maximum time that
                 the test equipment waits for a confirmation ACK or NACK
                 from the DoIP entity after the last byte of a DoIP Diagnostic
                 request message has been sent
 */
-constexpr uint32_t kDoIPDiagnosticAckTimeout = 2000;  // 2 sec
+constexpr uint32_t kDoIPDiagnosticAckTimeout = 2000U;  // 2 sec
 /* Description: This timeout specifies the maximum time that the
                 client waits for response to a previously sent UDP message.
                 This includes max time to wait and collect multiple responses
                 to previous broadcast(UDP only)
  * */
-constexpr uint32_t kDoIPCtrl = 2000;  // 2 sec
+constexpr uint32_t kDoIPCtrl = 2000U;  // 2 sec
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara

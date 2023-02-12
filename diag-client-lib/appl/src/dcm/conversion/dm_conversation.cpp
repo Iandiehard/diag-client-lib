@@ -138,11 +138,11 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
     ara::diag::uds_transport::ByteVector payload{message->GetPayload()};
     // Initiate Send
     if (connection_ptr_->Transmit(std::move(
-          std::make_unique<diag::client::uds_message::DmUdsMessage>(
-          source_address_,
-          target_address_,
-          message->GetHostIpAddress(),
-          payload))) != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+      std::make_unique<diag::client::uds_message::DmUdsMessage>(
+        source_address_,
+        target_address_,
+        message->GetHostIpAddress(),
+        payload))) != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
@@ -291,11 +291,11 @@ DmConversation::IndicateMessage(
     ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk,
     nullptr};
   // Verify the payload received :-
-  if (payloadInfo.size() != 0) {
+  if (!payloadInfo.empty()) {
     // Check for size, else kIndicationOverflow
     if (size <= rx_buffer_size_) {
       // Check for pending response
-      if (payloadInfo[2] == 0x78) {
+      if (payloadInfo[2U] == 0x78U) {
         DLT_LOG(dm_conversion, DLT_LOG_INFO,
                 DLT_CSTRING("'"),
                 DLT_CSTRING(conversation_name_.c_str()),

@@ -20,13 +20,13 @@
 
 namespace diag {
 namespace client {
-class DiagClientImpl : public diag::client::DiagClient {
+class DiagClientImpl final : public diag::client::DiagClient {
 public:
   // ctor
   explicit DiagClientImpl(std::string dm_client_config);
   
   // dtor
-  ~DiagClientImpl();
+  ~DiagClientImpl() = default;
   
   // Initialize
   void Initialize() override;
@@ -39,7 +39,8 @@ public:
   GetDiagnosticClientConversation(std::string conversation_name) override;
   
   // Send Vehicle Identification Request and get response
-  diag::client::vehicle_info::VehicleInfoMessageResponsePtr
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
   
@@ -54,8 +55,6 @@ private:
   std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
   // thread to hold dcm client instance
   std::thread dcm_thread_;
-  // Declare dlt logging context
-  DLT_DECLARE_CONTEXT(diagclient_main);
 };
 }  // namespace client
 }  // namespace diag
