@@ -21,11 +21,7 @@ namespace udpChannelStateImpl {
 using namespace libUtility::state;
 using namespace ara::diag::uds_transport;
 // Vehicle discovery state
-enum class VehicleDiscoveryState : std::uint8_t {
-  kVdIdle = 0U,
-  kWaitForVehicleAnnouncement,
-  kVdDoIPCtrlTimeout
-};
+enum class VehicleDiscoveryState : std::uint8_t { kVdIdle = 0U, kWaitForVehicleAnnouncement, kVdDoIPCtrlTimeout };
 // Vehicle Identification state
 enum class VehicleIdentificationState : std::uint8_t {
   kViIdle = 0U,
@@ -38,13 +34,13 @@ class UdpChannelStateImpl {
 public:
   // ctor
   UdpChannelStateImpl();
-  
+
   // dtor
   ~UdpChannelStateImpl() = default;
-  
+
   // Function to get Vehicle Discovery State context
   auto GetVehicleDiscoveryStateContext() noexcept -> StateContext<VehicleDiscoveryState> &;
-  
+
   // Function to get Vehicle Identification State context
   auto GetVehicleIdentificationStateContext() noexcept -> StateContext<VehicleIdentificationState> &;
 
@@ -59,16 +55,16 @@ class kVdIdle final : public State<VehicleDiscoveryState> {
 public:
   // ctor
   explicit kVdIdle(VehicleDiscoveryState state);
-  
+
   // dtor
   ~kVdIdle() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -77,16 +73,16 @@ class kWaitForVehicleAnnouncement final : public State<VehicleDiscoveryState> {
 public:
   // ctor
   explicit kWaitForVehicleAnnouncement(VehicleDiscoveryState state);
-  
+
   // dtor
   ~kWaitForVehicleAnnouncement() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -95,16 +91,16 @@ class kVdDoIPCtrlTimeout final : public State<VehicleDiscoveryState> {
 public:
   // ctor
   explicit kVdDoIPCtrlTimeout(VehicleDiscoveryState state);
-  
+
   // dtor
   ~kVdDoIPCtrlTimeout() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -113,16 +109,16 @@ class kViIdle final : public State<VehicleIdentificationState> {
 public:
   // ctor
   explicit kViIdle(VehicleIdentificationState state);
-  
+
   // dtor
   ~kViIdle() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -131,16 +127,16 @@ class kViSendVehicleIdentificationReq final : public State<VehicleIdentification
 public:
   // ctor
   explicit kViSendVehicleIdentificationReq(VehicleIdentificationState state);
-  
+
   // dtor
   ~kViSendVehicleIdentificationReq() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -149,16 +145,16 @@ class kViWaitForVehicleIdentificationRes final : public State<VehicleIdentificat
 public:
   // ctor
   explicit kViWaitForVehicleIdentificationRes(VehicleIdentificationState state);
-  
+
   // dtor
   ~kViWaitForVehicleIdentificationRes() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -167,16 +163,16 @@ class kViDoIPCtrlTimeout final : public State<VehicleIdentificationState> {
 public:
   // ctor
   explicit kViDoIPCtrlTimeout(VehicleIdentificationState state);
-  
+
   // dtor
   ~kViDoIPCtrlTimeout() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };

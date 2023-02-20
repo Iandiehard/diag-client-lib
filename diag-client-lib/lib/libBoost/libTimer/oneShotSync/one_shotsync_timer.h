@@ -12,7 +12,6 @@
 
 #include "common_Header.h"
 
-namespace libOsAbstraction {
 namespace libBoost {
 namespace libTimer {
 namespace oneShot {
@@ -25,21 +24,17 @@ using msTime = boost::asio::chrono::milliseconds;
 class oneShotSyncTimer {
 public:
   // timer state
-  enum class timer_state : std::uint8_t {
-    kIdle = 0,
-    kCancelRequested,
-    kTimeout
-  };
-  
+  enum class timer_state : std::uint8_t { kIdle = 0, kCancelRequested, kTimeout };
+
   //ctor
   oneShotSyncTimer();
-  
+
   //dtor
   virtual ~oneShotSyncTimer();
-  
+
   // Start timer
   auto Start(int msec) noexcept -> timer_state;
-  
+
   // Stop Timer
   auto Stop() noexcept -> void;
 
@@ -52,11 +47,8 @@ private:
   timer_state timer_state_;
   // error
   boost::system::error_code error_;
-  // Declare dlt logging context
-  DLT_DECLARE_CONTEXT(oneshotsync_timer_ctx);
 };
 }  // namespace oneShot
 }  // namespace libTimer
 }  // namespace libBoost
-}  // namespace libOsAbstraction
 #endif  // ONESHOTSYNCTIMER_H

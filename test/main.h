@@ -17,13 +17,17 @@ namespace doip_client {
 
 // Diag Test Server Udp Ip Address
 const std::string DiagUdpIpAddress{"172.16.25.128"};
+
+// Port number
 constexpr std::uint16_t DiagUdpPortNum{13400u};
+
+// Path to json file
+const std::string DiagClientJsonPath{"/workspaces/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json"};
 
 class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
-    : diag_client_{diag::client::CreateDiagnosticClient(
-    "/workspaces/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json")},
+    : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
       doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
     // Initialize doip test handler
     doip_udp_handler_.Initialize();

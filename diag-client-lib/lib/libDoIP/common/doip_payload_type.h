@@ -14,25 +14,22 @@
 
 class DoipMessage {
 public:
-  enum class rx_socket_type : std::uint8_t {
-    kBroadcast,
-    kUnicast
-  };
+  enum class rx_socket_type : std::uint8_t { kBroadcast, kUnicast };
   // ip address type
   using IpAddressType = std::string;
 
 public:
   // ctor
   DoipMessage() = default;
-  
+
   DoipMessage(const DoipMessage &other) = default;
-  
+
   DoipMessage(DoipMessage &&other) noexcept = default;
-  
+
   DoipMessage &operator=(const DoipMessage &other) = default;
-  
+
   DoipMessage &operator=(DoipMessage &&other) noexcept = default;
-  
+
   // rx type -> broadcast, unicast
   rx_socket_type rx_socket{rx_socket_type::kUnicast};
   // remote ip address;

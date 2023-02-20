@@ -8,7 +8,6 @@
 #ifndef COMMON_HEADER_H
 #define COMMON_HEADER_H
 // includes
-#include <dlt/dlt.h>
 
 #include <algorithm>
 #include <array>
@@ -38,9 +37,5 @@ constexpr uint8_t BYTE_POS_FIVE = 0x05;
 constexpr uint8_t BYTE_POS_SIX = 0x06;
 constexpr uint8_t BYTE_POS_SEVEN = 0x07;
 
-typedef enum {
-  E_OK = 0x00,
-  E_NOT_OK,
-  E_BUSY
-} Std_ReturnType;
+typedef enum { E_OK = 0x00, E_NOT_OK, E_BUSY } Std_ReturnType;
 #endif  // COMMON_HEADER_H

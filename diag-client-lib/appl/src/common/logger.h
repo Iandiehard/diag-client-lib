@@ -17,18 +17,16 @@ using Logger = libUtility::logger::Logger;
 
 class DiagClientLogger {
 public:
-  auto static GetDiagClientLogger() noexcept -> DiagClientLogger & {
+  auto static GetDiagClientLogger() noexcept -> DiagClientLogger& {
     static DiagClientLogger diag_client_logger_;
     return diag_client_logger_;
   }
-  
-  auto GetLogger() noexcept -> Logger & {
-    return logger_;
-  }
+
+  auto GetLogger() noexcept -> Logger& { return logger_; }
 
 private:
   DiagClientLogger() = default;
-  
+
   // actual logger context
   Logger logger_{"DCLT", "main"};
 };

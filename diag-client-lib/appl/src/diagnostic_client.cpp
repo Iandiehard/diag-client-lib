@@ -11,8 +11,7 @@
 
 namespace diag {
 namespace client {
-std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
-  const std::string &diag_client_config_path) {
+std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(const std::string &diag_client_config_path) {
   return (std::make_unique<diag::client::DiagClientImpl>(diag_client_config_path));
 }
 }  // namespace client

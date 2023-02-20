@@ -9,7 +9,6 @@
 
 namespace ara {
 namespace diag {
-namespace common {
-}  // namespace common
+namespace common {}  // namespace common
 }  // namespace diag
 }  // namespace ara

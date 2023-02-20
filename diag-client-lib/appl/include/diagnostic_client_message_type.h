@@ -16,35 +16,35 @@
 namespace diag {
 namespace client {
 
-// Ip address
 using IpAddress = std::string;
-// Vector of uint8 type
-using ByteVector = std::vector<std::uint8_t>;
 
 namespace uds_message {
 
 class UdsRequestMessage {
 public:
+  using ByteVector = std::vector<std::uint8_t>;
+
+public:
   // ctor
   UdsRequestMessage() = default;
-  
+
   UdsRequestMessage(const UdsRequestMessage &other) = default;
-  
+
   UdsRequestMessage(UdsRequestMessage &&other) noexcept = default;
-  
+
   UdsRequestMessage &operator=(const UdsRequestMessage &other) = default;
-  
+
   UdsRequestMessage &operator=(UdsRequestMessage &&other) noexcept = default;
-  
+
   // Dtor
   virtual ~UdsRequestMessage() = default;
-  
+
   // Get the UDS message data starting with the SID (A_Data as per ISO)
   virtual const ByteVector &GetPayload() const = 0;
-  
+
   // Return the underlying buffer for write access
   virtual ByteVector &GetPayload() = 0;
-  
+
   // Get Host Ip address
   virtual IpAddress GetHostIpAddress() const noexcept = 0;
 };
@@ -60,29 +60,29 @@ using UdsResponseMessagePtr = std::unique_ptr<UdsRequestMessage>;
 namespace vehicle_info {
 
 /**
- * @brief       Struct containing available Vehicle Address Information
+ * @brief       Structure containing available Vehicle Address Information
  */
 struct VehicleAddrInfoResponse {
   /**
    * @brief       IP address of the vehicle
    */
-  IpAddress ip_address{};
-  
+  std::string ip_address{};
+
   /**
    * @brief       Logical address of the vehicle
    */
   std::uint16_t logical_address{};
-  
+
   /**
    * @brief       VIN of the vehicle
    */
   std::string vin{};
-  
+
   /**
    * @brief       Entity Identification of the vehicle
    */
   std::string eid{};
-  
+
   /**
    * @brief       Group Identification of the vehicle
    */
@@ -100,7 +100,7 @@ struct VehicleAddrInfoRequest {
    *            2U : DoIP Entities with given EID
    */
   std::uint8_t preselection_mode{0U};
-  
+
   /**
    * @brief     Value to be used based on preselection mode.
    *            VIN when preselection_mode = 1U
@@ -115,24 +115,17 @@ struct VehicleAddrInfoRequest {
  */
 class VehicleInfoMessage {
 public:
+  /**
+   * @brief       Alias to collection of Vehicle info response
+   */
   using VehicleInfoListResponseType = std::vector<VehicleAddrInfoResponse>;
 
 public:
-  // ctor
-  VehicleInfoMessage() = default;
-  
-  // default copy/move constructor/operator
-  VehicleInfoMessage(const VehicleInfoMessage &other) = default;
-  
-  VehicleInfoMessage(VehicleInfoMessage &&other) noexcept = default;
-  
-  VehicleInfoMessage &operator=(const VehicleInfoMessage &other) = default;
-  
-  VehicleInfoMessage &operator=(VehicleInfoMessage &&other) noexcept = default;
-  
-  // dtor
+  /**
+   * @brief       Destructor
+   */
   virtual ~VehicleInfoMessage() = default;
-  
+
   /**
    * @brief       Function to get the list of vehicle available in the network.
    * @return      VehicleInfoListResponseType
@@ -141,13 +134,17 @@ public:
   virtual VehicleInfoListResponseType &GetVehicleList() = 0;
 };
 
-// This is the Request Message Type
+/**
+ * @brief       The Request Message Type
+ */
 using VehicleInfoListRequestType = VehicleAddrInfoRequest;
-// This is the unique_ptr for Response Message
+
+/**
+ * @brief       The unique_ptr for Response Message
+ */
 using VehicleInfoMessageResponsePtr = std::unique_ptr<VehicleInfoMessage>;
 
 }  // namespace vehicle_info
-
 }  // namespace client
 }  // namespace diag
 

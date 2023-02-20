@@ -28,8 +28,8 @@ class UdpTransportHandler;
 namespace udpChannel {
 //typedefs
 using UdpMessagePtr = ara::diag::doip::udpSocket::UdpMessagePtr;
-using SyncTimer = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer;
-using SyncTimerState = libOsAbstraction::libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+using SyncTimer = libBoost::libTimer::oneShot::oneShotSyncTimer;
+using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
 using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
 
 /*
@@ -39,46 +39,40 @@ using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
 class UdpChannel {
 public:
   //ctor
-  UdpChannel(
-    kDoip_String &local_ip_address,
-    uint16_t port_num,
-    ara::diag::doip::udpTransport::UdpTransportHandler &udp_transport_handler);
-  
+  UdpChannel(kDoip_String &local_ip_address, uint16_t port_num,
+             ara::diag::doip::udpTransport::UdpTransportHandler &udp_transport_handler);
+
   //dtor
   ~UdpChannel() = default;
-  
+
   // Initialize
   ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
-  
+
   //Start
   void Start();
-  
+
   // Stop
   void Stop();
-  
+
   // function to handle read broadcast
   void HandleMessageBroadcast(UdpMessagePtr udp_rx_message);
-  
+
   // function to handle read unicast
   void HandleMessageUnicast(UdpMessagePtr udp_rx_message);
-  
+
   // Function to trigger transmission of vehicle identification request
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult
-  Transmit(ara::diag::uds_transport::UdsMessageConstPtr message);
-  
+  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      ara::diag::uds_transport::UdsMessageConstPtr message);
+
   // Function to get the channel context
-  auto GetChannelState() noexcept -> udpChannelStateImpl::UdpChannelStateImpl & {
-    return udp_channel_state_;
-  }
-  
+  auto GetChannelState() noexcept -> udpChannelStateImpl::UdpChannelStateImpl & { return udp_channel_state_; }
+
   // Function to add job to executor
   auto SendVehicleInformationToUser() noexcept -> void;
-  
+
   // Function to wait for response
-  void WaitForResponse(std::function<void()> timeout_func,
-                       std::function<void()> cancel_func,
-                       int msec);
-  
+  void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+
   // Function to cancel the synchronous wait
   void WaitCancel();
 
@@ -97,8 +91,6 @@ private:
   TaskExecutor task_executor_;
   // sync timer
   SyncTimer sync_timer_;
-  // Declare dlt logging context
-  DLT_DECLARE_CONTEXT(doip_udp_channel);
 };
 }  // namespace udpChannel
 }  // namespace doip

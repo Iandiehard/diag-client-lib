@@ -26,43 +26,38 @@ using kDoip_String = std::string;
 
 class UdsTransportProtocolHandler {
 public:
-  enum class InitializationResult : std::uint8_t {
-    kInitializeOk = 0,
-    kInitializeFailed = 1
-  };
-  
+  enum class InitializationResult : std::uint8_t { kInitializeOk = 0, kInitializeFailed = 1 };
+
   //ctor
   inline UdsTransportProtocolHandler(const UdsTransportProtocolHandlerID handler_id,
                                      UdsTransportProtocolMgr &transport_protocol_mgr)
-    : handler_id_(handler_id),
-      transport_protocol_mgr_(transport_protocol_mgr) {}
-  
+      : handler_id_(handler_id),
+        transport_protocol_mgr_(transport_protocol_mgr) {}
+
   //dtor
   virtual ~UdsTransportProtocolHandler() = default;
-  
+
   // Return the UdsTransportProtocolHandlerID
   inline virtual UdsTransportProtocolHandlerID GetHandlerID() const { return handler_id_; };
-  
+
   // Initialize
   virtual InitializationResult Initialize() = 0;
-  
+
   // Start processing the implemented Uds Transport Protocol
   virtual void Start() = 0;
-  
+
   // Method to indicate that this UdsTransportProtocolHandler should terminate
   virtual void Stop() = 0;
-  
+
   // Get or Create connection a Tcp Connection
   virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
-    kDoip_String &tcpIpaddress,
-    uint16_t portNum) = 0;
-  
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler, kDoip_String &tcpIpaddress,
+      uint16_t portNum) = 0;
+
   // Get or Create connection a Udp Connection
   virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateUdpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
-    kDoip_String &udpIpaddress,
-    uint16_t portNum) = 0;
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler, kDoip_String &udpIpaddress,
+      uint16_t portNum) = 0;
 
 protected:
   UdsTransportProtocolHandlerID handler_id_;

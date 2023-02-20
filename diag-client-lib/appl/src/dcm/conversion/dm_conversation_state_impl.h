@@ -29,10 +29,10 @@ class ConversationStateImpl {
 public:
   // ctor
   ConversationStateImpl();
-  
+
   // dtor
   ~ConversationStateImpl() = default;
-  
+
   // Function to get the Conversation State context
   auto GetConversationStateContext() noexcept -> StateContext<ConversationState> &;
 
@@ -45,16 +45,16 @@ class kIdle final : public State<ConversationState> {
 public:
   // ctor
   kIdle(ConversationState state);
-  
+
   // dtor
   ~kIdle() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -63,16 +63,16 @@ class kDiagWaitForRes final : public State<ConversationState> {
 public:
   // ctor
   kDiagWaitForRes(ConversationState state);
-  
+
   // dtor
   ~kDiagWaitForRes() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -81,16 +81,16 @@ class kDiagStartP2StarTimer final : public State<ConversationState> {
 public:
   // ctor
   kDiagStartP2StarTimer(ConversationState state);
-  
+
   // dtor
   ~kDiagStartP2StarTimer() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -99,16 +99,16 @@ class kDiagRecvdPendingRes final : public State<ConversationState> {
 public:
   // ctor
   kDiagRecvdPendingRes(ConversationState state);
-  
+
   // dtor
   ~kDiagRecvdPendingRes() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -117,16 +117,16 @@ class kDiagRecvdFinalRes final : public State<ConversationState> {
 public:
   // ctor
   kDiagRecvdFinalRes(ConversationState state);
-  
+
   // dtor
   ~kDiagRecvdFinalRes() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
@@ -135,16 +135,16 @@ class kDiagSuccess final : public State<ConversationState> {
 public:
   // ctor
   kDiagSuccess(ConversationState state);
-  
+
   // dtor
   ~kDiagSuccess() = default;
-  
+
   // start the state
   void Start() override;
-  
+
   // Stop the state
   void Stop() override;
-  
+
   // Handle invoked asynchronously
   void HandleMessage() override;
 };

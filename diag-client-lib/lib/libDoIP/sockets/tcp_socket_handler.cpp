@@ -20,41 +20,31 @@ namespace tcpSocket {
                        and reception of tcp message from driver                              
  */
 //ctor
-TcpSocketHandler::TcpSocketHandler(
-  kDoip_String &localIpaddress,
-  ara::diag::doip::tcpChannel::tcpChannel &channel)
-  : local_ip_address_{localIpaddress},
-    local_port_num_{0U},
-    channel_{channel} {
+TcpSocketHandler::TcpSocketHandler(kDoip_String &localIpaddress, ara::diag::doip::tcpChannel::tcpChannel &channel)
+    : local_ip_address_{localIpaddress},
+      local_port_num_{0U},
+      channel_{channel} {
   //create socket
-  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_,
-                                           [&](TcpMessagePtr tcpMessage) {
-                                             channel_.HandleMessage(std::move(tcpMessage));
-                                           });
+  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [&](TcpMessagePtr tcpMessage) {
+    channel_.HandleMessage(std::move(tcpMessage));
+  });
 }
 
-void TcpSocketHandler::Start() {
-}
+void TcpSocketHandler::Start() {}
 
-void TcpSocketHandler::Stop() {
-}
+void TcpSocketHandler::Stop() {}
 
 // Connect to host
-bool TcpSocketHandler::ConnectToHost(kDoip_String host_ip_address,
-                                     uint16_t host_port_num) {
+bool TcpSocketHandler::ConnectToHost(kDoip_String host_ip_address, uint16_t host_port_num) {
   bool ret_val = false;
-  if (tcpSocket_->Open()) {
-    ret_val = tcpSocket_->ConnectToHost(host_ip_address, host_port_num);
-  }
+  if (tcpSocket_->Open()) { ret_val = tcpSocket_->ConnectToHost(host_ip_address, host_port_num); }
   return ret_val;
 }
 
 // Disconnect from host
 bool TcpSocketHandler::DisconnectFromHost() {
   bool ret_val = false;
-  if (tcpSocket_->DisconnectFromHost()) {
-    ret_val = tcpSocket_->Destroy();
-  }
+  if (tcpSocket_->DisconnectFromHost()) { ret_val = tcpSocket_->Destroy(); }
   return ret_val;
 }
 

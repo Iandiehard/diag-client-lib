@@ -9,8 +9,8 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 /* includes */
 #include "common_Header.h"
-#include "include/diagnostic_client_message_type.h"
 #include "include/diagnostic_client.h"
+#include "include/diagnostic_client_message_type.h"
 #include "libJsonParser/jsonParser.h"
 
 namespace diag {
@@ -31,39 +31,37 @@ class DiagnosticManager {
 public:
   //ctor
   explicit DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-    property_tree &ptree);
-  
+                             property_tree &ptree);
+
   // dtor
   virtual ~DiagnosticManager();
-  
+
   // main function
   virtual void Main();
-  
+
   // signal shutdown
   virtual void SignalShutdown();
-  
+
   // Initialize
   virtual void Initialize() = 0;
-  
+
   // Run
   virtual void Run() = 0;
-  
+
   // Shutdown
   virtual void Shutdown() = 0;
-  
+
   // Function to get the diagnostic client conversation
-  virtual diag::client::conversation::DiagClientConversation &
-  GetDiagnosticClientConversation(std::string conversation_name) = 0;
-  
+  virtual diag::client::conversation::DiagClientConversation &GetDiagnosticClientConversation(
+      std::string conversation_name) = 0;
+
   // Send Vehicle Identification Request and get response
   virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
-    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
-  SendVehicleIdentificationRequest(
-    diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
-  
+                    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
+
   // Get the list of available Diagnostic Server
-  virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr
-  GetDiagnosticServerList() = 0;
+  virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() = 0;
 
 protected:
   // store the json tree
@@ -71,11 +69,11 @@ protected:
 
 private:
   // flag to terminate the main thread
-  std::atomic_bool exit_requested;
+  bool exit_requested_;
   // conditional variable to block the thread
   std::condition_variable cond_var;
   // For locking critical section of code
-  std::mutex _mutex_lock;
+  std::mutex mutex_;
 };
 }  // namespace common
 }  // namespace client

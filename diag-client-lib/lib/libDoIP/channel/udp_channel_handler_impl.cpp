@@ -14,49 +14,32 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace udpChannelHandlerImpl {
-auto VehicleDiscoveryHandler::ProcessVehicleAnnouncementResponse(
-  DoipMessage &doip_payload) noexcept -> void {
-  if (channel_
-        .GetChannelState()
-        .GetVehicleDiscoveryStateContext()
-        .GetActiveState()
-        .GetState() == UdpVehicleDiscoveryState::kWaitForVehicleAnnouncement) {
+auto VehicleDiscoveryHandler::ProcessVehicleAnnouncementResponse(DoipMessage &doip_payload) noexcept -> void {
+  if (channel_.GetChannelState().GetVehicleDiscoveryStateContext().GetActiveState().GetState() ==
+      UdpVehicleDiscoveryState::kWaitForVehicleAnnouncement) {
     // Deserialize and Add to job executor
   } else {
     // ignore
   }
 }
 
-auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
-  DoipMessage &doip_payload) noexcept -> void {
-  if (channel_
-        .GetChannelState()
-        .GetVehicleIdentificationStateContext()
-        .GetActiveState()
-        .GetState() == UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
+auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(DoipMessage &doip_payload) noexcept -> void {
+  if (channel_.GetChannelState().GetVehicleIdentificationStateContext().GetActiveState().GetState() ==
+      UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
     // Deserialize data to indicate to upper layer
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult,
-      ara::diag::uds_transport::UdsMessagePtr>
-      ret_val{udp_transport_handler_.IndicateMessage(
-      static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
-      static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
-      ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-      0U,
-      static_cast<std::size_t>(doip_payload.payload.size()),
-      0U,
-      "DoIPUdp",
-      doip_payload.payload)};
-    if ((ret_val.first ==
-         uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
+        ret_val{udp_transport_handler_.IndicateMessage(
+            static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
+            static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
+            ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+            static_cast<std::size_t>(doip_payload.payload.size()), 0U, "DoIPUdp", doip_payload.payload)};
+    if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
-      uds_transport::UdsMessage::MetaInfoMap meta_info_map{
-        {"kRemoteIpAddress", doip_payload.host_ip_address}};
-      ret_val.second->AddMetaInfo(std::move(
-        std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map)));
+      uds_transport::UdsMessage::MetaInfoMap meta_info_map{{"kRemoteIpAddress", doip_payload.host_ip_address}};
+      ret_val.second->AddMetaInfo(std::move(std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map)));
       // copy to application buffer
-      (void) std::copy(doip_payload.payload.begin(), doip_payload.payload.end(),
-                       ret_val.second->GetPayload().begin());
+      (void) std::copy(doip_payload.payload.begin(), doip_payload.payload.end(), ret_val.second->GetPayload().begin());
       udp_transport_handler_.HandleMessage(std::move(ret_val.second));
     }
   } else {
@@ -64,31 +47,28 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(
   }
 }
 
-auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
-  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult
-    ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (channel_
-        .GetChannelState()
-        .GetVehicleIdentificationStateContext()
-        .GetActiveState()
-        .GetState() == UdpVehicleIdentificationState::kViIdle) {
+auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+  if (channel_.GetChannelState().GetVehicleIdentificationStateContext().GetActiveState().GetState() ==
+      UdpVehicleIdentificationState::kViIdle) {
     if (HandleVehicleIdentificationRequest(std::move(message)) ==
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
-        UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
+          UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
       // Wait for 2 sec to collect all the vehicle identification response
       channel_.WaitForResponse(
-        [&]() {
-          channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
-            UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
-        },
-        [&]() {
-          // do nothing
-        },
-        kDoIPCtrl);
+          [&]() {
+            channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
+                UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
+          },
+          [&]() {
+            // do nothing
+          },
+          kDoIPCtrl);
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
-        UdpVehicleIdentificationState::kViIdle);
+          UdpVehicleIdentificationState::kViIdle);
     } else {
       // failed, do nothing
     }
@@ -98,27 +78,24 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(
   return ret_val;
 }
 
-auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
-  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult
-    ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   UdpMessagePtr doip_vehicle_ident_req{std::make_unique<UdpMessage>()};
   // get the payload type & length
   VehiclePayloadType doip_vehicle_payload_type{
-    GetVehicleIdentificationPayloadType(message->GetPayload()[BYTE_POS_ONE])};
+      GetVehicleIdentificationPayloadType(message->GetPayload()[BYTE_POS_ONE])};
   // create header
   doip_vehicle_ident_req->tx_buffer_.reserve(kDoipheadrSize);
-  CreateDoipGenericHeader(doip_vehicle_ident_req->tx_buffer_,
-                          doip_vehicle_payload_type.first,
+  CreateDoipGenericHeader(doip_vehicle_ident_req->tx_buffer_, doip_vehicle_payload_type.first,
                           doip_vehicle_payload_type.second);
   // set remote ip
   doip_vehicle_ident_req->host_ip_address_ = message->GetHostIpAddress();
   // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
-    doip_vehicle_ident_req->tx_buffer_.insert(
-      doip_vehicle_ident_req->tx_buffer_.end(),
-      doip_vehicle_payload_type.second,
-      message->GetPayload().at(BYTE_POS_TWO));
+    doip_vehicle_ident_req->tx_buffer_.insert(doip_vehicle_ident_req->tx_buffer_.end(),
+                                              doip_vehicle_payload_type.second, message->GetPayload().at(BYTE_POS_TWO));
   }
   if (udp_socket_handler_.Transmit(std::move(doip_vehicle_ident_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
@@ -126,10 +103,8 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(
   return ret_val;
 }
 
-auto VehicleDiscoveryHandler::CreateDoipGenericHeader(
-  std::vector<uint8_t> &doipHeader,
-  std::uint16_t payloadType,
-  std::uint32_t payloadLen) noexcept -> void {
+auto VehicleDiscoveryHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
+                                                      std::uint32_t payloadLen) noexcept -> void {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
   doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
@@ -140,8 +115,8 @@ auto VehicleDiscoveryHandler::CreateDoipGenericHeader(
   doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
 }
 
-auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(
-  std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType {
+auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept
+    -> const VehiclePayloadType {
   VehiclePayloadType ret_val{0, 0};
   switch (preselection_mode) {
     case 0U:
@@ -162,10 +137,10 @@ auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(
   return ret_val;
 }
 
-auto UdpChannelHandlerImpl::Transmit(
-  uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult
-    ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+auto UdpChannelHandlerImpl::Transmit(uds_transport::UdsMessageConstPtr message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   // deserialize and send to proper handler
   switch (message->GetPayload()[BYTE_POS_ZERO]) {
     case 0U:
@@ -179,8 +154,7 @@ auto UdpChannelHandlerImpl::Transmit(
   return ret_val;
 }
 
-auto UdpChannelHandlerImpl::HandleMessage(
-  UdpMessagePtr udp_rx_message) noexcept -> void {
+auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept -> void {
   uint8_t nack_code;
   DoipMessage doip_rx_message;
   doip_rx_message.host_ip_address = udp_rx_message->host_ip_address_;
@@ -203,8 +177,7 @@ auto UdpChannelHandlerImpl::HandleMessage(
   }
 }
 
-auto UdpChannelHandlerImpl::HandleMessageBroadcast(
-  UdpMessagePtr udp_rx_message) noexcept -> void {
+auto UdpChannelHandlerImpl::HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void {
   uint8_t nack_code;
   DoipMessage doip_rx_message;
   doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0];
@@ -226,9 +199,7 @@ auto UdpChannelHandlerImpl::HandleMessageBroadcast(
   }
 }
 
-auto UdpChannelHandlerImpl::ProcessDoIPHeader(
-  DoipMessage &doip_rx_message,
-  uint8_t &nackCode) noexcept -> bool {
+auto UdpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool {
   bool ret_val{false};
   /* Check the header synchronisation pattern */
   if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) &&
@@ -246,8 +217,7 @@ auto UdpChannelHandlerImpl::ProcessDoIPHeader(
         /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */
         if (doip_rx_message.payload_length <= kUdpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
-          if (ProcessDoIPPayloadLength(
-            doip_rx_message.payload_length, doip_rx_message.payload_type)) {
+          if (ProcessDoIPPayloadLength(doip_rx_message.payload_length, doip_rx_message.payload_type)) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
@@ -272,14 +242,11 @@ auto UdpChannelHandlerImpl::ProcessDoIPHeader(
   return ret_val;
 }
 
-auto UdpChannelHandlerImpl::ProcessDoIPPayloadLength(
-  uint32_t payload_len,
-  uint16_t payload_type) noexcept -> bool {
+auto UdpChannelHandlerImpl::ProcessDoIPPayloadLength(uint32_t payload_len, uint16_t payload_type) noexcept -> bool {
   bool ret_val{false};
   switch (payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {
-      if (payload_len <= (uint32_t) kDoip_VehicleAnnouncement_ResMaxLen)
-        ret_val = true;
+      if (payload_len <= (uint32_t) kDoip_VehicleAnnouncement_ResMaxLen) ret_val = true;
       break;
     }
     default:
@@ -289,22 +256,18 @@ auto UdpChannelHandlerImpl::ProcessDoIPPayloadLength(
   return ret_val;
 }
 
-auto UdpChannelHandlerImpl::GetDoIPPayloadType(
-  std::vector<uint8_t> payload) noexcept -> uint16_t {
+auto UdpChannelHandlerImpl::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t {
   return ((uint16_t) (((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
 }
 
-auto UdpChannelHandlerImpl::GetDoIPPayloadLength(
-  std::vector<uint8_t> payload) noexcept -> uint32_t {
+auto UdpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
   return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24) & 0xFF000000) |
           (uint32_t) ((payload[BYTE_POS_FIVE] << 16) & 0x00FF0000) |
-          (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) |
-          (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
+          (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
 }
 
-auto UdpChannelHandlerImpl::ProcessDoIPPayload(
-  DoipMessage &doip_payload,
-  DoipMessage::rx_socket_type socket_type) noexcept -> void {
+auto UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload,
+                                               DoipMessage::rx_socket_type socket_type) noexcept -> void {
   std::unique_lock<std::mutex> lck(channel_handler_lock);
   switch (doip_payload.payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {

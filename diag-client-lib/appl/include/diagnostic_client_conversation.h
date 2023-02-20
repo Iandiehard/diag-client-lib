@@ -13,6 +13,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_CONVERSATION_H
 
 #include <cstdint>
+
 #include "diagnostic_client_message_type.h"
 
 namespace diag {
@@ -24,20 +25,19 @@ namespace conversation {
  */
 class DiagClientConversation {
 public:
-  // Connect Errors
-  enum class ConnectResult : std::uint8_t {
-    kConnectSuccess = 0U,
-    kConnectFailed = 1U,
-    kConnectTimeout = 2U
-  };
-  
-  // Disconnect Errors
-  enum class DisconnectResult : std::uint8_t {
-    kDisconnectSuccess = 0U,
-    kDisconnectFailed = 1U
-  };
-  
-  // Diagnostics Request Response Error
+  /**
+   * @brief  Definitions of Connection results
+   */
+  enum class ConnectResult : std::uint8_t { kConnectSuccess = 0U, kConnectFailed = 1U, kConnectTimeout = 2U };
+
+  /**
+   * @brief  Definitions of Disconnection results
+   */
+  enum class DisconnectResult : std::uint8_t { kDisconnectSuccess = 0U, kDisconnectFailed = 1U };
+
+  /**
+   * @brief  Definitions of Diagnostics Request Response results
+   */
   enum class DiagResult : std::uint8_t {
     kDiagRequestSendFailed = 0U,
     kDiagFailed = 1U,
@@ -45,25 +45,27 @@ public:
     kDiagResponseTimeout = 3U,
     kDiagSuccess = 4U
   };
-  
-  // ctor
+
+  /**
+   * @brief      Constructor of class
+   */
   DiagClientConversation() = default;
-  
-  // dtor
+
+  /**
+   * @brief      Destructor of class
+   */
   virtual ~DiagClientConversation() = default;
-  
+
   /**
    * @brief      Function to startup the Diagnostic Client Conversation
-   * @return     void
    */
   virtual void Startup() = 0;
-  
+
   /**
    * @brief      Function to shutdown the Diagnostic Client Conversation
-   * @return     void
    */
   virtual void Shutdown() = 0;
-  
+
   /**
    * @brief       Function to connect to Diagnostic Server.
    * @param[in]   host_ip_addr
@@ -71,16 +73,14 @@ public:
    * @return      ConnectResult
    *              Result returned
    */
-  virtual ConnectResult
-  ConnectToDiagServer(IpAddress host_ip_addr) = 0;
-  
+  virtual ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) = 0;
+
   // Description   : Function to disconnect from Diagnostic Server
   // @param input  : Nothing
   // @return value : DisconnectResult
   //                 Result returned
-  virtual DisconnectResult
-  DisconnectFromDiagServer() = 0;
-  
+  virtual DisconnectResult DisconnectFromDiagServer() = 0;
+
   // Description   : Function to send Diagnostic Request and get Diagnostic Response
   // @param input  : UdsRequestMessageConstPtr
   //                 Diagnostic request message to be sent to remote server
@@ -88,8 +88,8 @@ public:
   //                 Result returned
   // @return value : UdsResponseMessagePtr
   //                 Diagnostic Response message received, null_ptr incase of error
-  virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr>
-  SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) = 0;
+  virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+      uds_message::UdsRequestMessageConstPtr message) = 0;
 };
 }  // namespace conversation
 }  // namespace client

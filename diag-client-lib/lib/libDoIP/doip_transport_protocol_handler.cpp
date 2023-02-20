@@ -9,6 +9,7 @@
 #include "doip_transport_protocol_handler.h"
 
 #include "common/common_doip_types.h"
+#include "common/logger.h"
 #include "connection/connection_manager.h"
 
 namespace ara {
@@ -22,19 +23,15 @@ namespace transportProtocolHandler {
  */
 //ctor
 DoipTransportProtocolHandler::DoipTransportProtocolHandler(
-  const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
-  ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
-  : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
-    handle_id_e{handler_id},
-    transport_protocol_mgr_{transport_protocol_mgr},
-    doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {
-  DLT_REGISTER_CONTEXT(doipclient_main, "dphl", "DoipClient Tp Handler Context");
-}
+    const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
+    ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
+    : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
+      handle_id_e{handler_id},
+      transport_protocol_mgr_{transport_protocol_mgr},
+      doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {}
 
 //dtor
-DoipTransportProtocolHandler::~DoipTransportProtocolHandler() {
-  DLT_UNREGISTER_CONTEXT(doipclient_main);
-}
+DoipTransportProtocolHandler::~DoipTransportProtocolHandler() {}
 
 // Return the UdsTransportProtocolHandlerID, which was given to the implementation during
 // construction (ctor call)
@@ -43,50 +40,37 @@ ara::diag::uds_transport::UdsTransportProtocolHandlerID DoipTransportProtocolHan
 }
 
 // Initializes handler
-ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult
-DoipTransportProtocolHandler::Initialize() {
+ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult DoipTransportProtocolHandler::Initialize() {
   return (ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
 }
 
 // Start processing the implemented Uds Transport Protocol & Tcp Transport Protocol
-void DoipTransportProtocolHandler::Start() {
-}
+void DoipTransportProtocolHandler::Start() {}
 
 // Method to indicate that this UdsTransportProtocolHandler & TcpTransportProtocolHandler should terminate
-void DoipTransportProtocolHandler::Stop() {
-}
+void DoipTransportProtocolHandler::Stop() {}
 
 // Get or Create connection
-std::shared_ptr<ara::diag::connection::Connection>
-DoipTransportProtocolHandler::FindOrCreateTcpConnection(
-  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
-  kDoip_String &tcp_ip_address,
-  uint16_t port_num) {
-  DLT_LOG(doipclient_main, DLT_LOG_INFO,
-          DLT_CSTRING("Doip tcp protocol requested with local endpoints :"),
-          DLT_CSTRING("<tcp:"),
-          DLT_STRING(tcp_ip_address.c_str()),
-          DLT_CSTRING(">"));
-  return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(
-    conversation,
-    tcp_ip_address,
-    port_num));
+std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateTcpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &tcp_ip_address,
+    uint16_t port_num) {
+  logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+      __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
+        msg << "Doip Tcp protocol requested with local endpoints : "
+            << "<tcp:" << tcp_ip_address << ">";
+      });
+  return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
 }
 
-std::shared_ptr<ara::diag::connection::Connection>
-DoipTransportProtocolHandler::FindOrCreateUdpConnection(
-  const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
-  kDoip_String &udp_ip_address,
-  uint16_t port_num) {
-  DLT_LOG(doipclient_main, DLT_LOG_INFO,
-          DLT_CSTRING("Doip udp protocol requested with local endpoints :"),
-          DLT_CSTRING("<udp:"),
-          DLT_STRING(udp_ip_address.c_str()),
-          DLT_CSTRING(">"));
-  return (doip_connection_mgr_ptr->FindOrCreateUdpConnection(
-    conversation,
-    udp_ip_address,
-    port_num));
+std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateUdpConnection(
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &udp_ip_address,
+    uint16_t port_num) {
+  logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+      __FILE__, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
+        msg << "Doip Udp protocol requested with local endpoints : "
+            << "<udp: " << udp_ip_address << ">";
+      });
+  return (doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversation, udp_ip_address, port_num));
 }
 }  // namespace transportProtocolHandler
 }  // namespace doip

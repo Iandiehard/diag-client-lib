@@ -16,18 +16,16 @@ using Logger = libUtility::logger::Logger;
 
 class LibBoostLogger {
 public:
-  auto static GetLibBoostLogger() noexcept -> LibBoostLogger & {
+  auto static GetLibBoostLogger() noexcept -> LibBoostLogger& {
     static LibBoostLogger lib_boost_logger_;
     return lib_boost_logger_;
   }
-  
-  auto GetLogger() noexcept -> Logger & {
-    return logger_;
-  }
+
+  auto GetLogger() noexcept -> Logger& { return logger_; }
 
 private:
   LibBoostLogger() = default;
-  
+
   // actual logger context
   Logger logger_{"lbst"};
 };

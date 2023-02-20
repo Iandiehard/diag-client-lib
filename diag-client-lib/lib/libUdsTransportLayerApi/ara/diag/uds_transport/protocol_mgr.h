@@ -37,29 +37,22 @@ public:
     kTransmitOkNoResponse
   };
   // Result for connection to remote endpoint
-  enum class ConnectionResult : std::uint8_t {
-    kConnectionOk = 0U,
-    kConnectionFailed,
-    kConnectionTimeout
-  };
+  enum class ConnectionResult : std::uint8_t { kConnectionOk = 0U, kConnectionFailed, kConnectionTimeout };
   // Result for disconnection to remote endpoint
-  enum class DisconnectionResult : std::uint8_t {
-    kDisconnectionOk = 0U,
-    kDisconnectionFailed
-  };
-  
+  enum class DisconnectionResult : std::uint8_t { kDisconnectionOk = 0U, kDisconnectionFailed };
+
   //ctor
   UdsTransportProtocolMgr() = default;
-  
+
   //dtor
   virtual ~UdsTransportProtocolMgr() = default;
-  
+
   // initialize all the transport protocol handler
   virtual void Startup() = 0;
-  
+
   // start all the transport protocol handler
   virtual void Run() = 0;
-  
+
   // terminate all the transport protocol handler
   virtual void Shutdown() = 0;
 };

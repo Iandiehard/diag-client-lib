@@ -39,10 +39,10 @@ public:
 public:
   // ctor
   TcpMessageType() = default;
-  
+
   // dtor
   virtual ~TcpMessageType() = default;
-  
+
   // socket state
   tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
   // socket error

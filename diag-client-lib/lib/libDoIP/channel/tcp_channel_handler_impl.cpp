@@ -14,14 +14,10 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace tcpChannelHandlerImpl {
-auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
-  DoipMessage &doip_payload) noexcept -> void {
+auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept -> void {
   RoutingActivationChannelState final_state{RoutingActivationChannelState::kRoutingActivationFailed};
-  if (channel_
-        .GetChannelState()
-        .GetRoutingActivationStateContext()
-        .GetActiveState()
-        .GetState() == RoutingActivationChannelState::kWaitForRoutingActivationRes) {
+  if (channel_.GetChannelState().GetRoutingActivationStateContext().GetActiveState().GetState() ==
+      RoutingActivationChannelState::kWaitForRoutingActivationRes) {
     // get the logical address of client
     uint16_t client_address = (uint16_t) ((doip_payload.payload[BYTE_POS_ZERO] << 8) & 0xFF00) |
                               (uint16_t) (doip_payload.payload[BYTE_POS_ONE] & 0x00FF);
@@ -34,36 +30,30 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
       case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationChannelState::kRoutingActivationSuccessful;
-      }
-        break;
+      } break;
       case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
-      }
-        break;
+      } break;
       default:
         // failure, do nothing
         break;
     }
-    channel_
-      .GetChannelState()
-      .GetRoutingActivationStateContext()
-      .TransitionTo(final_state);
+    channel_.GetChannelState().GetRoutingActivationStateContext().TransitionTo(final_state);
     channel_.WaitCancel();
   } else {
     /* ignore */
   }
 }
 
-auto RoutingActivationHandler::SendRoutingActivationRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult
-    ret_val{uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr &message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>()};
   // reserve bytes in vector
   doip_routing_act_req->txBuffer_.reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
   // create header
-  CreateDoipGenericHeader(doip_routing_act_req->txBuffer_,
-                          kDoip_RoutingActivation_ReqType,
+  CreateDoipGenericHeader(doip_routing_act_req->txBuffer_, kDoip_RoutingActivation_ReqType,
                           kDoip_RoutingActivation_ReqMinLen);
   // Add source address
   doip_routing_act_req->txBuffer_.emplace_back((uint8_t) ((message->GetSa() & 0xFF00) >> 8));
@@ -82,8 +72,7 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(
   return ret_val;
 }
 
-auto RoutingActivationHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader,
-                                                       uint16_t payloadType,
+auto RoutingActivationHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
                                                        uint32_t payloadLen) noexcept -> void {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
@@ -95,20 +84,16 @@ auto RoutingActivationHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doi
   doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
 }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
-  DoipMessage &doip_payload) noexcept -> void {
+auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessage &doip_payload) noexcept -> void {
   DiagnosticMessageChannelState final_state{DiagnosticMessageChannelState::kDiagnosticNegativeAckRecvd};
-  if (channel_
-        .GetChannelState()
-        .GetDiagnosticMessageStateContext()
-        .GetActiveState()
-        .GetState() == DiagnosticMessageChannelState::kWaitForDiagnosticAck) {
+  if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
+      DiagnosticMessageChannelState::kWaitForDiagnosticAck) {
     // check the logical address of Server
-    uint16_t server_address = (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) |
-                                          (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
+    uint16_t server_address =
+        (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
     // check the logical address of client
-    uint16_t client_address = (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) |
-                                          (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
+    uint16_t client_address =
+        (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
     if (doip_payload.payload_type == kDoip_DiagMessagePosAck_Type) {
       // get the ack code
       uint8_t ack_code = doip_payload.payload[BYTE_POS_FOUR];
@@ -122,47 +107,35 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
     } else {
       // do nothing
     }
-    channel_
-      .GetChannelState()
-      .GetDiagnosticMessageStateContext()
-      .TransitionTo(final_state);
+    channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(final_state);
     channel_.WaitCancel();
   } else {
     // ignore
   }
 }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
-  DoipMessage &doip_payload) noexcept -> void {
-  if (channel_
-        .GetChannelState()
-        .GetDiagnosticMessageStateContext()
-        .GetActiveState()
-        .GetState() == DiagnosticMessageChannelState::kWaitForDiagnosticResponse) {
+auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept -> void {
+  if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
+      DiagnosticMessageChannelState::kWaitForDiagnosticResponse) {
     // create the payload to send to upper layer
     std::vector<uint8_t> payload_info;
     // check the logical address of Server
-    auto server_address = (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) |
-                                      (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
+    auto server_address =
+        (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
     // check the logical address of client
-    auto client_address = (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) |
-                                      (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
+    auto client_address =
+        (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
     // payload except the address
     payload_info.resize(doip_payload.payload.size() - 4U);
     // copy to application buffer
-    (void) std::copy(doip_payload.payload.begin() + 4,
-                     doip_payload.payload.end(), payload_info.begin());
+    (void) std::copy(doip_payload.payload.begin() + 4, doip_payload.payload.end(), payload_info.begin());
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-      ret_val{tcp_transport_handler_.IndicateMessage(
-      static_cast<ara::diag::uds_transport::UdsMessage::Address>(server_address),
-      static_cast<ara::diag::uds_transport::UdsMessage::Address>(client_address),
-      ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical,
-      0U,
-      static_cast<std::size_t>(doip_payload.payload.size() - 4U),
-      0U,
-      "DoIPTcp",
-      payload_info)};
+        ret_val{tcp_transport_handler_.IndicateMessage(
+            static_cast<ara::diag::uds_transport::UdsMessage::Address>(server_address),
+            static_cast<ara::diag::uds_transport::UdsMessage::Address>(client_address),
+            ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+            static_cast<std::size_t>(doip_payload.payload.size() - 4U), 0U, "DoIPTcp", payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {
@@ -177,26 +150,23 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
         // set to idle
         // raise error
       }
-      channel_
-        .GetChannelState()
-        .GetDiagnosticMessageStateContext()
-        .TransitionTo(DiagnosticMessageChannelState::kDiagIdle);
+      channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(
+          DiagnosticMessageChannelState::kDiagIdle);
     }
   } else {
     // ignore
   }
 }
 
-auto DiagnosticMessageHandler::SendDiagnosticRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult
-    ret_val{ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   TcpMessagePtr doip_diag_req = std::make_unique<TcpMessage>();
   // reserve bytes in vector
   doip_diag_req->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
   // create header
-  CreateDoipGenericHeader(doip_diag_req->txBuffer_,
-                          kDoip_DiagMessage_Type,
+  CreateDoipGenericHeader(doip_diag_req->txBuffer_, kDoip_DiagMessage_Type,
                           kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
   // Add source address
   doip_diag_req->txBuffer_.push_back((uint8_t) ((message->GetSa() & 0xFF00) >> 8));
@@ -205,9 +175,7 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(
   doip_diag_req->txBuffer_.push_back((uint8_t) ((message->GetTa() & 0xFF00) >> 8));
   doip_diag_req->txBuffer_.push_back((uint8_t) (message->GetTa() & 0x00FF));
   // Add data bytes
-  for (std::uint8_t byte: message->GetPayload()) {
-    doip_diag_req->txBuffer_.push_back(byte);
-  }
+  for (std::uint8_t byte: message->GetPayload()) { doip_diag_req->txBuffer_.push_back(byte); }
   // transmit
   if (!(tcp_socket_handler_.Transmit(std::move(doip_diag_req)))) {
     // do nothing
@@ -217,10 +185,8 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(
   return ret_val;
 }
 
-auto DiagnosticMessageHandler::CreateDoipGenericHeader(
-  std::vector<uint8_t> &doipHeader,
-  uint16_t payloadType,
-  uint32_t payloadLen) noexcept -> void {
+auto DiagnosticMessageHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
+                                                       uint32_t payloadLen) noexcept -> void {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
   doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
@@ -231,13 +197,13 @@ auto DiagnosticMessageHandler::CreateDoipGenericHeader(
   doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
 }
 
-auto TcpChannelHandlerImpl::SendRoutingActivationRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+auto TcpChannelHandlerImpl::SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr &message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   return (routing_activation_handler_.SendRoutingActivationRequest(message));
 }
 
-auto TcpChannelHandlerImpl::SendDiagnosticRequest(
-  uds_transport::UdsMessageConstPtr &message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
+auto TcpChannelHandlerImpl::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
+    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   return (diagnostic_message_handler_.SendDiagnosticRequest(message));
 }
 
@@ -281,8 +247,7 @@ auto TcpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint
         /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */
         if (doip_rx_message.payload_length <= kTcpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
-          if (ProcessDoIPPayloadLength(
-            doip_rx_message.payload_length, doip_rx_message.payload_type)) {
+          if (ProcessDoIPPayloadLength(doip_rx_message.payload_length, doip_rx_message.payload_type)) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
@@ -311,25 +276,21 @@ auto TcpChannelHandlerImpl::ProcessDoIPPayloadLength(uint32_t payloadLen, uint16
   bool ret_val{false};
   switch (payloadType) {
     case kDoip_RoutingActivation_ResType: {
-      if (payloadLen <= (uint32_t) kDoip_RoutingActivation_ResMaxLen)
-        ret_val = true;
+      if (payloadLen <= (uint32_t) kDoip_RoutingActivation_ResMaxLen) ret_val = true;
       break;
     }
     case kDoip_DiagMessagePosAck_Type:
     case kDoip_DiagMessageNegAck_Type: {
-      if (payloadLen >= (uint32_t) kDoip_DiagMessageAck_ResMinLen)
-        ret_val = true;
+      if (payloadLen >= (uint32_t) kDoip_DiagMessageAck_ResMinLen) ret_val = true;
       break;
     }
     case kDoip_DiagMessage_Type: {
       // Req - [20-11][AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00122]
-      if (payloadLen >= (uint32_t) (kDoip_DiagMessage_ReqResMinLen + 1u))
-        ret_val = true;
+      if (payloadLen >= (uint32_t) (kDoip_DiagMessage_ReqResMinLen + 1u)) ret_val = true;
       break;
     }
     case kDoip_AliveCheck_ReqType: {
-      if (payloadLen <= (uint32_t) kDoip_RoutingActivation_ResMaxLen)
-        ret_val = true;
+      if (payloadLen <= (uint32_t) kDoip_RoutingActivation_ResMaxLen) ret_val = true;
       break;
     }
     default:

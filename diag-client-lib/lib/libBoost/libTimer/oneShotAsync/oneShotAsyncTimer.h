@@ -24,16 +24,16 @@ class oneShotAsyncTimer {
 public:
   //ctor
   oneShotAsyncTimer();
-  
+
   //dtor
   virtual ~oneShotAsyncTimer();
-  
+
   // Start timer
   void Start(int msec, TimerHandler timerHandler);
-  
+
   // Stop Timer
   void Stop();
-  
+
   // Function to check whether timer is active or not
   bool IsActive();
 
@@ -54,14 +54,12 @@ private:
   mutable std::mutex mutex_e;
   // handler
   TimerHandler timerHandler_e;
-  
+
   // timeout funtion
   void Timeout(const boost::system::error_code &error);
-  
+
   // function invoked in thread
   void Run();
-  // Declare dlt logging context
-  DLT_DECLARE_CONTEXT(oneshotasync_timer_ctx);
 };
 }  // namespace oneShot
 }  // namespace libTimer

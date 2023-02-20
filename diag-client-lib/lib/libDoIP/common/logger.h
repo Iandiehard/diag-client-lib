@@ -19,18 +19,16 @@ using Logger = libUtility::logger::Logger;
 
 class DoipClientLogger {
 public:
-  auto static GetDiagClientLogger() noexcept -> DoipClientLogger & {
+  auto static GetDiagClientLogger() noexcept -> DoipClientLogger& {
     static DoipClientLogger diag_client_logger_;
     return diag_client_logger_;
   }
-  
-  auto GetLogger() noexcept -> Logger & {
-    return logger_;
-  }
+
+  auto GetLogger() noexcept -> Logger& { return logger_; }
 
 private:
   DoipClientLogger() = default;
-  
+
   // actual logger context
   Logger logger_{"doip"};
 };
@@ -40,4 +38,4 @@ private:
 }  // namespace diag
 }  // namespace ara
 
-#endif // DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_LOGGER_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_LOGGER_H

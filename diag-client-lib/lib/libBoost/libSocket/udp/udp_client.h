@@ -27,28 +27,22 @@ public:
   // Udp function template used for reception
   using UdpHandlerRead = std::function<void(UdpMessagePtr)>;
   // Port Type
-  enum class PortType : std::uint8_t {
-    kUdp_Broadcast = 0,
-    kUdp_Unicast
-  };
+  enum class PortType : std::uint8_t { kUdp_Broadcast = 0, kUdp_Unicast };
 
 public:
   // ctor
-  createUdpClientSocket(
-    Boost_String &local_ip_address,
-    uint16_t local_port_num,
-    PortType port_type,
-    UdpHandlerRead udp_handler_read);
-  
+  createUdpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, PortType port_type,
+                        UdpHandlerRead udp_handler_read);
+
   // dtor
   virtual ~createUdpClientSocket();
-  
+
   // Function to Open the socket
   bool Open();
-  
+
   // Transmit
   bool Transmit(UdpMessageConstPtr udp_message);
-  
+
   // Function to destroy the socket
   bool Destroy();
 

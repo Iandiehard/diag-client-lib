@@ -29,9 +29,8 @@ class DiagClient;
  * @return      std::unique_ptr<diag::client::DiagClient>
  *              Unique pointer to diag client object
  */
-std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
-  const std::string &diag_client_config_path);
-  
+std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(const std::string &diag_client_config_path);
+
 }  // namespace client
 }  // namespace diag
 

@@ -9,6 +9,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_UDP_CHANNEL_HANDLER_IMPL_H
 //includes
 #include <mutex>
+
 #include "channel/udp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common/doip_payload_type.h"
@@ -42,39 +43,35 @@ using VehiclePayloadType = std::pair<std::uint16_t, std::uint8_t>;
 class VehicleDiscoveryHandler {
 public:
   // ctor
-  VehicleDiscoveryHandler(
-    udpSocket::UdpSocketHandler &udp_socket_handler,
-    udpTransport::UdpTransportHandler &udp_transport_handler,
-    udpChannel::UdpChannel &channel) : udp_socket_handler_{udp_socket_handler},
-                                       udp_transport_handler_{udp_transport_handler},
-                                       channel_{channel} {}
-  
+  VehicleDiscoveryHandler(udpSocket::UdpSocketHandler &udp_socket_handler,
+                          udpTransport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
+      : udp_socket_handler_{udp_socket_handler},
+        udp_transport_handler_{udp_transport_handler},
+        channel_{channel} {}
+
   // dtor
   ~VehicleDiscoveryHandler() = default;
-  
+
   // Function to send vehicle identification request
-  auto SendVehicleIdentificationRequest(
-    uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
-  
+  auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
+      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+
   // Function to process Vehicle announcement response
   auto ProcessVehicleAnnouncementResponse(DoipMessage &doip_payload) noexcept -> void;
-  
+
   // Function to process Vehicle identification response
   auto ProcessVehicleIdentificationResponse(DoipMessage &doip_payload) noexcept -> void;
 
 private:
   // Function to handle Vehicle Identification Request
-  auto HandleVehicleIdentificationRequest(
-    uds_transport::UdsMessageConstPtr message) noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
-  
-  static auto CreateDoipGenericHeader(
-    std::vector<uint8_t> &doipHeader,
-    std::uint16_t payloadType,
-    std::uint32_t payloadLen) noexcept -> void;
-  
-  static auto GetVehicleIdentificationPayloadType(
-    std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType;
-  
+  auto HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
+      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+
+  static auto CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
+                                      std::uint32_t payloadLen) noexcept -> void;
+
+  static auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType;
+
   // socket reference
   udpSocket::UdpSocketHandler &udp_socket_handler_;
   // transport handler reference
@@ -90,45 +87,43 @@ private:
 class UdpChannelHandlerImpl {
 public:
   // ctor
-  UdpChannelHandlerImpl(
-    udpSocket::UdpSocketHandler &udp_socket_handler_bcast,
-    udpSocket::UdpSocketHandler &udp_socket_handler_ucast,
-    udpTransport::UdpTransportHandler &udp_transport_handler,
-    udpChannel::UdpChannel &channel)
-    : vehicle_discovery_handler_{udp_socket_handler_bcast, udp_transport_handler, channel},
-      vehicle_identification_handler_{udp_socket_handler_ucast, udp_transport_handler, channel} {}
-  
+  UdpChannelHandlerImpl(udpSocket::UdpSocketHandler &udp_socket_handler_bcast,
+                        udpSocket::UdpSocketHandler &udp_socket_handler_ucast,
+                        udpTransport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
+      : vehicle_discovery_handler_{udp_socket_handler_bcast, udp_transport_handler, channel},
+        vehicle_identification_handler_{udp_socket_handler_ucast, udp_transport_handler, channel} {}
+
   // dtor
   ~UdpChannelHandlerImpl() = default;
-  
+
   // Function to trigger transmission
-  auto Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr message)
-  noexcept -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
-  
+  auto Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) noexcept
+      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+
   // process message unicast
   auto HandleMessage(UdpMessagePtr udp_rx_message) noexcept -> void;
-  
+
   // process message broadcast
   auto HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void;
 
 private:
   // Function to process DoIP Header
   static auto ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool;
-  
+
   // Function to verify payload length of various payload type
   static auto ProcessDoIPPayloadLength(uint32_t payload_len, uint16_t payload_type) noexcept -> bool;
-  
+
   // Function to get payload type
   static auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;
-  
+
   // Function to get payload length
   static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
-  
+
   // Function to process DoIP payload responses
   auto ProcessDoIPPayload(DoipMessage &doip_payload,
-                          DoipMessage::rx_socket_type socket_type = DoipMessage::rx_socket_type::kUnicast) noexcept -> void;
-  
+                          DoipMessage::rx_socket_type socket_type = DoipMessage::rx_socket_type::kUnicast) noexcept
+      -> void;
+
   // handler to process vehicle announcement
   VehicleDiscoveryHandler vehicle_discovery_handler_;
   // handler to process vehicle identification req/ res

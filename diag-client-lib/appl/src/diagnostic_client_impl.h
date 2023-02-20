@@ -24,29 +24,27 @@ class DiagClientImpl final : public diag::client::DiagClient {
 public:
   // ctor
   explicit DiagClientImpl(std::string dm_client_config);
-  
+
   // dtor
   ~DiagClientImpl() = default;
-  
+
   // Initialize
   void Initialize() override;
-  
+
   // De-Initialize
   void DeInitialize() override;
-  
+
   // Get Required Conversation based on Conversation Name
-  diag::client::conversation::DiagClientConversation &
-  GetDiagnosticClientConversation(std::string conversation_name) override;
-  
+  diag::client::conversation::DiagClientConversation& GetDiagnosticClientConversation(
+      std::string conversation_name) override;
+
   // Send Vehicle Identification Request and get response
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(
-    diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
-  
+      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
+
   // Get the list of available Diagnostic Server
-  diag::client::vehicle_info::VehicleInfoMessageResponsePtr
-  GetDiagnosticServerList() override;
+  diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() override;
 
 private:
   // Used to read json

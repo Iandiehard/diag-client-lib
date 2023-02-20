@@ -14,16 +14,18 @@ namespace common {
  @ Class Name        : Diagnostic_manager
  @ Class Description : Parent class to create DCM and DEM class                            
  */
-//ctor
 DiagnosticManager::DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-  property_tree &ptree)
-  : ptree_e(ptree),
-    exit_requested(false) {
-}
+                                     property_tree &ptree)
+    : ptree_e{ptree},
+      exit_requested_{false} {}
 
-//dtor
+
 DiagnosticManager::~DiagnosticManager() {
-  exit_requested = true;
+  {
+    std::lock_guard<std::mutex> lock{mutex_};
+    exit_requested_ = true;
+  }
+  cond_var.notify_all();
 }
 
 // Main function which keeps DCM alive
@@ -33,9 +35,9 @@ void DiagnosticManager::Main() {
   // Run the module
   Run();
   // Entering infinite loop
-  while (!exit_requested) {
-    std::unique_lock<std::mutex> lck(_mutex_lock);
-    cond_var.wait(lck);
+  while (!exit_requested_) {
+    std::unique_lock<std::mutex> lck(mutex_);
+    cond_var.wait(lck, [this]() { return exit_requested_; });
     // Thread exited
   }
   // Shutdown Module
@@ -44,7 +46,10 @@ void DiagnosticManager::Main() {
 
 // Function to shut down the component
 void DiagnosticManager::SignalShutdown() {
-  exit_requested = true;
+  {
+    std::lock_guard<std::mutex> lock{mutex_};
+    exit_requested_ = true;
+  }
   cond_var.notify_all();
 }
 }  // namespace common

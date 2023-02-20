@@ -12,12 +12,10 @@ namespace libOsAbstraction {
 namespace libBoost {
 namespace jsonparser {
 // ctor
-createJsonParser::createJsonParser() {
-}
+createJsonParser::createJsonParser() {}
 
 // dtor
-createJsonParser::~createJsonParser() {
-}
+createJsonParser::~createJsonParser() {}
 
 // function to get the property tree
 void createJsonParser::getJsonPtree(std::string &jsonPath, boostTree &jsontree) {

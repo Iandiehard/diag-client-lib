@@ -26,46 +26,43 @@ public:
   // Type for the meta information attached to a UdsMessage
   using MetaInfoMap = std::map<std::string, std::string>;
   // type of target address in UdsMessage
-  enum class TargetAddressType : std::uint8_t {
-    kPhysical = 0U,
-    kFunctional = 1U
-  };
-  
+  enum class TargetAddressType : std::uint8_t { kPhysical = 0U, kFunctional = 1U };
+
   // ctor
   UdsMessage() = default;
-  
+
   UdsMessage(const UdsMessage &other) = default;
-  
+
   UdsMessage(UdsMessage &&other) noexcept = default;
-  
+
   UdsMessage &operator=(const UdsMessage &other) = default;
-  
+
   UdsMessage &operator=(UdsMessage &&other) noexcept = default;
-  
+
   // dtor
   inline virtual ~UdsMessage() = default;
-  
+
   // add new metaInfo to this message.
   virtual void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) = 0;
-  
+
   // Get the UDS message data starting with the SID (A_Data as per ISO)
   virtual const ByteVector &GetPayload() const = 0;
-  
+
   // return the underlying buffer for write access
   virtual ByteVector &GetPayload() = 0;
-  
+
   // Get the source address of the uds message.
   virtual Address GetSa() const noexcept = 0;
-  
+
   // Get the target address of the uds message.
   virtual Address GetTa() const noexcept = 0;
-  
+
   // Get the target address type (phys/func) of the uds message.
   virtual TargetAddressType GetTaType() const noexcept = 0;
-  
+
   // Get Host Ip address
   virtual IpAddress GetHostIpAddress() const noexcept = 0;
-  
+
   // Get Host port number
   virtual PortNumber GetHostPortNumber() const noexcept = 0;
 };
