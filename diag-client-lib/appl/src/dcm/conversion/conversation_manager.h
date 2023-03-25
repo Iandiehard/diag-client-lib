@@ -42,11 +42,11 @@ public:
 
   // Get the required conversion
   std::unique_ptr<diag::client::conversation::VdConversation> GetDiagnosticClientVehicleDiscoveryConversation(
-      std::string conversion_name);
+      std::string &conversion_name);
 
 private:
   // store uds transport manager
-  uds_transport::UdsTransportProtocolManager &uds_transport_mgr_e;
+  uds_transport::UdsTransportProtocolManager &uds_transport_mgr_;
 
   // store the conversion name with conversion configurations
   std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_;
@@ -55,7 +55,7 @@ private:
   std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> vd_conversation_config_;
 
   // function to create or find new conversion
-  void CreateConversationConfig(diag::client::config_parser::ConversationConfig config);
+  void CreateConversationConfig(diag::client::config_parser::ConversationConfig &config);
 };
 }  // namespace conversation_manager
 }  // namespace client

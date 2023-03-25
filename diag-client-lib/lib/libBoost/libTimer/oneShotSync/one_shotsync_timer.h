@@ -33,7 +33,7 @@ public:
   virtual ~oneShotSyncTimer();
 
   // Start timer
-  auto Start(int msec) noexcept -> timer_state;
+  auto Start(int timeout) noexcept -> timer_state;
 
   // Stop Timer
   auto Stop() noexcept -> void;

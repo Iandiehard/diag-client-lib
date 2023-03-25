@@ -11,22 +11,23 @@
 namespace libUtility {
 namespace logger {
 Logger::Logger(const std::string &context_id) {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
   DLT_REGISTER_CONTEXT(contxt_, context_id.c_str(), "Application Context");
 #endif
 }
 
 Logger::Logger(const std::string &app_id, const std::string &context_id) {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
   DLT_REGISTER_APP(app_id.c_str(), "Application Id");
   DLT_REGISTER_CONTEXT(contxt_, context_id.c_str(), "Application Context");
+  registration_with_app_id_ = true;
 #endif
 }
 
 Logger::~Logger() {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
   DLT_UNREGISTER_CONTEXT(contxt_);
-  DLT_UNREGISTER_APP();
+  if (registration_with_app_id_) { DLT_UNREGISTER_APP(); }
 #endif
 }
 

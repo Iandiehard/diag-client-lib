@@ -20,7 +20,7 @@ UdpTransportHandler::UdpTransportHandler(kDoip_String &localIpaddress, uint16_t 
       udp_channel{std::make_unique<ara::diag::doip::udpChannel::UdpChannel>(localIpaddress, portNum, *this)} {}
 
 // dtor
-UdpTransportHandler::~UdpTransportHandler() {}
+UdpTransportHandler::~UdpTransportHandler() = default;
 
 //Initialize the Udp Transport Handler
 uds_transport::UdsTransportProtocolHandler::InitializationResult UdpTransportHandler::Initialize() {

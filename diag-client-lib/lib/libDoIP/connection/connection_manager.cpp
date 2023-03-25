@@ -81,11 +81,11 @@ void DoipTcpConnection::HandleMessage(ara::diag::uds_transport::UdsMessagePtr me
  @ Class Description : Class to create connection to udp handler                              
  */
 // ctor
-DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
                                      kDoip_String &udp_ip_address, uint16_t port_num)
-    : ara::diag::connection::Connection(1, conversion),
-      udp_transport_handler_(
-          std::make_unique<ara::diag::doip::udpTransport::UdpTransportHandler>(udp_ip_address, port_num, *this)) {}
+    : ara::diag::connection::Connection(1, conversation),
+      udp_transport_handler_{
+          std::make_unique<ara::diag::doip::udpTransport::UdpTransportHandler>(udp_ip_address, port_num, *this)} {}
 
 // Initialize
 InitializationResult DoipUdpConnection::Initialize() {

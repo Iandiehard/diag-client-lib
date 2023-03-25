@@ -26,7 +26,7 @@ public:
   explicit DCMClient(diag::client::common::property_tree &ptree);
 
   //dtor
-  virtual ~DCMClient();
+  ~DCMClient() override;
 
   // Initialize
   void Initialize() override;

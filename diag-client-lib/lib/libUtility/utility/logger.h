@@ -8,9 +8,10 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
 
-#ifdef USE_DLT
-#include <dlt/dlt.h>
+#ifdef ENABLE_DLT_LOGGER
+
 #endif
+#include <dlt/dlt.h>
 
 #include <iostream>
 #include <memory>
@@ -25,7 +26,7 @@ class Logger {
 public:
   template<typename Func>
   auto LogFatal(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, func);
 #else
     std::cout << "[FATAL]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -34,7 +35,7 @@ public:
 
   template<typename Func>
   auto LogError(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, func);
 #else
     std::cout << "[ERROR]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -43,7 +44,7 @@ public:
 
   template<typename Func>
   auto LogWarn(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, func);
 #else
     std::cout << "[WARN]:    " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -52,7 +53,7 @@ public:
 
   template<typename Func>
   auto LogInfo(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, func);
 #else
     std::cout << "[INFO]:    " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -61,7 +62,7 @@ public:
 
   template<typename Func>
   auto LogDebug(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, func);
 #else
     std::cout << "[DEBUG]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -70,7 +71,7 @@ public:
 
   template<typename Func>
   auto LogVerbose(const std::string &file_name, int line_no, const std::string &func_name, Func func) noexcept -> void {
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, func);
 #else
     std::cout << "[VERBOSE]: " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
@@ -97,19 +98,23 @@ private:
     return msg;
   }
 
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
   template<typename Func>
   void LogDltMessage(int log_level, const std::string &func_name, const std::string &file_name, int line_no,
                      Func func) {
-    if (DLT_IS_LOG_LEVEL_ENABLED(contxt_, log_level)) {
-      DLT_LOG(contxt_, log_level, DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, func).str().c_str()));
+    if (DLT_IS_LOG_LEVEL_ENABLED(contxt_, static_cast<DltLogLevelType>(log_level))) {
+      DLT_LOG(contxt_, static_cast<DltLogLevelType>(log_level),
+              DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, func).str().c_str()));
     }
   }
 #endif
 
-#ifdef USE_DLT
+#ifdef ENABLE_DLT_LOGGER
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt_);
+
+  // store the information about registration with app id
+  bool registration_with_app_id_{false};
 #endif
 };
 }  // namespace logger

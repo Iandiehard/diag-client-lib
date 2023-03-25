@@ -22,7 +22,7 @@ const std::string DiagUdpIpAddress{"172.16.25.128"};
 constexpr std::uint16_t DiagUdpPortNum{13400u};
 
 // Path to json file
-const std::string DiagClientJsonPath{"/workspaces/diag-client-lib/diag-client-lib/appl/etc/diag_client_config.json"};
+const std::string DiagClientJsonPath{"../../diag-client-lib/appl/etc/diag_client_config.json"};
 
 class DoipClientFixture : public ::testing::Test {
 protected:
@@ -33,9 +33,10 @@ protected:
     doip_udp_handler_.Initialize();
     // Initialize diag client library
     diag_client_->Initialize();
+    std::this_thread::sleep_for(std::chrono::seconds(1));
   }
   
-  ~DoipClientFixture() {
+  ~DoipClientFixture() override {
     // De-initialize diag client library
     diag_client_->DeInitialize();
     // De-initialize doip test handler

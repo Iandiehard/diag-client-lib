@@ -20,11 +20,12 @@ oneShotSyncTimer::oneShotSyncTimer() : timer_ptr_(std::make_unique<BoostTimer>(i
 oneShotSyncTimer::~oneShotSyncTimer() = default;
 
 // start the timer
-auto oneShotSyncTimer::Start(int msec) noexcept -> timer_state {
+auto oneShotSyncTimer::Start(int timeout) noexcept -> timer_state {
   logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-      __FILE__, __LINE__, __func__,
-      [msec](std::stringstream &msg) { msg << "[OneShotSyncTimer] started with timeout: " << std::to_string(msec); });
-  timer_ptr_->expires_after(msTime(msec));
+      __FILE__, __LINE__, __func__, [timeout](std::stringstream &msg) {
+        msg << "[OneShotSyncTimer] started with timeout: " << std::to_string(timeout) << " milliseconds";
+      });
+  timer_ptr_->expires_after(msTime(timeout));
   // Register completion handler triggered from async_wait
   timer_ptr_->async_wait([&](const boost::system::error_code &error) {
     error_ = error;
@@ -35,12 +36,14 @@ auto oneShotSyncTimer::Start(int msec) noexcept -> timer_state {
   // blocking io call
   io_e.restart();
   io_e.run();
+
   auto end = std::chrono::system_clock::now();
+
   std::chrono::duration<double> elapsed_seconds = end - start;
 
   logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
       __FILE__, __LINE__, __func__, [elapsed_seconds](std::stringstream &msg) {
-        msg << "[OneShotSyncTimer] Elapsed time: " << std::to_string(elapsed_seconds.count()) << "seconds";
+        msg << "[OneShotSyncTimer] Elapsed time: " << std::to_string(elapsed_seconds.count()) << " seconds";
       });
   return (error_ != boost::asio::error::operation_aborted ? timer_state::kTimeout : timer_state::kCancelRequested);
 }

@@ -29,14 +29,14 @@ namespace connection {
  @ Class Name        : DoipTcpConnection
  @ Class Description : Class to create connection to tcp handler
  */
-class DoipTcpConnection : public ara::diag::connection::Connection {
+class DoipTcpConnection final : public ara::diag::connection::Connection {
 public:
   // ctor
   DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
                     kDoip_String &tcp_ip_address, uint16_t port_num);
 
   // dtor
-  ~DoipTcpConnection() = default;
+  ~DoipTcpConnection() override = default;
 
   // Initialize
   InitializationResult Initialize() override;
@@ -80,14 +80,14 @@ private:
  @ Class Name        : DoipUdpConnection
  @ Class Description : Class to create connection to udp handler
  */
-class DoipUdpConnection : public ara::diag::connection::Connection {
+class DoipUdpConnection final : public ara::diag::connection::Connection {
 public:
   // ctor
-  DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+  DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
                     kDoip_String &udp_ip_address, uint16_t port_num);
 
   // dtor
-  ~DoipUdpConnection() = default;
+  ~DoipUdpConnection() override = default;
 
   // Initialize
   InitializationResult Initialize() override;

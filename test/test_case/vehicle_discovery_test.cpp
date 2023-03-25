@@ -16,7 +16,6 @@ namespace doip_client {
 TEST_F(DoipClientFixture, SendVehicleIdentification) {
  diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
  GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request);
- // std::this_thread::sleep_for(std::chrono::seconds(1));
 }
 
 } // doip_client

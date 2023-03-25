@@ -19,7 +19,6 @@ DiagnosticManager::DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_f
     : ptree_e{ptree},
       exit_requested_{false} {}
 
-
 DiagnosticManager::~DiagnosticManager() {
   {
     std::lock_guard<std::mutex> lock{mutex_};

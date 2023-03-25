@@ -13,6 +13,10 @@
 namespace diag {
 namespace client {
 namespace dcm {
+
+// string representing vehicle discovery conversation name
+std::string VehicleDiscoveryConversation{"VehicleDiscovery"};
+
 /*
  @ Class Name        : DCM
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
@@ -23,10 +27,10 @@ DCMClient::DCMClient(diag::client::common::property_tree &ptree)
       conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(GetConversationConfig(ptree),
                                                                                    *uds_transport_protocol_mgr)},
       diag_client_vehicle_discovery_conversation{
-          conversation_mgr->GetDiagnosticClientVehicleDiscoveryConversation("VehicleDiscovery")} {}
+          conversation_mgr->GetDiagnosticClientVehicleDiscoveryConversation(VehicleDiscoveryConversation)} {}
 
 // dtor
-DCMClient::~DCMClient() {}
+DCMClient::~DCMClient() = default;
 
 // Initialize
 void DCMClient::Initialize() {
@@ -44,6 +48,8 @@ void DCMClient::Initialize() {
 void DCMClient::Run() {
   // run udsTransportProtocol layer
   uds_transport_protocol_mgr->Run();
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+      __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client is ready to serve"; });
 }
 
 // shutdown DCM
@@ -55,7 +61,7 @@ void DCMClient::Shutdown() {
   // shutdown udsTransportProtocol layer
   uds_transport_protocol_mgr->Shutdown();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-      __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client Shutdown done"; });
+      __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client Shutdown completed"; });
 }
 
 // Function to get the client Conversation

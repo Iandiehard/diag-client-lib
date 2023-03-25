@@ -11,7 +11,7 @@ project(utility)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(USE_DLT "Option to use Dlt for logging" OFF)
+option(USE_DLT "Option to use Dlt for logging" ON)
 
 if (USE_DLT)
     include(FetchContent)
@@ -21,6 +21,7 @@ if (USE_DLT)
     )
 
     FetchContent_MakeAvailable(automotive-dlt)
+    add_definitions(-DENABLE_DLT_LOGGER)
 endif (USE_DLT)
 
 file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
