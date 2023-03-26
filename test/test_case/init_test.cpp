@@ -7,19 +7,21 @@
  */
 
 #include <gtest/gtest.h>
-#include "main.h"
-#include "include/create_diagnostic_client.h"
+
 #include <chrono>
+
+#include "include/create_diagnostic_client.h"
+#include "main.h"
 
 namespace doip_client {
 
 TEST_F(DoipClientFixture, StartupAndTermination) {
   // Get conversation for tester one
   diag::client::conversation::DiagClientConversation &diag_client_conversation{
-    GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
 
   diag_client_conversation.Startup();
   diag_client_conversation.Shutdown();
 }
 
-} // doip_client
+}  // namespace doip_client

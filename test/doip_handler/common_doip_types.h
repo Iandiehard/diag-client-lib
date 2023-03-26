@@ -96,6 +96,7 @@ constexpr uint8_t kDoip_EID_Invalid_FF = 0xFF;
 constexpr uint8_t kDoip_EID_Invalid_00 = 0x00;
 constexpr uint8_t kDoip_GID_Invalid_FF = 0xFF;
 constexpr uint8_t kDoip_GID_Invalid_00 = 0x00;
+
 /* DoIP timing and communication parameter (in millisecond) */
 /* Description: This is used to configure the
                 timeout value for a DoIP Routing Activation request */
@@ -112,6 +113,7 @@ constexpr uint32_t kDoIPDiagnosticAckTimeout = 2000;  // 2 sec
                 to previous broadcast(UDP only)
  * */
 constexpr uint32_t kDoIPCtrl = 2000;  // 2 sec
+
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara

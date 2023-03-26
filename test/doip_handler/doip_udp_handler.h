@@ -10,8 +10,8 @@
 
 #include <string>
 
-#include "doip_handler/udp_socket_handler.h"
 #include "doip_handler/doip_payload_type.h"
+#include "doip_handler/udp_socket_handler.h"
 
 namespace ara {
 namespace diag {
@@ -20,6 +20,7 @@ namespace doip {
 // typedef
 using ip_address = std::string;
 using UdpMessagePtr = udpSocket::UdpMessagePtr;
+using UdpMessage = udpSocket::UdpMessage;
 
 class DoipUdpHandler {
 public:
@@ -31,10 +32,9 @@ public:
   };
 
   // ctor
-  DoipUdpHandler(ip_address local_udp_address,
-                 uint16_t udp_port_num);
+  DoipUdpHandler(ip_address local_udp_address, uint16_t udp_port_num);
 
-  ~DoipUdpHandler() noexcept = default;
+  ~DoipUdpHandler();
 
   // function to perform initialization
   void Initialize();
@@ -42,8 +42,11 @@ public:
   // function to perform de-initialization
   void DeInitialize();
 
-  // function to create the VehicleIdentification Response
-  void CreateVehicleIdentificationResponse(VehicleAddrInfo vehicle_info);
+  // function to create the expected VehicleIdentification Response
+  void SetExpectedVehicleIdentificationResponseToBeSent(VehicleAddrInfo &vehicle_info);
+
+  // function to set the expectation on the request received
+  auto VerifyExpectedVehicleIdentificationRequestReceived(DoipMessage &expected_doip_message) noexcept -> bool;
 
   // function to send out Vehicle Announcement Message
   void SendVehicleAnnouncementMessage();
@@ -55,9 +58,28 @@ private:
   // udp socket handler broadcast
   udpSocket::DoipUdpSocketHandler udp_socket_handler_broadcast_;
 
-  // Vehicle info
-  VehicleAddrInfo vehicle_info_;
+  // Expected Vehicle info
+  VehicleAddrInfo expected_vehicle_info_{};
 
+  // Received doip message
+  DoipMessage received_doip_message_{};
+
+  // flag to terminate the thread
+  std::atomic_bool exit_request_{false};
+
+  // flag th start the thread
+  std::atomic_bool running_{false};
+
+  // conditional variable to block the thread
+  std::condition_variable cond_var_;
+
+  // threading var
+  std::thread thread_;
+
+  // locking critical section
+  std::mutex mutex_;
+
+private:
   // function to process udp unicast message received
   void ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message);
 
@@ -72,6 +94,11 @@ private:
 
   // Function to get payload length
   static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
+
+  static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
+                                      std::uint32_t payloadLen);
+
+  void Transmit();
 };
 
 }  // namespace doip

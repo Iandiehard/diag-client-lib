@@ -6,27 +6,53 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "doip_handler/doip_udp_handler.h"
+
+#include <utility>
+
 #include "doip_handler/common_doip_types.h"
 
 namespace ara {
 namespace diag {
 namespace doip {
 
+void SerializePayloadFromString(std::string& input_string, std::vector<uint8_t>& output_buffer) {
+  std::stringstream input_string_value{input_string};
+  for (auto count = 0U; count < input_string.length(); count++) {
+    auto get_byte{input_string_value.get()};
+    // std::string each_byte{get_byte};
+    output_buffer.emplace_back(get_byte);
+  }
+}
+
 DoipUdpHandler::DoipUdpHandler(ip_address local_udp_address, uint16_t udp_port_num)
-    : udp_socket_handler_unicast_{
-        local_udp_address,
-        udp_port_num,
-        udpSocket::DoipUdpSocketHandler::PortType::kUdp_Unicast,
-        [this](UdpMessagePtr udp_rx_message) {
-          ProcessUdpUnicastMessage(std::move(udp_rx_message));
-        }},
+    : udp_socket_handler_unicast_{local_udp_address, udp_port_num,
+                                  udpSocket::DoipUdpSocketHandler::PortType::kUdp_Unicast,
+                                  [this](UdpMessagePtr udp_rx_message) {
+                                    ProcessUdpUnicastMessage(std::move(udp_rx_message));
+                                  }},
       udp_socket_handler_broadcast_{
-        local_udp_address,
-        udp_port_num,
-        udpSocket::DoipUdpSocketHandler::PortType::kUdp_Broadcast,
-        [this](UdpMessagePtr udp_rx_message) {
-          ProcessUdpUnicastMessage(std::move(udp_rx_message));
-        }} {}
+          local_udp_address, udp_port_num, udpSocket::DoipUdpSocketHandler::PortType::kUdp_Broadcast,
+          [this](UdpMessagePtr udp_rx_message) { ProcessUdpUnicastMessage(std::move(udp_rx_message)); }} {
+  // Start thread to receive messages
+  thread_ = std::thread([&]() {
+    std::unique_lock<std::mutex> lck(mutex_);
+    while (!exit_request_) {
+      if (!running_) {
+        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
+      }
+      if (!exit_request_) {
+        if (running_) { Transmit(); }
+      }
+    }
+  });
+}
+
+DoipUdpHandler::~DoipUdpHandler() {
+  exit_request_ = true;
+  running_ = false;
+  cond_var_.notify_all();
+  thread_.join();
+};
 
 void DoipUdpHandler::Initialize() {
   udp_socket_handler_unicast_.Start();
@@ -39,80 +65,77 @@ void DoipUdpHandler::DeInitialize() {
 }
 
 void DoipUdpHandler::ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message) {
-  (void)(udp_rx_message);
-}
+  received_doip_message_.host_ip_address = udp_rx_message->host_ip_address_;
+  received_doip_message_.protocol_version = udp_rx_message->rx_buffer_[0];
+  received_doip_message_.protocol_version_inv = udp_rx_message->rx_buffer_[1];
+  received_doip_message_.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
+  received_doip_message_.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
 
-auto DoipUdpHandler::ProcessDoIPHeader(
-  DoipMessage &doip_rx_message,
-  uint8_t &nackCode) noexcept -> bool {
-  bool ret_val{false};
-  /* Check the header synchronisation pattern */
-  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) &&
-       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
-      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) &&
-       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
-    /* Check the supported payload type */
-    if ((doip_rx_message.payload_type == kDoip_RoutingActivation_ResType) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessagePosAck_Type) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessageNegAck_Type) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessage_Type) ||
-        (doip_rx_message.payload_type == kDoip_AliveCheck_ReqType)) {
-      if (doip_rx_message.payload_length <= kDoip_Protocol_MaxPayload) {
-        if (doip_rx_message.payload_length <= kUdpChannelLength) {
-          if (ProcessDoIPPayloadLength(
-                doip_rx_message.payload_length, doip_rx_message.payload_type)) {
-            ret_val = true;
-          } else {
-            // Send NACK code 0x04, close the socket
-            nackCode = kDoip_GenericHeader_InvalidPayloadLen;
-            // socket closure ??
-          }
-        } else {
-          // Send NACK code 0x03, discard message
-          nackCode = kDoip_GenericHeader_OutOfMemory;
-        }
-      } else {
-        // Send NACK code 0x02, discard message
-        nackCode = kDoip_GenericHeader_MessageTooLarge;
-      }
-    } else {  // Send NACK code 0x01, discard message
-      nackCode = kDoip_GenericHeader_UnknownPayload;
-    }
-  } else {  // Send NACK code 0x00, close the socket
-    nackCode = kDoip_GenericHeader_IncorrectPattern;
-    // socket closure
+  if (received_doip_message_.payload_length > 0u) {
+    received_doip_message_.payload.clear();
+    received_doip_message_.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
+    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
+                     udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
+                     received_doip_message_.payload.begin());
   }
-  return ret_val;
+  // Trigger async transmission
+  running_ = true;
+  cond_var_.notify_all();
 }
 
-auto DoipUdpHandler::ProcessDoIPPayloadLength(
-  uint32_t payload_len,
-  uint16_t payload_type) noexcept -> bool {
-  bool ret_val{false};
-  switch (payload_type) {
-    case kDoip_VehicleAnnouncement_ResType: {
-      if (payload_len <= (uint32_t) kDoip_VehicleAnnouncement_ResMaxLen)
-        ret_val = true;
-      break;
-    }
-    default:
-      // do nothing
-      break;
-  }
-  return ret_val;
-}
-
-auto DoipUdpHandler::GetDoIPPayloadType(
-  std::vector<uint8_t> payload) noexcept -> uint16_t {
+auto DoipUdpHandler::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t {
   return ((uint16_t) (((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
 }
 
-auto DoipUdpHandler::GetDoIPPayloadLength(
-  std::vector<uint8_t> payload) noexcept -> uint32_t {
+auto DoipUdpHandler::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
   return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24) & 0xFF000000) |
           (uint32_t) ((payload[BYTE_POS_FIVE] << 16) & 0x00FF0000) |
-          (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) |
-          (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
+          (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
+}
+
+void DoipUdpHandler::SetExpectedVehicleIdentificationResponseToBeSent(DoipUdpHandler::VehicleAddrInfo& vehicle_info) {
+  expected_vehicle_info_ = vehicle_info;
+}
+
+auto DoipUdpHandler::VerifyExpectedVehicleIdentificationRequestReceived(DoipMessage& expected_doip_message) noexcept
+    -> bool {
+  bool ret_val{false};
+
+  //
+  return ret_val;
+}
+
+void DoipUdpHandler::Transmit() {
+  UdpMessagePtr vehicle_identification_response{std::make_unique<UdpMessage>()};
+  // create header
+  vehicle_identification_response->tx_buffer_.reserve(kDoipheadrSize + kDoip_VehicleAnnouncement_ResMaxLen);
+  CreateDoipGenericHeader(vehicle_identification_response->tx_buffer_, kDoip_VehicleAnnouncement_ResType,
+                          kDoip_VehicleAnnouncement_ResMaxLen);
+  // vin
+  SerializePayloadFromString(expected_vehicle_info_.vin, vehicle_identification_response->tx_buffer_);
+  // logical address
+  vehicle_identification_response->tx_buffer_.emplace_back((expected_vehicle_info_.logical_address & 0xFF00) >> 8U);
+  vehicle_identification_response->tx_buffer_.emplace_back((expected_vehicle_info_.logical_address & 0x00FF) << 8U);
+  // eid
+  SerializePayloadFromString(expected_vehicle_info_.eid, vehicle_identification_response->tx_buffer_);
+  // gid
+  SerializePayloadFromString(expected_vehicle_info_.gid, vehicle_identification_response->tx_buffer_);
+  // set remote ip
+  vehicle_identification_response->host_ip_address_ = received_doip_message_.host_ip_address;
+
+  if (udp_socket_handler_broadcast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
+}
+
+void DoipUdpHandler::CreateDoipGenericHeader(std::vector<uint8_t>& doipHeader, std::uint16_t payloadType,
+                                             std::uint32_t payloadLen) {
+  doipHeader.push_back(kDoip_ProtocolVersion);
+  doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
+  doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
+  doipHeader.push_back((uint8_t) (payloadType & 0x00FF));
+  doipHeader.push_back((uint8_t) ((payloadLen & 0xFF000000) >> 24));
+  doipHeader.push_back((uint8_t) ((payloadLen & 0x00FF0000) >> 16));
+  doipHeader.push_back((uint8_t) ((payloadLen & 0x0000FF00) >> 8));
+  doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
 }
 
 }  // namespace doip

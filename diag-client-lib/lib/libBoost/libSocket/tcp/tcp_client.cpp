@@ -6,8 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 // includes
-#include "tcp_client.h"
-
+#include "libSocket/tcp/tcp_client.h"
 #include "libCommon/logger.h"
 
 namespace libBoost {
@@ -126,7 +125,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
 bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcpMessage) {
   TcpErrorCodeType ec;
   bool ret_val{false};
-  boost::asio::write(*tcp_socket_.get(),
+  boost::asio::write(*tcp_socket_,
                      boost::asio::buffer(tcpMessage->txBuffer_, std::size_t(tcpMessage->txBuffer_.size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
@@ -159,7 +158,7 @@ void CreateTcpClientSocket::HandleMessage() {
   // reserve the buffer
   tcp_rx_message->rxBuffer_.resize(kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(*tcp_socket_.get(), boost::asio::buffer(&tcp_rx_message->rxBuffer_[0], kDoipheadrSize), ec);
+  boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[0], kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -171,7 +170,7 @@ void CreateTcpClientSocket::HandleMessage() {
     }();
     // reserve the buffer
     tcp_rx_message->rxBuffer_.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(*tcp_socket_.get(),
+    boost::asio::read(*tcp_socket_,
                       boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes), ec);
     // all message received, transfer to upper layer
     TcpSocket::endpoint endpoint_{tcp_socket_->remote_endpoint()};

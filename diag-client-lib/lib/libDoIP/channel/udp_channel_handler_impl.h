@@ -67,8 +67,8 @@ private:
   auto HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
-  static auto CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
-                                      std::uint32_t payloadLen) noexcept -> void;
+  static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
+                                      std::uint32_t payloadLen);
 
   static auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType;
 

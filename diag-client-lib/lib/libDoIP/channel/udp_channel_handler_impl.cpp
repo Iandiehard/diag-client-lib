@@ -103,8 +103,8 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(uds_transport::
   return ret_val;
 }
 
-auto VehicleDiscoveryHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
-                                                      std::uint32_t payloadLen) noexcept -> void {
+void VehicleDiscoveryHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
+                                                      std::uint32_t payloadLen) {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
   doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
@@ -179,7 +179,7 @@ auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept
 
 auto UdpChannelHandlerImpl::HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void {
   uint8_t nack_code;
-  DoipMessage doip_rx_message;
+  DoipMessage doip_rx_message{};
   doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0];
   doip_rx_message.protocol_version_inv = udp_rx_message->rx_buffer_[1];
   doip_rx_message.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);

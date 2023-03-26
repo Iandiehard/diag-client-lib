@@ -11,5 +11,5 @@
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
-  
-} // doip_client
+
+}  // doip_client

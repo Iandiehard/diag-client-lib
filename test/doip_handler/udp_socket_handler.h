@@ -46,11 +46,8 @@ public:
 
 public:
   //ctor
-  DoipUdpSocketHandler(
-    kDoip_String &local_ip_address,
-    uint16_t port_num,
-    PortType port_type,
-    UdpMessageFunctor udp_handler);
+  DoipUdpSocketHandler(kDoip_String &local_ip_address, uint16_t port_num, PortType port_type,
+                       UdpMessageFunctor udp_handler);
 
   //dtor
   ~DoipUdpSocketHandler() = default;

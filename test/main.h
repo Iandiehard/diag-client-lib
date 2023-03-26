@@ -7,11 +7,13 @@
  */
 
 #include <gtest/gtest.h>
-#include <thread>
+
 #include <string>
+#include <thread>
+
+#include "doip_handler/doip_udp_handler.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
-#include "doip_handler/doip_udp_handler.h"
 
 namespace doip_client {
 
@@ -27,39 +29,31 @@ const std::string DiagClientJsonPath{"../../diag-client-lib/appl/etc/diag_client
 class DoipClientFixture : public ::testing::Test {
 protected:
   DoipClientFixture()
-    : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
-      doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
+      : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
+        doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
     // Initialize diag client library
     diag_client_->Initialize();
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
-  
+
   ~DoipClientFixture() override {
     // De-initialize diag client library
     diag_client_->DeInitialize();
     // De-initialize doip test handler
     doip_udp_handler_.DeInitialize();
   }
-  
-  void SetUp() override {
-  }
-  
-  void TearDown() override {
-  }
-  
+
+  void SetUp() override {}
+
+  void TearDown() override {}
+
   // Function to get Diag client library reference
-  auto GetDiagClientRef()
-  noexcept -> diag::client::DiagClient & {
-    return *diag_client_;
-  }
+  auto GetDiagClientRef() noexcept -> diag::client::DiagClient& { return *diag_client_; }
 
   // Function to get Doip Test Handler reference
-  auto GetDoipTestUdpHandlerRef()
-    noexcept -> ara::diag::doip::DoipUdpHandler & {
-    return doip_udp_handler_;
-  }
+  auto GetDoipTestUdpHandlerRef() noexcept -> ara::diag::doip::DoipUdpHandler& { return doip_udp_handler_; }
 
 private:
   // diag client library
@@ -69,4 +63,4 @@ private:
   ara::diag::doip::DoipUdpHandler doip_udp_handler_;
 };
 
-} // doip_client
+}  // namespace doip_client

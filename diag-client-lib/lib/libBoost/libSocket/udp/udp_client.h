@@ -64,14 +64,14 @@ private:
   // threading var
   std::thread thread_;
   // locking critical section
-  mutable std::mutex mutex_;
+  std::mutex mutex_;
   // end points
   UdpSocket::endpoint remote_endpoint_;
   // port type - broadcast / unicast
   PortType port_type_;
   // Handler invoked during read operation
   UdpHandlerRead udp_handler_read_;
-  // Rxbuffer
+  // Rx buffer
   uint8_t rxbuffer_[kDoipUdpResSize];
 
 private:

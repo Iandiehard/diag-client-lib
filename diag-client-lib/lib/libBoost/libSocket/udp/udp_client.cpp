@@ -6,10 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 // includes
-#include "udp_client.h"
-
-#include <utility>
-
+#include "libSocket/udp/udp_client.h"
 #include "libCommon/logger.h"
 
 namespace libBoost {
@@ -32,11 +29,13 @@ createUdpClientSocket::createUdpClientSocket(Boost_String &local_ip_address, uin
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_.load(); });
+        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
-      if (running_) {
-        io_context_.restart();
-        io_context_.run();
+      if(!exit_request_) {
+        if (running_) {
+          io_context_.restart();
+          io_context_.run();
+        }
       }
     }
   });
@@ -185,7 +184,7 @@ void createUdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::si
           [this](const UdpErrorCodeType &error, std::size_t bytes_recvd) { HandleMessage(error, bytes_recvd); });
     } else {
       UdpSocket::endpoint endpoint_{remote_endpoint_};
-      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
           __FILE__, __LINE__, __func__, [endpoint_, this](std::stringstream &msg) {
             msg << "Udp Message received from "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">"
