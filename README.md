@@ -5,11 +5,11 @@
 ## Diagnostic Client Library
 
 Welcome to Diagnostic Client library which is developed based on motivation taken from
-[Adaptive AUTOSAR Diagnostic Specification 20-11](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_SWS_Diagnostics.pdf)
+[Adaptive AUTOSAR Diagnostic Specification 21-11](https://www.autosar.org/fileadmin/standards/R21-11/AP/AUTOSAR_SWS_Diagnostics.pdf)
 
 Diagnostic Client library is developed keeping in mind the requirements needed on the diagnostic tester side.
-Some internal APIs is implemented based on API Reference mentioned in 
-[Adaptive AUTOSAR Diagnostic Specification 20-11](https://www.autosar.org/fileadmin/user_upload/standards/adaptive/20-11/AUTOSAR_SWS_Diagnostics.pdf)
+Some internal APIs is implemented based on API Reference mentioned in
+[Adaptive AUTOSAR Diagnostic Specification 21-11](https://www.autosar.org/fileadmin/standards/R21-11/AP/AUTOSAR_SWS_Diagnostics.pdf)
 
 ## Overview
 
@@ -75,6 +75,8 @@ More information on the diag client config json file, refer [doc_config_json](do
 
 Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
 
+## Requirements
+Component requirements already implemented are documented [REQ](doc/requirements.md)
 
 ## Known Defect
 * No defect is identified yet.
@@ -82,7 +84,7 @@ Check the example application [Examples](examples/) on how Diagnostic Client Lib
 You can add new issues with label `bug` for notifying us about any defect in library.
 
 ## Future Work
-* Support of Vehicle Discovery Phase (Vehicle Identification/ Announcement) will be added
+* Support of Vehicle Discovery Phase (Vehicle Identification/ Announcement)
 * DoIP with TLS
 * Remove Boost Library dependency
 
@@ -95,7 +97,6 @@ Full information of license is available in the [LICENSE](LICENSE) file of this 
 Boost License is available here [LICENSE](lib/libOsAbstraction/libBoost/LICENSE)
 
 ## Contact
-
 Avijit Dey <iandiehard@outlook.com>
 
 ## Author
