@@ -188,8 +188,8 @@ void createUdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::si
           __FILE__, __LINE__, __func__, [endpoint_, this](std::stringstream &msg) {
             msg << "Udp Message received from "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">"
-                << " Ignored as received by self ip"
-                << "<" << local_ip_address_ << ">";
+                << " ignored as received by self ip"
+                << " <" << local_ip_address_ << ">";
           });
     }
   } else {

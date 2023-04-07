@@ -8,8 +8,6 @@
 
 #include <gtest/gtest.h>
 
-#include <chrono>
-
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
 #include "main.h"
@@ -18,20 +16,23 @@ namespace doip_client {
 
 TEST_F(DoipClientFixture, SendVehicleIdentification) {
 
-  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0x0001U,
+  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U,
                                                                          "ABCDEFGH123456789",
-                                                                         "010203040506",
-                                                                         "0A0B0C0D0E0F"};
+                                                                         "00:02:36:31:00:1c",
+                                                                         "0A:0B:0C:0D:0E:0F"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
 
+  // Send Vehicle Identification request and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
   std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
+  // Verify Vehicle identification responses
   ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
   ASSERT_TRUE(response_result.second);
 
+  // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
       response_result.second->GetVehicleList()};
 
