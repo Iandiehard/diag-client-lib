@@ -55,6 +55,8 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(uds_transport::Ud
       UdpVehicleIdentificationState::kViIdle) {
     if (HandleVehicleIdentificationRequest(std::move(message)) ==
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+      ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
+
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
           UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
       // Wait for 2 sec to collect all the vehicle identification response
@@ -92,6 +94,9 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(uds_transport::
                           doip_vehicle_payload_type.second);
   // set remote ip
   doip_vehicle_ident_req->host_ip_address_ = message->GetHostIpAddress();
+  // set remote port num
+  doip_vehicle_ident_req->host_port_num_ = message->GetHostPortNumber();
+
   // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
     doip_vehicle_ident_req->tx_buffer_.insert(doip_vehicle_ident_req->tx_buffer_.end(),
@@ -207,11 +212,7 @@ auto UdpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint
       ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) &&
        (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
     /* Check the supported payload type */
-    if ((doip_rx_message.payload_type == kDoip_RoutingActivation_ResType) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessagePosAck_Type) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessageNegAck_Type) ||
-        (doip_rx_message.payload_type == kDoip_DiagMessage_Type) ||
-        (doip_rx_message.payload_type == kDoip_AliveCheck_ReqType)) {
+    if (doip_rx_message.payload_type == kDoip_VehicleAnnouncement_ResType) {
       /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00017] */
       if (doip_rx_message.payload_length <= kDoip_Protocol_MaxPayload) {
         /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */

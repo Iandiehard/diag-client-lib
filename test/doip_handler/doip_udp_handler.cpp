@@ -66,7 +66,7 @@ void DoipUdpHandler::DeInitialize() {
 
 void DoipUdpHandler::ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message) {
   received_doip_message_.host_ip_address = udp_rx_message->host_ip_address_;
-  received_doip_message_.port_num = udp_rx_message->port_
+  received_doip_message_.port_num = udp_rx_message->host_port_num_;
   received_doip_message_.protocol_version = udp_rx_message->rx_buffer_[0];
   received_doip_message_.protocol_version_inv = udp_rx_message->rx_buffer_[1];
   received_doip_message_.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
@@ -115,16 +115,18 @@ void DoipUdpHandler::Transmit() {
   // vin
   SerializePayloadFromString(expected_vehicle_info_.vin, vehicle_identification_response->tx_buffer_);
   // logical address
-  vehicle_identification_response->tx_buffer_.emplace_back((expected_vehicle_info_.logical_address & 0xFF00) >> 8U);
-  vehicle_identification_response->tx_buffer_.emplace_back((expected_vehicle_info_.logical_address & 0x00FF) << 8U);
+  vehicle_identification_response->tx_buffer_.emplace_back(expected_vehicle_info_.logical_address >> 8U);
+  vehicle_identification_response->tx_buffer_.emplace_back(expected_vehicle_info_.logical_address & 0xFFU);
   // eid
   SerializePayloadFromString(expected_vehicle_info_.eid, vehicle_identification_response->tx_buffer_);
   // gid
   SerializePayloadFromString(expected_vehicle_info_.gid, vehicle_identification_response->tx_buffer_);
   // set remote ip
   vehicle_identification_response->host_ip_address_ = received_doip_message_.host_ip_address;
+  // set remote port
+  vehicle_identification_response->host_port_num_ = received_doip_message_.port_num;
 
-  if (udp_socket_handler_broadcast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
+  if (udp_socket_handler_unicast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
 }
 
 void DoipUdpHandler::CreateDoipGenericHeader(std::vector<uint8_t>& doipHeader, std::uint16_t payloadType,

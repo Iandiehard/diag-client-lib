@@ -71,7 +71,7 @@ bool createUdpClientSocket::Open() {
           UdpIpAddress::from_string(local_ip_address_), 13400), ec);*/
     } else {
       //bind to local address and random port
-      udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), 0), ec);
+      udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
     }
 
     if (ec.value() == boost::system::errc::success) {
@@ -113,7 +113,7 @@ bool createUdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
     std::size_t send_size{
         udp_socket_->send_to(boost::asio::buffer(udp_message->tx_buffer_, std::size_t(udp_message->tx_buffer_.size())),
                              UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_),
-                                                 13400))};  // Todo : change the hardcoded value of port number 13400
+                                                 udp_message->host_port_num_))};
     // Check for error
     if (send_size == udp_message->tx_buffer_.size()) {
       // successful

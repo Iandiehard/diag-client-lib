@@ -27,13 +27,19 @@ TEST_F(DoipClientFixture, SendVehicleIdentification) {
 
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
   std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
-      result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
+      response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
-  diag::client::DiagClient::VehicleResponseResult response_result{result.first};
-  if (response_result == diag::client::DiagClient::VehicleResponseResult::kStatusOk) {
-    diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-        result.second->GetVehicleList()};
-  }
+  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
+  ASSERT_TRUE(response_result.second);
+
+  diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
+      response_result.second->GetVehicleList()};
+
+  EXPECT_EQ(response_collection.size(), 1U);
+  EXPECT_EQ(response_collection[0].logical_address, vehicle_addr_response.logical_address);
+  EXPECT_EQ(response_collection[0].vin, vehicle_addr_response.vin);
+  EXPECT_EQ(response_collection[0].eid, vehicle_addr_response.eid);
+  EXPECT_EQ(response_collection[0].gid, vehicle_addr_response.gid);
 }
 
 }  // namespace doip_client

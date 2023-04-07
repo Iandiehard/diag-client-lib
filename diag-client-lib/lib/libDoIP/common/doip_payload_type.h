@@ -34,16 +34,18 @@ public:
   rx_socket_type rx_socket{rx_socket_type::kUnicast};
   // remote ip address;
   IpAddressType host_ip_address;
+  // remote port number
+  std::uint16_t  host_port_number;
   // doip protocol version
-  uint8_t protocol_version{};
+  std::uint8_t protocol_version{};
   // doip protocol inverse version
-  uint8_t protocol_version_inv{};
+  std::uint8_t protocol_version_inv{};
   // doip payload type
-  uint16_t payload_type{};
+  std::uint16_t payload_type{};
   // doip payload length
-  uint32_t payload_length{};
+  std::uint32_t payload_length{};
   // doip payload
-  std::vector<uint8_t> payload;
+  std::vector<std::uint8_t> payload;
 };
 
 #endif  //DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_COMMON_DOIP_PAYLOAD_TYPE_H

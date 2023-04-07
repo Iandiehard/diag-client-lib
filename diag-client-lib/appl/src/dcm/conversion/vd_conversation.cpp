@@ -43,7 +43,8 @@ private:
 // Conversation class
 VdConversation::VdConversation(std::string conversion_name,
                                ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
-    : conversation_name_{conversion_name},
+    : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
+      conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
       connection_ptr_{},
       sync_timer_{},
@@ -104,6 +105,7 @@ std::pair<VdConversation::IndicationResult, ara::diag::uds_transport::UdsMessage
   if (!payloadInfo.empty()) {
     ret_val.first = IndicationResult::kIndicationOk;
     ret_val.second = std::move(std::make_unique<diag::client::vd_message::VdMessage>());
+    ret_val.second->GetPayload().resize(size);
   }
   return ret_val;
 }
