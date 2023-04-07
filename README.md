@@ -76,7 +76,7 @@ More information on the diag client config json file, refer [doc_config_json](do
 Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
 
 ## Requirements
-Component requirements already implemented are documented [REQ](doc/requirements.md)
+Component requirements already implemented are documented [REQ](docs/spec/requirement/requirements.md)
 
 ## Known Defect
 * No defect is identified yet.

@@ -116,6 +116,8 @@ private:
   // store the information about registration with app id
   bool registration_with_app_id_{false};
 #endif
+  
+  std::string contxt_local_;
 };
 }  // namespace logger
 }  // namespace libUtility

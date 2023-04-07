@@ -18,7 +18,9 @@ namespace doip_client {
 
 TEST_F(DoipClientFixture, SendVehicleIdentification) {
 
-  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0x0001, "ABCDEFGH123456789", "010203040506",
+  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0x0001U,
+                                                                         "ABCDEFGH123456789",
+                                                                         "010203040506",
                                                                          "0A0B0C0D0E0F"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);

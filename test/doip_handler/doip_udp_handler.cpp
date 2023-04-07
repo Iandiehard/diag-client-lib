@@ -66,6 +66,7 @@ void DoipUdpHandler::DeInitialize() {
 
 void DoipUdpHandler::ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message) {
   received_doip_message_.host_ip_address = udp_rx_message->host_ip_address_;
+  received_doip_message_.port_num = udp_rx_message->port_
   received_doip_message_.protocol_version = udp_rx_message->rx_buffer_[0];
   received_doip_message_.protocol_version_inv = udp_rx_message->rx_buffer_[1];
   received_doip_message_.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
