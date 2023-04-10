@@ -7,6 +7,7 @@
  */
 // includes
 #include "libSocket/tcp/tcp_client.h"
+
 #include "libCommon/logger.h"
 
 namespace libBoost {
@@ -170,8 +171,8 @@ void CreateTcpClientSocket::HandleMessage() {
     }();
     // reserve the buffer
     tcp_rx_message->rxBuffer_.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(*tcp_socket_,
-                      boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes), ec);
+    boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes),
+                      ec);
     // all message received, transfer to upper layer
     TcpSocket::endpoint endpoint_{tcp_socket_->remote_endpoint()};
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(

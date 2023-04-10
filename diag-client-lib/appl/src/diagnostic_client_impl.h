@@ -43,9 +43,6 @@ public:
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 
-  // Get the list of available Diagnostic Server
-  diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() override;
-
 private:
   // Used to read json
   diag::client::common::property_tree ptree;

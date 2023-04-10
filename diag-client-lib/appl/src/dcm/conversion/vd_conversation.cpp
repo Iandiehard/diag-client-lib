@@ -6,12 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
-#include "src/dcm/conversion/vd_conversation.h"
-
 #include <sstream>
 #include <string>
 #include <utility>
 
+#include "src/dcm/conversion/vd_conversation.h"
 #include "src/common/logger.h"
 #include "src/dcm/service/vd_message.h"
 
@@ -74,8 +73,8 @@ private:
 };
 
 // Conversation class
-VdConversation::VdConversation(std::string conversion_name,
-                               ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
+VdConversation::VdConversation(std::string_view conversion_name,
+                               ara::diag::conversion_manager::ConversionIdentifierType& conversion_identifier)
     : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},

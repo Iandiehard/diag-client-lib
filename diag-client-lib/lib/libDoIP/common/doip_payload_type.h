@@ -35,7 +35,7 @@ public:
   // remote ip address;
   IpAddressType host_ip_address{};
   // remote port number
-  std::uint16_t  host_port_number{};
+  std::uint16_t host_port_number{};
   // doip protocol version
   std::uint8_t protocol_version{};
   // doip protocol inverse version

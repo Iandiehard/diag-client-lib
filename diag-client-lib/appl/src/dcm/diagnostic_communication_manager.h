@@ -46,9 +46,6 @@ public:
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 
-  // Get the list of available Diagnostic Server
-  diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() override;
-
 private:
   // uds transport protocol Manager
   std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;

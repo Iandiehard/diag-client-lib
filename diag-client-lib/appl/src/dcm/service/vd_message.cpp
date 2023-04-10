@@ -7,6 +7,7 @@
 */
 #include "src/dcm/service/vd_message.h"
 
+#include <string_view>
 #include <sstream>
 #include <string>
 
@@ -14,7 +15,7 @@ namespace diag {
 namespace client {
 namespace vd_message {
 
-VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, IpAddress host_ip_address)
+VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, std::string_view host_ip_address)
     : ara::diag::uds_transport::UdsMessage(),
       source_address_{0U},
       target_address_{0U},

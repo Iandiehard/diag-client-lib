@@ -18,7 +18,7 @@ namespace vd_message {
 class VdMessage final : public ara::diag::uds_transport::UdsMessage {
 public:
   // ctor
-  VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, IpAddress host_ip_address);
+  VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, std::string_view host_ip_address);
 
   // default ctor
   VdMessage() noexcept;
@@ -49,9 +49,7 @@ private:
   void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
     meta_info_ = meta_info;
     // update meta info data
-    if(meta_info_!= nullptr) {
-      host_ip_address_ = meta_info_->at("kRemoteIpAddress");
-    }
+    if (meta_info_ != nullptr) { host_ip_address_ = meta_info_->at("kRemoteIpAddress"); }
   }
 
   // Get the UDS message data starting with the SID (A_Data as per ISO)
@@ -70,9 +68,7 @@ private:
   TargetAddressType GetTaType() const noexcept override { return target_address_type; }
 
   // Get Host Ip address
-  IpAddress GetHostIpAddress() const noexcept override {
-    return host_ip_address_;
-  }
+  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address_; }
 
   // Get Host port number
   PortNumber GetHostPortNumber() const noexcept override { return 13400U; }

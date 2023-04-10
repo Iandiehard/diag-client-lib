@@ -64,8 +64,5 @@ DiagClientImpl::SendVehicleIdentificationRequest(
   return (dcm_instance_ptr->SendVehicleIdentificationRequest(vehicle_info_request));
 }
 
-diag::client::vehicle_info::VehicleInfoMessageResponsePtr DiagClientImpl::GetDiagnosticServerList() {
-  return (dcm_instance_ptr->GetDiagnosticServerList());
-}
 }  // namespace client
 }  // namespace diag

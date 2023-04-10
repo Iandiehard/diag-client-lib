@@ -123,9 +123,6 @@ DCMClient::SendVehicleIdentificationRequest(
   return diag_client_vehicle_discovery_conversation->SendVehicleIdentificationRequest(vehicle_info_request);
 }
 
-diag::client::vehicle_info::VehicleInfoMessageResponsePtr DCMClient::GetDiagnosticServerList() {
-  return diag_client_vehicle_discovery_conversation->GetDiagnosticServerList();
-}
 }  // namespace dcm
 }  // namespace client
 }  // namespace diag

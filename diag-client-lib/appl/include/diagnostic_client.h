@@ -62,17 +62,10 @@ public:
    * @param[in]   vehicle_info_request
    *              Vehicle information sent along with request
    * @return      std::pair<VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
-   *              Pair consisting the result & response
+   *              Pair consisting the result & response, contains valid response when result = kStatusOk
    */
   virtual std::pair<VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
-
-  /**
-   * @brief       Function to get the Diagnostic Server list.
-   * @return      diag::client::vehicle_info::VehicleInfoMessageResponsePtr
-   *              The Response
-   */
-  virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() = 0;
 };
 
 }  // namespace client

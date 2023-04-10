@@ -7,11 +7,12 @@
  */
 #ifndef DIAG_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H
 #define DIAG_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H
+
 /* includes */
+#include <string_view>
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_types.h"
-#include "common_Header.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_message_type.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
@@ -40,8 +41,8 @@ private:
 
 public:
   // ctor
-  VdConversation(std::string conversion_name,
-                 ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
+  VdConversation(std::string_view conversion_name,
+                 ara::diag::conversion_manager::ConversionIdentifierType& conversion_identifier);
 
   // dtor
   ~VdConversation() = default;

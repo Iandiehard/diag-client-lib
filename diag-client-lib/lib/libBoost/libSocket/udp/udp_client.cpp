@@ -7,6 +7,7 @@
  */
 // includes
 #include "libSocket/udp/udp_client.h"
+
 #include "libCommon/logger.h"
 
 namespace libBoost {
@@ -31,7 +32,7 @@ createUdpClientSocket::createUdpClientSocket(Boost_String &local_ip_address, uin
       if (!running_) {
         cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
-      if(!exit_request_) {
+      if (!exit_request_) {
         if (running_) {
           io_context_.restart();
           io_context_.run();
@@ -110,10 +111,9 @@ bool createUdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
   bool ret_val{false};
   try {
     // Transmit to remote endpoints
-    std::size_t send_size{
-        udp_socket_->send_to(boost::asio::buffer(udp_message->tx_buffer_, std::size_t(udp_message->tx_buffer_.size())),
-                             UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_),
-                                                 udp_message->host_port_num_))};
+    std::size_t send_size{udp_socket_->send_to(
+        boost::asio::buffer(udp_message->tx_buffer_, std::size_t(udp_message->tx_buffer_.size())),
+        UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_), udp_message->host_port_num_))};
     // Check for error
     if (send_size == udp_message->tx_buffer_.size()) {
       // successful

@@ -60,9 +60,6 @@ public:
                     diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
 
-  // Get the list of available Diagnostic Server
-  virtual diag::client::vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList() = 0;
-
 protected:
   // store the json tree
   property_tree &ptree_e;
