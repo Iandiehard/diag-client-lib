@@ -24,7 +24,7 @@ public:
   VdMessage() noexcept;
 
   // dtor
-  ~VdMessage() noexcept = default;
+  ~VdMessage() noexcept override = default;
 
 private:
   // SA
@@ -42,9 +42,16 @@ private:
   // store the vehicle info payload
   ara::diag::uds_transport::ByteVector vehicle_info_payload_;
 
+  //
+  std::shared_ptr<const MetaInfoMap> meta_info_{};
+
   // add new metaInfo to this message.
   void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
-    // Todo [Add meta info information]
+    meta_info_ = meta_info;
+    // update meta info data
+    if(meta_info_!= nullptr) {
+      host_ip_address_ = meta_info_->at("kRemoteIpAddress");
+    }
   }
 
   // Get the UDS message data starting with the SID (A_Data as per ISO)
@@ -63,7 +70,9 @@ private:
   TargetAddressType GetTaType() const noexcept override { return target_address_type; }
 
   // Get Host Ip address
-  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address_; }
+  IpAddress GetHostIpAddress() const noexcept override {
+    return host_ip_address_;
+  }
 
   // Get Host port number
   PortNumber GetHostPortNumber() const noexcept override { return 13400U; }

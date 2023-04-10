@@ -37,7 +37,7 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(DoipMessage &
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
       uds_transport::UdsMessage::MetaInfoMap meta_info_map{{"kRemoteIpAddress", doip_payload.host_ip_address}};
-      ret_val.second->AddMetaInfo(std::move(std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map)));
+      ret_val.second->AddMetaInfo(std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
       // copy to application buffer
       (void) std::copy(doip_payload.payload.begin(), doip_payload.payload.end(), ret_val.second->GetPayload().begin());
       udp_transport_handler_.HandleMessage(std::move(ret_val.second));

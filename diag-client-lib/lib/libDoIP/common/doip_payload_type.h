@@ -33,9 +33,9 @@ public:
   // rx type -> broadcast, unicast
   rx_socket_type rx_socket{rx_socket_type::kUnicast};
   // remote ip address;
-  IpAddressType host_ip_address;
+  IpAddressType host_ip_address{};
   // remote port number
-  std::uint16_t  host_port_number;
+  std::uint16_t  host_port_number{};
   // doip protocol version
   std::uint8_t protocol_version{};
   // doip protocol inverse version

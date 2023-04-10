@@ -19,7 +19,7 @@ TEST_F(DoipClientFixture, SendVehicleIdentification) {
   ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U,
                                                                          "ABCDEFGH123456789",
                                                                          "00:02:36:31:00:1c",
-                                                                         "0A:0B:0C:0D:0E:0F"};
+                                                                         "0a:0b:0c:0d:0e:0f"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
 
@@ -37,6 +37,7 @@ TEST_F(DoipClientFixture, SendVehicleIdentification) {
       response_result.second->GetVehicleList()};
 
   EXPECT_EQ(response_collection.size(), 1U);
+  EXPECT_EQ(response_collection[0].ip_address, DiagUdpIpAddress);
   EXPECT_EQ(response_collection[0].logical_address, vehicle_addr_response.logical_address);
   EXPECT_EQ(response_collection[0].vin, vehicle_addr_response.vin);
   EXPECT_EQ(response_collection[0].eid, vehicle_addr_response.eid);

@@ -13,6 +13,7 @@
 namespace diag {
 namespace client {
 namespace vd_message {
+
 VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, IpAddress host_ip_address)
     : ara::diag::uds_transport::UdsMessage(),
       source_address_{0U},

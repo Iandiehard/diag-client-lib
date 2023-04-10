@@ -19,6 +19,39 @@ namespace diag {
 namespace client {
 namespace conversation {
 
+std::string ConvertToHexString(std::uint8_t char_start, std::uint8_t char_count,
+                               std::vector<std::uint8_t> &input_buffer) {
+  std::string hex_string{};
+  std::uint8_t total_char_count{static_cast<uint8_t>(char_start + char_count)};
+
+  for (std::uint8_t char_start_count = char_start; char_start_count < total_char_count; char_start_count++) {
+    std::stringstream vehicle_info_data_eid{};
+    int payload_byte{input_buffer[char_start_count]};
+    if ((payload_byte <= 15U)) {
+      // "0" appended in case of value upto 15/0xF
+      vehicle_info_data_eid << "0";
+    }
+    vehicle_info_data_eid << std::hex << payload_byte << ":";
+    hex_string.append(vehicle_info_data_eid.str());
+  }
+  hex_string.pop_back();  // remove last ":" appended before
+  return hex_string;
+}
+
+std::string ConvertToAsciiString(std::uint8_t char_start, std::uint8_t char_count,
+                                 std::vector<std::uint8_t> &input_buffer) {
+  std::string ascii_string{};
+  std::uint8_t total_char_count{static_cast<uint8_t>(char_start + char_count)};
+
+  for (std::uint8_t char_start_count = char_start; char_start_count < total_char_count; char_start_count++) {
+    std::stringstream vehicle_info_data_vin{};
+    vehicle_info_data_vin << input_buffer[char_start_count];
+    ascii_string.append(vehicle_info_data_vin.str());
+  }
+  return ascii_string;
+}
+
+// Vehicle Info Message implementation class
 class VehicleInfoMessageImpl final : public vehicle_info::VehicleInfoMessage {
 public:
   explicit VehicleInfoMessageImpl(
@@ -126,19 +159,25 @@ bool VdConversation::VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListReque
 
 std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConversation::DeserializeVehicleInfoResponse(
     ara::diag::uds_transport::UdsMessagePtr message) {
-  // Copy to stream
-  std::ostringstream vehicle_info_data_os;
-  for (std::uint8_t &byte: message->GetPayload()) { vehicle_info_data_os << byte; }
-  std::string vehicle_info_data{vehicle_info_data_os.str()};
+  constexpr std::uint8_t start_index_vin{0U};
+  constexpr std::uint8_t total_vin_length{17U};
+  constexpr std::uint8_t start_index_eid{19U};
+  constexpr std::uint8_t start_index_gid{25U};
+  constexpr std::uint8_t total_eid_gid_length{6U};
+
+  std::string vehicle_info_data_vin{ConvertToAsciiString(start_index_vin, total_vin_length, message->GetPayload())};
+  std::string vehicle_info_data_eid{ConvertToHexString(start_index_eid, total_eid_gid_length, message->GetPayload())};
+  std::string vehicle_info_data_gid{ConvertToHexString(start_index_gid, total_eid_gid_length, message->GetPayload())};
 
   std::uint16_t logical_address{
-      (static_cast<std::uint16_t>(((message->GetPayload()[17] & 0xFF) << 8) | (message->GetPayload()[18] & 0xFF)))};
+      (static_cast<std::uint16_t>(((message->GetPayload()[17U] & 0xFF) << 8) | (message->GetPayload()[18U] & 0xFF)))};
 
-  VehicleAddrInfoResponseStruct vehicle_addr_info{message->GetHostIpAddress(),         // remote ip address
-                                                  logical_address,                     // logical address
-                                                  vehicle_info_data.substr(0u, 17u),   // vin
-                                                  vehicle_info_data.substr(19u, 6u),   // eid
-                                                  vehicle_info_data.substr(25u, 6u)};  // gid
+  // Create the structure out of the extracted string
+  VehicleAddrInfoResponseStruct vehicle_addr_info{message->GetHostIpAddress(),  // remote ip address
+                                                  logical_address,              // logical address
+                                                  vehicle_info_data_vin,        // vin
+                                                  vehicle_info_data_eid,        // eid
+                                                  vehicle_info_data_gid};       // gid
 
   return {logical_address, vehicle_addr_info};
 }
