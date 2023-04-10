@@ -13,7 +13,7 @@
 
 #include "common/diagnostic_manager.h"
 #include "common_Header.h"
-#include "dcm/diagnostic_communication_manager.h"
+#include "dcm/dcm_client.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_conversation.h"
 #include "libJsonParser/jsonParser.h"
@@ -26,7 +26,7 @@ public:
   explicit DiagClientImpl(std::string dm_client_config);
 
   // dtor
-  ~DiagClientImpl() = default;
+  ~DiagClientImpl() override = default;
 
   // Initialize
   void Initialize() override;

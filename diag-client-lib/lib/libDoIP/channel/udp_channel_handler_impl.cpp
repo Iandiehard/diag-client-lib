@@ -121,7 +121,7 @@ void VehicleDiscoveryHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doip
 }
 
 auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept
-    -> const VehiclePayloadType {
+    -> VehiclePayloadType {
   VehiclePayloadType ret_val{0, 0};
   switch (preselection_mode) {
     case 0U:
@@ -267,8 +267,8 @@ auto UdpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) n
           (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
 }
 
-auto UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload,
-                                               DoipMessage::rx_socket_type socket_type) noexcept -> void {
+void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload,
+                                               DoipMessage::rx_socket_type socket_type) {
   std::unique_lock<std::mutex> lck(channel_handler_lock);
   switch (doip_payload.payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {

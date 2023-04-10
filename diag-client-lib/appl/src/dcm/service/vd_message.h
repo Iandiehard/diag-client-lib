@@ -72,10 +72,6 @@ private:
 
   // Get Host port number
   PortNumber GetHostPortNumber() const noexcept override { return 13400U; }
-
-  // Serialize Data from VehicleInfoListRequest
-  ara::diag::uds_transport::ByteVector SerializeVehicleInfoList(
-      vehicle_info::VehicleInfoListRequestType vehicle_info_request);
 };
 
 }  // namespace vd_message

@@ -5,15 +5,27 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include "src/dcm/service/vd_message.h"
-
 #include <string_view>
 #include <sstream>
-#include <string>
+
+#include "src/dcm/service/vd_message.h"
 
 namespace diag {
 namespace client {
 namespace vd_message {
+
+auto SerializeVehicleInfoList(
+    vehicle_info::VehicleInfoListRequestType& vehicle_info_request)
+    noexcept -> ara::diag::uds_transport::ByteVector {
+  ara::diag::uds_transport::ByteVector payload{0U, vehicle_info_request.preselection_mode};
+  std::stringstream preselection_value{vehicle_info_request.preselection_value};
+  
+  for (std::uint8_t char_count{0U};
+       char_count < static_cast<std::uint8_t>(vehicle_info_request.preselection_value.length()); char_count++) {
+    payload.emplace_back(static_cast<std::uint8_t>(preselection_value.get()));
+  }
+  return payload;
+}
 
 VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, std::string_view host_ip_address)
     : ara::diag::uds_transport::UdsMessage(),
@@ -28,18 +40,6 @@ VdMessage::VdMessage() noexcept
       source_address_{0U},
       target_address_{0U},
       target_address_type{TargetAddressType::kPhysical} {}
-
-ara::diag::uds_transport::ByteVector VdMessage::SerializeVehicleInfoList(
-    vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
-  ara::diag::uds_transport::ByteVector payload{0U, vehicle_info_request.preselection_mode};
-  std::stringstream preselection_value{vehicle_info_request.preselection_value};
-
-  for (auto count = 0U; count < vehicle_info_request.preselection_value.length(); count++) {
-    std::string each_byte{static_cast<char>(preselection_value.get())};
-    payload.emplace_back(std::stoi(each_byte));
-  }
-  return payload;
-}
 
 }  // namespace vd_message
 }  // namespace client

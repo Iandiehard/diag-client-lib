@@ -43,7 +43,7 @@ public:
 
   // Initialize
   virtual void Initialize() = 0;
-
+  
   // De-Initialize
   virtual void DeInitialize() = 0;
 

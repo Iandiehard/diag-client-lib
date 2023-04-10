@@ -87,7 +87,7 @@ public:
   // @return value : DiagResult
   //                 Result returned
   // @return value : UdsResponseMessagePtr
-  //                 Diagnostic Response message received, null_ptr incase of error
+  //                 Diagnostic Response message received, null_ptr in case of error
   virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) = 0;
 };

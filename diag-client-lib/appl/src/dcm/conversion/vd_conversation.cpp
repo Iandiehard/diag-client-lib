@@ -56,19 +56,21 @@ public:
   explicit VehicleInfoMessageImpl(
       std::map<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> &vehicle_info_collection)
       : vehicle_info_messages_{} {
-    for (auto &vehicle_info: vehicle_info_collection) { Push(vehicle_info.second); }
+    for ( std::pair<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> vehicle_info: vehicle_info_collection) {
+      Push(vehicle_info.second);
+    }
   }
-
+  
   ~VehicleInfoMessageImpl() override = default;
-
+  
   VehicleInfoListResponseType &GetVehicleList() override { return vehicle_info_messages_; }
-
 private:
   // Function to push the vehicle address info received
   void Push(vehicle_info::VehicleAddrInfoResponse &vehicle_addr_info_response) {
     vehicle_info_messages_.emplace_back(vehicle_addr_info_response);
   }
-
+  
+  // store the vehicle info message list
   VehicleInfoListResponseType vehicle_info_messages_;
 };
 
@@ -153,7 +155,21 @@ void VdConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr messa
 }
 
 bool VdConversation::VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request) {
-  return true;
+  bool is_veh_info_valid{false};
+  if(vehicle_info_request.preselection_mode != 0U && !vehicle_info_request.preselection_value.empty()) {
+    //
+    if(vehicle_info_request.preselection_mode == 1U && (vehicle_info_request.preselection_value.length() == 17U)) {
+      is_veh_info_valid = true;
+    }
+  }
+  else if(vehicle_info_request.preselection_mode == 0U && vehicle_info_request.preselection_value.empty()) {
+    is_veh_info_valid = true;
+  }
+  else {
+  
+  }
+  
+  return is_veh_info_valid;
 }
 
 std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConversation::DeserializeVehicleInfoResponse(

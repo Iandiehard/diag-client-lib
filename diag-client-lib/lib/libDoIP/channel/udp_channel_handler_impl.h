@@ -70,7 +70,7 @@ private:
   static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
                                       std::uint32_t payloadLen);
 
-  static auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept -> const VehiclePayloadType;
+  static auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept -> VehiclePayloadType;
 
   // socket reference
   udpSocket::UdpSocketHandler &udp_socket_handler_;
@@ -120,9 +120,8 @@ private:
   static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
 
   // Function to process DoIP payload responses
-  auto ProcessDoIPPayload(DoipMessage &doip_payload,
-                          DoipMessage::rx_socket_type socket_type = DoipMessage::rx_socket_type::kUnicast) noexcept
-      -> void;
+  void ProcessDoIPPayload(DoipMessage &doip_payload,
+                          DoipMessage::rx_socket_type socket_type = DoipMessage::rx_socket_type::kUnicast);
 
   // handler to process vehicle announcement
   VehicleDiscoveryHandler vehicle_discovery_handler_;

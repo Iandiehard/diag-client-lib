@@ -148,7 +148,7 @@ void DoipUdpHandler::Transmit() {
 
   //  set further action required
   vehicle_identification_response->tx_buffer_.emplace_back(0U);
-
+  
   if (udp_socket_handler_unicast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
 }
 
