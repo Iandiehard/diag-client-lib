@@ -45,12 +45,11 @@ public:
   // function to create the expected VehicleIdentification Response
   void SetExpectedVehicleIdentificationResponseToBeSent(VehicleAddrInfo &vehicle_info);
 
-  // function to set the expectation on the request received
-  auto VerifyExpectedVehicleIdentificationRequestReceived(DoipMessage &expected_doip_message) noexcept -> bool;
+  // function to set the expectation of VIN on the request received
+  auto VerifyVehicleIdentificationRequestWithExpectedVIN(std::string_view vin) noexcept -> bool;
 
-  // function to send out Vehicle Announcement Message
-  void SendVehicleAnnouncementMessage();
-
+  // function to set the expectation of EID on the request received
+  auto VerifyVehicleIdentificationRequestWithExpectedEID(std::string_view eid) noexcept -> bool;
 private:
   // udp socket handler unicast
   udpSocket::DoipUdpSocketHandler udp_socket_handler_unicast_;
@@ -95,9 +94,11 @@ private:
   // Function to get payload length
   static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
 
+  // Function to create the generic header
   static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
                                       std::uint32_t payloadLen);
 
+  // Function to trigger transmission of udp messages
   void Transmit();
 };
 

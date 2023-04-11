@@ -7,6 +7,7 @@
  */
 /* includes */
 #include "dcm_client.h"
+
 #include "src/common/logger.h"
 
 namespace diag {

@@ -18,7 +18,8 @@ namespace vd_message {
 class VdMessage final : public ara::diag::uds_transport::UdsMessage {
 public:
   // ctor
-  VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, std::string_view host_ip_address);
+  VdMessage(std::uint8_t preselection_mode, ara::diag::uds_transport::ByteVector& preselection_value,
+            std::string_view host_ip_address);
 
   // default ctor
   VdMessage() noexcept;

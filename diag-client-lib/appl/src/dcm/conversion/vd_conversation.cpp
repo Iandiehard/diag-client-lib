@@ -6,11 +6,12 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
+#include "src/dcm/conversion/vd_conversation.h"
+
 #include <sstream>
 #include <string>
 #include <utility>
 
-#include "src/dcm/conversion/vd_conversation.h"
 #include "src/common/logger.h"
 #include "src/dcm/service/vd_message.h"
 
@@ -50,33 +51,57 @@ std::string ConvertToAsciiString(std::uint8_t char_start, std::uint8_t char_coun
   return ascii_string;
 }
 
+void SerializeEIDGIDFromString(std::string &input_string, std::vector<uint8_t> &output_buffer, std::uint8_t total_size,
+                               std::uint8_t substring_range) {
+
+  for (auto char_count = 0U; char_count < total_size; char_count += substring_range) {
+    std::string input_string_new{input_string.substr(char_count, static_cast<std::uint8_t>(substring_range))};
+    std::stringstream input_string_stream{input_string_new};
+    int get_byte;
+    input_string_stream >> std::hex >> get_byte;
+    output_buffer.emplace_back(static_cast<std::uint8_t>(get_byte));
+  }
+}
+
+void SerializeVINFromString(std::string &input_string, std::vector<uint8_t> &output_buffer, std::uint8_t total_size,
+                            std::uint8_t substring_range) {
+
+  for (auto char_count = 0U; char_count < total_size; char_count += substring_range) {
+    std::string input_string_new{input_string.substr(char_count, static_cast<std::uint8_t>(substring_range))};
+    std::stringstream input_string_stream{input_string_new};
+    int get_byte{input_string_stream.get()};
+    output_buffer.emplace_back(static_cast<std::uint8_t>(get_byte));
+  }
+}
+
 // Vehicle Info Message implementation class
 class VehicleInfoMessageImpl final : public vehicle_info::VehicleInfoMessage {
 public:
   explicit VehicleInfoMessageImpl(
       std::map<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> &vehicle_info_collection)
       : vehicle_info_messages_{} {
-    for ( std::pair<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> vehicle_info: vehicle_info_collection) {
+    for (std::pair<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> vehicle_info: vehicle_info_collection) {
       Push(vehicle_info.second);
     }
   }
-  
+
   ~VehicleInfoMessageImpl() override = default;
-  
+
   VehicleInfoListResponseType &GetVehicleList() override { return vehicle_info_messages_; }
+
 private:
   // Function to push the vehicle address info received
   void Push(vehicle_info::VehicleAddrInfoResponse &vehicle_addr_info_response) {
     vehicle_info_messages_.emplace_back(vehicle_addr_info_response);
   }
-  
+
   // store the vehicle info message list
   VehicleInfoListResponseType vehicle_info_messages_;
 };
 
 // Conversation class
 VdConversation::VdConversation(std::string_view conversion_name,
-                               ara::diag::conversion_manager::ConversionIdentifierType& conversion_identifier)
+                               ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier)
     : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
@@ -104,10 +129,15 @@ void VdConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::C
 VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleIdentificationRequest(
     vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   VehicleIdentificationResponseResult ret_val{VehicleResponseResult::kTransmitFailed, nullptr};
+  // Deserialize first , Todo: Add optional when deserialize fails
+  std::pair<PreselectionMode, PreselectionValue> vehicle_info_request_deserialized_value{
+      DeserializeVehicleInfoRequest(vehicle_info_request)};
 
-  if (VerifyVehicleInfoRequest(vehicle_info_request)) {
-    if (connection_ptr_->Transmit(std::move(
-            std::make_unique<diag::client::vd_message::VdMessage>(vehicle_info_request, broadcast_address_))) !=
+  if (VerifyVehicleInfoRequest(vehicle_info_request_deserialized_value.first,
+                               vehicle_info_request_deserialized_value.second.size())) {
+    if (connection_ptr_->Transmit(std::move(std::make_unique<diag::client::vd_message::VdMessage>(
+            vehicle_info_request_deserialized_value.first, vehicle_info_request_deserialized_value.second,
+            broadcast_address_))) !=
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Check if any response received
       if (vehicle_info_collection_.empty()) {
@@ -154,21 +184,26 @@ void VdConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr messa
   }
 }
 
-bool VdConversation::VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request) {
+bool VdConversation::VerifyVehicleInfoRequest(PreselectionMode preselection_mode,
+                                              std::uint8_t preselection_value_length) {
   bool is_veh_info_valid{false};
-  if(vehicle_info_request.preselection_mode != 0U && !vehicle_info_request.preselection_value.empty()) {
-    //
-    if(vehicle_info_request.preselection_mode == 1U && (vehicle_info_request.preselection_value.length() == 17U)) {
+  if ((preselection_mode != 0U) && (preselection_value_length != 0U)) {
+    // 1U : DoIP Entities with given VIN
+    if (preselection_mode == 1U && (preselection_value_length == 17U)) {
       is_veh_info_valid = true;
     }
+    // 2U : DoIP Entities with given EID
+    else if (preselection_mode == 2U && (preselection_value_length == 6U)) {
+      is_veh_info_valid = true;
+    } else {
+    }
   }
-  else if(vehicle_info_request.preselection_mode == 0U && vehicle_info_request.preselection_value.empty()) {
+  // 0U : No preselection
+  else if (preselection_mode == 0U && (preselection_value_length == 0U)) {
     is_veh_info_valid = true;
+  } else {
   }
-  else {
-  
-  }
-  
+
   return is_veh_info_valid;
 }
 
@@ -199,6 +234,27 @@ std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConver
 
 std::shared_ptr<ara::diag::conversion::ConversionHandler> &VdConversation::GetConversationHandler() {
   return vd_conversion_handler_;
+}
+
+std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue>
+VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request) {
+  std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue> ret_val{};
+
+  ret_val.first = vehicle_info_request.preselection_mode;
+
+  if (ret_val.first == 1U) {
+    // 1U : DoIP Entities with given VIN
+    SerializeVINFromString(vehicle_info_request.preselection_value, ret_val.second,
+                           vehicle_info_request.preselection_value.length(), 1U);
+  } else if (ret_val.first == 2U) {
+    // 2U : DoIP Entities with given EID
+    vehicle_info_request.preselection_value.erase(
+        remove(vehicle_info_request.preselection_value.begin(), vehicle_info_request.preselection_value.end(), ':'),
+        vehicle_info_request.preselection_value.end());
+    SerializeEIDGIDFromString(vehicle_info_request.preselection_value, ret_val.second,
+                              vehicle_info_request.preselection_value.length(), 2U);
+  }
+  return ret_val;
 }
 
 VdConversationHandler::VdConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,

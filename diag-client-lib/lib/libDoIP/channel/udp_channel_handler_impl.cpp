@@ -84,23 +84,27 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(uds_transport::
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+
   UdpMessagePtr doip_vehicle_ident_req{std::make_unique<UdpMessage>()};
-  // get the payload type & length
-  VehiclePayloadType doip_vehicle_payload_type{
-      GetVehicleIdentificationPayloadType(message->GetPayload()[BYTE_POS_ONE])};
+  // Get preselection mode
+  std::uint8_t preselection_mode{message->GetPayload()[BYTE_POS_ONE]};
+
+  // get the payload type & length from preselection mode
+  VehiclePayloadType doip_vehicle_payload_type{GetVehicleIdentificationPayloadType(preselection_mode)};
+
   // create header
-  doip_vehicle_ident_req->tx_buffer_.reserve(kDoipheadrSize);
   CreateDoipGenericHeader(doip_vehicle_ident_req->tx_buffer_, doip_vehicle_payload_type.first,
                           doip_vehicle_payload_type.second);
   // set remote ip
   doip_vehicle_ident_req->host_ip_address_ = message->GetHostIpAddress();
+
   // set remote port num
   doip_vehicle_ident_req->host_port_num_ = message->GetHostPortNumber();
 
   // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
-    doip_vehicle_ident_req->tx_buffer_.insert(doip_vehicle_ident_req->tx_buffer_.end(),
-                                              doip_vehicle_payload_type.second, message->GetPayload().at(BYTE_POS_TWO));
+    doip_vehicle_ident_req->tx_buffer_.insert(doip_vehicle_ident_req->tx_buffer_.begin() + kDoipheadrSize,
+                                              message->GetPayload().begin() + 2U, message->GetPayload().end());
   }
   if (udp_socket_handler_.Transmit(std::move(doip_vehicle_ident_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
@@ -110,14 +114,14 @@ auto VehicleDiscoveryHandler::HandleVehicleIdentificationRequest(uds_transport::
 
 void VehicleDiscoveryHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
                                                       std::uint32_t payloadLen) {
-  doipHeader.push_back(kDoip_ProtocolVersion);
-  doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
-  doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadType & 0x00FF));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0xFF000000) >> 24));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x00FF0000) >> 16));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x0000FF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
+  doipHeader.emplace_back(kDoip_ProtocolVersion);
+  doipHeader.emplace_back(~((uint8_t) kDoip_ProtocolVersion));
+  doipHeader.emplace_back((uint8_t) ((payloadType & 0xFF00) >> 8));
+  doipHeader.emplace_back((uint8_t) (payloadType & 0x00FF));
+  doipHeader.emplace_back((uint8_t) ((payloadLen & 0xFF000000) >> 24));
+  doipHeader.emplace_back((uint8_t) ((payloadLen & 0x00FF0000) >> 16));
+  doipHeader.emplace_back((uint8_t) ((payloadLen & 0x0000FF00) >> 8));
+  doipHeader.emplace_back((uint8_t) (payloadLen & 0x000000FF));
 }
 
 auto VehicleDiscoveryHandler::GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept
@@ -146,8 +150,10 @@ auto UdpChannelHandlerImpl::Transmit(uds_transport::UdsMessageConstPtr message) 
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+  // Get the udp handler type from payload
+  std::uint8_t handler_type{message->GetPayload()[BYTE_POS_ZERO]};
   // deserialize and send to proper handler
-  switch (message->GetPayload()[BYTE_POS_ZERO]) {
+  switch (handler_type) {
     case 0U:
       // 0U -> Vehicle Identification Req
       ret_val = vehicle_identification_handler_.SendVehicleIdentificationRequest(std::move(message));
@@ -163,8 +169,8 @@ auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept
   uint8_t nack_code;
   DoipMessage doip_rx_message;
   doip_rx_message.host_ip_address = udp_rx_message->host_ip_address_;
-  doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0];
-  doip_rx_message.protocol_version_inv = udp_rx_message->rx_buffer_[1];
+  doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0U];
+  doip_rx_message.protocol_version_inv = udp_rx_message->rx_buffer_[1U];
   doip_rx_message.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
   doip_rx_message.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
   // Process the Doip Generic header check
@@ -267,8 +273,7 @@ auto UdpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) n
           (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
 }
 
-void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload,
-                                               DoipMessage::rx_socket_type socket_type) {
+void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::rx_socket_type socket_type) {
   std::unique_lock<std::mutex> lck(channel_handler_lock);
   switch (doip_payload.payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {

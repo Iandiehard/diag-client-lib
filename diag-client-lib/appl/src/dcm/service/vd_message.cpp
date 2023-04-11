@@ -5,35 +5,33 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include <string_view>
-#include <sstream>
-
 #include "src/dcm/service/vd_message.h"
+
+#include <sstream>
+#include <string_view>
 
 namespace diag {
 namespace client {
 namespace vd_message {
 
-auto SerializeVehicleInfoList(
-    vehicle_info::VehicleInfoListRequestType& vehicle_info_request)
-    noexcept -> ara::diag::uds_transport::ByteVector {
-  ara::diag::uds_transport::ByteVector payload{0U, vehicle_info_request.preselection_mode};
-  std::stringstream preselection_value{vehicle_info_request.preselection_value};
-  
-  for (std::uint8_t char_count{0U};
-       char_count < static_cast<std::uint8_t>(vehicle_info_request.preselection_value.length()); char_count++) {
-    payload.emplace_back(static_cast<std::uint8_t>(preselection_value.get()));
-  }
+auto SerializeVehicleInfoList(std::uint8_t preselection_mode,
+                              ara::diag::uds_transport::ByteVector& preselection_value) noexcept
+    -> ara::diag::uds_transport::ByteVector {
+  constexpr std::uint8_t VehicleIdentificationHandler{0U};
+
+  ara::diag::uds_transport::ByteVector payload{VehicleIdentificationHandler, preselection_mode};
+  payload.insert(payload.begin() + 2U, preselection_value.begin(), preselection_value.end());
   return payload;
 }
 
-VdMessage::VdMessage(vehicle_info::VehicleInfoListRequestType vehicle_info_request, std::string_view host_ip_address)
+VdMessage::VdMessage(std::uint8_t preselection_mode, ara::diag::uds_transport::ByteVector& preselection_value,
+                     std::string_view host_ip_address)
     : ara::diag::uds_transport::UdsMessage(),
       source_address_{0U},
       target_address_{0U},
       target_address_type{TargetAddressType::kPhysical},
       host_ip_address_{host_ip_address},
-      vehicle_info_payload_{SerializeVehicleInfoList(vehicle_info_request)} {}
+      vehicle_info_payload_{SerializeVehicleInfoList(preselection_mode, preselection_value)} {}
 
 VdMessage::VdMessage() noexcept
     : ara::diag::uds_transport::UdsMessage(),

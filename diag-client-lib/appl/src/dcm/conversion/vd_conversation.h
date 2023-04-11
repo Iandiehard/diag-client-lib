@@ -10,6 +10,7 @@
 
 /* includes */
 #include <string_view>
+
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_types.h"
@@ -36,13 +37,15 @@ public:
   using IndicationResult = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult;
 
 private:
+  using PreselectionMode = std::uint8_t;
+  using PreselectionValue = std::vector<std::uint8_t>;
   using VehicleResponseResult = diag::client::DiagClient::VehicleResponseResult;
   using VehicleAddrInfoResponseStruct = diag::client::vehicle_info::VehicleAddrInfoResponse;
 
 public:
   // ctor
   VdConversation(std::string_view conversion_name,
-                 ara::diag::conversion_manager::ConversionIdentifierType& conversion_identifier);
+                 ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier);
 
   // dtor
   ~VdConversation() = default;
@@ -79,11 +82,14 @@ public:
 
 private:
   // Function to verify Vehicle Info requests
-  bool VerifyVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request);
+  bool VerifyVehicleInfoRequest(PreselectionMode preselection_mode, std::uint8_t preselection_value_length);
 
   // Function to deserialize the received Vehicle Identification Response/ Announcement
   static std::pair<std::uint16_t, VehicleAddrInfoResponseStruct> DeserializeVehicleInfoResponse(
       ara::diag::uds_transport::UdsMessagePtr message);
+
+  static std::pair<PreselectionMode, PreselectionValue> DeserializeVehicleInfoRequest(
+      vehicle_info::VehicleInfoListRequestType &vehicle_info_request);
 
   // shared pointer to store the conversion handler
   std::shared_ptr<ara::diag::conversion::ConversionHandler> vd_conversion_handler_;
