@@ -15,8 +15,8 @@ namespace diag {
 namespace client {
 namespace conversation {
 //ctor
-DmConversation::DmConversation(std::string conversion_name,
-                               ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier)
+DmConversation::DmConversation(std::string_view conversion_name,
+                               ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier)
     : diag::client::conversation::DiagClientConversation(),
       activity_status_(ActivityStatusType::kInactive),
       active_session_(SessionControlType::kDefaultSession),
@@ -32,7 +32,7 @@ DmConversation::DmConversation(std::string conversion_name,
       dm_conversion_handler_(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {}
 
 //dtor
-DmConversation::~DmConversation() {}
+DmConversation::~DmConversation() = default;
 
 // startup
 void DmConversation::Startup() {

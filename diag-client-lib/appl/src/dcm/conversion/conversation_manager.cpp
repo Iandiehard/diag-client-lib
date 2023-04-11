@@ -57,16 +57,17 @@ ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string
 
 // function to find or create conversation
 void ConversationManager::CreateConversationConfig(diag::client::config_parser::ConversationConfig &config) {
-  {  // Vehicle discovery config
+  {  // Create Vehicle discovery config
     ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier{};
     conversion_identifier.udp_address = config.udp_ip_address;
     conversion_identifier.udp_broadcast_address = config.udp_broadcast_address;
+    conversion_identifier.port_num = 0U;  // random selection of port number
     (void) vd_conversation_config_.insert(
         std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>("VehicleDiscovery",
                                                                                           conversion_identifier));
   }
 
-  {  // Conversation config
+  {  // Create Conversation config
     for (uint8_t conv_count = 0U; conv_count < config.num_of_conversation; conv_count++) {
       ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier{};
       conversion_identifier.tx_buffer_size = config.conversations[conv_count].txBufferSize;
@@ -76,7 +77,7 @@ void ConversationManager::CreateConversationConfig(diag::client::config_parser::
       conversion_identifier.source_address = config.conversations[conv_count].sourceAddress;
       conversion_identifier.target_address = config.conversations[conv_count].targetAddress;
       conversion_identifier.tcp_address = config.conversations[conv_count].network.tcpIpAddress;
-      conversion_identifier.port_num = config.conversations[conv_count].network.portNum;
+      conversion_identifier.port_num = 0U;  // random selection of port number
       // push to config map
       (void) conversation_config_.insert(
           std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>(

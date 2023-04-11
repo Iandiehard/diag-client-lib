@@ -15,10 +15,7 @@
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false,
-          "Port": 13400,
-          "EID": "",
-          "VIN": ""
+          "TLS": false
         },
         "ConversationName": "DiagTesterOne"
       },
@@ -33,10 +30,7 @@
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false,
-          "Port": 13400,
-          "EID": "",
-          "VIN": ""
+          "TLS": false
         },
         "ConversationName": "DiagTesterTwo"
       }

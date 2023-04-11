@@ -69,11 +69,7 @@ std::unique_ptr<diag::client::DiagClient> diagclient =
 
 Multiple tester instance can be created using Diagnostic Client Libary main instance.
 
-More information on the APIs to be used , check [doc_api_definition](docs/API_definitions.md) documentation
-
-More information on the diag client config json file, refer [doc_config_json](docs/Config_Json_file_definitions.md) documentation
-
-Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
+Check the example application [Examples](diag-client-lib/examples/) on how Diagnostic Client Library should be linked and used.
 
 ## Requirements
 Component requirements already implemented are documented [REQ](docs/spec/requirement/requirements.md)
@@ -94,7 +90,7 @@ For adding more features you can add new issues with label `enhancement` so that
 
 Full information of license is available in the [LICENSE](LICENSE) file of this project.
 
-Boost License is available here [LICENSE](lib/libOsAbstraction/libBoost/LICENSE)
+Boost License is available here [LICENSE](diag-client-lib/lib/libBoost/LICENSE)
 
 ## Contact
 Avijit Dey <iandiehard@outlook.com>

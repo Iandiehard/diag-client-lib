@@ -53,7 +53,7 @@ bool CreateTcpClientSocket::Open() {
     // Set socket to non blocking
     tcp_socket_->non_blocking(false);
     //bind to local address and random port
-    tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(local_ip_address_), 0), ec);
+    tcp_socket_->bind(TcpSocket::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
       TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};

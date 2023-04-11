@@ -63,7 +63,7 @@ private:
   IpAddress GetHostIpAddress() const noexcept override { return host_ip_address; }
 
   // Get Host port number
-  PortNumber GetHostPortNumber() const noexcept override { return 13400u; }
+  PortNumber GetHostPortNumber() const noexcept override { return 13400U; }
 };
 
 class DmUdsResponse : public UdsRequestMessage {

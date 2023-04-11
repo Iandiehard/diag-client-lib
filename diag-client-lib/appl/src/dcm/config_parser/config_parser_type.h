@@ -16,10 +16,9 @@ namespace config_parser {
 class DoipNetworkType {
 public:
   std::string tcpIpAddress;
-  uint16_t portNum;
 };
 
-class conversationType {
+class ConversationType {
 public:
   uint16_t p2ClientMax;
   uint16_t p2StarClientMax;
@@ -40,7 +39,7 @@ public:
   // number of conversation
   uint8_t num_of_conversation;
   // store all conversations
-  std::vector<conversationType> conversations;
+  std::vector<ConversationType> conversations;
 };
 }  // namespace config_parser
 }  // namespace client

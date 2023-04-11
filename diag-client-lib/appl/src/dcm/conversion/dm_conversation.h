@@ -8,10 +8,11 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
 /* includes */
+#include <string_view>
+
 #include "ara/diag/uds_transport/connection.h"
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_types.h"
-#include "common_Header.h"
 #include "include/diagnostic_client_conversation.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "src/dcm/conversion/dm_conversation_state_impl.h"
@@ -30,8 +31,8 @@ using ConversationState = conversation_state_impl::ConversationState;
 class DmConversation : public ::diag::client::conversation::DiagClientConversation {
 public:
   // ctor
-  DmConversation(std::string conversion_name,
-                 ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier);
+  DmConversation(std::string_view conversion_name,
+                 ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier);
 
   // dtor
   ~DmConversation();

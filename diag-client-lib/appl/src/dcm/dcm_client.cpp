@@ -93,7 +93,7 @@ diag::client::conversation::DiagClientConversation &DCMClient::GetDiagnosticClie
 // Function to get read from json tree and return the config structure
 diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig(
     diag::client::common::property_tree &ptree) {
-  diag::client::config_parser::ConversationConfig config;
+  diag::client::config_parser::ConversationConfig config{};
   // get the udp info for vehicle discovery
   config.udp_ip_address = ptree.get<std::string>("UdpIpAddress");
   config.udp_broadcast_address = ptree.get<std::string>("UdpBroadcastAddress");
@@ -102,7 +102,7 @@ diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig
   // loop through all the conversation
   for (diag::client::common::property_tree::value_type &conversation_ptr:
        ptree.get_child("Conversation.ConversationProperty")) {
-    diag::client::config_parser::conversationType conversation;
+    diag::client::config_parser::ConversationType conversation{};
     conversation.conversationName = conversation_ptr.second.get<std::string>("ConversationName");
     conversation.p2ClientMax = conversation_ptr.second.get<uint16_t>("p2ClientMax");
     conversation.p2StarClientMax = conversation_ptr.second.get<uint16_t>("p2StarClientMax");
@@ -111,7 +111,6 @@ diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig
     conversation.sourceAddress = conversation_ptr.second.get<uint16_t>("SourceAddress");
     conversation.targetAddress = conversation_ptr.second.get<uint16_t>("TargetAddress");
     conversation.network.tcpIpAddress = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
-    conversation.network.portNum = conversation_ptr.second.get<uint16_t>("Network.Port");
     config.conversations.emplace_back(conversation);
   }
   return config;
