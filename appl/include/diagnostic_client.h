@@ -15,24 +15,32 @@
 namespace diag {
 namespace client {
 
+// Description   : Diagnostic client class acts as generic diagnostic tester to diagnose multiple ECU
 class DiagClient {
 
 public:
-    // ctor
+    // Description   : Construct the instance of diag-client
+    // @requirement  : DiagClientLib-Construction
     DiagClient() = default;
 
-    // dtor
+    // Description   : Destruct the instance of diag-client
+    // @requirement  : DiagClientLib-Destruction
     virtual ~DiagClient() = default;
 
-    // Initialize
+    // Description   : Function to initialize the diag-client
+    // @requirement  : DiagClientLib-Initialization
     virtual void Initialize() = 0;
 
-    // De-Initialize
+    // Description   : Function to de-initialize the diag-client
+    // @requirement  : DiagClientLib-DeInitialization
     virtual void DeInitialize() = 0;
 
-    // Get Required Conversion based on Conversion Name
+    // Description   : Function to get the diag-client conversation reference
+    // @param input  : Name of conversation present in json file
+    // @return value : Reference to diag-client conversation object
+    // @requirement  : DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
     virtual diag::client::conversation::DiagClientConversation&
-                        GetDiagnosticClientConversation(std::string conversion_name) = 0;
+                        GetDiagnosticClientConversation(std::string conversation_name) = 0;
 };
 
 } // client

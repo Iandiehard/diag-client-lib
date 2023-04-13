@@ -16,7 +16,7 @@ namespace diag {
 namespace client {
 namespace conversation {
 
-
+// Description   : Conversation class to establish a connection between diag-client and Diagnostic Server.
 class DiagClientConversation {
 
 public:   
@@ -41,43 +41,43 @@ public:
         kDiagResponseTimeout,
         kDiagSuccess
     };
-    
-    // ctor
+
+    // Description   : Construct the instance of diag-client conversation
+    // @requirement  : DiagClientLib-Conversation-Construction
     inline DiagClientConversation() = default;
 
-    // dtor
+    // Description   : Destruct the instance of diag-client conversation
+    // @requirement  : DiagClientLib-Conversation-Destruction
     inline ~DiagClientConversation() = default;
     
     // Description   : Function to start the Diagnostic Client Conversion
-    // @param input  : Nothing
-    // @return value : void
+    // @requirement  : DiagClientLib-Conversation-StartUp
     virtual void Startup() = 0;
     
     // Description   : Function to shut down the Diagnostic Client Conversion
-    // @param input  : Nothing
-    // @return value : void
+    // @requirement  : DiagClientLib-Conversation-Shutdown
     virtual void Shutdown() = 0;
 
     // Description   : Function to send vehicle identification request
-    // @param input  : Nothing
-    // @return value : void
     virtual void SendVehicleIdentificationRequest() = 0;
 
     // Description   : Function to connect to Diagnostic Server
-    // @param input  : Nothing
+    // @param input  : host_ip_addr (Host IP Address)
     // @return value : ConnectResult
+    // @requirement  : DiagClientLib-Conversation-Connect
     virtual ConnectResult 
             ConnectToDiagServer(uds_message::UdsRequestMessage::IpAddress host_ip_addr) = 0;
 
     // Description   : Function to disconnect from Diagnostic Server
-    // @param input  : Nothing
     // @return value : DisconnectResult
+    // @requirement  : DiagClientLib-Conversation-Disconnect
     virtual DisconnectResult 
             DisconnectFromDiagServer() = 0;
 
     // Description   : Function to send Diagnostic Request and get Diagnostic Response
     // @param input  : UdsRequestMessageConstPtr
     // @return value : DiagResult, UdsResponseMessagePtr
+    // @requirement  : DiagClientLib-Conversation-DiagRequestResponse
     virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr>  
             SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) = 0;
 };

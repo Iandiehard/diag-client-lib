@@ -15,9 +15,11 @@
 namespace diag {
 namespace client {
 
-// Description   : Function to create an instance of Diagnostic Client
+// Description   : Function to get an instance of Diagnostic Client Library
 // @param input  : path to diag client config file 
 // @return value : unique_ptr to diag client object
+// @requirement  : DiagClientLib-Library-Support, DiagClientLib-ComParam-Settings,
+//                 DiagClientLib-DoIP-Support
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(
                                                             std::string diag_client_config_path);
 
