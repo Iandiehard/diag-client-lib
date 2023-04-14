@@ -65,17 +65,23 @@ public:
 
   /**
    * @brief      Constructor an instance of DiagClientConversation
+   * @remarks    Implemented requirements:
+   *             DiagClientLib-Conversation-Construction, DiagClientLib-DoIP-Support
    */
   DiagClientConversation() = default;
 
   /**
    * @brief      Destructor an instance of DiagClientConversation
+   * @remarks    Implemented requirements:
+   *             DiagClientLib-Conversation-Destruction
    */
   virtual ~DiagClientConversation() = default;
 
   /**
    * @brief      Function to startup the Diagnostic Client Conversation
    * @details    Must be called once and before using any other functions of DiagClientConversation
+   * @remarks    Implemented requirements:
+   *             DiagClientLib-Conversation-StartUp
    */
   virtual void Startup() = 0;
 
@@ -83,6 +89,8 @@ public:
    * @brief      Function to shutdown the Diagnostic Client Conversation
    * @details    Must be called during shutdown phase, no further processing of any
    *             function will be allowed after this call
+   * @remarks    Implemented requirements:
+   *             DiagClientLib-Conversation-Shutdown
    */
   virtual void Shutdown() = 0;
 
@@ -92,6 +100,8 @@ public:
    *              Remote server IP Address to connect to
    * @return      ConnectResult
    *              Connection result returned
+   * @remarks     Implemented requirements:
+   *              DiagClientLib-Conversation-Connect
    */
   virtual ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) = 0;
 
@@ -99,6 +109,8 @@ public:
    * @brief       Function to disconnect from Diagnostic Server
    * @return      DisconnectResult
    *              Disconnection result returned
+   * @remarks     Implemented requirements:
+   *              DiagClientLib-Conversation-Disconnect
    */
   virtual DisconnectResult DisconnectFromDiagServer() = 0;
 
@@ -110,6 +122,8 @@ public:
    *              Result returned
    * @return      uds_message::UdsResponseMessagePtr
    *              Diagnostic Response message received, null_ptr in case of error
+   * @remarks     Implemented requirements:
+   *              DiagClientLib-Conversation-DiagRequestResponse
    */
   virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) = 0;

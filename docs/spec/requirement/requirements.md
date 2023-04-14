@@ -33,6 +33,10 @@ Diagnostic client library shall provide an API to initialize the library during 
 Diagnostic client library shall provide an API to de-initialize the library and stop all the internal processing during
 shutdown phase.
 
+### REQ: DiagClientLib-VehicleDiscovery
+Diagnostic client library shall provide an API to send vehicle identification request to all the ECU within the network
+and receive vehicle identification response.
+
 ### REQ: DiagClientLib-Conversation-Construction
 Diagnostic client library shall provide an API to construct the Diagnostic Client Conversation instance required for 
 logical connection towards single or multiple ECUs.

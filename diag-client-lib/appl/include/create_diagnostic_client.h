@@ -28,6 +28,8 @@ class DiagClient;
  *              path to diag client config file
  * @return      std::unique_ptr<diag::client::DiagClient>
  *              Unique pointer to diag client object
+ * @remarks     Implemented requirements:
+ *              DiagClientLib-Library-Support, DiagClientLib-ComParam-Settings
  */
 std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path);
 
