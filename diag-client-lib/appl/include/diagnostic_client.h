@@ -12,9 +12,10 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
 
-#include <string>
+#include <string_view>
 
 #include "diagnostic_client_conversation.h"
+#include "diagnostic_client_vehicle_info_message_type.h"
 
 namespace diag {
 namespace client {
@@ -35,37 +36,48 @@ public:
   };
 
 public:
-  // ctor
+  /**
+   * @brief         Constructs an instance of DiagClient
+   */
   DiagClient() = default;
 
-  // dtor
+  /**
+   * @brief         Destruct an instance of DiagClient
+   */
   virtual ~DiagClient() = default;
 
-  // Initialize
+  /**
+   * @brief        Function to initialize the already created instance of DiagClient
+   * @details      Must be called once and before using any other functions of DiagClient
+   */
   virtual void Initialize() = 0;
 
-  // De-Initialize
+  /**
+   * @brief        Function to de-initialize the already initialized instance of DiagClient
+   * @details      Must be called during shutdown phase, no further processing of any
+   *               function will be allowed after this call
+   */
   virtual void DeInitialize() = 0;
 
   /**
-   * @brief       Function to get required diag client conversation object based on conversation name.
-   * @param[in]   conversation_name
-   *              Name of conversation configured
-   * @return      DiagClientConversation&
-   *              Reference to diag client conversation
-   */
-  virtual diag::client::conversation::DiagClientConversation& GetDiagnosticClientConversation(
-      std::string conversation_name) = 0;
-
-  /**
-   * @brief       Function to send vehicle identification request and get the Diagnostic Server list.
+   * @brief       Function to send vehicle identification request and get the Diagnostic Server list
    * @param[in]   vehicle_info_request
    *              Vehicle information sent along with request
    * @return      std::pair<VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
    *              Pair consisting the result & response, contains valid response when result = kStatusOk
    */
-  virtual std::pair<VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  virtual std::pair<VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
+
+  /**
+   * @brief       Function to get required diag client conversation object based on conversation name
+   * @param[in]   conversation_name
+   *              Name of conversation configured as json parameter "ConversationName"
+   * @return      DiagClientConversation&
+   *              Reference to diag client conversation
+   */
+  virtual diag::client::conversation::DiagClientConversation& GetDiagnosticClientConversation(
+      std::string_view conversation_name) = 0;
 };
 
 }  // namespace client

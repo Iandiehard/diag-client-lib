@@ -8,10 +8,12 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 /* includes */
-#include "common_Header.h"
 #include <string_view>
+
+#include "common_Header.h"
 #include "include/diagnostic_client.h"
-#include "include/diagnostic_client_message_type.h"
+#include "include/diagnostic_client_uds_message_type.h"
+#include "include/diagnostic_client_vehicle_info_message_type.h"
 #include "libJsonParser/jsonParser.h"
 
 namespace diag {

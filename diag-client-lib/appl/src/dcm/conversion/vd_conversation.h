@@ -15,7 +15,8 @@
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "include/diagnostic_client.h"
-#include "include/diagnostic_client_message_type.h"
+#include "include/diagnostic_client_uds_message_type.h"
+#include "include/diagnostic_client_vehicle_info_message_type.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
 
 namespace diag {

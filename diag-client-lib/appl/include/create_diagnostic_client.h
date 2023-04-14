@@ -13,7 +13,7 @@
 #define DIAG_CLIENT_LIB_APPL_INCLUDE_CREATE_DIAGNOSTIC_CLIENT_H_
 
 #include <memory>
-#include <string>
+#include <string_view>
 
 namespace diag {
 namespace client {
@@ -29,7 +29,7 @@ class DiagClient;
  * @return      std::unique_ptr<diag::client::DiagClient>
  *              Unique pointer to diag client object
  */
-std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(const std::string &diag_client_config_path);
+std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path);
 
 }  // namespace client
 }  // namespace diag

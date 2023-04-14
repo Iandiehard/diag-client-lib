@@ -14,80 +14,103 @@
 
 #include <cstdint>
 
-#include "diagnostic_client_message_type.h"
+#include "diagnostic_client_uds_message_type.h"
 
 namespace diag {
 namespace client {
 namespace conversation {
 
 /**
- * @brief   Conversation class to establish connection with a Diagnostic Server
+ * @brief       Conversation class to establish connection with a Diagnostic Server
+ * @details     Conversation class only support DoIP communication protocol for connecting to remote ECU
  */
 class DiagClientConversation {
 public:
   /**
-   * @brief  Definitions of Connection results
+   * @brief         Type alias of ip address type
    */
-  enum class ConnectResult : std::uint8_t { kConnectSuccess = 0U, kConnectFailed = 1U, kConnectTimeout = 2U };
+  using IpAddress = uds_message::UdsMessage::IpAddress;
 
+public:
   /**
-   * @brief  Definitions of Disconnection results
+   * @brief      Definitions of Connection results
    */
-  enum class DisconnectResult : std::uint8_t { kDisconnectSuccess = 0U, kDisconnectFailed = 1U };
-
-  /**
-   * @brief  Definitions of Diagnostics Request Response results
-   */
-  enum class DiagResult : std::uint8_t {
-    kDiagRequestSendFailed = 0U,
-    kDiagFailed = 1U,
-    kDiagAckTimeout = 2U,
-    kDiagResponseTimeout = 3U,
-    kDiagSuccess = 4U
+  enum class ConnectResult : std::uint8_t {
+    kConnectSuccess = 0U,         /**< Successfully connected to Diagnostic Server */
+    kConnectFailed = 1U,          /**< Connection failure to Diagnostic Server, check logs for more failure information */
+    kConnectTimeout = 2U          /**< No Connection response received from Diagnostic Server */
   };
 
   /**
-   * @brief      Constructor of class
+   * @brief      Definitions of Disconnection results
+   */
+  enum class DisconnectResult : std::uint8_t {
+    kDisconnectSuccess = 0U,      /**< Successfully disconnected from Diagnostic Server */
+    kDisconnectFailed = 1U        /**< Disconnection failure with Diagnostic Server, check logs for more failure information */
+  };
+
+  /**
+   * @brief      Definitions of Diagnostics Request Response results
+   */
+  enum class DiagResult : std::uint8_t {
+    kDiagSuccess = 0U,                 /**< Diagnostic request message transmitted and response received successfully */
+    kDiagGenericFailure = 1U,          /**< Generic Diagnostic Error, see logs for more information */
+    kDiagRequestSendFailed = 2U,       /**< Diagnostic request message transmission failure */
+    kDiagAckTimeout = 3U,              /**< No diagnostic acknowledgement response received within 2 seconds */
+    kDiagNegAckReceived = 4U,          /**< Diagnostic negative acknowledgement received */
+    kDiagResponseTimeout = 5U,         /**< No diagnostic response message received within P2/P2Star time */
+    kDiagInvalidParameter = 6U,        /**< Passed parameter value is not valid */
+    kDiagBusyProcessing = 7U           /**< Conversation is already busy processing previous request */
+  };
+
+  /**
+   * @brief      Constructor an instance of DiagClientConversation
    */
   DiagClientConversation() = default;
 
   /**
-   * @brief      Destructor of class
+   * @brief      Destructor an instance of DiagClientConversation
    */
   virtual ~DiagClientConversation() = default;
 
   /**
    * @brief      Function to startup the Diagnostic Client Conversation
+   * @details    Must be called once and before using any other functions of DiagClientConversation
    */
   virtual void Startup() = 0;
 
   /**
    * @brief      Function to shutdown the Diagnostic Client Conversation
+   * @details    Must be called during shutdown phase, no further processing of any
+   *             function will be allowed after this call
    */
   virtual void Shutdown() = 0;
 
   /**
    * @brief       Function to connect to Diagnostic Server.
    * @param[in]   host_ip_addr
-   *              Remote server IP Address to connect with
+   *              Remote server IP Address to connect to
    * @return      ConnectResult
-   *              Result returned
+   *              Connection result returned
    */
   virtual ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) = 0;
 
-  // Description   : Function to disconnect from Diagnostic Server
-  // @param input  : Nothing
-  // @return value : DisconnectResult
-  //                 Result returned
+  /**
+   * @brief       Function to disconnect from Diagnostic Server
+   * @return      DisconnectResult
+   *              Disconnection result returned
+   */
   virtual DisconnectResult DisconnectFromDiagServer() = 0;
 
-  // Description   : Function to send Diagnostic Request and get Diagnostic Response
-  // @param input  : UdsRequestMessageConstPtr
-  //                 Diagnostic request message to be sent to remote server
-  // @return value : DiagResult
-  //                 Result returned
-  // @return value : UdsResponseMessagePtr
-  //                 Diagnostic Response message received, null_ptr in case of error
+  /**
+   * @brief       Function to send Diagnostic Request and get Diagnostic Response
+   * @param[in]   message
+   *              Diagnostic request message wrapped in a unique pointer
+   * @return      DiagResult
+   *              Result returned
+   * @return      uds_message::UdsResponseMessagePtr
+   *              Diagnostic Response message received, null_ptr in case of error
+   */
   virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) = 0;
 };

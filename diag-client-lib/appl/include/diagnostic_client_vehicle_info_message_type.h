@@ -1,12 +1,12 @@
 /* Diagnostic Client library
- * Copyright (C) 2022  Avijit Dey
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
-#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_UDS_MESSAGE_H
-#define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_UDS_MESSAGE_H
+* Copyright (C) 2022  Avijit Dey
+*
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_VEHICLE_INFO_MESSAGE_TYPE_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_VEHICLE_INFO_MESSAGE_TYPE_H
 
 #include <cstdint>
 #include <memory>
@@ -15,48 +15,6 @@
 
 namespace diag {
 namespace client {
-
-using IpAddress = std::string;
-
-namespace uds_message {
-
-class UdsRequestMessage {
-public:
-  using ByteVector = std::vector<std::uint8_t>;
-
-public:
-  // ctor
-  UdsRequestMessage() = default;
-
-  UdsRequestMessage(const UdsRequestMessage &other) = default;
-
-  UdsRequestMessage(UdsRequestMessage &&other) noexcept = default;
-
-  UdsRequestMessage &operator=(const UdsRequestMessage &other) = default;
-
-  UdsRequestMessage &operator=(UdsRequestMessage &&other) noexcept = default;
-
-  // Dtor
-  virtual ~UdsRequestMessage() = default;
-
-  // Get the UDS message data starting with the SID (A_Data as per ISO)
-  virtual const ByteVector &GetPayload() const = 0;
-
-  // Return the underlying buffer for write access
-  virtual ByteVector &GetPayload() = 0;
-
-  // Get Host Ip address
-  virtual IpAddress GetHostIpAddress() const noexcept = 0;
-};
-
-// This is the unique_ptr for constant UdsRequestMessage
-using UdsRequestMessageConstPtr = std::unique_ptr<const UdsRequestMessage>;
-// This is the unique_ptr for Request Message
-using UdsRequestMessagePtr = std::unique_ptr<UdsRequestMessage>;
-// This is the unique_ptr for Response Message
-using UdsResponseMessagePtr = std::unique_ptr<UdsRequestMessage>;
-}  // namespace uds_message
-
 namespace vehicle_info {
 
 /**
@@ -111,7 +69,7 @@ struct VehicleAddrInfoRequest {
 };
 
 /**
- * @brief       VehicleInfoMessage Class for vehicle identification/announcement response
+ * @brief       Class provide storage of list of all available vehicle entity
  */
 class VehicleInfoMessage {
 public:
@@ -122,7 +80,12 @@ public:
 
 public:
   /**
-   * @brief       Destructor
+   * @brief         Constructs an instance of VehicleInfoMessage
+   */
+  VehicleInfoMessage() = default;
+
+  /**
+   * @brief       Destructor an instance of VehicleInfoMessage
    */
   virtual ~VehicleInfoMessage() = default;
 
@@ -135,17 +98,17 @@ public:
 };
 
 /**
- * @brief       The Request Message Type
+ * @brief       Type alias of request storage type used while sending vehicle identification request
  */
 using VehicleInfoListRequestType = VehicleAddrInfoRequest;
 
 /**
- * @brief       The unique_ptr for Response Message
+ * @brief       The unique_ptr for Vehicle Identification Response Message
  */
-using VehicleInfoMessageResponsePtr = std::unique_ptr<VehicleInfoMessage>;
+using VehicleInfoMessageResponseUniquePtr = std::unique_ptr<VehicleInfoMessage>;
 
 }  // namespace vehicle_info
 }  // namespace client
 }  // namespace diag
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_UDS_MESSAGE_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_VEHICLE_INFO_MESSAGE_TYPE_H
