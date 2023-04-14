@@ -32,9 +32,9 @@ public:
   enum class TransmissionResult : std::uint8_t {
     kTransmitOk = 0U,
     kTransmitFailed,
-    kNoTransmitAckRevd,
-    kTransmitOkResponseRecvd,
-    kTransmitOkNoResponse
+    kNoTransmitAckReceived,
+    kNegTransmitAckReceived,
+    kBusyProcessing
   };
   // Result for connection to remote endpoint
   enum class ConnectionResult : std::uint8_t { kConnectionOk = 0U, kConnectionFailed, kConnectionTimeout };

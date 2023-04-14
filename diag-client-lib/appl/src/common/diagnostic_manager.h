@@ -9,6 +9,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 /* includes */
 #include "common_Header.h"
+#include <string_view>
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_message_type.h"
 #include "libJsonParser/jsonParser.h"
@@ -53,11 +54,11 @@ public:
 
   // Function to get the diagnostic client conversation
   virtual diag::client::conversation::DiagClientConversation &GetDiagnosticClientConversation(
-      std::string conversation_name) = 0;
+      std::string_view conversation_name) = 0;
 
   // Send Vehicle Identification Request and get response
   virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
-                    diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+                    diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
 
 protected:

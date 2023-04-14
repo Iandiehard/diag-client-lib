@@ -20,6 +20,7 @@
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_handler.h"
 #include "common_Header.h"
+
 // string type
 using kDoip_String = std::string;
 #endif  // COMMON_DOIP_HEADER_H

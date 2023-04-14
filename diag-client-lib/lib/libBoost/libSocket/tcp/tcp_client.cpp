@@ -81,7 +81,7 @@ bool CreateTcpClientSocket::Open() {
 // connect to host
 bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t hostportNum) {
   TcpErrorCodeType ec;
-  bool retVal = false;
+  bool ret_val{false};
   // connect to provided ipAddress
   tcp_socket_->connect(TcpSocket::endpoint(TcpIpAddress::from_string(hostIpaddress), hostportNum), ec);
   if (ec.value() == boost::system::errc::success) {
@@ -94,13 +94,13 @@ bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t ho
     // start reading
     running_ = true;
     cond_var_.notify_all();
-    retVal = true;
+    ret_val = true;
   } else {
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket Connect to host failed with error: " << ec.message(); });
   }
-  return retVal;
+  return ret_val;
 }
 
 // Disconnect from Host

@@ -76,7 +76,7 @@ public:
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
 
   // Function to wait for response
-  void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
+  void WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func, int msec);
 
   // Function to cancel the synchronous wait
   void WaitCancel();

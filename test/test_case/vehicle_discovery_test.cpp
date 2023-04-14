@@ -24,7 +24,7 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
 
   // Send Vehicle Identification request and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
@@ -56,7 +56,7 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeVin) {
 
   // Send Vehicle Identification request with VIN and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
@@ -89,7 +89,7 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEID) {
 
   // Send Vehicle Identification request with EID and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{2U, "00:02:36:31:00:1c"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches

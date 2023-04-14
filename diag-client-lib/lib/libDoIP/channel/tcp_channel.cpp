@@ -109,7 +109,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
   return ret_val;
 }
 
-void tcpChannel::WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec) {
+void tcpChannel::WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func, int msec) {
   if (sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
     timeout_func();
   } else {
@@ -183,7 +183,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
           TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
       WaitForResponse(
           [&]() {
-            result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckRevd;
+            result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                 TcpDiagnosticMessageChannelState::kDiagIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
@@ -203,7 +203,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
                   __FILE__, __LINE__, "",
                   [](std::stringstream &msg) { msg << "Diagnostic Message Positive Ack received"; });
             } else {
-              // failed
+              // failed with neg acknowledgement from server
+              result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
               tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                   TcpDiagnosticMessageChannelState::kDiagIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
@@ -221,6 +222,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
     }
   } else {
     // channel not in idle state
+    result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
         __FILE__, __LINE__, "",
         [](std::stringstream &msg) { msg << "Diagnostic Message Transmission already in progress"; });

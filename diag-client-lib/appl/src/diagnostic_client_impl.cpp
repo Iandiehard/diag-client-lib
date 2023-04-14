@@ -18,10 +18,10 @@
 namespace diag {
 namespace client {
 // ctor
-DiagClientImpl::DiagClientImpl(std::string dm_client_config) : diag::client::DiagClient(), ptree{}, dcm_instance_ptr{} {
+DiagClientImpl::DiagClientImpl(std::string_view dm_client_config) : diag::client::DiagClient(), ptree{}, dcm_instance_ptr{} {
   // start parsing the config json file
   libOsAbstraction::libBoost::jsonparser::createJsonParser json_parser{};
-  json_parser.getJsonPtree(dm_client_config, ptree);
+  json_parser.GetJsonPtree(dm_client_config, ptree);
 
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient instance creation started"; });
@@ -54,11 +54,11 @@ void DiagClientImpl::DeInitialize() {
 }
 
 diag::client::conversation::DiagClientConversation &DiagClientImpl::GetDiagnosticClientConversation(
-    std::string conversation_name) {
+    std::string_view conversation_name) {
   return (dcm_instance_ptr->GetDiagnosticClientConversation(conversation_name));
 }
 
-std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
 DiagClientImpl::SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   return (dcm_instance_ptr->SendVehicleIdentificationRequest(vehicle_info_request));

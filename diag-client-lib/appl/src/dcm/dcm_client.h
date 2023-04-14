@@ -8,6 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_COMMUNICATION_MANAGER_H
 /* includes */
+#include <string_view>
 #include "src/common/diagnostic_manager.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
@@ -39,10 +40,10 @@ public:
 
   // Function to get the diagnostic client conversation
   diag::client::conversation::DiagClientConversation &GetDiagnosticClientConversation(
-      std::string conversation_name) override;
+      std::string_view conversation_name) override;
 
   // Send Vehicle Identification Request and get response
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 

@@ -9,9 +9,8 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
 
 #ifdef ENABLE_DLT_LOGGER
-
+#include "dlt.h"
 #endif
-#include <dlt/dlt.h>
 
 #include <iostream>
 #include <memory>

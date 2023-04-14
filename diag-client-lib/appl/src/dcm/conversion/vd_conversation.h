@@ -32,7 +32,7 @@ using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_stat
 class VdConversation {
 public:
   using VehicleIdentificationResponseResult = std::pair<diag::client::DiagClient::VehicleResponseResult,
-                                                        diag::client::vehicle_info::VehicleInfoMessageResponsePtr>;
+                                                        diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>;
 
   using IndicationResult = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult;
 
@@ -64,7 +64,7 @@ public:
       vehicle_info::VehicleInfoListRequestType vehicle_info_request);
 
   // Get the list of available Diagnostic Server
-  vehicle_info::VehicleInfoMessageResponsePtr GetDiagnosticServerList();
+  vehicle_info::VehicleInfoMessageResponseUniquePtr GetDiagnosticServerList();
 
   // Indicate message Diagnostic message reception over TCP to user
   std::pair<IndicationResult, ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(

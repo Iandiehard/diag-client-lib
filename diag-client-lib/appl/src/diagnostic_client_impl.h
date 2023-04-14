@@ -9,7 +9,7 @@
 #define DIAG_CLIENT_LIB_APPL_SRC_DIAGNOSTIC_CLIENT_IMPL_H_
 
 #include <memory>
-#include <string>
+#include <string_view>
 
 #include "common/diagnostic_manager.h"
 #include "common_Header.h"
@@ -23,7 +23,7 @@ namespace client {
 class DiagClientImpl final : public diag::client::DiagClient {
 public:
   // ctor
-  explicit DiagClientImpl(std::string dm_client_config);
+  explicit DiagClientImpl(std::string_view dm_client_config);
 
   // dtor
   ~DiagClientImpl() override = default;
@@ -36,10 +36,10 @@ public:
 
   // Get Required Conversation based on Conversation Name
   diag::client::conversation::DiagClientConversation& GetDiagnosticClientConversation(
-      std::string conversation_name) override;
+      std::string_view conversation_name) override;
 
   // Send Vehicle Identification Request and get response
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 

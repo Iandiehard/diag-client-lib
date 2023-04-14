@@ -13,13 +13,12 @@
 namespace diag {
 namespace client {
 namespace config_parser {
-class DoipNetworkType {
-public:
+
+struct DoipNetworkType {
   std::string tcpIpAddress;
 };
 
-class ConversationType {
-public:
+struct ConversationType {
   uint16_t p2ClientMax;
   uint16_t p2StarClientMax;
   uint16_t txBufferSize;
@@ -30,8 +29,7 @@ public:
   DoipNetworkType network;
 };
 
-class ConversationConfig {
-public:
+struct ConversationConfig {
   // local udp address
   std::string udp_ip_address;
   // broadcast address

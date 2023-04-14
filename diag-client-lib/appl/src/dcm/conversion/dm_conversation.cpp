@@ -66,13 +66,13 @@ void DmConversation::Shutdown() {
 
 DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddress host_ip_addr) {
   // create an uds message just to get the port number
-  // source address required from Routing Activation
+  // source address required for Routing Activation
   ara::diag::uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
-  DiagClientConversation::ConnectResult ret_val{static_cast<DiagClientConversation::ConnectResult>(
+  DiagClientConversation::ConnectResult connection_result{static_cast<DiagClientConversation::ConnectResult>(
       connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
           source_address_, target_address_, host_ip_addr, payload))))};
-  if (ret_val == DiagClientConversation::ConnectResult::kConnectSuccess) {
+  if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
     remote_address_ = std::string(host_ip_addr);
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
@@ -88,7 +88,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddr
               << "Failed connecting to Server with ip: " << host_ip_addr;
         });
   }
-  return ret_val;
+  return connection_result;
 }
 
 DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() {
@@ -116,13 +116,16 @@ DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServe
 std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr> DmConversation::SendDiagnosticRequest(
     uds_message::UdsRequestMessageConstPtr message) {
   std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr> ret_val{
-      DiagClientConversation::DiagResult::kDiagFailed, nullptr};
+      DiagClientConversation::DiagResult::kDiagGenericFailure, nullptr};
   if (message != nullptr) {
     // fill the data
     ara::diag::uds_transport::ByteVector payload{message->GetPayload()};
-    // Initiate Send
-    if (connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, message->GetHostIpAddress(), payload))) !=
+    // Initiate Sending of diagnostic request
+    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult transmission_result{
+        connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+            source_address_, target_address_, message->GetHostIpAddress(), payload)))
+    };
+    if (transmission_result !=
         ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
@@ -135,13 +138,14 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
       // Wait P6Max / P2ClientMax
       WaitForResponse(
           [&]() {
+            ret_val.first = DiagClientConversation::DiagResult::kDiagResponseTimeout;
+            conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
             logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                 __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                   msg << "'" << conversation_name_ << "'"
                       << "->"
                       << "Diagnostic Response P2 Timeout happened: " << p2_client_max_;
                 });
-            conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
           },
           [&]() {
             // pending or pos/neg response
@@ -155,16 +159,19 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
             }
           },
           p2_client_max_);
+
+      // Wait until final response or timeout
       while (conversation_state_.GetConversationStateContext().GetActiveState().GetState() !=
              ConversationState::kIdle) {
+        // Check the active state
         switch (conversation_state_.GetConversationStateContext().GetActiveState().GetState()) {
-          case ConversationState::kDiagRecvdPendingRes: {
+          case ConversationState::kDiagRecvdPendingRes:
             conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagStartP2StarTimer);
-          } break;
+          break;
           case ConversationState::kDiagRecvdFinalRes:
             // do nothing
             break;
-          case ConversationState::kDiagStartP2StarTimer: {
+          case ConversationState::kDiagStartP2StarTimer:
             // wait P6Star/ P2 star client time
             WaitForResponse(
                 [&]() {
@@ -190,23 +197,24 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                   }
                 },
                 p2_star_client_max_);
-          } break;
-          case ConversationState::kDiagSuccess: {
+            break;
+          case ConversationState::kDiagSuccess:
             // change state to idle, form the uds response and return
             ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
             ret_val.first = DiagClientConversation::DiagResult::kDiagSuccess;
             conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
-          } break;
+            break;
           default:
             // nothing
             break;
         }
       }
     } else {
-      // Request sending failed
-      ret_val.first = DiagClientConversation::DiagResult::kDiagRequestSendFailed;
+      // failure
+      ret_val.first = ConvertResponseType(transmission_result);
     }
   } else {
+    ret_val.first =  DiagClientConversation::DiagResult::kDiagInvalidParameter;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(__FILE__, __LINE__, "",
                                                                         [&](std::stringstream &msg) {
                                                                           msg << "'" << conversation_name_ << "'"
@@ -291,7 +299,7 @@ void DmConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr messa
   }
 }
 
-void DmConversation::WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec) {
+void DmConversation::WaitForResponse(std::function<void()> && timeout_func, std::function<void()> && cancel_func, int msec) {
   if (sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
     timeout_func();
   } else {
@@ -300,6 +308,29 @@ void DmConversation::WaitForResponse(std::function<void()> timeout_func, std::fu
 }
 
 void DmConversation::WaitCancel() { sync_timer_.Stop(); }
+
+DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
+    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type) {
+  DiagClientConversation::DiagResult ret_result{DiagClientConversation::DiagResult::kDiagGenericFailure};
+  switch(result_type) {
+    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed:
+      ret_result = DiagClientConversation::DiagResult::kDiagRequestSendFailed;
+      break;
+    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived:
+      ret_result = DiagClientConversation::DiagResult::kDiagAckTimeout;
+      break;
+    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived:
+      ret_result = DiagClientConversation::DiagResult::kDiagNegAckReceived;
+      break;
+    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing:
+      ret_result = DiagClientConversation::DiagResult::kDiagBusyProcessing;
+      break;
+    default:
+      ret_result = DiagClientConversation::DiagResult::kDiagGenericFailure;
+      break;
+  }
+  return ret_result;
+}
 
 // ctor
 DmConversationHandler::DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,

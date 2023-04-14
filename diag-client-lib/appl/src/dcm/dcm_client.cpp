@@ -66,22 +66,23 @@ void DCMClient::Shutdown() {
 
 // Function to get the client Conversation
 diag::client::conversation::DiagClientConversation &DCMClient::GetDiagnosticClientConversation(
-    std::string conversation_name) {
+    std::string_view conversation_name) {
+  std::string diag_client_conversation_name{conversation_name};
   diag::client::conversation::DiagClientConversation *ret_conversation{nullptr};
   std::unique_ptr<diag::client::conversation::DiagClientConversation> conversation{
-      conversation_mgr->GetDiagnosticClientConversion(conversation_name)};
+      conversation_mgr->GetDiagnosticClientConversion(diag_client_conversation_name)};
   if (conversation != nullptr) {
     diag_client_conversation_map.insert(
         std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
             conversation_name, std::move(conversation)));
-    ret_conversation = diag_client_conversation_map.at(conversation_name).get();
+    ret_conversation = diag_client_conversation_map.at(diag_client_conversation_name).get();
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "Requested Diagnostic Client conversation created with name: " << conversation_name;
         });
   } else {
     // no conversation found
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "Requested Diagnostic Client conversation not found with name: " << conversation_name;
         });
@@ -116,7 +117,7 @@ diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig
   return config;
 }
 
-std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponsePtr>
+std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
 DCMClient::SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   return diag_client_vehicle_discovery_conversation->SendVehicleIdentificationRequest(vehicle_info_request);

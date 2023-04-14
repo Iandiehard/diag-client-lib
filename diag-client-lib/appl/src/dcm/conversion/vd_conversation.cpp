@@ -156,7 +156,7 @@ VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleI
   return ret_val;
 }
 
-vehicle_info::VehicleInfoMessageResponsePtr VdConversation::GetDiagnosticServerList() { return nullptr; }
+vehicle_info::VehicleInfoMessageResponseUniquePtr VdConversation::GetDiagnosticServerList() { return nullptr; }
 
 std::pair<VdConversation::IndicationResult, ara::diag::uds_transport::UdsMessagePtr> VdConversation::IndicateMessage(
     ara::diag::uds_transport::UdsMessage::Address /* source_addr */,

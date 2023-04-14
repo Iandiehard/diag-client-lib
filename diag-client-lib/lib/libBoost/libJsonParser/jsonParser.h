@@ -9,6 +9,7 @@
 #define JSON_PARSER_H
 // includes
 #include "libCommon/Boost_Header.h"
+#include <string_view>
 
 namespace libOsAbstraction {
 namespace libBoost {
@@ -17,19 +18,19 @@ using boostTree = boost::property_tree::ptree;
 
 /*
  @ Class Name        : Create Udp Socket
- @ Class Description : Class used to create a udp socket for handling transmission
+ @ Class Description : Class used to create an udp socket for handling transmission
                        and reception of udp message from driver
 */
 class createJsonParser {
 public:
   // ctor
-  createJsonParser();
+  createJsonParser() = default;
 
   // dtor
-  ~createJsonParser();
+  ~createJsonParser() = default;
 
   // function to get the property tree
-  void getJsonPtree(std::string &jsonPath, boostTree &jsontree);
+  void GetJsonPtree(std::string_view jsonPath, boostTree &jsontree);
 };
 }  // namespace jsonparser
 }  // namespace libBoost
