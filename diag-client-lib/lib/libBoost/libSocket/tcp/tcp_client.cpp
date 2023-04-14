@@ -27,8 +27,10 @@ CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uin
   thread_ = std::thread([&]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
-      if (!running_) { cond_var_.wait(lck); }
-      if (running_) { HandleMessage(); }
+      if (!running_) { cond_var_.wait(lck, [this](){ return exit_request_.load(); }); }
+      if(!exit_request_.load()) {
+        if (running_) { HandleMessage(); }
+      }
     }
   });
 }
