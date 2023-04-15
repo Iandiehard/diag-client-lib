@@ -39,7 +39,8 @@ public:
       std::string_view conversation_name) override;
 
   // Send Vehicle Identification Request and get response
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 

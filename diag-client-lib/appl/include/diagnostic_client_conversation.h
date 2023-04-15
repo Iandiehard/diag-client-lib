@@ -36,31 +36,31 @@ public:
    * @brief      Definitions of Connection results
    */
   enum class ConnectResult : std::uint8_t {
-    kConnectSuccess = 0U,         /**< Successfully connected to Diagnostic Server */
-    kConnectFailed = 1U,          /**< Connection failure to Diagnostic Server, check logs for more failure information */
-    kConnectTimeout = 2U          /**< No Connection response received from Diagnostic Server */
+    kConnectSuccess = 0U, /**< Successfully connected to Diagnostic Server */
+    kConnectFailed = 1U,  /**< Connection failure to Diagnostic Server, check logs for more failure information */
+    kConnectTimeout = 2U  /**< No Connection response received from Diagnostic Server */
   };
 
   /**
    * @brief      Definitions of Disconnection results
    */
   enum class DisconnectResult : std::uint8_t {
-    kDisconnectSuccess = 0U,      /**< Successfully disconnected from Diagnostic Server */
-    kDisconnectFailed = 1U        /**< Disconnection failure with Diagnostic Server, check logs for more failure information */
+    kDisconnectSuccess = 0U, /**< Successfully disconnected from Diagnostic Server */
+    kDisconnectFailed = 1U /**< Disconnection failure with Diagnostic Server, check logs for more failure information */
   };
 
   /**
    * @brief      Definitions of Diagnostics Request Response results
    */
   enum class DiagResult : std::uint8_t {
-    kDiagSuccess = 0U,                 /**< Diagnostic request message transmitted and response received successfully */
-    kDiagGenericFailure = 1U,          /**< Generic Diagnostic Error, see logs for more information */
-    kDiagRequestSendFailed = 2U,       /**< Diagnostic request message transmission failure */
-    kDiagAckTimeout = 3U,              /**< No diagnostic acknowledgement response received within 2 seconds */
-    kDiagNegAckReceived = 4U,          /**< Diagnostic negative acknowledgement received */
-    kDiagResponseTimeout = 5U,         /**< No diagnostic response message received within P2/P2Star time */
-    kDiagInvalidParameter = 6U,        /**< Passed parameter value is not valid */
-    kDiagBusyProcessing = 7U           /**< Conversation is already busy processing previous request */
+    kDiagSuccess = 0U,           /**< Diagnostic request message transmitted and response received successfully */
+    kDiagGenericFailure = 1U,    /**< Generic Diagnostic Error, see logs for more information */
+    kDiagRequestSendFailed = 2U, /**< Diagnostic request message transmission failure */
+    kDiagAckTimeout = 3U,        /**< No diagnostic acknowledgement response received within 2 seconds */
+    kDiagNegAckReceived = 4U,    /**< Diagnostic negative acknowledgement received */
+    kDiagResponseTimeout = 5U,   /**< No diagnostic response message received within P2/P2Star time */
+    kDiagInvalidParameter = 6U,  /**< Passed parameter value is not valid */
+    kDiagBusyProcessing = 7U     /**< Conversation is already busy processing previous request */
   };
 
   /**

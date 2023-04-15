@@ -34,6 +34,7 @@ public:
   // ctor
   DoipUdpHandler(ip_address local_udp_address, uint16_t udp_port_num);
 
+  // dtor
   ~DoipUdpHandler();
 
   // function to perform initialization
@@ -81,12 +82,6 @@ private:
 private:
   // function to process udp unicast message received
   void ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message);
-
-  // Function to process DoIP Header
-  static auto ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool;
-
-  // Function to verify payload length of various payload type
-  static auto ProcessDoIPPayloadLength(uint32_t payload_len, uint16_t payload_type) noexcept -> bool;
 
   // Function to get payload type
   static auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;

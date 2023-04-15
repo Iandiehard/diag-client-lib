@@ -123,10 +123,8 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
     // Initiate Sending of diagnostic request
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult transmission_result{
         connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, message->GetHostIpAddress(), payload)))
-    };
-    if (transmission_result !=
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+            source_address_, target_address_, message->GetHostIpAddress(), payload)))};
+    if (transmission_result != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
           __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
@@ -167,7 +165,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
         switch (conversation_state_.GetConversationStateContext().GetActiveState().GetState()) {
           case ConversationState::kDiagRecvdPendingRes:
             conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagStartP2StarTimer);
-          break;
+            break;
           case ConversationState::kDiagRecvdFinalRes:
             // do nothing
             break;
@@ -214,7 +212,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
       ret_val.first = ConvertResponseType(transmission_result);
     }
   } else {
-    ret_val.first =  DiagClientConversation::DiagResult::kDiagInvalidParameter;
+    ret_val.first = DiagClientConversation::DiagResult::kDiagInvalidParameter;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(__FILE__, __LINE__, "",
                                                                         [&](std::stringstream &msg) {
                                                                           msg << "'" << conversation_name_ << "'"
@@ -299,7 +297,8 @@ void DmConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr messa
   }
 }
 
-void DmConversation::WaitForResponse(std::function<void()> && timeout_func, std::function<void()> && cancel_func, int msec) {
+void DmConversation::WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func,
+                                     int msec) {
   if (sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
     timeout_func();
   } else {
@@ -312,7 +311,7 @@ void DmConversation::WaitCancel() { sync_timer_.Stop(); }
 DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type) {
   DiagClientConversation::DiagResult ret_result{DiagClientConversation::DiagResult::kDiagGenericFailure};
-  switch(result_type) {
+  switch (result_type) {
     case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed:
       ret_result = DiagClientConversation::DiagResult::kDiagRequestSendFailed;
       break;

@@ -15,7 +15,7 @@ namespace libSocket {
 namespace tcp {
 // ctor
 CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num,
-                                             TcpHandlerRead tcp_handler_read)
+                                             TcpHandlerRead && tcp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       exit_request_{false},
@@ -27,8 +27,10 @@ CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uin
   thread_ = std::thread([&]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
-      if (!running_) { cond_var_.wait(lck, [this](){ return exit_request_.load(); }); }
-      if(!exit_request_.load()) {
+      if (!running_) {
+        cond_var_.wait(lck, [this]() { return exit_request_.load(); });
+      }
+      if (!exit_request_.load()) {
         if (running_) { HandleMessage(); }
       }
     }

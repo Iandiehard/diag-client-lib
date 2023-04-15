@@ -32,8 +32,9 @@ using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_stat
  */
 class VdConversation {
 public:
-  using VehicleIdentificationResponseResult = std::pair<diag::client::DiagClient::VehicleResponseResult,
-                                                        diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>;
+  using VehicleIdentificationResponseResult =
+      std::pair<diag::client::DiagClient::VehicleResponseResult,
+                diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>;
 
   using IndicationResult = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult;
 

@@ -27,10 +27,10 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
   std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
-  // Verify Vehicle identification request payload matches
+  // Verify Vehicle identification request with no payload
   EXPECT_TRUE(GetDoipTestUdpHandlerRef().VerifyVehicleIdentificationRequestWithExpectedVIN(""));
 
-  // Verify Vehicle identification responses
+  // Verify Vehicle identification responses received successfully
   ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
   ASSERT_TRUE(response_result.second);
 

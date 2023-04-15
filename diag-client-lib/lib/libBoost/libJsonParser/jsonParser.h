@@ -8,8 +8,9 @@
 #ifndef JSON_PARSER_H
 #define JSON_PARSER_H
 // includes
-#include "libCommon/Boost_Header.h"
 #include <string_view>
+
+#include "libCommon/Boost_Header.h"
 
 namespace libOsAbstraction {
 namespace libBoost {

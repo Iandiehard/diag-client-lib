@@ -13,6 +13,7 @@
 namespace libBoost {
 namespace libSocket {
 namespace tcp {
+
 using TcpSocket = boost::asio::ip::tcp;
 using TcpIpAddress = boost::asio::ip::address;
 using TcpErrorCodeType = boost::system::error_code;
@@ -29,7 +30,7 @@ public:
 
 public:
   //ctor
-  CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead tcp_handler_read);
+  CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead && tcp_handler_read);
 
   //dtor
   virtual ~CreateTcpClientSocket();
@@ -67,7 +68,7 @@ private:
   // threading var
   std::thread thread_;
   // locking critical section
-  mutable std::mutex mutex_;
+  std::mutex mutex_;
   // Handler invoked during read operation
   TcpHandlerRead tcp_handler_read_;
 

@@ -117,7 +117,8 @@ diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig
   return config;
 }
 
-std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+std::pair<diag::client::DiagClient::VehicleResponseResult,
+          diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
 DCMClient::SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
   return diag_client_vehicle_discovery_conversation->SendVehicleIdentificationRequest(vehicle_info_request);

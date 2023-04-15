@@ -18,12 +18,6 @@
 namespace ara {
 namespace diag {
 namespace doip {
-
-// forward class declaration
-namespace udpChannel {
-class UdpChannel;
-}
-
 namespace udpSocket {
 
 // typedefs
