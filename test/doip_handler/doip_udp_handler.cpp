@@ -189,16 +189,16 @@ void DoipUdpHandler::Transmit() {
   if (udp_socket_handler_unicast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
 }
 
-void DoipUdpHandler::CreateDoipGenericHeader(std::vector<uint8_t>& doipHeader, std::uint16_t payloadType,
-                                             std::uint32_t payloadLen) {
+void DoipUdpHandler::CreateDoipGenericHeader(std::vector<uint8_t>& doipHeader, std::uint16_t payload_type,
+                                             std::uint32_t payload_len) {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
-  doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadType & 0x00FF));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0xFF000000) >> 24));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x00FF0000) >> 16));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x0000FF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
+  doipHeader.push_back((uint8_t) ((payload_type & 0xFF00) >> 8));
+  doipHeader.push_back((uint8_t) (payload_type & 0x00FF));
+  doipHeader.push_back((uint8_t) ((payload_len & 0xFF000000) >> 24));
+  doipHeader.push_back((uint8_t) ((payload_len & 0x00FF0000) >> 16));
+  doipHeader.push_back((uint8_t) ((payload_len & 0x0000FF00) >> 8));
+  doipHeader.push_back((uint8_t) (payload_len & 0x000000FF));
 }
 
 }  // namespace doip

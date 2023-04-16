@@ -90,8 +90,8 @@ private:
   static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
 
   // Function to create the generic header
-  static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payloadType,
-                                      std::uint32_t payloadLen);
+  static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payload_type,
+                                      std::uint32_t payload_len);
 
   // Function to trigger transmission of udp messages
   void Transmit();

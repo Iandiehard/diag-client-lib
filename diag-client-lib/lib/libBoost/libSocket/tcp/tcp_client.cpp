@@ -63,7 +63,7 @@ bool CreateTcpClientSocket::Open() {
       TcpSocket::endpoint endpoint_{tcp_socket_->local_endpoint()};
       logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-            msg << "Tcp Socket Opened and bound to"
+            msg << "Tcp Socket Opened and bound to "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
       retVal = true;
@@ -92,7 +92,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t ho
     TcpSocket::endpoint endpoint_ = tcp_socket_->remote_endpoint();
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-          msg << "Tcp Socket Connected to host"
+          msg << "Tcp Socket Connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     // start reading
@@ -184,6 +184,10 @@ void CreateTcpClientSocket::HandleMessage() {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
+    // fill the remote endpoints
+    tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
+    tcp_rx_message->host_port_num_  = endpoint_.port();
+
     // send data to upper layer
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {

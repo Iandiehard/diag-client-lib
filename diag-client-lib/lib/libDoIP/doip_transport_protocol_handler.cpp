@@ -57,7 +57,7 @@ std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler:
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
         msg << "Doip Tcp protocol requested with local endpoints : "
-            << "<tcp:" << tcp_ip_address << ">";
+            << "<tcp: " << tcp_ip_address << ">";
       });
   return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
 }

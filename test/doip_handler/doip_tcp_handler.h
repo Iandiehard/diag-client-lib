@@ -11,6 +11,7 @@
 
 #include <string_view>
 #include <memory>
+#include <map>
 #include "doip_handler/tcp_socket_handler.h"
 
 namespace ara {
@@ -24,45 +25,67 @@ class DoipTcpHandler {
 public:
   using TcpConnectionHandler = tcpSocket::DoipTcpSocketHandler::TcpConnectionHandler;
   using DoipChannelReadCallback = tcpSocket::DoipTcpSocketHandler::TcpHandlerRead;
-  //
+  // Class maintaining the doip channel
   class DoipChannel{
   public:
     DoipChannel(std::uint16_t logical_address,
                 tcpSocket::DoipTcpSocketHandler &tcp_socket_handler);
 
-    //
-    void SetExpectedUdsMessageResponseToBeSent();
+    ~DoipChannel();
 
+    // Initialize
+    void Initialize();
 
-    auto VerifyUdsMessageRequestWithExpectedMessage() noexcept -> bool;
+    // De-Initialize
+    void DeInitialize();
 
-    // start the reception
-    void StartReception();
+    // start accepting connection from client
+    void StartAcceptingConnection();
 
-    // stop the reception
-    void StopReception();
+    // stop accepting connection from client
+    void StopAcceptingConnection();
   private:
     // Store the logical address
     std::uint16_t logical_address_;
 
+    // store the tcp socket handler reference
     tcpSocket::DoipTcpSocketHandler &tcp_socket_handler_;
 
     // Tcp connection to handler tcp req and response
     std::unique_ptr<TcpConnectionHandler> tcp_connection_;
+
+    // flag to terminate the thread
+    std::atomic_bool exit_request_;
+
+    // flag th start the thread
+    std::atomic_bool running_;
+
+    // conditional variable to block the thread
+    std::condition_variable cond_var_;
+
+    // threading var
+    std::thread thread_;
+
+    // locking critical section
+    std::mutex mutex_;
+  private:
+    void HandleMessage(TcpMessagePtr tcp_rx_message);
   };
 public:
   // ctor
-  DoipTcpHandler(std::string_view local_udp_address, std::uint16_t udp_port_num);
+  DoipTcpHandler(std::string_view local_tcp_address, std::uint16_t tcp_port_num);
 
   // dtor
   ~DoipTcpHandler();
 
   // Function to create doip channel
-  DoipChannel CreateDoipChannel(std::uint16_t logical_address, DoipChannelReadCallback && doip_channel_read_cbk);
-
+  DoipChannel& CreateDoipChannel(std::uint16_t logical_address);
 private:
   // tcp socket handler
   std::unique_ptr<tcpSocket::DoipTcpSocketHandler> tcp_socket_handler_;
+
+  // list of doip channel
+  std::map<std::uint16_t, std::unique_ptr<DoipChannel>> doip_channel_list_;
 };
 
 }  // namespace doip

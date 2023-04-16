@@ -8,7 +8,6 @@
 #ifndef TCP_TYPES_H
 #define TCP_TYPES_H
 // includes
-#include "common_Header.h"
 #include "libCommon/Boost_Header.h"
 
 namespace libBoost {
@@ -45,12 +44,21 @@ public:
 
   // socket state
   tcpSocketState tcp_socket_state_{tcpSocketState::kIdle};
+
   // socket error
   tcpSocketError tcp_socket_error_{tcpSocketError::kNone};
+
   // Receive buffer
   buffType rxBuffer_;
+
   // Transmit buffer
   buffType txBuffer_;
+
+  // host ipaddress
+  ipAddressType host_ip_address_;
+
+  // host port num
+  uint16_t host_port_num_;
 };
 
 // unique pointer to const TcpMessage

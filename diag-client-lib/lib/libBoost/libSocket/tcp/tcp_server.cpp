@@ -21,6 +21,11 @@ CreateTcpServerSocket::CreateTcpServerSocket(std::string_view local_ip_address, 
   // Create accepter
   tcp_accepter_ = std::make_unique<TcpAccepter>(io_context_,
                                                 Tcp::endpoint(Tcp::v4(),local_port_num_), true);
+  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+      __FILE__, __LINE__, __func__, [&local_ip_address, &local_port_num](std::stringstream &msg) {
+        msg << "Tcp Socket Accepter created at "
+            << "<" << local_ip_address << "," << local_port_num << ">";
+      });
 }
 
 CreateTcpServerSocket::TcpServerConnection
@@ -100,6 +105,10 @@ void CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
+    // fill the remote endpoints
+    tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
+    tcp_rx_message->host_port_num_  = endpoint_.port();
+    
     // send data to upper layer
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {

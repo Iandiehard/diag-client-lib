@@ -45,7 +45,7 @@ void DmConversation::Startup() {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
                                                                       [&](std::stringstream &msg) {
                                                                         msg << "'" << conversation_name_ << "'"
-                                                                            << "->"
+                                                                            << " -> "
                                                                             << "Startup completed";
                                                                       });
 }
@@ -59,7 +59,7 @@ void DmConversation::Shutdown() {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
                                                                       [&](std::stringstream &msg) {
                                                                         msg << "'" << conversation_name_ << "'"
-                                                                            << "->"
+                                                                            << " -> "
                                                                             << "Shutdown completed";
                                                                       });
 }
@@ -77,14 +77,14 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddr
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
-              << "->"
+              << " -> "
               << "Successfully connected to Server with ip: " << host_ip_addr;
         });
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
-              << "->"
+              << " -> "
               << "Failed connecting to Server with ip: " << host_ip_addr;
         });
   }
