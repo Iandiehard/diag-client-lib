@@ -15,7 +15,7 @@ namespace libSocket {
 namespace tcp {
 // ctor
 CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num,
-                                             TcpHandlerRead && tcp_handler_read)
+                                             TcpHandlerRead &&tcp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       exit_request_{false},
@@ -28,7 +28,7 @@ CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uin
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_.load(); });
+        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
       if (!exit_request_.load()) {
         if (running_) { HandleMessage(); }
@@ -111,6 +111,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string hostIpaddress, uint16_t ho
 bool CreateTcpClientSocket::DisconnectFromHost() {
   TcpErrorCodeType ec;
   bool retVal = false;
+
   // Graceful shutdown
   tcp_socket_->shutdown(TcpSocket::socket::shutdown_both, ec);
   if (ec.value() == boost::system::errc::success) {
@@ -186,13 +187,13 @@ void CreateTcpClientSocket::HandleMessage() {
         });
     // fill the remote endpoints
     tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
-    tcp_rx_message->host_port_num_  = endpoint_.port();
+    tcp_rx_message->host_port_num_ = endpoint_.port();
 
     // send data to upper layer
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {
     running_ = false;
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {

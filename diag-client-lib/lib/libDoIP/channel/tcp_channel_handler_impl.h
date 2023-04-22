@@ -27,6 +27,7 @@ class TcpTransportHandler;
 }
 
 namespace tcpChannelHandlerImpl {
+
 using RoutingActivationChannelState = tcpChannelStateImpl::routingActivationState;
 using DiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 using TcpMessage = tcpSocket::TcpMessage;
@@ -37,6 +38,10 @@ using TcpMessagePtr = tcpSocket::TcpMessagePtr;
  @ Class Description : Class used as a handler to process routing activation messages
  */
 class RoutingActivationHandler {
+public:
+  struct RoutingActivationAckType {
+    std::uint8_t act_type_;
+  };
 public:
   // ctor
   RoutingActivationHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler, tcpChannel::tcpChannel &channel)
@@ -54,9 +59,10 @@ public:
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
 private:
-  auto CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType, uint32_t payloadLen) noexcept
-      -> void;
+  void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType, uint32_t payloadLen);
 
+
+private:
   // socket reference
   tcpSocket::TcpSocketHandler &tcp_socket_handler_;
   // channel reference

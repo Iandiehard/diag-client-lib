@@ -10,9 +10,11 @@
 #include <string>
 #include <string_view>
 #include <thread>
+#include <utility>
 
 #include "doip_handler/doip_udp_handler.h"
 #include "doip_handler/doip_tcp_handler.h"
+#include "doip_handler/common_doip_types.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
@@ -43,9 +45,9 @@ public:
 public:
   // ctor
   UdsMessage(std::string_view host_ip_address,
-             ByteVector &payload)
+             ByteVector payload)
       : host_ip_address(host_ip_address),
-        uds_payload(payload) {}
+        uds_payload{std::move(payload)} {}
 
   // dtor
   ~UdsMessage() override = default;
@@ -53,8 +55,8 @@ public:
 private:
   // host ip address
   IpAddress host_ip_address;
-  // store only UDS payload to be send
-  ByteVector &uds_payload;
+  // store only UDS payload to be sent
+  ByteVector uds_payload;
 
   const ByteVector &GetPayload() const override { return uds_payload; }
 
@@ -111,24 +113,72 @@ private:
 } // namespace
 
 
-TEST_F(DiagReqResFixture, VerifyPostiveRequestResponse) {
+TEST_F(DiagReqResFixture, VerifyRoutingActivationSuccessful) {
+  // Get the doip channel and Initialize it
   DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(0xFA25U)};
-
   doip_channel.Initialize();
 
-  // Get conversation for tester one
+  // Get conversation for tester one and start up the conversation
   diag::client::conversation::DiagClientConversation &diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
-  // Start the conversation for tester one
   diag_client_conversation.Startup();
-  // Create an uds payload 10 01 ( Default Session )
-  UdsMessage::ByteVector uds_payload{0x10, 0x01};
-  // Create Uds message
-  diag::client::uds_message::UdsRequestMessagePtr uds_message{std::make_unique<UdsMessage>(DiagTcpIpAddress, uds_payload)};
+
+  // Set expectation code - RoutingSuccess
+  doip_channel.SetExpectedRoutingActivationResponseToBeSent(kDoip_RoutingActivation_ResCode_RoutingSuccessful);
+
+  // Create uds message
+  // diag::client::uds_message::UdsRequestMessagePtr uds_message{
+  //    std::make_unique<UdsMessage>(DiagTcpIpAddress, UdsMessage::ByteVector{0x10, 0x01})};
+
   // Connect Tester One to remote ip address 172.16.25.128
   diag::client::conversation::DiagClientConversation::ConnectResult
-      connect_result{diag_client_conversation.ConnectToDiagServer(uds_message->GetHostIpAddress())};
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagTcpIpAddress)};
+
+  EXPECT_EQ(connect_result,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult
+      disconnect_result{diag_client_conversation.DisconnectFromDiagServer()};
+
+  EXPECT_EQ(disconnect_result,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
   diag_client_conversation.Shutdown();
+  doip_channel.DeInitialize();
+}
+
+TEST_F(DiagReqResFixture, VerifyRoutingActivationFailure) {
+  // Get the doip channel and Initialize it
+  DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(0xFA25U)};
+  doip_channel.Initialize();
+
+  // Get conversation for tester one and start up the conversation
+  diag::client::conversation::DiagClientConversation &diag_client_conversation{
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+  diag_client_conversation.Startup();
+
+  // Set expectation code - RoutingSuccess
+  doip_channel.SetExpectedRoutingActivationResponseToBeSent(kDoip_RoutingActivation_ResCode_UnknownSA);
+
+  // Create uds message
+  // diag::client::uds_message::UdsRequestMessagePtr uds_message{
+  //    std::make_unique<UdsMessage>(DiagTcpIpAddress, UdsMessage::ByteVector{0x10, 0x01})};
+
+  // Connect Tester One to remote ip address 172.16.25.128
+  diag::client::conversation::DiagClientConversation::ConnectResult
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagTcpIpAddress)};
+
+  EXPECT_EQ(connect_result,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectFailed);
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult
+      disconnect_result{diag_client_conversation.DisconnectFromDiagServer()};
+
+  EXPECT_EQ(disconnect_result,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
+  diag_client_conversation.Shutdown();
+  doip_channel.DeInitialize();
 }
 
 } // doip_client

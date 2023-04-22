@@ -55,10 +55,10 @@ public:
   buffType txBuffer_;
 
   // host ipaddress
-  ipAddressType host_ip_address_;
+  ipAddressType host_ip_address_{};
 
   // host port num
-  uint16_t host_port_num_;
+  uint16_t host_port_num_{};
 };
 
 // unique pointer to const TcpMessage

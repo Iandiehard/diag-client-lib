@@ -6,6 +6,7 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #include "libSocket/tcp/tcp_server.h"
+
 #include "libCommon/logger.h"
 
 namespace libBoost {
@@ -16,11 +17,10 @@ using TcpIpAddress = boost::asio::ip::address;
 using TcpErrorCodeType = boost::system::error_code;
 
 CreateTcpServerSocket::CreateTcpServerSocket(std::string_view local_ip_address, uint16_t local_port_num)
-  : local_ip_address_{local_ip_address},
-    local_port_num_{local_port_num} {
+    : local_ip_address_{local_ip_address},
+      local_port_num_{local_port_num} {
   // Create accepter
-  tcp_accepter_ = std::make_unique<TcpAccepter>(io_context_,
-                                                Tcp::endpoint(Tcp::v4(),local_port_num_), true);
+  tcp_accepter_ = std::make_unique<TcpAccepter>(io_context_, Tcp::endpoint(Tcp::v4(), local_port_num_), true);
   logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
       __FILE__, __LINE__, __func__, [&local_ip_address, &local_port_num](std::stringstream &msg) {
         msg << "Tcp Socket Accepter created at "
@@ -28,15 +28,15 @@ CreateTcpServerSocket::CreateTcpServerSocket(std::string_view local_ip_address, 
       });
 }
 
-CreateTcpServerSocket::TcpServerConnection
-  CreateTcpServerSocket::GetTcpServerConnection(TcpHandlerRead && tcp_handler_read) {
+CreateTcpServerSocket::TcpServerConnection CreateTcpServerSocket::GetTcpServerConnection(
+    TcpHandlerRead &&tcp_handler_read) {
   TcpErrorCodeType ec;
   Tcp::endpoint endpoint{};
   CreateTcpServerSocket::TcpServerConnection tcp_connection{io_context_, std::move(tcp_handler_read)};
 
   // blocking accept
   tcp_accepter_->accept(tcp_connection.GetSocket(), endpoint, ec);
-  if(ec.value() == boost::system::errc::success) {
+  if (ec.value() == boost::system::errc::success) {
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint](std::stringstream &msg) {
           msg << "Tcp Socket connection received from client "
@@ -51,8 +51,9 @@ CreateTcpServerSocket::TcpServerConnection
 }
 
 CreateTcpServerSocket::TcpServerConnection::TcpServerConnection(boost::asio::io_context &io_context,
-                                                                TcpHandlerRead && tcp_handler_read)
-  : tcp_socket_{io_context}, tcp_handler_read_{tcp_handler_read} {}
+                                                                TcpHandlerRead &&tcp_handler_read)
+    : tcp_socket_{io_context},
+      tcp_handler_read_{tcp_handler_read} {}
 
 TcpSocket &CreateTcpServerSocket::TcpServerConnection::GetSocket() { return tcp_socket_; }
 
@@ -107,12 +108,12 @@ void CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
         });
     // fill the remote endpoints
     tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
-    tcp_rx_message->host_port_num_  = endpoint_.port();
-    
+    tcp_rx_message->host_port_num_ = endpoint_.port();
+
     // send data to upper layer
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {
@@ -120,6 +121,22 @@ void CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
   }
+}
+
+bool CreateTcpServerSocket::TcpServerConnection::Shutdown() {
+  TcpErrorCodeType ec{};
+  bool ret_val{false};
+  // Graceful shutdown
+  tcp_socket_.shutdown(TcpSocket::shutdown_both, ec);
+  if (ec.value() == boost::system::errc::success) {
+    ret_val = true;
+  } else {
+    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+        __FILE__, __LINE__, __func__,
+        [ec](std::stringstream &msg) { msg << "Tcp Socket Disconnection failed with error: " << ec.message(); });
+  }
+  tcp_socket_.close();
+  return ret_val;
 }
 
 }  // namespace tcp

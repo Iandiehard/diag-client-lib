@@ -29,7 +29,14 @@ ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult tcpC
 
 void tcpChannel::Start() { tcp_socket_handler_->Start(); }
 
-void tcpChannel::Stop() { tcp_socket_handler_->Stop(); }
+void tcpChannel::Stop() {
+  if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
+    tcp_socket_handler_->Stop();
+    if (tcp_socket_handler_->DisconnectFromHost()) {
+      tcp_socket_state_ = tcpSocketState::kSocketOffline;
+    }
+  }
+}
 
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHost(
     ara::diag::uds_transport::UdsMessageConstPtr message) {
@@ -50,7 +57,9 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
   } else {
     // socket already online
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) { msg << "Doip Tcp socket already online"; });
+        __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
+          msg << "Doip Tcp socket already connected";
+        });
   }
   // If socket online, send routing activation req and get response
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
@@ -69,7 +78,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChanne
       if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
           TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
         tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
-        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
             __FILE__, __LINE__, __func__,
             [](std::stringstream &msg) { msg << "RoutingActivation set to unactivated again"; });
       }
@@ -136,7 +145,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
                   msg << "RoutingActivation response timeout, no response received in: "
-                      << kDoIPRoutingActivationTimeout << "seconds";
+                      << kDoIPRoutingActivationTimeout << " milliseconds";
                 });
           },
           [&]() {

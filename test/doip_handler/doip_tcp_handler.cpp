@@ -7,6 +7,7 @@
 */
 
 #include "doip_handler/doip_tcp_handler.h"
+#include "doip_handler/common_doip_types.h"
 
 namespace ara {
 namespace diag {
@@ -38,13 +39,18 @@ DoipTcpHandler::DoipChannel::DoipChannel(std::uint16_t logical_address,
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_.load(); });
+        cond_var_.wait(lck, [this]() {
+          return exit_request_ || running_;
+        });
       }
       if (!exit_request_.load()) {
-        if (running_) { this->StartAcceptingConnection(); }
+        if (running_) {
+          std::function<void(void)> const job{job_queue_.front()};
+          job();
+          job_queue_.pop();
+        }
       }
     }
-    StopAcceptingConnection();
   });
 }
 
@@ -56,13 +62,20 @@ DoipTcpHandler::DoipChannel::~DoipChannel() {
 }
 
 void DoipTcpHandler::DoipChannel::Initialize() {
-  running_ = true;
+  {
+    std::lock_guard<std::mutex> const lck{mutex_};
+    job_queue_.emplace([this](){
+      this->StartAcceptingConnection();
+    });
+    running_ = true;
+  }
   cond_var_.notify_all();
 }
 
 void DoipTcpHandler::DoipChannel::DeInitialize() {
-  running_ = false;
-  cond_var_.notify_all();
+  if(tcp_connection_) {
+    tcp_connection_->DeInitialize();
+  }
 }
 
 void DoipTcpHandler::DoipChannel::StartAcceptingConnection() {
@@ -74,15 +87,85 @@ void DoipTcpHandler::DoipChannel::StartAcceptingConnection() {
             this->HandleMessage(std::move(tcp_rx_message));
           }
           ));
-  tcp_connection_->StartReception();
-}
-
-void DoipTcpHandler::DoipChannel::StopAcceptingConnection() {
-  tcp_connection_->StopReception();
+  if(tcp_connection_) {
+    tcp_connection_->Initialize();
+    running_ = false;
+  }
 }
 
 void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
+  received_doip_message_.host_ip_address = tcp_rx_message->host_ip_address_;
+  received_doip_message_.port_num = tcp_rx_message->host_port_num_;
+  received_doip_message_.protocol_version = tcp_rx_message->rxBuffer_[0];
+  received_doip_message_.protocol_version_inv = tcp_rx_message->rxBuffer_[1];
+  received_doip_message_.payload_type = GetDoIPPayloadType(tcp_rx_message->rxBuffer_);
+  received_doip_message_.payload_length = GetDoIPPayloadLength(tcp_rx_message->rxBuffer_);
+  if (received_doip_message_.payload_length > 0U) {
+    received_doip_message_.payload.insert(received_doip_message_.payload.begin(),
+                                          tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize, tcp_rx_message->rxBuffer_.end());
+  }
+  // Trigger async transmission
+  {
+    std::lock_guard<std::mutex> const lck{mutex_};
+    job_queue_.emplace([this](){
+      if(received_doip_message_.payload_type == kDoip_RoutingActivation_ReqType) {
+        this->SendRoutingActivationResponse();
+      }
+    });
+    running_ = true;
+  }
+  cond_var_.notify_all();
+}
 
+auto DoipTcpHandler::DoipChannel::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t {
+  return ((uint16_t) (((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
+}
+
+auto DoipTcpHandler::DoipChannel::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
+  return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24U) & 0xFF000000) |
+          (uint32_t) ((payload[BYTE_POS_FIVE] << 16U) & 0x00FF0000) |
+          (uint32_t) ((payload[BYTE_POS_SIX] << 8U) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
+}
+
+void DoipTcpHandler::DoipChannel::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payload_type,
+                                                          std::uint32_t payload_len) {
+  doipHeader.push_back(kDoip_ProtocolVersion);
+  doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
+  doipHeader.push_back((uint8_t) ((payload_type & 0xFF00) >> 8));
+  doipHeader.push_back((uint8_t) (payload_type & 0x00FF));
+  doipHeader.push_back((uint8_t) ((payload_len & 0xFF000000) >> 24));
+  doipHeader.push_back((uint8_t) ((payload_len & 0x00FF0000) >> 16));
+  doipHeader.push_back((uint8_t) ((payload_len & 0x0000FF00) >> 8));
+  doipHeader.push_back((uint8_t) (payload_len & 0x000000FF));
+}
+
+void DoipTcpHandler::DoipChannel::SendRoutingActivationResponse() {
+  TcpMessagePtr routing_activation_response{std::make_unique<TcpMessage>()};
+  // create header
+  routing_activation_response->txBuffer_.reserve(kDoipheadrSize + kDoip_RoutingActivation_ResMinLen);
+  CreateDoipGenericHeader(routing_activation_response->txBuffer_, kDoip_RoutingActivation_ResType, kDoip_RoutingActivation_ResMinLen);
+
+  // logical address of client
+  routing_activation_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
+  routing_activation_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+  // logical address of server
+  routing_activation_response->txBuffer_.emplace_back(logical_address_ >> 8U);
+  routing_activation_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+  // activation response code
+  routing_activation_response->txBuffer_.emplace_back(routing_activation_res_code_);
+  routing_activation_response->txBuffer_.emplace_back(0x00);
+  routing_activation_response->txBuffer_.emplace_back(0x00);
+  routing_activation_response->txBuffer_.emplace_back(0x00);
+  routing_activation_response->txBuffer_.emplace_back(0x00);
+
+  if(tcp_connection_->Transmit(std::move(routing_activation_response))) {
+    running_ = false;
+  }
+}
+
+void DoipTcpHandler::DoipChannel::SetExpectedRoutingActivationResponseToBeSent(
+    std::uint8_t routing_activation_res_code) {
+  routing_activation_res_code_ = routing_activation_res_code;
 }
 
 }  // namespace doip

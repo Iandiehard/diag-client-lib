@@ -9,9 +9,10 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_SERVER_H
 
 // includes
+#include <optional>
 #include <string_view>
 #include <vector>
-#include <optional>
+
 #include "tcp_types.h"
 
 namespace libBoost {
@@ -30,8 +31,7 @@ public:
   class TcpServerConnection {
   public:
     // ctor
-    TcpServerConnection(boost::asio::io_context& io_context,
-                                 TcpHandlerRead && tcp_handler_read);
+    TcpServerConnection(boost::asio::io_context &io_context, TcpHandlerRead &&tcp_handler_read);
 
     // dtor
     ~TcpServerConnection() = default;
@@ -40,20 +40,24 @@ public:
     TcpServerConnection(TcpServerConnection &&) = default;
 
     // move assignment
-    TcpServerConnection& operator=(TcpServerConnection &&) = default;
+    TcpServerConnection &operator=(TcpServerConnection &&) = default;
 
     // copy ctor & assignment deleted
     TcpServerConnection(TcpServerConnection &) = delete;
-    TcpServerConnection& operator=(TcpServerConnection &) = delete;
+    TcpServerConnection &operator=(TcpServerConnection &) = delete;
 
     // Get reference to underlying socket
-    TcpSocket& GetSocket();
+    TcpSocket &GetSocket();
 
     // function to transmit tcp message
     bool Transmit(TcpMessageConstPtr udp_tx_message);
 
     // function to handle read
     void ReceivedMessage();
+
+    // function to close the socket
+    bool Shutdown();
+
   private:
     // tcp socket
     TcpSocket tcp_socket_;
@@ -73,7 +77,7 @@ public:
   ~CreateTcpServerSocket() = default;
 
   // Blocking function get a tcp connection
-  TcpServerConnection GetTcpServerConnection(TcpHandlerRead && tcp_handler_read);
+  TcpServerConnection GetTcpServerConnection(TcpHandlerRead &&tcp_handler_read);
 
 private:
   // local Ip address
@@ -84,7 +88,6 @@ private:
   std::unique_ptr<TcpAccepter> tcp_accepter_;
   // boost io context
   boost::asio::io_context io_context_;
-
 };
 
 }  // namespace tcp

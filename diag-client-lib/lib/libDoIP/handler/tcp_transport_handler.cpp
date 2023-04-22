@@ -23,7 +23,7 @@ TcpTransportHandler::TcpTransportHandler(kDoip_String &local_ip_address, uint16_
 }
 
 // dtor
-TcpTransportHandler::~TcpTransportHandler() {}
+TcpTransportHandler::~TcpTransportHandler() = default;
 
 // Initialize
 ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult TcpTransportHandler::Initialize() {

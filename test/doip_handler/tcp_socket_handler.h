@@ -21,6 +21,7 @@ namespace diag {
 namespace doip {
 namespace tcpSocket {
 
+using TcpMessage = libBoost::libSocket::tcp::TcpMessageType;
 using TcpMessagePtr = libBoost::libSocket::tcp::TcpMessagePtr;
 using TcpMessageConstPtr = libBoost::libSocket::tcp::TcpMessageConstPtr;
 
@@ -37,10 +38,10 @@ public:
     ~TcpConnectionHandler();
 
     // start the reception thread
-    void StartReception();
+    void Initialize();
 
     // stop the reception thread
-    void StopReception();
+    void DeInitialize();
 
     // function to trigger transmission
     // true on success else false

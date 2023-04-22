@@ -12,12 +12,16 @@
 #include <string_view>
 #include <memory>
 #include <map>
+#include <queue>
+#include <functional>
 #include "doip_handler/tcp_socket_handler.h"
+#include "doip_handler/doip_payload_type.h"
 
 namespace ara {
 namespace diag {
 namespace doip {
 
+using TcpMessage = tcpSocket::TcpMessage;
 using TcpMessagePtr = tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = tcpSocket::TcpMessageConstPtr;
 
@@ -39,11 +43,8 @@ public:
     // De-Initialize
     void DeInitialize();
 
-    // start accepting connection from client
-    void StartAcceptingConnection();
-
-    // stop accepting connection from client
-    void StopAcceptingConnection();
+    // Set expected Routing Activation response
+    void SetExpectedRoutingActivationResponseToBeSent(std::uint8_t routing_activation_res_code);
   private:
     // Store the logical address
     std::uint16_t logical_address_;
@@ -68,8 +69,34 @@ public:
 
     // locking critical section
     std::mutex mutex_;
+
+    // queue to hold task
+    std::queue<std::function<void(void)>> job_queue_;
+
+    // Received doip message
+    DoipMessage received_doip_message_{};
+
+    // Routing activation response code
+    std::uint8_t routing_activation_res_code_{};
   private:
+    // Function invoked during reception
     void HandleMessage(TcpMessagePtr tcp_rx_message);
+
+    // Start accepting connection from client
+    void StartAcceptingConnection();
+
+    // Function to get payload type
+    static auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;
+
+    // Function to get payload length
+    static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
+
+    // Function to create the generic header
+    static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payload_type,
+                                        std::uint32_t payload_len);
+
+    // Function to trigger transmission of udp messages
+    void SendRoutingActivationResponse();
   };
 public:
   // ctor

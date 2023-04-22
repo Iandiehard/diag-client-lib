@@ -23,7 +23,7 @@ DoipTcpSocketHandler::TcpConnectionHandler::TcpConnectionHandler(
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_.load(); });
+        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
       if (!exit_request_.load()) {
         if (running_) { tcp_connection_->ReceivedMessage(); }
@@ -39,16 +39,16 @@ DoipTcpSocketHandler::TcpConnectionHandler::~TcpConnectionHandler() {
   thread_.join();
 }
 
-void DoipTcpSocketHandler::TcpConnectionHandler::StartReception() {
+void DoipTcpSocketHandler::TcpConnectionHandler::Initialize() {
   // start reading
   running_ = true;
   cond_var_.notify_all();
 }
 
-void DoipTcpSocketHandler::TcpConnectionHandler::StopReception() {
+void DoipTcpSocketHandler::TcpConnectionHandler::DeInitialize() {
+  tcp_connection_->Shutdown();
   // stop reading
   running_ = false;
-  cond_var_.notify_all();
 }
 
 bool DoipTcpSocketHandler::TcpConnectionHandler::Transmit(TcpMessageConstPtr tcp_tx_message) {

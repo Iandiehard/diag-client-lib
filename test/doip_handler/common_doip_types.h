@@ -8,9 +8,6 @@
 #ifndef DIAG_CLIENT_COMMON_DOIP_TYPES_H_
 #define DIAG_CLIENT_COMMON_DOIP_TYPES_H_
 
-namespace ara {
-namespace diag {
-namespace doip {
 /* DoIP Port Number - Unsecured */
 constexpr uint16_t kDoipPort = 13400U;
 /* Udp Channel Length */
@@ -114,7 +111,4 @@ constexpr uint32_t kDoIPDiagnosticAckTimeout = 2000;  // 2 sec
  * */
 constexpr uint32_t kDoIPCtrl = 2000;  // 2 sec
 
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
 #endif  // DIAG_CLIENT_COMMON_DOIP_TYPES_H_

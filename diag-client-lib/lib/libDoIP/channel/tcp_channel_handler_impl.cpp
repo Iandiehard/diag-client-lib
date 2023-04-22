@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 #include "channel/tcp_channel_handler_impl.h"
-
+#include "common/logger.h"
 #include "channel/tcp_channel.h"
 #include "handler/tcp_transport_handler.h"
 
@@ -14,6 +14,19 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace tcpChannelHandlerImpl {
+
+std::ostream & operator<<(std::ostream &msg, RoutingActivationHandler::RoutingActivationAckType &act_type)  {
+  switch (act_type.act_type_) {
+    case kDoip_RoutingActivation_ResCode_UnknownSA:
+      msg << "Unknown Source Address";
+      break ;
+    case kDoip_RoutingActivation_ResCode_AllSocktActive:
+      msg << "All Socket active";
+      break;
+  }
+  return msg;
+}
+
 auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept -> void {
   RoutingActivationChannelState final_state{RoutingActivationChannelState::kRoutingActivationFailed};
   if (channel_.GetChannelState().GetRoutingActivationStateContext().GetActiveState().GetState() ==
@@ -25,8 +38,8 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
     uint16_t server_address = (uint16_t) ((doip_payload.payload[BYTE_POS_TWO] << 8) & 0xFF00) |
                               (uint16_t) (doip_payload.payload[BYTE_POS_THREE] & 0x00FF);
     // get the ack code
-    uint8_t act_type = doip_payload.payload[BYTE_POS_FOUR];
-    switch (act_type) {
+    RoutingActivationAckType const rout_act_type{doip_payload.payload[BYTE_POS_FOUR]};
+    switch (rout_act_type.act_type_) {
       case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationChannelState::kRoutingActivationSuccessful;
@@ -36,6 +49,10 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
       } break;
       default:
         // failure, do nothing
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+            __FILE__, __LINE__, __func__, [&rout_act_type](std::stringstream &msg) {
+              msg << "Routing activation denied due to: " << rout_act_type;
+            });
         break;
     }
     channel_.GetChannelState().GetRoutingActivationStateContext().TransitionTo(final_state);
@@ -72,8 +89,8 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
   return ret_val;
 }
 
-auto RoutingActivationHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
-                                                       uint32_t payloadLen) noexcept -> void {
+void RoutingActivationHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
+                                                       uint32_t payloadLen) {
   doipHeader.push_back(kDoip_ProtocolVersion);
   doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
   doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
@@ -94,9 +111,10 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
     // check the logical address of client
     uint16_t client_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
+    // get the ack code
+    uint8_t const ack_code {doip_payload.payload[BYTE_POS_FOUR]};
+
     if (doip_payload.payload_type == kDoip_DiagMessagePosAck_Type) {
-      // get the ack code
-      uint8_t ack_code = doip_payload.payload[BYTE_POS_FOUR];
       if (ack_code == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
         final_state = DiagnosticMessageChannelState::kDiagnosticPositiveAckRecvd;
       } else {

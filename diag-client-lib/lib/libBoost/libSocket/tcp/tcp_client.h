@@ -30,7 +30,7 @@ public:
 
 public:
   //ctor
-  CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead && tcp_handler_read);
+  CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead &&tcp_handler_read);
 
   //dtor
   virtual ~CreateTcpClientSocket();
