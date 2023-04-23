@@ -73,7 +73,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddr
       connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
           source_address_, target_address_, host_ip_addr, payload))))};
   if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
-    remote_address_ = std::string(host_ip_addr);
+    remote_address_ = host_ip_addr;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
@@ -100,14 +100,14 @@ DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServe
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "->"
-              << "Successfully disconnected from Server with IP <" << remote_address_ << ">";
+              << " Successfully disconnected from Server with IP <" << remote_address_ << ">";
         });
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "->"
-              << "Failed to disconnect from Server with IP <" << remote_address_ << ">";
+              << " Failed to disconnect from Server with IP <" << remote_address_ << ">";
         });
   }
   return ret_val;

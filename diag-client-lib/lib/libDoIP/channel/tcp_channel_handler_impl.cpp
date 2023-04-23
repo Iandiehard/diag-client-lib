@@ -6,8 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 #include "channel/tcp_channel_handler_impl.h"
-#include "common/logger.h"
+
 #include "channel/tcp_channel.h"
+#include "common/logger.h"
 #include "handler/tcp_transport_handler.h"
 
 namespace ara {
@@ -15,15 +16,37 @@ namespace diag {
 namespace doip {
 namespace tcpChannelHandlerImpl {
 
-std::ostream & operator<<(std::ostream &msg, RoutingActivationHandler::RoutingActivationAckType &act_type)  {
+std::ostream &operator<<(std::ostream &msg, RoutingActivationHandler::RoutingActivationAckType act_type) {
   switch (act_type.act_type_) {
     case kDoip_RoutingActivation_ResCode_UnknownSA:
-      msg << "Unknown Source Address";
-      break ;
+      msg << "unknown source address.";
+      break;
     case kDoip_RoutingActivation_ResCode_AllSocktActive:
-      msg << "All Socket active";
+      msg << "all Socket active.";
+      break;
+    case kDoip_RoutingActivation_ResCode_DifferentSA:
+      msg << "SA different on already connected socket.";
+      break;
+    case kDoip_RoutingActivation_ResCode_ActiveSA:
+      msg << "SA active on different socket.";
+      break;
+    case kDoip_RoutingActivation_ResCode_AuthentnMissng:
+      msg << "missing authentication.";
+      break;
+    case kDoip_RoutingActivation_ResCode_ConfirmtnRejectd:
+      msg << "rejected confirmation.";
+      break;
+    case kDoip_RoutingActivation_ResCode_UnsupportdActType:
+      msg << "unsupported routing activation type.";
+      break;
+    case kDoip_RoutingActivation_ResCode_TLSRequired:
+      msg << "required TLS socket.";
+      break;
+    default:
+      msg << "unknown reason.";
       break;
   }
+  msg << " (0x" << std::hex << static_cast<int>(act_type.act_type_) << ")";
   return msg;
 }
 
@@ -43,16 +66,25 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
       case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationChannelState::kRoutingActivationSuccessful;
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+            __FILE__, __LINE__, __func__, [&server_address](std::stringstream &msg) {
+              msg << "RoutingActivation successfully activated in remote server with logical Address"
+                  << " (0x" << std::hex << server_address << ")";
+            });
       } break;
       case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+            __FILE__, __LINE__, __func__, [&server_address](std::stringstream &msg) {
+              msg << "RoutingActivation is activated, confirmation required in remote server with logical Address"
+                  << " (0x" << std::hex << server_address << ")";
+            });
       } break;
       default:
         // failure, do nothing
-        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-            __FILE__, __LINE__, __func__, [&rout_act_type](std::stringstream &msg) {
-              msg << "Routing activation denied due to: " << rout_act_type;
-            });
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
+            __FILE__, __LINE__, __func__,
+            [&rout_act_type](std::stringstream &msg) { msg << "Routing activation denied due to " << rout_act_type; });
         break;
     }
     channel_.GetChannelState().GetRoutingActivationStateContext().TransitionTo(final_state);
@@ -112,7 +144,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
     uint16_t client_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
     // get the ack code
-    uint8_t const ack_code {doip_payload.payload[BYTE_POS_FOUR]};
+    uint8_t const ack_code{doip_payload.payload[BYTE_POS_FOUR]};
 
     if (doip_payload.payload_type == kDoip_DiagMessagePosAck_Type) {
       if (ack_code == kDoip_DiagnosticMessage_PosAckCode_Confirm) {

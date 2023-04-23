@@ -39,9 +39,11 @@ using TcpMessagePtr = tcpSocket::TcpMessagePtr;
  */
 class RoutingActivationHandler {
 public:
+  // strong type holding activation type
   struct RoutingActivationAckType {
     std::uint8_t act_type_;
   };
+
 public:
   // ctor
   RoutingActivationHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler, tcpChannel::tcpChannel &channel)
@@ -60,7 +62,6 @@ public:
 
 private:
   void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType, uint32_t payloadLen);
-
 
 private:
   // socket reference

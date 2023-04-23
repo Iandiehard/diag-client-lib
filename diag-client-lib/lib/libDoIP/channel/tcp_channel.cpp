@@ -32,9 +32,7 @@ void tcpChannel::Start() { tcp_socket_handler_->Start(); }
 void tcpChannel::Stop() {
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
     tcp_socket_handler_->Stop();
-    if (tcp_socket_handler_->DisconnectFromHost()) {
-      tcp_socket_state_ = tcpSocketState::kSocketOffline;
-    }
+    if (tcp_socket_handler_->DisconnectFromHost()) { tcp_socket_state_ = tcpSocketState::kSocketOffline; }
   }
 }
 
@@ -57,9 +55,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
   } else {
     // socket already online
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
-          msg << "Doip Tcp socket already connected";
-        });
+        __FILE__, __LINE__, __func__,
+        [&message](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
   }
   // If socket online, send routing activation req and get response
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
@@ -161,7 +158,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
                   TcpRoutingActivationChannelState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                   __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "RoutingActivation Failed with remote server"; });
+                  [](std::stringstream &msg) { msg << "RoutingActivation failed with remote server"; });
             }
           },
           kDoIPRoutingActivationTimeout);
