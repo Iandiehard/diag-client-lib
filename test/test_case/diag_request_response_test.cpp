@@ -34,6 +34,9 @@ const std::string DiagTcpIpAddress{"172.16.25.128"};
 // Diag Test Server logical address
 const std::uint16_t DiagServerAddress{0xFA25U};
 
+// Diag Second Test Server logical address
+const std::uint16_t DiagSecondServerAddress{0xFA26U};
+
 // Port number
 constexpr std::uint16_t DiagUdpPortNum{13400u};
 constexpr std::uint16_t DiagTcpPortNum{13400u};
@@ -257,6 +260,122 @@ TEST_F(DiagReqResFixture, VerifyDiagNegAcknowledgement) {
 
   diag_client_conversation.Shutdown();
   doip_channel.DeInitialize();
+}
+
+TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
+  // Test preparation
+  // ========================================================
+  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{DiagServerAddress,
+                                                                         "ABCDEFGH123456789",
+                                                                         "00:02:36:31:00:1c",
+                                                                         "0a:0b:0c:0d:0e:0f"};
+  // Get the doip channel and Initialize it
+  DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagServerAddress)};
+  doip_channel.Initialize();
+
+  // Create an expected vehicle identification response
+  GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
+  // Create expected uds response
+  doip_channel.SetExpectedDiagnosticMessageUdsMessageToBeSend(UdsMessage::ByteVector{0x50, 0x01});
+
+  // Test execution
+  // ========================================================
+  // Send Vehicle Identification request with VIN and expect response
+  diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
+  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+      response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
+
+  // Verify Vehicle identification responses
+  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
+  ASSERT_TRUE(response_result.second);
+
+  // Get the list of all vehicle available
+  diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
+      response_result.second->GetVehicleList()};
+
+  // Create uds message using response collection
+  diag::client::uds_message::UdsRequestMessagePtr uds_message{
+      std::make_unique<UdsMessage>(response_collection[0].ip_address, UdsMessage::ByteVector{0x10, 0x01})};
+
+  // Get conversation for tester one and start up the conversation
+  diag::client::conversation::DiagClientConversation &diag_client_conversation{
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+  diag_client_conversation.Startup();
+
+  // Connect Tester One to remote ip address 172.16.25.128
+  diag::client::conversation::DiagClientConversation::ConnectResult
+      connect_result{diag_client_conversation.ConnectToDiagServer(
+          response_collection[0].logical_address, uds_message->GetHostIpAddress())};
+
+  ASSERT_EQ(connect_result,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+
+  // Send Diagnostic message
+  std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
+            diag::client::uds_message::UdsResponseMessagePtr> diag_result{
+          diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+
+  // Verify positive response
+  ASSERT_EQ(diag_result.first,
+            diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess);
+  EXPECT_EQ(diag_result.second->GetPayload()[0], 0x50);
+  EXPECT_EQ(diag_result.second->GetPayload()[1], 0x01);
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult
+      disconnect_result{diag_client_conversation.DisconnectFromDiagServer()};
+
+  EXPECT_EQ(disconnect_result,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
+  diag_client_conversation.Shutdown();
+  doip_channel.DeInitialize();
+}
+
+TEST_F(DiagReqResFixture, VerifyTwoDiagClientConnection) {
+  // Get the doip channels and Initialize it
+  DoipTcpHandler::DoipChannel& doip_channel_1{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagServerAddress)};
+  DoipTcpHandler::DoipChannel& doip_channel_2{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagSecondServerAddress)};
+  doip_channel_1.Initialize();
+  doip_channel_2.Initialize();
+
+  // Get conversation for tester one and start up the conversation
+  diag::client::conversation::DiagClientConversation &diag_client_conversation_1{
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+  diag_client_conversation_1.Startup();
+
+  diag::client::conversation::DiagClientConversation &diag_client_conversation_2{
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterTwo")};
+  diag_client_conversation_2.Startup();
+
+  // Connect Tester One to remote ip address 172.16.25.128
+  diag::client::conversation::DiagClientConversation::ConnectResult
+      connect_result_1{diag_client_conversation_1.ConnectToDiagServer(DiagServerAddress, DiagTcpIpAddress)};
+
+  diag::client::conversation::DiagClientConversation::ConnectResult
+      connect_result_2{diag_client_conversation_2.ConnectToDiagServer(DiagServerAddress, DiagTcpIpAddress)};
+
+  EXPECT_EQ(connect_result_1,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+
+  EXPECT_EQ(connect_result_2,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult
+      disconnect_result_1{diag_client_conversation_1.DisconnectFromDiagServer()};
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult
+      disconnect_result_2{diag_client_conversation_2.DisconnectFromDiagServer()};
+
+  EXPECT_EQ(disconnect_result_1,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
+  EXPECT_EQ(disconnect_result_2,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
+  diag_client_conversation_1.Shutdown();
+  diag_client_conversation_2.Shutdown();
+  doip_channel_1.DeInitialize();
+  doip_channel_2.DeInitialize();
 }
 
 } // doip_client

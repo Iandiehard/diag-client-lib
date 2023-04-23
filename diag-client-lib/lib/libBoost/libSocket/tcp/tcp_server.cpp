@@ -79,8 +79,9 @@ bool CreateTcpServerSocket::TcpServerConnection::Transmit(TcpMessageConstPtr tcp
   return ret_val;
 }
 
-void CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
+bool CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
   TcpErrorCodeType ec;
+  bool connection_closed{false};
   TcpMessagePtr tcp_rx_message = std::make_unique<TcpMessageType>();
   // reserve the buffer
   tcp_rx_message->rxBuffer_.resize(kDoipheadrSize);
@@ -116,26 +117,31 @@ void CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
+    connection_closed = true;
   } else {
     logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
+    connection_closed = true;
   }
+  return connection_closed;
 }
 
 bool CreateTcpServerSocket::TcpServerConnection::Shutdown() {
   TcpErrorCodeType ec{};
   bool ret_val{false};
   // Graceful shutdown
-  tcp_socket_.shutdown(TcpSocket::shutdown_both, ec);
-  if (ec.value() == boost::system::errc::success) {
-    ret_val = true;
-  } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp Socket Disconnection failed with error: " << ec.message(); });
+  if (tcp_socket_.is_open()) {
+    tcp_socket_.shutdown(TcpSocket::shutdown_both, ec);
+    if (ec.value() == boost::system::errc::success) {
+      ret_val = true;
+    } else {
+      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+          __FILE__, __LINE__, __func__,
+          [ec](std::stringstream &msg) { msg << "Tcp Socket Disconnection failed with error: " << ec.message(); });
+    }
+    tcp_socket_.close();
   }
-  tcp_socket_.close();
   return ret_val;
 }
 

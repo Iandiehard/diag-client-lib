@@ -53,7 +53,7 @@ public:
     bool Transmit(TcpMessageConstPtr udp_tx_message);
 
     // function to handle read
-    void ReceivedMessage();
+    bool ReceivedMessage();
 
     // function to close the socket
     bool Shutdown();

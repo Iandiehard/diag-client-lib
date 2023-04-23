@@ -76,10 +76,8 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChanne
       tcp_socket_state_ = tcpSocketState::kSocketOffline;
       if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
           TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
+        // reset previous routing activation
         tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
-        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-            __FILE__, __LINE__, __func__,
-            [](std::stringstream &msg) { msg << "RoutingActivation set to unactivated again"; });
       }
       ret_val = ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
     }

@@ -26,7 +26,13 @@ DoipTcpSocketHandler::TcpConnectionHandler::TcpConnectionHandler(
         cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
       if (!exit_request_.load()) {
-        if (running_) { tcp_connection_->ReceivedMessage(); }
+        if (running_) {
+          if(tcp_connection_->ReceivedMessage()) {
+            // socket is disconnected
+            tcp_connection_->Shutdown();
+            running_ = false;
+          }
+        }
       }
     }
   });
@@ -40,15 +46,18 @@ DoipTcpSocketHandler::TcpConnectionHandler::~TcpConnectionHandler() {
 }
 
 void DoipTcpSocketHandler::TcpConnectionHandler::Initialize() {
+  std::lock_guard<std::mutex> lck(mutex_);
   // start reading
   running_ = true;
   cond_var_.notify_all();
 }
 
 void DoipTcpSocketHandler::TcpConnectionHandler::DeInitialize() {
-  tcp_connection_->Shutdown();
-  // stop reading
-  running_ = false;
+  std::lock_guard<std::mutex> lck(mutex_);
+  if(running_) {
+    tcp_connection_->Shutdown();
+    running_ = false;
+  }
 }
 
 bool DoipTcpSocketHandler::TcpConnectionHandler::Transmit(TcpMessageConstPtr tcp_tx_message) {
