@@ -76,6 +76,12 @@ private:
  */
 class DiagnosticMessageHandler {
 public:
+  // strong type acknowledgement type
+  struct DiagAckType {
+    std::uint8_t ack_type_;
+  };
+
+public:
   // ctor
   DiagnosticMessageHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler,
                            tcpTransport::TcpTransportHandler &tcp_transport_handler, tcpChannel::tcpChannel &channel)

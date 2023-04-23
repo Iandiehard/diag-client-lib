@@ -50,6 +50,36 @@ std::ostream &operator<<(std::ostream &msg, RoutingActivationHandler::RoutingAct
   return msg;
 }
 
+std::ostream &operator<<(std::ostream &msg, DiagnosticMessageHandler::DiagAckType diag_ack_type) {
+  switch (diag_ack_type.ack_type_) {
+    case kDoip_DiagnosticMessage_NegAckCode_InvalidSA:
+      msg << "invalid source address.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_UnknownTA:
+      msg << "unknown target address.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge:
+      msg << "diagnostic message too large.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_OutOfMemory:
+      msg << "server out of memory.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable:
+      msg << "target unreachable.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork:
+      msg << "unknown network.";
+      break;
+    case kDoip_DiagnosticMessage_NegAckCode_TPError:
+      msg << "transport protocol error.";
+      break;
+    default:
+      msg << "unknown reason.";
+      break;
+  }
+  return msg;
+}
+
 auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept -> void {
   RoutingActivationChannelState final_state{RoutingActivationChannelState::kRoutingActivationFailed};
   if (channel_.GetChannelState().GetRoutingActivationStateContext().GetActiveState().GetState() ==
@@ -143,17 +173,24 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
     // check the logical address of client
     uint16_t client_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
-    // get the ack code
-    uint8_t const ack_code{doip_payload.payload[BYTE_POS_FOUR]};
 
+    // get the ack code
+    DiagAckType const diag_ack_type{doip_payload.payload[BYTE_POS_FOUR]};
     if (doip_payload.payload_type == kDoip_DiagMessagePosAck_Type) {
-      if (ack_code == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
+      if (diag_ack_type.ack_type_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
         final_state = DiagnosticMessageChannelState::kDiagnosticPositiveAckRecvd;
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+            __FILE__, __LINE__, __func__, [&server_address](std::stringstream &msg) {
+              msg << "Diagnostic message positively acknowledged from remote server "
+                  << " (0x" << std::hex << server_address << ")";
+            });
       } else {
         // do nothing
       }
     } else if (doip_payload.payload_type == kDoip_DiagMessageNegAck_Type) {
-      // do nothing
+      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
+          __FILE__, __LINE__, __func__,
+          [&diag_ack_type](std::stringstream &msg) { msg << "Diagnostic request denied due to " << diag_ack_type; });
     } else {
       // do nothing
     }

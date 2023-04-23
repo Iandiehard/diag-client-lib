@@ -124,7 +124,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
     ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult transmission_result{
         connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
             source_address_, target_address_, message->GetHostIpAddress(), payload)))};
-    if (transmission_result != ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+    if (transmission_result == ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
           __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
@@ -142,7 +142,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                 __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                   msg << "'" << conversation_name_ << "'"
                       << "->"
-                      << "Diagnostic Response P2 Timeout happened: " << p2_client_max_;
+                      << "Diagnostic Response P2 Timeout happened: " << p2_client_max_ << " milliseconds";
                 });
           },
           [&]() {
@@ -250,7 +250,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
             __FILE__, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "->"
-                  << "Diagnostic Pending response received in Conversion";
+                  << "Diagnostic pending response received in Conversion";
             });
         ret_val.first = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdPendingRes);
@@ -259,7 +259,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
             __FILE__, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "->"
-                  << "Diagnostic Final response received in Conversion";
+                  << "Diagnostic final response received in Conversion";
             });
         // positive or negative response, provide valid buffer
         // resize the global rx buffer

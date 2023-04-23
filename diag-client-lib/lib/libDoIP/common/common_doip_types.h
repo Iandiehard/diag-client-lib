@@ -82,6 +82,13 @@ constexpr uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired = 0x11;
 constexpr uint8_t kDoip_DiagnosticMessage_PosAckCode_Confirm = 0x00;
 /* Diagnostic Message negative acknowledgement code */
 constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_InvalidSA = 0x02;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownTA = 0x03;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge = 0x04;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_OutOfMemory = 0x05;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable = 0x06;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork = 0x07;
+constexpr uint8_t kDoip_DiagnosticMessage_NegAckCode_TPError = 0x08;
+
 /* Further action code values */
 //constexpr uint8_t kDoipNO_FURTHER_ACTION                              0x00
 //constexpr uint8_t kDoipFURTHER_ACTION_CENTRAL_SEC                     0x10

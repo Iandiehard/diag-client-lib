@@ -33,7 +33,9 @@ DoipTcpHandler::DoipChannel::DoipChannel(std::uint16_t logical_address,
     tcp_socket_handler_{tcp_socket_handler},
     tcp_connection_{},
     exit_request_{false},
-    running_{false} {
+    running_{false},
+    routing_activation_res_code_{kDoip_RoutingActivation_ResCode_RoutingSuccessful},
+    diag_msg_ack_code_{kDoip_DiagnosticMessage_PosAckCode_Confirm} {
   // Start thread to receive messages
   thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);
@@ -45,9 +47,11 @@ DoipTcpHandler::DoipChannel::DoipChannel(std::uint16_t logical_address,
       }
       if (!exit_request_.load()) {
         if (running_) {
-          std::function<void(void)> const job{job_queue_.front()};
-          job();
-          job_queue_.pop();
+          while(!job_queue_.empty()) {
+            std::function<void(void)> const job{job_queue_.front()};
+            job();
+            job_queue_.pop();
+          }
         }
       }
     }
@@ -111,6 +115,9 @@ void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
       if(received_doip_message_.payload_type == kDoip_RoutingActivation_ReqType) {
         this->SendRoutingActivationResponse();
       }
+      else if(received_doip_message_.payload_type == kDoip_DiagMessage_Type) {
+        this->SendDiagnosticMessageAckResponse();
+      }
     });
     running_ = true;
   }
@@ -163,9 +170,80 @@ void DoipTcpHandler::DoipChannel::SendRoutingActivationResponse() {
   }
 }
 
+void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
+  TcpMessagePtr diag_msg_ack_response{std::make_unique<TcpMessage>()};
+  // create header
+  diag_msg_ack_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessageAck_ResMinLen);
+  if(diag_msg_ack_code_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
+    CreateDoipGenericHeader(diag_msg_ack_response->txBuffer_, kDoip_DiagMessagePosAck_Type, kDoip_DiagMessageAck_ResMinLen);
+  }
+  else {
+    CreateDoipGenericHeader(diag_msg_ack_response->txBuffer_, kDoip_DiagMessageNegAck_Type, kDoip_DiagMessageAck_ResMinLen);
+  }
+  // logical address of client
+  diag_msg_ack_response->txBuffer_.emplace_back(logical_address_ >> 8U);
+  diag_msg_ack_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+
+  // logical address of target
+  diag_msg_ack_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
+  diag_msg_ack_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+
+  // activation response code
+  diag_msg_ack_response->txBuffer_.emplace_back(diag_msg_ack_code_);
+
+  if(tcp_connection_->Transmit(std::move(diag_msg_ack_response))) {
+    if(diag_msg_ack_code_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
+      job_queue_.emplace([this](){
+          this->SendDiagnosticMessageResponse();
+      });
+      running_ = true;
+      cond_var_.notify_all();
+    }
+  }
+}
+
+void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
+  TcpMessagePtr diag_uds_message_response{std::make_unique<TcpMessage>()};
+  // create header
+  diag_uds_message_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + uds_response_payload_.size());
+  CreateDoipGenericHeader(diag_uds_message_response->txBuffer_, kDoip_DiagMessage_Type,
+                          kDoip_DiagMessage_ReqResMinLen + uds_response_payload_.size());
+
+  // logical address of client
+  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ >> 8U);
+  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+
+  // logical address of target
+  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
+  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+
+  // copy the payload
+  // diag_uds_message_response->txBuffer_.emplace_back(0x50);
+  // diag_uds_message_response->txBuffer_.emplace_back(0x01);
+
+  diag_uds_message_response->txBuffer_.insert(diag_uds_message_response->txBuffer_.begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
+                                              uds_response_payload_.begin(), uds_response_payload_.end());
+
+
+  if(tcp_connection_->Transmit(std::move(diag_uds_message_response))) {
+    running_ = false;
+  }
+}
+
 void DoipTcpHandler::DoipChannel::SetExpectedRoutingActivationResponseToBeSent(
     std::uint8_t routing_activation_res_code) {
   routing_activation_res_code_ = routing_activation_res_code;
+}
+
+void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageAckResponseToBeSend(
+    std::uint8_t diag_msg_ack_code) {
+  diag_msg_ack_code_ = diag_msg_ack_code;
+}
+
+void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageUdsMessageToBeSend(
+    std::vector<std::uint8_t> payload) {
+  uds_response_payload_.clear();
+  uds_response_payload_ = std::move(payload);
 }
 
 }  // namespace doip

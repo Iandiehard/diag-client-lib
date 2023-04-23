@@ -45,6 +45,12 @@ public:
 
     // Set expected Routing Activation response
     void SetExpectedRoutingActivationResponseToBeSent(std::uint8_t routing_activation_res_code);
+
+    // Set expected Diagnostic Message Acknowledgment response
+    void SetExpectedDiagnosticMessageAckResponseToBeSend(std::uint8_t diag_msg_ack_code);
+
+    // Set expected Diagnostic Uds Message
+    void SetExpectedDiagnosticMessageUdsMessageToBeSend(std::vector<std::uint8_t> payload);
   private:
     // Store the logical address
     std::uint16_t logical_address_;
@@ -77,7 +83,13 @@ public:
     DoipMessage received_doip_message_{};
 
     // Routing activation response code
-    std::uint8_t routing_activation_res_code_{};
+    std::uint8_t routing_activation_res_code_;
+
+    // Diag message ack response code
+    std::uint8_t diag_msg_ack_code_;
+
+    // Diag message uds payload
+    std::vector<std::uint8_t> uds_response_payload_;
   private:
     // Function invoked during reception
     void HandleMessage(TcpMessagePtr tcp_rx_message);
@@ -95,8 +107,14 @@ public:
     static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payload_type,
                                         std::uint32_t payload_len);
 
-    // Function to trigger transmission of udp messages
+    // Function to trigger transmission routing activation response
     void SendRoutingActivationResponse();
+
+    // Function to trigger transmission diag ack response
+    void SendDiagnosticMessageAckResponse();
+
+    // Function to trigger transmission of diag uds message
+    void SendDiagnosticMessageResponse();
   };
 public:
   // ctor
