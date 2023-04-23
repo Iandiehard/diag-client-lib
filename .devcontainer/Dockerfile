@@ -1,5 +1,5 @@
-ARG VARIANT=ubuntu-20.04
-FROM mcr.microsoft.com/vscode/devcontainers/cpp:0-${VARIANT}
+ARG VARIANT=22.10
+FROM ubuntu:${VARIANT}
 
 # Install necessary dependencies
 RUN apt-get update &&\

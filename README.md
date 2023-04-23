@@ -47,8 +47,7 @@ sh .github/setup.sh
 
 Diagnostic Client Library has dependencies with BOOST library and [COVESA DLT logging](https://github.com/COVESA/dlt-daemon).
 
-BOOST Library is used for asio operations and COVESA DLT logging is used for sending DLT logs
-to user.
+BOOST Library is used for asio operations and COVESA DLT logging is used for sending DLT logs to user.
 
 In future use of BOOST library will be removed completely.
 
@@ -80,7 +79,6 @@ Component requirements already implemented are documented [REQ](docs/spec/requir
 You can add new issues with label `bug` for notifying us about any defect in library.
 
 ## Future Work
-* Support of Vehicle Discovery Phase (Vehicle Identification/ Announcement)
 * DoIP with TLS
 * Remove Boost Library dependency
 

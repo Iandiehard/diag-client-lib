@@ -97,8 +97,10 @@ public:
 
   /**
    * @brief       Function to connect to Diagnostic Server.
+   * @param[in]   target_address
+   *              Logical address of the Remote server
    * @param[in]   host_ip_addr
-   *              Remote server IP Address to connect to
+   *              IP address of the Remote server
    * @return      ConnectResult
    *              Connection result returned
    * @remarks     Implemented requirements:

@@ -11,22 +11,15 @@ project(utility)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(USE_DLT "Option to use Dlt for logging" ON)
-
-if (USE_DLT)
-    include(FetchContent)
-    FetchContent_Declare(
-            automotive-dlt
-            URL https://github.com/COVESA/dlt-daemon/archive/refs/tags/v2.18.8.tar.gz
-    )
-
-    FetchContent_MakeAvailable(automotive-dlt)
-    add_definitions(-DENABLE_DLT_LOGGER)
-endif (USE_DLT)
+find_package(automotive-dlt REQUIRED)
+if (BUILD_WITH_DLT)
+    find_package(automotive-dlt REQUIRED)
+endif (BUILD_WITH_DLT)
 
 file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 
-add_library(${PROJECT_NAME}
+add_library(
+        ${PROJECT_NAME}
         ${SRCS}
         )
 
@@ -37,7 +30,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         )
 
 #link target directory
-if (USE_DLT)
+if (BUILD_WITH_DLT)
     target_link_libraries(${PROJECT_NAME}
             PRIVATE
             Genivi::dlt
@@ -45,8 +38,9 @@ if (USE_DLT)
 else ()
     target_link_libraries(${PROJECT_NAME}
             PRIVATE
+            Genivi::dlt
             )
-endif (USE_DLT)
+endif (BUILD_WITH_DLT)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets

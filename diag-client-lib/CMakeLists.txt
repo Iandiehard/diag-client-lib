@@ -11,10 +11,6 @@ project(diag-client-lib)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-# Cmake options
-option(BUILD_SHARED_LIBS "Build shared library" OFF)
-option(INSTALL_EXAMPLES "Install Example App" OFF)
-
 # Build all the libraries
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
