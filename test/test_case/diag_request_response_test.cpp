@@ -31,6 +31,9 @@ const std::string DiagUdpIpAddress{"172.16.25.128"};
 // Diag Test Server Tcp Ip Address
 const std::string DiagTcpIpAddress{"172.16.25.128"};
 
+// Diag Test Server logical address
+const std::uint16_t DiagServerAddress{0xFA25U};
+
 // Port number
 constexpr std::uint16_t DiagUdpPortNum{13400u};
 constexpr std::uint16_t DiagTcpPortNum{13400u};
@@ -115,7 +118,7 @@ private:
 
 TEST_F(DiagReqResFixture, VerifyRoutingActivationSuccessful) {
   // Get the doip channel and Initialize it
-  DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(0xFA25U)};
+  DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagServerAddress)};
   doip_channel.Initialize();
 
   // Get conversation for tester one and start up the conversation
@@ -125,7 +128,7 @@ TEST_F(DiagReqResFixture, VerifyRoutingActivationSuccessful) {
 
   // Connect Tester One to remote ip address 172.16.25.128
   diag::client::conversation::DiagClientConversation::ConnectResult
-      connect_result{diag_client_conversation.ConnectToDiagServer(DiagTcpIpAddress)};
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, DiagTcpIpAddress)};
 
   EXPECT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
@@ -155,7 +158,7 @@ TEST_F(DiagReqResFixture, VerifyRoutingActivationFailure) {
 
   // Connect Tester One to remote ip address 172.16.25.128
   diag::client::conversation::DiagClientConversation::ConnectResult
-      connect_result{diag_client_conversation.ConnectToDiagServer(DiagTcpIpAddress)};
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, DiagTcpIpAddress)};
 
   EXPECT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectFailed);
@@ -188,7 +191,7 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
 
   // Connect Tester One to remote ip address 172.16.25.128
   diag::client::conversation::DiagClientConversation::ConnectResult
-      connect_result{diag_client_conversation.ConnectToDiagServer(uds_message->GetHostIpAddress())};
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, uds_message->GetHostIpAddress())};
 
   ASSERT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
@@ -232,7 +235,7 @@ TEST_F(DiagReqResFixture, VerifyDiagNegAcknowledgement) {
 
   // Connect Tester One to remote ip address 172.16.25.128
   diag::client::conversation::DiagClientConversation::ConnectResult
-      connect_result{diag_client_conversation.ConnectToDiagServer(uds_message->GetHostIpAddress())};
+      connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, uds_message->GetHostIpAddress())};
 
   ASSERT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);

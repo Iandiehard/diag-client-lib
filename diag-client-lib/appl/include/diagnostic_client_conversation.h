@@ -45,8 +45,9 @@ public:
    * @brief      Definitions of Disconnection results
    */
   enum class DisconnectResult : std::uint8_t {
-    kDisconnectSuccess = 0U, /**< Successfully disconnected from Diagnostic Server */
-    kDisconnectFailed = 1U /**< Disconnection failure with Diagnostic Server, check logs for more failure information */
+    kDisconnectSuccess = 0U,  /**< Successfully disconnected from Diagnostic Server */
+    kDisconnectFailed = 1U,   /**< Disconnection failure with Diagnostic Server, check logs for more information */
+    kAlreadyDisconnected = 2U /**< Not connected to Diagnostic Server */
   };
 
   /**
@@ -103,7 +104,7 @@ public:
    * @remarks     Implemented requirements:
    *              DiagClientLib-Conversation-Connect
    */
-  virtual ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) = 0;
+  virtual ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) = 0;
 
   /**
    * @brief       Function to disconnect from Diagnostic Server

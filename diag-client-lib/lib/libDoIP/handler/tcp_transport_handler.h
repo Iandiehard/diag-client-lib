@@ -43,6 +43,9 @@ public:
   // Stop
   void Stop();
 
+  // Check if already connected to host
+  bool IsConnectToHost();
+
   // Connect to remote Host
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
       ara::diag::uds_transport::UdsMessageConstPtr message);

@@ -38,6 +38,9 @@ void DoipTcpConnection::Start() { tcp_transport_handler_->Start(); }
 // Stop the Tp handlers
 void DoipTcpConnection::Stop() { tcp_transport_handler_->Stop(); }
 
+// Check if already connected to host
+bool DoipTcpConnection::IsConnectToHost() { return (tcp_transport_handler_->IsConnectToHost()); }
+
 // Connect to host server
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpConnection::ConnectToHost(
     ara::diag::uds_transport::UdsMessageConstPtr message) {
@@ -98,6 +101,9 @@ void DoipUdpConnection::Start() { udp_transport_handler_->Start(); }
 
 // Stop the Tp handlers
 void DoipUdpConnection::Stop() { udp_transport_handler_->Stop(); }
+
+// Check if already connected to host
+bool DoipUdpConnection::IsConnectToHost() { return false; }
 
 // Connect to host server
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipUdpConnection::ConnectToHost(

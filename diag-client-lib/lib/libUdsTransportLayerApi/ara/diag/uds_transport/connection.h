@@ -40,6 +40,9 @@ public:
   // Stop the connection
   virtual void Stop() = 0;
 
+  // Check if already connected to host
+  virtual bool IsConnectToHost() = 0;
+
   // Connect to Host Server
   virtual ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
       ara::diag::uds_transport::UdsMessageConstPtr message) = 0;

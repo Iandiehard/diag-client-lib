@@ -70,12 +70,10 @@ void ConversationManager::CreateConversationConfig(diag::client::config_parser::
   {  // Create Conversation config
     for (uint8_t conv_count = 0U; conv_count < config.num_of_conversation; conv_count++) {
       ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier{};
-      conversion_identifier.tx_buffer_size = config.conversations[conv_count].txBufferSize;
       conversion_identifier.rx_buffer_size = config.conversations[conv_count].rxBufferSize;
       conversion_identifier.p2_client_max = config.conversations[conv_count].p2ClientMax;
       conversion_identifier.p2_star_client_max = config.conversations[conv_count].p2StarClientMax;
       conversion_identifier.source_address = config.conversations[conv_count].sourceAddress;
-      conversion_identifier.target_address = config.conversations[conv_count].targetAddress;
       conversion_identifier.tcp_address = config.conversations[conv_count].network.tcpIpAddress;
       conversion_identifier.port_num = 0U;  // random selection of port number
       // push to config map

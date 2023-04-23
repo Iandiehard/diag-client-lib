@@ -18,18 +18,17 @@ namespace conversation {
 DmConversation::DmConversation(std::string_view conversion_name,
                                ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier)
     : diag::client::conversation::DiagClientConversation(),
-      activity_status_(ActivityStatusType::kInactive),
-      active_session_(SessionControlType::kDefaultSession),
-      active_security_(SecurityLevelType::kLocked),
-      tx_buffer_size_(conversion_identifier.tx_buffer_size),
-      rx_buffer_size_(conversion_identifier.rx_buffer_size),
-      p2_client_max_(conversion_identifier.p2_client_max),
-      p2_star_client_max_(conversion_identifier.p2_star_client_max),
-      source_address_(conversion_identifier.source_address),
-      target_address_(conversion_identifier.target_address),
-      port_num_(conversion_identifier.port_num),
-      conversation_name_(conversion_name),
-      dm_conversion_handler_(std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)) {}
+      activity_status_{ActivityStatusType::kInactive},
+      active_session_{SessionControlType::kDefaultSession},
+      active_security_{SecurityLevelType::kLocked},
+      rx_buffer_size_{conversion_identifier.rx_buffer_size},
+      p2_client_max_{conversion_identifier.p2_client_max},
+      p2_star_client_max_{conversion_identifier.p2_star_client_max},
+      source_address_{conversion_identifier.source_address},
+      target_address_{},
+      port_num_{conversion_identifier.port_num},
+      conversation_name_{conversion_name},
+      dm_conversion_handler_{std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
 
 //dtor
 DmConversation::~DmConversation() = default;
@@ -64,16 +63,18 @@ void DmConversation::Shutdown() {
                                                                       });
 }
 
-DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddress host_ip_addr) {
+DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::uint16_t target_address,
+                                                                          IpAddress host_ip_addr) {
   // create an uds message just to get the port number
   // source address required for Routing Activation
   ara::diag::uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
   DiagClientConversation::ConnectResult connection_result{static_cast<DiagClientConversation::ConnectResult>(
       connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-          source_address_, target_address_, host_ip_addr, payload))))};
+          source_address_, target_address, host_ip_addr, payload))))};
   if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
     remote_address_ = host_ip_addr;
+    target_address_ = target_address;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
@@ -92,23 +93,28 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(IpAddr
 }
 
 DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() {
-  // Send disconnect request to doip layer
-  DiagClientConversation::DisconnectResult ret_val{
-      static_cast<DiagClientConversation::DisconnectResult>(connection_ptr_->DisconnectFromHost())};
-  if (ret_val == DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
-          msg << "'" << conversation_name_ << "'"
-              << "->"
-              << " Successfully disconnected from Server with IP <" << remote_address_ << ">";
-        });
+  DiagClientConversation::DisconnectResult ret_val{DiagClientConversation::DisconnectResult::kDisconnectFailed};
+
+  if (connection_ptr_->IsConnectToHost()) {
+    // Send disconnect request to doip layer
+    ret_val = static_cast<DiagClientConversation::DisconnectResult>(connection_ptr_->DisconnectFromHost());
+    if (ret_val == DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
+      logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+          __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+            msg << "'" << conversation_name_ << "'"
+                << "->"
+                << " Successfully disconnected from Server with IP <" << remote_address_ << ">";
+          });
+    } else {
+      logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
+          __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+            msg << "'" << conversation_name_ << "'"
+                << "->"
+                << " Failed to disconnect from Server with IP <" << remote_address_ << ">";
+          });
+    }
   } else {
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-        __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
-          msg << "'" << conversation_name_ << "'"
-              << "->"
-              << " Failed to disconnect from Server with IP <" << remote_address_ << ">";
-        });
+    ret_val = DiagClientConversation::DisconnectResult::kAlreadyDisconnected;
   }
   return ret_val;
 }

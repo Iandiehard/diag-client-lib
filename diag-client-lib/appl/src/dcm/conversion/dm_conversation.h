@@ -46,7 +46,7 @@ public:
   // Description   : Function to connect to Diagnostic Server
   // @param input  : Nothing
   // @return value : ConnectResult
-  ConnectResult ConnectToDiagServer(IpAddress host_ip_addr) override;
+  ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) override;
 
   // Description   : Function to disconnect from Diagnostic Server
   // @param input  : Nothing
@@ -110,8 +110,6 @@ private:
   SessionControlType active_session_;
   // Dcm Security
   SecurityLevelType active_security_;
-  // Transmit buffer
-  uint32_t tx_buffer_size_;
   // Reception buffer
   uint32_t rx_buffer_size_;
   // p2 client time

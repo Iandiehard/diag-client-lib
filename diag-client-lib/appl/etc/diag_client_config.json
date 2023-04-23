@@ -7,10 +7,8 @@
       {
         "p2ClientMax": 1000,
         "p2StarClientMax": 5000,
-        "TxBufferSize": 4095,
         "RxBufferSize": 4095,
         "SourceAddress": 1,
-        "TargetAddress": 1234,
         "TargetAddressType": "Physical",
         "Network": {
           "ProtocolKind": "DoIP",
@@ -22,10 +20,8 @@
       {
         "p2ClientMax": 2000,
         "p2StarClientMax": 5000,
-        "TxBufferSize": 4095,
         "RxBufferSize": 4095,
         "SourceAddress": 2,
-        "TargetAddress": 1235,
         "TargetAddressType": "Functional",
         "Network": {
           "ProtocolKind": "DoIP",

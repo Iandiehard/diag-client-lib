@@ -47,6 +47,9 @@ public:
   // Stop the connection
   void Stop() override;
 
+  // Check if already connected to host
+  bool IsConnectToHost() override;
+
   // Connect to host using the ip address
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
       ara::diag::uds_transport::UdsMessageConstPtr message) override;
@@ -97,6 +100,9 @@ public:
 
   // Stop the connection
   void Stop() override;
+
+  // Check if already connected to host
+  bool IsConnectToHost() override;
 
   // Connect to host using the ip address
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(

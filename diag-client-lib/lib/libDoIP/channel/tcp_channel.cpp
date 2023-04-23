@@ -36,6 +36,8 @@ void tcpChannel::Stop() {
   }
 }
 
+bool tcpChannel::IsConnectToHost() { return (tcp_socket_state_ == tcpSocketState::kSocketOnline); }
+
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHost(
     ara::diag::uds_transport::UdsMessageConstPtr message) {
   ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{

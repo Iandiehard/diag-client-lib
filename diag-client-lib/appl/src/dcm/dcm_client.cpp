@@ -107,10 +107,8 @@ diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig
     conversation.conversationName = conversation_ptr.second.get<std::string>("ConversationName");
     conversation.p2ClientMax = conversation_ptr.second.get<uint16_t>("p2ClientMax");
     conversation.p2StarClientMax = conversation_ptr.second.get<uint16_t>("p2StarClientMax");
-    conversation.txBufferSize = conversation_ptr.second.get<uint16_t>("TxBufferSize");
     conversation.rxBufferSize = conversation_ptr.second.get<uint16_t>("RxBufferSize");
     conversation.sourceAddress = conversation_ptr.second.get<uint16_t>("SourceAddress");
-    conversation.targetAddress = conversation_ptr.second.get<uint16_t>("TargetAddress");
     conversation.network.tcpIpAddress = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
     config.conversations.emplace_back(conversation);
   }

@@ -36,6 +36,8 @@ void TcpTransportHandler::Start() { tcp_channel_->Start(); }
 // stop handler
 void TcpTransportHandler::Stop() { tcp_channel_->Stop(); }
 
+bool TcpTransportHandler::IsConnectToHost() { return (tcp_channel_->IsConnectToHost()); }
+
 // Connect to remote Host
 ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpTransportHandler::ConnectToHost(
     ara::diag::uds_transport::UdsMessageConstPtr message) {
@@ -73,6 +75,7 @@ TcpTransportHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Addre
 void TcpTransportHandler::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
   doip_connection_.HandleMessage(std::move(message));
 }
+
 }  // namespace tcpTransport
 }  // namespace doip
 }  // namespace diag

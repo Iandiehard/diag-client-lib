@@ -21,10 +21,8 @@ struct DoipNetworkType {
 struct ConversationType {
   uint16_t p2ClientMax;
   uint16_t p2StarClientMax;
-  uint16_t txBufferSize;
   uint16_t rxBufferSize;
   uint16_t sourceAddress;
-  uint16_t targetAddress;
   std::string conversationName;
   DoipNetworkType network;
 };

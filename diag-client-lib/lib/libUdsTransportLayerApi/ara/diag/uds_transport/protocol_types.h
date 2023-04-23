@@ -34,8 +34,6 @@ using ConversionHandlerID = std::uint8_t;
 
 // Conversion identifier Type can be used by user
 struct ConversionIdentifierType {
-  // Transmission buffer
-  uint32_t tx_buffer_size{};
   // Reception buffer
   uint32_t rx_buffer_size{};
   // p2 client time
@@ -44,8 +42,6 @@ struct ConversionIdentifierType {
   uint16_t p2_star_client_max{};
   // source address of client
   uint16_t source_address{};
-  // target address of server
-  uint16_t target_address{};
   // self tcp address
   std::string tcp_address{};
   // self udp address
