@@ -23,34 +23,51 @@ namespace logger {
 class Logger {
 public:
   template<typename Func>
-  auto LogFatal(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
-    LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
-  }
-
-  template<typename Func>
-  auto LogError(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
-    LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
-  }
-
-  template<typename Func>
-  auto LogWarn(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
-    LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
-  }
-
-  template<typename Func>
-  auto LogInfo(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
-    LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
-  }
-
-  template<typename Func>
-  auto LogDebug(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
-    LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
-  }
-
-  template<typename Func>
-  auto LogVerbose(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept
+  auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+  }
+
+  template<typename Func>
+  auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
+      -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+  }
+
+  template<typename Func>
+  auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
+      -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+  }
+
+  template<typename Func>
+  auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
+      -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+  }
+
+  template<typename Func>
+  auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
+      -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+  }
+
+  template<typename Func>
+  auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
+      -> void {
+#ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
   }
 
 public:
@@ -65,7 +82,7 @@ public:
 
 private:
   template<typename Func>
-  auto CreateLoggingMessage(const std::string &file_name, const std::string & /* func_name */, int line_no,
+  auto CreateLoggingMessage(const std::string_view file_name, const std::string_view /* func_name */, int line_no,
                             Func &&func) noexcept -> std::stringstream {
     std::stringstream msg;
     func(msg);
@@ -73,16 +90,20 @@ private:
     return msg;
   }
 
+#ifdef ENABLE_DLT_LOGGER
   template<typename Func>
-  void LogDltMessage(DltLogLevelType log_level, const std::string &func_name, const std::string &file_name, int line_no,
-                     Func &&func) {
+  void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name, const std::string_view func_name,
+                     int line_no, Func &&func) {
+
     DLT_LOG(contxt_, log_level,
             DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func)).str().c_str()));
   }
+#endif
 
+#ifdef ENABLE_DLT_LOGGER
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt_);
-
+#endif
   // Stores application id
   std::string app_id_;
 
