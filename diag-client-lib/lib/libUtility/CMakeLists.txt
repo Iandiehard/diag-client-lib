@@ -11,7 +11,6 @@ project(utility)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(automotive-dlt REQUIRED)
 if (BUILD_WITH_DLT)
     find_package(automotive-dlt REQUIRED)
 endif (BUILD_WITH_DLT)
@@ -37,9 +36,7 @@ if (BUILD_WITH_DLT)
             )
 else ()
     target_link_libraries(${PROJECT_NAME}
-            PRIVATE
-            Genivi::dlt
-            )
+            PRIVATE)
 endif (BUILD_WITH_DLT)
 
 install(TARGETS ${PROJECT_NAME}

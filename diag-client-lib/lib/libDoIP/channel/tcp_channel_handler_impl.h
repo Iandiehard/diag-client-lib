@@ -8,6 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_HANDLER_IMPL_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_HANDLER_IMPL_H
 //includes
+#include <mutex>
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common/doip_payload_type.h"
@@ -160,6 +161,8 @@ private:
   RoutingActivationHandler routing_activation_handler_;
   // handler to process diagnostic message req/ resp
   DiagnosticMessageHandler diagnostic_message_handler_;
+  // mutex to protect critical section
+  std::mutex channel_handler_lock;
 };
 }  // namespace tcpChannelHandlerImpl
 }  // namespace doip

@@ -274,7 +274,7 @@ auto UdpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) n
 }
 
 void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::rx_socket_type socket_type) {
-  std::unique_lock<std::mutex> lck(channel_handler_lock);
+  std::lock_guard<std::mutex> const lck(channel_handler_lock);
   switch (doip_payload.payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {
       vehicle_identification_handler_.ProcessVehicleIdentificationResponse(doip_payload);

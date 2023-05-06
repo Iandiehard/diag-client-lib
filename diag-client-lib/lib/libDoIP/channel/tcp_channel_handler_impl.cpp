@@ -215,7 +215,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
     // payload except the address
     payload_info.resize(doip_payload.payload.size() - 4U);
     // copy to application buffer
-    (void) std::copy(doip_payload.payload.begin() + 4, doip_payload.payload.end(), payload_info.begin());
+    (void) std::copy(doip_payload.payload.begin() + 4u, doip_payload.payload.end(), payload_info.begin());
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
         ret_val{tcp_transport_handler_.IndicateMessage(
@@ -242,6 +242,11 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
     }
   } else {
     // ignore
+    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+          msg << "Diagnostic message response ignored due to channel in state: "
+              << static_cast<int>(channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState());
+        });
   }
 }
 
@@ -398,6 +403,7 @@ auto TcpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) n
 }
 
 auto TcpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload) noexcept -> void {
+  std::lock_guard<std::mutex> const lck(channel_handler_lock);
   switch (doip_payload.payload_type) {
     case kDoip_RoutingActivation_ResType: {
       // Process RoutingActivation response

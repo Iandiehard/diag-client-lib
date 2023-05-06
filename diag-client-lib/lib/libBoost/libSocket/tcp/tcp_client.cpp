@@ -31,7 +31,11 @@ CreateTcpClientSocket::CreateTcpClientSocket(Boost_String &local_ip_address, uin
         cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
       }
       if (!exit_request_.load()) {
-        if (running_) { HandleMessage(); }
+        if (running_) {
+          lck.unlock();
+          HandleMessage();
+          lck.lock();
+        }
       }
     }
   });

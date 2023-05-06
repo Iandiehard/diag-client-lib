@@ -200,6 +200,7 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
           });
 
       job_queue_.emplace([this](){
+          std::this_thread::sleep_for(std::chrono::milliseconds(25));
           this->SendDiagnosticMessageResponse();
       });
       running_ = true;

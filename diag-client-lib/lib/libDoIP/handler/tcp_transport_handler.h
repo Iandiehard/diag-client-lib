@@ -76,8 +76,6 @@ private:
   connection::DoipTcpConnection &doip_connection_;
   // Tcp channel responsible for transmitting and reception of TCP messages
   std::unique_ptr<ara::diag::doip::tcpChannel::tcpChannel> tcp_channel_;
-  // Max number of doip channel
-  uint8_t max_tcpChannel;
 };
 }  // namespace tcpTransport
 }  // namespace doip

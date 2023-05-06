@@ -16,13 +16,11 @@ namespace sync_timer {
 #include <mutex>
 
 // Clock Type
-
 template<typename ClockType>
 class SyncTimer final {
 public:
   using Clock = ClockType;
   using TimePoint = std::chrono::time_point<Clock>;
-  using Duration = std::chrono::duration<Clock>;
 
   // timer state
   enum class TimerState : std::uint8_t { kIdle = 0, kCancelRequested, kTimeout };

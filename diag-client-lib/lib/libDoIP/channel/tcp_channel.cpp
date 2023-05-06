@@ -58,7 +58,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
     // socket already online
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
         __FILE__, __LINE__, __func__,
-        [&message](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
+        [](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
   }
   // If socket online, send routing activation req and get response
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
@@ -201,10 +201,10 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
           [&]() {
             if (tcp_channel_state_.GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
                 tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
-              // success
-              result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
               tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                   TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
+              // success
+              result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                   __FILE__, __LINE__, "",
                   [](std::stringstream &msg) { msg << "Diagnostic Message Positive Ack received"; });

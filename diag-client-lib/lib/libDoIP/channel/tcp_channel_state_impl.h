@@ -20,6 +20,7 @@ namespace doip {
 namespace tcpChannelStateImpl {
 using namespace libUtility::state;
 using namespace ara::diag::uds_transport;
+
 // routing activation state
 enum class routingActivationState : std::uint8_t {
   kIdle = 0U,
@@ -238,6 +239,7 @@ public:
   // Handle invoked asynchronously
   void HandleMessage() override;
 };
+
 }  // namespace tcpChannelStateImpl
 }  // namespace doip
 }  // namespace diag

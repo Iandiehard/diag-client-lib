@@ -13,6 +13,8 @@
 #include <memory>
 #include <string>
 #include <utility>
+#include <mutex>
+#include <atomic>
 
 namespace libUtility {
 namespace state {
@@ -57,7 +59,10 @@ public:
   }
 
   // Get the current state
-  auto GetActiveState() noexcept -> State<EnumState> & { return *current_state_; }
+  auto GetActiveState() noexcept -> State<EnumState> & {
+    std::lock_guard<std::mutex> const lck{state_lock};
+    return *current_state_;
+  }
 
   // Function to transition state to provided state
   void TransitionTo(EnumState state) {
@@ -85,6 +90,7 @@ private:
 
   // Update to new state
   void Update(EnumState state) {
+    std::lock_guard<std::mutex> const lck{state_lock};
     auto it = state_map_.find(state);
     if (it != state_map_.end()) {
       this->current_state_ = it->second.get();
@@ -92,6 +98,9 @@ private:
       // failure condition
     }
   }
+
+  // mutex to protect transition
+  std::mutex state_lock;
 
   // pointer to store the active state
   State<EnumState> *current_state_;
