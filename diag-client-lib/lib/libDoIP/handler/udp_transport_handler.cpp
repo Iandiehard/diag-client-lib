@@ -14,7 +14,7 @@ namespace diag {
 namespace doip {
 namespace udpTransport {
 // ctor
-UdpTransportHandler::UdpTransportHandler(kDoip_String &localIpaddress, uint16_t portNum,
+UdpTransportHandler::UdpTransportHandler(std::string_view localIpaddress, uint16_t portNum,
                                          connection::DoipUdpConnection &doip_connection)
     : doip_connection_{doip_connection},
       udp_channel{std::make_unique<ara::diag::doip::udpChannel::UdpChannel>(localIpaddress, portNum, *this)} {}

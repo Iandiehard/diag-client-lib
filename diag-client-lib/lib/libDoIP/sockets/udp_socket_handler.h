@@ -5,9 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _UDP_SOCKETHANDLER_H_
-#define _UDP_SOCKETHANDLER_H_
+#ifndef LIB_LIBDOIP_SOCKETS_UDP_SOCKETHANDLER_H
+#define LIB_LIBDOIP_SOCKETS_UDP_SOCKETHANDLER_H
 //includes
+#include <string>
+#include <string_view>
+
 #include "common/common_doip_types.h"
 #include "libSocket/udp/udp_client.h"
 
@@ -38,7 +41,7 @@ public:
 
 public:
   //ctor
-  UdpSocketHandler(kDoip_String &local_ip_address, uint16_t port_num, PortType port_type,
+  UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
                    ara::diag::doip::udpChannel::UdpChannel &channel);
 
   //dtor
@@ -55,9 +58,9 @@ public:
 
 private:
   // local Ip address
-  kDoip_String local_ip_address_;
+  std::string local_ip_address_;
   // Host Ip address
-  kDoip_String host_ip_address_;
+  std::string host_ip_address_;
   // Host port number
   uint16_t port_num_;
   // Port type
@@ -71,4 +74,4 @@ private:
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara
-#endif  // _UDP_SOCKETHANDLER_H_
+#endif  // LIB_LIBDOIP_SOCKETS_UDP_SOCKETHANDLER_H

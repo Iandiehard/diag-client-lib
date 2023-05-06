@@ -8,6 +8,9 @@
 #ifndef UDP_H
 #define UDP_H
 // includes
+#include <string>
+#include <string_view>
+
 #include "udp_types.h"
 
 namespace libBoost {
@@ -31,7 +34,7 @@ public:
 
 public:
   // ctor
-  createUdpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, PortType port_type,
+  createUdpClientSocket(std::string_view local_ip_address, uint16_t local_port_num, PortType port_type,
                         UdpHandlerRead udp_handler_read);
 
   // dtor
@@ -48,7 +51,7 @@ public:
 
 private:
   // local Ip address
-  Boost_String local_ip_address_;
+  std::string local_ip_address_;
   // local port number
   uint16_t local_port_num_;
   // udp socket

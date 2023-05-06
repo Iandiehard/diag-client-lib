@@ -40,7 +40,7 @@ void DCMClient::Initialize() {
   conversation_mgr->Startup();
   // start all the udsTransportProtocol Layer
   uds_transport_protocol_mgr->Startup();
-  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client Initialized"; });
 }
 
@@ -48,7 +48,7 @@ void DCMClient::Initialize() {
 void DCMClient::Run() {
   // run udsTransportProtocol layer
   uds_transport_protocol_mgr->Run();
-  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client is ready to serve"; });
 }
 
@@ -60,7 +60,7 @@ void DCMClient::Shutdown() {
   conversation_mgr->Shutdown();
   // shutdown udsTransportProtocol layer
   uds_transport_protocol_mgr->Shutdown();
-  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client Shutdown completed"; });
 }
 
@@ -76,15 +76,15 @@ diag::client::conversation::DiagClientConversation &DCMClient::GetDiagnosticClie
         std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>(
             conversation_name, std::move(conversation)));
     ret_conversation = diag_client_conversation_map.at(diag_client_conversation_name).get();
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
-          msg << "Requested Diagnostic Client conversation created with name: " << conversation_name;
+          msg << "Diagnostic Client conversation created with name: " << conversation_name;
         });
   } else {
     // no conversation found
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
         __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
-          msg << "Requested Diagnostic Client conversation not found with name: " << conversation_name;
+          msg << "Diagnostic Client conversation not found with name: " << conversation_name;
         });
     assert(ret_conversation);
   }

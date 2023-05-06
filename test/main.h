@@ -12,6 +12,7 @@
 #include <thread>
 
 #include "doip_handler/doip_udp_handler.h"
+#include "doip_handler/logger.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
 
@@ -31,6 +32,8 @@ protected:
   DoipClientFixture()
       : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
         doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
+    // Initialize logger
+    ara::diag::doip::logger::LibGtestLogger::GetLibGtestLogger();
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
     // Initialize diag client library

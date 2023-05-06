@@ -7,7 +7,9 @@
  */
 #ifndef LIB_LIBDOIP_CONNECTION_CONNECTION_MANAGER_H
 #define LIB_LIBDOIP_CONNECTION_CONNECTION_MANAGER_H
-//includes
+
+#include <string_view>
+
 #include "common/common_doip_types.h"
 
 namespace ara {
@@ -33,7 +35,7 @@ class DoipTcpConnection final : public ara::diag::connection::Connection {
 public:
   // ctor
   DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                    kDoip_String &tcp_ip_address, uint16_t port_num);
+                    std::string_view tcp_ip_address, uint16_t port_num);
 
   // dtor
   ~DoipTcpConnection() override = default;
@@ -87,7 +89,7 @@ class DoipUdpConnection final : public ara::diag::connection::Connection {
 public:
   // ctor
   DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
-                    kDoip_String &udp_ip_address, uint16_t port_num);
+                    std::string_view udp_ip_address, uint16_t port_num);
 
   // dtor
   ~DoipUdpConnection() override = default;
@@ -147,12 +149,12 @@ public:
 
   // Function to create new connection to handle doip tcp request and response
   std::shared_ptr<DoipTcpConnection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &tcp_ip_address,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
       uint16_t port_num);
 
   // Function to create new connection to handle doip udp request and response
   std::shared_ptr<DoipUdpConnection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &udp_ip_address,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
       uint16_t port_num);
 };
 }  // namespace connection

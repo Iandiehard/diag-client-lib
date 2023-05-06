@@ -5,9 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _TCP_TRANSPORT_HANDLER_H_
-#define _TCP_TRANSPORT_HANDLER_H_
+#ifndef LIB_LIBDOIP_HANDLER_TCP_TRANSPORT_HANDLER_H
+#define LIB_LIBDOIP_HANDLER_TCP_TRANSPORT_HANDLER_H
 //includes
+#include <string_view>
+
 #include "channel/tcp_channel.h"
 #include "common/common_doip_types.h"
 
@@ -28,7 +30,7 @@ namespace tcpTransport {
 class TcpTransportHandler {
 public:
   // ctor
-  TcpTransportHandler(kDoip_String &local_ip_address, uint16_t port_num, uint8_t total_tcp_channel_req,
+  TcpTransportHandler(std::string_view local_ip_address, uint16_t port_num, uint8_t total_tcp_channel_req,
                       connection::DoipTcpConnection &doip_connection);
 
   // dtor
@@ -81,4 +83,4 @@ private:
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara
-#endif  // _TCP_TRANSPORT_HANDLER_H_
+#endif  // LIB_LIBDOIP_HANDLER_TCP_TRANSPORT_HANDLER_H

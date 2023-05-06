@@ -23,6 +23,5 @@
 #include <boost/bind/bind.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
-// Typedefs
-using Boost_String = std::string;
+
 #endif  // BOOST_HEADER_H

@@ -5,6 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 #include "channel/tcp_channel.h"
 
 #include "common/logger.h"
@@ -15,7 +16,7 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace tcpChannel {
-tcpChannel::tcpChannel(kDoip_String &localIpaddress,
+tcpChannel::tcpChannel(std::string_view localIpaddress,
                        ara::diag::doip::tcpTransport::TcpTransportHandler &tcp_transport_handler)
     : tcp_socket_handler_{std::make_unique<ara::diag::doip::tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
       tcp_socket_state_{tcpSocketState::kSocketOffline},
@@ -57,8 +58,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
   } else {
     // socket already online
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
+        __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
   }
   // If socket online, send routing activation req and get response
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {

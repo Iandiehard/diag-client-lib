@@ -29,7 +29,7 @@ private:
   LibGtestLogger() = default;
 
   // actual logger context
-  Logger logger_{"gtst"};
+  Logger logger_{"CTST", "gtst"};
 };
 }  // logger
 }  // namespace doip

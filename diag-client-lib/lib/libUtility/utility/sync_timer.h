@@ -28,7 +28,7 @@ public:
   SyncTimer() : cond_var_{}, mutex_lock_{}, exit_request_{false}, start_running_{false} {}
 
   ~SyncTimer() {
-    std::unique_lock<std::mutex> lck(mutex_lock_);
+    std::lock_guard<std::mutex> const lck(mutex_lock_);
     exit_request_ = false;
     start_running_ = false;
     cond_var_.notify_all();
@@ -38,11 +38,11 @@ public:
     std::unique_lock<std::mutex> lck(mutex_lock_);
     TimerState timer_state{TimerState::kIdle};
     start_running_ = true;
-    TimePoint expiry_timepoint{Clock::now() + timeout};
+    TimePoint const expiry_timepoint{Clock::now() + timeout};
     if (cond_var_.wait_until(lck, expiry_timepoint, [this, &expiry_timepoint, &timer_state]() {
           bool ret_val{false};
           if (!exit_request_) {
-            TimePoint current_time{Clock::now()};
+            TimePoint const current_time{Clock::now()};
             // check for expiry
             if (current_time > expiry_timepoint) {
               // timeout
@@ -63,7 +63,7 @@ public:
   }
 
   void Stop() noexcept {
-    std::unique_lock<std::mutex> lck(mutex_lock_);
+    std::lock_guard<std::mutex> const lck(mutex_lock_);
     start_running_ = false;
     cond_var_.notify_all();
   }

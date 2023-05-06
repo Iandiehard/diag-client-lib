@@ -52,23 +52,23 @@ void DoipTransportProtocolHandler::Stop() {}
 
 // Get or Create connection
 std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateTcpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &tcp_ip_address,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
     uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
-        msg << "Doip Tcp protocol requested with local endpoints : "
-            << "<tcp: " << tcp_ip_address << ">";
+        msg << "Doip Tcp protocol requested with local endpoint : "
+            << "<Tcp: " << tcp_ip_address << ">";
       });
   return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
 }
 
 std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateUdpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &udp_ip_address,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
     uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
-        msg << "Doip Udp protocol requested with local endpoints : "
-            << "<udp: " << udp_ip_address << ">";
+        msg << "Doip Udp protocol requested with local endpoint : "
+            << "<Udp: " << udp_ip_address << ">";
       });
   return (doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversation, udp_ip_address, port_num));
 }

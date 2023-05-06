@@ -19,17 +19,29 @@ stages:
 
 prepare-job:
   stage: prepare
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /run_full_pipeline/'
+      when: always
+    - when: never
   script:
     - echo "Create "build" folder..."
     - mkdir build
 
 build-job:       
   stage: build
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /run_full_pipeline/'
+      when: always
+    - when: never
   script:
     - echo "Empty building..."
 
 component-test-job:  
   stage: test
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /run_full_pipeline/'
+      when: always
+    - when: never
   script:
     - echo "Set-up the network..."
     - sh .devcontainer/post_start.sh
@@ -49,8 +61,12 @@ component-test-job:
     reports:
       junit: build/test/report.xml
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+deploy-job:
+  stage: deploy
+  rules:
+    - if: '$CI_MERGE_REQUEST_LABELS =~ /run_full_pipeline/'
+      when: always
+    - when: never
   environment: production
   script:
     - echo "Deploying application..."

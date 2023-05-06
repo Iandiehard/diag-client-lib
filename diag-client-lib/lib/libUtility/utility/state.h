@@ -8,13 +8,13 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_STATE_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_STATE_H
 
+#include <atomic>
 #include <cstdint>
 #include <map>
 #include <memory>
+#include <mutex>
 #include <string>
 #include <utility>
-#include <mutex>
-#include <atomic>
 
 namespace libUtility {
 namespace state {

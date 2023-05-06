@@ -14,7 +14,7 @@ namespace diag {
 namespace doip {
 namespace tcpTransport {
 // ctor
-TcpTransportHandler::TcpTransportHandler(kDoip_String &local_ip_address, uint16_t port_num,
+TcpTransportHandler::TcpTransportHandler(std::string_view local_ip_address, uint16_t port_num,
                                          uint8_t total_tcp_channel_req, connection::DoipTcpConnection &doip_connection)
     : doip_connection_{doip_connection},
       tcp_channel_(std::make_unique<ara::diag::doip::tcpChannel::tcpChannel>(local_ip_address, *this)) {

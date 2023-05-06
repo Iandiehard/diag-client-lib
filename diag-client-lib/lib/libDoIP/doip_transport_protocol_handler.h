@@ -7,7 +7,9 @@
  */
 #ifndef LIB_LIBDOIP_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
 #define LIB_LIBDOIP_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
-// Includes
+
+#include <string_view>
+
 #include "common/common_doip_header.h"
 
 namespace ara {
@@ -47,12 +49,12 @@ public:
 
   // Get or Create Tcp connection
   std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &tcp_ip_address,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
       uint16_t port_num) override;
 
   // Get or Create Udp connection
   std::shared_ptr<ara::diag::connection::Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &udp_ip_address,
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
       uint16_t port_num) override;
 
 private:

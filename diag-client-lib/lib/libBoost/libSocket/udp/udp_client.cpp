@@ -14,7 +14,7 @@ namespace libBoost {
 namespace libSocket {
 namespace udp {
 // ctor
-createUdpClientSocket::createUdpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num,
+createUdpClientSocket::createUdpClientSocket(std::string_view local_ip_address, uint16_t local_port_num,
                                              PortType port_type, UdpHandlerRead udp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
@@ -66,10 +66,6 @@ bool createUdpClientSocket::Open() {
     if (port_type_ == PortType::kUdp_Broadcast) {
       // Todo : change the hardcoded value of port number 13400
       udp_socket_->bind(UdpSocket::endpoint(boost::asio::ip::address_v4::any(), 13400), ec);
-      /*
-      udp_socket_->bind(
-        UdpSocket::endpoint(
-          UdpIpAddress::from_string(local_ip_address_), 13400), ec);*/
     } else {
       //bind to local address and random port
       udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);

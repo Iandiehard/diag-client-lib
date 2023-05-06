@@ -21,7 +21,7 @@ namespace connection {
  */
 // ctor
 DoipTcpConnection::DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
-                                     kDoip_String &tcp_ip_address, uint16_t port_num)
+                                     std::string_view tcp_ip_address, uint16_t port_num)
     : ara::diag::connection::Connection(1, conversion),
       tcp_transport_handler_(
           std::make_unique<ara::diag::doip::tcpTransport::TcpTransportHandler>(tcp_ip_address, port_num, 1, *this)) {}
@@ -85,7 +85,7 @@ void DoipTcpConnection::HandleMessage(ara::diag::uds_transport::UdsMessagePtr me
  */
 // ctor
 DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
-                                     kDoip_String &udp_ip_address, uint16_t port_num)
+                                     std::string_view udp_ip_address, uint16_t port_num)
     : ara::diag::connection::Connection(1, conversation),
       udp_transport_handler_{
           std::make_unique<ara::diag::doip::udpTransport::UdpTransportHandler>(udp_ip_address, port_num, *this)} {}
@@ -146,13 +146,13 @@ void DoipUdpConnection::HandleMessage(ara::diag::uds_transport::UdsMessagePtr me
 
 // Function to create new connection to handle doip request and response
 std::shared_ptr<DoipTcpConnection> DoipConnectionManager::FindOrCreateTcpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &tcp_ip_address,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
     uint16_t port_num) {
   return (std::make_shared<DoipTcpConnection>(conversation, tcp_ip_address, port_num));
 }
 
 std::shared_ptr<DoipUdpConnection> DoipConnectionManager::FindOrCreateUdpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, kDoip_String &udp_ip_address,
+    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
     uint16_t port_num) {
   return (std::make_shared<DoipUdpConnection>(conversation, udp_ip_address, port_num));
 }

@@ -6,9 +6,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
-#include "src/dcm/conversion/conversation_manager.h"
 
-#include "src/dcm/conversion/dm_conversation.h"
+#include "src/dcm/conversion/conversation_manager.h"
 
 namespace diag {
 namespace client {

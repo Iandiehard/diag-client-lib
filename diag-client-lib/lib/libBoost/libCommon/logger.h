@@ -27,7 +27,7 @@ private:
   LibBoostLogger() = default;
 
   // actual logger context
-  Logger logger_{"lbst"};
+  Logger logger_{"dcbs"};
 };
 }  // namespace logger
 }  // namespace libBoost

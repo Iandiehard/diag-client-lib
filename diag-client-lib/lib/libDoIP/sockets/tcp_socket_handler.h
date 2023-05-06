@@ -5,9 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _TCP_SOCKET_HANDLER_H_
-#define _TCP_SOCKET_HANDLER_H_
-//includes
+#ifndef LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H
+#define LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H
+
+#include <string>
+#include <string_view>
+
 #include "common/common_doip_types.h"
 #include "libSocket/tcp/tcp_client.h"
 
@@ -34,7 +37,7 @@ using TcpMessageConstPtr = libBoost::libSocket::tcp::TcpMessageConstPtr;
 class TcpSocketHandler {
 public:
   // ctor
-  TcpSocketHandler(kDoip_String &localIpaddress, ara::diag::doip::tcpChannel::tcpChannel &channel);
+  TcpSocketHandler(std::string_view localIpaddress, ara::diag::doip::tcpChannel::tcpChannel &channel);
 
   // dtor
   ~TcpSocketHandler() = default;
@@ -46,7 +49,7 @@ public:
   void Stop();
 
   // Connect to host
-  bool ConnectToHost(kDoip_String host_ip_address, uint16_t host_port_num);
+  bool ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num);
 
   // Disconnect from host
   bool DisconnectFromHost();
@@ -56,7 +59,7 @@ public:
 
 private:
   // local Ip address
-  kDoip_String local_ip_address_;
+  std::string local_ip_address_;
   // local port number
   uint16_t local_port_num_;
   // tcp socket
@@ -68,4 +71,4 @@ private:
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara
-#endif  // _TCP_SOCKET_HANDLER_H_
+#endif  // LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H

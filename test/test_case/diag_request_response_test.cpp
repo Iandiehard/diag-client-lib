@@ -15,6 +15,7 @@
 #include "doip_handler/doip_udp_handler.h"
 #include "doip_handler/doip_tcp_handler.h"
 #include "doip_handler/common_doip_types.h"
+#include "doip_handler/logger.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
@@ -79,6 +80,8 @@ protected:
       : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
         doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum},
         doip_tcp_handler_{DiagTcpIpAddress, DiagTcpPortNum} {
+    // Initialize logger
+    ara::diag::doip::logger::LibGtestLogger::GetLibGtestLogger();
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
     // Initialize diag client library

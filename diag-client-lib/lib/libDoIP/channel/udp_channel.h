@@ -9,13 +9,14 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_UDP_CHANNEL_H
 //includes
 #include <functional>
+#include <string_view>
 
 #include "channel/udp_channel_handler_impl.h"
 #include "channel/udp_channel_state_impl.h"
 #include "common/common_doip_types.h"
-#include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "sockets/udp_socket_handler.h"
 #include "utility/executor.h"
+#include "utility/sync_timer.h"
 
 namespace ara {
 namespace diag {
@@ -28,8 +29,9 @@ class UdpTransportHandler;
 namespace udpChannel {
 //typedefs
 using UdpMessagePtr = ara::diag::doip::udpSocket::UdpMessagePtr;
-using SyncTimer = libBoost::libTimer::oneShot::oneShotSyncTimer;
-using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+;
+using SyncTimerState = SyncTimer::TimerState;
 using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
 
 /*
@@ -39,7 +41,7 @@ using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
 class UdpChannel {
 public:
   //ctor
-  UdpChannel(kDoip_String &local_ip_address, uint16_t port_num,
+  UdpChannel(std::string_view local_ip_address, uint16_t port_num,
              ara::diag::doip::udpTransport::UdpTransportHandler &udp_transport_handler);
 
   //dtor

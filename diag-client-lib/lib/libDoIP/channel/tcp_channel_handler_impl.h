@@ -9,6 +9,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_HANDLER_IMPL_H
 //includes
 #include <mutex>
+
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common/doip_payload_type.h"

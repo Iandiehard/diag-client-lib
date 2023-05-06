@@ -5,8 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 #include "channel/udp_channel.h"
 
+#include "common/logger.h"
 #include "handler/udp_transport_handler.h"
 #include "sockets/udp_socket_handler.h"
 
@@ -19,7 +21,7 @@ namespace udpChannel {
  @ Class Description : Class used to handle Doip Tcp Channel
  */
 //ctor
-UdpChannel::UdpChannel(kDoip_String &local_ip_address, uint16_t port_num,
+UdpChannel::UdpChannel(std::string_view local_ip_address, uint16_t port_num,
                        ara::diag::doip::udpTransport::UdpTransportHandler &udp_transport_handler)
     : udp_transport_handler_{udp_transport_handler},
       udp_socket_handler_bcast_{std::make_unique<ara::diag::doip::udpSocket::UdpSocketHandler>(
@@ -61,7 +63,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpChannel
 }
 
 void UdpChannel::WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec) {
-  if (sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
+  if (sync_timer_.Start(std::chrono::milliseconds(msec)) == SyncTimerState::kTimeout) {
     timeout_func();
   } else {
     cancel_func();

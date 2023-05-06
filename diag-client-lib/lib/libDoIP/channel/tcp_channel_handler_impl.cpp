@@ -5,6 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 #include "channel/tcp_channel_handler_impl.h"
 
 #include "channel/tcp_channel.h"
@@ -245,7 +246,8 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Diagnostic message response ignored due to channel in state: "
-              << static_cast<int>(channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState());
+              << static_cast<int>(
+                     channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState());
         });
   }
 }

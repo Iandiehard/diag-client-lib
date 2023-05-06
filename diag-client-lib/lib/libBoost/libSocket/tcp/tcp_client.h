@@ -5,18 +5,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef TCP_H
-#define TCP_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
 // includes
+#include <string>
+#include <string_view>
+
 #include "tcp_types.h"
 
 namespace libBoost {
 namespace libSocket {
 namespace tcp {
-
-using TcpSocket = boost::asio::ip::tcp;
-using TcpIpAddress = boost::asio::ip::address;
-using TcpErrorCodeType = boost::system::error_code;
 
 /*
  @ Class Name        : Create Tcp Socket
@@ -25,12 +24,20 @@ using TcpErrorCodeType = boost::system::error_code;
 */
 class CreateTcpClientSocket {
 public:
+  // Type alias for tcp protocol
+  using Tcp = boost::asio::ip::tcp;
+  // Type alias for tcp socket
+  using TcpSocket = Tcp::socket;
+  // Type alias for tcp ip address
+  using TcpIpAddress = boost::asio::ip::address;
+  // Type alias for tcp error codes
+  using TcpErrorCodeType = boost::system::error_code;
   // Tcp function template used for reception
   using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
 
 public:
   //ctor
-  CreateTcpClientSocket(Boost_String &local_ip_address, uint16_t local_port_num, TcpHandlerRead &&tcp_handler_read);
+  CreateTcpClientSocket(std::string_view local_ip_address, uint16_t local_port_num, TcpHandlerRead&& tcp_handler_read);
 
   //dtor
   virtual ~CreateTcpClientSocket();
@@ -39,7 +46,7 @@ public:
   bool Open();
 
   // Function to Connect to host
-  bool ConnectToHost(Boost_String hostIpaddress, uint16_t hostportNum);
+  bool ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num);
 
   // Function to Disconnect from host
   bool DisconnectFromHost();
@@ -52,11 +59,11 @@ public:
 
 private:
   // local Ip address
-  Boost_String local_ip_address_;
+  std::string local_ip_address_;
   // local port number
   uint16_t local_port_num_;
   // tcp socket
-  std::unique_ptr<TcpSocket::socket> tcp_socket_;
+  std::unique_ptr<TcpSocket> tcp_socket_;
   // boost io context
   boost::asio::io_context io_context_;
   // flag to terminate the thread
@@ -79,4 +86,4 @@ private:
 }  // namespace tcp
 }  // namespace libSocket
 }  // namespace libBoost
-#endif  // TCP_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H

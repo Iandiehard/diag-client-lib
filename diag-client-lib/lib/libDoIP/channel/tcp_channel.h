@@ -8,11 +8,12 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_H
 //includes
+#include <string_view>
+
 #include "channel/tcp_channel_handler_impl.h"
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common_Header.h"
-#include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "sockets/tcp_socket_handler.h"
 #include "utility/sync_timer.h"
 
@@ -45,7 +46,7 @@ public:
   enum class tcpSocketState : std::uint8_t { kSocketOffline = 0U, kSocketOnline };
 
   //ctor
-  tcpChannel(kDoip_String &localIpaddress, ara::diag::doip::tcpTransport::TcpTransportHandler &tcpTransport_Handler);
+  tcpChannel(std::string_view localIpaddress, ara::diag::doip::tcpTransport::TcpTransportHandler &tcpTransport_Handler);
 
   //dtor
   ~tcpChannel();

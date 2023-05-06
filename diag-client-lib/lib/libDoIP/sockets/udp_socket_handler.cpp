@@ -13,7 +13,7 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace udpSocket {
-UdpSocketHandler::UdpSocketHandler(kDoip_String &local_ip_address, uint16_t port_num, PortType port_type,
+UdpSocketHandler::UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
                                    ara::diag::doip::udpChannel::UdpChannel &channel)
     : local_ip_address_{local_ip_address},
       port_num_{port_num},

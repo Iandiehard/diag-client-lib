@@ -5,9 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _UDP_TRANSPORT_HANDLER_H_
-#define _UDP_TRANSPORT_HANDLER_H_
+#ifndef LIB_LIBDOIP_HANDLER_UDP_TRANSPORT_HANDLER_H
+#define LIB_LIBDOIP_HANDLER_UDP_TRANSPORT_HANDLER_H
 //includes
+#include <string_view>
+
 #include "channel/udp_channel.h"
 #include "common/common_doip_header.h"
 
@@ -22,13 +24,13 @@ class DoipUdpConnection;
 namespace udpTransport {
 /*
  @ Class Name        : UdpTransportHandler
- @ Class Description : Class used to create a udp transport handler to initiate transmission
+ @ Class Description : Class used to create an udp transport handler to initiate transmission
                        and reception of udp message from/to user                            
 */
 class UdpTransportHandler {
 public:
   // ctor
-  UdpTransportHandler(kDoip_String &localIpaddress, uint16_t portNum, connection::DoipUdpConnection &doipConnection);
+  UdpTransportHandler(std::string_view localIpaddress, uint16_t portNum, connection::DoipUdpConnection &doipConnection);
 
   // dtor
   ~UdpTransportHandler();
@@ -70,4 +72,4 @@ private:
 }  // namespace doip
 }  // namespace diag
 }  // namespace ara
-#endif  // _UDP_TRANSPORT_HANDLER_H_
+#endif  // LIB_LIBDOIP_HANDLER_UDP_TRANSPORT_HANDLER_H

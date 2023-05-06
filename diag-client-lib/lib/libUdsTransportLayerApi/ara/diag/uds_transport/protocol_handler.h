@@ -8,6 +8,8 @@
 #ifndef _PROTOCOL_HANDLER_H_
 #define _PROTOCOL_HANDLER_H_
 
+#include <string_view>
+
 #include "protocol_mgr.h"
 #include "protocol_types.h"
 
@@ -51,13 +53,13 @@ public:
 
   // Get or Create connection a Tcp Connection
   virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler, kDoip_String &tcpIpaddress,
-      uint16_t portNum) = 0;
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
+      std::string_view tcpIpaddress, uint16_t portNum) = 0;
 
   // Get or Create connection a Udp Connection
   virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler, kDoip_String &udpIpaddress,
-      uint16_t portNum) = 0;
+      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
+      std::string_view udpIpaddress, uint16_t portNum) = 0;
 
 protected:
   UdsTransportProtocolHandlerID handler_id_;

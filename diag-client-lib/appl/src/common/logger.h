@@ -28,7 +28,7 @@ private:
   DiagClientLogger() = default;
 
   // actual logger context
-  Logger logger_{"DCLT", "appl"};
+  Logger logger_{"dcap"};
 };
 }  // namespace logger
 }  // namespace client
