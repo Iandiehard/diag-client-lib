@@ -25,37 +25,32 @@ public:
   template<typename Func>
   auto LogFatal(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[FATAL]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
   template<typename Func>
   auto LogError(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
     LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[ERROR]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
   template<typename Func>
   auto LogWarn(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
     LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[WARN]:    " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
   template<typename Func>
   auto LogInfo(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
     LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[INFO]:    " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
   template<typename Func>
   auto LogDebug(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
     LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[DEBUG]:   " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
   template<typename Func>
-  auto LogVerbose(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept -> void {
+  auto LogVerbose(const std::string &file_name, int line_no, const std::string &func_name, Func &&func) noexcept
+      -> void {
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
-    // std::cout << "[VERBOSE]: " << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
   }
 
 public:
@@ -88,8 +83,10 @@ private:
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt_);
 
+  // Stores application id
   std::string app_id_;
-  //
+
+  // Stores context id
   std::string context_id_;
 
   // store the information about registration with app id

@@ -9,6 +9,8 @@
 #define DIAG_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_VD_CONVERSATION_H
 
 /* includes */
+#include <chrono>
+#include <mutex>
 #include <string_view>
 
 #include "ara/diag/uds_transport/connection.h"
@@ -17,14 +19,10 @@
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
-#include "libTimer/oneShotSync/one_shotsync_timer.h"
 
 namespace diag {
 namespace client {
 namespace conversation {
-
-using SyncTimer = libBoost::libTimer::oneShot::oneShotSyncTimer;
-using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
 
 /*
  @ Class Name        : VdConversation
@@ -104,9 +102,6 @@ private:
 
   // Tp connection
   std::shared_ptr<ara::diag::connection::Connection> connection_ptr_;
-
-  // sync timer
-  SyncTimer sync_timer_;
 
   // container to store the vehicle information
   std::map<std::uint16_t, VehicleAddrInfoResponseStruct> vehicle_info_collection_;

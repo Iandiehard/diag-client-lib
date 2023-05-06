@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/* includes */
+
 #include "src/dcm/conversion/vd_conversation.h"
 
 #include <sstream>
@@ -106,7 +106,6 @@ VdConversation::VdConversation(std::string_view conversion_name,
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
       connection_ptr_{},
-      sync_timer_{},
       vehicle_info_collection_{},
       vehicle_info_container_mutex_{} {}
 

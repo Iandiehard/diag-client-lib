@@ -8,6 +8,7 @@
 
 #include "doip_handler/doip_tcp_handler.h"
 #include "doip_handler/common_doip_types.h"
+#include "doip_handler/logger.h"
 
 namespace ara {
 namespace diag {
@@ -193,11 +194,21 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
 
   if(tcp_connection_->Transmit(std::move(diag_msg_ack_response))) {
     if(diag_msg_ack_code_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
+      logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(
+          __FILE__, __LINE__, "", [](std::stringstream &msg) {
+            msg << "Sending of Diagnostic Message Pos Ack Response success";
+          });
+
       job_queue_.emplace([this](){
           this->SendDiagnosticMessageResponse();
       });
       running_ = true;
       cond_var_.notify_all();
+    } else {
+      logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(
+          __FILE__, __LINE__, "", [](std::stringstream &msg) {
+            msg << "Sending of Diagnostic Message Neg Ack Response success";
+          });
     }
   }
 }
@@ -227,6 +238,10 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
 
   if(tcp_connection_->Transmit(std::move(diag_uds_message_response))) {
     running_ = false;
+    logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(
+        __FILE__, __LINE__, "", [](std::stringstream &msg) {
+          msg << "Sending of Diagnostic Response message success";
+        });
   }
 }
 

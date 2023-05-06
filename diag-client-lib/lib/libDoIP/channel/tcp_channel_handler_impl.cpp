@@ -168,10 +168,10 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
   if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
       DiagnosticMessageChannelState::kWaitForDiagnosticAck) {
     // check the logical address of Server
-    uint16_t server_address =
+    std::uint16_t server_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
     // check the logical address of client
-    uint16_t client_address =
+    std::uint16_t client_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
 
     // get the ack code

@@ -7,7 +7,7 @@
 #
 variables:
   DOCKER_IMAGE: "registry.gitlab.com/iandiehard/dev_build_env"
-  DOCKER_IMAGE_TAG: "feature-docker-image-to-docker-hub"
+  DOCKER_IMAGE_TAG: "latest"
   BUILD_TYPE: Debug
 
 image: $DOCKER_IMAGE:$DOCKER_IMAGE_TAG
@@ -38,9 +38,9 @@ component-test-job:
     - echo "Start Building..."
     - cmake --build build --config $BUILD_TYPE
     - echo "Running unit tests..."
-    - sleep 60
     - echo "Print DLT messages..."
     - export DLT_LOCAL_PRINT_MODE=FORCE_ON
+    - export DLT_INITIAL_LOG_LEVEL="::6"
     - echo "Start Test..."
     - cd build/test
     - ./gtest-diag-client-lib --gtest_output="xml:report.xml"

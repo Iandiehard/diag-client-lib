@@ -21,7 +21,7 @@ file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 add_library(
         ${PROJECT_NAME}
         ${SRCS}
-        )
+)
 
 add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 

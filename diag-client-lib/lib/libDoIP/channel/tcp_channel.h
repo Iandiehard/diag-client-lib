@@ -14,6 +14,7 @@
 #include "common_Header.h"
 #include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "sockets/tcp_socket_handler.h"
+#include "utility/sync_timer.h"
 
 namespace ara {
 namespace diag {
@@ -30,8 +31,8 @@ using TcpMessagePtr = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpRoutingActivationChannelState = tcpChannelStateImpl::routingActivationState;
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
-using SyncTimer = libBoost::libTimer::oneShot::oneShotSyncTimer;
-using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+using SyncTimerState = SyncTimer::TimerState;
 
 /*
  @ Class Name        : tcpChannel

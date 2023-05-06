@@ -196,7 +196,7 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
   diag::client::conversation::DiagClientConversation::ConnectResult
       connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, uds_message->GetHostIpAddress())};
 
-  ASSERT_EQ(connect_result,
+  EXPECT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
@@ -205,7 +205,7 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
           diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
-  ASSERT_EQ(diag_result.first,
+  EXPECT_EQ(diag_result.first,
             diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess);
   EXPECT_EQ(diag_result.second->GetPayload()[0], 0x50);
   EXPECT_EQ(diag_result.second->GetPayload()[1], 0x01);
@@ -240,7 +240,7 @@ TEST_F(DiagReqResFixture, VerifyDiagNegAcknowledgement) {
   diag::client::conversation::DiagClientConversation::ConnectResult
       connect_result{diag_client_conversation.ConnectToDiagServer(DiagServerAddress, uds_message->GetHostIpAddress())};
 
-  ASSERT_EQ(connect_result,
+  EXPECT_EQ(connect_result,
             diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
@@ -286,8 +286,8 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification responses
-  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
-  ASSERT_TRUE(response_result.second);
+  EXPECT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
+  EXPECT_TRUE(response_result.second);
 
   // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{

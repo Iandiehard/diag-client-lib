@@ -305,7 +305,7 @@ void DmConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr messa
 
 void DmConversation::WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func,
                                      int msec) {
-  if (sync_timer_.Start(msec) == SyncTimerState::kTimeout) {
+  if (sync_timer_.Start(std::chrono::milliseconds(msec)) == SyncTimerState::kTimeout) {
     timeout_func();
   } else {
     cancel_func();

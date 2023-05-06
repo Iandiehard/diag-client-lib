@@ -21,7 +21,7 @@ oneShotSyncTimer::~oneShotSyncTimer() = default;
 
 // start the timer
 auto oneShotSyncTimer::Start(int timeout) noexcept -> timer_state {
-  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [timeout](std::stringstream &msg) {
         msg << "[OneShotSyncTimer] started with timeout: " << std::to_string(timeout) << " milliseconds";
       });
@@ -41,7 +41,7 @@ auto oneShotSyncTimer::Start(int timeout) noexcept -> timer_state {
 
   std::chrono::duration<double> elapsed_seconds = end - start;
 
-  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [elapsed_seconds](std::stringstream &msg) {
         msg << "[OneShotSyncTimer] Elapsed time: " << std::to_string(elapsed_seconds.count()) << " seconds";
       });
@@ -50,7 +50,7 @@ auto oneShotSyncTimer::Start(int timeout) noexcept -> timer_state {
 
 // stop the timer
 auto oneShotSyncTimer::Stop() noexcept -> void {
-  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+  logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "[OneShotSyncTimer] stopped"; });
   timer_ptr_->cancel();
 }

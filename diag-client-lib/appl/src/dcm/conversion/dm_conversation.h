@@ -14,14 +14,13 @@
 #include "ara/diag/uds_transport/conversion_handler.h"
 #include "ara/diag/uds_transport/protocol_types.h"
 #include "include/diagnostic_client_conversation.h"
-#include "libTimer/oneShotSync/one_shotsync_timer.h"
 #include "src/dcm/conversion/dm_conversation_state_impl.h"
+#include "utility/sync_timer.h"
 
 namespace diag {
 namespace client {
 namespace conversation {
-using SyncTimer = libBoost::libTimer::oneShot::oneShotSyncTimer;
-using SyncTimerState = libBoost::libTimer::oneShot::oneShotSyncTimer::timer_state;
+
 using ConversationState = conversation_state_impl::ConversationState;
 
 /*
@@ -30,6 +29,9 @@ using ConversationState = conversation_state_impl::ConversationState;
  */
 class DmConversation : public ::diag::client::conversation::DiagClientConversation {
 public:
+  using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+  using SyncTimerState = SyncTimer::TimerState;
+
   // ctor
   DmConversation(std::string_view conversion_name,
                  ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier);
