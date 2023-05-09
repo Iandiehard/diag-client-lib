@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.5)
 project(ara-lib)
 
 # adding common library
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libCommon)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/common)
 # adding utility library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility-support)
 # adding uds transport layer 

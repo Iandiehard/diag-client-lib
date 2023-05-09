@@ -13,7 +13,7 @@
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common/doip_payload_type.h"
-#include "common_Header.h"
+#include "common_header.h"
 #include "sockets/tcp_socket_handler.h"
 
 namespace ara {
