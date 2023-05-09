@@ -17,4 +17,4 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/uds-transport-layer-api)
 # adding Boost support library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/boost-support)
 # adding Doip Client library
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libDoIP)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/doip-client)
