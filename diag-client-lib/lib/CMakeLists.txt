@@ -6,7 +6,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 cmake_minimum_required(VERSION 3.5)
-project(ara-lib)
 
 # adding common library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/common)

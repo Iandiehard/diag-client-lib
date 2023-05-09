@@ -29,8 +29,6 @@ add_library(${PROJECT_NAME}
         ${LIBBOOST_JSON_PARSER_SRCS}
         )
 
-add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-
 #Link include directory
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
@@ -40,8 +38,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 #link target directory
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
-        ara-lib::common
-        ara-lib::utility-support
+        common
+        utility-support
         ${Boost_LIBRARIES}
         )
 

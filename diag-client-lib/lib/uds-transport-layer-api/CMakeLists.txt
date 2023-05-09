@@ -7,7 +7,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(${PROJECT_NAME} INTERFACE)
-add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
 #set includes paths
 set(header_path "${CMAKE_CURRENT_SOURCE_DIR}")

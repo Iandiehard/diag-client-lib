@@ -32,8 +32,6 @@ add_library(${PROJECT_NAME}
         ${LIBDOIP_LIB_SRCS}
         )
 
-add_library(ara-lib::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
-
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
@@ -42,10 +40,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # link library
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
-        ara-lib::common
-        ara-lib::utility-support
-        ara-lib::uds-transport-layer-api
-        ara-lib::boost-support
+        common
+        utility-support
+        uds-transport-layer-api
+        boost-support
         )
 
 install(TARGETS ${PROJECT_NAME}
