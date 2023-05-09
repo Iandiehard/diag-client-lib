@@ -22,7 +22,7 @@ std::string VehicleDiscoveryConversation{"VehicleDiscovery"};
  @ Class Description : Class to create Diagnostic Manager Client functionality                           
  */
 DCMClient::DCMClient(diag::client::common::property_tree &ptree)
-    : DiagnosticManager(ptree),
+    : DiagnosticManager{},
       uds_transport_protocol_mgr(std::make_unique<uds_transport::UdsTransportProtocolManager>()),
       conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(GetConversationConfig(ptree),
                                                                                    *uds_transport_protocol_mgr)},

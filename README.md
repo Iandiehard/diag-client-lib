@@ -66,7 +66,7 @@ std::unique_ptr<diag::client::DiagClient> diagclient =
             diag::client::CreateDiagnosticClient("etc/diag_client_config.json");
 ```
 
-Multiple tester instance can be created using Diagnostic Client Libary main instance.
+Multiple tester instance can be created using Diagnostic Client Library main instance.
 
 Check the example application [Examples](diag-client-lib/examples/) on how Diagnostic Client Library should be linked and used.
 

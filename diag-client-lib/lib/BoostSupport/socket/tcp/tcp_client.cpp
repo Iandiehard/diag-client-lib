@@ -6,9 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "libSocket/tcp/tcp_client.h"
+#include "socket/tcp/tcp_client.h"
 
-#include "libCommon/logger.h"
+#include "common/logger.h"
 
 namespace libBoost {
 namespace libSocket {

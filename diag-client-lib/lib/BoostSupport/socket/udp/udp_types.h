@@ -7,8 +7,6 @@
  */
 #ifndef UDP_TYPES_H
 #define UDP_TYPES_H
-// includes
-#include "libCommon/Boost_Header.h"
 
 namespace libBoost {
 namespace libSocket {

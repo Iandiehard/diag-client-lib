@@ -12,7 +12,7 @@
 #include <string_view>
 
 #include "common/common_doip_types.h"
-#include "libSocket/tcp/tcp_client.h"
+#include "socket/tcp/tcp_client.h"
 
 namespace ara {
 namespace diag {

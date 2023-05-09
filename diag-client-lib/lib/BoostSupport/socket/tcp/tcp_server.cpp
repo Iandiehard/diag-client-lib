@@ -5,9 +5,9 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include "libSocket/tcp/tcp_server.h"
+#include "socket/tcp/tcp_server.h"
 
-#include "libCommon/logger.h"
+#include "common/logger.h"
 
 namespace libBoost {
 namespace libSocket {

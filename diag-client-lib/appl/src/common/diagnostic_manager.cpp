@@ -14,10 +14,8 @@ namespace common {
  @ Class Name        : Diagnostic_manager
  @ Class Description : Parent class to create DCM and DEM class                            
  */
-DiagnosticManager::DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-                                     property_tree &ptree)
-    : ptree_e{ptree},
-      exit_requested_{false} {}
+DiagnosticManager::DiagnosticManager()
+    : exit_requested_{false} {}
 
 DiagnosticManager::~DiagnosticManager() {
   {

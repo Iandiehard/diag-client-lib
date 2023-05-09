@@ -8,26 +8,23 @@
 #include "src/diagnostic_client_impl.h"
 
 #include <pthread.h>
-
 #include <memory>
 #include <string>
 
 #include "common/logger.h"
 #include "include/diagnostic_client.h"
+#include "parser/json_parser.h"
 
 namespace diag {
 namespace client {
 // ctor
 DiagClientImpl::DiagClientImpl(std::string_view dm_client_config)
     : diag::client::DiagClient(),
-      ptree{},
       dcm_instance_ptr{} {
-  // start parsing the config json file
-  libOsAbstraction::libBoost::jsonparser::createJsonParser json_parser{};
-  json_parser.GetJsonPtree(dm_client_config, ptree);
-
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient instance creation started"; });
+  // start parsing the config json file
+  libBoost::jsonparser::boostTree ptree{libBoost::jsonparser::JsonParser{}.operator()(dm_client_config)};
   // create single dcm instance and pass the config tree
   dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(

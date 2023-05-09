@@ -6,9 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 // includes
-#include "libSocket/udp/udp_client.h"
+#include "socket/udp/udp_client.h"
 
-#include "libCommon/logger.h"
+#include "common/logger.h"
 
 namespace libBoost {
 namespace libSocket {

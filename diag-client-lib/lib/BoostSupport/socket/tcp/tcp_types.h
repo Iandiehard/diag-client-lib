@@ -7,8 +7,9 @@
 */
 #ifndef TCP_TYPES_H
 #define TCP_TYPES_H
-// includes
-#include "libCommon/Boost_Header.h"
+
+#include <memory>
+#include <vector>
 
 namespace libBoost {
 namespace libSocket {

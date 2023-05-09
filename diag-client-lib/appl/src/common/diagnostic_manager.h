@@ -14,7 +14,7 @@
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
-#include "libJsonParser/jsonParser.h"
+#include "parser/json_parser.h"
 
 namespace diag {
 namespace client {
@@ -24,7 +24,7 @@ class DiagClientConversation;
 }
 
 namespace common {
-using property_tree = libOsAbstraction::libBoost::jsonparser::boostTree;
+using property_tree = libBoost::jsonparser::boostTree;
 
 /*
  @ Class Name        : DiagnosticManager
@@ -33,8 +33,7 @@ using property_tree = libOsAbstraction::libBoost::jsonparser::boostTree;
 class DiagnosticManager {
 public:
   //ctor
-  explicit DiagnosticManager(/* DiagnosticManagerPluginFactory &plugin_factory, */
-                             property_tree &ptree);
+  DiagnosticManager();
 
   // dtor
   virtual ~DiagnosticManager();
@@ -62,11 +61,6 @@ public:
   virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
                     diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
-
-protected:
-  // store the json tree
-  property_tree &ptree_e;
-
 private:
   // flag to terminate the main thread
   bool exit_requested_;

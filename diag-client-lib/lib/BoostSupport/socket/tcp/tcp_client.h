@@ -9,8 +9,9 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
 // includes
 #include <string>
+#include <thread>
 #include <string_view>
-
+#include <boost/asio.hpp>
 #include "tcp_types.h"
 
 namespace libBoost {

@@ -16,7 +16,6 @@
 #include "dcm/dcm_client.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_conversation.h"
-#include "libJsonParser/jsonParser.h"
 
 namespace diag {
 namespace client {
@@ -45,8 +44,6 @@ public:
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
 
 private:
-  // Used to read json
-  diag::client::common::property_tree ptree;
   // dcm client instance
   std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
   // thread to hold dcm client instance

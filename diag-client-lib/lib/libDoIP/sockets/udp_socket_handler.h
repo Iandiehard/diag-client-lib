@@ -12,7 +12,7 @@
 #include <string_view>
 
 #include "common/common_doip_types.h"
-#include "libSocket/udp/udp_client.h"
+#include "socket/udp/udp_client.h"
 
 namespace ara {
 namespace diag {
