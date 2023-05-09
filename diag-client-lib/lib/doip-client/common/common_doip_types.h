@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef LIB_LIBDOIP_COMMON_COMMON_DOIP_TYPES_H_
-#define LIB_LIBDOIP_COMMON_COMMON_DOIP_TYPES_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_COMMON_DOIP_TYPES_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_COMMON_DOIP_TYPES_H
 
 #include "common_doip_header.h"
 
@@ -123,4 +123,4 @@ constexpr uint32_t kDoIPCtrl = 2000U;  // 2 sec
 
 }  // namespace doip_client
 
-#endif  // LIB_LIBDOIP_COMMON_COMMON_DOIP_TYPES_H_
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_COMMON_DOIP_TYPES_H

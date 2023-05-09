@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H
 //includes
 #include <string_view>
 
@@ -106,4 +106,4 @@ private:
 
 }  // namespace tcpChannel
 }  // namespace doip_client
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBDOIP_CHANNEL_TCP_CHANNEL_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H

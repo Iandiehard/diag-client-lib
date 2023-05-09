@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H
-#define LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
 
 #include <string>
 #include <string_view>
@@ -67,4 +67,4 @@ private:
 };
 }  // namespace tcpSocket
 }  // namespace doip_client
-#endif  // LIB_LIBDOIP_SOCKETS_TCP_SOCKET_HANDLER_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
