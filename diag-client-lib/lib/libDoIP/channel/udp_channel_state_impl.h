@@ -18,7 +18,8 @@ namespace ara {
 namespace diag {
 namespace doip {
 namespace udpChannelStateImpl {
-using namespace libUtility::state;
+
+using namespace utility::state;
 
 // Vehicle discovery state
 enum class VehicleDiscoveryState : std::uint8_t { kVdIdle = 0U, kWaitForVehicleAnnouncement, kVdDoIPCtrlTimeout };

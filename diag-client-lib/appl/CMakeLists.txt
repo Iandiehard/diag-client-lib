@@ -55,7 +55,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # link all static libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
         ara-lib::common
-        ara-lib::utility
+        ara-lib::utility-support
         ara-lib::doip-client
         ara-lib::boost-support
         ara-lib::uds-transport-layer-api

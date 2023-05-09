@@ -13,7 +13,7 @@
 namespace diag {
 namespace client {
 namespace logger {
-using Logger = libUtility::logger::Logger;
+using Logger = utility::logger::Logger;
 
 class DiagClientLogger {
 public:

@@ -15,7 +15,7 @@ namespace diag {
 namespace doip {
 namespace logger {
 
-using Logger = libUtility::logger::Logger;
+using Logger = utility::logger::Logger;
 
 class DoipClientLogger {
 public:

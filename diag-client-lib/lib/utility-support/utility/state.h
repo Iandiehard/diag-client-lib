@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_STATE_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_STATE_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_STATE_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_STATE_H
 
 #include <atomic>
 #include <cstdint>
@@ -16,7 +16,7 @@
 #include <string>
 #include <utility>
 
-namespace libUtility {
+namespace utility {
 namespace state {
 template<typename EnumState>
 class State {
@@ -108,5 +108,5 @@ private:
   std::map<EnumState, std::unique_ptr<State<EnumState>>> state_map_;
 };
 }  // namespace state
-}  // namespace libUtility
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_STATE_H
+}  // namespace utility
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_STATE_H

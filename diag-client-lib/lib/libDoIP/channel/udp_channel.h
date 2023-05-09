@@ -29,10 +29,10 @@ class UdpTransportHandler;
 namespace udpChannel {
 //typedefs
 using UdpMessagePtr = ara::diag::doip::udpSocket::UdpMessagePtr;
-using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
 ;
 using SyncTimerState = SyncTimer::TimerState;
-using TaskExecutor = libUtility::executor::Executor<std::function<void(void)>>;
+using TaskExecutor = utility::executor::Executor<std::function<void(void)>>;
 
 /*
  @ Class Name        : UdpChannel

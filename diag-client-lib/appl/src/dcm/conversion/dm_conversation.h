@@ -29,7 +29,7 @@ using ConversationState = conversation_state_impl::ConversationState;
  */
 class DmConversation final : public ::diag::client::conversation::DiagClientConversation {
 public:
-  using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+  using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
   using SyncTimerState = SyncTimer::TimerState;
 
   // ctor

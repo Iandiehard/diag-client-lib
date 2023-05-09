@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_LOGGER_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_LOGGER_H
 
 #ifdef ENABLE_DLT_LOGGER
 #include <dlt/dlt.h>
@@ -18,7 +18,7 @@
 #include <string_view>
 #include <utility>
 
-namespace libUtility {
+namespace utility {
 namespace logger {
 class Logger {
 public:
@@ -114,5 +114,5 @@ private:
   bool registration_with_app_id_{false};
 };
 }  // namespace logger
-}  // namespace libUtility
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_LOGGER_H
+}  // namespace utility
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_LOGGER_H

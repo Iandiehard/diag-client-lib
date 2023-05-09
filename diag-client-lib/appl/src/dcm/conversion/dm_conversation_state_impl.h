@@ -14,7 +14,7 @@
 namespace diag {
 namespace client {
 namespace conversation_state_impl {
-using namespace libUtility::state;
+using namespace utility::state;
 // Conversation States
 enum class ConversationState : uint8_t {
   kIdle = 0x00,

@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_EXECUTOR_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_EXECUTOR_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_EXECUTOR_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_EXECUTOR_H
 
 #include <condition_variable>
 #include <cstdint>
@@ -15,8 +15,9 @@
 #include <queue>
 #include <thread>
 
-namespace libUtility {
+namespace utility {
 namespace executor {
+
 template<typename ExecutorHandler>
 class Executor {
 public:
@@ -74,5 +75,5 @@ private:
   std::atomic<bool> running_;
 };
 }  // namespace executor
-}  // namespace libUtility
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBUTILITY_UTILITY_EXECUTOR_H
+}  // namespace utility
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_EXECUTOR_H

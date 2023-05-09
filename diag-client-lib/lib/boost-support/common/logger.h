@@ -13,7 +13,7 @@
 namespace boost_support {
 namespace common {
 namespace logger {
-using Logger = libUtility::logger::Logger;
+using Logger = utility::logger::Logger;
 
 class LibBoostLogger {
 public:

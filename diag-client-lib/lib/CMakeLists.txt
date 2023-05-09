@@ -11,7 +11,7 @@ project(ara-lib)
 # adding common library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libCommon)
 # adding utility library
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/libUtility)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility-support)
 # adding uds transport layer 
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/uds-transport-layer-api)
 # adding Boost support library

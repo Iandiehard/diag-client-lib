@@ -6,9 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "utility/logger.h"
+#include "logger.h"
 
-namespace libUtility {
+namespace utility {
 namespace logger {
 Logger::Logger(std::string_view context_id) : contxt_{}, app_id_{}, context_id_{context_id} {
 #ifdef ENABLE_DLT_LOGGER
@@ -35,4 +35,4 @@ Logger::~Logger() {
 }
 
 }  // namespace logger
-}  // namespace libUtility
+}  // namespace utility

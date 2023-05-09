@@ -41,7 +41,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
         ara-lib::common
-        ara-lib::utility
+        ara-lib::utility-support
         ${Boost_LIBRARIES}
         )
 

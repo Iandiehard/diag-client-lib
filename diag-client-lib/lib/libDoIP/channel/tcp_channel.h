@@ -32,7 +32,7 @@ using TcpMessagePtr = ara::diag::doip::tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = ara::diag::doip::tcpSocket::TcpMessageConstPtr;
 using TcpRoutingActivationChannelState = tcpChannelStateImpl::routingActivationState;
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
-using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
 using SyncTimerState = SyncTimer::TimerState;
 
 /*
