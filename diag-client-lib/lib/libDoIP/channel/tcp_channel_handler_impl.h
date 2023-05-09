@@ -132,7 +132,7 @@ public:
   ~TcpChannelHandlerImpl() = default;
 
   // Function to trigger Routing activation request
-  auto SendRoutingActivationRequest(ara::diag::uds_transport::UdsMessageConstPtr &message) noexcept
+  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr &message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   // Function to send Diagnostic request

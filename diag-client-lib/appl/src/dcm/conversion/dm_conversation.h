@@ -10,11 +10,11 @@
 /* includes */
 #include <string_view>
 
-#include "ara/diag/uds_transport/connection.h"
-#include "ara/diag/uds_transport/conversion_handler.h"
-#include "ara/diag/uds_transport/protocol_types.h"
 #include "include/diagnostic_client_conversation.h"
 #include "src/dcm/conversion/dm_conversation_state_impl.h"
+#include "uds_transport/connection.h"
+#include "uds_transport/conversion_handler.h"
+#include "uds_transport/protocol_types.h"
 #include "utility/sync_timer.h"
 
 namespace diag {
@@ -27,14 +27,14 @@ using ConversationState = conversation_state_impl::ConversationState;
  @ Class Name        : DmConversation
  @ Class Description : Class to establish connection with Diagnostic Server                           
  */
-class DmConversation : public ::diag::client::conversation::DiagClientConversation {
+class DmConversation final : public ::diag::client::conversation::DiagClientConversation {
 public:
   using SyncTimer = libUtility::sync_timer::SyncTimer<std::chrono::steady_clock>;
   using SyncTimerState = SyncTimer::TimerState;
 
   // ctor
   DmConversation(std::string_view conversion_name,
-                 ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier);
+                 ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier);
 
   // dtor
   ~DmConversation();
@@ -62,26 +62,23 @@ public:
       uds_message::UdsRequestMessageConstPtr message) override;
 
   // Register Connection
-  void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
+  void RegisterConnection(std::shared_ptr<::uds_transport::Connection> connection);
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo);
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo);
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);
+  void HandleMessage(::uds_transport::UdsMessagePtr message);
 
   // shared pointer to store the conversion handler
-  std::shared_ptr<ara::diag::conversion::ConversionHandler> dm_conversion_handler_;
+  std::shared_ptr<::uds_transport::ConversionHandler> dm_conversion_handler_;
 
   DiagClientConversation::DiagResult ConvertResponseType(
-      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type);
+      ::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type);
 
 private:
   // Type for active diagnostic session
@@ -131,11 +128,11 @@ private:
   // conversion name
   std::string conversation_name_;
   // Tp connection
-  std::shared_ptr<ara::diag::connection::Connection> connection_ptr_;
+  std::shared_ptr<::uds_transport::Connection> connection_ptr_;
   // timer
   SyncTimer sync_timer_;
   // rx buffer to store the uds response
-  ara::diag::uds_transport::ByteVector payload_rx_buffer;
+  ::uds_transport::ByteVector payload_rx_buffer;
   // conversation state
   conversation_state_impl::ConversationStateImpl conversation_state_;
 };
@@ -144,26 +141,24 @@ private:
  @ Class Name        : DmConversationHandler
  @ Class Description : Class to establish connection with Diagnostic Server                           
  */
-class DmConversationHandler : public ara::diag::conversion::ConversionHandler {
+class DmConversationHandler : public ::uds_transport::ConversionHandler {
 public:
   // ctor
-  DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id, DmConversation &dm_conversion);
+  DmConversationHandler(::uds_transport::conversion_manager::ConversionHandlerID handler_id,
+                        DmConversation &dm_conversion);
 
   // dtor
   ~DmConversationHandler() = default;
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo) override;
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo) override;
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
+  void HandleMessage(::uds_transport::UdsMessagePtr message) override;
 
 private:
   DmConversation &dm_conversation_e;

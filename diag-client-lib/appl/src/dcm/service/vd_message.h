@@ -8,18 +8,18 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_VD_MESSAGE_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_VD_MESSAGE_H
 /* includes */
-#include "ara/diag/uds_transport/uds_message.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "uds_transport/uds_message.h"
 
 namespace diag {
 namespace client {
 namespace vd_message {
 
-class VdMessage final : public ara::diag::uds_transport::UdsMessage {
+class VdMessage final : public uds_transport::UdsMessage {
 public:
   // ctor
-  VdMessage(std::uint8_t preselection_mode, ara::diag::uds_transport::ByteVector& preselection_value,
+  VdMessage(std::uint8_t preselection_mode, uds_transport::ByteVector& preselection_value,
             std::string_view host_ip_address);
 
   // default ctor
@@ -42,7 +42,7 @@ private:
   IpAddress host_ip_address_;
 
   // store the vehicle info payload
-  ara::diag::uds_transport::ByteVector vehicle_info_payload_;
+  uds_transport::ByteVector vehicle_info_payload_;
 
   //
   std::shared_ptr<const MetaInfoMap> meta_info_{};
@@ -55,10 +55,10 @@ private:
   }
 
   // Get the UDS message data starting with the SID (A_Data as per ISO)
-  const ara::diag::uds_transport::ByteVector& GetPayload() const override { return vehicle_info_payload_; }
+  const uds_transport::ByteVector& GetPayload() const override { return vehicle_info_payload_; }
 
   // return the underlying buffer for write access
-  ara::diag::uds_transport::ByteVector& GetPayload() override { return vehicle_info_payload_; }
+  uds_transport::ByteVector& GetPayload() override { return vehicle_info_payload_; }
 
   // Get the source address of the uds message.
   Address GetSa() const noexcept override { return source_address_; }

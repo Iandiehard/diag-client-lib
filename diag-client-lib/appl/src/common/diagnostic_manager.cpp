@@ -14,8 +14,7 @@ namespace common {
  @ Class Name        : Diagnostic_manager
  @ Class Description : Parent class to create DCM and DEM class                            
  */
-DiagnosticManager::DiagnosticManager()
-    : exit_requested_{false} {}
+DiagnosticManager::DiagnosticManager() : exit_requested_{false} {}
 
 DiagnosticManager::~DiagnosticManager() {
   {

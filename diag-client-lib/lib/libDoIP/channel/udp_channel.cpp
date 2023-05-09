@@ -32,8 +32,8 @@ UdpChannel::UdpChannel(std::string_view local_ip_address, uint16_t port_num,
 
 // Initialize the udp channel
 uds_transport::UdsTransportProtocolHandler::InitializationResult UdpChannel::Initialize() {
-  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult ret_val =
-      ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk;
+  uds_transport::UdsTransportProtocolHandler::InitializationResult ret_val =
+      uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk;
   return ret_val;
 }
 
@@ -57,8 +57,8 @@ void UdpChannel::HandleMessageUnicast(UdpMessagePtr udp_rx_message) {
   udp_channel_handler_.HandleMessage(std::move(udp_rx_message));
 }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpChannel::Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr message) {
+uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpChannel::Transmit(
+    uds_transport::UdsMessageConstPtr message) {
   return udp_channel_handler_.Transmit(std::move(message));
 }
 

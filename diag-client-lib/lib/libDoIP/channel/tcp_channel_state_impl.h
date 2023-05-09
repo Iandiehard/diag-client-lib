@@ -19,7 +19,6 @@ namespace diag {
 namespace doip {
 namespace tcpChannelStateImpl {
 using namespace libUtility::state;
-using namespace ara::diag::uds_transport;
 
 // routing activation state
 enum class routingActivationState : std::uint8_t {

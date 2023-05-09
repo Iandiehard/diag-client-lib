@@ -26,7 +26,7 @@ TcpTransportHandler::TcpTransportHandler(std::string_view local_ip_address, uint
 TcpTransportHandler::~TcpTransportHandler() = default;
 
 // Initialize
-ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult TcpTransportHandler::Initialize() {
+uds_transport::UdsTransportProtocolHandler::InitializationResult TcpTransportHandler::Initialize() {
   return (tcp_channel_->Initialize());
 }
 
@@ -39,32 +39,31 @@ void TcpTransportHandler::Stop() { tcp_channel_->Stop(); }
 bool TcpTransportHandler::IsConnectToHost() { return (tcp_channel_->IsConnectToHost()); }
 
 // Connect to remote Host
-ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpTransportHandler::ConnectToHost(
-    ara::diag::uds_transport::UdsMessageConstPtr message) {
+uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpTransportHandler::ConnectToHost(
+    uds_transport::UdsMessageConstPtr message) {
   return (tcp_channel_->ConnectToHost(std::move(message)));
 }
 
 // Disconnect from remote host
-ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult TcpTransportHandler::DisconnectFromHost() {
+uds_transport::UdsTransportProtocolMgr::DisconnectionResult TcpTransportHandler::DisconnectFromHost() {
   return (tcp_channel_->DisconnectFromHost());
 }
 
 // Transmit
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult TcpTransportHandler::Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr message, ara::diag::uds_transport::ChannelID channel_id) {
+uds_transport::UdsTransportProtocolMgr::TransmissionResult TcpTransportHandler::Transmit(
+    uds_transport::UdsMessageConstPtr message, uds_transport::ChannelID channel_id) {
   // find the corresponding channel
   // Trigger transmit
   return (tcp_channel_->Transmit(std::move(message)));
 }
 
 // Indicate message Diagnostic message reception over TCP to user
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-TcpTransportHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                     ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                     ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                     ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                                     ara::diag::uds_transport::Priority priority,
-                                     ara::diag::uds_transport::ProtocolKind protocol_kind,
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+TcpTransportHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                     uds_transport::UdsMessage::Address target_addr,
+                                     uds_transport::UdsMessage::TargetAddressType type,
+                                     uds_transport::ChannelID channel_id, std::size_t size,
+                                     uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                      std::vector<uint8_t> payloadInfo) {
   return (doip_connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                            payloadInfo));
@@ -72,7 +71,7 @@ TcpTransportHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Addre
 
 // Hands over a valid received Uds message (currently this is only a request type) from transport
 // layer to session layer
-void TcpTransportHandler::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void TcpTransportHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
   doip_connection_.HandleMessage(std::move(message));
 }
 

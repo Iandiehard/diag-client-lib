@@ -48,7 +48,7 @@ public:
   ~UdpChannel() = default;
 
   // Initialize
-  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
 
   //Start
   void Start();
@@ -63,14 +63,13 @@ public:
   void HandleMessageUnicast(UdpMessagePtr udp_rx_message);
 
   // Function to trigger transmission of vehicle identification request
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      ara::diag::uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
 
   // Function to get the channel context
   auto GetChannelState() noexcept -> udpChannelStateImpl::UdpChannelStateImpl & { return udp_channel_state_; }
 
   // Function to add job to executor
-  auto SendVehicleInformationToUser() noexcept -> void;
+  void SendVehicleInformationToUser() noexcept;
 
   // Function to wait for response
   void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);

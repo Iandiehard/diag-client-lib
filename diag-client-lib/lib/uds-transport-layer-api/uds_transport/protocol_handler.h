@@ -5,25 +5,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _PROTOCOL_HANDLER_H_
-#define _PROTOCOL_HANDLER_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_HANDLER_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_HANDLER_H
 
 #include <string_view>
 
 #include "protocol_mgr.h"
 #include "protocol_types.h"
 
-namespace ara {
-namespace diag {
-namespace connection {
-class Connection;
-}
-
-namespace conversion {
-class ConversionHandler;
-}
-
 namespace uds_transport {
+// forward declaration
+class Connection;
+class ConversionHandler;
+
 using kDoip_String = std::string;
 
 class UdsTransportProtocolHandler {
@@ -51,15 +45,15 @@ public:
   // Method to indicate that this UdsTransportProtocolHandler should terminate
   virtual void Stop() = 0;
 
-  // Get or Create connection a Tcp Connection
-  virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
-      std::string_view tcpIpaddress, uint16_t portNum) = 0;
+  // Get or Create a Tcp Connection
+  virtual std::shared_ptr<Connection> FindOrCreateTcpConnection(
+      const std::shared_ptr<ConversionHandler> &conversion_handler, std::string_view tcpIpaddress,
+      uint16_t portNum) = 0;
 
-  // Get or Create connection a Udp Connection
-  virtual std::shared_ptr<ara::diag::connection::Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion_handler,
-      std::string_view udpIpaddress, uint16_t portNum) = 0;
+  // Get or Create an Udp Connection
+  virtual std::shared_ptr<Connection> FindOrCreateUdpConnection(
+      const std::shared_ptr<ConversionHandler> &conversion_handler, std::string_view udpIpaddress,
+      uint16_t portNum) = 0;
 
 protected:
   UdsTransportProtocolHandlerID handler_id_;
@@ -68,6 +62,4 @@ private:
   UdsTransportProtocolMgr &transport_protocol_mgr_;
 };
 }  // namespace uds_transport
-}  // namespace diag
-}  // namespace ara
-#endif  // _PROTOCOL_HANDLER_H_
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_HANDLER_H

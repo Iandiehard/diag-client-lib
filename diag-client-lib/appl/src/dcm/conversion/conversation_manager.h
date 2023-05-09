@@ -49,10 +49,10 @@ private:
   uds_transport::UdsTransportProtocolManager &uds_transport_mgr_;
 
   // store the conversion name with conversion configurations
-  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> conversation_config_;
+  std::map<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType> conversation_config_;
 
   // store the vehicle discovery with conversation configuration
-  std::map<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType> vd_conversation_config_;
+  std::map<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType> vd_conversation_config_;
 
   // function to create or find new conversion
   void CreateConversationConfig(diag::client::config_parser::ConversationConfig &config);

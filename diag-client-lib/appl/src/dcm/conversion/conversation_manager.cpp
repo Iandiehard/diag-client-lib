@@ -57,18 +57,18 @@ ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string
 // function to find or create conversation
 void ConversationManager::CreateConversationConfig(diag::client::config_parser::ConversationConfig &config) {
   {  // Create Vehicle discovery config
-    ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier{};
+    ::uds_transport::conversion_manager::ConversionIdentifierType conversion_identifier{};
     conversion_identifier.udp_address = config.udp_ip_address;
     conversion_identifier.udp_broadcast_address = config.udp_broadcast_address;
     conversion_identifier.port_num = 0U;  // random selection of port number
     (void) vd_conversation_config_.insert(
-        std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>("VehicleDiscovery",
-                                                                                          conversion_identifier));
+        std::pair<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType>("VehicleDiscovery",
+                                                                                              conversion_identifier));
   }
 
   {  // Create Conversation config
     for (uint8_t conv_count = 0U; conv_count < config.num_of_conversation; conv_count++) {
-      ::ara::diag::conversion_manager::ConversionIdentifierType conversion_identifier{};
+      ::uds_transport::conversion_manager::ConversionIdentifierType conversion_identifier{};
       conversion_identifier.rx_buffer_size = config.conversations[conv_count].rxBufferSize;
       conversion_identifier.p2_client_max = config.conversations[conv_count].p2ClientMax;
       conversion_identifier.p2_star_client_max = config.conversations[conv_count].p2StarClientMax;
@@ -77,7 +77,7 @@ void ConversationManager::CreateConversationConfig(diag::client::config_parser::
       conversion_identifier.port_num = 0U;  // random selection of port number
       // push to config map
       (void) conversation_config_.insert(
-          std::pair<std::string, ::ara::diag::conversion_manager::ConversionIdentifierType>(
+          std::pair<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType>(
               config.conversations[conv_count].conversationName, conversion_identifier));
     }
   }

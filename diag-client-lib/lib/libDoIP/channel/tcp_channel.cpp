@@ -24,8 +24,8 @@ tcpChannel::tcpChannel(std::string_view localIpaddress,
 
 tcpChannel::~tcpChannel() = default;
 
-ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult tcpChannel::Initialize() {
-  return (ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
+uds_transport::UdsTransportProtocolHandler::InitializationResult tcpChannel::Initialize() {
+  return (uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
 }
 
 void tcpChannel::Start() { tcp_socket_handler_->Start(); }
@@ -39,10 +39,10 @@ void tcpChannel::Stop() {
 
 bool tcpChannel::IsConnectToHost() { return (tcp_socket_state_ == tcpSocketState::kSocketOnline); }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHost(
-    ara::diag::uds_transport::UdsMessageConstPtr message) {
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
+uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHost(
+    uds_transport::UdsMessageConstPtr message) {
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
   if (tcp_socket_state_ == tcpSocketState::kSocketOffline) {
     // sync connect to change the socket state
     if (tcp_socket_handler_->ConnectToHost(message->GetHostIpAddress(), message->GetHostPortNumber())) {
@@ -68,9 +68,9 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
   return ret_val;
 }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChannel::DisconnectFromHost() {
-  ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult ret_val{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
+uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChannel::DisconnectFromHost() {
+  uds_transport::UdsTransportProtocolMgr::DisconnectionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
     if (tcp_socket_handler_->DisconnectFromHost()) {
       tcp_socket_state_ = tcpSocketState::kSocketOffline;
@@ -79,7 +79,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChanne
         // reset previous routing activation
         tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
       }
-      ret_val = ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
+      ret_val = uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
     }
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
@@ -93,10 +93,10 @@ void tcpChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
   tcp_channel_handler_.HandleMessage(std::move(tcp_rx_message));
 }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr message) {
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::Transmit(
+    uds_transport::UdsMessageConstPtr message) {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
     // routing activation should be active before sending diag request
     if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
@@ -125,19 +125,19 @@ void tcpChannel::WaitForResponse(std::function<void()> &&timeout_func, std::func
 
 void tcpChannel::WaitCancel() { sync_timer_.Stop(); }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRoutingActivationState(
-    ara::diag::uds_transport::UdsMessageConstPtr &message) {
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
+uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRoutingActivationState(
+    uds_transport::UdsMessageConstPtr &message) {
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
+      uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
   if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
       TcpRoutingActivationChannelState::kIdle) {
     if (tcp_channel_handler_.SendRoutingActivationRequest(message) ==
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+        uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
           TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
       WaitForResponse(
           [&]() {
-            result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
+            result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
             tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
@@ -149,7 +149,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
             if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
                 TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
               // success
-              result = ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
+              result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                   __FILE__, __LINE__, "",
                   [](std::stringstream &msg) { msg << "RoutingActivation successful with remote server"; });
@@ -177,19 +177,19 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::
   return result;
 }
 
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::HandleDiagnosticRequestState(
-    ara::diag::uds_transport::UdsMessageConstPtr &message) {
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult result{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::HandleDiagnosticRequestState(
+    uds_transport::UdsMessageConstPtr &message) {
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult result{
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   if (tcp_channel_state_.GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
       TcpDiagnosticMessageChannelState::kDiagIdle) {
     if (tcp_channel_handler_.SendDiagnosticRequest(message) ==
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+        uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
           TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
       WaitForResponse(
           [&]() {
-            result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
+            result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                 TcpDiagnosticMessageChannelState::kDiagIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
@@ -204,13 +204,13 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
               tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                   TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
               // success
-              result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
+              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                   __FILE__, __LINE__, "",
                   [](std::stringstream &msg) { msg << "Diagnostic Message Positive Ack received"; });
             } else {
               // failed with neg acknowledgement from server
-              result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
+              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
               tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
                   TcpDiagnosticMessageChannelState::kDiagIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
@@ -228,7 +228,7 @@ ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel
     }
   } else {
     // channel not in idle state
-    result = ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
+    result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
         __FILE__, __LINE__, "",
         [](std::stringstream &msg) { msg << "Diagnostic Message Transmission already in progress"; });

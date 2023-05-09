@@ -8,9 +8,9 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H
 // includes
-#include <string_view>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
+#include <string_view>
 
 namespace boost_support {
 namespace parser {
@@ -22,8 +22,8 @@ using boostTree = boost::property_tree::ptree;
 class JsonParser {
 public:
   JsonParser() = default;
-  
-  boostTree operator() (std::string_view json_path) {
+
+  boostTree operator()(std::string_view json_path) {
     boostTree json_tree{};
     boost::property_tree::read_json(std::string{json_path}, json_tree);
     return json_tree;

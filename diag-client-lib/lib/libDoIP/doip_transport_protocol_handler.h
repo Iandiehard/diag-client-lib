@@ -26,20 +26,20 @@ namespace transportProtocolHandler {
  @ Class Description : This class must be instantiated by user for using the DoIP functionalities.  
                        This will inherit uds transport protocol handler                              
  */
-class DoipTransportProtocolHandler final : public ara::diag::uds_transport::UdsTransportProtocolHandler {
+class DoipTransportProtocolHandler final : public uds_transport::UdsTransportProtocolHandler {
 public:
   //ctor
-  DoipTransportProtocolHandler(const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
-                               ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
+  DoipTransportProtocolHandler(const uds_transport::UdsTransportProtocolHandlerID handler_id,
+                               uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
 
   //dtor
   ~DoipTransportProtocolHandler();
 
   // Return the UdsTransportProtocolHandlerID, which was given to the implementation during construction (ctor call).
-  ara::diag::uds_transport::UdsTransportProtocolHandlerID GetHandlerID() const override;
+  uds_transport::UdsTransportProtocolHandlerID GetHandlerID() const override;
 
   // Initializes handler
-  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize() override;
+  uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize() override;
 
   // Start processing the implemented Uds Transport Protocol
   void Start() override;
@@ -48,20 +48,20 @@ public:
   void Stop() override;
 
   // Get or Create Tcp connection
-  std::shared_ptr<ara::diag::connection::Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
+  std::shared_ptr<uds_transport::Connection> FindOrCreateTcpConnection(
+      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
       uint16_t port_num) override;
 
   // Get or Create Udp connection
-  std::shared_ptr<ara::diag::connection::Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
+  std::shared_ptr<uds_transport::Connection> FindOrCreateUdpConnection(
+      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
       uint16_t port_num) override;
 
 private:
   // store handle id
-  ara::diag::uds_transport::UdsTransportProtocolHandlerID handle_id_e;
+  uds_transport::UdsTransportProtocolHandlerID handle_id_e;
   // store the transport protocol manager
-  ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr_;
+  uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr_;
   // Create Doip Connection Manager
   std::unique_ptr<ara::diag::doip::connection::DoipConnectionManager> doip_connection_mgr_ptr;
 };

@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 
-#include "ara/diag/uds_transport/protocol_handler.h"
+#include "uds_transport/protocol_handler.h"
 
 namespace diag {
 namespace client {
@@ -23,7 +23,7 @@ namespace uds_transport {
  @ Class Description : This class must be instantiated by user for using the transport protocol functionalities.
                        This will inherit uds transport protocol handler
  */
-class UdsTransportProtocolManager : public ::ara::diag::uds_transport::UdsTransportProtocolMgr {
+class UdsTransportProtocolManager final : public ::uds_transport::UdsTransportProtocolMgr {
 public:
   //ctor
   UdsTransportProtocolManager();
@@ -41,9 +41,10 @@ public:
   void Shutdown() override;
 
   // store doip transport handler
-  std::unique_ptr<::ara::diag::uds_transport::UdsTransportProtocolHandler> doip_transport_handler;
+  std::unique_ptr<::uds_transport::UdsTransportProtocolHandler> doip_transport_handler;
+
   // handler id count
-  ::ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id_count = 0;
+  ::uds_transport::UdsTransportProtocolHandlerID handler_id_count = 0;
 };
 }  // namespace uds_transport
 }  // namespace client

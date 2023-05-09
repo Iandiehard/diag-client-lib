@@ -218,12 +218,12 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
     // copy to application buffer
     (void) std::copy(doip_payload.payload.begin() + 4u, doip_payload.payload.end(), payload_info.begin());
     // Indicate upper layer about incoming data
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-        ret_val{tcp_transport_handler_.IndicateMessage(
-            static_cast<ara::diag::uds_transport::UdsMessage::Address>(server_address),
-            static_cast<ara::diag::uds_transport::UdsMessage::Address>(client_address),
-            ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
-            static_cast<std::size_t>(doip_payload.payload.size() - 4U), 0U, "DoIPTcp", payload_info)};
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
+        tcp_transport_handler_.IndicateMessage(static_cast<uds_transport::UdsMessage::Address>(server_address),
+                                               static_cast<uds_transport::UdsMessage::Address>(client_address),
+                                               uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+                                               static_cast<std::size_t>(doip_payload.payload.size() - 4U), 0U,
+                                               "DoIPTcp", payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {
@@ -255,7 +255,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
 auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
-      ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
+      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   TcpMessagePtr doip_diag_req = std::make_unique<TcpMessage>();
   // reserve bytes in vector
   doip_diag_req->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());

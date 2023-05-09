@@ -14,19 +14,18 @@ namespace diag {
 namespace client {
 namespace vd_message {
 
-auto SerializeVehicleInfoList(std::uint8_t preselection_mode,
-                              ara::diag::uds_transport::ByteVector& preselection_value) noexcept
-    -> ara::diag::uds_transport::ByteVector {
+auto SerializeVehicleInfoList(std::uint8_t preselection_mode, uds_transport::ByteVector& preselection_value) noexcept
+    -> uds_transport::ByteVector {
   constexpr std::uint8_t VehicleIdentificationHandler{0U};
 
-  ara::diag::uds_transport::ByteVector payload{VehicleIdentificationHandler, preselection_mode};
+  uds_transport::ByteVector payload{VehicleIdentificationHandler, preselection_mode};
   payload.insert(payload.begin() + 2U, preselection_value.begin(), preselection_value.end());
   return payload;
 }
 
-VdMessage::VdMessage(std::uint8_t preselection_mode, ara::diag::uds_transport::ByteVector& preselection_value,
+VdMessage::VdMessage(std::uint8_t preselection_mode, uds_transport::ByteVector& preselection_value,
                      std::string_view host_ip_address)
-    : ara::diag::uds_transport::UdsMessage(),
+    : uds_transport::UdsMessage(),
       source_address_{0U},
       target_address_{0U},
       target_address_type{TargetAddressType::kPhysical},
@@ -34,7 +33,7 @@ VdMessage::VdMessage(std::uint8_t preselection_mode, ara::diag::uds_transport::B
       vehicle_info_payload_{SerializeVehicleInfoList(preselection_mode, preselection_value)} {}
 
 VdMessage::VdMessage() noexcept
-    : ara::diag::uds_transport::UdsMessage(),
+    : uds_transport::UdsMessage(),
       source_address_{0U},
       target_address_{0U},
       target_address_type{TargetAddressType::kPhysical} {}

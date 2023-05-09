@@ -5,14 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _PROTOCOL_MANAGER_H_
-#define _PROTOCOL_MANAGER_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_MANAGER_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 
 #include "uds_message.h"
 
-namespace ara {
-namespace diag {
 namespace uds_transport {
+
 class UdsTransportProtocolMgr {
 public:
   // Type of tuple to pack UdsTransportProtocolHandlerID and ChannelID together, to form a global
@@ -57,6 +56,4 @@ public:
   virtual void Shutdown() = 0;
 };
 }  // namespace uds_transport
-}  // namespace diag
-}  // namespace ara
-#endif  // _PROTOCOL_MANAGER_H_
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_MANAGER_H

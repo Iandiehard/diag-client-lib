@@ -13,12 +13,12 @@
 #include <mutex>
 #include <string_view>
 
-#include "ara/diag/uds_transport/connection.h"
-#include "ara/diag/uds_transport/conversion_handler.h"
-#include "ara/diag/uds_transport/protocol_types.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "uds_transport/connection.h"
+#include "uds_transport/conversion_handler.h"
+#include "uds_transport/protocol_types.h"
 
 namespace diag {
 namespace client {
@@ -34,7 +34,7 @@ public:
       std::pair<diag::client::DiagClient::VehicleResponseResult,
                 diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>;
 
-  using IndicationResult = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult;
+  using IndicationResult = ::uds_transport::UdsTransportProtocolMgr::IndicationResult;
 
 private:
   using PreselectionMode = std::uint8_t;
@@ -45,7 +45,7 @@ private:
 public:
   // ctor
   VdConversation(std::string_view conversion_name,
-                 ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier);
+                 ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier);
 
   // dtor
   ~VdConversation() = default;
@@ -57,7 +57,7 @@ public:
   void Shutdown();
 
   // Register Connection
-  void RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection);
+  void RegisterConnection(std::shared_ptr<::uds_transport::Connection> connection);
 
   // Send Vehicle Identification Request and get response
   VehicleIdentificationResponseResult SendVehicleIdentificationRequest(
@@ -67,18 +67,17 @@ public:
   vehicle_info::VehicleInfoMessageResponseUniquePtr GetDiagnosticServerList();
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<IndicationResult, ara::diag::uds_transport::UdsMessagePtr> IndicateMessage(
-      ara::diag::uds_transport::UdsMessage::Address source_addr,
-      ara::diag::uds_transport::UdsMessage::Address target_addr,
-      ara::diag::uds_transport::UdsMessage::TargetAddressType type, ara::diag::uds_transport::ChannelID channel_id,
-      std::size_t size, ara::diag::uds_transport::Priority priority,
-      ara::diag::uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo);
+  std::pair<IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo);
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);
+  void HandleMessage(::uds_transport::UdsMessagePtr message);
 
   // Get Conversation Handlers
-  std::shared_ptr<ara::diag::conversion::ConversionHandler> &GetConversationHandler();
+  std::shared_ptr<::uds_transport::ConversionHandler> &GetConversationHandler();
 
 private:
   // Function to verify Vehicle Info requests
@@ -86,13 +85,13 @@ private:
 
   // Function to deserialize the received Vehicle Identification Response/ Announcement
   static std::pair<std::uint16_t, VehicleAddrInfoResponseStruct> DeserializeVehicleInfoResponse(
-      ara::diag::uds_transport::UdsMessagePtr message);
+      ::uds_transport::UdsMessagePtr message);
 
   static std::pair<PreselectionMode, PreselectionValue> DeserializeVehicleInfoRequest(
       vehicle_info::VehicleInfoListRequestType &vehicle_info_request);
 
   // shared pointer to store the conversion handler
-  std::shared_ptr<ara::diag::conversion::ConversionHandler> vd_conversion_handler_;
+  std::shared_ptr<::uds_transport::ConversionHandler> vd_conversion_handler_;
 
   // conversation name
   std::string conversation_name_;
@@ -101,7 +100,7 @@ private:
   std::string broadcast_address_;
 
   // Tp connection
-  std::shared_ptr<ara::diag::connection::Connection> connection_ptr_;
+  std::shared_ptr<::uds_transport::Connection> connection_ptr_;
 
   // container to store the vehicle information
   std::map<std::uint16_t, VehicleAddrInfoResponseStruct> vehicle_info_collection_;
@@ -114,26 +113,24 @@ private:
  @ Class Name        : DmConversationHandler
  @ Class Description : Class to establish connection with Diagnostic Server
  */
-class VdConversationHandler : public ara::diag::conversion::ConversionHandler {
+class VdConversationHandler : public ::uds_transport::ConversionHandler {
 public:
   // ctor
-  VdConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id, VdConversation &dm_conversion);
+  VdConversationHandler(::uds_transport::conversion_manager::ConversionHandlerID handler_id,
+                        VdConversation &dm_conversion);
 
   // dtor
   ~VdConversationHandler() = default;
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo) override;
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo) override;
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
+  void HandleMessage(::uds_transport::UdsMessagePtr message) override;
 
 private:
   VdConversation &vd_conversation_;

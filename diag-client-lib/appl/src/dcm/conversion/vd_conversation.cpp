@@ -101,7 +101,7 @@ private:
 
 // Conversation class
 VdConversation::VdConversation(std::string_view conversion_name,
-                               ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier)
+                               uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier)
     : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
@@ -121,7 +121,7 @@ void VdConversation::Shutdown() {
   connection_ptr_->Stop();
 }
 
-void VdConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection) {
+void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) {
   connection_ptr_ = std::move(connection);
 }
 
@@ -136,8 +136,7 @@ VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleI
                                vehicle_info_request_deserialized_value.second.size())) {
     if (connection_ptr_->Transmit(std::move(std::make_unique<diag::client::vd_message::VdMessage>(
             vehicle_info_request_deserialized_value.first, vehicle_info_request_deserialized_value.second,
-            broadcast_address_))) !=
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+            broadcast_address_))) != uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Check if any response received
       if (vehicle_info_collection_.empty()) {
         // no response received
@@ -157,14 +156,11 @@ VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleI
 
 vehicle_info::VehicleInfoMessageResponseUniquePtr VdConversation::GetDiagnosticServerList() { return nullptr; }
 
-std::pair<VdConversation::IndicationResult, ara::diag::uds_transport::UdsMessagePtr> VdConversation::IndicateMessage(
-    ara::diag::uds_transport::UdsMessage::Address /* source_addr */,
-    ara::diag::uds_transport::UdsMessage::Address /* target_addr */,
-    ara::diag::uds_transport::UdsMessage::TargetAddressType /* type */, ara::diag::uds_transport::ChannelID channel_id,
-    std::size_t size, ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-    std::vector<uint8_t> payloadInfo) {
-  std::pair<IndicationResult, ara::diag::uds_transport::UdsMessagePtr> ret_val{IndicationResult::kIndicationNOk,
-                                                                               nullptr};
+std::pair<VdConversation::IndicationResult, uds_transport::UdsMessagePtr> VdConversation::IndicateMessage(
+    uds_transport::UdsMessage::Address /* source_addr */, uds_transport::UdsMessage::Address /* target_addr */,
+    uds_transport::UdsMessage::TargetAddressType /* type */, uds_transport::ChannelID channel_id, std::size_t size,
+    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo) {
+  std::pair<IndicationResult, uds_transport::UdsMessagePtr> ret_val{IndicationResult::kIndicationNOk, nullptr};
   if (!payloadInfo.empty()) {
     ret_val.first = IndicationResult::kIndicationOk;
     ret_val.second = std::move(std::make_unique<diag::client::vd_message::VdMessage>());
@@ -173,7 +169,7 @@ std::pair<VdConversation::IndicationResult, ara::diag::uds_transport::UdsMessage
   return ret_val;
 }
 
-void VdConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void VdConversation::HandleMessage(uds_transport::UdsMessagePtr message) {
   if (message != nullptr) {
     std::lock_guard<std::mutex> const lock{vehicle_info_container_mutex_};
     std::pair<std::uint16_t, VehicleAddrInfoResponseStruct> vehicle_info_request{
@@ -207,7 +203,7 @@ bool VdConversation::VerifyVehicleInfoRequest(PreselectionMode preselection_mode
 }
 
 std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConversation::DeserializeVehicleInfoResponse(
-    ara::diag::uds_transport::UdsMessagePtr message) {
+    uds_transport::UdsMessagePtr message) {
   constexpr std::uint8_t start_index_vin{0U};
   constexpr std::uint8_t total_vin_length{17U};
   constexpr std::uint8_t start_index_eid{19U};
@@ -231,7 +227,7 @@ std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConver
   return {logical_address, vehicle_addr_info};
 }
 
-std::shared_ptr<ara::diag::conversion::ConversionHandler> &VdConversation::GetConversationHandler() {
+std::shared_ptr<uds_transport::ConversionHandler> &VdConversation::GetConversationHandler() {
   return vd_conversion_handler_;
 }
 
@@ -256,24 +252,23 @@ VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListReque
   return ret_val;
 }
 
-VdConversationHandler::VdConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
+VdConversationHandler::VdConversationHandler(uds_transport::conversion_manager::ConversionHandlerID handler_id,
                                              VdConversation &vd_conversion)
-    : ara::diag::conversion::ConversionHandler{handler_id},
+    : uds_transport::ConversionHandler{handler_id},
       vd_conversation_{vd_conversion} {}
 
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-VdConversationHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                       ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                       ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                       ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                                       ara::diag::uds_transport::Priority priority,
-                                       ara::diag::uds_transport::ProtocolKind protocol_kind,
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+VdConversationHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                       uds_transport::UdsMessage::Address target_addr,
+                                       uds_transport::UdsMessage::TargetAddressType type,
+                                       uds_transport::ChannelID channel_id, std::size_t size,
+                                       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                        std::vector<uint8_t> payloadInfo) {
   return (vd_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                            payloadInfo));
 }
 
-void VdConversationHandler::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void VdConversationHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
   vd_conversation_.HandleMessage(std::move(message));
 }
 

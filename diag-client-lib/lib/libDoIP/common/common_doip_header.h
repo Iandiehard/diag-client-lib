@@ -16,9 +16,9 @@
 #include <utility>
 #include <vector>
 
-#include "ara/diag/uds_transport/connection.h"
-#include "ara/diag/uds_transport/conversion_handler.h"
-#include "ara/diag/uds_transport/protocol_handler.h"
 #include "common_Header.h"
+#include "uds_transport/connection.h"
+#include "uds_transport/conversion_handler.h"
+#include "uds_transport/protocol_handler.h"
 
 #endif  // COMMON_DOIP_HEADER_H

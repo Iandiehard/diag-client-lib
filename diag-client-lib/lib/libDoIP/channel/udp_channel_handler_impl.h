@@ -97,7 +97,7 @@ public:
   ~UdpChannelHandlerImpl() = default;
 
   // Function to trigger transmission
-  auto Transmit(ara::diag::uds_transport::UdsMessageConstPtr message) noexcept
+  auto Transmit(uds_transport::UdsMessageConstPtr message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   // process message unicast

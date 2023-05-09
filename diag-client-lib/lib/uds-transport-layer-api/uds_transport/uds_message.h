@@ -5,16 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef _UDS_MESSAGE_H_
-#define _UDS_MESSAGE_H_
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H
 
 #include <map>
 
 #include "protocol_types.h"
 
-namespace ara {
-namespace diag {
 namespace uds_transport {
+
 class UdsMessage {
 public:
   // type for UDS source and target addresses
@@ -71,7 +70,6 @@ public:
 using UdsMessageConstPtr = std::unique_ptr<const UdsMessage>;
 // This is the unique_ptr for UdsMessages
 using UdsMessagePtr = std::unique_ptr<UdsMessage>;
+
 }  // namespace uds_transport
-}  // namespace diag
-}  // namespace ara
-#endif  // _UDS_MESSAGE_H_
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H

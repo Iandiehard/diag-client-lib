@@ -9,9 +9,9 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H
 
 // includes
+#include <boost/asio.hpp>
 #include <string_view>
 #include <vector>
-#include <boost/asio.hpp>
 
 #include "tcp_types.h"
 
@@ -92,6 +92,6 @@ private:
 
 }  // namespace tcp
 }  // namespace socket
-}  // namespace boost-support
+}  // namespace boost_support
 
 #endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H

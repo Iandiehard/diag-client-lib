@@ -36,7 +36,7 @@ public:
   ~UdpTransportHandler();
 
   // Initialize
-  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
 
   // Start
   void Start();
@@ -45,22 +45,18 @@ public:
   void Stop();
 
   // Transmit
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      ara::diag::uds_transport::UdsMessageConstPtr message, ara::diag::uds_transport::ChannelID channel_id);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message,
+                                                                      uds_transport::ChannelID channel_id);
 
   // Indicate message Diagnostic message reception over UDP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo);
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
+      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
+      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
+      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo);
 
   // Hands over a valid received UDP message (currently this is only a request type) from transport
   // layer to session layer
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message);
+  void HandleMessage(uds_transport::UdsMessagePtr message);
 
 private:
   // reference to doip Connection

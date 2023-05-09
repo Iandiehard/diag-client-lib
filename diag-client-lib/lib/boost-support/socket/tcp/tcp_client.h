@@ -8,10 +8,11 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_CLIENT_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_CLIENT_H
 // includes
-#include <string>
-#include <thread>
-#include <string_view>
 #include <boost/asio.hpp>
+#include <string>
+#include <string_view>
+#include <thread>
+
 #include "tcp_types.h"
 
 namespace boost_support {

@@ -34,24 +34,23 @@ void UdpTransportHandler::Start() { udp_channel->Start(); }
 void UdpTransportHandler::Stop() { udp_channel->Stop(); }
 
 // Transmit
-ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpTransportHandler::Transmit(
-    ara::diag::uds_transport::UdsMessageConstPtr message, ara::diag::uds_transport::ChannelID channel_id) {
+uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpTransportHandler::Transmit(
+    uds_transport::UdsMessageConstPtr message, uds_transport::ChannelID channel_id) {
   return (udp_channel->Transmit(std::move(message)));
 }
 
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-UdpTransportHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                     ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                     ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                     ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                                     ara::diag::uds_transport::Priority priority,
-                                     ara::diag::uds_transport::ProtocolKind protocol_kind,
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+UdpTransportHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                     uds_transport::UdsMessage::Address target_addr,
+                                     uds_transport::UdsMessage::TargetAddressType type,
+                                     uds_transport::ChannelID channel_id, std::size_t size,
+                                     uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                      std::vector<uint8_t> payloadInfo) {
   return (doip_connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                            payloadInfo));
 }
 
-void UdpTransportHandler::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void UdpTransportHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
   doip_connection_.HandleMessage(std::move(message));
 }
 }  // namespace udpTransport

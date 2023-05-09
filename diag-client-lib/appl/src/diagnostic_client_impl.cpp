@@ -8,6 +8,7 @@
 #include "src/diagnostic_client_impl.h"
 
 #include <pthread.h>
+
 #include <memory>
 #include <string>
 
@@ -18,9 +19,7 @@
 namespace diag {
 namespace client {
 // ctor
-DiagClientImpl::DiagClientImpl(std::string_view dm_client_config)
-    : diag::client::DiagClient(),
-      dcm_instance_ptr{} {
+DiagClientImpl::DiagClientImpl(std::string_view dm_client_config) : diag::client::DiagClient(), dcm_instance_ptr{} {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient instance creation started"; });
   // start parsing the config json file

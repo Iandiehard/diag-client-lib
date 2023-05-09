@@ -52,7 +52,7 @@ public:
   ~tcpChannel();
 
   // Initialize
-  ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
+  uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
 
   //Start
   void Start();
@@ -64,18 +64,16 @@ public:
   bool IsConnectToHost();
 
   // Function to connect to host
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      ara::diag::uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(uds_transport::UdsMessageConstPtr message);
 
   // Function to disconnect from host
-  ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost();
+  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost();
 
   // Function to Hand over all the message received
   void HandleMessage(TcpMessagePtr tcp_rx_message);
 
   // Function to trigger transmission
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      ara::diag::uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
 
   // Function to get the channel context
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
@@ -88,12 +86,12 @@ public:
 
 private:
   // Function to handle the routing states
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult HandleRoutingActivationState(
-      ara::diag::uds_transport::UdsMessageConstPtr &message);
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult HandleRoutingActivationState(
+      uds_transport::UdsMessageConstPtr &message);
 
   // Function to handle the diagnostic request response state
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult HandleDiagnosticRequestState(
-      ara::diag::uds_transport::UdsMessageConstPtr &message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult HandleDiagnosticRequestState(
+      uds_transport::UdsMessageConstPtr &message);
 
 private:
   // tcp socket handler

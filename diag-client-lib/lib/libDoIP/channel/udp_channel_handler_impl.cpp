@@ -27,11 +27,10 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(DoipMessage &
   if (channel_.GetChannelState().GetVehicleIdentificationStateContext().GetActiveState().GetState() ==
       UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes) {
     // Deserialize data to indicate to upper layer
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-        ret_val{udp_transport_handler_.IndicateMessage(
-            static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
-            static_cast<ara::diag::uds_transport::UdsMessage::Address>(0U),
-            ara::diag::uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
+        udp_transport_handler_.IndicateMessage(
+            static_cast<uds_transport::UdsMessage::Address>(0U), static_cast<uds_transport::UdsMessage::Address>(0U),
+            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
             static_cast<std::size_t>(doip_payload.payload.size()), 0U, "DoIPUdp", doip_payload.payload)};
     if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
@@ -54,7 +53,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(uds_transport::Ud
   if (channel_.GetChannelState().GetVehicleIdentificationStateContext().GetActiveState().GetState() ==
       UdpVehicleIdentificationState::kViIdle) {
     if (HandleVehicleIdentificationRequest(std::move(message)) ==
-        ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+        uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
 
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(

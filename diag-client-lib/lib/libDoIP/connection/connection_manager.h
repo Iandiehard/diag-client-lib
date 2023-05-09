@@ -24,17 +24,18 @@ namespace udpTransport {
 class UdpTransportHandler;
 }
 
-using InitializationResult = ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult;
-
 namespace connection {
 /*
  @ Class Name        : DoipTcpConnection
  @ Class Description : Class to create connection to tcp handler
  */
-class DoipTcpConnection final : public ara::diag::connection::Connection {
+class DoipTcpConnection final : public uds_transport::Connection {
 public:
+  // type alias for initialization result
+  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
+
   // ctor
-  DoipTcpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversion,
+  DoipTcpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversion,
                     std::string_view tcp_ip_address, uint16_t port_num);
 
   // dtor
@@ -53,28 +54,25 @@ public:
   bool IsConnectToHost() override;
 
   // Connect to host using the ip address
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      ara::diag::uds_transport::UdsMessageConstPtr message) override;
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
+      uds_transport::UdsMessageConstPtr message) override;
 
   // Disconnect from Host Server
-  ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
+  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo) override;
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
+      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
+      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
+      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo) override;
 
   // Transmit tcp
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      ara::diag::uds_transport::UdsMessageConstPtr message) override;
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      uds_transport::UdsMessageConstPtr message) override;
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
+  void HandleMessage(uds_transport::UdsMessagePtr message) override;
 
 private:
   // Tcp Transport Handler
@@ -85,10 +83,13 @@ private:
  @ Class Name        : DoipUdpConnection
  @ Class Description : Class to create connection to udp handler
  */
-class DoipUdpConnection final : public ara::diag::connection::Connection {
+class DoipUdpConnection final : public uds_transport::Connection {
 public:
+  // type alias for initialization result
+  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
+
   // ctor
-  DoipUdpConnection(const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation,
+  DoipUdpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversation,
                     std::string_view udp_ip_address, uint16_t port_num);
 
   // dtor
@@ -107,28 +108,25 @@ public:
   bool IsConnectToHost() override;
 
   // Connect to host using the ip address
-  ara::diag::uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      ara::diag::uds_transport::UdsMessageConstPtr message) override;
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
+      uds_transport::UdsMessageConstPtr message) override;
 
   // Disconnect from Host Server
-  ara::diag::uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
+  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
 
   // Indicate message Diagnostic message reception over TCP to user
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-  IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                  ara::diag::uds_transport::UdsMessage::Address target_addr,
-                  ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                  ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                  ara::diag::uds_transport::Priority priority, ara::diag::uds_transport::ProtocolKind protocol_kind,
-                  std::vector<uint8_t> payloadInfo) override;
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
+      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
+      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
+      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo) override;
 
   // Transmit tcp
-  ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      ara::diag::uds_transport::UdsMessageConstPtr message) override;
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      uds_transport::UdsMessageConstPtr message) override;
 
   // Hands over a valid message to conversion
-  void HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) override;
+  void HandleMessage(uds_transport::UdsMessagePtr message) override;
 
 private:
   // Udp Transport Handler
@@ -149,12 +147,12 @@ public:
 
   // Function to create new connection to handle doip tcp request and response
   std::shared_ptr<DoipTcpConnection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
+      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
       uint16_t port_num);
 
   // Function to create new connection to handle doip udp request and response
   std::shared_ptr<DoipUdpConnection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
+      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
       uint16_t port_num);
 };
 }  // namespace connection

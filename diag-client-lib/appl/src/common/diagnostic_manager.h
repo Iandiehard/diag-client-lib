@@ -61,6 +61,7 @@ public:
   virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
                     diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
   SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
+
 private:
   // flag to terminate the main thread
   bool exit_requested_;

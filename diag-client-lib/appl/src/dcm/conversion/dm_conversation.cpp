@@ -17,7 +17,7 @@ namespace client {
 namespace conversation {
 //ctor
 DmConversation::DmConversation(std::string_view conversion_name,
-                               ara::diag::conversion_manager::ConversionIdentifierType &conversion_identifier)
+                               ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier)
     : diag::client::conversation::DiagClientConversation(),
       activity_status_{ActivityStatusType::kInactive},
       active_session_{SessionControlType::kDefaultSession},
@@ -68,7 +68,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
                                                                           IpAddress host_ip_addr) {
   // create an uds message just to get the port number
   // source address required for Routing Activation
-  ara::diag::uds_transport::ByteVector payload{};  // empty payload
+  uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
   DiagClientConversation::ConnectResult connection_result{static_cast<DiagClientConversation::ConnectResult>(
       connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
@@ -129,12 +129,12 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
       DiagClientConversation::DiagResult::kDiagGenericFailure, nullptr};
   if (message != nullptr) {
     // fill the data
-    ara::diag::uds_transport::ByteVector payload{message->GetPayload()};
+    uds_transport::ByteVector payload{message->GetPayload()};
     // Initiate Sending of diagnostic request
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult transmission_result{
+    uds_transport::UdsTransportProtocolMgr::TransmissionResult transmission_result{
         connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
             source_address_, target_address_, message->GetHostIpAddress(), payload)))};
-    if (transmission_result == ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+    if (transmission_result == uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
           __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
@@ -234,22 +234,19 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
 }
 
 // Function to add register Connection to conversion
-void DmConversation::RegisterConnection(std::shared_ptr<ara::diag::connection::Connection> connection) {
+void DmConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) {
   connection_ptr_ = std::move(connection);
 }
 
 // Indicate message Diagnostic message reception over TCP to user
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                                ara::diag::uds_transport::Priority priority,
-                                ara::diag::uds_transport::ProtocolKind protocol_kind,
-                                std::vector<uint8_t> payloadInfo) {
-  std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ara::diag::uds_transport::UdsMessagePtr>
-      ret_val{ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                uds_transport::UdsMessage::Address target_addr,
+                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
+                                std::size_t size, uds_transport::Priority priority,
+                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo) {
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
+      uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   // Verify the payload received :-
   if (!payloadInfo.empty()) {
     // Check for size, else kIndicationOverflow
@@ -262,7 +259,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
                   << "-> "
                   << "Diagnostic pending response received in Conversation";
             });
-        ret_val.first = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
+        ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdPendingRes);
       } else {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
@@ -274,7 +271,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
         // positive or negative response, provide valid buffer
         // resize the global rx buffer
         payload_rx_buffer.resize(size);
-        ret_val.first = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
+        ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
         ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
             source_address_, target_address_, "", payload_rx_buffer));
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
@@ -287,7 +284,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
                 << "-> "
                 << "Diagnostic Conversation Error Indication Overflow";
           });
-      ret_val.first = ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOverflow;
+      ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOverflow;
     }
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
@@ -301,7 +298,7 @@ DmConversation::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address so
 }
 
 // Hands over a valid message to conversion
-void DmConversation::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void DmConversation::HandleMessage(uds_transport::UdsMessagePtr message) {
   if (message != nullptr) {
     conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagSuccess);
   }
@@ -319,19 +316,19 @@ void DmConversation::WaitForResponse(std::function<void()> &&timeout_func, std::
 void DmConversation::WaitCancel() { sync_timer_.Stop(); }
 
 DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
-    ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type) {
+    uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type) {
   DiagClientConversation::DiagResult ret_result{DiagClientConversation::DiagResult::kDiagGenericFailure};
   switch (result_type) {
-    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed:
+    case uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed:
       ret_result = DiagClientConversation::DiagResult::kDiagRequestSendFailed;
       break;
-    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived:
+    case uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived:
       ret_result = DiagClientConversation::DiagResult::kDiagAckTimeout;
       break;
-    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived:
+    case uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived:
       ret_result = DiagClientConversation::DiagResult::kDiagNegAckReceived;
       break;
-    case ara::diag::uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing:
+    case uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing:
       ret_result = DiagClientConversation::DiagResult::kDiagBusyProcessing;
       break;
     default:
@@ -342,26 +339,25 @@ DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
 }
 
 // ctor
-DmConversationHandler::DmConversationHandler(ara::diag::conversion_manager::ConversionHandlerID handler_id,
+DmConversationHandler::DmConversationHandler(uds_transport::conversion_manager::ConversionHandlerID handler_id,
                                              DmConversation &dm_conversion)
-    : ara::diag::conversion::ConversionHandler{handler_id},
+    : uds_transport::ConversionHandler{handler_id},
       dm_conversation_e{dm_conversion} {}
 
 // Indicate message Diagnostic message reception over TCP to user
-std::pair<ara::diag::uds_transport::UdsTransportProtocolMgr::IndicationResult, ara::diag::uds_transport::UdsMessagePtr>
-DmConversationHandler::IndicateMessage(ara::diag::uds_transport::UdsMessage::Address source_addr,
-                                       ara::diag::uds_transport::UdsMessage::Address target_addr,
-                                       ara::diag::uds_transport::UdsMessage::TargetAddressType type,
-                                       ara::diag::uds_transport::ChannelID channel_id, std::size_t size,
-                                       ara::diag::uds_transport::Priority priority,
-                                       ara::diag::uds_transport::ProtocolKind protocol_kind,
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+DmConversationHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                       uds_transport::UdsMessage::Address target_addr,
+                                       uds_transport::UdsMessage::TargetAddressType type,
+                                       uds_transport::ChannelID channel_id, std::size_t size,
+                                       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                        std::vector<uint8_t> payloadInfo) {
   return (dm_conversation_e.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                             payloadInfo));
 }
 
 // Hands over a valid message to conversion
-void DmConversationHandler::HandleMessage(ara::diag::uds_transport::UdsMessagePtr message) {
+void DmConversationHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
   dm_conversation_e.HandleMessage(std::move(message));
 }
 }  // namespace conversation

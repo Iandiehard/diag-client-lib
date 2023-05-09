@@ -23,9 +23,9 @@ namespace transportProtocolHandler {
  */
 //ctor
 DoipTransportProtocolHandler::DoipTransportProtocolHandler(
-    const ara::diag::uds_transport::UdsTransportProtocolHandlerID handler_id,
-    ara::diag::uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
-    : ara::diag::uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
+    const uds_transport::UdsTransportProtocolHandlerID handler_id,
+    uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr)
+    : uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
       handle_id_e{handler_id},
       transport_protocol_mgr_{transport_protocol_mgr},
       doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {}
@@ -35,13 +35,11 @@ DoipTransportProtocolHandler::~DoipTransportProtocolHandler() {}
 
 // Return the UdsTransportProtocolHandlerID, which was given to the implementation during
 // construction (ctor call)
-ara::diag::uds_transport::UdsTransportProtocolHandlerID DoipTransportProtocolHandler::GetHandlerID() const {
-  return handle_id_e;
-}
+uds_transport::UdsTransportProtocolHandlerID DoipTransportProtocolHandler::GetHandlerID() const { return handle_id_e; }
 
 // Initializes handler
-ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult DoipTransportProtocolHandler::Initialize() {
-  return (ara::diag::uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
+uds_transport::UdsTransportProtocolHandler::InitializationResult DoipTransportProtocolHandler::Initialize() {
+  return (uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
 }
 
 // Start processing the implemented Uds Transport Protocol & Tcp Transport Protocol
@@ -51,8 +49,8 @@ void DoipTransportProtocolHandler::Start() {}
 void DoipTransportProtocolHandler::Stop() {}
 
 // Get or Create connection
-std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateTcpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view tcp_ip_address,
+std::shared_ptr<uds_transport::Connection> DoipTransportProtocolHandler::FindOrCreateTcpConnection(
+    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
     uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
@@ -62,8 +60,8 @@ std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler:
   return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
 }
 
-std::shared_ptr<ara::diag::connection::Connection> DoipTransportProtocolHandler::FindOrCreateUdpConnection(
-    const std::shared_ptr<ara::diag::conversion::ConversionHandler> &conversation, std::string_view udp_ip_address,
+std::shared_ptr<uds_transport::Connection> DoipTransportProtocolHandler::FindOrCreateUdpConnection(
+    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
     uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
