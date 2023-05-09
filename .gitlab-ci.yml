@@ -46,7 +46,7 @@ component-test-job:
     - echo "Set-up the network..."
     - sh .devcontainer/post_start.sh
     - echo "Configure CMake..."
-    - cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DCMAKE_INSTALL_PREFIX:PATH=build/install
+    - cmake -B build -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_WITH_DLT:BOOL=ON -DBUILD_WITH_TEST:BOOL=ON -DBUILD_DOXYGEN:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DCMAKE_INSTALL_PREFIX:PATH=build/install
     - echo "Start Building..."
     - cmake --build build --config $BUILD_TYPE
     - echo "Running unit tests..."
