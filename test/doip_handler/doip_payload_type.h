@@ -44,7 +44,7 @@ public:
   rx_socket_type rx_socket{rx_socket_type::kUnicast};
   // remote ip address;
   IpAddressType host_ip_address;
-  // remote port 
+  // remote port
   std::uint16_t port_num;
   // doip protocol version
   std::uint8_t protocol_version{};

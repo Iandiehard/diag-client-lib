@@ -33,7 +33,7 @@ protected:
       : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
         doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
     // Initialize logger
-    ara::diag::doip::logger::LibGtestLogger::GetLibGtestLogger();
+    doip_handler::logger::LibGtestLogger::GetLibGtestLogger();
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
     // Initialize diag client library
@@ -56,14 +56,14 @@ protected:
   auto GetDiagClientRef() noexcept -> diag::client::DiagClient& { return *diag_client_; }
 
   // Function to get Doip Test Handler reference
-  auto GetDoipTestUdpHandlerRef() noexcept -> ara::diag::doip::DoipUdpHandler& { return doip_udp_handler_; }
+  auto GetDoipTestUdpHandlerRef() noexcept -> doip_handler::DoipUdpHandler& { return doip_udp_handler_; }
 
 private:
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;
 
   // doip test handler
-  ara::diag::doip::DoipUdpHandler doip_udp_handler_;
+  doip_handler::DoipUdpHandler doip_udp_handler_;
 };
 
 }  // namespace doip_client

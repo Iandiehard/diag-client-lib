@@ -8,9 +8,7 @@
 
 #include "doip_handler/udp_socket_handler.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 namespace udpSocket {
 
 DoipUdpSocketHandler::DoipUdpSocketHandler(kDoip_String &local_ip_address, uint16_t port_num, PortType port_type,
@@ -43,6 +41,4 @@ bool DoipUdpSocketHandler::Transmit(UdpMessageConstPtr udpTxMessage) {
 }
 
 }  // namespace udpSocket
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler

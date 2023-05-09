@@ -9,16 +9,15 @@
 #ifndef DIAG_CLIENT_TCP_SOCKET_HANDLER_H
 #define DIAG_CLIENT_TCP_SOCKET_HANDLER_H
 
-#include <string_view>
-#include <string>
-#include <vector>
 #include <memory>
+#include <string>
+#include <string_view>
 #include <thread>
+#include <vector>
+
 #include "socket/tcp/tcp_server.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 namespace tcpSocket {
 
 using TcpMessage = boost_support::socket::tcp::TcpMessageType;
@@ -46,6 +45,7 @@ public:
     // function to trigger transmission
     // true on success else false
     bool Transmit(TcpMessageConstPtr tcp_tx_message);
+
   private:
     // read handler
     TcpHandlerRead tcp_handler_read_;
@@ -68,6 +68,7 @@ public:
     // locking critical section
     std::mutex mutex_;
   };
+
 public:
   // ctor
   DoipTcpSocketHandler(std::string_view local_ip_address, uint16_t port_num);
@@ -76,7 +77,8 @@ public:
   ~DoipTcpSocketHandler() = default;
 
   // function to create tcp connection
-  std::unique_ptr<TcpConnectionHandler> CreateTcpConnection(TcpHandlerRead && tcp_handler_read);
+  std::unique_ptr<TcpConnectionHandler> CreateTcpConnection(TcpHandlerRead &&tcp_handler_read);
+
 private:
   // local Ip address
   std::string local_ip_address_;
@@ -89,8 +91,6 @@ private:
 };
 
 }  // namespace tcpSocket
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler
 
 #endif  //DIAG_CLIENT_TCP_SOCKET_HANDLER_H

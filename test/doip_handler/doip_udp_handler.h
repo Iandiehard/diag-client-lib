@@ -13,9 +13,7 @@
 #include "doip_handler/doip_payload_type.h"
 #include "doip_handler/udp_socket_handler.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 
 // typedef
 using ip_address = std::string;
@@ -51,6 +49,7 @@ public:
 
   // function to set the expectation of EID on the request received
   auto VerifyVehicleIdentificationRequestWithExpectedEID(std::string_view eid) noexcept -> bool;
+
 private:
   // udp socket handler unicast
   udpSocket::DoipUdpSocketHandler udp_socket_handler_unicast_;
@@ -97,8 +96,6 @@ private:
   void Transmit();
 };
 
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler
 
 #endif  //DIAG_CLIENT_DOIP_UDP_HANDLER_H

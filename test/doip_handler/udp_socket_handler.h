@@ -15,9 +15,7 @@
 
 #include "socket/udp/udp_client.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 namespace udpSocket {
 
 // typedefs
@@ -73,8 +71,6 @@ private:
 };
 
 }  // namespace udpSocket
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler
 
 #endif  // DIAG_CLIENT_UDP_SOCKET_HANDLER_H

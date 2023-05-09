@@ -6,17 +6,17 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-#include <utility>
-#include <algorithm>
 #include "doip_handler/doip_udp_handler.h"
+
+#include <algorithm>
+#include <utility>
+
 #include "doip_handler/common_doip_types.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 
 std::string ConvertToHexString(std::uint8_t char_start, std::uint8_t char_count,
-                               std::vector<std::uint8_t> &input_buffer) {
+                               std::vector<std::uint8_t>& input_buffer) {
   std::string hex_string{};
   std::uint8_t total_char_count{static_cast<uint8_t>(char_start + char_count)};
 
@@ -35,7 +35,7 @@ std::string ConvertToHexString(std::uint8_t char_start, std::uint8_t char_count,
 }
 
 std::string ConvertToAsciiString(std::uint8_t char_start, std::uint8_t char_count,
-                                 std::vector<std::uint8_t> &input_buffer) {
+                                 std::vector<std::uint8_t>& input_buffer) {
   std::string ascii_string{};
   std::uint8_t total_char_count{static_cast<uint8_t>(char_start + char_count)};
 
@@ -47,10 +47,10 @@ std::string ConvertToAsciiString(std::uint8_t char_start, std::uint8_t char_coun
   return ascii_string;
 }
 
-void SerializeEIDGIDFromString(std::string& input_string, std::vector<uint8_t>& output_buffer,
-                                std::uint8_t total_size, std::uint8_t substring_range) {
-  
-  for (auto char_count = 0U; char_count < total_size ; char_count+=substring_range) {
+void SerializeEIDGIDFromString(std::string& input_string, std::vector<uint8_t>& output_buffer, std::uint8_t total_size,
+                               std::uint8_t substring_range) {
+
+  for (auto char_count = 0U; char_count < total_size; char_count += substring_range) {
     std::string input_string_new{input_string.substr(char_count, static_cast<std::uint8_t>(substring_range))};
     std::stringstream input_string_stream{input_string_new};
     int get_byte;
@@ -59,10 +59,10 @@ void SerializeEIDGIDFromString(std::string& input_string, std::vector<uint8_t>& 
   }
 }
 
-void SerializeVINFromString(std::string& input_string, std::vector<uint8_t>& output_buffer,
-                                std::uint8_t total_size, std::uint8_t substring_range) {
+void SerializeVINFromString(std::string& input_string, std::vector<uint8_t>& output_buffer, std::uint8_t total_size,
+                            std::uint8_t substring_range) {
 
-  for (auto char_count = 0U; char_count < total_size ; char_count+=substring_range) {
+  for (auto char_count = 0U; char_count < total_size; char_count += substring_range) {
     std::string input_string_new{input_string.substr(char_count, static_cast<std::uint8_t>(substring_range))};
     std::stringstream input_string_stream{input_string_new};
     int get_byte{input_string_stream.get()};
@@ -120,7 +120,8 @@ void DoipUdpHandler::ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message) {
 
   if (received_doip_message_.payload_length > 0U) {
     received_doip_message_.payload.insert(received_doip_message_.payload.begin(),
-                                          udp_rx_message->rx_buffer_.begin() + kDoipheadrSize, udp_rx_message->rx_buffer_.end());
+                                          udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
+                                          udp_rx_message->rx_buffer_.end());
   }
   // Trigger async transmission
   running_ = true;
@@ -134,7 +135,8 @@ auto DoipUdpHandler::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -
 auto DoipUdpHandler::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
   return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24U) & 0xFF000000) |
           (uint32_t) ((payload[BYTE_POS_FIVE] << 16U) & 0x00FF0000) |
-          (uint32_t) ((payload[BYTE_POS_SIX] << 8U) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
+          (uint32_t) ((payload[BYTE_POS_SIX] << 8U) & 0x0000FF00) |
+          (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
 }
 
 void DoipUdpHandler::SetExpectedVehicleIdentificationResponseToBeSent(DoipUdpHandler::VehicleAddrInfo& vehicle_info) {
@@ -144,19 +146,17 @@ void DoipUdpHandler::SetExpectedVehicleIdentificationResponseToBeSent(DoipUdpHan
   expected_vehicle_info_ = create_info;
 }
 
-auto DoipUdpHandler::VerifyVehicleIdentificationRequestWithExpectedVIN(std::string_view vin) noexcept
-    -> bool {
+auto DoipUdpHandler::VerifyVehicleIdentificationRequestWithExpectedVIN(std::string_view vin) noexcept -> bool {
   constexpr std::uint8_t start_index_vin{0U};
-  std::string vehicle_info_data_vin{ConvertToAsciiString(start_index_vin,
-                                                         received_doip_message_.payload.size(), received_doip_message_.payload)};
+  std::string vehicle_info_data_vin{
+      ConvertToAsciiString(start_index_vin, received_doip_message_.payload.size(), received_doip_message_.payload)};
   return (vehicle_info_data_vin == vin);
 }
 
-auto DoipUdpHandler::VerifyVehicleIdentificationRequestWithExpectedEID(std::string_view eid) noexcept
-    -> bool {
+auto DoipUdpHandler::VerifyVehicleIdentificationRequestWithExpectedEID(std::string_view eid) noexcept -> bool {
   constexpr std::uint8_t start_index_eid{0U};
-  std::string vehicle_info_data_vin{ConvertToHexString(start_index_eid,
-                                                         received_doip_message_.payload.size(), received_doip_message_.payload)};
+  std::string vehicle_info_data_vin{
+      ConvertToHexString(start_index_eid, received_doip_message_.payload.size(), received_doip_message_.payload)};
   return (vehicle_info_data_vin == eid);
 }
 
@@ -167,17 +167,17 @@ void DoipUdpHandler::Transmit() {
   CreateDoipGenericHeader(vehicle_identification_response->tx_buffer_, kDoip_VehicleAnnouncement_ResType,
                           kDoip_VehicleAnnouncement_ResMaxLen);
   // vin
-  SerializeVINFromString(expected_vehicle_info_.vin,
-                             vehicle_identification_response->tx_buffer_, expected_vehicle_info_.vin.length(), 1U);
+  SerializeVINFromString(expected_vehicle_info_.vin, vehicle_identification_response->tx_buffer_,
+                         expected_vehicle_info_.vin.length(), 1U);
   // logical address
   vehicle_identification_response->tx_buffer_.emplace_back(expected_vehicle_info_.logical_address >> 8U);
   vehicle_identification_response->tx_buffer_.emplace_back(expected_vehicle_info_.logical_address & 0xFFU);
   // eid
-  SerializeEIDGIDFromString(expected_vehicle_info_.eid,
-                             vehicle_identification_response->tx_buffer_, expected_vehicle_info_.eid.length(), 2U);
+  SerializeEIDGIDFromString(expected_vehicle_info_.eid, vehicle_identification_response->tx_buffer_,
+                            expected_vehicle_info_.eid.length(), 2U);
   // gid
-  SerializeEIDGIDFromString(expected_vehicle_info_.gid,
-                             vehicle_identification_response->tx_buffer_, expected_vehicle_info_.eid.length(), 2U);
+  SerializeEIDGIDFromString(expected_vehicle_info_.gid, vehicle_identification_response->tx_buffer_,
+                            expected_vehicle_info_.eid.length(), 2U);
   // set remote ip
   vehicle_identification_response->host_ip_address_ = received_doip_message_.host_ip_address;
   // set remote port
@@ -185,7 +185,7 @@ void DoipUdpHandler::Transmit() {
 
   //  set further action required
   vehicle_identification_response->tx_buffer_.emplace_back(0U);
-  
+
   if (udp_socket_handler_unicast_.Transmit(std::move(vehicle_identification_response))) { running_ = false; }
 }
 
@@ -201,6 +201,4 @@ void DoipUdpHandler::CreateDoipGenericHeader(std::vector<uint8_t>& doipHeader, s
   doipHeader.push_back((uint8_t) (payload_len & 0x000000FF));
 }
 
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler

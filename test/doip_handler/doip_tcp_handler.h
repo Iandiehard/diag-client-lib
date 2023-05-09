@@ -9,17 +9,16 @@
 #ifndef DIAG_CLIENT_DOIP_TCP_HANDLER_H
 #define DIAG_CLIENT_DOIP_TCP_HANDLER_H
 
-#include <string_view>
-#include <memory>
-#include <map>
-#include <queue>
 #include <functional>
-#include "doip_handler/tcp_socket_handler.h"
-#include "doip_handler/doip_payload_type.h"
+#include <map>
+#include <memory>
+#include <queue>
+#include <string_view>
 
-namespace ara {
-namespace diag {
-namespace doip {
+#include "doip_handler/doip_payload_type.h"
+#include "doip_handler/tcp_socket_handler.h"
+
+namespace doip_handler {
 
 using TcpMessage = tcpSocket::TcpMessage;
 using TcpMessagePtr = tcpSocket::TcpMessagePtr;
@@ -29,11 +28,11 @@ class DoipTcpHandler {
 public:
   using TcpConnectionHandler = tcpSocket::DoipTcpSocketHandler::TcpConnectionHandler;
   using DoipChannelReadCallback = tcpSocket::DoipTcpSocketHandler::TcpHandlerRead;
+
   // Class maintaining the doip channel
-  class DoipChannel{
+  class DoipChannel {
   public:
-    DoipChannel(std::uint16_t logical_address,
-                tcpSocket::DoipTcpSocketHandler &tcp_socket_handler);
+    DoipChannel(std::uint16_t logical_address, tcpSocket::DoipTcpSocketHandler &tcp_socket_handler);
 
     ~DoipChannel();
 
@@ -51,6 +50,7 @@ public:
 
     // Set expected Diagnostic Uds Message
     void SetExpectedDiagnosticMessageUdsMessageToBeSend(std::vector<std::uint8_t> payload);
+
   private:
     // Store the logical address
     std::uint16_t logical_address_;
@@ -90,6 +90,7 @@ public:
 
     // Diag message uds payload
     std::vector<std::uint8_t> uds_response_payload_;
+
   private:
     // Function invoked during reception
     void HandleMessage(TcpMessagePtr tcp_rx_message);
@@ -116,6 +117,7 @@ public:
     // Function to trigger transmission of diag uds message
     void SendDiagnosticMessageResponse();
   };
+
 public:
   // ctor
   DoipTcpHandler(std::string_view local_tcp_address, std::uint16_t tcp_port_num);
@@ -124,7 +126,8 @@ public:
   ~DoipTcpHandler();
 
   // Function to create doip channel
-  DoipChannel& CreateDoipChannel(std::uint16_t logical_address);
+  DoipChannel &CreateDoipChannel(std::uint16_t logical_address);
+
 private:
   // tcp socket handler
   std::unique_ptr<tcpSocket::DoipTcpSocketHandler> tcp_socket_handler_;
@@ -133,8 +136,6 @@ private:
   std::map<std::uint16_t, std::unique_ptr<DoipChannel>> doip_channel_list_;
 };
 
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace doip_handler
 
 #endif  //DIAG_CLIENT_DOIP_TCP_HANDLER_H

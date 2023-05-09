@@ -10,9 +10,7 @@
 
 #include "utility/logger.h"
 
-namespace ara {
-namespace diag {
-namespace doip {
+namespace doip_handler {
 namespace logger {
 using Logger = utility::logger::Logger;
 
@@ -31,8 +29,6 @@ private:
   // actual logger context
   Logger logger_{"CTST", "gtst"};
 };
-}  // logger
-}  // namespace doip
-}  // namespace diag
-}  // namespace ara
+}  // namespace logger
+}  // namespace doip_handler
 #endif  // DIAG_CLIENT_LOGGER_H

@@ -15,16 +15,15 @@
 namespace doip_client {
 
 TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
-  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U,
-                                                                         "ABCDEFGH123456789",
-                                                                         "00:02:36:31:00:1c",
-                                                                         "0a:0b:0c:0d:0e:0f"};
+  doip_handler::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U, "ABCDEFGH123456789", "00:02:36:31:00:1c",
+                                                                      "0a:0b:0c:0d:0e:0f"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
 
   // Send Vehicle Identification request and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request with no payload
@@ -47,16 +46,15 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
 }
 
 TEST_F(DoipClientFixture, VerifyPreselectionModeVin) {
-  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U,
-                                                                         "ABCDEFGH123456789",
-                                                                         "00:02:36:31:00:1c",
-                                                                         "0a:0b:0c:0d:0e:0f"};
+  doip_handler::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U, "ABCDEFGH123456789", "00:02:36:31:00:1c",
+                                                                      "0a:0b:0c:0d:0e:0f"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
 
   // Send Vehicle Identification request with VIN and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
@@ -80,16 +78,15 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeVin) {
 }
 
 TEST_F(DoipClientFixture, VerifyPreselectionModeEID) {
-  ara::diag::doip::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U,
-                                                                         "ABCDEFGH123456789",
-                                                                         "00:02:36:31:00:1c",
-                                                                         "0a:0b:0c:0d:0e:0f"};
+  doip_handler::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U, "ABCDEFGH123456789", "00:02:36:31:00:1c",
+                                                                      "0a:0b:0c:0d:0e:0f"};
   // Create an expected vehicle identification response
   GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
 
   // Send Vehicle Identification request with EID and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{2U, "00:02:36:31:00:1c"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult, diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  std::pair<diag::client::DiagClient::VehicleResponseResult,
+            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
