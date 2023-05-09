@@ -12,10 +12,10 @@ project(diag-client)
 
 # Cmake options
 option(BUILD_SHARED_LIBS "Build shared library" OFF)
-option(INSTALL_EXAMPLES "Install Example App" OFF)
-option(BUILD_WITH_DLT "Option to use Dlt for logging" ON)
-option(BUILD_DOXYGEN "Option to generate doxygen file" ON)
-option(BUILD_WITH_TEST "Option to build test target" ON)
+option(BUILD_WITH_DLT "Option to use Dlt for logging" OFF)
+option(BUILD_DOXYGEN "Option to generate doxygen file" OFF)
+option(BUILD_WITH_TEST "Option to build test target" OFF)
+option(BUILD_EXAMPLES "BUILD Example App" OFF)
 
 # add compiler preprocessor flag when dlt enabled
 if (BUILD_WITH_DLT)
@@ -26,12 +26,17 @@ endif (BUILD_WITH_DLT)
 # Build diag-client library
 add_subdirectory(diag-client-lib)
 
+# Build diag-client doxygen documentation
+if (BUILD_DOXYGEN)
+    add_subdirectory(docs)
+endif (BUILD_DOXYGEN)
+
 # Build diag-client test targets
 if (BUILD_WITH_TEST)
     add_subdirectory(test)
 endif (BUILD_WITH_TEST)
 
-# Build diag-client doxygen documentation
-if (BUILD_DOXYGEN)
-    add_subdirectory(docs)
-endif (BUILD_DOXYGEN)
+# Build diag-client example targets
+if (BUILD_EXAMPLES)
+    add_subdirectory(examples)
+endif (BUILD_EXAMPLES)

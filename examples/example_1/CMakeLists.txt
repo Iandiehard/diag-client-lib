@@ -22,7 +22,7 @@ add_executable(${PROJECT_NAME}
 set(diag_client_header_path ${CMAKE_CURRENT_SOURCE_DIR}/../diag_client_lib/build-bin/diag-client/lib/include)
 
 # Src headers
-set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(src_header_path src)
 
 
 target_include_directories(${PROJECT_NAME} PRIVATE

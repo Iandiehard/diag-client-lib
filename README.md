@@ -68,7 +68,7 @@ std::unique_ptr<diag::client::DiagClient> diagclient =
 
 Multiple tester instance can be created using Diagnostic Client Library main instance.
 
-Check the example application [Examples](diag-client-lib/examples/) on how Diagnostic Client Library should be linked and used.
+Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
 
 ## Requirements
 Component requirements already implemented are documented [REQ](docs/spec/requirement/requirements.md)

@@ -33,11 +33,3 @@ install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
         )
-
-# install example directory
-if (INSTALL_EXAMPLES)
-    install(DIRECTORY
-            ${CMAKE_CURRENT_SOURCE_DIR}/examples
-            DESTINATION examples
-            )
-endif (INSTALL_EXAMPLES)

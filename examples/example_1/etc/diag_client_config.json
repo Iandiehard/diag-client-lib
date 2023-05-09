@@ -1,44 +1,32 @@
 {
+  "UdpIpAddress": "172.16.25.127",
+  "UdpBroadcastAddress": "172.16.255.255",
   "Conversation": {
     "NumberOfConversation": 2,
     "ConversationProperty": [
       {
         "p2ClientMax": 1000,
         "p2StarClientMax": 5000,
-        "TxBufferSize": 4095,
         "RxBufferSize": 4095,
         "SourceAddress": 1,
-        "TargetAddress": 1234,
         "TargetAddressType": "Physical",
         "Network": {
           "ProtocolKind": "DoIP",
-          "TcpIpAddress": "192.168.0.1",
-          "UdpIpAddress": "192.168.0.1",
-          "UdpBroadcastAddress": "255.255.255.255",
-          "TLS": false,
-          "Port": 13400,
-          "EID": "",
-          "VIN": ""
+          "TcpIpAddress": "172.16.25.127",
+          "TLS": false
         },
         "ConversationName": "DiagTesterOne"
       },
       {
         "p2ClientMax": 2000,
         "p2StarClientMax": 5000,
-        "TxBufferSize": 4095,
         "RxBufferSize": 4095,
         "SourceAddress": 2,
-        "TargetAddress": 1235,
         "TargetAddressType": "Functional",
         "Network": {
           "ProtocolKind": "DoIP",
-          "TcpIpAddress": "127.0.0.1",
-          "UdpIpAddress": "127.0.0.1",
-          "UdpBroadcastAddress": "255.255.255.255",
-          "TLS": false,
-          "Port": 13400,
-          "EID": "",
-          "VIN": ""
+          "TcpIpAddress": "172.16.25.127",
+          "TLS": false
         },
         "ConversationName": "DiagTesterTwo"
       }
