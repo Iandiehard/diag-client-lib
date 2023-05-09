@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef UDP_H
-#define UDP_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
 // includes
 #include <string>
 #include <string_view>
@@ -15,8 +15,8 @@
 
 #include "udp_types.h"
 
-namespace libBoost {
-namespace libSocket {
+namespace boost_support {
+namespace socket {
 namespace udp {
 using UdpSocket = boost::asio::ip::udp;
 using UdpIpAddress = boost::asio::ip::address;
@@ -84,6 +84,6 @@ private:
   void HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd);
 };
 }  // namespace udp
-}  // namespace libSocket
-}  // namespace libBoost
-#endif  // UDP_H
+}  // namespace socket
+}  // namespace boost_support
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H

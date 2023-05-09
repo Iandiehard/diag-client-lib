@@ -14,22 +14,22 @@
 #include <vector>
 #include <memory>
 #include <thread>
-#include "libSocket/tcp/tcp_server.h"
+#include "socket/tcp/tcp_server.h"
 
 namespace ara {
 namespace diag {
 namespace doip {
 namespace tcpSocket {
 
-using TcpMessage = libBoost::libSocket::tcp::TcpMessageType;
-using TcpMessagePtr = libBoost::libSocket::tcp::TcpMessagePtr;
-using TcpMessageConstPtr = libBoost::libSocket::tcp::TcpMessageConstPtr;
+using TcpMessage = boost_support::socket::tcp::TcpMessageType;
+using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
+using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 
 class DoipTcpSocketHandler {
 public:
-  using TcpSocket = libBoost::libSocket::tcp::CreateTcpServerSocket;
-  using TcpConnection = libBoost::libSocket::tcp::CreateTcpServerSocket::TcpServerConnection;
-  using TcpHandlerRead = libBoost::libSocket::tcp::CreateTcpServerSocket::TcpHandlerRead;
+  using TcpSocket = boost_support::socket::tcp::CreateTcpServerSocket;
+  using TcpConnection = boost_support::socket::tcp::CreateTcpServerSocket::TcpServerConnection;
+  using TcpHandlerRead = boost_support::socket::tcp::CreateTcpServerSocket::TcpHandlerRead;
 
   class TcpConnectionHandler {
   public:

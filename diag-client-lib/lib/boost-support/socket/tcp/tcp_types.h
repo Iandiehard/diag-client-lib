@@ -5,14 +5,14 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#ifndef TCP_TYPES_H
-#define TCP_TYPES_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H
 
 #include <memory>
 #include <vector>
 
-namespace libBoost {
-namespace libSocket {
+namespace boost_support {
+namespace socket {
 namespace tcp {
 // tcp message type
 class TcpMessageType {
@@ -69,6 +69,6 @@ using TcpMessagePtr = std::unique_ptr<TcpMessageType>;
 // Doip HeaderSize
 constexpr uint8_t kDoipheadrSize = 8U;
 }  // namespace tcp
-}  // namespace libSocket
-}  // namespace libBoost
-#endif  // TCP_TYPES_H
+}  // namespace socket
+}  // namespace boost_support
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H

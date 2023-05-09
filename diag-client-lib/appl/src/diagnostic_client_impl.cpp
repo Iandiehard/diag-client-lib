@@ -24,7 +24,7 @@ DiagClientImpl::DiagClientImpl(std::string_view dm_client_config)
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient instance creation started"; });
   // start parsing the config json file
-  libBoost::jsonparser::boostTree ptree{libBoost::jsonparser::JsonParser{}.operator()(dm_client_config)};
+  boost_support::parser::boostTree ptree{boost_support::parser::JsonParser{}.operator()(dm_client_config)};
   // create single dcm instance and pass the config tree
   dcm_instance_ptr = std::make_unique<diag::client::dcm::DCMClient>(ptree);
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(

@@ -24,10 +24,10 @@ class UdpChannel;
 
 namespace udpSocket {
 // typedefs
-using UdpSocket = libBoost::libSocket::udp::createUdpClientSocket;
-using UdpMessage = libBoost::libSocket::udp::UdpMessageType;
-using UdpMessagePtr = libBoost::libSocket::udp::UdpMessagePtr;
-using UdpMessageConstPtr = libBoost::libSocket::udp::UdpMessageConstPtr;
+using UdpSocket = boost_support::socket::udp::createUdpClientSocket;
+using UdpMessage = boost_support::socket::udp::UdpMessageType;
+using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
+using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
 
 /*
  @ Class Name        : UdpSocketHandler
@@ -37,7 +37,7 @@ using UdpMessageConstPtr = libBoost::libSocket::udp::UdpMessageConstPtr;
 class UdpSocketHandler {
 public:
   // Port Type
-  using PortType = libBoost::libSocket::udp::createUdpClientSocket::PortType;
+  using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
 
 public:
   //ctor

@@ -13,7 +13,7 @@
 #include <functional>
 #include <string>
 
-#include "libSocket/udp/udp_client.h"
+#include "socket/udp/udp_client.h"
 
 namespace ara {
 namespace diag {
@@ -21,22 +21,22 @@ namespace doip {
 namespace udpSocket {
 
 // typedefs
-using UdpSocket = libBoost::libSocket::udp::createUdpClientSocket;
-using UdpMessage = libBoost::libSocket::udp::UdpMessageType;
-using UdpMessagePtr = libBoost::libSocket::udp::UdpMessagePtr;
-using UdpMessageConstPtr = libBoost::libSocket::udp::UdpMessageConstPtr;
+using UdpSocket = boost_support::socket::udp::createUdpClientSocket;
+using UdpMessage = boost_support::socket::udp::UdpMessageType;
+using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
+using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
 using kDoip_String = std::string;
 using UdpMessageFunctor = std::function<void(UdpMessagePtr)>;
 
 /*
- @ Class Name        : UdpSocketHandler
+ @ Class Name        : DoipUdpSocketHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver
  */
 class DoipUdpSocketHandler {
 public:
   // Port Type
-  using PortType = libBoost::libSocket::udp::createUdpClientSocket::PortType;
+  using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
 
 public:
   //ctor

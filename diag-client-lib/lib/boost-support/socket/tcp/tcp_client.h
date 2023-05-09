@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_CLIENT_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_CLIENT_H
 // includes
 #include <string>
 #include <thread>
@@ -14,8 +14,8 @@
 #include <boost/asio.hpp>
 #include "tcp_types.h"
 
-namespace libBoost {
-namespace libSocket {
+namespace boost_support {
+namespace socket {
 namespace tcp {
 
 /*
@@ -85,6 +85,6 @@ private:
   void HandleMessage();
 };
 }  // namespace tcp
-}  // namespace libSocket
-}  // namespace libBoost
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_LIBSOCKET_TCP_TCP_CLIENT_H
+}  // namespace socket
+}  // namespace boost_support
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_CLIENT_H

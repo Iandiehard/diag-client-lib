@@ -5,12 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef UDP_TYPES_H
-#define UDP_TYPES_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_TYPES_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_TYPES_H
 
-namespace libBoost {
-namespace libSocket {
+namespace boost_support {
+namespace socket {
 namespace udp {
+
 class UdpMessageType {
 public:
   // buffer type
@@ -35,13 +36,13 @@ public:
   uint16_t host_port_num_;
 };
 
-//
+// unique pointer to const UdpMessage
 using UdpMessageConstPtr = std::unique_ptr<const UdpMessageType>;
 // unique pointer to UdpMessage
 using UdpMessagePtr = std::unique_ptr<UdpMessageType>;
 // Response size udp
 constexpr uint8_t kDoipUdpResSize = 40U;
 }  // namespace udp
-}  // namespace libSocket
-}  // namespace libBoost
-#endif  // UDP_TYPES_H
+}  // namespace socket
+}  // namespace boost_support
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_TYPES_H

@@ -24,10 +24,10 @@ class tcpChannel;
 
 namespace tcpSocket {
 // typedefs
-using TcpSocket = libBoost::libSocket::tcp::CreateTcpClientSocket;
-using TcpMessage = libBoost::libSocket::tcp::TcpMessageType;
-using TcpMessagePtr = libBoost::libSocket::tcp::TcpMessagePtr;
-using TcpMessageConstPtr = libBoost::libSocket::tcp::TcpMessageConstPtr;
+using TcpSocket = boost_support::socket::tcp::CreateTcpClientSocket;
+using TcpMessage = boost_support::socket::tcp::TcpMessageType;
+using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
+using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 
 /*
  @ Class Name        : tcp_SocketHandler

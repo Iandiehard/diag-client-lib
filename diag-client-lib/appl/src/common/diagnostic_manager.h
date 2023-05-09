@@ -24,7 +24,7 @@ class DiagClientConversation;
 }
 
 namespace common {
-using property_tree = libBoost::jsonparser::boostTree;
+using property_tree = boost_support::parser::boostTree;
 
 /*
  @ Class Name        : DiagnosticManager

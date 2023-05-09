@@ -10,8 +10,8 @@
 
 #include "common/logger.h"
 
-namespace libBoost {
-namespace libSocket {
+namespace boost_support {
+namespace socket {
 namespace tcp {
 // ctor
 CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, uint16_t local_port_num,
@@ -63,7 +63,7 @@ bool CreateTcpClientSocket::Open() {
     tcp_socket_->bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
-      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
             Tcp::endpoint const endpoint_{tcp_socket_->local_endpoint()};
             msg << "Tcp Socket opened and bound to "
@@ -72,13 +72,13 @@ bool CreateTcpClientSocket::Open() {
       retVal = true;
     } else {
       // Socket binding failed
-      logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
       retVal = false;
     }
   } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
   }
@@ -92,7 +92,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, uint
   // connect to provided ipAddress
   tcp_socket_->connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
   if (ec.value() == boost::system::errc::success) {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{tcp_socket_->remote_endpoint()};
           msg << "Tcp Socket connected to host "
@@ -103,7 +103,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, uint
     cond_var_.notify_all();
     ret_val = true;
   } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket connect to host failed with error: " << ec.message(); });
   }
@@ -123,7 +123,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
     // Socket shutdown success
     ret_val = true;
   } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tcp Socket disconnection from host failed with error: " << ec.message();
         });
@@ -139,8 +139,7 @@ bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
                      boost::asio::buffer(tcp_message->txBuffer_, std::size_t(tcp_message->txBuffer_.size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
-
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{tcp_socket_->remote_endpoint()};
           msg << "Tcp message sent to "
@@ -148,7 +147,7 @@ bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
         });
     ret_val = true;
   } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp message sending failed with error: " << ec.message(); });
   }
@@ -189,7 +188,7 @@ void CreateTcpClientSocket::HandleMessage() {
     tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
     tcp_rx_message->host_port_num_ = endpoint_.port();
 
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
@@ -198,15 +197,15 @@ void CreateTcpClientSocket::HandleMessage() {
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {
     running_ = false;
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {
-    logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
   }
 }
 }  // namespace tcp
-}  // namespace libSocket
-}  // namespace libBoost
+}  // namespace socket
+}  // namespace boost_support

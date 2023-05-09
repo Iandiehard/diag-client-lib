@@ -5,15 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_PARSER_JSON_PARSER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_PARSER_JSON_PARSER_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H
+#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H
 // includes
 #include <string_view>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 
-namespace libBoost {
-namespace jsonparser {
+namespace boost_support {
+namespace parser {
 using boostTree = boost::property_tree::ptree;
 
 /*
@@ -29,7 +29,7 @@ public:
     return json_tree;
   }
 };
-}  // namespace jsonparser
-}  // namespace libBoost
+}  // namespace parser
+}  // namespace boost_support
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_LIBBOOST_PARSER_JSON_PARSER_H
+#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H
