@@ -9,6 +9,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H
 
 #include <map>
+#include <string_view>
 
 #include "protocol_types.h"
 
@@ -17,11 +18,11 @@ namespace uds_transport {
 class UdsMessage {
 public:
   // type for UDS source and target addresses
-  using Address = uint16_t;
+  using Address = std::uint16_t;
   // Ip address
-  using IpAddress = std::string;
+  using IpAddress = std::string_view;
   // Port Number
-  using PortNumber = uint16_t;
+  using PortNumber = std::uint16_t;
   // Type for the meta information attached to a UdsMessage
   using MetaInfoMap = std::map<std::string, std::string>;
   // type of target address in UdsMessage

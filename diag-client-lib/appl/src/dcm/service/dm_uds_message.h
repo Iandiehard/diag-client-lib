@@ -22,23 +22,23 @@ public:
   DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address, uds_transport::ByteVector &payload);
 
   // dtor
-  ~DmUdsMessage() noexcept = default;
+  ~DmUdsMessage() noexcept override = default;
 
 private:
   // SA
-  Address source_address;
+  Address source_address_;
 
   // TA
-  Address target_address;
+  Address target_address_;
 
   // TA type
-  TargetAddressType target_address_type;
+  TargetAddressType target_address_type_;
 
   // Host Ip Address
-  IpAddress host_ip_address;
+  std::string host_ip_address_;
 
   // store only UDS payload to be sent
-  uds_transport::ByteVector &uds_payload;
+  uds_transport::ByteVector &uds_payload_;
 
   // add new metaInfo to this message.
   void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
@@ -46,47 +46,47 @@ private:
   }
 
   // Get the UDS message data starting with the SID (A_Data as per ISO)
-  const uds_transport::ByteVector &GetPayload() const override { return uds_payload; }
+  const uds_transport::ByteVector &GetPayload() const override { return uds_payload_; }
 
   // return the underlying buffer for write access
-  uds_transport::ByteVector &GetPayload() override { return uds_payload; }
+  uds_transport::ByteVector &GetPayload() override { return uds_payload_; }
 
   // Get the source address of the uds message.
-  Address GetSa() const noexcept override { return source_address; }
+  Address GetSa() const noexcept override { return source_address_; }
 
   // Get the target address of the uds message.
-  Address GetTa() const noexcept override { return target_address; }
+  Address GetTa() const noexcept override { return target_address_; }
 
   // Get the target address type (phys/func) of the uds message.
-  TargetAddressType GetTaType() const noexcept override { return target_address_type; }
+  TargetAddressType GetTaType() const noexcept override { return target_address_type_; }
 
   // Get Host Ip address
-  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address; }
+  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address_; }
 
   // Get Host port number
   PortNumber GetHostPortNumber() const noexcept override { return 13400U; }
 };
 
-class DmUdsResponse : public UdsMessage {
+class DmUdsResponse final : public UdsMessage {
 public:
-  DmUdsResponse(ByteVector &payload);
+  explicit DmUdsResponse(ByteVector &payload);
 
-  virtual ~DmUdsResponse();
+  ~DmUdsResponse() noexcept override = default;
 
 private:
   // store only UDS payload to be sent
-  ByteVector &uds_payload;
+  ByteVector &uds_payload_;
   // Host Ip Address
-  IpAddress host_ip_address;
+  IpAddress host_ip_address_;
 
   // Get the UDS message data starting with the SID (A_Data as per ISO)
-  const ByteVector &GetPayload() const override { return uds_payload; }
+  const ByteVector &GetPayload() const override { return uds_payload_; }
 
   // return the underlying buffer for write access
-  ByteVector &GetPayload() override { return uds_payload; }
+  ByteVector &GetPayload() override { return uds_payload_; }
 
   // Get Host Ip address
-  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address; }
+  IpAddress GetHostIpAddress() const noexcept override { return host_ip_address_; }
 };
 
 }  // namespace uds_message

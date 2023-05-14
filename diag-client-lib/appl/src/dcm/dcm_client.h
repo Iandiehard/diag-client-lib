@@ -61,7 +61,8 @@ private:
   std::unique_ptr<conversation::VdConversation> diag_client_vehicle_discovery_conversation;
 
   // function to read from property tree to config structure
-  diag::client::config_parser::ConversationConfig GetConversationConfig(diag::client::common::property_tree &ptree);
+  static diag::client::config_parser::ConversationConfig GetConversationConfig(
+      diag::client::common::property_tree &ptree);
 };
 }  // namespace dcm
 }  // namespace client

@@ -11,6 +11,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace uds_transport {
@@ -22,7 +23,7 @@ using ChannelID = uint32_t;
 // This is the type of Priority
 using Priority = std::uint8_t;
 // This is the type of Protocol Kind
-using ProtocolKind = std::string;
+using ProtocolKind = std::string_view;
 // UdsTransportProtocolHandler are flexible "plugins", which need an identification
 using UdsTransportProtocolHandlerID = std::uint8_t;
 

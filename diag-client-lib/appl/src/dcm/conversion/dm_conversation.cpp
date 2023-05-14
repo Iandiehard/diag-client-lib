@@ -27,7 +27,6 @@ DmConversation::DmConversation(std::string_view conversion_name,
       p2_star_client_max_{conversion_identifier.p2_star_client_max},
       source_address_{conversion_identifier.source_address},
       target_address_{},
-      port_num_{conversion_identifier.port_num},
       conversation_name_{conversion_name},
       dm_conversion_handler_{std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
 
@@ -70,7 +69,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
   // source address required for Routing Activation
   uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
-  DiagClientConversation::ConnectResult connection_result{static_cast<DiagClientConversation::ConnectResult>(
+  DiagClientConversation::ConnectResult const connection_result{static_cast<DiagClientConversation::ConnectResult>(
       connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
           source_address_, target_address, host_ip_addr, payload))))};
   remote_address_ = host_ip_addr;
@@ -127,7 +126,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
     uds_message::UdsRequestMessageConstPtr message) {
   std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr> ret_val{
       DiagClientConversation::DiagResult::kDiagGenericFailure, nullptr};
-  if (message != nullptr) {
+  if (message) {
     // fill the data
     uds_transport::ByteVector payload{message->GetPayload()};
     // Initiate Sending of diagnostic request
@@ -187,7 +186,9 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                       __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                         msg << "'" << conversation_name_ << "'"
                             << "-> "
-                            << "Diagnostic Response P2 Star Timeout happened: " << p2_star_client_max_;
+                            << "Diagnostic Response P2 Star Timeout happened: " << p2_star_client_max_
+                            << " milliseconds";
+                        ;
                       });
                   ret_val.first = DiagClientConversation::DiagResult::kDiagResponseTimeout;
                   conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
@@ -244,15 +245,15 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::Address target_addr,
                                 uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
                                 std::size_t size, uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo) {
+                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payload_info) {
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
       uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   // Verify the payload received :-
-  if (!payloadInfo.empty()) {
+  if (!payload_info.empty()) {
     // Check for size, else kIndicationOverflow
     if (size <= rx_buffer_size_) {
       // Check for pending response
-      if (payloadInfo[2U] == 0x78U) {
+      if (payload_info[2U] == 0x78U) {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
@@ -342,7 +343,7 @@ DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
 DmConversationHandler::DmConversationHandler(uds_transport::conversion_manager::ConversionHandlerID handler_id,
                                              DmConversation &dm_conversion)
     : uds_transport::ConversionHandler{handler_id},
-      dm_conversation_e{dm_conversion} {}
+      dm_conversation_{dm_conversion} {}
 
 // Indicate message Diagnostic message reception over TCP to user
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
@@ -351,14 +352,14 @@ DmConversationHandler::IndicateMessage(uds_transport::UdsMessage::Address source
                                        uds_transport::UdsMessage::TargetAddressType type,
                                        uds_transport::ChannelID channel_id, std::size_t size,
                                        uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                       std::vector<uint8_t> payloadInfo) {
-  return (dm_conversation_e.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                            payloadInfo));
+                                       std::vector<uint8_t> payload_info) {
+  return (dm_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                           payload_info));
 }
 
 // Hands over a valid message to conversion
 void DmConversationHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
-  dm_conversation_e.HandleMessage(std::move(message));
+  dm_conversation_.HandleMessage(std::move(message));
 }
 }  // namespace conversation
 }  // namespace client

@@ -21,8 +21,9 @@ Diagnostic Client library currently supports below Diagnostic Protocols :-
 - DoIP 
 - UDS
 
-The main advantage of Diagnostic Client library is that you can open multiple conversation(tester instance) for diagnosing multiple ECU at same time. 
-You can check section [how to use diag-client-lib](#how-to-use-diag-client-lib) for more details
+Diagnostic Client library supports opening multiple conversation(tester instance) for sending diagnostic request to multiple ECU at same time. 
+
+Public api's can be found in [include](diag-client-lib/appl/include) to understand the usage of Diagnostic Client library, 
 
 ## Get Started
 
@@ -49,29 +50,38 @@ Diagnostic Client Library has dependencies with BOOST library and [COVESA DLT lo
 
 BOOST Library is used for asio operations and COVESA DLT logging is used for sending DLT logs to user.
 
-In future use of BOOST library will be removed completely.
-
 ### How to use diag-client-lib
 
 Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage.
 
-Diagnostic Client shared library can be built by setting the below CMake Flag to ON
-```bash
-"BUILD_SHARED_LIBS" : "ON",
+Diagnostic Client library can be built as shared library by setting the below CMake Flag to ON
+```cmake
+BUILD_SHARED_LIBS : ON
 ```
 
-Main instance of Diagnostic Client Libary should be created using `CreateDiagnosticClient` function call and config json file path should be passed as parameter 
-```bash
-std::unique_ptr<diag::client::DiagClient> diagclient =
-            diag::client::CreateDiagnosticClient("etc/diag_client_config.json");
+Main instance of Diagnostic Client Library must be created using `CreateDiagnosticClient` method call by passing the path to 
+[diag-client config json](diag-client-lib/appl/etc/diag_client_config.json) file as parameter.
+```cpp
+  // Create the Diagnostic client and pass the config for creating internal properties
+  std::unique_ptr<diag::client::DiagClient> diag_client{
+      diag::client::CreateDiagnosticClient("etc/diag_client_config.json")};
 ```
+[diag-client config json](diag-client-lib/appl/etc/diag_client_config.json) file can be modified as per user requirements.
 
-Multiple tester instance can be created using Diagnostic Client Library main instance.
+Once Diagnostic Client Library is instantiated and initialized, `GetDiagnosticClientConversation` can be used to get the tester/conversation instance
+by passing the tester/conversation name.
+```cpp
+  // Get conversation for tester one by providing the conversation name configured
+  // in diag_client_config file passed while creating the diag client
+  diag::client::conversation::DiagClientConversation &diag_client_conversation {
+      diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
+```
+Multiple tester instance can be created using these method as provided in the configuration json file.
 
-Check the example application [Examples](examples/) on how Diagnostic Client Library should be linked and used.
+Check the example application [Examples](examples) on how Diagnostic Client Library can be linked and used.
 
 ## Requirements
-Component requirements already implemented are documented [REQ](docs/spec/requirement/requirements.md)
+Component requirements implemented are documented [REQ](docs/spec/requirement/requirements.md)
 
 ## Known Defect
 * No defect is identified yet.
@@ -80,15 +90,14 @@ You can add new issues with label `bug` for notifying us about any defect in lib
 
 ## Future Work
 * DoIP with TLS
-* Remove Boost Library dependency
 
 For adding more features you can add new issues with label `enhancement` so that we can work on it.
 
 ## License
 
-Full information of license is available in the [LICENSE](LICENSE) file of this project.
+Full information on project license is available here [LICENSE](LICENSE).
 
-Boost License is available here [LICENSE](diag-client-lib/lib/libBoost/LICENSE)
+Boost License is available here [LICENSE](diag-client-lib/lib/boost-support/LICENSE).
 
 ## Contact
 Avijit Dey <iandiehard@outlook.com>

@@ -218,11 +218,11 @@ std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConver
       (static_cast<std::uint16_t>(((message->GetPayload()[17U] & 0xFF) << 8) | (message->GetPayload()[18U] & 0xFF)))};
 
   // Create the structure out of the extracted string
-  VehicleAddrInfoResponseStruct vehicle_addr_info{message->GetHostIpAddress(),  // remote ip address
-                                                  logical_address,              // logical address
-                                                  vehicle_info_data_vin,        // vin
-                                                  vehicle_info_data_eid,        // eid
-                                                  vehicle_info_data_gid};       // gid
+  VehicleAddrInfoResponseStruct vehicle_addr_info{std::string{message->GetHostIpAddress()},  // remote ip address
+                                                  logical_address,                           // logical address
+                                                  vehicle_info_data_vin,                     // vin
+                                                  vehicle_info_data_eid,                     // eid
+                                                  vehicle_info_data_gid};                    // gid
 
   return {logical_address, vehicle_addr_info};
 }
@@ -233,8 +233,8 @@ std::shared_ptr<uds_transport::ConversionHandler> &VdConversation::GetConversati
 
 std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue>
 VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListRequestType &vehicle_info_request) {
-  std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue> ret_val{};
 
+  std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue> ret_val{};
   ret_val.first = vehicle_info_request.preselection_mode;
 
   if (ret_val.first == 1U) {

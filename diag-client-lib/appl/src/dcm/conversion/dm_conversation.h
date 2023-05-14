@@ -37,7 +37,7 @@ public:
                  ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier);
 
   // dtor
-  ~DmConversation();
+  ~DmConversation() override;
 
   // startup
   void Startup() override;
@@ -69,7 +69,7 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo);
+      std::vector<uint8_t> payload_info);
 
   // Hands over a valid message to conversion
   void HandleMessage(::uds_transport::UdsMessagePtr message);
@@ -77,7 +77,7 @@ public:
   // shared pointer to store the conversion handler
   std::shared_ptr<::uds_transport::ConversionHandler> dm_conversion_handler_;
 
-  DiagClientConversation::DiagResult ConvertResponseType(
+  static DiagClientConversation::DiagResult ConvertResponseType(
       ::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type);
 
 private:
@@ -119,8 +119,6 @@ private:
   uint16_t source_address_;
   // logical target address
   uint16_t target_address_;
-  // port number
-  uint16_t port_num_;
   // Vehicle broadcast address
   std::string broadcast_address;
   // remote Ip Address
@@ -155,13 +153,13 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo) override;
+      std::vector<uint8_t> payload_info) override;
 
   // Hands over a valid message to conversion
   void HandleMessage(::uds_transport::UdsMessagePtr message) override;
 
 private:
-  DmConversation &dm_conversation_e;
+  DmConversation &dm_conversation_;
 };
 }  // namespace conversation
 }  // namespace client

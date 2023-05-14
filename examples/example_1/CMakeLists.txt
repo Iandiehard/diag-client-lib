@@ -11,12 +11,9 @@ project(diag-client-example-1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_INSTALL_PREFIX "/opt/diag-client-example")
-set(CMAKE_PREFIX_PATH "../diag_client_lib/build-bin/diag-client/lib/cmake/DiagClientLib")
 
 # find needed packages
 find_package(Threads REQUIRED)
-find_package(DiagClientLib)
 
 #find main sources
 file(GLOB MAIN_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
@@ -41,16 +38,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 target_link_libraries(${PROJECT_NAME} PRIVATE
         diag-client
         Threads::Threads
-        )
-
-# install diag.client example
-install(TARGETS ${PROJECT_NAME}
-        LIBRARY DESTINATION lib
-        INCLUDES DESTINATION include
-        )
-
-# install etc files
-install(DIRECTORY
-        ${CMAKE_CURRENT_SOURCE_DIR}/../diag_client_lib/build-bin/diag-client/etc/
-        DESTINATION etc
         )

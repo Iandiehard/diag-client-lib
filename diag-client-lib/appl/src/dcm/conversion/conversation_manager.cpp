@@ -6,7 +6,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
-
 #include "src/dcm/conversion/conversation_manager.h"
 
 namespace diag {
@@ -15,7 +14,8 @@ namespace conversation_manager {
 //ctor
 ConversationManager::ConversationManager(diag::client::config_parser::ConversationConfig config,
                                          diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
-    : uds_transport_mgr_(uds_transport_mgr) {
+    : uds_transport_mgr_{uds_transport_mgr} {
+  // create the conversation config (vd & dm) out of passed config
   CreateConversationConfig(config);
 }
 
@@ -26,10 +26,10 @@ void ConversationManager::Startup() {}
 void ConversationManager::Shutdown() {}
 
 // Get the required conversation
-std::unique_ptr<diag::client::conversation::DmConversation> ConversationManager::GetDiagnosticClientConversion(
-    std::string conversation_name) {
+std::unique_ptr<diag::client::conversation::DmConversation> ConversationManager::GetDiagnosticClientConversation(
+    std::string_view conversion_name) {
   std::unique_ptr<diag::client::conversation::DmConversation> dm_conversation{};
-  auto it = conversation_config_.find(conversation_name);
+  auto it = conversation_config_.find(std::string{conversion_name});
   if (it != conversation_config_.end()) {
     // create the conversation
     dm_conversation = std::make_unique<diag::client::conversation::DmConversation>(it->first, it->second);
@@ -41,9 +41,9 @@ std::unique_ptr<diag::client::conversation::DmConversation> ConversationManager:
 }
 
 std::unique_ptr<diag::client::conversation::VdConversation>
-ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string &conversation_name) {
+ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string_view conversation_name) {
   std::unique_ptr<diag::client::conversation::VdConversation> vd_conversation{};
-  auto it = vd_conversation_config_.find(conversation_name);
+  auto it = vd_conversation_config_.find(std::string{conversation_name});
   if (it != vd_conversation_config_.end()) {
     // create the conversation
     vd_conversation = std::make_unique<diag::client::conversation::VdConversation>(it->first, it->second);
@@ -69,16 +69,16 @@ void ConversationManager::CreateConversationConfig(diag::client::config_parser::
   {  // Create Conversation config
     for (uint8_t conv_count = 0U; conv_count < config.num_of_conversation; conv_count++) {
       ::uds_transport::conversion_manager::ConversionIdentifierType conversion_identifier{};
-      conversion_identifier.rx_buffer_size = config.conversations[conv_count].rxBufferSize;
-      conversion_identifier.p2_client_max = config.conversations[conv_count].p2ClientMax;
-      conversion_identifier.p2_star_client_max = config.conversations[conv_count].p2StarClientMax;
-      conversion_identifier.source_address = config.conversations[conv_count].sourceAddress;
-      conversion_identifier.tcp_address = config.conversations[conv_count].network.tcpIpAddress;
+      conversion_identifier.rx_buffer_size = config.conversations[conv_count].rx_buffer_size;
+      conversion_identifier.p2_client_max = config.conversations[conv_count].p2_client_max;
+      conversion_identifier.p2_star_client_max = config.conversations[conv_count].p2_star_client_max;
+      conversion_identifier.source_address = config.conversations[conv_count].source_address;
+      conversion_identifier.tcp_address = config.conversations[conv_count].network.tcp_ip_address;
       conversion_identifier.port_num = 0U;  // random selection of port number
       // push to config map
       (void) conversation_config_.insert(
           std::pair<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType>(
-              config.conversations[conv_count].conversationName, conversion_identifier));
+              config.conversations[conv_count].conversation_name, conversion_identifier));
     }
   }
 }

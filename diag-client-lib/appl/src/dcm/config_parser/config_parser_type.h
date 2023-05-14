@@ -15,15 +15,15 @@ namespace client {
 namespace config_parser {
 
 struct DoipNetworkType {
-  std::string tcpIpAddress;
+  std::string tcp_ip_address;
 };
 
 struct ConversationType {
-  uint16_t p2ClientMax;
-  uint16_t p2StarClientMax;
-  uint16_t rxBufferSize;
-  uint16_t sourceAddress;
-  std::string conversationName;
+  std::uint16_t p2_client_max;
+  std::uint16_t p2_star_client_max;
+  std::uint16_t rx_buffer_size;
+  std::uint16_t source_address;
+  std::string conversation_name;
   DoipNetworkType network;
 };
 
@@ -33,7 +33,7 @@ struct ConversationConfig {
   // broadcast address
   std::string udp_broadcast_address;
   // number of conversation
-  uint8_t num_of_conversation;
+  std::uint8_t num_of_conversation;
   // store all conversations
   std::vector<ConversationType> conversations;
 };

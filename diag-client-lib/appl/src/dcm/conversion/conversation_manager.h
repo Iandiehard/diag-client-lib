@@ -8,6 +8,8 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_CONVERSATION_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_CONVERSATION_MANAGER_H
 /* includes */
+#include <string_view>
+
 #include "common_header.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
@@ -37,12 +39,12 @@ public:
   void Shutdown();
 
   // Get the required conversion
-  std::unique_ptr<diag::client::conversation::DmConversation> GetDiagnosticClientConversion(
-      std::string conversion_name);
+  std::unique_ptr<diag::client::conversation::DmConversation> GetDiagnosticClientConversation(
+      std::string_view conversion_name);
 
   // Get the required conversion
   std::unique_ptr<diag::client::conversation::VdConversation> GetDiagnosticClientVehicleDiscoveryConversation(
-      std::string &conversion_name);
+      std::string_view conversion_name);
 
 private:
   // store uds transport manager

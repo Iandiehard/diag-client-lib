@@ -19,7 +19,10 @@
 namespace diag {
 namespace client {
 // ctor
-DiagClientImpl::DiagClientImpl(std::string_view dm_client_config) : diag::client::DiagClient(), dcm_instance_ptr{} {
+DiagClientImpl::DiagClientImpl(std::string_view dm_client_config)
+    : diag::client::DiagClient(),
+      dcm_instance_ptr{},
+      dcm_thread_{} {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient instance creation started"; });
   // start parsing the config json file
@@ -35,7 +38,7 @@ void DiagClientImpl::Initialize() {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient Initialization started"; });
   // start DCM thread here
-  dcm_thread_ = std::thread(&diag::client::dcm::DCMClient::Main, std::ref(*dcm_instance_ptr));
+  dcm_thread_ = std::thread([this]() noexcept { this->dcm_instance_ptr->Main(); });
   pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });

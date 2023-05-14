@@ -204,7 +204,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
   if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
       DiagnosticMessageChannelState::kWaitForDiagnosticResponse) {
     // create the payload to send to upper layer
-    std::vector<uint8_t> payload_info;
+    std::vector<uint8_t> payload_info{};
     // check the logical address of Server
     auto server_address =
         (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF));

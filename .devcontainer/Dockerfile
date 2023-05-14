@@ -14,6 +14,7 @@ RUN apt-get update &&\
         software-properties-common \
         wget \
         git \
+        gcc \
         curl \
         gnupg \
         zlib1g-dev \
@@ -25,6 +26,8 @@ RUN apt-get update &&\
         tcpdump \
         cmake \
         doxygen \
+        net-tools \
+        iproute2 \
         locales-all &&\
     apt-get clean
 
