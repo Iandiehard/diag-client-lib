@@ -29,7 +29,7 @@ DoipTransportProtocolHandler::DoipTransportProtocolHandler(
       doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {}
 
 //dtor
-DoipTransportProtocolHandler::~DoipTransportProtocolHandler() {}
+DoipTransportProtocolHandler::~DoipTransportProtocolHandler() = default;
 
 // Return the UdsTransportProtocolHandlerID, which was given to the implementation during
 // construction (ctor call)

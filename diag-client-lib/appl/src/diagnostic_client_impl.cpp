@@ -20,7 +20,7 @@ namespace diag {
 namespace client {
 // ctor
 DiagClientImpl::DiagClientImpl(std::string_view dm_client_config)
-    : diag::client::DiagClient(),
+    : diag::client::DiagClient{},
       dcm_instance_ptr{},
       dcm_thread_{} {
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(

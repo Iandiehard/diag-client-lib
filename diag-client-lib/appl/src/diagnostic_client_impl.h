@@ -46,6 +46,7 @@ public:
 private:
   // dcm client instance
   std::unique_ptr<diag::client::common::DiagnosticManager> dcm_instance_ptr;
+
   // thread to hold dcm client instance
   std::thread dcm_thread_;
 };

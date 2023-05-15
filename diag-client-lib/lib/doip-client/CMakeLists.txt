@@ -1,4 +1,4 @@
-#   Diagnostic Client library CMake File
+#  Diagnostic Client library CMake File
 #  Copyright (C) 2023  Avijit Dey
 # 
 # This Source Code Form is subject to the terms of the Mozilla Public

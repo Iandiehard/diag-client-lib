@@ -7,7 +7,7 @@
  */
 /* includes */
 
-#include "src/dcm/conversion/dm_conversation.h"
+#include "src/dcm/conversation/dm_conversation.h"
 
 #include "src/common/logger.h"
 #include "src/dcm/service/dm_uds_message.h"
@@ -96,7 +96,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
 
 DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() {
   DiagClientConversation::DisconnectResult ret_val{DiagClientConversation::DisconnectResult::kDisconnectFailed};
-
+  // Check if already connected before disconnecting
   if (connection_ptr_->IsConnectToHost()) {
     // Send disconnect request to doip layer
     ret_val = static_cast<DiagClientConversation::DisconnectResult>(connection_ptr_->DisconnectFromHost());
@@ -151,7 +151,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                 __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                   msg << "'" << conversation_name_ << "'"
                       << "-> "
-                      << "Diagnostic Response P2 Timeout happened: " << p2_client_max_ << " milliseconds";
+                      << "Diagnostic Response P2 Timeout happened after " << p2_client_max_ << " milliseconds";
                 });
           },
           [&]() {
@@ -186,7 +186,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
                       __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                         msg << "'" << conversation_name_ << "'"
                             << "-> "
-                            << "Diagnostic Response P2 Star Timeout happened: " << p2_star_client_max_
+                            << "Diagnostic Response P2 Star Timeout happened after " << p2_star_client_max_
                             << " milliseconds";
                         ;
                       });
@@ -253,7 +253,8 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
     // Check for size, else kIndicationOverflow
     if (size <= rx_buffer_size_) {
       // Check for pending response
-      if (payload_info[2U] == 0x78U) {
+      // payload = 0x7F XX 0x78
+      if (payload_info[2U] == 0x78) {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
@@ -264,7 +265,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdPendingRes);
       } else {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
-            __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+            __FILE__, __LINE__, "", [this](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "-> "
                   << "Diagnostic final response received in Conversation";

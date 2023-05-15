@@ -13,8 +13,8 @@
 #include "common_header.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
-#include "src/dcm/conversion/dm_conversation.h"
-#include "src/dcm/conversion/vd_conversation.h"
+#include "src/dcm/conversation/dm_conversation.h"
+#include "src/dcm/conversation/vd_conversation.h"
 
 namespace diag {
 namespace client {
@@ -26,7 +26,7 @@ namespace conversation_manager {
 class ConversationManager {
 public:
   // ctor
-  ConversationManager(diag::client::config_parser::ConversationConfig config,
+  ConversationManager(diag::client::config_parser::DcmClientConfig config,
                       diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr);
 
   // dtor
@@ -57,7 +57,7 @@ private:
   std::map<std::string, ::uds_transport::conversion_manager::ConversionIdentifierType> vd_conversation_config_;
 
   // function to create or find new conversion
-  void CreateConversationConfig(diag::client::config_parser::ConversationConfig &config);
+  void CreateConversationConfig(diag::client::config_parser::DcmClientConfig &config);
 };
 }  // namespace conversation_manager
 }  // namespace client

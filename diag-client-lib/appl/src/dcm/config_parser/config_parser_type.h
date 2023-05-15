@@ -14,20 +14,30 @@ namespace diag {
 namespace client {
 namespace config_parser {
 
+// Doip network property type
 struct DoipNetworkType {
+  // local tcp address
   std::string tcp_ip_address;
 };
 
+// Properties of a single conversation
 struct ConversationType {
+  // store p2 client timeout
   std::uint16_t p2_client_max;
+  // store p2 star client timeout
   std::uint16_t p2_star_client_max;
+  // store receive buffer size
   std::uint16_t rx_buffer_size;
+  // store source address of client
   std::uint16_t source_address;
+  // store the client conversation name
   std::string conversation_name;
+  // store the doip network item
   DoipNetworkType network;
 };
 
-struct ConversationConfig {
+// Properties of diag client configuration
+struct DcmClientConfig {
   // local udp address
   std::string udp_ip_address;
   // broadcast address

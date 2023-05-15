@@ -24,7 +24,7 @@ constexpr std::string_view VehicleDiscoveryConversation{"VehicleDiscovery"};
 DCMClient::DCMClient(diag::client::common::property_tree &ptree)
     : DiagnosticManager{},
       uds_transport_protocol_mgr{std::make_unique<uds_transport::UdsTransportProtocolManager>()},
-      conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(GetConversationConfig(ptree),
+      conversation_mgr{std::make_unique<conversation_manager::ConversationManager>(GetDcmClientConfig(ptree),
                                                                                    *uds_transport_protocol_mgr)},
       diag_client_vehicle_discovery_conversation{
           conversation_mgr->GetDiagnosticClientVehicleDiscoveryConversation(VehicleDiscoveryConversation)} {}
@@ -92,9 +92,8 @@ diag::client::conversation::DiagClientConversation &DCMClient::GetDiagnosticClie
 }
 
 // Function to get read from json tree and return the config structure
-diag::client::config_parser::ConversationConfig DCMClient::GetConversationConfig(
-    diag::client::common::property_tree &ptree) {
-  diag::client::config_parser::ConversationConfig config{};
+diag::client::config_parser::DcmClientConfig DCMClient::GetDcmClientConfig(diag::client::common::property_tree &ptree) {
+  diag::client::config_parser::DcmClientConfig config{};
   // get the udp info for vehicle discovery
   config.udp_ip_address = ptree.get<std::string>("UdpIpAddress");
   config.udp_broadcast_address = ptree.get<std::string>("UdpBroadcastAddress");

@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "src/dcm/conversion/vd_conversation.h"
+#include "src/dcm/conversation/vd_conversation.h"
 
 #include <sstream>
 #include <string>

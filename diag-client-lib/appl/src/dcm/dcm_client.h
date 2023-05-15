@@ -13,7 +13,7 @@
 #include "src/common/diagnostic_manager.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
-#include "src/dcm/conversion/conversation_manager.h"
+#include "src/dcm/conversation/conversation_manager.h"
 
 namespace diag {
 namespace client {
@@ -52,17 +52,19 @@ public:
 private:
   // uds transport protocol Manager
   std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
+
   // conversation manager
   std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
+
   // map to store conversation pointer along with conversation name
   std::unordered_map<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>
       diag_client_conversation_map;
+
   // store the diag client conversation for vehicle discovery
   std::unique_ptr<conversation::VdConversation> diag_client_vehicle_discovery_conversation;
 
   // function to read from property tree to config structure
-  static diag::client::config_parser::ConversationConfig GetConversationConfig(
-      diag::client::common::property_tree &ptree);
+  static diag::client::config_parser::DcmClientConfig GetDcmClientConfig(diag::client::common::property_tree &ptree);
 };
 }  // namespace dcm
 }  // namespace client

@@ -33,7 +33,8 @@ DoipTcpHandler::DoipChannel::DoipChannel(std::uint16_t logical_address,
       exit_request_{false},
       running_{false},
       routing_activation_res_code_{kDoip_RoutingActivation_ResCode_RoutingSuccessful},
-      diag_msg_ack_code_{kDoip_DiagnosticMessage_PosAckCode_Confirm} {
+      diag_msg_ack_code_{kDoip_DiagnosticMessage_PosAckCode_Confirm},
+      num_of_pending_response_{0u} {
   // Start thread to receive messages
   thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);
@@ -98,6 +99,7 @@ void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
                                           tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
                                           tcp_rx_message->rxBuffer_.end());
   }
+  
   // Trigger async transmission
   {
     std::lock_guard<std::mutex> const lck{mutex_};
@@ -182,12 +184,26 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
   diag_msg_ack_response->txBuffer_.emplace_back(diag_msg_ack_code_);
 
   if (tcp_connection_->Transmit(std::move(diag_msg_ack_response))) {
+    // Check for diag message ack code
     if (diag_msg_ack_code_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
       logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(
           __FILE__, __LINE__, "",
           [](std::stringstream &msg) { msg << "Sending of Diagnostic Message Pos Ack Response success"; });
 
+      // Check for pending responses set
+      if(!uds_pending_response_payload_.empty()) {
+        // emplace pending response jobs based on number of pending response
+        for(std::uint8_t pending_count{0}; pending_count < num_of_pending_response_; pending_count++) {
+          job_queue_.emplace([this]() {
+            // wait so that diag positive ack is processed first before sending diag response
+            std::this_thread::sleep_for(std::chrono::milliseconds(25));
+            this->SendDiagnosticPendingMessageResponse();
+          });        
+        }
+      }
+      // emplace a positive response
       job_queue_.emplace([this]() {
+        // wait so that diag positive ack is processed first before sending diag response
         std::this_thread::sleep_for(std::chrono::milliseconds(25));
         this->SendDiagnosticMessageResponse();
       });
@@ -218,9 +234,6 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
   diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
 
   // copy the payload
-  // diag_uds_message_response->txBuffer_.emplace_back(0x50);
-  // diag_uds_message_response->txBuffer_.emplace_back(0x01);
-
   diag_uds_message_response->txBuffer_.insert(
       diag_uds_message_response->txBuffer_.begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
       uds_response_payload_.begin(), uds_response_payload_.end());
@@ -229,6 +242,36 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
     running_ = false;
     logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(__FILE__, __LINE__, "", [](std::stringstream &msg) {
       msg << "Sending of Diagnostic Response message success";
+    });
+  }
+}
+
+
+void DoipTcpHandler::DoipChannel::SendDiagnosticPendingMessageResponse() {
+  TcpMessagePtr diag_uds_message_response{std::make_unique<TcpMessage>()};
+  // create header
+  diag_uds_message_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
+                                               uds_pending_response_payload_.size());
+  CreateDoipGenericHeader(diag_uds_message_response->txBuffer_, kDoip_DiagMessage_Type,
+                          kDoip_DiagMessage_ReqResMinLen + uds_pending_response_payload_.size());
+
+  // logical address of client
+  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ >> 8U);
+  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+
+  // logical address of target
+  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
+  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+
+  // copy the payload
+  diag_uds_message_response->txBuffer_.insert(
+      diag_uds_message_response->txBuffer_.begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
+      uds_pending_response_payload_.begin(), uds_pending_response_payload_.end());
+
+  if (tcp_connection_->Transmit(std::move(diag_uds_message_response))) {
+    running_ = false;
+    logger::LibGtestLogger::GetLibGtestLogger().GetLogger().LogInfo(__FILE__, __LINE__, "", [](std::stringstream &msg) {
+      msg << "Sending of Diagnostic Pending Response message success";
     });
   }
 }
@@ -245,6 +288,14 @@ void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageAckResponseToBeSen
 void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageUdsMessageToBeSend(std::vector<std::uint8_t> payload) {
   uds_response_payload_.clear();
   uds_response_payload_ = std::move(payload);
+}
+
+void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(
+  std::vector<std::uint8_t> payload, 
+  std::uint8_t num_of_pending_response) {
+  uds_pending_response_payload_.clear();
+  uds_pending_response_payload_ = std::move(payload);
+  num_of_pending_response_ = num_of_pending_response;
 }
 
 }  // namespace doip_handler

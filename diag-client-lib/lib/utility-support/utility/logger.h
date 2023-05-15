@@ -103,6 +103,8 @@ private:
 #ifdef ENABLE_DLT_LOGGER
   // Declare the context
   DLT_DECLARE_CONTEXT(contxt_);
+#else
+  std::string contxt_;
 #endif
   // Stores application id
   std::string app_id_;

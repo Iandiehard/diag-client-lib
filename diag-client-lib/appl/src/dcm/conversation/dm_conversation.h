@@ -11,7 +11,7 @@
 #include <string_view>
 
 #include "include/diagnostic_client_conversation.h"
-#include "src/dcm/conversion/dm_conversation_state_impl.h"
+#include "src/dcm/conversation/dm_conversation_state_impl.h"
 #include "uds_transport/connection.h"
 #include "uds_transport/conversion_handler.h"
 #include "uds_transport/protocol_types.h"

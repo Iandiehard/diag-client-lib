@@ -57,3 +57,7 @@ RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v2.18.8.tar.gz"
     cmake -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build --config Release && \
     cmake --install build --config Release
+
+# Add Dlt environment variable to bashrc for google test
+ RUN echo 'export DLT_INITIAL_LOG_LEVEL="::6"' >> ~/.bashrc && \
+     echo 'export DLT_LOCAL_PRINT_MODE=FORCE_ON' >> ~/.bashrc

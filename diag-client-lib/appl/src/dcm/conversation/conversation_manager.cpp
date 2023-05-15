@@ -6,13 +6,13 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
-#include "src/dcm/conversion/conversation_manager.h"
+#include "src/dcm/conversation/conversation_manager.h"
 
 namespace diag {
 namespace client {
 namespace conversation_manager {
 //ctor
-ConversationManager::ConversationManager(diag::client::config_parser::ConversationConfig config,
+ConversationManager::ConversationManager(diag::client::config_parser::DcmClientConfig config,
                                          diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr)
     : uds_transport_mgr_{uds_transport_mgr} {
   // create the conversation config (vd & dm) out of passed config
@@ -55,7 +55,7 @@ ConversationManager::GetDiagnosticClientVehicleDiscoveryConversation(std::string
 }
 
 // function to find or create conversation
-void ConversationManager::CreateConversationConfig(diag::client::config_parser::ConversationConfig &config) {
+void ConversationManager::CreateConversationConfig(diag::client::config_parser::DcmClientConfig &config) {
   {  // Create Vehicle discovery config
     ::uds_transport::conversion_manager::ConversionIdentifierType conversion_identifier{};
     conversion_identifier.udp_address = config.udp_ip_address;
