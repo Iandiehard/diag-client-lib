@@ -17,7 +17,7 @@
 
 /*
  * Main Entry point of diag client example 
- * This example explains how to use the diag client library efficiently
+ * Example to connect to multiple ECU by creating multiple diagnostic tester instance.
  */
 int main() {
   // Create the Diagnostic client and pass the config for creating internal properties
