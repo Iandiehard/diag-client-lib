@@ -12,9 +12,9 @@ project(diag-client)
 
 # Cmake options
 option(BUILD_SHARED_LIBS "Option to build as shared library" OFF)
-option(BUILD_WITH_DLT "Option to use Dlt for logging" ON)
-option(BUILD_DOXYGEN "Option to generate doxygen file" ON)
-option(BUILD_WITH_TEST "Option to build test target" ON)
+option(BUILD_WITH_DLT "Option to use Dlt for logging" OFF)
+option(BUILD_DOXYGEN "Option to generate doxygen file" OFF)
+option(BUILD_WITH_TEST "Option to build test target" OFF)
 option(BUILD_EXAMPLES "Option to build example targets" OFF)
 
 # add compiler preprocessor flag when dlt enabled
