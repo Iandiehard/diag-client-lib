@@ -5,16 +5,13 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-/** @file diagnostic_client.h
- *  @brief Header file of Diag Client Class
- *  @author Avijit Dey
- */
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H
 
 #include <string_view>
 
 #include "diagnostic_client_conversation.h"
+#include "diagnostic_client_result.h"
 #include "diagnostic_client_vehicle_info_message_type.h"
 
 namespace diag {
