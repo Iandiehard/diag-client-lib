@@ -7,12 +7,11 @@
  */
 #include "include/diagnostic_client.h"
 
-#include "src/diagnostic_client_impl.h"
-
 namespace diag {
 namespace client {
-std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path) {
-  return (std::make_unique<diag::client::DiagClientImpl>(diag_client_config_path));
+
+std::unique_ptr<DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path) {
+  return (std::make_unique<DiagClient>(diag_client_config_path));
 }
 }  // namespace client
 }  // namespace diag

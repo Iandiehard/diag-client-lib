@@ -324,7 +324,7 @@ public:
    */
   template<typename F>
   Result AndThen(F &&fn) &&noexcept {
-    return HasValue() ? fn(std::move(Value())) : Result{*this};
+    return HasValue() ? fn(std::move(*this).Value()) : Result{*this};
   }
 
   /**
@@ -339,7 +339,7 @@ public:
    */
   template<typename F>
   Result OrElse(F &&fn) &&noexcept {
-    return HasValue() ? Result{std::move(*this)} : fn(std::move(Error()));
+    return HasValue() ? Result{std::move(*this)} : fn(std::move(*this).Error());
   }
 
   /**
@@ -623,7 +623,7 @@ public:
    */
   template<typename F>
   Result OrElse(F &&fn) &&noexcept {
-    return HasValue() ? Result{std::move(*this)} : fn(std::move(Error()));
+    return HasValue() ? Result{std::move(*this)} : fn(std::move(*this).Error());
   }
 
   /**
