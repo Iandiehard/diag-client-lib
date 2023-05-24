@@ -10,6 +10,7 @@
 /* includes */
 #include <string_view>
 
+#include "core/result.h"
 #include "src/common/diagnostic_manager.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
@@ -18,53 +19,92 @@
 namespace diag {
 namespace client {
 namespace dcm {
-/*
- @ Class Name        : DCM Client
- @ Class Description : Class to create Diagnostic Manager Client functionality                           
+
+/**
+ * @brief    Class to create Diagnostic Manager Client functionality
  */
 class DCMClient final : public diag::client::common::DiagnosticManager {
 public:
-  //ctor
-  explicit DCMClient(diag::client::common::property_tree &ptree);
+  /**
+   * @brief         Constructs an instance of DCMClient
+   * @param[in]     dcm_client_config
+   *                The configuration of dcm client
+   */
+  explicit DCMClient(config_parser::DcmClientConfig dcm_client_config);
 
-  //dtor
-  ~DCMClient() override;
+  /**
+   * @brief         Deleted copy assignment and copy constructor
+   */
+  DCMClient(const DCMClient &other) noexcept = delete;
+  DCMClient &operator=(const DCMClient &other) noexcept = delete;
 
-  // Initialize
-  void Initialize() override;
+  /**
+   * @brief         Deleted move assignment and move constructor
+   */
+  DCMClient(DCMClient &&other) noexcept = delete;
+  DCMClient &operator=(DCMClient &&other) noexcept = delete;
 
-  // Run
-  void Run() override;
+  /**
+   * @brief         Destructs an instance of DCMClient
+   */
+  ~DCMClient() noexcept override;
 
-  // Shutdown
-  void Shutdown() override;
+  /**
+   * @brief         Function to initialize the DCMClient
+   */
+  void Initialize() noexcept override;
 
-  // Function to get the diagnostic client conversation
-  diag::client::conversation::DiagClientConversation &GetDiagnosticClientConversation(
-      std::string_view conversation_name) override;
+  /**
+   * @brief         Function to run DCMClient
+   */
+  void Run() noexcept override;
 
-  // Send Vehicle Identification Request and get response
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  /**
+   * @brief         Function to shutdown the DCMClient
+   */
+  void Shutdown() noexcept override;
+
+  /**
+   * @brief       Function to get required diag client conversation object based on conversation name
+   * @param[in]   conversation_name
+   *              Name of conversation configured as json parameter "ConversationName"
+   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   */
+  core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept override;
+
+  /**
+   * @brief       Function to send vehicle identification request and get the Diagnostic Server list
+   * @param[in]   vehicle_info_request
+   *              Vehicle information sent along with request
+   * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
+   */
+  core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                    DiagClient::VehicleInfoResponseErrorCode>
   SendVehicleIdentificationRequest(
-      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) override;
+      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
 
 private:
-  // uds transport protocol Manager
-  std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr;
+  /**
+   * @brief         Stores the uds transport protocol manager
+   */
+  std::unique_ptr<uds_transport::UdsTransportProtocolManager> uds_transport_protocol_mgr_;
 
-  // conversation manager
-  std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr;
+  /**
+   * @brief         Stores the conversation manager instance
+   */
+  std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr_;
 
-  // map to store conversation pointer along with conversation name
+  /**
+   * @brief         Map to store conversation object(dm) along with conversation name
+   */
   std::unordered_map<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>
-      diag_client_conversation_map;
+      conversation_map_;
 
-  // store the diag client conversation for vehicle discovery
-  std::unique_ptr<conversation::VdConversation> diag_client_vehicle_discovery_conversation;
-
-  // function to read from property tree to config structure
-  static diag::client::config_parser::DcmClientConfig GetDcmClientConfig(diag::client::common::property_tree &ptree);
+  /**
+   * @brief         Store the conversation for vehicle discovery
+   */
+  std::unique_ptr<conversation::VdConversation> vehicle_discovery_conversation_;
 };
 }  // namespace dcm
 }  // namespace client

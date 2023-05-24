@@ -24,7 +24,7 @@ using UdpErrorCodeType = boost::system::error_code;
 
 /*
  @ Class Name        : Create Udp Socket
- @ Class Description : Class used to create a udp socket for handling transmission
+ @ Class Description : Class used to create an udp socket for handling transmission
                        and reception of udp message from driver
 */
 class createUdpClientSocket {

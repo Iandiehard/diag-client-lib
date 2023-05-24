@@ -8,13 +8,13 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_DIAGNOSTIC_MANAGER_H
 /* includes */
-#include <string_view>
+#include <condition_variable>
+#include <mutex>
 
-#include "common_header.h"
+#include "core/result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
-#include "parser/json_parser.h"
 
 namespace diag {
 namespace client {
@@ -24,50 +24,95 @@ class DiagClientConversation;
 }
 
 namespace common {
-using property_tree = boost_support::parser::boostTree;
 
-/*
- @ Class Name        : DiagnosticManager
- @ Class Description : Parent class to create DCM and DEM class                            
+/**
+ * @brief    Parent class to create Diagnostic Manager
  */
 class DiagnosticManager {
 public:
-  //ctor
-  DiagnosticManager();
+  /**
+   * @brief         Constructs an instance of DiagnosticManager
+   */
+  DiagnosticManager() noexcept;
 
-  // dtor
-  virtual ~DiagnosticManager();
+  /**
+   * @brief         Deleted copy assignment and copy constructor
+   */
+  DiagnosticManager(const DiagnosticManager &other) noexcept = delete;
+  DiagnosticManager &operator=(const DiagnosticManager &other) noexcept = delete;
 
-  // main function
-  virtual void Main();
+  /**
+   * @brief         Deleted move assignment and move constructor
+   */
+  DiagnosticManager(DiagnosticManager &&other) noexcept = delete;
+  DiagnosticManager &operator=(DiagnosticManager &&other) noexcept = delete;
 
-  // signal shutdown
-  virtual void SignalShutdown();
+  /**
+   * @brief         Destructs an instance of DiagnosticManager
+   */
+  virtual ~DiagnosticManager() noexcept;
 
-  // Initialize
-  virtual void Initialize() = 0;
+  /**
+   * @brief         Function to manage the whole lifecycle of DiagnosticManager
+   */
+  virtual void Main() noexcept;
 
-  // Run
-  virtual void Run() = 0;
+  /**
+   * @brief         Function to initiate shutdown of DiagnosticManager
+   */
+  virtual void SignalShutdown() noexcept;
 
-  // Shutdown
-  virtual void Shutdown() = 0;
+  /**
+   * @brief         Function to initialize the DiagnosticManager
+   */
+  virtual void Initialize() noexcept = 0;
 
-  // Function to get the diagnostic client conversation
-  virtual diag::client::conversation::DiagClientConversation &GetDiagnosticClientConversation(
-      std::string_view conversation_name) = 0;
+  /**
+   * @brief         Function to run DiagnosticManager
+   */
+  virtual void Run() noexcept = 0;
 
-  // Send Vehicle Identification Request and get response
-  virtual std::pair<diag::client::DiagClient::VehicleResponseResult,
-                    diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
-  SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) = 0;
+  /**
+   * @brief         Function to shutdown the DiagnosticManager
+   */
+  virtual void Shutdown() noexcept = 0;
+
+  /**
+   * @brief       Function to get required diag client conversation object based on conversation name
+   * @param[in]   conversation_name
+   *              Name of conversation configured as json parameter "ConversationName"
+   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
+   */
+  virtual core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept = 0;
+
+  /**
+   * @brief       Function to send vehicle identification request and get the Diagnostic Server list
+   * @param[in]   vehicle_info_request
+   *              Vehicle information sent along with request
+   * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
+   * @implements  DiagClientLib-VehicleDiscovery
+   */
+  virtual core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                            DiagClient::VehicleInfoResponseErrorCode>
+  SendVehicleIdentificationRequest(
+      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept = 0;
 
 private:
-  // flag to terminate the main thread
+  /**
+   * @brief         Flag to terminate the main thread
+   */
   bool exit_requested_;
-  // conditional variable to block the thread
-  std::condition_variable cond_var;
-  // For locking critical section of code
+
+  /**
+   * @brief         Conditional variable to block the thread
+   */
+  std::condition_variable cond_var_;
+
+  /**
+   * @brief         For locking critical section of code
+   */
   std::mutex mutex_;
 };
 }  // namespace common

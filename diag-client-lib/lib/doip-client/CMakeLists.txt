@@ -40,7 +40,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 # link library
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
-        common
+        platform-core
         utility-support
         uds-transport-layer-api
         boost-support

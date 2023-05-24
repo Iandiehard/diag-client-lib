@@ -5,13 +5,14 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
-#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
+#ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_H
+#define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_H
 /* includes */
 #include <string_view>
 
 #include "include/diagnostic_client_conversation.h"
 #include "src/dcm/conversation/dm_conversation_state_impl.h"
+#include "src/dcm/conversation/dm_conversation_type.h"
 #include "uds_transport/connection.h"
 #include "uds_transport/conversion_handler.h"
 #include "uds_transport/protocol_types.h"
@@ -21,43 +22,75 @@ namespace diag {
 namespace client {
 namespace conversation {
 
-using ConversationState = conversation_state_impl::ConversationState;
-
-/*
- @ Class Name        : DmConversation
- @ Class Description : Class to establish connection with Diagnostic Server                           
+/**
+ * @brief    Class to establish connection with Diagnostic Server
  */
 class DmConversation final : public ::diag::client::conversation::DiagClientConversation {
 public:
+  /**
+   * @brief         Type alias for conversation internal state
+   */
+  using ConversationState = conversation_state_impl::ConversationState;
+  /**
+   * @brief         Type alias for synchronous timer
+   */
   using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+  /**
+   * @brief         Type alias for synchronous timer state
+   */
   using SyncTimerState = SyncTimer::TimerState;
 
-  // ctor
-  DmConversation(std::string_view conversion_name,
-                 ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier);
+  /**
+   * @brief         Constructs an instance of DmConversation
+   * @param[in]     conversion_name
+   *                The name of conversation
+   * @param[in]     conversion_identifier
+   *                The identifier consisting of conversation settings
+   */
+  DmConversation(std::string_view conversion_name, DMConversationType &conversion_identifier);
 
-  // dtor
+  /**
+   * @brief         Destructs an instance of DmConversation
+   */
   ~DmConversation() override;
 
-  // startup
+  /**
+   * @brief         Function to start the DmConversation
+   */
   void Startup() override;
 
-  // shutdown
+  /**
+   * @brief         Function to shutdown the DmConversation
+   */
   void Shutdown() override;
 
-  // Description   : Function to connect to Diagnostic Server
-  // @param input  : Nothing
-  // @return value : ConnectResult
+  /**
+   * @brief       Function to connect to Diagnostic Server
+   * @param[in]   target_address
+   *              Logical address of the Remote server
+   * @param[in]   host_ip_addr
+   *              IP address of the Remote server
+   * @return      ConnectResult
+   *              Connection result returned
+   */
   ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) override;
 
-  // Description   : Function to disconnect from Diagnostic Server
-  // @param input  : Nothing
-  // @return value : DisconnectResult
+  /**
+   * @brief       Function to disconnect from Diagnostic Server
+   * @return      DisconnectResult
+   *              Disconnection result returned
+   */
   DisconnectResult DisconnectFromDiagServer() override;
 
-  // Description   : Function to send Diagnostic Request and receive response
-  // @param input  : Nothing
-  // @return value : DisconnectResult
+  /**
+   * @brief       Function to send Diagnostic Request and get Diagnostic Response
+   * @param[in]   message
+   *              The diagnostic request message wrapped in a unique pointer
+   * @return      DiagResult
+   *              The Result returned
+   * @return      uds_message::UdsResponseMessagePtr
+   *              Diagnostic Response message received, null_ptr in case of error
+   */
   std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) override;
 
@@ -164,4 +197,5 @@ private:
 }  // namespace conversation
 }  // namespace client
 }  // namespace diag
-#endif  // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DMCONVERSATION_H
+
+#endif  // DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_H

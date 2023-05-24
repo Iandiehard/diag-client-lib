@@ -16,8 +16,7 @@ namespace diag {
 namespace client {
 namespace conversation {
 //ctor
-DmConversation::DmConversation(std::string_view conversion_name,
-                               ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier)
+DmConversation::DmConversation(std::string_view conversion_name, DMConversationType &conversion_identifier)
     : diag::client::conversation::DiagClientConversation(),
       activity_status_{ActivityStatusType::kInactive},
       active_session_{SessionControlType::kDefaultSession},

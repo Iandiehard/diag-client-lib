@@ -5,7 +5,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-project(common)
+project(platform-core)
 
 include(GNUInstallDirs)
 
@@ -17,7 +17,7 @@ add_library(${PROJECT_NAME} INTERFACE)
 
 #set includes paths
 set(header_path "${CMAKE_CURRENT_SOURCE_DIR}")
-file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/*h)
+file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/core/*)
 set(public_header ${HEADERS})
 set(header ${public_header})
 

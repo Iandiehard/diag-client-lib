@@ -100,8 +100,7 @@ private:
 };
 
 // Conversation class
-VdConversation::VdConversation(std::string_view conversion_name,
-                               uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier)
+VdConversation::VdConversation(std::string_view conversion_name, VDConversationType &conversion_identifier)
     : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
@@ -127,7 +126,8 @@ void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connectio
 
 VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleIdentificationRequest(
     vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
-  VehicleIdentificationResponseResult ret_val{VehicleResponseResult::kTransmitFailed, nullptr};
+  VehicleIdentificationResponseResult result{
+      VehicleIdentificationResponseResult::FromError(DiagClient::VehicleInfoResponseErrorCode::kTransmitFailed)};
   // Deserialize first , Todo: Add optional when deserialize fails
   std::pair<PreselectionMode, PreselectionValue> vehicle_info_request_deserialized_value{
       DeserializeVehicleInfoRequest(vehicle_info_request)};
@@ -140,18 +140,17 @@ VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleI
       // Check if any response received
       if (vehicle_info_collection_.empty()) {
         // no response received
-        ret_val.first = VehicleResponseResult::kNoResponseReceived;
+        result.EmplaceError(DiagClient::VehicleInfoResponseErrorCode::kNoResponseReceived);
       } else {
-        ret_val.first = VehicleResponseResult::kStatusOk;
-        ret_val.second = std::move(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_));
+        result.EmplaceValue(std::move(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_)));
         // all the responses are copied, now clear the map
         vehicle_info_collection_.clear();
       }
     }
   } else {
-    ret_val.first = VehicleResponseResult::kInvalidParameters;
+    result.EmplaceError(DiagClient::VehicleInfoResponseErrorCode::kInvalidParameters);
   }
-  return ret_val;
+  return result;
 }
 
 vehicle_info::VehicleInfoMessageResponseUniquePtr VdConversation::GetDiagnosticServerList() { return nullptr; }

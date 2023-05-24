@@ -7,8 +7,8 @@
 
 cmake_minimum_required(VERSION 3.5)
 
-# adding common library
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/common)
+# adding platform-core library
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/platform-core)
 # adding utility library
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/utility-support)
 # adding uds transport layer 

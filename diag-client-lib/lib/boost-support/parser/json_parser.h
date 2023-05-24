@@ -12,23 +12,31 @@
 #include <boost/property_tree/ptree.hpp>
 #include <string_view>
 
+#include "core/result.h"
+
 namespace boost_support {
 namespace parser {
-using boostTree = boost::property_tree::ptree;
 
-/*
- @ Class Name        : Parser to get the configuration from json file.
-*/
-class JsonParser {
-public:
-  JsonParser() = default;
+/**
+ * @brief  Type alias for boost property tree
+ */
+using boost_tree = boost::property_tree::ptree;
 
-  boostTree operator()(std::string_view json_path) {
-    boostTree json_tree{};
-    boost::property_tree::read_json(std::string{json_path}, json_tree);
-    return json_tree;
-  }
-};
+/**
+ * @brief  Definitions of Parsing failure error codes
+ */
+enum class ParsingErrorCode : std::uint8_t { kError = 0U };
+
+/**
+ * @brief           Parser to get the configuration from json file
+ * @param[in]       config_path
+ *                  The path to config file present
+ * @param[in,out]   json_tree
+ *                  The config tree or success or empty on failure
+ * @return          The result of type void on success or error code
+ */
+core_type::Result<void, ParsingErrorCode> Read(std::string_view config_path, boost_tree &json_tree);
+
 }  // namespace parser
 }  // namespace boost_support
 

@@ -25,6 +25,8 @@ RUN apt-get update &&\
         locales \
         tcpdump \
         cmake \
+        clang-format \
+        python3-pip \
         doxygen \
         net-tools \
         iproute2 \

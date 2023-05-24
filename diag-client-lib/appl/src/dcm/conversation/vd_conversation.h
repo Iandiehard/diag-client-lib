@@ -13,9 +13,11 @@
 #include <mutex>
 #include <string_view>
 
+#include "core/result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "src/dcm/conversation/vd_conversation_type.h"
 #include "uds_transport/connection.h"
 #include "uds_transport/conversion_handler.h"
 #include "uds_transport/protocol_types.h"
@@ -24,28 +26,28 @@ namespace diag {
 namespace client {
 namespace conversation {
 
-/*
- @ Class Name        : VdConversation
- @ Class Description : Class to query Diagnostic Server list
+/**
+ * @brief       Class to search for available diagnostic server over a network
  */
 class VdConversation {
 public:
+  /**
+   * @brief         Type alias for vehicle identification response result
+   */
   using VehicleIdentificationResponseResult =
-      std::pair<diag::client::DiagClient::VehicleResponseResult,
-                diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>;
+      core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                        DiagClient::VehicleInfoResponseErrorCode>;
 
   using IndicationResult = ::uds_transport::UdsTransportProtocolMgr::IndicationResult;
 
 private:
   using PreselectionMode = std::uint8_t;
   using PreselectionValue = std::vector<std::uint8_t>;
-  using VehicleResponseResult = diag::client::DiagClient::VehicleResponseResult;
   using VehicleAddrInfoResponseStruct = diag::client::vehicle_info::VehicleAddrInfoResponse;
 
 public:
   // ctor
-  VdConversation(std::string_view conversion_name,
-                 ::uds_transport::conversion_manager::ConversionIdentifierType &conversion_identifier);
+  VdConversation(std::string_view conversion_name, VDConversationType &conversion_identifier);
 
   // dtor
   ~VdConversation() = default;

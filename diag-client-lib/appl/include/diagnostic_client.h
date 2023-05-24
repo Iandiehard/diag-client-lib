@@ -22,7 +22,7 @@ namespace client {
  * @brief    Class to manage Diagnostic Client
  */
 class DiagClient final {
- public:
+public:
   /**
    * @brief  Definitions of Initialization & De-Initialization error code
    */
@@ -48,13 +48,12 @@ class DiagClient final {
     kNoConversationFound = 0U /**< Failure when no conversation object found */
   };
 
- public:
+public:
   /**
    * @brief         Constructs an instance of DiagClient
    * @param[in]     diag_client_config_path
    *                path to diag client config file
-   * @remarks       Implemented requirements:
-   *                DiagClientLib-Construction
+   * @implements    DiagClientLib-Construction
    */
   explicit DiagClient(std::string_view diag_client_config_path) noexcept;
 
@@ -72,8 +71,7 @@ class DiagClient final {
 
   /**
    * @brief         Destruct an instance of DiagClient
-   * @remarks       Implemented requirements:
-   *                DiagClientLib-Destruction
+   * @implements    DiagClientLib-Destruction
    */
   ~DiagClient() noexcept = default;
 
@@ -81,8 +79,7 @@ class DiagClient final {
    * @brief        Function to initialize the already created instance of DiagClient
    * @details      Must be called once and before using any other functions of DiagClient
    * @return       Result with void in case of success, otherwise error is returned
-   * @remarks      Implemented requirements:
-   *               DiagClientLib-Initialization
+   * @implements   DiagClientLib-Initialization
    */
   Result<void, InitDeInitErrorCode> Initialize() noexcept;
 
@@ -91,8 +88,7 @@ class DiagClient final {
    * @details      Must be called during shutdown phase, no further processing of any
    *               function will be allowed after this call
    * @return       Result with void in case of success, otherwise error is returned
-   * @remarks      Implemented requirements:
-   *               DiagClientLib-DeInitialization
+   * @implements   DiagClientLib-DeInitialization
    */
   Result<void, InitDeInitErrorCode> DeInitialize() noexcept;
 
@@ -101,8 +97,7 @@ class DiagClient final {
    * @param[in]   vehicle_info_request
    *              Vehicle information sent along with request
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
-   * @remarks     Implemented requirements:
-   *              DiagClientLib-VehicleDiscovery
+   * @implements  DiagClientLib-VehicleDiscovery
    */
   Result<vehicle_info::VehicleInfoMessageResponseUniquePtr, VehicleInfoResponseErrorCode>
   SendVehicleIdentificationRequest(
@@ -113,13 +108,12 @@ class DiagClient final {
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
    * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
-   * @remarks     Implemented requirements:
-   *              DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
+   * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  Result<conversation::DiagClientConversation&, ConversationErrorCode> GetDiagnosticClientConversation(
+  Result<conversation::DiagClientConversation &, ConversationErrorCode> GetDiagnosticClientConversation(
       std::string_view conversation_name) noexcept;
 
- private:
+private:
   /**
    * @brief    Forward declaration of diag client implementation
    */

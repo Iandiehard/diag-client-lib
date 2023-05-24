@@ -38,7 +38,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 #link target directory
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
-        common
+        platform-core
         utility-support
         ${Boost_LIBRARIES}
         )

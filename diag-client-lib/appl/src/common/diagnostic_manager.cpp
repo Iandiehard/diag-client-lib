@@ -10,22 +10,18 @@
 namespace diag {
 namespace client {
 namespace common {
-/*
- @ Class Name        : Diagnostic_manager
- @ Class Description : Parent class to create DCM and DEM class                            
- */
-DiagnosticManager::DiagnosticManager() : exit_requested_{false} {}
 
-DiagnosticManager::~DiagnosticManager() {
+DiagnosticManager::DiagnosticManager() noexcept : exit_requested_{false}, cond_var_{}, mutex_{} {}
+
+DiagnosticManager::~DiagnosticManager() noexcept {
   {
-    std::lock_guard<std::mutex> lock{mutex_};
+    std::lock_guard<std::mutex> const lock{mutex_};
     exit_requested_ = true;
   }
-  cond_var.notify_all();
+  cond_var_.notify_all();
 }
 
-// Main function which keeps DCM alive
-void DiagnosticManager::Main() {
+void DiagnosticManager::Main() noexcept {
   // Initialize the module
   Initialize();
   // Run the module
@@ -33,20 +29,19 @@ void DiagnosticManager::Main() {
   // Entering infinite loop
   while (!exit_requested_) {
     std::unique_lock<std::mutex> lck(mutex_);
-    cond_var.wait(lck, [this]() { return exit_requested_; });
+    cond_var_.wait(lck, [this]() { return exit_requested_; });
     // Thread exited
   }
   // Shutdown Module
   Shutdown();
 }
 
-// Function to shut down the component
-void DiagnosticManager::SignalShutdown() {
+void DiagnosticManager::SignalShutdown() noexcept {
   {
     std::lock_guard<std::mutex> lock{mutex_};
     exit_requested_ = true;
   }
-  cond_var.notify_all();
+  cond_var_.notify_all();
 }
 }  // namespace common
 }  // namespace client

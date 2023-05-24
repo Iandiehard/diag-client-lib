@@ -29,7 +29,7 @@ public:
   UdsTransportProtocolManager();
 
   //dtor
-  ~UdsTransportProtocolManager() = default;
+  ~UdsTransportProtocolManager() override = default;
 
   // initialize all the transport protocol handler
   void Startup() override;
