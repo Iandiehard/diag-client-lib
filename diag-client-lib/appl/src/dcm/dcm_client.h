@@ -70,7 +70,7 @@ public:
    *              Name of conversation configured as json parameter "ConversationName"
    * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
    */
-  core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+  core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
   GetDiagnosticClientConversation(std::string_view conversation_name) noexcept override;
 
   /**

@@ -8,6 +8,7 @@
 #ifndef DIAG_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H_
 #define DIAG_CLIENT_LIB_APPL_INCLUDE_DIAGNOSTIC_CLIENT_H_
 
+#include <functional>
 #include <memory>
 #include <string_view>
 
@@ -110,8 +111,8 @@ public:
    * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  Result<conversation::DiagClientConversation &, ConversationErrorCode> GetDiagnosticClientConversation(
-      std::string_view conversation_name) noexcept;
+  Result<std::reference_wrapper<conversation::DiagClientConversation>, ConversationErrorCode>
+  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;
 
 private:
   /**

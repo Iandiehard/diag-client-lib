@@ -115,8 +115,8 @@ public:
    * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  Result<conversation::DiagClientConversation &, DiagClient::ConversationErrorCode> GetDiagnosticClientConversation(
-      std::string_view conversation_name) noexcept {
+  Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
+  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
     return dcm_instance_->GetDiagnosticClientConversation(conversation_name);
   }
 
@@ -167,7 +167,7 @@ DiagClient::SendVehicleIdentificationRequest(
   return diag_client_impl_->SendVehicleIdentificationRequest(std::move(vehicle_info_request));
 }
 
-Result<conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
 DiagClient::GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
   return diag_client_impl_->GetDiagnosticClientConversation(conversation_name);
 }

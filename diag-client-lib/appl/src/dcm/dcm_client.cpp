@@ -58,18 +58,19 @@ void DCMClient::Shutdown() noexcept {
       __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Dcm Client Shutdown completed"; });
 }
 
-core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
 DCMClient::GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
-  core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
-      conversation_result{
-          core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>::
-              FromError(DiagClient::ConversationErrorCode::kNoConversationFound)};
+  core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
+      conversation_result{core_type::Result<
+          std::reference_wrapper<conversation::DiagClientConversation>,
+          DiagClient::ConversationErrorCode>::FromError(DiagClient::ConversationErrorCode::kNoConversationFound)};
   // try to get the conversation from conversation manager
   std::optional<std::unique_ptr<diag::client::conversation::DiagClientConversation>> conversation{
       conversation_mgr_->GetDiagnosticClientConversation(conversation_name)};
   if (conversation) {
     // insert the conversation object to map and return the reference to it
-    conversation_result.EmplaceValue(*conversation);
+    conversation_result.EmplaceValue(
+        std::reference_wrapper<conversation::DiagClientConversation>{*conversation.value()});
     conversation_map_.insert(
         std::pair<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>{
             conversation_name, std::move(conversation.value())});

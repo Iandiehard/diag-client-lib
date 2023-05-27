@@ -84,7 +84,8 @@ public:
    * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  virtual core_type::Result<diag::client::conversation::DiagClientConversation &, DiagClient::ConversationErrorCode>
+  virtual core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>,
+                            DiagClient::ConversationErrorCode>
   GetDiagnosticClientConversation(std::string_view conversation_name) noexcept = 0;
 
   /**
