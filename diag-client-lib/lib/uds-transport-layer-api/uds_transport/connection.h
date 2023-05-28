@@ -26,7 +26,7 @@ public:
   using ConnectionId = uint8_t;
 
   // ctor
-  Connection(ConnectionId connection_id, const std::shared_ptr<ConversionHandler> &conversation)
+  Connection(ConnectionId connection_id, uds_transport::ConversionHandler &conversation)
       : conversation_{conversation},
         connection_id_{connection_id} {}
 
@@ -65,7 +65,7 @@ public:
 
 protected:
   // Store the conversion
-  const std::shared_ptr<ConversionHandler> &conversation_;
+  uds_transport::ConversionHandler &conversation_;
 
 private:
   // store the connection id

@@ -81,12 +81,11 @@ public:
    * @brief       Function to get required diag client conversation object based on conversation name
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
-   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   * @return      Diag client conversation object as per passed conversation name
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  virtual core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>,
-                            DiagClient::ConversationErrorCode>
-  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept = 0;
+  virtual conversation::DiagClientConversation GetDiagnosticClientConversation(
+      std::string_view conversation_name) noexcept = 0;
 
   /**
    * @brief       Function to send vehicle identification request and get the Diagnostic Server list

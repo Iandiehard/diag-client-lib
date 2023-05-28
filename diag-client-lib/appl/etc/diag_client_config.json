@@ -5,8 +5,8 @@
     "NumberOfConversation": 2,
     "ConversationProperty": [
       {
-        "p2ClientMax": 1000,
-        "p2StarClientMax": 5000,
+        "P2ClientMax": 1000,
+        "P2StarClientMax": 5000,
         "RxBufferSize": 4095,
         "SourceAddress": 1,
         "TargetAddressType": "Physical",
@@ -18,8 +18,8 @@
         "ConversationName": "DiagTesterOne"
       },
       {
-        "p2ClientMax": 2000,
-        "p2StarClientMax": 5000,
+        "P2ClientMax": 2000,
+        "P2StarClientMax": 5000,
         "RxBufferSize": 4095,
         "SourceAddress": 2,
         "TargetAddressType": "Functional",

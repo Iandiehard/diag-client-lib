@@ -12,13 +12,13 @@
 
 // includes from diag-client library
 #include "include/create_diagnostic_client.h"
+#include "include/diagnostic_client_result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
 
 /*
- * Main Entry point of diag client example 
- * Example to find available ECU in a network through vehicle discovery and connecting to it.
+ * This is an example to find available ECU in a network through vehicle discovery and connecting to it.
  */
 int main() {
   // Create the Diagnostic client and pass the config for creating internal properties
@@ -27,7 +27,7 @@ int main() {
 
   // Initialize the Diagnostic Client library
   diag_client->Initialize();
-
+  /*
   // Get conversation for tester one by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
   diag::client::conversation::DiagClientConversation &diag_client_conversation {
@@ -89,5 +89,6 @@ int main() {
 
   // important to release all the resources by calling de-initialize
   diag_client->DeInitialize();
+   */
   return (0);
 }

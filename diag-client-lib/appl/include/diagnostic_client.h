@@ -39,7 +39,6 @@ public:
     kTransmitFailed = 0U,     /**< Failure on Transmissions */
     kInvalidParameters = 1U,  /**< Invalid Parameter passed */
     kNoResponseReceived = 2U, /**< No vehicle identification response received */
-    kStatusOk = 3U            /**< Vehicle identification response received success */
   };
 
   /**
@@ -74,7 +73,7 @@ public:
    * @brief         Destruct an instance of DiagClient
    * @implements    DiagClientLib-Destruction
    */
-  ~DiagClient() noexcept = default;
+  ~DiagClient() noexcept;
 
   /**
    * @brief        Function to initialize the already created instance of DiagClient
@@ -108,11 +107,10 @@ public:
    * @brief       Function to get required diag client conversation object based on conversation name
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
-   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   * @return      Diag client conversation object as per passed conversation name
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  Result<std::reference_wrapper<conversation::DiagClientConversation>, ConversationErrorCode>
-  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;
+  conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;
 
 private:
   /**

@@ -33,6 +33,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 target_link_libraries(${PROJECT_NAME}
         diag-client
+        platform-core
         boost-support
         utility-support
         GTest::gtest_main

@@ -99,35 +99,129 @@ private:
   VehicleInfoListResponseType vehicle_info_messages_;
 };
 
+/**
+ * @brief    Class to manage reception from transport protocol handler to vd connection handler
+ */
+class VdConversationHandler final : public ::uds_transport::ConversionHandler {
+public:
+  /**
+   * @brief         Constructs an instance of VdConversationHandler
+   * @param[in]     handler_id
+   *                The handle id of conversation
+   * @param[in]     vd_conversion
+   *                The reference of vd conversation
+   */
+  VdConversationHandler(::uds_transport::conversion_manager::ConversionHandlerID handler_id,
+                        VdConversation &vd_conversion)
+      : ::uds_transport::ConversionHandler{handler_id},
+        vd_conversation_{vd_conversion} {}
+
+  /**
+   * @brief         Deleted copy assignment and copy constructor
+   */
+  VdConversationHandler(const VdConversationHandler &other) noexcept = delete;
+  VdConversationHandler &operator=(const VdConversationHandler &other) noexcept = delete;
+
+  /**
+   * @brief         Deleted move assignment and move constructor
+   */
+  VdConversationHandler(VdConversationHandler &&other) noexcept = delete;
+  VdConversationHandler &operator=(VdConversationHandler &&other) noexcept = delete;
+
+  /**
+   * @brief         Destructs an instance of DmConversationHandler
+   */
+  ~VdConversationHandler() override = default;
+
+  /**
+   * @brief       Function to indicate a start of reception of message
+   * @details     This is called to indicate the reception of new message by underlying transport protocol handler
+   * @param[in]   source_addr
+   *              The UDS source address of message
+   * @param[in]   target_addr
+   *              The UDS target address of message
+   * @param[in]   type
+   *              The indication whether its is phys/func request
+   * @param[in]   channel_id
+   *              The transport protocol channel on which message start happened
+   * @param[in]   size
+   *              The size in bytes of the UdsMessage starting from SID
+   * @param[in]   priority
+   *              The priority of the given message, used for prioritization of conversations
+   * @param[in]   protocol_kind
+   *              The identifier of protocol kind associated to message
+   * @param[in]   payload_info
+   *              The View onto the first received payload bytes, if any. This view shall be used only within this function call.
+   *              It is recommended that the TP provides at least the first two bytes of the request message,
+   *              so the DM can identify a functional TesterPresent
+   * @return      std::pair< IndicationResult, UdsMessagePtr >
+   *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
+   *              to the handler to get filled
+   */
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payloadInfo) noexcept override {
+    return (vd_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                             payloadInfo));
+  }
+
+  /**
+   * @brief       Function to Hands over a valid received Uds message
+   * @param[in]   message
+   *              The The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   *              back to the conversation here
+   */
+  void HandleMessage(::uds_transport::UdsMessagePtr message) noexcept override {
+    vd_conversation_.HandleMessage(std::move(message));
+  }
+
+private:
+  /**
+   * @brief         Store the reference of vd conversation
+   */
+  VdConversation &vd_conversation_;
+};
+
 // Conversation class
 VdConversation::VdConversation(std::string_view conversion_name, VDConversationType &conversion_identifier)
-    : vd_conversion_handler_{std::make_shared<VdConversationHandler>(conversion_identifier.handler_id, *this)},
+    : vd_conversion_handler_{std::make_unique<VdConversationHandler>(conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
       connection_ptr_{},
       vehicle_info_collection_{},
       vehicle_info_container_mutex_{} {}
 
-void VdConversation::Startup() {
+VdConversation::~VdConversation() = default;
+
+void VdConversation::Startup() noexcept {
   // initialize the connection
   static_cast<void>(connection_ptr_->Initialize());
   // start the connection
   connection_ptr_->Start();
 }
 
-void VdConversation::Shutdown() {
+void VdConversation::Shutdown() noexcept {
   // shutdown connection
   connection_ptr_->Stop();
 }
 
-void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) {
+void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) noexcept {
   connection_ptr_ = std::move(connection);
 }
 
-VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleIdentificationRequest(
-    vehicle_info::VehicleInfoListRequestType vehicle_info_request) {
+core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                  DiagClient::VehicleInfoResponseErrorCode>
+VdConversation::SendVehicleIdentificationRequest(
+    vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept {
+  using VehicleIdentificationResponseResult =
+      core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                        DiagClient::VehicleInfoResponseErrorCode>;
+
   VehicleIdentificationResponseResult result{
       VehicleIdentificationResponseResult::FromError(DiagClient::VehicleInfoResponseErrorCode::kTransmitFailed)};
+
   // Deserialize first , Todo: Add optional when deserialize fails
   std::pair<PreselectionMode, PreselectionValue> vehicle_info_request_deserialized_value{
       DeserializeVehicleInfoRequest(vehicle_info_request)};
@@ -155,20 +249,24 @@ VdConversation::VehicleIdentificationResponseResult VdConversation::SendVehicleI
 
 vehicle_info::VehicleInfoMessageResponseUniquePtr VdConversation::GetDiagnosticServerList() { return nullptr; }
 
-std::pair<VdConversation::IndicationResult, uds_transport::UdsMessagePtr> VdConversation::IndicateMessage(
-    uds_transport::UdsMessage::Address /* source_addr */, uds_transport::UdsMessage::Address /* target_addr */,
-    uds_transport::UdsMessage::TargetAddressType /* type */, uds_transport::ChannelID channel_id, std::size_t size,
-    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo) {
-  std::pair<IndicationResult, uds_transport::UdsMessagePtr> ret_val{IndicationResult::kIndicationNOk, nullptr};
+std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>
+VdConversation::IndicateMessage(uds_transport::UdsMessage::Address /* source_addr */,
+                                uds_transport::UdsMessage::Address /* target_addr */,
+                                uds_transport::UdsMessage::TargetAddressType /* type */,
+                                uds_transport::ChannelID channel_id, std::size_t size, uds_transport::Priority priority,
+                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo) noexcept {
+  using IndicationResult =
+      std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>;
+  IndicationResult ret_val{::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   if (!payloadInfo.empty()) {
-    ret_val.first = IndicationResult::kIndicationOk;
+    ret_val.first = ::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
     ret_val.second = std::move(std::make_unique<diag::client::vd_message::VdMessage>());
     ret_val.second->GetPayload().resize(size);
   }
   return ret_val;
 }
 
-void VdConversation::HandleMessage(uds_transport::UdsMessagePtr message) {
+void VdConversation::HandleMessage(uds_transport::UdsMessagePtr message) noexcept {
   if (message != nullptr) {
     std::lock_guard<std::mutex> const lock{vehicle_info_container_mutex_};
     std::pair<std::uint16_t, VehicleAddrInfoResponseStruct> vehicle_info_request{
@@ -226,8 +324,8 @@ std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConver
   return {logical_address, vehicle_addr_info};
 }
 
-std::shared_ptr<uds_transport::ConversionHandler> &VdConversation::GetConversationHandler() {
-  return vd_conversion_handler_;
+::uds_transport::ConversionHandler &VdConversation::GetConversationHandler() noexcept {
+  return *vd_conversion_handler_;
 }
 
 std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue>
@@ -249,26 +347,6 @@ VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListReque
                               vehicle_info_request.preselection_value.length(), 2U);
   }
   return ret_val;
-}
-
-VdConversationHandler::VdConversationHandler(uds_transport::conversion_manager::ConversionHandlerID handler_id,
-                                             VdConversation &vd_conversion)
-    : uds_transport::ConversionHandler{handler_id},
-      vd_conversation_{vd_conversion} {}
-
-std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
-VdConversationHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
-                                       uds_transport::UdsMessage::Address target_addr,
-                                       uds_transport::UdsMessage::TargetAddressType type,
-                                       uds_transport::ChannelID channel_id, std::size_t size,
-                                       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                       std::vector<uint8_t> payloadInfo) {
-  return (vd_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                           payloadInfo));
-}
-
-void VdConversationHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
-  vd_conversation_.HandleMessage(std::move(message));
 }
 
 }  // namespace conversation

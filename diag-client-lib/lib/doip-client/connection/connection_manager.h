@@ -34,8 +34,7 @@ public:
   using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
 
   // ctor
-  DoipTcpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversion,
-                    std::string_view tcp_ip_address, uint16_t port_num);
+  DoipTcpConnection(uds_transport::ConversionHandler &conversion, std::string_view tcp_ip_address, uint16_t port_num);
 
   // dtor
   ~DoipTcpConnection() override = default;
@@ -88,8 +87,7 @@ public:
   using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
 
   // ctor
-  DoipUdpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversation,
-                    std::string_view udp_ip_address, uint16_t port_num);
+  DoipUdpConnection(uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address, uint16_t port_num);
 
   // dtor
   ~DoipUdpConnection() override = default;
@@ -145,14 +143,12 @@ public:
   ~DoipConnectionManager() = default;
 
   // Function to create new connection to handle doip tcp request and response
-  std::shared_ptr<DoipTcpConnection> FindOrCreateTcpConnection(
-      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
-      uint16_t port_num);
+  std::shared_ptr<DoipTcpConnection> FindOrCreateTcpConnection(uds_transport::ConversionHandler &conversation,
+                                                               std::string_view tcp_ip_address, uint16_t port_num);
 
   // Function to create new connection to handle doip udp request and response
-  std::shared_ptr<DoipUdpConnection> FindOrCreateUdpConnection(
-      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
-      uint16_t port_num);
+  std::shared_ptr<DoipUdpConnection> FindOrCreateUdpConnection(uds_transport::ConversionHandler &conversation,
+                                                               std::string_view udp_ip_address, uint16_t port_num);
 };
 }  // namespace connection
 }  // namespace doip_client

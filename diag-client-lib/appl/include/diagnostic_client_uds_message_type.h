@@ -11,6 +11,7 @@
 #include <cstdint>
 #include <memory>
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace diag {
@@ -27,7 +28,7 @@ public:
   /**
    * @brief         Type alias of ip address type
    */
-  using IpAddress = std::string;
+  using IpAddress = std::string_view;
 
   /**
    * @brief         Type alias of byte vector type

@@ -18,7 +18,7 @@
 
 #include "common_header.h"
 #include "uds_transport/connection.h"
-#include "uds_transport/conversion_handler.h"
+#include "uds_transport/conversation_handler.h"
 #include "uds_transport/protocol_handler.h"
 
 #endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_DOIP_HEADER_H

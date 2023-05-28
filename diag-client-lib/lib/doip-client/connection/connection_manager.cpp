@@ -18,8 +18,8 @@ namespace connection {
  @ Class Description : Class to create connection to tcp & udp handler                              
  */
 // ctor
-DoipTcpConnection::DoipTcpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversion,
-                                     std::string_view tcp_ip_address, uint16_t port_num)
+DoipTcpConnection::DoipTcpConnection(uds_transport::ConversionHandler &conversion, std::string_view tcp_ip_address,
+                                     uint16_t port_num)
     : uds_transport::Connection(1, conversion),
       tcp_transport_handler_(std::make_unique<tcpTransport::TcpTransportHandler>(tcp_ip_address, port_num, 1, *this)) {}
 
@@ -58,8 +58,8 @@ DoipTcpConnection::IndicateMessage(uds_transport::UdsMessage::Address source_add
                                    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                    std::vector<uint8_t> payloadInfo) {
   // Send Indication to conversion
-  return (conversation_->IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                         payloadInfo));
+  return (conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                        payloadInfo));
 }
 
 // Function to transmit the uds message
@@ -72,7 +72,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpConnection::Tr
 // Hands over a valid message to conversion
 void DoipTcpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   // send full message to conversion
-  conversation_->HandleMessage(std::move(message));
+  conversation_.HandleMessage(std::move(message));
 }
 
 /*
@@ -80,8 +80,8 @@ void DoipTcpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
  @ Class Description : Class to create connection to udp handler                              
  */
 // ctor
-DoipUdpConnection::DoipUdpConnection(const std::shared_ptr<uds_transport::ConversionHandler> &conversation,
-                                     std::string_view udp_ip_address, uint16_t port_num)
+DoipUdpConnection::DoipUdpConnection(uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address,
+                                     uint16_t port_num)
     : uds_transport::Connection(1, conversation),
       udp_transport_handler_{std::make_unique<udpTransport::UdpTransportHandler>(udp_ip_address, port_num, *this)} {}
 
@@ -121,8 +121,8 @@ DoipUdpConnection::IndicateMessage(uds_transport::UdsMessage::Address source_add
                                    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                    std::vector<uint8_t> payloadInfo) {
   // Send Indication to conversion
-  return (conversation_->IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                         payloadInfo));
+  return (conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                        payloadInfo));
 }
 
 // Function to transmit the uds message
@@ -135,19 +135,17 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipUdpConnection::Tr
 // Hands over a valid message to conversion
 void DoipUdpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   // send full message to conversion
-  conversation_->HandleMessage(std::move(message));
+  conversation_.HandleMessage(std::move(message));
 }
 
 // Function to create new connection to handle doip request and response
 std::shared_ptr<DoipTcpConnection> DoipConnectionManager::FindOrCreateTcpConnection(
-    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
-    uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address, uint16_t port_num) {
   return (std::make_shared<DoipTcpConnection>(conversation, tcp_ip_address, port_num));
 }
 
 std::shared_ptr<DoipUdpConnection> DoipConnectionManager::FindOrCreateUdpConnection(
-    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
-    uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address, uint16_t port_num) {
   return (std::make_shared<DoipUdpConnection>(conversation, udp_ip_address, port_num));
 }
 }  // namespace connection

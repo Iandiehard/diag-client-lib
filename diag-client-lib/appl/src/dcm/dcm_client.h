@@ -68,10 +68,10 @@ public:
    * @brief       Function to get required diag client conversation object based on conversation name
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
-   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   * @return      Diag client conversation object as per passed conversation name
    */
-  core_type::Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
-  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept override;
+  conversation::DiagClientConversation GetDiagnosticClientConversation(
+      std::string_view conversation_name) noexcept override;
 
   /**
    * @brief       Function to send vehicle identification request and get the Diagnostic Server list
@@ -93,19 +93,20 @@ private:
   /**
    * @brief         Stores the conversation manager instance
    */
-  std::unique_ptr<conversation_manager::ConversationManager> conversation_mgr_;
-
-  /**
-   * @brief         Map to store conversation object(dm) along with conversation name
-   */
-  std::unordered_map<std::string, std::unique_ptr<diag::client::conversation::DiagClientConversation>>
-      conversation_map_;
+  conversation_manager::ConversationManager conversation_mgr_;
 
   /**
    * @brief         Store the conversation for vehicle discovery
    */
-  std::unique_ptr<conversation::VdConversation> vehicle_discovery_conversation_;
+  conversation::Conversation &vehicle_discovery_conversation_;
 };
+
+/**
+ * @brief       Function to get the reference to conversation manager
+ * @return      Reference to conversation manager
+ */
+auto GetConversationManager() noexcept -> conversation_manager::ConversationManager &;
+
 }  // namespace dcm
 }  // namespace client
 }  // namespace diag

@@ -46,13 +46,13 @@ public:
   void Stop() override;
 
   // Get or Create Tcp connection
-  std::shared_ptr<uds_transport::Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
-      uint16_t port_num) override;
+  std::shared_ptr<uds_transport::Connection> FindOrCreateTcpConnection(uds_transport::ConversionHandler &conversation,
+                                                                       std::string_view tcp_ip_address,
+                                                                       uint16_t port_num) override;
 
   // Get or Create Udp connection
   std::shared_ptr<uds_transport::Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
+      uds_transport::ConversionHandler &conversion_handler, std::string_view udp_ip_address,
       uint16_t port_num) override;
 
 private:

@@ -48,8 +48,7 @@ void DoipTransportProtocolHandler::Stop() {}
 
 // Get or Create connection
 std::shared_ptr<uds_transport::Connection> DoipTransportProtocolHandler::FindOrCreateTcpConnection(
-    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view tcp_ip_address,
-    uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address, uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
         msg << "Doip Tcp protocol requested with local endpoint : "
@@ -59,8 +58,7 @@ std::shared_ptr<uds_transport::Connection> DoipTransportProtocolHandler::FindOrC
 }
 
 std::shared_ptr<uds_transport::Connection> DoipTransportProtocolHandler::FindOrCreateUdpConnection(
-    const std::shared_ptr<uds_transport::ConversionHandler> &conversation, std::string_view udp_ip_address,
-    uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address, uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
       __FILE__, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
         msg << "Doip Udp protocol requested with local endpoint : "

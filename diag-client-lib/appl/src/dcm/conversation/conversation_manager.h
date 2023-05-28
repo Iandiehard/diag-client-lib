@@ -10,11 +10,12 @@
 /* includes */
 #include <optional>
 #include <string_view>
+#include <variant>
 
 #include "common_header.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
-#include "src/dcm/conversation/dm_conversation.h"
+#include "src/dcm/conversation/conversation.h"
 #include "src/dcm/conversation/dm_conversation_type.h"
 #include "src/dcm/conversation/vd_conversation.h"
 #include "src/dcm/conversation/vd_conversation_type.h"
@@ -57,23 +58,27 @@ public:
    * @brief       Function to get DM conversation object based on conversation name
    * @param[in]   conversation_name
    *              The passed conversation name
-   * @return      The Optional value containing pointer to diag client conversation as per passed conversation name,
-   *              otherwise an empty value
+   * @return      The reference to diag client conversation as per passed conversation name
    */
-  std::optional<std::unique_ptr<diag::client::conversation::DmConversation>> GetDiagnosticClientConversation(
+  diag::client::conversation::Conversation &GetDiagnosticClientConversation(
       std::string_view conversation_name) noexcept;
 
-  /**
-   * @brief       Function to get vehicle discovery conversation object based on conversation name
-   * @param[in]   conversation_name
-   *              The passed conversation name
-   * @return      The Optional value containing pointer to vehicle discovery diag client conversation,
-   *              otherwise an empty value
-   */
-  std::optional<std::unique_ptr<diag::client::conversation::VdConversation>>
-  GetDiagnosticClientVehicleDiscoveryConversation(std::string_view conversation_name) noexcept;
-
 private:
+  /**
+   * @brief      Store Dm conversation
+   */
+  struct ConversationStorage {
+    /**
+     * @brief      Store conversation type
+     */
+    std::variant<conversation::DMConversationType, conversation::VDConversationType> conversation_type{};
+
+    /**
+     * @brief      Store pointer to conversation object
+     */
+    std::unique_ptr<diag::client::conversation::Conversation> conversation{};
+  };
+
   /**
    * @brief         Store the reference to uds transport manager
    */
@@ -82,12 +87,12 @@ private:
   /**
    * @brief         Map containing conversion name with conversion configurations
    */
-  std::map<std::string, conversation::DMConversationType> dm_conversation_config_;
+  std::map<std::string, conversation::VDConversationType> vd_conversation_config_;
 
   /**
-   * @brief         Map containing conversion name with conversion configurations
+   * @brief         Map to store conversation object(dm) along with conversation name
    */
-  std::map<std::string, conversation::VDConversationType> vd_conversation_config_;
+  std::unordered_map<std::string, ConversationStorage> conversation_map_;
 
   /**
    * @brief       Function to store the dcm client configuration internally

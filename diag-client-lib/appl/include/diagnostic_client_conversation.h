@@ -18,9 +18,9 @@ namespace conversation {
 
 /**
  * @brief       Conversation class to establish connection with a Diagnostic Server
- * @details     Conversation class only support DoIP communication protocol for connecting to remote ECU
+ * @details     This only support DoIP communication protocol for connecting to remote Diagnostic Server
  */
-class DiagClientConversation {
+class DiagClientConversation final {
 public:
   /**
    * @brief         Type alias of ip address type
@@ -61,71 +61,77 @@ public:
   };
 
   /**
-   * @brief      Constructor an instance of DiagClientConversation
-   * @remarks    Implemented requirements:
-   *             DiagClientLib-Conversation-Construction, DiagClientLib-DoIP-Support
+   * @brief         Constructor an instance of DiagClientConversation
+   * @param[in]     conversation_name
+   *                The name of conversation configured as json parameter under "ConversationName"
+   * @implements    DiagClientLib-Conversation-Construction, DiagClientLib-DoIP-Support
    */
-  DiagClientConversation() = default;
+  explicit DiagClientConversation(std::string_view conversation_name) noexcept;
 
   /**
-   * @brief      Destructor an instance of DiagClientConversation
-   * @remarks    Implemented requirements:
-   *             DiagClientLib-Conversation-Destruction
+   * @brief         Destructor an instance of DiagClientConversation
+   * @implements    DiagClientLib-Conversation-Destruction
    */
-  virtual ~DiagClientConversation() = default;
+  ~DiagClientConversation() noexcept;
 
   /**
-   * @brief      Function to startup the Diagnostic Client Conversation
-   * @details    Must be called once and before using any other functions of DiagClientConversation
-   * @remarks    Implemented requirements:
-   *             DiagClientLib-Conversation-StartUp
+   * @brief         Function to startup the Diagnostic Client Conversation
+   * @details       Must be called once and before using any other functions of DiagClientConversation
+   * @implements    DiagClientLib-Conversation-StartUp
    */
-  virtual void Startup() = 0;
+  void Startup() noexcept;
 
   /**
-   * @brief      Function to shutdown the Diagnostic Client Conversation
-   * @details    Must be called during shutdown phase, no further processing of any
-   *             function will be allowed after this call
-   * @remarks    Implemented requirements:
-   *             DiagClientLib-Conversation-Shutdown
+   * @brief         Function to shutdown the Diagnostic Client Conversation
+   * @details       Must be called during shutdown phase, no further processing of any function will
+   *                be allowed after this call
+   * @implements    DiagClientLib-Conversation-Shutdown
    */
-  virtual void Shutdown() = 0;
+  void Shutdown() noexcept;
 
   /**
-   * @brief       Function to connect to Diagnostic Server.
-   * @param[in]   target_address
-   *              Logical address of the Remote server
-   * @param[in]   host_ip_addr
-   *              IP address of the Remote server
-   * @return      ConnectResult
-   *              Connection result returned
-   * @remarks     Implemented requirements:
-   *              DiagClientLib-Conversation-Connect
+   * @brief         Function to connect to Diagnostic Server.
+   * @param[in]     target_address
+   *                Logical address of the Remote server
+   * @param[in]     host_ip_addr
+   *                IP address of the Remote server
+   * @return        ConnectResult
+   *                Connection result returned
+   * @implements    DiagClientLib-Conversation-Connect
    */
-  virtual ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) = 0;
+  ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) noexcept;
 
   /**
-   * @brief       Function to disconnect from Diagnostic Server
-   * @return      DisconnectResult
-   *              Disconnection result returned
-   * @remarks     Implemented requirements:
-   *              DiagClientLib-Conversation-Disconnect
+   * @brief         Function to disconnect from Diagnostic Server
+   * @return        DisconnectResult
+   *                Disconnection result returned
+   * @implements    DiagClientLib-Conversation-Disconnect
    */
-  virtual DisconnectResult DisconnectFromDiagServer() = 0;
+  DisconnectResult DisconnectFromDiagServer() noexcept;
 
   /**
-   * @brief       Function to send Diagnostic Request and get Diagnostic Response
-   * @param[in]   message
-   *              Diagnostic request message wrapped in a unique pointer
-   * @return      DiagResult
-   *              Result returned
-   * @return      uds_message::UdsResponseMessagePtr
-   *              Diagnostic Response message received, null_ptr in case of error
-   * @remarks     Implemented requirements:
-   *              DiagClientLib-Conversation-DiagRequestResponse
+   * @brief         Function to send Diagnostic Request and get Diagnostic Response
+   * @param[in]     message
+   *                The diagnostic request message wrapped in a unique pointer
+   * @return        DiagResult
+   *                The result returned
+   * @return        uds_message::UdsResponseMessagePtr
+   *                Diagnostic Response message received, null_ptr in case of error
+   * @implements    DiagClientLib-Conversation-DiagRequestResponse
    */
-  virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
-      uds_message::UdsRequestMessageConstPtr message) = 0;
+  std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+      uds_message::UdsRequestMessageConstPtr message) noexcept;
+
+private:
+  /**
+   * @brief    Forward declaration of diag client conversation implementation
+   */
+  class DiagClientConversationImpl;
+
+  /**
+   * @brief     Unique pointer to diag client conversation implementation
+   */
+  std::unique_ptr<DiagClientConversationImpl> diag_client_conversation_impl_;
 };
 }  // namespace conversation
 }  // namespace client

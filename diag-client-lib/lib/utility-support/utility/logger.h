@@ -28,6 +28,7 @@ public:
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
 #endif
+    std::abort();  // abort in case of fatal issue
   }
 
   template<typename Func>

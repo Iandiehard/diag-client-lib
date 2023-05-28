@@ -46,14 +46,12 @@ public:
   virtual void Stop() = 0;
 
   // Get or Create a Tcp Connection
-  virtual std::shared_ptr<Connection> FindOrCreateTcpConnection(
-      const std::shared_ptr<ConversionHandler> &conversion_handler, std::string_view tcpIpaddress,
-      uint16_t portNum) = 0;
+  virtual std::shared_ptr<Connection> FindOrCreateTcpConnection(ConversionHandler &conversion_handler,
+                                                                std::string_view tcpIpaddress, uint16_t portNum) = 0;
 
   // Get or Create an Udp Connection
-  virtual std::shared_ptr<Connection> FindOrCreateUdpConnection(
-      const std::shared_ptr<ConversionHandler> &conversion_handler, std::string_view udpIpaddress,
-      uint16_t portNum) = 0;
+  virtual std::shared_ptr<Connection> FindOrCreateUdpConnection(ConversionHandler &conversion_handler,
+                                                                std::string_view udpIpaddress, uint16_t portNum) = 0;
 
 protected:
   UdsTransportProtocolHandlerID handler_id_;

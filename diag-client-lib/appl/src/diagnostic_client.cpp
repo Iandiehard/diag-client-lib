@@ -29,7 +29,7 @@ public:
   /**
    * @brief         Constructs an instance of DiagClient
    * @param[in]     diag_client_config_path
-   *                path to diag client config file
+   *                The path to diag client config file
    * @implements    DiagClientLib-Construction
    */
   explicit DiagClientImpl(std::string_view diag_client_config_path) noexcept
@@ -112,11 +112,10 @@ public:
    * @brief       Function to get required diag client conversation object based on conversation name
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
-   * @return      Result containing reference to diag client conversation as per passed conversation name, otherwise error
+   * @return      Diag client conversation object as per passed conversation name
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
-  GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
+  conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
     return dcm_instance_->GetDiagnosticClientConversation(conversation_name);
   }
 
@@ -153,6 +152,8 @@ private:
 DiagClient::DiagClient(std::string_view diag_client_config_path) noexcept
     : diag_client_impl_{std::make_unique<DiagClientImpl>(diag_client_config_path)} {}
 
+DiagClient::~DiagClient() noexcept = default;
+
 Result<void, DiagClient::InitDeInitErrorCode> DiagClient::Initialize() noexcept {
   return diag_client_impl_->Initialize();
 }
@@ -167,8 +168,8 @@ DiagClient::SendVehicleIdentificationRequest(
   return diag_client_impl_->SendVehicleIdentificationRequest(std::move(vehicle_info_request));
 }
 
-Result<std::reference_wrapper<conversation::DiagClientConversation>, DiagClient::ConversationErrorCode>
-DiagClient::GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
+conversation::DiagClientConversation DiagClient::GetDiagnosticClientConversation(
+    std::string_view conversation_name) noexcept {
   return diag_client_impl_->GetDiagnosticClientConversation(conversation_name);
 }
 

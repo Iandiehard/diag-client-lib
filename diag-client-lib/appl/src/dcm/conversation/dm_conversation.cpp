@@ -11,29 +11,113 @@
 
 #include "src/common/logger.h"
 #include "src/dcm/service/dm_uds_message.h"
+#include "uds_transport/conversation_handler.h"
 
 namespace diag {
 namespace client {
 namespace conversation {
-//ctor
+
+/**
+ * @brief    Class to manage reception from transport protocol handler to dm connection handler
+ */
+class DmConversationHandler final : public ::uds_transport::ConversionHandler {
+public:
+  /**
+   * @brief         Constructs an instance of DmConversationHandler
+   * @param[in]     handler_id
+   *                The handle id of conversation
+   * @param[in]     dm_conversion
+   *                The reference of dm conversation
+   */
+  DmConversationHandler(::uds_transport::conversion_manager::ConversionHandlerID handler_id,
+                        DmConversation &dm_conversion)
+      : uds_transport::ConversionHandler{handler_id},
+        dm_conversation_{dm_conversion} {}
+
+  /**
+   * @brief         Deleted copy assignment and copy constructor
+   */
+  DmConversationHandler(const DmConversationHandler &other) noexcept = delete;
+  DmConversationHandler &operator=(const DmConversationHandler &other) noexcept = delete;
+
+  /**
+   * @brief         Deleted move assignment and move constructor
+   */
+  DmConversationHandler(DmConversationHandler &&other) noexcept = delete;
+  DmConversationHandler &operator=(DmConversationHandler &&other) noexcept = delete;
+
+  /**
+   * @brief         Destructs an instance of DmConversationHandler
+   */
+  ~DmConversationHandler() override = default;
+
+  /**
+   * @brief       Function to indicate a start of reception of message
+   * @details     This is called to indicate the reception of new message by underlying transport protocol handler
+   * @param[in]   source_addr
+   *              The UDS source address of message
+   * @param[in]   target_addr
+   *              The UDS target address of message
+   * @param[in]   type
+   *              The indication whether its is phys/func request
+   * @param[in]   channel_id
+   *              The transport protocol channel on which message start happened
+   * @param[in]   size
+   *              The size in bytes of the UdsMessage starting from SID
+   * @param[in]   priority
+   *              The priority of the given message, used for prioritization of conversations
+   * @param[in]   protocol_kind
+   *              The identifier of protocol kind associated to message
+   * @param[in]   payload_info
+   *              The View onto the first received payload bytes, if any. This view shall be used only within this function call.
+   *              It is recommended that the TP provides at least the first two bytes of the request message,
+   *              so the DM can identify a functional TesterPresent
+   * @return      std::pair< IndicationResult, UdsMessagePtr >
+   *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
+   *              to the handler to get filled
+   */
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
+      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
+      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
+      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+      std::vector<uint8_t> payload_info) noexcept override {
+    return (dm_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                             payload_info));
+  }
+
+  /**
+   * @brief       Function to Hands over a valid received Uds message
+   * @param[in]   message
+   *              The The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   *              back to the conversation here
+   */
+  void HandleMessage(::uds_transport::UdsMessagePtr message) noexcept override {
+    dm_conversation_.HandleMessage(std::move(message));
+  }
+
+private:
+  /**
+   * @brief         Store the reference of dm conversation
+   */
+  DmConversation &dm_conversation_;
+};
+
 DmConversation::DmConversation(std::string_view conversion_name, DMConversationType &conversion_identifier)
-    : diag::client::conversation::DiagClientConversation(),
+    : Conversation{},
       activity_status_{ActivityStatusType::kInactive},
       active_session_{SessionControlType::kDefaultSession},
-      active_security_{SecurityLevelType::kLocked},
+      active_security_level_{SecurityLevelType::kLocked},
       rx_buffer_size_{conversion_identifier.rx_buffer_size},
       p2_client_max_{conversion_identifier.p2_client_max},
       p2_star_client_max_{conversion_identifier.p2_star_client_max},
       source_address_{conversion_identifier.source_address},
       target_address_{},
       conversation_name_{conversion_name},
-      dm_conversion_handler_{std::make_shared<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
+      dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
 
-//dtor
 DmConversation::~DmConversation() = default;
 
-// startup
-void DmConversation::Startup() {
+void DmConversation::Startup() noexcept {
   // initialize the connection
   connection_ptr_->Initialize();
   // start the connection
@@ -48,8 +132,7 @@ void DmConversation::Startup() {
                                                                       });
 }
 
-// shutdown
-void DmConversation::Shutdown() {
+void DmConversation::Shutdown() noexcept {
   // shutdown connection
   connection_ptr_->Stop();
   // Change the state to InActive
@@ -63,7 +146,7 @@ void DmConversation::Shutdown() {
 }
 
 DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::uint16_t target_address,
-                                                                          IpAddress host_ip_addr) {
+                                                                          IpAddress host_ip_addr) noexcept {
   // create an uds message just to get the port number
   // source address required for Routing Activation
   uds_transport::ByteVector payload{};  // empty payload
@@ -93,7 +176,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
   return connection_result;
 }
 
-DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() {
+DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() noexcept {
   DiagClientConversation::DisconnectResult ret_val{DiagClientConversation::DisconnectResult::kDisconnectFailed};
   // Check if already connected before disconnecting
   if (connection_ptr_->IsConnectToHost()) {
@@ -122,7 +205,7 @@ DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServe
 }
 
 std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr> DmConversation::SendDiagnosticRequest(
-    uds_message::UdsRequestMessageConstPtr message) {
+    uds_message::UdsRequestMessageConstPtr message) noexcept {
   std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr> ret_val{
       DiagClientConversation::DiagResult::kDiagGenericFailure, nullptr};
   if (message) {
@@ -208,7 +291,7 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
             break;
           case ConversationState::kDiagSuccess:
             // change state to idle, form the uds response and return
-            ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer));
+            ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsResponse>(payload_rx_buffer_));
             ret_val.first = DiagClientConversation::DiagResult::kDiagSuccess;
             conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
             break;
@@ -233,18 +316,20 @@ std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr
   return ret_val;
 }
 
-// Function to add register Connection to conversion
-void DmConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) {
+void DmConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) noexcept {
   connection_ptr_ = std::move(connection);
 }
 
-// Indicate message Diagnostic message reception over TCP to user
+::uds_transport::ConversionHandler &DmConversation::GetConversationHandler() noexcept {
+  return *dm_conversion_handler_;
+}
+
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
 DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::Address target_addr,
                                 uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
                                 std::size_t size, uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payload_info) {
+                                uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payload_info) noexcept {
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
       uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   // Verify the payload received :-
@@ -271,10 +356,10 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
             });
         // positive or negative response, provide valid buffer
         // resize the global rx buffer
-        payload_rx_buffer.resize(size);
+        payload_rx_buffer_.resize(size);
         ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
         ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, "", payload_rx_buffer));
+            source_address_, target_address_, "", payload_rx_buffer_));
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
       }
       WaitCancel();
@@ -298,8 +383,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
   return ret_val;
 }
 
-// Hands over a valid message to conversion
-void DmConversation::HandleMessage(uds_transport::UdsMessagePtr message) {
+void DmConversation::HandleMessage(uds_transport::UdsMessagePtr message) noexcept {
   if (message != nullptr) {
     conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagSuccess);
   }
@@ -339,28 +423,6 @@ DiagClientConversation::DiagResult DmConversation::ConvertResponseType(
   return ret_result;
 }
 
-// ctor
-DmConversationHandler::DmConversationHandler(uds_transport::conversion_manager::ConversionHandlerID handler_id,
-                                             DmConversation &dm_conversion)
-    : uds_transport::ConversionHandler{handler_id},
-      dm_conversation_{dm_conversion} {}
-
-// Indicate message Diagnostic message reception over TCP to user
-std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
-DmConversationHandler::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
-                                       uds_transport::UdsMessage::Address target_addr,
-                                       uds_transport::UdsMessage::TargetAddressType type,
-                                       uds_transport::ChannelID channel_id, std::size_t size,
-                                       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                       std::vector<uint8_t> payload_info) {
-  return (dm_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                           payload_info));
-}
-
-// Hands over a valid message to conversion
-void DmConversationHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
-  dm_conversation_.HandleMessage(std::move(message));
-}
 }  // namespace conversation
 }  // namespace client
 }  // namespace diag
