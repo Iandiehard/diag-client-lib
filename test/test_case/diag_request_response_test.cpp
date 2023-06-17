@@ -200,14 +200,12 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
   EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
-  std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-            diag::client::uds_message::UdsResponseMessagePtr>
-      diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+ auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
-  EXPECT_EQ(diag_result.first, diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess);
-  EXPECT_EQ(diag_result.second->GetPayload()[0], 0x50);
-  EXPECT_EQ(diag_result.second->GetPayload()[1], 0x01);
+  EXPECT_TRUE(diag_result.HasValue());
+  EXPECT_EQ(diag_result.Value()->GetPayload()[0], 0x50);
+  EXPECT_EQ(diag_result.Value()->GetPayload()[1], 0x01);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};
@@ -246,14 +244,12 @@ TEST_F(DiagReqResFixture, VerifyDiagPendingResponse) {
   EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
-  std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-            diag::client::uds_message::UdsResponseMessagePtr>
-      diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+  auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
-  EXPECT_EQ(diag_result.first, diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess);
-  EXPECT_EQ(diag_result.second->GetPayload()[0], 0x50);
-  EXPECT_EQ(diag_result.second->GetPayload()[1], 0x01);
+  EXPECT_TRUE(diag_result.HasValue());
+  EXPECT_EQ(diag_result.Value()->GetPayload()[0], 0x50);
+  EXPECT_EQ(diag_result.Value()->GetPayload()[1], 0x01);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};
@@ -288,12 +284,11 @@ TEST_F(DiagReqResFixture, VerifyDiagNegAcknowledgement) {
   EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
-  std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-            diag::client::uds_message::UdsResponseMessagePtr>
-      diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+  auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
-  // Verify positive response
-  EXPECT_EQ(diag_result.first, diag::client::conversation::DiagClientConversation::DiagResult::kDiagNegAckReceived);
+  // Verify Negative Acknowledgement
+  EXPECT_FALSE(diag_result.HasValue());
+  EXPECT_EQ(diag_result.Error(), diag::client::conversation::DiagClientConversation::DiagError::kDiagNegAckReceived);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};
@@ -352,14 +347,12 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
   ASSERT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
-  std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-            diag::client::uds_message::UdsResponseMessagePtr>
-      diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+  auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
-  ASSERT_EQ(diag_result.first, diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess);
-  EXPECT_EQ(diag_result.second->GetPayload()[0], 0x50);
-  EXPECT_EQ(diag_result.second->GetPayload()[1], 0x01);
+  EXPECT_TRUE(diag_result.HasValue());
+  EXPECT_EQ(diag_result.Value()->GetPayload()[0], 0x50);
+  EXPECT_EQ(diag_result.Value()->GetPayload()[1], 0x01);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};

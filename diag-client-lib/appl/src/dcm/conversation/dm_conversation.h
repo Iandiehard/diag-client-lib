@@ -156,7 +156,7 @@ public:
    * @return      uds_message::UdsResponseMessagePtr
    *              Diagnostic Response message received, null_ptr in case of error
    */
-  std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+  Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept override;
 
 private:
@@ -207,7 +207,7 @@ private:
    * @return      DiagResult
    *              The diagnostic result type
    */
-  static DiagClientConversation::DiagResult ConvertResponseType(
+  static DiagClientConversation::DiagError ConvertResponseType(
       ::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type);
 
   /**

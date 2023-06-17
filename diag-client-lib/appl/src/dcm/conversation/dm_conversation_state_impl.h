@@ -44,10 +44,10 @@ private:
 class kIdle final : public State<ConversationState> {
 public:
   // ctor
-  kIdle(ConversationState state);
+  explicit kIdle(ConversationState state);
 
   // dtor
-  ~kIdle() = default;
+  ~kIdle() override = default;
 
   // start the state
   void Start() override;
@@ -62,10 +62,10 @@ public:
 class kDiagWaitForRes final : public State<ConversationState> {
 public:
   // ctor
-  kDiagWaitForRes(ConversationState state);
+  explicit kDiagWaitForRes(ConversationState state);
 
   // dtor
-  ~kDiagWaitForRes() = default;
+  ~kDiagWaitForRes() override = default;
 
   // start the state
   void Start() override;
@@ -80,10 +80,10 @@ public:
 class kDiagStartP2StarTimer final : public State<ConversationState> {
 public:
   // ctor
-  kDiagStartP2StarTimer(ConversationState state);
+  explicit kDiagStartP2StarTimer(ConversationState state);
 
   // dtor
-  ~kDiagStartP2StarTimer() = default;
+  ~kDiagStartP2StarTimer() override = default;
 
   // start the state
   void Start() override;
@@ -98,10 +98,10 @@ public:
 class kDiagRecvdPendingRes final : public State<ConversationState> {
 public:
   // ctor
-  kDiagRecvdPendingRes(ConversationState state);
+  explicit kDiagRecvdPendingRes(ConversationState state);
 
   // dtor
-  ~kDiagRecvdPendingRes() = default;
+  ~kDiagRecvdPendingRes() override = default;
 
   // start the state
   void Start() override;
@@ -116,10 +116,10 @@ public:
 class kDiagRecvdFinalRes final : public State<ConversationState> {
 public:
   // ctor
-  kDiagRecvdFinalRes(ConversationState state);
+  explicit kDiagRecvdFinalRes(ConversationState state);
 
   // dtor
-  ~kDiagRecvdFinalRes() = default;
+  ~kDiagRecvdFinalRes() override = default;
 
   // start the state
   void Start() override;
@@ -134,10 +134,10 @@ public:
 class kDiagSuccess final : public State<ConversationState> {
 public:
   // ctor
-  kDiagSuccess(ConversationState state);
+  explicit kDiagSuccess(ConversationState state);
 
   // dtor
-  ~kDiagSuccess() = default;
+  ~kDiagSuccess() override = default;
 
   // start the state
   void Start() override;

@@ -11,6 +11,7 @@
 #include <cstdint>
 
 #include "diagnostic_client_uds_message_type.h"
+#include "include/diagnostic_client_result.h"
 
 namespace diag {
 namespace client {
@@ -49,8 +50,7 @@ public:
   /**
    * @brief      Definitions of Diagnostics Request Response results
    */
-  enum class DiagResult : std::uint8_t {
-    kDiagSuccess = 0U,           /**< Diagnostic request message transmitted and response received successfully */
+  enum class DiagError : std::uint8_t {
     kDiagGenericFailure = 1U,    /**< Generic Diagnostic Error, see logs for more information */
     kDiagRequestSendFailed = 2U, /**< Diagnostic request message transmission failure */
     kDiagAckTimeout = 3U,        /**< No diagnostic acknowledgement response received within 2 seconds */
@@ -119,7 +119,7 @@ public:
    *                Diagnostic Response message received, null_ptr in case of error
    * @implements    DiagClientLib-Conversation-DiagRequestResponse
    */
-  std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+  Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept;
 
 private:

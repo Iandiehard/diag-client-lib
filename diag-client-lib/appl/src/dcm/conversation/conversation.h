@@ -41,7 +41,7 @@ public:
   /**
    * @brief         Type alias for Diagnostic results
    */
-  using DiagResult = DiagClientConversation::DiagResult;
+  using DiagError = DiagClientConversation::DiagError;
 
   /**
    * @brief         Constructs an instance of Conversation
@@ -157,9 +157,9 @@ public:
    * @return      uds_message::UdsResponseMessagePtr
    *              Diagnostic Response message received, null_ptr in case of error
    */
-  virtual std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+  virtual Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept {
-    return {DiagResult::kDiagRequestSendFailed, nullptr};
+    return Result<uds_message::UdsResponseMessagePtr, DiagError>::FromError(DiagError::kDiagRequestSendFailed);
   }
 
   /**

@@ -73,7 +73,7 @@ public:
    * @return        uds_message::UdsResponseMessagePtr
    *                Diagnostic Response message received, null_ptr in case of error
    */
-  std::pair<DiagResult, uds_message::UdsResponseMessagePtr> SendDiagnosticRequest(
+  Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept {
     return internal_conversation_.SendDiagnosticRequest(std::move(message));
   }
@@ -103,7 +103,7 @@ DiagClientConversation::DisconnectResult DiagClientConversation::DisconnectFromD
   return diag_client_conversation_impl_->DisconnectFromDiagServer();
 }
 
-std::pair<DiagClientConversation::DiagResult, uds_message::UdsResponseMessagePtr>
+Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError>
 DiagClientConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) noexcept {
   return diag_client_conversation_impl_->SendDiagnosticRequest(std::move(message));
 }
