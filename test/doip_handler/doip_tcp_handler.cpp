@@ -99,7 +99,7 @@ void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
                                           tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
                                           tcp_rx_message->rxBuffer_.end());
   }
-  
+
   // Trigger async transmission
   {
     std::lock_guard<std::mutex> const lck{mutex_};
@@ -191,14 +191,14 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
           [](std::stringstream &msg) { msg << "Sending of Diagnostic Message Pos Ack Response success"; });
 
       // Check for pending responses set
-      if(!uds_pending_response_payload_.empty()) {
+      if (!uds_pending_response_payload_.empty()) {
         // emplace pending response jobs based on number of pending response
-        for(std::uint8_t pending_count{0}; pending_count < num_of_pending_response_; pending_count++) {
+        for (std::uint8_t pending_count{0}; pending_count < num_of_pending_response_; pending_count++) {
           job_queue_.emplace([this]() {
             // wait so that diag positive ack is processed first before sending diag response
             std::this_thread::sleep_for(std::chrono::milliseconds(25));
             this->SendDiagnosticPendingMessageResponse();
-          });        
+          });
         }
       }
       // emplace a positive response
@@ -246,7 +246,6 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
   }
 }
 
-
 void DoipTcpHandler::DoipChannel::SendDiagnosticPendingMessageResponse() {
   TcpMessagePtr diag_uds_message_response{std::make_unique<TcpMessage>()};
   // create header
@@ -291,8 +290,7 @@ void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageUdsMessageToBeSend
 }
 
 void DoipTcpHandler::DoipChannel::SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(
-  std::vector<std::uint8_t> payload, 
-  std::uint8_t num_of_pending_response) {
+    std::vector<std::uint8_t> payload, std::uint8_t num_of_pending_response) {
   uds_pending_response_payload_.clear();
   uds_pending_response_payload_ = std::move(payload);
   num_of_pending_response_ = num_of_pending_response;

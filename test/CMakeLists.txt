@@ -6,8 +6,8 @@ set(CMAKE_CXX_STANDARD 17)
 # Download and compile gtest
 include(FetchContent)
 FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/refs/tags/release-1.12.1.zip
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/release-1.12.1.zip
 )
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings

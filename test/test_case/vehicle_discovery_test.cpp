@@ -22,20 +22,18 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
 
   // Send Vehicle Identification request and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
-      response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
+  auto response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request with no payload
   EXPECT_TRUE(GetDoipTestUdpHandlerRef().VerifyVehicleIdentificationRequestWithExpectedVIN(""));
 
   // Verify Vehicle identification responses received successfully
-  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
-  ASSERT_TRUE(response_result.second);
+  ASSERT_TRUE(response_result.HasValue());
+  ASSERT_TRUE(response_result.Value());
 
   // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-      response_result.second->GetVehicleList()};
+      response_result.Value()->GetVehicleList()};
 
   EXPECT_EQ(response_collection.size(), 1U);
   EXPECT_EQ(response_collection[0].ip_address, DiagUdpIpAddress);
@@ -53,20 +51,18 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeVin) {
 
   // Send Vehicle Identification request with VIN and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
-      response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
+  auto response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
   EXPECT_TRUE(GetDoipTestUdpHandlerRef().VerifyVehicleIdentificationRequestWithExpectedVIN("ABCDEFGH123456789"));
 
   // Verify Vehicle identification responses
-  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
-  ASSERT_TRUE(response_result.second);
+  ASSERT_TRUE(response_result.HasValue());
+  ASSERT_TRUE(response_result.Value());
 
   // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-      response_result.second->GetVehicleList()};
+      response_result.Value()->GetVehicleList()};
 
   // Verify the received response
   EXPECT_EQ(response_collection.size(), 1U);
@@ -85,20 +81,18 @@ TEST_F(DoipClientFixture, VerifyPreselectionModeEID) {
 
   // Send Vehicle Identification request with EID and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{2U, "00:02:36:31:00:1c"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
-      response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
+  auto response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification request payload matches
   EXPECT_TRUE(GetDoipTestUdpHandlerRef().VerifyVehicleIdentificationRequestWithExpectedEID("00:02:36:31:00:1c"));
 
   // Verify Vehicle identification responses
-  ASSERT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
-  ASSERT_TRUE(response_result.second);
+  ASSERT_TRUE(response_result.HasValue());
+  ASSERT_TRUE(response_result.Value());
 
   // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-      response_result.second->GetVehicleList()};
+      response_result.Value()->GetVehicleList()};
 
   // Verify the received response
   EXPECT_EQ(response_collection.size(), 1U);

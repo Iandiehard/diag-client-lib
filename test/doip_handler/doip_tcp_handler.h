@@ -52,7 +52,8 @@ public:
     void SetExpectedDiagnosticMessageUdsMessageToBeSend(std::vector<std::uint8_t> payload);
 
     // Set expected Diagnostic Pending Response Uds message
-    void SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(std::vector<std::uint8_t> payload, std::uint8_t num_of_pending_response);
+    void SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(std::vector<std::uint8_t> payload,
+                                                                   std::uint8_t num_of_pending_response);
 
   private:
     // Store the logical address
@@ -99,6 +100,7 @@ public:
 
     // Diag message uds pending payload
     std::vector<std::uint8_t> uds_pending_response_payload_;
+
   private:
     // Function invoked during reception
     void HandleMessage(TcpMessagePtr tcp_rx_message);
@@ -124,7 +126,7 @@ public:
 
     // Function to trigger transmission of diag uds message
     void SendDiagnosticMessageResponse();
-    
+
     // Function to send diagnostic pending response
     void SendDiagnosticPendingMessageResponse();
   };

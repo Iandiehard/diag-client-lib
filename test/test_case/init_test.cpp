@@ -17,7 +17,7 @@ namespace doip_client {
 
 TEST_F(DoipClientFixture, StartupAndTermination) {
   // Get conversation for tester one
-  diag::client::conversation::DiagClientConversation &diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
 
   diag_client_conversation.Startup();

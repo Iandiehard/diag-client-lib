@@ -128,7 +128,7 @@ TEST_F(DiagReqResFixture, VerifyRoutingActivationSuccessful) {
   doip_channel.Initialize();
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
@@ -154,7 +154,7 @@ TEST_F(DiagReqResFixture, VerifyRoutingActivationFailure) {
   doip_channel.Initialize();
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
@@ -189,7 +189,7 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
   doip_channel.SetExpectedDiagnosticMessageUdsMessageToBeSend(UdsMessage::ByteVector{0x50, 0x01});
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
@@ -223,20 +223,18 @@ TEST_F(DiagReqResFixture, VerifyDiagPendingResponse) {
   // Get the doip channel and Initialize it
   DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(0xFA25U)};
   doip_channel.Initialize();
-  
+
   // Create expected uds pending response
-  doip_channel.SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(UdsMessage::ByteVector{0x7F, 0x10, 0x78}, 
-                                                                        10u);
+  doip_channel.SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(UdsMessage::ByteVector{0x7F, 0x10, 0x78}, 10u);
 
   // Create expected uds positive response
   doip_channel.SetExpectedDiagnosticMessageUdsMessageToBeSend(UdsMessage::ByteVector{0x50, 0x01});
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
-  
   // Create uds message
   diag::client::uds_message::UdsRequestMessagePtr uds_message{
       std::make_unique<UdsMessage>(DiagTcpIpAddress, UdsMessage::ByteVector{0x10, 0x01})};
@@ -279,7 +277,7 @@ TEST_F(DiagReqResFixture, VerifyDiagNegAcknowledgement) {
   doip_channel.SetExpectedDiagnosticMessageAckResponseToBeSend(kDoip_DiagnosticMessage_NegAckCode_InvalidSA);
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
@@ -325,24 +323,24 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
   // ========================================================
   // Send Vehicle Identification request with VIN and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
-  std::pair<diag::client::DiagClient::VehicleResponseResult,
-            diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr>
+  diag::client::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                       diag::client::DiagClient::VehicleInfoResponseErrorCode>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification responses
-  EXPECT_EQ(response_result.first, diag::client::DiagClient::VehicleResponseResult::kStatusOk);
-  EXPECT_TRUE(response_result.second);
+  EXPECT_TRUE(response_result.HasValue());
+  EXPECT_TRUE(response_result.Value());
 
   // Get the list of all vehicle available
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-      response_result.second->GetVehicleList()};
+      response_result.Value()->GetVehicleList()};
 
   // Create uds message using response collection
   diag::client::uds_message::UdsRequestMessagePtr uds_message{
       std::make_unique<UdsMessage>(response_collection[0].ip_address, UdsMessage::ByteVector{0x10, 0x01})};
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation{
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation.Startup();
 
@@ -376,16 +374,17 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
 TEST_F(DiagReqResFixture, VerifyTwoDiagClientConnection) {
   // Get the doip channels and Initialize it
   DoipTcpHandler::DoipChannel& doip_channel_1{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagServerLogicalAddress)};
-  DoipTcpHandler::DoipChannel& doip_channel_2{GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagSecondServerLogicalAddress)};
+  DoipTcpHandler::DoipChannel& doip_channel_2{
+      GetDoipTestTcpHandlerRef().CreateDoipChannel(DiagSecondServerLogicalAddress)};
   doip_channel_1.Initialize();
   doip_channel_2.Initialize();
 
   // Get conversation for tester one and start up the conversation
-  diag::client::conversation::DiagClientConversation& diag_client_conversation_1{
+  diag::client::conversation::DiagClientConversation diag_client_conversation_1{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
   diag_client_conversation_1.Startup();
 
-  diag::client::conversation::DiagClientConversation& diag_client_conversation_2{
+  diag::client::conversation::DiagClientConversation diag_client_conversation_2{
       GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterTwo")};
   diag_client_conversation_2.Startup();
 
