@@ -85,11 +85,6 @@ private:
   uds_transport::UdsTransportProtocolManager &uds_transport_mgr_;
 
   /**
-   * @brief         Map containing conversion name with conversion configurations
-   */
-  std::map<std::string, conversation::VDConversationType> vd_conversation_config_;
-
-  /**
    * @brief         Map to store conversation object(dm) along with conversation name
    */
   std::unordered_map<std::string, ConversationStorage> conversation_map_;

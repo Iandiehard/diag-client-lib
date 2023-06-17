@@ -18,8 +18,7 @@ namespace conversation_manager {
 ConversationManager::ConversationManager(
     diag::client::config_parser::DcmClientConfig config,
     diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr) noexcept
-    : uds_transport_mgr_{uds_transport_mgr},
-      vd_conversation_config_{} {
+    : uds_transport_mgr_{uds_transport_mgr} {
   // store the conversation config (vd & dm) out of passed config
   StoreConversationConfig(config);
 }
@@ -33,28 +32,30 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
   // find the conversation from config stored
   auto it = conversation_map_.find(std::string{conversation_name});
   if (it != conversation_map_.end()) {
-    std::unique_ptr<diag::client::conversation::Conversation> conversation{};
     std::string const conversation_name_in_map{it->first};
-    std::visit(
+    it->second.conversation = std::visit(
         core_type::visit::overloaded{
-            [this, &conversation, &conversation_name_in_map](conversation::DMConversationType conversation_type) {
+            [this, &conversation_name_in_map](conversation::DMConversationType conversation_type) {
               // Create the conversation
-              conversation = std::make_unique<diag::client::conversation::DmConversation>(conversation_name_in_map,
-                                                                                          conversation_type);
+              std::unique_ptr<diag::client::conversation::Conversation> conversation{
+                  std::make_unique<diag::client::conversation::DmConversation>(conversation_name_in_map,
+                                                                               conversation_type)};
               // Register the connection
               conversation->RegisterConnection(uds_transport_mgr_.doip_transport_handler->FindOrCreateTcpConnection(
                   conversation->GetConversationHandler(), conversation_type.tcp_address, conversation_type.port_num));
+              return conversation;
             },
-            [this, &conversation, &conversation_name_in_map](conversation::VDConversationType conversation_type) {
+            [this, &conversation_name_in_map](conversation::VDConversationType conversation_type) {
               // Create the conversation
-              conversation = std::make_unique<diag::client::conversation::VdConversation>(conversation_name_in_map,
-                                                                                          conversation_type);
+              std::unique_ptr<diag::client::conversation::Conversation> conversation{
+                  std::make_unique<diag::client::conversation::VdConversation>(conversation_name_in_map,
+                                                                               conversation_type)};
               // Register the connection
               conversation->RegisterConnection(uds_transport_mgr_.doip_transport_handler->FindOrCreateUdpConnection(
                   conversation->GetConversationHandler(), conversation_type.udp_address, conversation_type.port_num));
+              return conversation;
             }},
         it->second.conversation_type);
-    it->second.conversation = std::move(conversation);
   } else {
     // Fatal error with message
   }
