@@ -37,5 +37,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 # link all dynamic libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
         diag-client
+        platform-core
         Threads::Threads
         )

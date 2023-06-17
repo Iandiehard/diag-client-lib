@@ -29,7 +29,7 @@ int main() {
 
   // Get conversation for tester one by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  diag::client::conversation::DiagClientConversation &diag_client_conversation1 {
+  diag::client::conversation::DiagClientConversation diag_client_conversation1 {
       diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
 
   // Start the conversation for tester one
@@ -37,7 +37,7 @@ int main() {
 
   // Get conversation for tester two by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  diag::client::conversation::DiagClientConversation &diag_client_conversation2 {
+  diag::client::conversation::DiagClientConversation diag_client_conversation2 {
       diag_client->GetDiagnosticClientConversation("DiagTesterTwo")};
 
   // Start the conversation for tester two
