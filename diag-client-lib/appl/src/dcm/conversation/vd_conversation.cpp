@@ -279,49 +279,50 @@ void VdConversation::HandleMessage(uds_transport::UdsMessagePtr message) noexcep
 bool VdConversation::VerifyVehicleInfoRequest(PreselectionMode preselection_mode,
                                               std::uint8_t preselection_value_length) {
   bool is_veh_info_valid{false};
-  if ((preselection_mode != 0U) && (preselection_value_length != 0U)) {
-    // 1U : DoIP Entities with given VIN
-    if (preselection_mode == 1U && (preselection_value_length == 17U)) {
-      is_veh_info_valid = true;
-    }
-    // 2U : DoIP Entities with given EID
-    else if (preselection_mode == 2U && (preselection_value_length == 6U)) {
-      is_veh_info_valid = true;
-    } else {
-    }
-  }
   // 0U : No preselection
-  else if (preselection_mode == 0U && (preselection_value_length == 0U)) {
+  if (preselection_mode == 0U && (preselection_value_length == 0U)) {
+    is_veh_info_valid = true;
+  }
+  // 1U : DoIP Entities with given VIN
+  else if (preselection_mode == 1U && (preselection_value_length == 17U)) {
+    is_veh_info_valid = true;
+  }
+  // 2U : DoIP Entities with given EID
+  else if (preselection_mode == 2U && (preselection_value_length == 6U)) {
     is_veh_info_valid = true;
   } else {
+    // do nothing
   }
 
   return is_veh_info_valid;
 }
 
-std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct> VdConversation::DeserializeVehicleInfoResponse(
-    uds_transport::UdsMessagePtr message) {
+std::pair<VdConversation::LogicalAddress, VdConversation::VehicleAddrInfoResponseStruct>
+VdConversation::DeserializeVehicleInfoResponse(uds_transport::UdsMessagePtr message) {
   constexpr std::uint8_t start_index_vin{0U};
   constexpr std::uint8_t total_vin_length{17U};
   constexpr std::uint8_t start_index_eid{19U};
   constexpr std::uint8_t start_index_gid{25U};
   constexpr std::uint8_t total_eid_gid_length{6U};
 
-  std::string vehicle_info_data_vin{ConvertToAsciiString(start_index_vin, total_vin_length, message->GetPayload())};
-  std::string vehicle_info_data_eid{ConvertToHexString(start_index_eid, total_eid_gid_length, message->GetPayload())};
-  std::string vehicle_info_data_gid{ConvertToHexString(start_index_gid, total_eid_gid_length, message->GetPayload())};
+  std::string const vehicle_info_data_vin{
+      ConvertToAsciiString(start_index_vin, total_vin_length, message->GetPayload())};
+  std::string const vehicle_info_data_eid{
+      ConvertToHexString(start_index_eid, total_eid_gid_length, message->GetPayload())};
+  std::string const vehicle_info_data_gid{
+      ConvertToHexString(start_index_gid, total_eid_gid_length, message->GetPayload())};
 
-  std::uint16_t logical_address{
+  LogicalAddress const logical_address{
       (static_cast<std::uint16_t>(((message->GetPayload()[17U] & 0xFF) << 8) | (message->GetPayload()[18U] & 0xFF)))};
 
   // Create the structure out of the extracted string
-  VehicleAddrInfoResponseStruct vehicle_addr_info{std::string{message->GetHostIpAddress()},  // remote ip address
-                                                  logical_address,                           // logical address
-                                                  vehicle_info_data_vin,                     // vin
-                                                  vehicle_info_data_eid,                     // eid
-                                                  vehicle_info_data_gid};                    // gid
+  VehicleAddrInfoResponseStruct const vehicle_addr_info{std::string{message->GetHostIpAddress()},  // remote ip address
+                                                        logical_address,                           // logical address
+                                                        vehicle_info_data_vin,                     // vin
+                                                        vehicle_info_data_eid,                     // eid
+                                                        vehicle_info_data_gid};                    // gid
 
-  return {logical_address, vehicle_addr_info};
+  return std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct>{logical_address, vehicle_addr_info};
 }
 
 ::uds_transport::ConversionHandler &VdConversation::GetConversationHandler() noexcept {
@@ -345,6 +346,8 @@ VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListReque
         vehicle_info_request.preselection_value.end());
     SerializeEIDGIDFromString(vehicle_info_request.preselection_value, ret_val.second,
                               vehicle_info_request.preselection_value.length(), 2U);
+  } else {
+    // log failure
   }
   return ret_val;
 }

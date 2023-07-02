@@ -28,8 +28,6 @@ namespace udpChannel {
 //typedefs
 using UdpMessagePtr = udpSocket::UdpMessagePtr;
 using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
-;
-using SyncTimerState = SyncTimer::TimerState;
 using TaskExecutor = utility::executor::Executor<std::function<void(void)>>;
 
 /*
@@ -69,11 +67,8 @@ public:
   // Function to add job to executor
   void SendVehicleInformationToUser() noexcept;
 
-  // Function to wait for response
-  void WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec);
-
-  // Function to cancel the synchronous wait
-  void WaitCancel();
+  // Function to get the sync timer
+  auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
 
 private:
   // udp transport handler ref

@@ -16,7 +16,7 @@ namespace client {
 namespace conversation_state_impl {
 using namespace utility::state;
 // Conversation States
-enum class ConversationState : uint8_t {
+enum class ConversationState : std::uint8_t {
   kIdle = 0x00,
   kDiagWaitForRes,
   kDiagStartP2StarTimer,

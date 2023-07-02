@@ -65,27 +65,23 @@ int main() {
     diag_client_conversation2.ConnectToDiagServer(0x1235, uds_message_1->GetHostIpAddress());
 
     // Use Tester One to send the diagnostic message to ECU1
-    std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-              diag::client::uds_message::UdsResponseMessagePtr>
-        ret_val_1{diag_client_conversation1.SendDiagnosticRequest(std::move(uds_message_1))};
+    auto ret_val_1{diag_client_conversation1.SendDiagnosticRequest(std::move(uds_message_1))};
 
-    if (ret_val_1.first == diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess) {
-      std::cout << "diag_client_conversation1 Total size: " << ret_val_1.second->GetPayload().size() << std::endl;
+    if (ret_val_1.HasValue()) {
+      std::cout << "diag_client_conversation1 Total size: " << ret_val_1.Value()->GetPayload().size() << std::endl;
       // Print the payload
-      for (auto const byte: ret_val_1.second->GetPayload()) {
+      for (auto const byte: ret_val_1.Value()->GetPayload()) {
         std::cout << "diag_client_conversation1 byte: " << std::hex << static_cast<int>(byte) << std::endl;
       }
     }
 
     // Use Tester Two to send the diagnostic message to ECU2
-    std::pair<diag::client::conversation::DiagClientConversation::DiagResult,
-              diag::client::uds_message::UdsResponseMessagePtr>
-        ret_val_2{diag_client_conversation2.SendDiagnosticRequest(std::move(uds_message_2))};
+    auto ret_val_2{diag_client_conversation2.SendDiagnosticRequest(std::move(uds_message_2))};
 
-    if (ret_val_2.first == diag::client::conversation::DiagClientConversation::DiagResult::kDiagSuccess) {
-      std::cout << "diag_client_conversation2 Total size: " << ret_val_2.second->GetPayload().size() << std::endl;
+    if (ret_val_2.HasValue()) {
+      std::cout << "diag_client_conversation2 Total size: " << ret_val_2.Value()->GetPayload().size() << std::endl;
       // Print the payload
-      for (auto const byte: ret_val_2.second->GetPayload()) {
+      for (auto const byte: ret_val_2.Value()->GetPayload()) {
         std::cout << "diag_client_conversation2 byte: " << std::hex << static_cast<int>(byte) << std::endl;
       }
     }

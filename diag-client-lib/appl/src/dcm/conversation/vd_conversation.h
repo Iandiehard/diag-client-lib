@@ -32,9 +32,25 @@ namespace conversation {
  */
 class VdConversation final : public Conversation {
 private:
+  /**
+   * @brief         Type alias of pre-selection mode
+   */
   using PreselectionMode = std::uint8_t;
+
+  /**
+   * @brief         Type alias of pre-selection value in terms of vector
+   */
   using PreselectionValue = std::vector<std::uint8_t>;
+
+  /**
+   * @brief         Type alias of vehicle address info response
+   */
   using VehicleAddrInfoResponseStruct = diag::client::vehicle_info::VehicleAddrInfoResponse;
+
+  /**
+   * @brief         Type alias of logical address
+   */
+  using LogicalAddress = std::uint16_t;
 
 public:
   /**
@@ -153,10 +169,21 @@ private:
    */
   bool VerifyVehicleInfoRequest(PreselectionMode preselection_mode, std::uint8_t preselection_value_length);
 
-  // Function to deserialize the received Vehicle Identification Response/ Announcement
-  static std::pair<std::uint16_t, VehicleAddrInfoResponseStruct> DeserializeVehicleInfoResponse(
+  /**
+   * @brief       Function to deserialize the received Vehicle Identification Response/ Announcement
+   * @param[in]   message
+   *              The message to deserialize
+   * @return      The pair with logical address of server and Vehicle address information
+   */
+  static std::pair<LogicalAddress, VehicleAddrInfoResponseStruct> DeserializeVehicleInfoResponse(
       ::uds_transport::UdsMessagePtr message);
 
+  /**
+   * @brief       Function to deserialize the Vehicle Information request from user
+   * @param[in]   vehicle_info_request
+   *              The vehicle info request
+   * @return      The pair with preselection mode along with its preselection value
+   */
   static std::pair<PreselectionMode, PreselectionValue> DeserializeVehicleInfoRequest(
       vehicle_info::VehicleInfoListRequestType &vehicle_info_request);
 

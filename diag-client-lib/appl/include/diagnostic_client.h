@@ -41,13 +41,6 @@ public:
     kNoResponseReceived = 2U, /**< No vehicle identification response received */
   };
 
-  /**
-   * @brief  Definitions of Conversation error code
-   */
-  enum class ConversationErrorCode : std::uint8_t {
-    kNoConversationFound = 0U /**< Failure when no conversation object found */
-  };
-
 public:
   /**
    * @brief         Constructs an instance of DiagClient

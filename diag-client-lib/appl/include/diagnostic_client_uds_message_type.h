@@ -94,7 +94,7 @@ public:
 using UdsRequestMessageConstPtr = std::unique_ptr<const UdsMessage>;
 
 /**
- * @brief         Type alias of the unique_ptr for Request Message
+ * @brief         Type alias of unique_ptr for Request Message
  */
 using UdsRequestMessagePtr = std::unique_ptr<UdsMessage>;
 

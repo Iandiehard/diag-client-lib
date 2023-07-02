@@ -32,7 +32,7 @@ void DiagnosticManager::Main() noexcept {
     cond_var_.wait(lck, [this]() { return exit_requested_; });
     // Thread exited
   }
-  // Shutdown Module
+  // Shutdown module
   Shutdown();
 }
 

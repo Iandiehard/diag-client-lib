@@ -9,12 +9,13 @@
 #include "src/dcm/conversation/conversation_manager.h"
 
 #include "core/variant_helper.h"
+#include "src/common/logger.h"
 #include "src/dcm/conversation/dm_conversation.h"
 
 namespace diag {
 namespace client {
 namespace conversation_manager {
-//ctor
+
 ConversationManager::ConversationManager(
     diag::client::config_parser::DcmClientConfig config,
     diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr) noexcept
@@ -35,7 +36,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
     std::string const conversation_name_in_map{it->first};
     it->second.conversation = std::visit(
         core_type::visit::overloaded{
-            [this, &conversation_name_in_map](conversation::DMConversationType conversation_type) {
+            [this, &conversation_name_in_map](conversation::DMConversationType conversation_type) noexcept {
               // Create the conversation
               std::unique_ptr<diag::client::conversation::Conversation> conversation{
                   std::make_unique<diag::client::conversation::DmConversation>(conversation_name_in_map,
@@ -45,7 +46,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
                   conversation->GetConversationHandler(), conversation_type.tcp_address, conversation_type.port_num));
               return conversation;
             },
-            [this, &conversation_name_in_map](conversation::VDConversationType conversation_type) {
+            [this, &conversation_name_in_map](conversation::VDConversationType conversation_type) noexcept {
               // Create the conversation
               std::unique_ptr<diag::client::conversation::Conversation> conversation{
                   std::make_unique<diag::client::conversation::VdConversation>(conversation_name_in_map,
@@ -57,7 +58,10 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
             }},
         it->second.conversation_type);
   } else {
-    // Fatal error with message
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
+        __FILE__, __LINE__, __func__, [conversation_name](std::stringstream &msg) {
+          msg << "Invalid conversation name: '" << conversation_name << "', provide correct name as per config file";
+        });
   }
   return *(it->second.conversation);
 }

@@ -57,7 +57,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(uds_transport::Ud
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
           UdpVehicleIdentificationState::kViWaitForVehicleIdentificationRes);
       // Wait for 2 sec to collect all the vehicle identification response
-      channel_.WaitForResponse(
+      channel_.GetSyncTimer().WaitForTimeout(
           [&]() {
             channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
                 UdpVehicleIdentificationState::kViDoIPCtrlTimeout);
@@ -65,7 +65,7 @@ auto VehicleDiscoveryHandler::SendVehicleIdentificationRequest(uds_transport::Ud
           [&]() {
             // do nothing
           },
-          kDoIPCtrl);
+          std::chrono::milliseconds{kDoIPCtrl});
       channel_.GetChannelState().GetVehicleIdentificationStateContext().TransitionTo(
           UdpVehicleIdentificationState::kViIdle);
     } else {

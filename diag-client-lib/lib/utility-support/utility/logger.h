@@ -20,8 +20,27 @@
 
 namespace utility {
 namespace logger {
+
+/**
+ * @brief       Logger class that is used to log Dlt messages from the component
+ * @details     This class uses COVESA DLT infrastructure to send message to DLT. Also the class does not log dlt message
+ *              if "ENABLE_DLT_LOGGER" cmake flag is set to OFF
+ */
 class Logger {
 public:
+  /**
+   * @brief       Log fatal message and abort
+   * @tparam      Func
+   *              The functor type invoked on log level set to fatal
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to fatal
+   */
   template<typename Func>
   auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -31,6 +50,19 @@ public:
     std::abort();  // abort in case of fatal issue
   }
 
+  /**
+   * @brief       Log error message
+   * @tparam      Func
+   *              The functor type invoked on log level set to error
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to error
+   */
   template<typename Func>
   auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -39,6 +71,19 @@ public:
 #endif
   }
 
+  /**
+   * @brief       Log warning message
+   * @tparam      Func
+   *              The functor type invoked on log level set to warning
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to warning
+   */
   template<typename Func>
   auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -47,6 +92,19 @@ public:
 #endif
   }
 
+  /**
+   * @brief       Log info message
+   * @tparam      Func
+   *              The functor type invoked on log level set to info
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to info
+   */
   template<typename Func>
   auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -55,6 +113,19 @@ public:
 #endif
   }
 
+  /**
+   * @brief       Log debug message
+   * @tparam      Func
+   *              The functor type invoked on log level set to debug
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to debug
+   */
   template<typename Func>
   auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -63,6 +134,19 @@ public:
 #endif
   }
 
+  /**
+   * @brief       Log verbose message
+   * @tparam      Func
+   *              The functor type invoked on log level set to verbose
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to verbose
+   */
   template<typename Func>
   auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
       -> void {
@@ -72,16 +156,41 @@ public:
   }
 
 public:
-  // ctor
+  /**
+   * @brief       Construct an instance of Logger
+   * @param[in]   context_id
+   *              The context id of the user
+   */
   explicit Logger(std::string_view context_id);
 
-  // ctor
+  /**
+   * @brief       Construct an instance of Logger
+   * @param[in]   app_id
+   *              The application id of the user
+   * @param[in]   context_id
+   *              The context id of the user
+   */
   Logger(std::string_view app_id, std::string_view context_id);
 
-  // dtor
+  /**
+   * @brief       Destruct an instance of Logger
+   */
   ~Logger();
 
 private:
+  /**
+   * @brief       Function to create the final logging message
+   * @tparam      Func
+   *              The functor type
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func
+   *              The functor which gets invoked
+   */
   template<typename Func>
   auto CreateLoggingMessage(const std::string_view file_name, const std::string_view /* func_name */, int line_no,
                             Func &&func) noexcept -> std::stringstream {
@@ -91,6 +200,19 @@ private:
     return msg;
   }
 
+  /**
+   * @brief       Function to send the messages to dlt infrastructure
+   * @tparam      log_level
+   *              The log level
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func
+   *              The functor which gets invoked
+   */
 #ifdef ENABLE_DLT_LOGGER
   template<typename Func>
   void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name, const std::string_view func_name,

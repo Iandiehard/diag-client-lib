@@ -68,12 +68,9 @@ public:
     // read configuration
     boost_support::parser::boost_tree config{};
     return boost_support::parser::Read(diag_client_config_path_, config)
-        .CheckError([](boost_support::parser::ParsingErrorCode const &error) noexcept {
-          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-              __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
-          return error;
-        })
         .MapError([](boost_support::parser::ParsingErrorCode) noexcept {
+          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
+              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
           return DiagClient::InitDeInitErrorCode::kInitializationFailed;
         })
         .AndThen([this, &config]() {
@@ -83,8 +80,7 @@ public:
           dcm_thread_ = std::thread([this]() noexcept { this->dcm_instance_->Main(); });
           pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-              __FILE__, __LINE__, __func__,
-              [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
+              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
         });
   }
 
@@ -103,8 +99,7 @@ public:
       dcm_instance_->SignalShutdown();
       if (dcm_thread_.joinable()) { dcm_thread_.join(); }
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-          __FILE__, __LINE__, __func__,
-          [](std::stringstream &msg) { msg << "DiagClient De-Initialization completed"; });
+          __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient De-Initialization completed"; });
     });
   }
 

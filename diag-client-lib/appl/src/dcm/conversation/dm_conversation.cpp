@@ -226,7 +226,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
           });
       conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagWaitForRes);
       // Wait P6Max / P2ClientMax
-      WaitForResponse(
+      sync_timer_.WaitForTimeout(
           [this, &result]() {
             result.EmplaceError(DiagClientConversation::DiagError::kDiagResponseTimeout);
             conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
@@ -248,7 +248,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
               conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagStartP2StarTimer);
             }
           },
-          p2_client_max_);
+          std::chrono::milliseconds{p2_client_max_});
 
       // Wait until final response or timeout
       while (conversation_state_.GetConversationStateContext().GetActiveState().GetState() !=
@@ -263,7 +263,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
             break;
           case ConversationState::kDiagStartP2StarTimer:
             // wait P6Star/ P2 star client time
-            WaitForResponse(
+            sync_timer_.WaitForTimeout(
                 [this, &result]() {
                   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                       __FILE__, __LINE__, "", [&](std::stringstream &msg) {
@@ -276,7 +276,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
                   result.EmplaceError(DiagClientConversation::DiagError::kDiagResponseTimeout);
                   conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
                 },
-                [&]() {
+                [this]() {
                   // pending or pos/neg response
                   if (conversation_state_.GetConversationStateContext().GetActiveState().GetState() ==
                       ConversationState::kDiagRecvdFinalRes) {
@@ -288,7 +288,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
                         ConversationState::kDiagStartP2StarTimer);
                   }
                 },
-                p2_star_client_max_);
+                std::chrono::milliseconds{p2_star_client_max_});
             break;
           case ConversationState::kDiagSuccess:
             // change state to idle, form the uds response and return
@@ -362,7 +362,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
             source_address_, target_address_, "", payload_rx_buffer_));
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
       }
-      WaitCancel();
+      sync_timer_.CancelWait();
     } else {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
           __FILE__, __LINE__, "", [&](std::stringstream &msg) {
@@ -388,17 +388,6 @@ void DmConversation::HandleMessage(uds_transport::UdsMessagePtr message) noexcep
     conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagSuccess);
   }
 }
-
-void DmConversation::WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func,
-                                     int msec) {
-  if (sync_timer_.Start(std::chrono::milliseconds(msec)) == SyncTimerState::kTimeout) {
-    timeout_func();
-  } else {
-    cancel_func();
-  }
-}
-
-void DmConversation::WaitCancel() { sync_timer_.Stop(); }
 
 DiagClientConversation::DiagError DmConversation::ConvertResponseType(
     uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type) {

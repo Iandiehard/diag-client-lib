@@ -13,21 +13,43 @@
 namespace diag {
 namespace client {
 namespace logger {
-using Logger = utility::logger::Logger;
 
+/**
+ * @brief    Class to create a singleton logger for diag-client
+ */
 class DiagClientLogger {
 public:
+  /**
+   * @brief    Type alias of logger
+   */
+  using Logger = utility::logger::Logger;
+
+  /**
+   * @brief       Get the diag client logger instance
+   * @return      DiagClientLogger
+   *              The singleton instance
+   */
   auto static GetDiagClientLogger() noexcept -> DiagClientLogger& {
     static DiagClientLogger diag_client_logger_;
     return diag_client_logger_;
   }
 
+  /**
+   * @brief       Get the logger instance
+   * @return      Logger
+   *              The logger instance
+   */
   auto GetLogger() noexcept -> Logger& { return logger_; }
 
 private:
+  /**
+   * @brief       Construct an instance of DiagClientLogger
+   */
   DiagClientLogger() = default;
 
-  // actual logger context
+  /**
+   * @brief       Store the logger instance with context id
+   */
   Logger logger_{"dcap"};
 };
 }  // namespace logger

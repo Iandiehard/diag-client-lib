@@ -342,14 +342,6 @@ public:
     return HasValue() ? Result<T, E2>{std::move(*this).Value()} : Result<T, E2>{fn(std::move(*this).Error())};
   }
 
-  /*
-   * template <typename F,
-typename E2 = std::invoke_result_t<F, E>,
-std::enable_if_t<std::is_invocable_r<E2, F, E>::value, int> = 0>
-Result<T, E2> MapError(F && fn) {
-return HasValue() ? Result<T, E2>(std::move(*this).Value()) : Result<T, E2>(fn(std::move(*this).Error()));
-}
-   * */
   /**
    * @brief       Returns the result itself if it contains a value;
    *              otherwise, returns the result of the given function on the error value

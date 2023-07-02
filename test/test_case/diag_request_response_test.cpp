@@ -200,7 +200,7 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponse) {
   EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   // Send Diagnostic message
- auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+  auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
   EXPECT_TRUE(diag_result.HasValue());

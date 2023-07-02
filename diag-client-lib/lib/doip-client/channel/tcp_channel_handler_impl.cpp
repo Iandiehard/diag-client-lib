@@ -117,7 +117,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
         break;
     }
     channel_.GetChannelState().GetRoutingActivationStateContext().TransitionTo(final_state);
-    channel_.WaitCancel();
+    channel_.GetSyncTimer().CancelWait();
   } else {
     /* ignore */
   }
@@ -194,7 +194,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
       // do nothing
     }
     channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(final_state);
-    channel_.WaitCancel();
+    channel_.GetSyncTimer().CancelWait();
   } else {
     // ignore
   }

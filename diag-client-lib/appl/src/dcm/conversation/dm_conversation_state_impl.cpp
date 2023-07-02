@@ -40,7 +40,7 @@ ConversationStateImpl::ConversationStateImpl()
 }
 
 auto ConversationStateImpl::GetConversationStateContext() noexcept -> StateContext<ConversationState>& {
-  return *conversation_state_.get();
+  return *conversation_state_;
 }
 
 kIdle::kIdle(ConversationState state) : State<ConversationState>(state) {}

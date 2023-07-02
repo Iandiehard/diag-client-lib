@@ -31,7 +31,6 @@ using TcpMessageConstPtr = tcpSocket::TcpMessageConstPtr;
 using TcpRoutingActivationChannelState = tcpChannelStateImpl::routingActivationState;
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
-using SyncTimerState = SyncTimer::TimerState;
 
 /*
  @ Class Name        : tcpChannel
@@ -76,11 +75,8 @@ public:
   // Function to get the channel context
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
 
-  // Function to wait for response
-  void WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func, int msec);
-
-  // Function to cancel the synchronous wait
-  void WaitCancel();
+  // Function to get the sync timer
+  auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
 
 private:
   // Function to handle the routing states

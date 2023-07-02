@@ -35,10 +35,6 @@ public:
    * @brief         Type alias for synchronous timer
    */
   using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
-  /**
-   * @brief         Type alias for synchronous timer state
-   */
-  using SyncTimerState = SyncTimer::TimerState;
 
   /**
    * @brief         Constructs an instance of DmConversation
@@ -163,7 +159,7 @@ private:
   /**
    * @brief  Definitions of active diagnostic session
    */
-  enum class SessionControlType : uint8_t {
+  enum class SessionControlType : std::uint8_t {
     kDefaultSession = 0x01,
     kProgrammingSession = 0x02,
     kExtendedSession = 0x03,
@@ -173,7 +169,7 @@ private:
   /**
    * @brief  Definitions of active security level
    */
-  enum class SecurityLevelType : uint8_t {
+  enum class SecurityLevelType : std::uint8_t {
     kLocked = 0x00,
     kUnLocked = 0x01,
   };
@@ -182,22 +178,6 @@ private:
    * @brief  Definitions of current activity status
    */
   enum class ActivityStatusType : uint8_t { kActive = 0x00, kInactive = 0x01 };
-
-  /**
-   * @brief       Helper function to wait for response with timeout monitoring
-   * @param[in]   timeout_func
-   *              The functor to be called when timeout occurs
-   * @param[in]   cancel_func
-   *              The functor to be called when expected event occurs within timeout
-   * @param[in]   msec
-   *              The timeout in milliseconds
-   */
-  void WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func, int msec);
-
-  /**
-   * @brief       Function to cancel the synchronous wait
-   */
-  void WaitCancel();
 
 private:
   /**
@@ -228,27 +208,27 @@ private:
   /**
    * @brief       Store the size of reception buffer size setting
    */
-  uint32_t rx_buffer_size_;
+  std::uint32_t rx_buffer_size_;
 
   /**
    * @brief       Store the maximum p2 client time
    */
-  uint16_t p2_client_max_;
+  std::uint16_t p2_client_max_;
 
   /**
    * @brief       Store the maximum p2 star client time
    */
-  uint16_t p2_star_client_max_;
+  std::uint16_t p2_star_client_max_;
 
   /**
    * @brief       Store the logical source address of conversation
    */
-  uint16_t source_address_;
+  std::uint16_t source_address_;
 
   /**
    * @brief       Store the logical target address of remote server
    */
-  uint16_t target_address_;
+  std::uint16_t target_address_;
 
   /**
    * @brief       Store the remote IP address of remote server

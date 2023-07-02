@@ -112,16 +112,6 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::Transmit(
   return ret_val;
 }
 
-void tcpChannel::WaitForResponse(std::function<void()> &&timeout_func, std::function<void()> &&cancel_func, int msec) {
-  if (sync_timer_.Start(std::chrono::milliseconds(msec)) == SyncTimerState::kTimeout) {
-    timeout_func();
-  } else {
-    cancel_func();
-  }
-}
-
-void tcpChannel::WaitCancel() { sync_timer_.Stop(); }
-
 uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRoutingActivationState(
     uds_transport::UdsMessageConstPtr &message) {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
@@ -132,7 +122,7 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRouti
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
           TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
-      WaitForResponse(
+      sync_timer_.WaitForTimeout(
           [&]() {
             result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
             tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
@@ -158,7 +148,7 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRouti
                   [](std::stringstream &msg) { msg << "RoutingActivation failed with remote server"; });
             }
           },
-          kDoIPRoutingActivationTimeout);
+          std::chrono::milliseconds{kDoIPRoutingActivationTimeout});
     } else {
       // failed, do nothing
       tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
@@ -184,7 +174,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::HandleDia
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
           TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
-      WaitForResponse(
+      sync_timer_.WaitForTimeout(
           [&]() {
             result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
             tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
@@ -215,7 +205,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::HandleDia
                   [](std::stringstream &msg) { msg << "Diagnostic Message Transmission Failed Neg Ack Received"; });
             }
           },
-          kDoIPDiagnosticAckTimeout);
+          std::chrono::milliseconds{kDoIPDiagnosticAckTimeout});
     } else {
       // failed, do nothing
       tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(TcpDiagnosticMessageChannelState::kDiagIdle);

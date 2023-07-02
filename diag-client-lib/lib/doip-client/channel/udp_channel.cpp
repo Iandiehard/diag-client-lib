@@ -59,15 +59,5 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult UdpChannel::Transmit(
     uds_transport::UdsMessageConstPtr message) {
   return udp_channel_handler_.Transmit(std::move(message));
 }
-
-void UdpChannel::WaitForResponse(std::function<void()> timeout_func, std::function<void()> cancel_func, int msec) {
-  if (sync_timer_.Start(std::chrono::milliseconds(msec)) == SyncTimerState::kTimeout) {
-    timeout_func();
-  } else {
-    cancel_func();
-  }
-}
-
-void UdpChannel::WaitCancel() { sync_timer_.Stop(); }
 }  // namespace udpChannel
 }  // namespace doip_client
