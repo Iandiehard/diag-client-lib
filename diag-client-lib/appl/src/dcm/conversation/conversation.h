@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_CONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_CONVERSATION_H
 
-#include "core/result.h"
+#include "core/include/result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_conversation.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
@@ -169,11 +169,11 @@ public:
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
    */
   virtual core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                            DiagClient::VehicleInfoResponseErrorCode>
+                            DiagClient::VehicleInfoResponseError>
   SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType) noexcept {
     return core_type::Result<
         diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-        DiagClient::VehicleInfoResponseErrorCode>::FromError(DiagClient::VehicleInfoResponseErrorCode::kTransmitFailed);
+        DiagClient::VehicleInfoResponseError>::FromError(DiagClient::VehicleInfoResponseError::kTransmitFailed);
   }
 };
 

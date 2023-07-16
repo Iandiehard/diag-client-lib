@@ -10,7 +10,7 @@
 /* includes */
 #include <string_view>
 
-#include "core/result.h"
+#include "core/include/result.h"
 #include "src/common/diagnostic_manager.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
@@ -80,7 +80,7 @@ public:
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
    */
   core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                    DiagClient::VehicleInfoResponseErrorCode>
+                    DiagClient::VehicleInfoResponseError>
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
 

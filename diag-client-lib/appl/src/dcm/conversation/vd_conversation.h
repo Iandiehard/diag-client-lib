@@ -13,7 +13,7 @@
 #include <mutex>
 #include <string_view>
 
-#include "core/result.h"
+#include "core/include/result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
@@ -149,7 +149,7 @@ public:
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
    */
   core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                    DiagClient::VehicleInfoResponseErrorCode>
+                    DiagClient::VehicleInfoResponseError>
   SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
 
   /**

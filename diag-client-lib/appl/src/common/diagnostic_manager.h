@@ -11,7 +11,7 @@
 #include <condition_variable>
 #include <mutex>
 
-#include "core/result.h"
+#include "core/include/result.h"
 #include "include/diagnostic_client.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
@@ -95,7 +95,7 @@ public:
    * @implements  DiagClientLib-VehicleDiscovery
    */
   virtual core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                            DiagClient::VehicleInfoResponseErrorCode>
+                            DiagClient::VehicleInfoResponseError>
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept = 0;
 

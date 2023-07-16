@@ -25,17 +25,9 @@ namespace client {
 class DiagClient final {
 public:
   /**
-   * @brief  Definitions of Initialization & De-Initialization error code
-   */
-  enum class InitDeInitErrorCode : std::uint8_t {
-    kInitializationFailed = 0U,  /**< Failure on Initialization */
-    kDeInitializationFailed = 1U /**< Failure on De-Initialization */
-  };
-
-  /**
    * @brief  Definitions of Vehicle Identification response error code
    */
-  enum class VehicleInfoResponseErrorCode : std::uint8_t {
+  enum class VehicleInfoResponseError : std::uint8_t {
     kTransmitFailed = 0U,     /**< Failure on Transmissions */
     kInvalidParameters = 1U,  /**< Invalid Parameter passed */
     kNoResponseReceived = 2U, /**< No vehicle identification response received */
@@ -74,7 +66,7 @@ public:
    * @return       Result with void in case of success, otherwise error is returned
    * @implements   DiagClientLib-Initialization
    */
-  Result<void, InitDeInitErrorCode> Initialize() noexcept;
+  Result<void> Initialize() noexcept;
 
   /**
    * @brief        Function to de-initialize the already initialized instance of DiagClient
@@ -83,7 +75,7 @@ public:
    * @return       Result with void in case of success, otherwise error is returned
    * @implements   DiagClientLib-DeInitialization
    */
-  Result<void, InitDeInitErrorCode> DeInitialize() noexcept;
+  Result<void> DeInitialize() noexcept;
 
   /**
    * @brief       Function to send vehicle identification request and get the Diagnostic Server list
@@ -92,8 +84,7 @@ public:
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
    * @implements  DiagClientLib-VehicleDiscovery
    */
-  Result<vehicle_info::VehicleInfoMessageResponseUniquePtr, VehicleInfoResponseErrorCode>
-  SendVehicleIdentificationRequest(
+  Result<vehicle_info::VehicleInfoMessageResponseUniquePtr, VehicleInfoResponseError> SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept;
 
   /**

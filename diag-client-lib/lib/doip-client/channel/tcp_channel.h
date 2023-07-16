@@ -13,7 +13,7 @@
 #include "channel/tcp_channel_handler_impl.h"
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
-#include "common_header.h"
+#include "core/include/common_header.h"
 #include "sockets/tcp_socket_handler.h"
 #include "utility/sync_timer.h"
 

@@ -1,9 +1,9 @@
 /* Diagnostic Client library
-* Copyright (C) 2023  Avijit Dey
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * Copyright (C) 2023  Avijit Dey
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 #ifndef DIAG_CLIENT_LIB_LIB_PLATFORM_CORE_RESULT_H_
 #define DIAG_CLIENT_LIB_LIB_PLATFORM_CORE_RESULT_H_
@@ -12,6 +12,8 @@
 #include <type_traits>
 #include <utility>
 #include <variant>
+
+#include "core/include/error_code.h"
 
 namespace core_type {
 
@@ -23,7 +25,7 @@ namespace core_type {
  * @tparam      E
  *              The type of error
  */
-template<typename T, typename E>
+template<typename T, typename E = ErrorCode>
 class Result final {
 public:
   /**
@@ -686,7 +688,7 @@ public:
    */
   template<typename F>
   Result OrElse(F &&fn) && noexcept {
-    return HasValue() ? Result{std::move(*this)} : fn(std::move(*this).Error());
+    return HasValue() ? Result{std::move(*this)} : Result{fn(std::move(*this).Error())};
   }
 
   /**

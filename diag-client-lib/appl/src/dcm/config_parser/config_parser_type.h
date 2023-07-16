@@ -8,7 +8,8 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONFIG_PARSER_CONFIG_PARSER_TYPE_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONFIG_PARSER_CONFIG_PARSER_TYPE_H
 /* includes */
-#include "common_header.h"
+#include <string>
+
 #include "parser/json_parser.h"
 
 namespace diag {

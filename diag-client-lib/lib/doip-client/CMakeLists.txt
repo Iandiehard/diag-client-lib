@@ -7,7 +7,7 @@
 
 project(doip-client)
 
-#set default language
+#set default language settings
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 

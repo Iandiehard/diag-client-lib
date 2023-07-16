@@ -8,7 +8,7 @@
 /* includes */
 #include "src/dcm/conversation/conversation_manager.h"
 
-#include "core/variant_helper.h"
+#include "core/include/variant_helper.h"
 #include "src/common/logger.h"
 #include "src/dcm/conversation/dm_conversation.h"
 

@@ -15,11 +15,14 @@
 namespace diag {
 namespace client {
 namespace dcm {
+namespace {
 
 /**
  * @brief    Store the conversation manager reference optionally
  */
-static std::optional<std::reference_wrapper<conversation_manager::ConversationManager>> conversation_manager_ref{};
+std::optional<std::reference_wrapper<conversation_manager::ConversationManager>> conversation_manager_ref{};
+
+}  // namespace
 
 // string representing of vehicle discovery conversation name
 constexpr std::string_view VehicleDiscoveryConversation{"VehicleDiscovery"};
@@ -71,8 +74,7 @@ conversation::DiagClientConversation DCMClient::GetDiagnosticClientConversation(
   return conversation::DiagClientConversation{conversation_name};
 }
 
-core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                  DiagClient::VehicleInfoResponseErrorCode>
+core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, DiagClient::VehicleInfoResponseError>
 DCMClient::SendVehicleIdentificationRequest(
     diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept {
   return vehicle_discovery_conversation_.SendVehicleIdentificationRequest(vehicle_info_request);
@@ -80,7 +82,8 @@ DCMClient::SendVehicleIdentificationRequest(
 
 auto GetConversationManager() noexcept -> conversation_manager::ConversationManager & {
   if (!conversation_manager_ref) {
-    // abort with message
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
+        __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
   }
   return conversation_manager_ref.value();
 }

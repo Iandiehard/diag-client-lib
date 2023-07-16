@@ -13,7 +13,7 @@
 #include "channel/udp_channel_state_impl.h"
 #include "common/common_doip_types.h"
 #include "common/doip_payload_type.h"
-#include "common_header.h"
+#include "core/include/common_header.h"
 #include "sockets/udp_socket_handler.h"
 
 namespace doip_client {

@@ -13,7 +13,8 @@
 #include <utility>
 #include <variant>
 
-#include "core/result.h"
+#include "core/include/error_code.h"
+#include "core/include/result.h"
 
 namespace diag {
 namespace client {
@@ -24,9 +25,9 @@ namespace client {
  * @tparam      T
  *              The type of value
  * @tparam      E
- *              The type of error
+ *              The type of error, default set to ErrorCode
  */
-template<typename T, typename E>
+template<typename T, typename E = core_type::ErrorCode>
 using Result = core_type::Result<T, E>;
 
 }  // namespace client

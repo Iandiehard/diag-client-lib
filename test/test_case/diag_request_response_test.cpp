@@ -319,7 +319,7 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
   // Send Vehicle Identification request with VIN and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{1U, "ABCDEFGH123456789"};
   diag::client::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                       diag::client::DiagClient::VehicleInfoResponseErrorCode>
+                       diag::client::DiagClient::VehicleInfoResponseError>
       response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
 
   // Verify Vehicle identification responses

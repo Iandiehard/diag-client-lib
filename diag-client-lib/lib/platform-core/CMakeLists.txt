@@ -13,17 +13,18 @@ include(GNUInstallDirs)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(${PROJECT_NAME} INTERFACE)
+# Find sources
+file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/core/include/*.h")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/core/src/*.cpp")
 
-#set includes paths
-set(header_path "${CMAKE_CURRENT_SOURCE_DIR}")
-file(GLOB_RECURSE HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/core/*)
-set(public_header ${HEADERS})
-set(header ${public_header})
+add_library(${PROJECT_NAME}
+        ${SOURCES}
+        )
 
 #Link include directories
-target_include_directories(${PROJECT_NAME}
-        INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+target_include_directories(${PROJECT_NAME} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
         )
 
 install(TARGETS ${PROJECT_NAME}

@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_STATE_IMPL_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_STATE_IMPL_H
 /* includes */
-#include "common_header.h"
+#include "core/include/common_header.h"
 #include "utility/state.h"
 
 namespace diag {

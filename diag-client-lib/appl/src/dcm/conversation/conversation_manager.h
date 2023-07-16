@@ -12,7 +12,6 @@
 #include <string_view>
 #include <variant>
 
-#include "common_header.h"
 #include "src/dcm/config_parser/config_parser_type.h"
 #include "src/dcm/connection/uds_transport_protocol_manager.h"
 #include "src/dcm/conversation/conversation.h"

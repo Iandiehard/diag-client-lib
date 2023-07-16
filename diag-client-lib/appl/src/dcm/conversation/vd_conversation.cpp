@@ -211,16 +211,15 @@ void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connectio
   connection_ptr_ = std::move(connection);
 }
 
-core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                  DiagClient::VehicleInfoResponseErrorCode>
+core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, DiagClient::VehicleInfoResponseError>
 VdConversation::SendVehicleIdentificationRequest(
     vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept {
   using VehicleIdentificationResponseResult =
       core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-                        DiagClient::VehicleInfoResponseErrorCode>;
+                        DiagClient::VehicleInfoResponseError>;
 
   VehicleIdentificationResponseResult result{
-      VehicleIdentificationResponseResult::FromError(DiagClient::VehicleInfoResponseErrorCode::kTransmitFailed)};
+      VehicleIdentificationResponseResult::FromError(DiagClient::VehicleInfoResponseError::kTransmitFailed)};
 
   // Deserialize first , Todo: Add optional when deserialize fails
   std::pair<PreselectionMode, PreselectionValue> vehicle_info_request_deserialized_value{
@@ -234,7 +233,7 @@ VdConversation::SendVehicleIdentificationRequest(
       // Check if any response received
       if (vehicle_info_collection_.empty()) {
         // no response received
-        result.EmplaceError(DiagClient::VehicleInfoResponseErrorCode::kNoResponseReceived);
+        result.EmplaceError(DiagClient::VehicleInfoResponseError::kNoResponseReceived);
       } else {
         result.EmplaceValue(std::move(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_)));
         // all the responses are copied, now clear the map
@@ -242,7 +241,7 @@ VdConversation::SendVehicleIdentificationRequest(
       }
     }
   } else {
-    result.EmplaceError(DiagClient::VehicleInfoResponseErrorCode::kInvalidParameters);
+    result.EmplaceError(DiagClient::VehicleInfoResponseError::kInvalidParameters);
   }
   return result;
 }
