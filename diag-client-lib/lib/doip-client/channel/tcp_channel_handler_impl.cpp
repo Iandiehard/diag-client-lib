@@ -311,7 +311,7 @@ auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept
     doip_rx_message.payload.resize(tcp_rx_message->rxBuffer_.size() - kDoipheadrSize);
     // copy payload locally
     (void) std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
-                     tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer_.size(),
+                     tcp_rx_message->rxBuffer_.begin() + tcp_rx_message->rxBuffer_.size(),
                      doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {
