@@ -15,6 +15,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # find needed packages
 find_package(Threads REQUIRED)
 
+if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
+        include_directories(${BOOST_PATH}/include)
+        link_directories(${BOOST_PATH}/lib)
+else()
+        find_package(Boost 1.78.0)
+endif()
+
 #find main sources
 file(GLOB MAIN_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
@@ -23,19 +30,29 @@ add_executable(${PROJECT_NAME}
         )
 
 # diag client lib headers
-set(diag_client_header_path ${CMAKE_CURRENT_SOURCE_DIR}/../diag_client_lib/build-bin/diag-client/lib/include)
+set(diag_client_header_path ${CMAKE_CURRENT_SOURCE_DIR}/../../diag-client-lib/appl)
 
 # Src headers
 set(src_header_path src)
-
 
 target_include_directories(${PROJECT_NAME} PRIVATE
         ${src_header_path}
         ${diag_client_header_path}
         )
 
-# link all dynamic libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE
-        diag-client
-        Threads::Threads
-        )
+if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
+        # link all dynamic libraries
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                diag-client
+                Threads::Threads
+                libboost_system-mgw7-mt-s-x64-1_78.a
+                )
+else()
+        #link target directory
+        target_link_libraries(${PROJECT_NAME}
+                PRIVATE
+                common
+                utility-support
+                ${Boost_LIBRARIES}
+                )
+endif()

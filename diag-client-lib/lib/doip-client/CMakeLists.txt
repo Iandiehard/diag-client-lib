@@ -11,6 +11,12 @@ project(doip-client)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
+        include_directories(${BOOST_PATH}/include)
+        link_directories(${BOOST_PATH}/lib)
+endif()
+
+
 # find DoIP sources
 file(GLOB LIBDOIP_CHANNEL_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/channel/*.cpp")
 file(GLOB LIBDOIP_COMMON_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/common/*.cpp")

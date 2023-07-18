@@ -45,7 +45,7 @@ Public Api's can be found in [include](diag-client-lib/appl/include) to understa
 In this section, you will learn how to [build and install](#build-and-install)
 Diagnostic Client Library and also learn [how to use diag-client-lib](#how-to-use-diag-client-lib)
 
-### Build and Install
+### Build and Install (Linux)
 The following packages needs to be installed in order to build and install Diagnostic Client library:-
 
 | Package                                                       | Usage             | Recommended version |
@@ -57,6 +57,16 @@ The following packages needs to be installed in order to build and install Diagn
 You can also execute to install dependencies :-
 ```bash 
 sh .github/setup.sh 
+```
+
+### Build and Install (Windows)
+
+```
+Notice:support mingw7 in windows, passed verify(boost 1.78.0), windows do not support dlt
+
+# BOOST_PATH:D:/workspace/boost/install
+cmake -G "MinGW Makefiles" .. -DBOOST_PATH=D:/workspace/boost/install
+mingw32-make.exe
 ```
 
 ### How to use diag-client-lib

@@ -14,6 +14,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # find needed packages
 find_package(Threads REQUIRED)
 
+if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
+        include_directories(${BOOST_PATH}/include)
+        link_directories(${BOOST_PATH}/lib)
+endif()
+
 # out headers
 file(GLOB OUT_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
 # main sources

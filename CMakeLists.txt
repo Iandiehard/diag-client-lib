@@ -15,13 +15,23 @@ option(BUILD_SHARED_LIBS "Option to build as shared library" OFF)
 option(BUILD_WITH_DLT "Option to use Dlt for logging" OFF)
 option(BUILD_DOXYGEN "Option to generate doxygen file" OFF)
 option(BUILD_WITH_TEST "Option to build test target" OFF)
-option(BUILD_EXAMPLES "Option to build example targets" OFF)
+option(BUILD_EXAMPLES "Option to build example targets" ON)
+option(BUILD_WIN_SYSTEM "Option to build within windows" ON)
+
+SET(BOOST_PATH "./" CACHE STRING "select boost path")
+message("boost library path:${BOOST_PATH}")
 
 # add compiler preprocessor flag when dlt enabled
 if (BUILD_WITH_DLT)
     add_compile_definitions(ENABLE_DLT_LOGGER)
     message("Dlt logging enabled in diag-client library")
 endif (BUILD_WITH_DLT)
+
+if (BUILD_WIN_SYSTEM)
+    set(ENABLE_WIN_SYSTEM "ON")
+    add_definitions(-DBOOST_PATH=${BOOST_PATH})
+    message("Enable Definition of the build in Windows System")
+endif (BUILD_WIN_SYSTEM)
 
 # Build diag-client library
 add_subdirectory(diag-client-lib)

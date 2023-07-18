@@ -35,3 +35,6 @@
 .idea
 cmake-build*
 build*
+
+.vs
+.vscode
