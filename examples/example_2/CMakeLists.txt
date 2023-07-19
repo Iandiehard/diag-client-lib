@@ -49,10 +49,9 @@ if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
                 )
 else()
         #link target directory
-        target_link_libraries(${PROJECT_NAME}
-                PRIVATE
-                common
-                utility-support
+        target_link_libraries(${PROJECT_NAME} PRIVATE
+                diag-client
+                Threads::Threads
                 ${Boost_LIBRARIES}
                 )
 endif()
