@@ -27,10 +27,10 @@ createUdpClientSocket::createUdpClientSocket(std::string_view local_ip_address, 
   udp_socket_ = std::make_unique<UdpSocket::socket>(io_context_);
   // Start thread to receive messages
   thread_ = std::thread([&]() {
-    std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
+      std::unique_lock<std::mutex> lck(mutex_);
       if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
+        cond_var_.wait(lck, [this]() { return exit_request_ || !running_; });
       }
       if (!exit_request_) {
         if (running_) {
@@ -47,7 +47,7 @@ createUdpClientSocket::~createUdpClientSocket() {
   exit_request_ = true;
   running_ = false;
   cond_var_.notify_all();
-  thread_.join();
+  //thread_.join();
 }
 
 bool createUdpClientSocket::Open() {

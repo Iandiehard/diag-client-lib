@@ -32,7 +32,7 @@ endif (BUILD_WITH_DLT)
 if (BUILD_WITH_BOOST_LOG)
     add_compile_definitions(ENABLE_BOOST_LOGGER)
     message("Dlt logging enabled in diag-client library")
-endif (BUILD_WITH_DLT)
+endif (BUILD_WITH_BOOST_LOG)
 
 if (BUILD_WIN_SYSTEM)
     set(ENABLE_WIN_SYSTEM "ON")
