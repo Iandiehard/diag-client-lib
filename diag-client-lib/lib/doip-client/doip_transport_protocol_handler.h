@@ -27,11 +27,11 @@ namespace transportProtocolHandler {
 class DoipTransportProtocolHandler final : public uds_transport::UdsTransportProtocolHandler {
 public:
   //ctor
-  DoipTransportProtocolHandler(const uds_transport::UdsTransportProtocolHandlerID handler_id,
+  DoipTransportProtocolHandler(uds_transport::UdsTransportProtocolHandlerID handler_id,
                                uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
 
   //dtor
-  ~DoipTransportProtocolHandler();
+  ~DoipTransportProtocolHandler() final;
 
   // Return the UdsTransportProtocolHandlerID, which was given to the implementation during construction (ctor call).
   uds_transport::UdsTransportProtocolHandlerID GetHandlerID() const override;

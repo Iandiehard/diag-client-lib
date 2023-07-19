@@ -87,7 +87,7 @@ protected:
    * @details     This dtor is non-virtual (and trivial) so that this class can be a literal type. While this class has
    *              virtual functions, no polymorphic destruction is needed
    */
-  ~ErrorDomain() noexcept = default;
+  virtual ~ErrorDomain() noexcept = default;
 
 private:
   /**

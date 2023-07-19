@@ -300,24 +300,22 @@ auto TcpChannelHandlerImpl::SendDiagnosticRequest(uds_transport::UdsMessageConst
 }
 
 auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void {
-  uint8_t nackCode;
-  DoipMessage doip_rx_message;
+  uint8_t nack_code{};
+  DoipMessage doip_rx_message{};
   doip_rx_message.protocol_version = tcp_rx_message->rxBuffer_[0];
   doip_rx_message.protocol_version_inv = tcp_rx_message->rxBuffer_[1];
   doip_rx_message.payload_type = GetDoIPPayloadType(tcp_rx_message->rxBuffer_);
   doip_rx_message.payload_length = GetDoIPPayloadLength(tcp_rx_message->rxBuffer_);
   // Process the Doip Generic header check
-  if (ProcessDoIPHeader(doip_rx_message, nackCode)) {
+  if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     doip_rx_message.payload.resize(tcp_rx_message->rxBuffer_.size() - kDoipheadrSize);
     // copy payload locally
-    (void) std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
-                     tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize + tcp_rx_message->rxBuffer_.size(),
+    (void) std::copy(tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize, tcp_rx_message->rxBuffer_.end(),
                      doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {
     // send NACK or ignore
-    // SendDoIPNACKMessage(nackCode);
-    (void) nackCode;
+    (void) nack_code;
   }
 }
 

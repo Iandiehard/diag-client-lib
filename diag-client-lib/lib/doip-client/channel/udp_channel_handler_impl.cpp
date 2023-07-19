@@ -174,8 +174,7 @@ auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
     // copy payload locally
-    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
-                     udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
+    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize, udp_rx_message->rx_buffer_.end(),
                      doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {

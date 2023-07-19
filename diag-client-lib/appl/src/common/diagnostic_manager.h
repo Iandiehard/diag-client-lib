@@ -60,7 +60,7 @@ public:
   /**
    * @brief         Function to initiate shutdown of DiagnosticManager
    */
-  virtual void SignalShutdown() noexcept;
+  virtual Result<void> SignalShutdown() noexcept;
 
   /**
    * @brief         Function to initialize the DiagnosticManager

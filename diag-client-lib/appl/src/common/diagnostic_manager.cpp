@@ -36,12 +36,14 @@ void DiagnosticManager::Main() noexcept {
   Shutdown();
 }
 
-void DiagnosticManager::SignalShutdown() noexcept {
+Result<void> DiagnosticManager::SignalShutdown() noexcept {
+  Result<void> result{};
   {
     std::lock_guard<std::mutex> lock{mutex_};
     exit_requested_ = true;
   }
   cond_var_.notify_all();
+  return result;
 }
 }  // namespace common
 }  // namespace client

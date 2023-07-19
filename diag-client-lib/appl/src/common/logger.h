@@ -17,7 +17,7 @@ namespace logger {
 /**
  * @brief    Class to create a singleton logger for diag-client
  */
-class DiagClientLogger {
+class DiagClientLogger final {
 public:
   /**
    * @brief    Type alias of logger

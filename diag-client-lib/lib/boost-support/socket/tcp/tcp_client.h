@@ -24,7 +24,7 @@ namespace tcp {
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver
 */
-class CreateTcpClientSocket {
+class CreateTcpClientSocket final {
 public:
   // Type alias for tcp protocol
   using Tcp = boost::asio::ip::tcp;
@@ -39,16 +39,16 @@ public:
 
 public:
   //ctor
-  CreateTcpClientSocket(std::string_view local_ip_address, uint16_t local_port_num, TcpHandlerRead&& tcp_handler_read);
+  CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead&& tcp_handler_read);
 
   //dtor
-  virtual ~CreateTcpClientSocket();
+  ~CreateTcpClientSocket();
 
   // Function to Open the socket
   bool Open();
 
   // Function to Connect to host
-  bool ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num);
+  bool ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
 
   // Function to Disconnect from host
   bool DisconnectFromHost();

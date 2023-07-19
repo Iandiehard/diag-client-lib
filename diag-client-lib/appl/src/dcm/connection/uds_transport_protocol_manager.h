@@ -12,11 +12,6 @@
 
 namespace diag {
 namespace client {
-// forward declaration
-namespace conversation_manager {
-class ConversationManager;
-}
-
 namespace uds_transport {
 /*
  @ Class Name        : UdsTransportProtocolManager

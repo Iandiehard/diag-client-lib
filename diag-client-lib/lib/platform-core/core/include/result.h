@@ -356,7 +356,7 @@ public:
    */
   template<typename F>
   Result OrElse(F &&fn) && noexcept {
-    return HasValue() ? Result{std::move(*this)} : fn(std::move(*this).Error());
+    return HasValue() ? Result{std::move(*this)} : Result{fn(std::move(*this).Error())};
   }
 
   /**

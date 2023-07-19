@@ -14,7 +14,7 @@ namespace boost_support {
 namespace socket {
 namespace tcp {
 // ctor
-CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, uint16_t local_port_num,
+CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                                              TcpHandlerRead &&tcp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
@@ -51,7 +51,7 @@ CreateTcpClientSocket::~CreateTcpClientSocket() {
 
 bool CreateTcpClientSocket::Open() {
   TcpErrorCodeType ec{};
-  bool retVal{false};
+  bool ret_val{false};
   // Open the socket
   tcp_socket_->open(Tcp::v4(), ec);
   if (ec.value() == boost::system::errc::success) {
@@ -69,24 +69,24 @@ bool CreateTcpClientSocket::Open() {
             msg << "Tcp Socket opened and bound to "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
-      retVal = true;
+      ret_val = true;
     } else {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
-      retVal = false;
+      ret_val = false;
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
   }
-  return retVal;
+  return ret_val;
 }
 
 // connect to host
-bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num) {
+bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
   TcpErrorCodeType ec{};
   bool ret_val{false};
   // connect to provided ipAddress
@@ -98,9 +98,11 @@ bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, uint
           msg << "Tcp Socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    // start reading
-    running_ = true;
-    cond_var_.notify_all();
+    {// start reading
+      std::lock_guard<std::mutex> lock{mutex_};
+      running_ = true;
+      cond_var_.notify_all();
+    }
     ret_val = true;
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -133,7 +135,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
 
 // Function to transmit tcp messages
 bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
-  TcpErrorCodeType ec;
+  TcpErrorCodeType ec{};
   bool ret_val{false};
   boost::asio::write(*tcp_socket_,
                      boost::asio::buffer(tcp_message->txBuffer_, std::size_t(tcp_message->txBuffer_.size())), ec);

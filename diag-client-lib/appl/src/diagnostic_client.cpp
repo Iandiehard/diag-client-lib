@@ -96,10 +96,9 @@ public:
   Result<void> DeInitialize() noexcept {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient De-Initialization started"; });
-    return Result<void>::FromValue()
+    // shutdown DCM module here
+    return dcm_instance_->SignalShutdown()
         .AndThen([this]() {
-          // shutdown DCM module here
-          dcm_instance_->SignalShutdown();
           if (dcm_thread_.joinable()) { dcm_thread_.join(); }
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
               __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient De-Initialization completed"; });
