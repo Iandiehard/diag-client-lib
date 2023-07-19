@@ -66,11 +66,21 @@ bool createUdpClientSocket::Open() {
     if (port_type_ == PortType::kUdp_Broadcast) {
       // Todo : change the hardcoded value of port number 13400
       udp_socket_->bind(UdpSocket::endpoint(boost::asio::ip::address_v4::any(), 13400), ec);
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+            msg << "Udp Bcast Socket Opened and bound to "
+                << "<" << "0.0.0.0" << "," << 13400 << ">";
+          });
     } else {
       //bind to local address and random port
       udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
+          __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+            msg << "Udp Ucast Socket Opened and bound to "
+                << "<" << local_ip_address_ << "," << local_port_num_ << ">";
+          });
     }
-
+    
     if (ec.value() == boost::system::errc::success) {
       UdpSocket::endpoint endpoint{udp_socket_->local_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(

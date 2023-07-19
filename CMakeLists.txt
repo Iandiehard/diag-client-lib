@@ -13,6 +13,7 @@ project(diag-client)
 # Cmake options
 option(BUILD_SHARED_LIBS "Option to build as shared library" OFF)
 option(BUILD_WITH_DLT "Option to use Dlt for logging" OFF)
+option(BUILD_WITH_BOOST_LOG "Option to use Boost for logging" ON)
 option(BUILD_DOXYGEN "Option to generate doxygen file" OFF)
 option(BUILD_WITH_TEST "Option to build test target" OFF)
 option(BUILD_EXAMPLES "Option to build example targets" ON)
@@ -24,6 +25,12 @@ message("boost library path:${BOOST_PATH}")
 # add compiler preprocessor flag when dlt enabled
 if (BUILD_WITH_DLT)
     add_compile_definitions(ENABLE_DLT_LOGGER)
+    message("Dlt logging enabled in diag-client library")
+endif (BUILD_WITH_DLT)
+
+# add compiler preprocessor flag when boost log enabled
+if (BUILD_WITH_BOOST_LOG)
+    add_compile_definitions(ENABLE_BOOST_LOGGER)
     message("Dlt logging enabled in diag-client library")
 endif (BUILD_WITH_DLT)
 

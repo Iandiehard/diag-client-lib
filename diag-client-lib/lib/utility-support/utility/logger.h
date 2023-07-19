@@ -27,6 +27,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    std::cout << "[FATAL]" << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;    
 #endif
   }
 
@@ -35,6 +37,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    std::cout << "[ERROR]" << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;    
 #endif
   }
 
@@ -43,6 +47,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    std::cout << "[WARN]" << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;    
 #endif
   }
 
@@ -51,6 +57,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    std::cout << "[INFO]" << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;    
 #endif
   }
 
@@ -59,6 +67,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
+#else 
+    std::cout << "[DEBUG]" << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;
 #endif
   }
 
@@ -67,6 +77,8 @@ public:
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
+#else    
+    std::cout << CreateLoggingMessage(file_name, func_name, line_no, func).str() << std::endl;    
 #endif
   }
 

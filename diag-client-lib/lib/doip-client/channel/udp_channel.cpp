@@ -38,7 +38,9 @@ uds_transport::UdsTransportProtocolHandler::InitializationResult UdpChannel::Ini
 // start
 void UdpChannel::Start() {
   udp_socket_handler_bcast_->Start();
+  std::cout << "udp_socket_handler_bcast_ start" << std::endl;
   udp_socket_handler_ucast_->Start();
+  std::cout << "udp_socket_handler_ucast_ start" << std::endl;
 }
 
 // stop

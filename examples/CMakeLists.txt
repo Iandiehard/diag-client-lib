@@ -12,3 +12,6 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example_1)
 
 # build example_2
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example_2)
+
+# build example_3
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/example_3)
