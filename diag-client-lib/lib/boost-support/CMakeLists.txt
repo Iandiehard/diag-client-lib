@@ -10,6 +10,7 @@ project(boost-support)
 #set default language
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS "-fpermissive")
 
 if (${ENABLE_WIN_SYSTEM} MATCHES "ON")
         include_directories(${BOOST_PATH}/include)

@@ -65,7 +65,9 @@ sh .github/setup.sh
 Notice:support mingw7 in windows, passed verify(boost 1.78.0), windows do not support dlt
 
 # BOOST_PATH:D:/workspace/boost/install
-cmake -G "MinGW Makefiles" .. -DBOOST_PATH=D:/workspace/boost/install
+cmake -G "MinGW Makefiles" -DBUILD_WIN_SYSTEM=ON -DBUILD_DOXYGEN=ON -DBOOST_PATH=D:/workspace/boost/install ..
+or 
+cmake -G "MinGW Makefiles" -DBUILD_WIN_SYSTEM=ON -DBUILD_DOXYGEN=ON -DBOOST_PATH=D:/workspace/boost/install -DCMAKE_BUILD_TYPE=Debug ..
 mingw32-make.exe
 ```
 

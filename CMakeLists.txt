@@ -37,6 +37,9 @@ endif (BUILD_WITH_BOOST_LOG)
 if (BUILD_WIN_SYSTEM)
     set(ENABLE_WIN_SYSTEM "ON")
     add_definitions(-DBOOST_PATH=${BOOST_PATH})
+    add_compile_definitions(ASIO_STANDALONE)
+    # win10 : 0x0A00, reference:https://blog.csdn.net/v6543210/article/details/103104512
+    add_compile_definitions(_WIN32_WINNT)
     message("Enable Definition of the build in Windows System")
 endif (BUILD_WIN_SYSTEM)
 

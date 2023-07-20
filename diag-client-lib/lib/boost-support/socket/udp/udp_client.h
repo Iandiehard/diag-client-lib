@@ -7,6 +7,7 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
+
 // includes
 #include <boost/asio.hpp>
 #include <string>
