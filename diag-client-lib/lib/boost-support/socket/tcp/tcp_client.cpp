@@ -98,7 +98,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, std:
           msg << "Tcp Socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    {// start reading
+    {  // start reading
       std::lock_guard<std::mutex> lock{mutex_};
       running_ = true;
       cond_var_.notify_all();

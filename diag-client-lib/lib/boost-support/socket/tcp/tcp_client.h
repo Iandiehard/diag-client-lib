@@ -39,7 +39,8 @@ public:
 
 public:
   //ctor
-  CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead&& tcp_handler_read);
+  CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+                        TcpHandlerRead&& tcp_handler_read);
 
   //dtor
   ~CreateTcpClientSocket();

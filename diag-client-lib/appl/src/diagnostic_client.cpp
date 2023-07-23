@@ -80,7 +80,7 @@ public:
           dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(config_parser::ReadDcmClientConfig(config));
           // start dcm client thread
           dcm_thread_ = std::thread([this]() noexcept { this->dcm_instance_->Main(); });
-          pthread_setname_np(dcm_thread_.native_handle(), "DCMClient_Main");
+          pthread_setname_np(dcm_thread_.native_handle(), "dcm_client");
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
               __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
         });

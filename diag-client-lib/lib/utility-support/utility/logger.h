@@ -194,7 +194,7 @@ private:
   template<typename Func>
   auto CreateLoggingMessage(const std::string_view file_name, const std::string_view /* func_name */, int line_no,
                             Func &&func) noexcept -> std::stringstream {
-    std::stringstream msg;
+    std::stringstream msg{};
     func(msg);
     msg << " [" << file_name << ":" << line_no << "]";
     return msg;
