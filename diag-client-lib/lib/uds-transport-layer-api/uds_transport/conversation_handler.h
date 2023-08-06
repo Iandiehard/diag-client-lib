@@ -8,7 +8,8 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONVERSATION_H
 /* includes */
-#include "protocol_types.h"
+#include "uds_transport/protocol_types.h"
+#include "core/include/span.h"
 
 namespace uds_transport {
 
@@ -69,7 +70,7 @@ public:
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo) noexcept = 0;
+      core_type::Span<uint8_t> payload_info) noexcept = 0;
 
   /**
    * @brief       Function to Hands over a valid received Uds message

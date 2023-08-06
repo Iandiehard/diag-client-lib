@@ -300,7 +300,7 @@ auto TcpChannelHandlerImpl::SendDiagnosticRequest(uds_transport::UdsMessageConst
 }
 
 auto TcpChannelHandlerImpl::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void {
-  uint8_t nack_code{};
+  std::uint8_t nack_code{};
   DoipMessage doip_rx_message{};
   doip_rx_message.protocol_version = tcp_rx_message->rxBuffer_[0];
   doip_rx_message.protocol_version_inv = tcp_rx_message->rxBuffer_[1];

@@ -8,27 +8,38 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
 /* includes */
-#include "protocol_handler.h"
-#include "protocol_mgr.h"
-#include "protocol_types.h"
+#include "uds_transport/protocol_handler.h"
+#include "uds_transport/protocol_mgr.h"
+#include "uds_transport/protocol_types.h"
+#include "core/include/span.h"
 
 namespace uds_transport {
 
-/*
- @ Class Name        : Connection
- @ Class Description : Class to creating connection                           
+/**
+ * @brief    Interface class to handle connection between two layers
  */
-using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
-
 class Connection {
 public:
-  // type alias for connection id
-  using ConnectionId = uint8_t;
+  /**
+   * @brief   Type alias for connection id
+   */
+  using ConnectionId = std::uint8_t;
 
-  // ctor
-  Connection(ConnectionId connection_id, uds_transport::ConversionHandler &conversation)
-      : conversation_{conversation},
-        connection_id_{connection_id} {}
+  /**
+   * @brief   Type alias for Initialization result
+   */
+  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
+
+  /**
+   * @brief       Constructor to create a new connection
+   * @param[in]   connection_id
+   *              The connection identification
+   * @param[in]   conversation_handler
+   *              The reference to conversation handler
+   */
+  Connection(ConnectionId connection_id, uds_transport::ConversionHandler &conversation_handler) noexcept
+      : connection_id_{connection_id},
+        conversation_handler_{conversation_handler} {}
 
   // dtor
   virtual ~Connection() = default;
@@ -55,7 +66,7 @@ public:
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      std::vector<uint8_t> payloadInfo) = 0;
+      core_type::Span<uint8_t> payload_info) = 0;
 
   // Transmit tcp/udp data
   virtual UdsTransportProtocolMgr::TransmissionResult Transmit(UdsMessageConstPtr message) = 0;
@@ -65,7 +76,7 @@ public:
 
 protected:
   // Store the conversion
-  uds_transport::ConversionHandler &conversation_;
+  uds_transport::ConversionHandler &conversation_handler_;
 
 private:
   // store the connection id

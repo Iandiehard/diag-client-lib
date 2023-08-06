@@ -56,10 +56,10 @@ DoipTcpConnection::IndicateMessage(uds_transport::UdsMessage::Address source_add
                                    uds_transport::UdsMessage::TargetAddressType type,
                                    uds_transport::ChannelID channel_id, std::size_t size,
                                    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                   std::vector<uint8_t> payloadInfo) {
+                                   core_type::Span<uint8_t> payload_info) {
   // Send Indication to conversion
-  return (conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                        payloadInfo));
+  return (conversation_handler_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                                payload_info));
 }
 
 // Function to transmit the uds message
@@ -72,7 +72,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpConnection::Tr
 // Hands over a valid message to conversion
 void DoipTcpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   // send full message to conversion
-  conversation_.HandleMessage(std::move(message));
+  conversation_handler_.HandleMessage(std::move(message));
 }
 
 /*
@@ -119,10 +119,10 @@ DoipUdpConnection::IndicateMessage(uds_transport::UdsMessage::Address source_add
                                    uds_transport::UdsMessage::TargetAddressType type,
                                    uds_transport::ChannelID channel_id, std::size_t size,
                                    uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                   std::vector<uint8_t> payloadInfo) {
+                                   core_type::Span<uint8_t> payload_info) {
   // Send Indication to conversion
-  return (conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                        payloadInfo));
+  return (conversation_handler_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                                payload_info));
 }
 
 // Function to transmit the uds message
@@ -135,7 +135,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipUdpConnection::Tr
 // Hands over a valid message to conversion
 void DoipUdpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   // send full message to conversion
-  conversation_.HandleMessage(std::move(message));
+  conversation_handler_.HandleMessage(std::move(message));
 }
 
 // Function to create new connection to handle doip request and response

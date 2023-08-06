@@ -168,20 +168,20 @@ void CreateTcpClientSocket::HandleMessage() {
   TcpErrorCodeType ec{};
   TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessageType>()};
   // reserve the buffer
-  tcp_rx_message->rxBuffer_.resize(kDoipheadrSize);
+  tcp_rx_message->rxBuffer_.reserve(kDoipheadrSize);
   // start blocking read to read Header first
   boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[0], kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
-    std::uint32_t read_next_bytes = [&tcp_rx_message]() {
-      return ((std::uint32_t)((std::uint32_t)((tcp_rx_message->rxBuffer_[4] << 24) & 0xFF000000) |
-                              (std::uint32_t)((tcp_rx_message->rxBuffer_[5] << 16) & 0x00FF0000) |
-                              (std::uint32_t)((tcp_rx_message->rxBuffer_[6] << 8) & 0x0000FF00) |
-                              (std::uint32_t)((tcp_rx_message->rxBuffer_[7] & 0x000000FF))));
+    std::uint32_t const read_next_bytes = [&tcp_rx_message]() noexcept -> std::uint32_t {
+      return ((std::uint32_t)((std::uint32_t)((tcp_rx_message->rxBuffer_[4u] << 24u) & 0xFF000000) |
+                              (std::uint32_t)((tcp_rx_message->rxBuffer_[5u] << 16u) & 0x00FF0000) |
+                              (std::uint32_t)((tcp_rx_message->rxBuffer_[6u] << 8u) & 0x0000FF00) |
+                              (std::uint32_t)((tcp_rx_message->rxBuffer_[7u] & 0x000000FF))));
     }();
     // reserve the buffer
-    tcp_rx_message->rxBuffer_.resize(kDoipheadrSize + std::size_t(read_next_bytes));
+    tcp_rx_message->rxBuffer_.reserve(kDoipheadrSize + std::size_t(read_next_bytes));
     boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes),
                       ec);
     // all message received, transfer to upper layer
@@ -195,7 +195,7 @@ void CreateTcpClientSocket::HandleMessage() {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    // send data to upper layer
+    // notify upper layer about received message
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {
     running_ = false;
@@ -203,6 +203,7 @@ void CreateTcpClientSocket::HandleMessage() {
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {
+    running_ = false;
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });

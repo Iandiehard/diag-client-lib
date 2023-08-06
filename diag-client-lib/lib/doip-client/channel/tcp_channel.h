@@ -37,7 +37,7 @@ using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
  @ Class Description : Class used to handle Doip Tcp Channel                              
  @ Threads           : Per Tcp channel one threads will be spawned (one for tcp socket)
  */
-class tcpChannel {
+class tcpChannel final {
 public:
   //  socket state
   enum class tcpSocketState : std::uint8_t { kSocketOffline = 0U, kSocketOnline };
