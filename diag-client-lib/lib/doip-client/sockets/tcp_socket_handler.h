@@ -32,7 +32,7 @@ using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-class TcpSocketHandler {
+class TcpSocketHandler final {
 public:
   // ctor
   TcpSocketHandler(std::string_view localIpaddress, tcpChannel::tcpChannel &channel);
@@ -59,7 +59,7 @@ private:
   // local Ip address
   std::string local_ip_address_;
   // local port number
-  uint16_t local_port_num_;
+  std::uint16_t local_port_num_;
   // tcp socket
   std::unique_ptr<TcpSocket> tcpSocket_;
   // store tcp channel reference

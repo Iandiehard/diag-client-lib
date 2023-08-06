@@ -20,7 +20,7 @@ CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, 
       local_port_num_{local_port_num},
       exit_request_{false},
       running_{false},
-      tcp_handler_read_{tcp_handler_read} {
+      tcp_handler_read_{std::move(tcp_handler_read)} {
   // Create socket
   tcp_socket_ = std::make_unique<TcpSocket>(io_context_);
   // Start thread to receive messages

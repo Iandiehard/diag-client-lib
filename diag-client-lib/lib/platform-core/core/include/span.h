@@ -9,6 +9,7 @@
 #define DIAG_CLIENT_LIB_LIB_PLATFORM_CORE_SPAN_H_
 
 #include <array>
+#include <iostream>
 #include <limits>
 #include <type_traits>
 #include <utility>
@@ -22,12 +23,32 @@ namespace core_type {
 constexpr std::size_t dynamic_extent = std::numeric_limits<std::size_t>::max();
 
 /**
- * @brief       Forward declaration of Span
+ * @brief       A view over a contiguous sequence of objects
+ * @details     The type T is required to be a complete object type that is not an abstract class type. This class is
+ *              implemented based on API specification of ara::core::Span from Adaptive Platform Core AUTOSAR AP R21-11
+ * @tparam      T
+ *              The type of elements in the Span
+ * @tparam      Extent
+ *              The extent to use for this Span
  */
 template<typename T, std::size_t Extent = dynamic_extent>
 class Span;
 
 namespace details {
+
+/**
+ * @brief       Check if the condition is as expected otherwise abort with provided message
+ * @param[in]   cond
+ *              The condition to check
+ * @param[in]   message
+ *              The message to output when violated
+ */
+inline void CheckIfExpectedOrAbort(bool cond, const char *message) {
+  if (!cond) {
+    std::cerr << message << std::endl;
+    std::abort();
+  }
+}
 
 /**
  * @brief       Helper template alias to remove reference and cv and return the actual type
@@ -121,6 +142,24 @@ struct is_container_element_type_convertible<
     typename std::enable_if<
         std::is_convertible<std::remove_pointer_t<decltype(std::data(std::declval<F>()))> (*)[], T (*)[]>::value>::type>
     : std::true_type {};
+
+/**
+ * @brief       A view over a contiguous sequence of objects
+ * @tparam      T
+ *              The type of elements in the Span storage
+ * @tparam      Extent
+ *              The extent to use for this Span storage
+ */
+template<typename T, std::size_t Extent>
+struct span_storage {
+  constexpr span_storage() noexcept = default;
+
+  constexpr span_storage(T *ptr, std::size_t) noexcept : ptr_{ptr} {}
+
+  T *ptr_ = nullptr;
+  std::size_t size_{Extent};
+};
+
 }  // namespace details
 
 /**
@@ -134,6 +173,8 @@ struct is_container_element_type_convertible<
  */
 template<typename T, std::size_t Extent>
 class Span final {
+  static_assert(!std::is_abstract<T>::value, "A span's element type cannot be an abstract class type");
+
 public:
   /**
    * @brief  Type alias for the type of elements in this Span
@@ -218,8 +259,8 @@ public:
    * @param[in]   count
    *              The number of elements to take from ptr
    */
-  constexpr Span(pointer ptr, size_type count) {
-    // abort on invalid range
+  constexpr Span(pointer ptr, size_type count) : storage_{ptr, count} {
+    details::CheckIfExpectedOrAbort(Extent != dynamic_extent && count == Extent, "Invalid range");
   }
 
   /**
@@ -231,8 +272,8 @@ public:
    * @param[in]   last_elem
    *              The pointer to past the last element
    */
-  constexpr Span(pointer first_elem, pointer last_elem) {
-    // abort on invalid range
+  constexpr Span(pointer first_elem, pointer last_elem) : storage_{first_elem, last_elem - first_elem} {
+    details::CheckIfExpectedOrAbort(Extent != dynamic_extent && (last_elem - first_elem) == Extent, "Invalid range");
   }
 
   /**
@@ -248,7 +289,7 @@ public:
            typename std::enable_if<(E == dynamic_extent || N == extent) &&
                                        details::is_container_element_type_convertible<element_type (&)[N], T>::value,
                                    bool>::type = true>
-  constexpr explicit Span(element_type (&arr)[N]) noexcept {}
+  constexpr explicit Span(element_type (&arr)[N]) noexcept : storage_{arr, N} {}
 
   /**
    * @brief       Construct a new Span from the given std::array
@@ -265,7 +306,7 @@ public:
            typename std::enable_if<(E == dynamic_extent || N == extent) &&
                                        details::is_container_element_type_convertible<std::array<U, N> &, T>::value,
                                    bool>::type = true>
-  constexpr explicit Span(std::array<U, N> &arr) noexcept {}
+  constexpr explicit Span(std::array<U, N> &arr) noexcept : storage_{arr.data(), N} {}
 
   /**
    * @brief       Construct a new Span from the given const std::array
@@ -283,14 +324,14 @@ public:
       typename std::enable_if<(E == dynamic_extent || N == extent) &&
                                   details::is_container_element_type_convertible<const std::array<U, N> &, T>::value,
                               bool>::type = true>
-  constexpr explicit Span(const std::array<U, N> &arr) noexcept {}
+  constexpr explicit Span(const std::array<U, N> &arr) noexcept : storage_{arr.data(), N} {}
 
   /**
    * @brief       Construct a new Span from the given container
-   * @details     [ara::core::data(cont), ara::core::data(cont) + ara::core::size(cont)) shall be a valid range.
+   * @details     [std::data(cont), std::data(cont) + std::size(cont)) shall be a valid range.
    *              This constructor shall not participate in overload resolution unless: extent == dynamic_extent is true,
    *              Container is not a specialization of Span, Container is not a specialization of Array, Container is not a
-   *              specialization of std::array, std::is_array<Container>::value is false, ara::core::data(cont) and ara::core::size(cont) are
+   *              specialization of std::array, std::is_array<Container>::value is false, std::data(cont) and std::size(cont) are
    *              both well-formed, and std::remove_pointer_t<decltype(ara::core::data(cont))>(*)[] is convertible to T(*)[].
    * @tparam      Container
    *              The type of container
@@ -301,14 +342,14 @@ public:
            typename std::enable_if<(E == dynamic_extent) && details::is_container_type<Container>::value &&
                                        details::is_container_element_type_convertible<Container &, T>::value,
                                    bool>::type = true>
-  constexpr explicit Span(Container &cont) noexcept {}
+  constexpr explicit Span(Container &cont) noexcept : storage_{std::data(cont), std::size(cont)} {}
 
   /**
    * @brief       Construct a new Span from the given const container
-   * @details     [ara::core::data(cont), ara::core::data(cont) + ara::core::size(cont)) shall be a valid range.
+   * @details     [std::data(cont), std::data(cont) + std::size(cont)) shall be a valid range.
    *              This constructor shall not participate in overload resolution unless: extent == dynamic_extent is true,
    *              Container is not a specialization of Span, Container is not a specialization of Array, Container is not a
-   *              specialization of std::array, std::is_array<Container>::value is false, ara::core::data(cont) and ara::core::size(cont) are
+   *              specialization of std::array, std::is_array<Container>::value is false, std::data(cont) and std::size(cont) are
    *              both well-formed, and std::remove_pointer_t<decltype(ara::core::data(cont))>(*)[] is convertible to T(*)[].
    * @tparam      Container
    *              The type of container
@@ -319,7 +360,7 @@ public:
            typename std::enable_if<(E == dynamic_extent) && details::is_container_type<Container>::value &&
                                        details::is_container_element_type_convertible<Container &, T>::value,
                                    bool>::type = true>
-  constexpr explicit Span(const Container &cont) noexcept {}
+  constexpr explicit Span(const Container &cont) noexcept : storage_{std::data(cont), std::size(cont)} {}
 
   /**
    * @brief       Copy construct a new Span from another instance
@@ -342,7 +383,7 @@ public:
       typename U, std::size_t N,
       typename std::enable_if<(Extent == dynamic_extent || N == dynamic_extent || Extent == N) &&
                               details::is_container_element_type_convertible<U (*)[], T (*)[]>::value>::type = true>
-  constexpr explicit Span(const Span<U, N> &other_span) noexcept {}
+  constexpr explicit Span(const Span<U, N> &other_span) noexcept : storage_{other_span.data(), other_span.size()} {}
 
   /**
    * @brief       Destructor
@@ -363,7 +404,10 @@ public:
    * @return      The subspan
    */
   template<std::size_t Count>
-  constexpr Span<element_type, Count> first() const {}
+  constexpr Span<element_type, Count> first() const {
+    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()");
+    return Span{data(), Count};
+  }
 
   /**
    * @brief       Return a subspan containing only the first elements of this Span
@@ -372,7 +416,10 @@ public:
    *              The number of elements to take over
    * @return      The subspan
    */
-  constexpr Span<element_type, dynamic_extent> first(size_type count) const {}
+  constexpr Span<element_type, dynamic_extent> first(size_type count) const {
+    details::CheckIfExpectedOrAbort(count <= size(), "Count > size()");
+    return Span{data(), count};
+  }
 
   /**
    * @brief       Return a subspan containing only the last elements of this Span
@@ -383,7 +430,10 @@ public:
    * @return      The subspan
    */
   template<std::size_t Count>
-  constexpr Span<element_type, Count> last() const {}
+  constexpr Span<element_type, Count> last() const {
+    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()");
+    return Span{data() + (size() - Count), Count};
+  }
 
   /**
    * @brief       Return a subspan containing only the last elements of this Span
@@ -392,7 +442,155 @@ public:
    *              The number of elements to take over
    * @return      The subspan
    */
-  constexpr Span<element_type, dynamic_extent> last(size_type count) const {}
+  constexpr Span<element_type, dynamic_extent> last(size_type count) const {
+    details::CheckIfExpectedOrAbort(count <= size(), "Count > size()");
+    return Span{data() + (size() - count), count};
+  }
+
+  /**
+   * @brief       Return a subspan of this Span
+   * @details     The second template argument of the returned Span type is:
+   *              Count != dynamic_extent ? Count : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)
+   *              The implementation shall ensure that (Offset <= Extent && (Count == dynamic_extent || Count <= Extent - Offset)) is true.
+   *              The behavior of this function is undefined unless (Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)) is true.
+   * @tparam      Offset
+   *              The offset into this Span from which to start
+   * @tparam      Count
+   *              The number of elements to take over
+   * @return      The subspan
+   */
+  template<std::size_t Offset, std::size_t Count = dynamic_extent>
+  constexpr auto subspan() const noexcept
+      -> Span<element_type,
+              Count != dynamic_extent ? Count : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)> {
+    details::CheckIfExpectedOrAbort((Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)),
+                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset))");
+    return Span{data() + Offset, Count != dynamic_extent ? Count : size() - Offset};
+  }
+
+  /**
+   * @brief       Return a subspan of this Span
+   * @details     The behavior of this function is undefined unless (offset <= size() && (count == dynamic_extent || count <= size() - offset)) is true
+   * @param[in]   offset
+   *              The offset into this Span from which to start
+   * @param[in]   count
+   *              The number of elements to take over
+   * @return      The subspan
+   */
+  constexpr Span<element_type, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const {
+    details::CheckIfExpectedOrAbort((offset <= size() && (count == dynamic_extent || count <= size() - offset)),
+                                    "(offset <= size() && (count == dynamic_extent || count <= size() - offset))");
+    return Span{data() + offset, count != dynamic_extent ? count : size() - offset};
+  }
+
+  /**
+   * @brief       Return the size of this Span
+   * @return      The number of elements contained in this Span
+   */
+  constexpr size_type size() const noexcept { return storage_.size_; }
+
+  /**
+   * @brief       Return the size of this Span in bytes
+   * @return      The number of bytes covered by this Span
+   */
+  constexpr size_type size_bytes() const noexcept { return size() * sizeof(element_type); }
+
+  /**
+   * @brief       Return whether this Span is empty
+   * @return      True if this Span contains 0 elements, False otherwise
+   */
+  constexpr bool empty() const noexcept { return size() == 0u; }
+
+  /**
+   * @brief       Return a reference to the n-th element of this Span
+   * @param[in]   idx
+   *              The index into this Span
+   * @return      The reference
+   */
+  constexpr reference operator[](size_type idx) const {
+    details::CheckIfExpectedOrAbort(idx < size(), "idx > size()");
+    return *(data() + idx);
+  }
+
+  /**
+   * @brief       Return a reference to the first element of this Span
+   * @details     The behavior of this function is undefined if empty() is true
+   * @return      The reference
+   */
+  constexpr reference front() const {
+    details::CheckIfExpectedOrAbort(!empty(), "Span is empty");
+    return *(data());
+  }
+
+  /**
+   * @brief       Return a reference to the last element of this Span
+   * @details     The behavior of this function is undefined if empty() is true
+   * @return      The reference
+   */
+  constexpr reference back() const {
+    details::CheckIfExpectedOrAbort(!empty(), "Span is empty");
+    return *(data() + (size() - 1));
+  }
+
+  /**
+   * @brief       Return a pointer to the start of the memory block covered by this Span
+   * @return      The pointer
+   */
+  constexpr pointer data() const noexcept { return storage_.ptr_; }
+
+  /**
+   * @brief       Return an iterator pointing to the first element of this Span
+   * @return      The iterator
+   */
+  constexpr iterator begin() const noexcept { return data(); }
+
+  /**
+   * @brief       Return an iterator pointing past the last element of this Span
+   * @return      The iterator
+   */
+  constexpr iterator end() const noexcept { return data() + size(); }
+
+  /**
+   * @brief       Return a const_iterator pointing to the first element of this Span
+   * @return      The const_iterator
+   */
+  constexpr const_iterator cbegin() const noexcept { return const_iterator(begin()); }
+
+  /**
+   * @brief       Return a const_iterator pointing past the last element of this Span
+   * @return      The const_iterator
+   */
+  constexpr const_iterator cend() const noexcept { return const_iterator(end()); }
+
+  /**
+   * @brief       Return a reverse_iterator pointing to the last element of this Span
+   * @return      The reverse_iterator
+   */
+  constexpr reverse_iterator rbegin() const noexcept { return reverse_iterator(end()); }
+
+  /**
+   * @brief       Return a reverse_iterator pointing past the first element of this Span
+   * @return      The reverse_iterator
+   */
+  constexpr reverse_iterator rend() const noexcept { return reverse_iterator(begin()); }
+
+  /**
+   * @brief       Return a const_reverse_iterator pointing to the last element of this Span
+   * @return      The const_reverse_iterator
+   */
+  constexpr const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(end()); }
+
+  /**
+   * @brief       Return a const_reverse_iterator pointing past the first element of this Span
+   * @return      The const_reverse_iterator
+   */
+  constexpr const_reverse_iterator crend() const noexcept { return const_reverse_iterator(begin()); }
+
+private:
+  /**
+   * @brief       The storage of span related data
+   */
+  details::span_storage<T, Extent> storage_;
 };
 
 }  // namespace core_type

@@ -24,7 +24,7 @@ TcpSocketHandler::TcpSocketHandler(std::string_view localIpaddress, tcpChannel::
       local_port_num_{0U},
       channel_{channel} {
   //create socket
-  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [&](TcpMessagePtr tcp_message) {
+  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
     channel_.HandleMessage(std::move(tcp_message));
   });
 }
