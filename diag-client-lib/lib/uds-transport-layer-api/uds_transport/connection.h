@@ -8,10 +8,12 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
 /* includes */
+#include <cstdint>
+
+#include "core/include/span.h"
 #include "uds_transport/protocol_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/protocol_types.h"
-#include "core/include/span.h"
 
 namespace uds_transport {
 
@@ -66,7 +68,7 @@ public:
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<uint8_t> payload_info) = 0;
+      core_type::Span<std::uint8_t> payload_info) = 0;
 
   // Transmit tcp/udp data
   virtual UdsTransportProtocolMgr::TransmissionResult Transmit(UdsMessageConstPtr message) = 0;

@@ -12,6 +12,7 @@
 
 #include "channel/tcp_channel.h"
 #include "common/common_doip_types.h"
+#include "core/include/span.h"
 
 namespace doip_client {
 //forward declaration
@@ -25,7 +26,7 @@ namespace tcpTransport {
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
-class TcpTransportHandler {
+class TcpTransportHandler final {
 public:
   // ctor
   TcpTransportHandler(std::string_view local_ip_address, uint16_t port_num, uint8_t total_tcp_channel_req,
@@ -60,7 +61,8 @@ public:
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind, std::vector<uint8_t> payloadInfo);
+      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+      core_type::Span<uint8_t> payloadInfo);
 
   // Hands over a valid received Uds message (currently this is only a request type) from transport
   // layer to session layer

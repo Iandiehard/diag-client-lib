@@ -28,8 +28,8 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(DoipMessage &
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
         udp_transport_handler_.IndicateMessage(
             static_cast<uds_transport::UdsMessage::Address>(0U), static_cast<uds_transport::UdsMessage::Address>(0U),
-            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
-            static_cast<std::size_t>(doip_payload.payload.size()), 0U, "DoIPUdp", doip_payload.payload)};
+            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U, doip_payload.payload.size(), 0U, "DoIPUdp",
+            core_type::Span<std::uint8_t>{doip_payload.payload})};
     if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address

@@ -17,8 +17,8 @@ set(header ${public_header})
 #Link include directories
 target_include_directories(${PROJECT_NAME}
         INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-        )
+)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets
-        )
+)

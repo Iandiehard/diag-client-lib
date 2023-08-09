@@ -43,9 +43,9 @@ namespace details {
  * @param[in]   message
  *              The message to output when violated
  */
-inline void CheckIfExpectedOrAbort(bool cond, const char *message) {
+inline void CheckIfExpectedOrAbort(bool cond, const char *message, const std::string_view file_name, int line_no) {
   if (!cond) {
-    std::cerr << message << std::endl;
+    std::cerr << message << " [" << file_name << ":" << line_no << "]" << std::endl;
     std::abort();
   }
 }
@@ -144,7 +144,7 @@ struct is_container_element_type_convertible<
     : std::true_type {};
 
 /**
- * @brief       A view over a contiguous sequence of objects
+ * @brief       Storage class needed for span
  * @tparam      T
  *              The type of elements in the Span storage
  * @tparam      Extent
@@ -158,6 +158,21 @@ struct span_storage {
 
   T *ptr_ = nullptr;
   std::size_t size_{Extent};
+};
+
+/**
+ * @brief       Storage class needed for span
+ * @tparam      T
+ *              The type of elements in the Span storage
+ */
+template<typename T>
+struct span_storage<T, dynamic_extent> {
+  constexpr span_storage() noexcept = default;
+
+  constexpr span_storage(T *ptr, std::size_t size) noexcept : ptr_{ptr}, size_{size} {}
+
+  T *ptr_ = nullptr;
+  std::size_t size_ = 0;
 };
 
 }  // namespace details
@@ -260,7 +275,8 @@ public:
    *              The number of elements to take from ptr
    */
   constexpr Span(pointer ptr, size_type count) : storage_{ptr, count} {
-    details::CheckIfExpectedOrAbort(Extent != dynamic_extent && count == Extent, "Invalid range");
+    auto ff{Extent};
+    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || count == Extent, "Invalid range", __FILE__, __LINE__);
   }
 
   /**
@@ -273,7 +289,8 @@ public:
    *              The pointer to past the last element
    */
   constexpr Span(pointer first_elem, pointer last_elem) : storage_{first_elem, last_elem - first_elem} {
-    details::CheckIfExpectedOrAbort(Extent != dynamic_extent && (last_elem - first_elem) == Extent, "Invalid range");
+    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || (last_elem - first_elem) == Extent, "Invalid range",
+                                    __FILE__, __LINE__);
   }
 
   /**
@@ -405,7 +422,7 @@ public:
    */
   template<std::size_t Count>
   constexpr Span<element_type, Count> first() const {
-    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()");
+    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()", __FILE__, __LINE__);
     return Span{data(), Count};
   }
 
@@ -417,7 +434,7 @@ public:
    * @return      The subspan
    */
   constexpr Span<element_type, dynamic_extent> first(size_type count) const {
-    details::CheckIfExpectedOrAbort(count <= size(), "Count > size()");
+    details::CheckIfExpectedOrAbort(count <= size(), "Count > size()", __FILE__, __LINE__);
     return Span{data(), count};
   }
 
@@ -431,7 +448,7 @@ public:
    */
   template<std::size_t Count>
   constexpr Span<element_type, Count> last() const {
-    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()");
+    details::CheckIfExpectedOrAbort(Count <= size(), "Count > size()", __FILE__, __LINE__);
     return Span{data() + (size() - Count), Count};
   }
 
@@ -443,7 +460,7 @@ public:
    * @return      The subspan
    */
   constexpr Span<element_type, dynamic_extent> last(size_type count) const {
-    details::CheckIfExpectedOrAbort(count <= size(), "Count > size()");
+    details::CheckIfExpectedOrAbort(count <= size(), "count > size()", __FILE__, __LINE__);
     return Span{data() + (size() - count), count};
   }
 
@@ -464,7 +481,8 @@ public:
       -> Span<element_type,
               Count != dynamic_extent ? Count : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)> {
     details::CheckIfExpectedOrAbort((Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)),
-                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset))");
+                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset))",
+                                    __FILE__, __LINE__);
     return Span{data() + Offset, Count != dynamic_extent ? Count : size() - Offset};
   }
 
@@ -479,8 +497,9 @@ public:
    */
   constexpr Span<element_type, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const {
     details::CheckIfExpectedOrAbort((offset <= size() && (count == dynamic_extent || count <= size() - offset)),
-                                    "(offset <= size() && (count == dynamic_extent || count <= size() - offset))");
-    return Span{data() + offset, count != dynamic_extent ? count : size() - offset};
+                                    "(offset <= size() && (count == dynamic_extent || count <= size() - offset))",
+                                    __FILE__, __LINE__);
+    return {data() + offset, count == dynamic_extent ? size() - offset : count};
   }
 
   /**
@@ -508,7 +527,7 @@ public:
    * @return      The reference
    */
   constexpr reference operator[](size_type idx) const {
-    details::CheckIfExpectedOrAbort(idx < size(), "idx > size()");
+    details::CheckIfExpectedOrAbort(idx < size(), "idx > size()", __FILE__, __LINE__);
     return *(data() + idx);
   }
 
@@ -518,7 +537,7 @@ public:
    * @return      The reference
    */
   constexpr reference front() const {
-    details::CheckIfExpectedOrAbort(!empty(), "Span is empty");
+    details::CheckIfExpectedOrAbort(!empty(), "Span is empty", __FILE__, __LINE__);
     return *(data());
   }
 
@@ -528,7 +547,7 @@ public:
    * @return      The reference
    */
   constexpr reference back() const {
-    details::CheckIfExpectedOrAbort(!empty(), "Span is empty");
+    details::CheckIfExpectedOrAbort(!empty(), "Span is empty", __FILE__, __LINE__);
     return *(data() + (size() - 1));
   }
 
@@ -592,6 +611,21 @@ private:
    */
   details::span_storage<T, Extent> storage_;
 };
+
+template<class T, size_t N>
+Span(T (&)[N]) -> Span<T, N>;
+
+template<class T, size_t N>
+Span(std::array<T, N> &) -> Span<T, N>;
+
+template<class T, size_t N>
+Span(const std::array<T, N> &) -> Span<const T, N>;
+
+template<class Container>
+Span(Container &) -> Span<typename std::remove_reference<decltype(*std::data(std::declval<Container &>()))>::type>;
+
+template<class Container>
+Span(const Container &) -> Span<const typename Container::value_type>;
 
 }  // namespace core_type
 

@@ -36,11 +36,11 @@ set(LIB_MAIN_SRCS
         ${MAIN_DCM_TIMER_SRCS}
         ${MAIN_DCM_CONFIGPARSER_SRCS}
         ${MAIN_DCM_SERVICE}
-        )
+)
 
 add_library(${PROJECT_NAME}
         ${LIB_MAIN_SRCS}
-        )
+)
 
 # Include headers
 set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -52,7 +52,7 @@ set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-        )
+)
 
 # link all static libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
@@ -62,21 +62,21 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         boost-support
         uds-transport-layer-api
         Threads::Threads
-        )
+)
 
 # install etc files
 install(DIRECTORY
         ${CMAKE_CURRENT_SOURCE_DIR}/etc/
         DESTINATION etc
-        )
+)
 
 # install diag.client
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        )
+)
 
 # install include files
 install(FILES ${OUT_HDRS}
         DESTINATION include/${PROJECT_NAME}
-        )
+)

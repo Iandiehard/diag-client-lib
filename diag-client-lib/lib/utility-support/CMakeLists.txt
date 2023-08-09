@@ -24,14 +24,14 @@ add_library(
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        )
+)
 
 #link target directory
 if (BUILD_WITH_DLT)
     target_link_libraries(${PROJECT_NAME}
             PRIVATE
             Genivi::dlt
-            )
+    )
 else ()
     target_link_libraries(${PROJECT_NAME}
             PRIVATE)
@@ -39,4 +39,4 @@ endif (BUILD_WITH_DLT)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets
-        )
+)

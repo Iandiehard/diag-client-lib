@@ -8,8 +8,8 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONVERSATION_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONVERSATION_H
 /* includes */
-#include "uds_transport/protocol_types.h"
 #include "core/include/span.h"
+#include "uds_transport/protocol_types.h"
 
 namespace uds_transport {
 
@@ -60,7 +60,7 @@ public:
    * @param[in]   protocol_kind
    *              The identifier of protocol kind associated to message
    * @param[in]   payload_info
-   *              The View onto the first received payload bytes, if any. This view shall be used only within this function call.
+   *              The view onto the first received payload bytes, if any. This view shall be used only within this function call.
    *              It is recommended that the TP provides at least the first two bytes of the request message,
    *              so the DM can identify a functional TesterPresent
    * @return      std::pair< IndicationResult, UdsMessagePtr >
@@ -75,7 +75,7 @@ public:
   /**
    * @brief       Function to Hands over a valid received Uds message
    * @param[in]   message
-   *              The The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   *              The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the conversation here
    */
   virtual void HandleMessage(UdsMessagePtr message) noexcept = 0;

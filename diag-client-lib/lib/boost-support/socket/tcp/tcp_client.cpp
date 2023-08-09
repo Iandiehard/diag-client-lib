@@ -168,9 +168,9 @@ void CreateTcpClientSocket::HandleMessage() {
   TcpErrorCodeType ec{};
   TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessageType>()};
   // reserve the buffer
-  tcp_rx_message->rxBuffer_.reserve(kDoipheadrSize);
+  tcp_rx_message->rxBuffer_.resize(kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[0], kDoipheadrSize), ec);
+  boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[0u], kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -181,7 +181,7 @@ void CreateTcpClientSocket::HandleMessage() {
                               (std::uint32_t)((tcp_rx_message->rxBuffer_[7u] & 0x000000FF))));
     }();
     // reserve the buffer
-    tcp_rx_message->rxBuffer_.reserve(kDoipheadrSize + std::size_t(read_next_bytes));
+    tcp_rx_message->rxBuffer_.resize(kDoipheadrSize + std::size_t(read_next_bytes));
     boost::asio::read(*tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes),
                       ec);
     // all message received, transfer to upper layer

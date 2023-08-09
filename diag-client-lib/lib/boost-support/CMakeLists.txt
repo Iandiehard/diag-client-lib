@@ -21,19 +21,19 @@ file(GLOB LIBBOOST_JSON_PARSER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/parser/*.cpp")
 set(LIBBOOST_SOCKET_SRCS
         ${LIBBOOST_SOCKET_TCP_SRCS}
         ${LIBBOOST_SOCKET_UDP_SRCS}
-        )
+)
 
 add_library(${PROJECT_NAME}
         ${LIBBOOST_COMMON_SRCS}
         ${LIBBOOST_SOCKET_SRCS}
         ${LIBBOOST_JSON_PARSER_SRCS}
-        )
+)
 
 #Link include directory
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         "$<BUILD_INTERFACE:${Boost_INCLUDE_DIRS}>"
-        )
+)
 
 #link target directory
 target_link_libraries(${PROJECT_NAME}
@@ -41,8 +41,8 @@ target_link_libraries(${PROJECT_NAME}
         platform-core
         utility-support
         ${Boost_LIBRARIES}
-        )
+)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets
-        )
+)

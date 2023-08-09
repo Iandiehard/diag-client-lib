@@ -203,25 +203,22 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
 auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept -> void {
   if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
       DiagnosticMessageChannelState::kWaitForDiagnosticResponse) {
-    // create the payload to send to upper layer
-    std::vector<uint8_t> payload_info{};
     // check the logical address of Server
-    auto server_address =
-        (uint16_t) (((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF));
+    uds_transport::UdsMessage::Address server_address{static_cast<uds_transport::UdsMessage::Address>(
+        ((doip_payload.payload[BYTE_POS_ZERO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_ONE] & 0xFF))};
     // check the logical address of client
-    auto client_address =
-        (uint16_t) (((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF));
+    uds_transport::UdsMessage::Address client_address{static_cast<uds_transport::UdsMessage::Address>(
+        ((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF))};
+
     // payload except the address
-    payload_info.resize(doip_payload.payload.size() - 4U);
-    // copy to application buffer
-    (void) std::copy(doip_payload.payload.begin() + 4u, doip_payload.payload.end(), payload_info.begin());
+    core_type::Span<std::uint8_t> payload_info{doip_payload.payload};
+    core_type::Span<std::uint8_t> adjusted_payload_info{payload_info.subspan(4u, payload_info.size() - 4u)};
+
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
-        tcp_transport_handler_.IndicateMessage(static_cast<uds_transport::UdsMessage::Address>(server_address),
-                                               static_cast<uds_transport::UdsMessage::Address>(client_address),
-                                               uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
-                                               static_cast<std::size_t>(doip_payload.payload.size() - 4U), 0U,
-                                               "DoIPTcp", payload_info)};
+        tcp_transport_handler_.IndicateMessage(
+            server_address, client_address, uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+            adjusted_payload_info.size(), 0U, "DoIPTcp", adjusted_payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {

@@ -43,7 +43,7 @@ UdpTransportHandler::IndicateMessage(uds_transport::UdsMessage::Address source_a
                                      uds_transport::UdsMessage::TargetAddressType type,
                                      uds_transport::ChannelID channel_id, std::size_t size,
                                      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-                                     std::vector<uint8_t> payloadInfo) {
+                                     core_type::Span<uint8_t> payloadInfo) {
   return (doip_connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                            payloadInfo));
 }

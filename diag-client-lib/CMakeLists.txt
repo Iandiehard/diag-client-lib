@@ -21,7 +21,7 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/appl)
 install(EXPORT DiagClientLibTargets
         FILE DiagClientLibTargets.cmake
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
-        )
+)
 
 configure_package_config_file(
         ${CMAKE_CURRENT_SOURCE_DIR}/cmake/Config.cmake.in
@@ -32,4 +32,4 @@ configure_package_config_file(
 install(FILES
         "${CMAKE_CURRENT_BINARY_DIR}/DiagClientLibConfig.cmake"
         DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/DiagClientLib
-        )
+)

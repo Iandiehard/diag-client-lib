@@ -26,16 +26,16 @@ set(LIBDOIP_LIB_SRCS
         ${LIBDOIP_TIMER_SRCS}
         ${LIBDOIP_CONNECTION_SRCS}
         ${LIBDOIP_MAIN_SRCS}
-        )
+)
 
 add_library(${PROJECT_NAME}
         ${LIBDOIP_LIB_SRCS}
-        )
+)
 
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
-        )
+)
 
 # link library
 target_link_libraries(${PROJECT_NAME}
@@ -44,8 +44,8 @@ target_link_libraries(${PROJECT_NAME}
         utility-support
         uds-transport-layer-api
         boost-support
-        )
+)
 
 install(TARGETS ${PROJECT_NAME}
         EXPORT DiagClientLibTargets
-        )
+)
