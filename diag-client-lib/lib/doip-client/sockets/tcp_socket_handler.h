@@ -61,7 +61,7 @@ private:
   // local port number
   std::uint16_t local_port_num_;
   // tcp socket
-  std::unique_ptr<TcpSocket> tcpSocket_;
+  std::unique_ptr<TcpSocket> tcp_socket_;
   // store tcp channel reference
   tcpChannel::tcpChannel &channel_;
 };

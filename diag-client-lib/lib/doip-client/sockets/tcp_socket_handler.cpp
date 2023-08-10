@@ -22,12 +22,10 @@ namespace tcpSocket {
 TcpSocketHandler::TcpSocketHandler(std::string_view localIpaddress, tcpChannel::tcpChannel &channel)
     : local_ip_address_{localIpaddress},
       local_port_num_{0U},
-      channel_{channel} {
-  //create socket
-  tcpSocket_ = std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
-    channel_.HandleMessage(std::move(tcp_message));
-  });
-}
+      channel_{channel},
+      tcp_socket_{std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
+        channel_.HandleMessage(std::move(tcp_message));
+      })} {}
 
 void TcpSocketHandler::Start() {}
 
@@ -36,20 +34,20 @@ void TcpSocketHandler::Stop() {}
 // Connect to host
 bool TcpSocketHandler::ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num) {
   bool ret_val{false};
-  if (tcpSocket_->Open()) { ret_val = tcpSocket_->ConnectToHost(host_ip_address, host_port_num); }
+  if (tcp_socket_->Open()) { ret_val = tcp_socket_->ConnectToHost(host_ip_address, host_port_num); }
   return ret_val;
 }
 
 // Disconnect from host
 bool TcpSocketHandler::DisconnectFromHost() {
   bool ret_val = false;
-  if (tcpSocket_->DisconnectFromHost()) { ret_val = tcpSocket_->Destroy(); }
+  if (tcp_socket_->DisconnectFromHost()) { ret_val = tcp_socket_->Destroy(); }
   return ret_val;
 }
 
 // Function to trigger transmission
 bool TcpSocketHandler::Transmit(TcpMessageConstPtr tcp_message) {
-  return (tcpSocket_->Transmit(std::move(tcp_message)));
+  return (tcp_socket_->Transmit(std::move(tcp_message)));
 }
 }  // namespace tcpSocket
 }  // namespace doip_client

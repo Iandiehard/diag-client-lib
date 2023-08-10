@@ -275,7 +275,6 @@ public:
    *              The number of elements to take from ptr
    */
   constexpr Span(pointer ptr, size_type count) : storage_{ptr, count} {
-    auto ff{Extent};
     details::CheckIfExpectedOrAbort(Extent == dynamic_extent || count == Extent, "Invalid range", __FILE__, __LINE__);
   }
 

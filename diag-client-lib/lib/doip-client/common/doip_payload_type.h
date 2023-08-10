@@ -10,7 +10,8 @@
 
 #include <cstdint>
 #include <string>
-#include <vector>
+
+#include "core/include/span.h"
 
 namespace doip_client {
 class DoipMessage {
@@ -46,7 +47,7 @@ public:
   // doip payload length
   std::uint32_t payload_length{};
   // doip payload
-  std::vector<std::uint8_t> payload;
+  core_type::Span<std::uint8_t> payload{};
 };
 }  // namespace doip_client
 

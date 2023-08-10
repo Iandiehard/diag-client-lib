@@ -172,7 +172,7 @@ auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept
   doip_rx_message.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
-    doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
+    // doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
     // copy payload locally
     (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize, udp_rx_message->rx_buffer_.end(),
                      doip_rx_message.payload.begin());
@@ -193,7 +193,7 @@ auto UdpChannelHandlerImpl::HandleMessageBroadcast(UdpMessagePtr udp_rx_message)
   doip_rx_message.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
-    doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
+    // doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
     // copy payload locally
     (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
                      udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
