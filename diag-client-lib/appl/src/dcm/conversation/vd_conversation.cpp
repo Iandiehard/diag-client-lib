@@ -162,7 +162,7 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<uint8_t> payloadInfo) noexcept override {
+      core_type::Span<std::uint8_t> payloadInfo) noexcept override {
     return (vd_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                              payloadInfo));
   }
@@ -254,7 +254,7 @@ VdConversation::IndicateMessage(uds_transport::UdsMessage::Address /* source_add
                                 uds_transport::UdsMessage::TargetAddressType /* type */,
                                 uds_transport::ChannelID channel_id, std::size_t size, uds_transport::Priority priority,
                                 uds_transport::ProtocolKind protocol_kind,
-                                core_type::Span<uint8_t> payload_info) noexcept {
+                                core_type::Span<std::uint8_t> payload_info) noexcept {
   using IndicationResult =
       std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>;
   IndicationResult ret_val{::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};

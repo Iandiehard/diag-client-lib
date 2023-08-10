@@ -70,7 +70,7 @@ public:
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<uint8_t> payload_info) noexcept = 0;
+      core_type::Span<std::uint8_t> payload_info) noexcept = 0;
 
   /**
    * @brief       Function to Hands over a valid received Uds message

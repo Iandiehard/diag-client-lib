@@ -210,15 +210,14 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
     uds_transport::UdsMessage::Address client_address{static_cast<uds_transport::UdsMessage::Address>(
         ((doip_payload.payload[BYTE_POS_TWO] & 0xFF) << 8) | (doip_payload.payload[BYTE_POS_THREE] & 0xFF))};
 
-    // payload except the address
-    core_type::Span<std::uint8_t> payload_info{doip_payload.payload};
-    core_type::Span<std::uint8_t> adjusted_payload_info{payload_info.subspan(4u, payload_info.size() - 4u)};
+    // payload except the server nd client address
+    core_type::Span<std::uint8_t> payload_info{&doip_payload.payload[4u], doip_payload.payload.size() - 4u};
 
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
-        tcp_transport_handler_.IndicateMessage(
-            server_address, client_address, uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
-            adjusted_payload_info.size(), 0U, "DoIPTcp", adjusted_payload_info)};
+        tcp_transport_handler_.IndicateMessage(server_address, client_address,
+                                               uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+                                               payload_info.size(), 0U, "DoIPTcp", payload_info)};
     if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {
@@ -229,9 +228,9 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
         (void) std::copy(payload_info.begin(), payload_info.end(), ret_val.second->GetPayload().begin());
         tcp_transport_handler_.HandleMessage(std::move(ret_val.second));
       } else {
-        // other errors
-        // set to idle
-        // raise error
+        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
+            __FILE__, __LINE__, __func__,
+            [](std::stringstream &msg) { msg << "Diagnostic message response ignored due to unknown error"; });
       }
       channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(
           DiagnosticMessageChannelState::kDiagIdle);

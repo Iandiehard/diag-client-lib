@@ -37,6 +37,7 @@ target_link_libraries(${PROJECT_NAME}
         boost-support
         utility-support
         GTest::gtest_main
+        GTest::gmock_main
         )
 
 include(GoogleTest)

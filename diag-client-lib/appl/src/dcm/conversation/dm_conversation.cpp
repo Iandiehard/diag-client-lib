@@ -80,7 +80,7 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<uint8_t> payload_info) noexcept override {
+      core_type::Span<std::uint8_t> payload_info) noexcept override {
     return (dm_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                              payload_info));
   }
@@ -330,7 +330,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
                                 std::size_t size, uds_transport::Priority priority,
                                 uds_transport::ProtocolKind protocol_kind,
-                                core_type::Span<uint8_t> payload_info) noexcept {
+                                core_type::Span<std::uint8_t> payload_info) noexcept {
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
       uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   // Verify the payload received :-
@@ -339,7 +339,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
     if (size <= rx_buffer_size_) {
       // Check for pending response
       // payload = 0x7F XX 0x78
-      if (payload_info[2U] == 0x78) {
+      if (payload_info[0U] == 0x7F && payload_info[2U] == 0x78) {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"

@@ -52,7 +52,7 @@ public:
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<uint8_t> payloadInfo);
+      core_type::Span<std::uint8_t> payloadInfo);
 
   // Hands over a valid received UDP message (currently this is only a request type) from transport
   // layer to session layer
