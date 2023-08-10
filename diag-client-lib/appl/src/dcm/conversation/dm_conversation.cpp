@@ -253,30 +253,46 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
     // Check for size, else kIndicationOverflow
     if (size <= rx_buffer_size_) {
       // Check for pending response
-      // payload = 0x7F XX 0x78
-      if (payload_info[2U] == 0x78) {
-        logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, "", [&](std::stringstream &msg) {
-              msg << "'" << conversation_name_ << "'"
-                  << "-> "
-                  << "Diagnostic pending response received in Conversation";
-            });
-        ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
-        conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdPendingRes);
+      if (size >= 3U) {
+        // payload = 0x7F XX 0x78
+        if (payload_info[2U] == 0x78) {
+          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+              __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+                msg << "'" << conversation_name_ << "'"
+                    << "-> "
+                    << "Diagnostic pending response received in Conversation";
+              });
+          ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending;
+          conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdPendingRes);
+        } else {
+          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
+              __FILE__, __LINE__, "", [this](std::stringstream &msg) {
+                msg << "'" << conversation_name_ << "'"
+                    << "-> "
+                    << "Diagnostic final response received in Conversation";
+              });
+          // positive or negative response, provide valid buffer
+          // resize the global rx buffer
+          payload_rx_buffer.resize(size);
+          ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
+          ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+              source_address_, target_address_, "", payload_rx_buffer));
+          conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
+        }
       } else {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
-            __FILE__, __LINE__, "", [this](std::stringstream &msg) {
-              msg << "'" << conversation_name_ << "'"
-                  << "-> "
-                  << "Diagnostic final response received in Conversation";
-            });
-        // positive or negative response, provide valid buffer
-        // resize the global rx buffer
-        payload_rx_buffer.resize(size);
-        ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
-        ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, "", payload_rx_buffer));
-        conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
+              __FILE__, __LINE__, "", [this](std::stringstream &msg) {
+                msg << "'" << conversation_name_ << "'"
+                    << "-> "
+                    << "Diagnostic final response received in Conversation";
+              });
+          // positive or negative response, provide valid buffer
+          // resize the global rx buffer
+          payload_rx_buffer.resize(size);
+          ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
+          ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+              source_address_, target_address_, "", payload_rx_buffer));
+          conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
       }
       WaitCancel();
     } else {

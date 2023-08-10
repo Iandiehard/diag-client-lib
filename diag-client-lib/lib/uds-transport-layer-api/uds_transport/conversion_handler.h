@@ -22,7 +22,7 @@ public:
   explicit ConversionHandler(conversion_manager::ConversionHandlerID handler_id) : handler_id_{handler_id} {}
 
   // dtor
-  ~ConversionHandler() = default;
+  virtual ~ConversionHandler() = default;
 
   // Indicate message Diagnostic message reception over TCP/UDP to user
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
