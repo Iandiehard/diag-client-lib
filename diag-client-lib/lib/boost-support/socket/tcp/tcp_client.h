@@ -13,7 +13,7 @@
 #include <string_view>
 #include <thread>
 
-#include "tcp_types.h"
+#include "tcp_message.h"
 
 namespace boost_support {
 namespace socket {

@@ -12,8 +12,8 @@
 
 // includes from diag-client library
 #include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client_result.h"
 #include "include/diagnostic_client.h"
+#include "include/diagnostic_client_result.h"
 #include "include/diagnostic_client_uds_message_type.h"
 #include "include/diagnostic_client_vehicle_info_message_type.h"
 

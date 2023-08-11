@@ -109,10 +109,10 @@ public:
     void StartAcceptingConnection();
 
     // Function to get payload type
-    static auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;
+    static auto GetDoIPPayloadType(core_type::Span<uint8_t> payload) noexcept -> std::uint16_t;
 
     // Function to get payload length
-    static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
+    static auto GetDoIPPayloadLength(core_type::Span<uint8_t> payload) noexcept -> std::uint32_t;
 
     // Function to create the generic header
     static void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, std::uint16_t payload_type,

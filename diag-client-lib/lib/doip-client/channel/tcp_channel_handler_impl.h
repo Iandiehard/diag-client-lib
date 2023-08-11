@@ -12,7 +12,7 @@
 
 #include "channel/tcp_channel_state_impl.h"
 #include "common/common_doip_types.h"
-#include "common/doip_payload_type.h"
+#include "common/doip_message.h"
 #include "core/include/common_header.h"
 #include "sockets/tcp_socket_handler.h"
 
@@ -146,12 +146,6 @@ private:
 
   // Function to verify payload length of various payload type
   auto ProcessDoIPPayloadLength(uint32_t payloadLen, uint16_t payloadType) noexcept -> bool;
-
-  // Function to get payload type
-  auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;
-
-  // Function to get payload length
-  auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
 
   // Function to process DoIP payload responses
   auto ProcessDoIPPayload(DoipMessage &doip_payload) noexcept -> void;

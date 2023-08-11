@@ -29,7 +29,7 @@ int main() {
 
   // Get conversation for tester one by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  diag::client::conversation::DiagClientConversation diag_client_conversation1 {
+  diag::client::conversation::DiagClientConversation diag_client_conversation1{
       diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
 
   // Start the conversation for tester one
@@ -37,7 +37,7 @@ int main() {
 
   // Get conversation for tester two by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  diag::client::conversation::DiagClientConversation diag_client_conversation2 {
+  diag::client::conversation::DiagClientConversation diag_client_conversation2{
       diag_client->GetDiagnosticClientConversation("DiagTesterTwo")};
 
   // Start the conversation for tester two
@@ -51,11 +51,11 @@ int main() {
 
   {
     // Create an uds message with payload for ECU1 with remote ip address 172.16.25.128
-    diag::client::uds_message::UdsRequestMessagePtr uds_message_1 {
+    diag::client::uds_message::UdsRequestMessagePtr uds_message_1{
         std::make_unique<UdsMessage>("172.16.25.128", payload_1)};
 
     // Create an uds message with payload for ECU2 with remote ip address 172.16.25.129
-    diag::client::uds_message::UdsRequestMessagePtr uds_message_2 {
+    diag::client::uds_message::UdsRequestMessagePtr uds_message_2{
         std::make_unique<UdsMessage>("172.16.25.129", payload_2)};
 
     // Connect Tester One to ECU1 with target address "0x1234" and remote ip address "172.16.25.128"
@@ -90,7 +90,6 @@ int main() {
     diag_client_conversation1.DisconnectFromDiagServer();
     // Disconnect Tester Two from ECU2 with remote ip address "172.16.25.129"
     diag_client_conversation2.DisconnectFromDiagServer();
-
   }
 
   // shutdown all the conversation

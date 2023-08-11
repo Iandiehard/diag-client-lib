@@ -1,8 +1,12 @@
 #!/bin/bash
 
-DIAG_LIB_PATH="./diag-client-lib"
+DIAG_LIB_SRC_PATH="./diag-client-lib"
+DIAG_LIB_EXAMPLE_PATH="./examples"
+DIAG_LIB_TEST_PATH="./test"
 CLANG_FORMAT="clang-format-14"
 
-DIAG_LIB_LIST="$(find "$DIAG_LIB_PATH" | grep -E ".*(\.ino|\.cpp|\.c|\.h|\.hpp|\.hh)$")"
+DIAG_LIB_SRC_LIST="$(find "$DIAG_LIB_SRC_PATH" | grep -E ".*(\.ino|\.cpp|\.c|\.h|\.hpp|\.hh)$")"
+DIAG_LIB_EXAMPLE_LIST="$(find "$DIAG_LIB_EXAMPLE_PATH" | grep -E ".*(\.ino|\.cpp|\.c|\.h|\.hpp|\.hh)$")"
+DIAG_LIB_TEST_LIST="$(find "$DIAG_LIB_TEST_PATH" | grep -E ".*(\.ino|\.cpp|\.c|\.h|\.hpp|\.hh)$")"
 
-$CLANG_FORMAT --verbose -i --style=file $DIAG_LIB_LIST
+$CLANG_FORMAT --verbose -i --style=file $DIAG_LIB_SRC_LIST $DIAG_LIB_EXAMPLE_LIST $DIAG_LIB_TEST_LIST

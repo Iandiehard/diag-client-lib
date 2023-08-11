@@ -8,6 +8,7 @@
 
 #include "doip_handler/doip_tcp_handler.h"
 
+#include "core/include/span.h"
 #include "doip_handler/common_doip_types.h"
 #include "doip_handler/logger.h"
 
@@ -88,16 +89,16 @@ void DoipTcpHandler::DoipChannel::StartAcceptingConnection() {
 }
 
 void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
-  received_doip_message_.host_ip_address = tcp_rx_message->host_ip_address_;
-  received_doip_message_.port_num = tcp_rx_message->host_port_num_;
-  received_doip_message_.protocol_version = tcp_rx_message->rxBuffer_[0];
-  received_doip_message_.protocol_version_inv = tcp_rx_message->rxBuffer_[1];
-  received_doip_message_.payload_type = GetDoIPPayloadType(tcp_rx_message->rxBuffer_);
-  received_doip_message_.payload_length = GetDoIPPayloadLength(tcp_rx_message->rxBuffer_);
+  received_doip_message_.host_ip_address = tcp_rx_message->GetHostIpAddress();
+  received_doip_message_.port_num = tcp_rx_message->GetHostPortNumber();
+  received_doip_message_.protocol_version = tcp_rx_message->GetRxBuffer()[0];
+  received_doip_message_.protocol_version_inv = tcp_rx_message->GetRxBuffer()[1];
+  received_doip_message_.payload_type = GetDoIPPayloadType(tcp_rx_message->GetRxBuffer());
+  received_doip_message_.payload_length = GetDoIPPayloadLength(tcp_rx_message->GetRxBuffer());
   if (received_doip_message_.payload_length > 0U) {
     received_doip_message_.payload.insert(received_doip_message_.payload.begin(),
-                                          tcp_rx_message->rxBuffer_.begin() + kDoipheadrSize,
-                                          tcp_rx_message->rxBuffer_.end());
+                                          tcp_rx_message->GetRxBuffer().begin() + kDoipheadrSize,
+                                          tcp_rx_message->GetRxBuffer().end());
   }
 
   // Trigger async transmission
@@ -115,11 +116,11 @@ void DoipTcpHandler::DoipChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
   cond_var_.notify_all();
 }
 
-auto DoipTcpHandler::DoipChannel::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t {
+auto DoipTcpHandler::DoipChannel::GetDoIPPayloadType(core_type::Span<uint8_t> payload) noexcept -> std::uint16_t {
   return ((uint16_t) (((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
 }
 
-auto DoipTcpHandler::DoipChannel::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
+auto DoipTcpHandler::DoipChannel::GetDoIPPayloadLength(core_type::Span<uint8_t> payload) noexcept -> std::uint32_t {
   return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24U) & 0xFF000000) |
           (uint32_t) ((payload[BYTE_POS_FIVE] << 16U) & 0x00FF0000) |
           (uint32_t) ((payload[BYTE_POS_SIX] << 8U) & 0x0000FF00) |
@@ -141,22 +142,22 @@ void DoipTcpHandler::DoipChannel::CreateDoipGenericHeader(std::vector<uint8_t> &
 void DoipTcpHandler::DoipChannel::SendRoutingActivationResponse() {
   TcpMessagePtr routing_activation_response{std::make_unique<TcpMessage>()};
   // create header
-  routing_activation_response->txBuffer_.reserve(kDoipheadrSize + kDoip_RoutingActivation_ResMinLen);
-  CreateDoipGenericHeader(routing_activation_response->txBuffer_, kDoip_RoutingActivation_ResType,
+  routing_activation_response->GetTxBuffer().reserve(kDoipheadrSize + kDoip_RoutingActivation_ResMinLen);
+  CreateDoipGenericHeader(routing_activation_response->GetTxBuffer(), kDoip_RoutingActivation_ResType,
                           kDoip_RoutingActivation_ResMinLen);
 
   // logical address of client
-  routing_activation_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
-  routing_activation_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+  routing_activation_response->GetTxBuffer().emplace_back(received_doip_message_.payload[0]);
+  routing_activation_response->GetTxBuffer().emplace_back(received_doip_message_.payload[1]);
   // logical address of server
-  routing_activation_response->txBuffer_.emplace_back(logical_address_ >> 8U);
-  routing_activation_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+  routing_activation_response->GetTxBuffer().emplace_back(logical_address_ >> 8U);
+  routing_activation_response->GetTxBuffer().emplace_back(logical_address_ & 0xFFU);
   // activation response code
-  routing_activation_response->txBuffer_.emplace_back(routing_activation_res_code_);
-  routing_activation_response->txBuffer_.emplace_back(0x00);
-  routing_activation_response->txBuffer_.emplace_back(0x00);
-  routing_activation_response->txBuffer_.emplace_back(0x00);
-  routing_activation_response->txBuffer_.emplace_back(0x00);
+  routing_activation_response->GetTxBuffer().emplace_back(routing_activation_res_code_);
+  routing_activation_response->GetTxBuffer().emplace_back(0x00);
+  routing_activation_response->GetTxBuffer().emplace_back(0x00);
+  routing_activation_response->GetTxBuffer().emplace_back(0x00);
+  routing_activation_response->GetTxBuffer().emplace_back(0x00);
 
   if (tcp_connection_->Transmit(std::move(routing_activation_response))) { running_ = false; }
 }
@@ -164,24 +165,24 @@ void DoipTcpHandler::DoipChannel::SendRoutingActivationResponse() {
 void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
   TcpMessagePtr diag_msg_ack_response{std::make_unique<TcpMessage>()};
   // create header
-  diag_msg_ack_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessageAck_ResMinLen);
+  diag_msg_ack_response->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessageAck_ResMinLen);
   if (diag_msg_ack_code_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
-    CreateDoipGenericHeader(diag_msg_ack_response->txBuffer_, kDoip_DiagMessagePosAck_Type,
+    CreateDoipGenericHeader(diag_msg_ack_response->GetTxBuffer(), kDoip_DiagMessagePosAck_Type,
                             kDoip_DiagMessageAck_ResMinLen);
   } else {
-    CreateDoipGenericHeader(diag_msg_ack_response->txBuffer_, kDoip_DiagMessageNegAck_Type,
+    CreateDoipGenericHeader(diag_msg_ack_response->GetTxBuffer(), kDoip_DiagMessageNegAck_Type,
                             kDoip_DiagMessageAck_ResMinLen);
   }
   // logical address of client
-  diag_msg_ack_response->txBuffer_.emplace_back(logical_address_ >> 8U);
-  diag_msg_ack_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+  diag_msg_ack_response->GetTxBuffer().emplace_back(logical_address_ >> 8U);
+  diag_msg_ack_response->GetTxBuffer().emplace_back(logical_address_ & 0xFFU);
 
   // logical address of target
-  diag_msg_ack_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
-  diag_msg_ack_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+  diag_msg_ack_response->GetTxBuffer().emplace_back(received_doip_message_.payload[0]);
+  diag_msg_ack_response->GetTxBuffer().emplace_back(received_doip_message_.payload[1]);
 
   // activation response code
-  diag_msg_ack_response->txBuffer_.emplace_back(diag_msg_ack_code_);
+  diag_msg_ack_response->GetTxBuffer().emplace_back(diag_msg_ack_code_);
 
   if (tcp_connection_->Transmit(std::move(diag_msg_ack_response))) {
     // Check for diag message ack code
@@ -220,22 +221,22 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageAckResponse() {
 void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
   TcpMessagePtr diag_uds_message_response{std::make_unique<TcpMessage>()};
   // create header
-  diag_uds_message_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
-                                               uds_response_payload_.size());
-  CreateDoipGenericHeader(diag_uds_message_response->txBuffer_, kDoip_DiagMessage_Type,
+  diag_uds_message_response->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
+                                                   uds_response_payload_.size());
+  CreateDoipGenericHeader(diag_uds_message_response->GetTxBuffer(), kDoip_DiagMessage_Type,
                           kDoip_DiagMessage_ReqResMinLen + uds_response_payload_.size());
 
   // logical address of client
-  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ >> 8U);
-  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+  diag_uds_message_response->GetTxBuffer().emplace_back(logical_address_ >> 8U);
+  diag_uds_message_response->GetTxBuffer().emplace_back(logical_address_ & 0xFFU);
 
   // logical address of target
-  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
-  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+  diag_uds_message_response->GetTxBuffer().emplace_back(received_doip_message_.payload[0]);
+  diag_uds_message_response->GetTxBuffer().emplace_back(received_doip_message_.payload[1]);
 
   // copy the payload
-  diag_uds_message_response->txBuffer_.insert(
-      diag_uds_message_response->txBuffer_.begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
+  diag_uds_message_response->GetTxBuffer().insert(
+      diag_uds_message_response->GetTxBuffer().begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
       uds_response_payload_.begin(), uds_response_payload_.end());
 
   if (tcp_connection_->Transmit(std::move(diag_uds_message_response))) {
@@ -249,22 +250,22 @@ void DoipTcpHandler::DoipChannel::SendDiagnosticMessageResponse() {
 void DoipTcpHandler::DoipChannel::SendDiagnosticPendingMessageResponse() {
   TcpMessagePtr diag_uds_message_response{std::make_unique<TcpMessage>()};
   // create header
-  diag_uds_message_response->txBuffer_.reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
-                                               uds_pending_response_payload_.size());
-  CreateDoipGenericHeader(diag_uds_message_response->txBuffer_, kDoip_DiagMessage_Type,
+  diag_uds_message_response->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
+                                                   uds_pending_response_payload_.size());
+  CreateDoipGenericHeader(diag_uds_message_response->GetTxBuffer(), kDoip_DiagMessage_Type,
                           kDoip_DiagMessage_ReqResMinLen + uds_pending_response_payload_.size());
 
   // logical address of client
-  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ >> 8U);
-  diag_uds_message_response->txBuffer_.emplace_back(logical_address_ & 0xFFU);
+  diag_uds_message_response->GetTxBuffer().emplace_back(logical_address_ >> 8U);
+  diag_uds_message_response->GetTxBuffer().emplace_back(logical_address_ & 0xFFU);
 
   // logical address of target
-  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[0]);
-  diag_uds_message_response->txBuffer_.emplace_back(received_doip_message_.payload[1]);
+  diag_uds_message_response->GetTxBuffer().emplace_back(received_doip_message_.payload[0]);
+  diag_uds_message_response->GetTxBuffer().emplace_back(received_doip_message_.payload[1]);
 
   // copy the payload
-  diag_uds_message_response->txBuffer_.insert(
-      diag_uds_message_response->txBuffer_.begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
+  diag_uds_message_response->GetTxBuffer().insert(
+      diag_uds_message_response->GetTxBuffer().begin() + kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen,
       uds_pending_response_payload_.begin(), uds_pending_response_payload_.end());
 
   if (tcp_connection_->Transmit(std::move(diag_uds_message_response))) {

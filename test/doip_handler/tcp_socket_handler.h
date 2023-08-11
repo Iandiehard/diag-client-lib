@@ -20,7 +20,7 @@
 namespace doip_handler {
 namespace tcpSocket {
 
-using TcpMessage = boost_support::socket::tcp::TcpMessageType;
+using TcpMessage = boost_support::socket::tcp::TcpMessage;
 using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
 using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 

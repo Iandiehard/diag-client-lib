@@ -5,9 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+
 #include "channel/udp_channel_handler_impl.h"
 
 #include "channel/udp_channel.h"
+#include "core/include/span.h"
 #include "handler/udp_transport_handler.h"
 
 namespace doip_client {
@@ -28,15 +30,17 @@ auto VehicleDiscoveryHandler::ProcessVehicleIdentificationResponse(DoipMessage &
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
         udp_transport_handler_.IndicateMessage(
             static_cast<uds_transport::UdsMessage::Address>(0U), static_cast<uds_transport::UdsMessage::Address>(0U),
-            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U, doip_payload.payload.size(), 0U, "DoIPUdp",
-            core_type::Span<std::uint8_t>{doip_payload.payload})};
+            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U, doip_payload.GetPayload().size(), 0U,
+            "DoIPUdp", doip_payload.GetPayload())};
     if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
-      uds_transport::UdsMessage::MetaInfoMap meta_info_map{{"kRemoteIpAddress", doip_payload.host_ip_address}};
+      uds_transport::UdsMessage::MetaInfoMap meta_info_map{
+          {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}}};
       ret_val.second->AddMetaInfo(std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
       // copy to application buffer
-      (void) std::copy(doip_payload.payload.begin(), doip_payload.payload.end(), ret_val.second->GetPayload().begin());
+      (void) std::copy(doip_payload.GetPayload().begin(), doip_payload.GetPayload().end(),
+                       ret_val.second->GetPayload().begin());
       udp_transport_handler_.HandleMessage(std::move(ret_val.second));
     }
   } else {
@@ -163,45 +167,29 @@ auto UdpChannelHandlerImpl::Transmit(uds_transport::UdsMessageConstPtr message) 
 }
 
 auto UdpChannelHandlerImpl::HandleMessage(UdpMessagePtr udp_rx_message) noexcept -> void {
-  uint8_t nack_code;
-  DoipMessage doip_rx_message;
-  doip_rx_message.host_ip_address = udp_rx_message->host_ip_address_;
-  doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0U];
-  doip_rx_message.protocol_version_inv = udp_rx_message->rx_buffer_[1U];
-  doip_rx_message.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
-  doip_rx_message.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
+  std::uint8_t nack_code{};
+  DoipMessage doip_rx_message{DoipMessage::MessageType::kUdp, udp_rx_message->host_ip_address_,
+                              udp_rx_message->host_port_num_,
+                              core_type::Span<std::uint8_t>{udp_rx_message->rx_buffer_}};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
-    // doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
-    // copy payload locally
-    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize, udp_rx_message->rx_buffer_.end(),
-                     doip_rx_message.payload.begin());
     ProcessDoIPPayload(doip_rx_message);
   } else {
     // send NACK or ignore
-    // SendDoIPNACKMessage(nack_code);
     (void) nack_code;
   }
 }
 
 auto UdpChannelHandlerImpl::HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void {
   uint8_t nack_code;
-  DoipMessage doip_rx_message{};
-  doip_rx_message.protocol_version = udp_rx_message->rx_buffer_[0];
-  doip_rx_message.protocol_version_inv = udp_rx_message->rx_buffer_[1];
-  doip_rx_message.payload_type = GetDoIPPayloadType(udp_rx_message->rx_buffer_);
-  doip_rx_message.payload_length = GetDoIPPayloadLength(udp_rx_message->rx_buffer_);
+  DoipMessage doip_rx_message{DoipMessage::MessageType::kUdp, udp_rx_message->host_ip_address_,
+                              udp_rx_message->host_port_num_,
+                              core_type::Span<std::uint8_t>{udp_rx_message->rx_buffer_}};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
-    // doip_rx_message.payload.resize(udp_rx_message->rx_buffer_.size() - kDoipheadrSize);
-    // copy payload locally
-    (void) std::copy(udp_rx_message->rx_buffer_.begin() + kDoipheadrSize,
-                     udp_rx_message->rx_buffer_.begin() + kDoipheadrSize + udp_rx_message->rx_buffer_.size(),
-                     doip_rx_message.payload.begin());
     vehicle_discovery_handler_.ProcessVehicleAnnouncementResponse(doip_rx_message);
   } else {
     // send NACK or ignore
-    // SendDoIPNACKMessage(nack_code);
     (void) nack_code;
   }
 }
@@ -209,18 +197,18 @@ auto UdpChannelHandlerImpl::HandleMessageBroadcast(UdpMessagePtr udp_rx_message)
 auto UdpChannelHandlerImpl::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool {
   bool ret_val{false};
   /* Check the header synchronisation pattern */
-  if (((doip_rx_message.protocol_version == kDoip_ProtocolVersion) &&
-       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
-      ((doip_rx_message.protocol_version == kDoip_ProtocolVersion_Def) &&
-       (doip_rx_message.protocol_version_inv == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
+  if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion) &&
+       (doip_rx_message.GetInverseProtocolVersion() == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
+      ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_Def) &&
+       (doip_rx_message.GetInverseProtocolVersion() == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
     /* Check the supported payload type */
-    if (doip_rx_message.payload_type == kDoip_VehicleAnnouncement_ResType) {
+    if (doip_rx_message.GetPayloadType() == kDoip_VehicleAnnouncement_ResType) {
       /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00017] */
-      if (doip_rx_message.payload_length <= kDoip_Protocol_MaxPayload) {
+      if (doip_rx_message.GetPayloadLength() <= kDoip_Protocol_MaxPayload) {
         /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */
-        if (doip_rx_message.payload_length <= kUdpChannelLength) {
+        if (doip_rx_message.GetPayloadLength() <= kUdpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
-          if (ProcessDoIPPayloadLength(doip_rx_message.payload_length, doip_rx_message.payload_type)) {
+          if (ProcessDoIPPayloadLength(doip_rx_message.GetPayloadLength(), doip_rx_message.GetPayloadType())) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
@@ -249,7 +237,7 @@ auto UdpChannelHandlerImpl::ProcessDoIPPayloadLength(uint32_t payload_len, uint1
   bool ret_val{false};
   switch (payload_type) {
     case kDoip_VehicleAnnouncement_ResType: {
-      if (payload_len <= (uint32_t) kDoip_VehicleAnnouncement_ResMaxLen) ret_val = true;
+      if (payload_len <= kDoip_VehicleAnnouncement_ResMaxLen) ret_val = true;
       break;
     }
     default:
@@ -259,19 +247,9 @@ auto UdpChannelHandlerImpl::ProcessDoIPPayloadLength(uint32_t payload_len, uint1
   return ret_val;
 }
 
-auto UdpChannelHandlerImpl::GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t {
-  return ((uint16_t) (((payload[BYTE_POS_TWO] & 0xFF) << 8) | (payload[BYTE_POS_THREE] & 0xFF)));
-}
-
-auto UdpChannelHandlerImpl::GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t {
-  return ((uint32_t) ((payload[BYTE_POS_FOUR] << 24) & 0xFF000000) |
-          (uint32_t) ((payload[BYTE_POS_FIVE] << 16) & 0x00FF0000) |
-          (uint32_t) ((payload[BYTE_POS_SIX] << 8) & 0x0000FF00) | (uint32_t) ((payload[BYTE_POS_SEVEN] & 0x000000FF)));
-}
-
-void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::rx_socket_type socket_type) {
+void UdpChannelHandlerImpl::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::RxSocketType socket_type) {
   std::lock_guard<std::mutex> const lck(channel_handler_lock);
-  switch (doip_payload.payload_type) {
+  switch (doip_payload.GetPayloadType()) {
     case kDoip_VehicleAnnouncement_ResType: {
       vehicle_identification_handler_.ProcessVehicleIdentificationResponse(doip_payload);
       break;

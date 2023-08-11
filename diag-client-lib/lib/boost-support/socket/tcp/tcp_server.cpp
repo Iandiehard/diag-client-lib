@@ -35,7 +35,7 @@ CreateTcpServerSocket::TcpServerConnection CreateTcpServerSocket::GetTcpServerCo
   CreateTcpServerSocket::TcpServerConnection tcp_connection{io_context_, std::move(tcp_handler_read)};
 
   // blocking accept
-  tcp_accepter_->accept(tcp_connection.GetSocket(), endpoint, ec);
+  auto socket = tcp_accepter_->accept(tcp_connection.GetSocket(), endpoint, ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint](std::stringstream &msg) {
@@ -60,8 +60,9 @@ TcpSocket &CreateTcpServerSocket::TcpServerConnection::GetSocket() { return tcp_
 bool CreateTcpServerSocket::TcpServerConnection::Transmit(TcpMessageConstPtr tcp_tx_message) {
   TcpErrorCodeType ec{};
   bool ret_val{false};
-  boost::asio::write(tcp_socket_,
-                     boost::asio::buffer(tcp_tx_message->txBuffer_, std::size_t(tcp_tx_message->txBuffer_.size())), ec);
+  boost::asio::write(
+      tcp_socket_,
+      boost::asio::buffer(tcp_tx_message->GetTxBuffer(), std::size_t(tcp_tx_message->GetTxBuffer().size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     Tcp::endpoint endpoint_{tcp_socket_.remote_endpoint()};
@@ -82,35 +83,33 @@ bool CreateTcpServerSocket::TcpServerConnection::Transmit(TcpMessageConstPtr tcp
 bool CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
   TcpErrorCodeType ec;
   bool connection_closed{false};
-  TcpMessagePtr tcp_rx_message = std::make_unique<TcpMessageType>();
-  // reserve the buffer
-  tcp_rx_message->rxBuffer_.resize(kDoipheadrSize);
+
+  // create and reserve the buffer
+  TcpMessage::BufferType rx_buffer{};
+  rx_buffer.resize(kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[0], kDoipheadrSize), ec);
+  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0], kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
-    uint32_t read_next_bytes = [&tcp_rx_message]() {
-      return ((uint32_t) ((uint32_t) ((tcp_rx_message->rxBuffer_[4] << 24) & 0xFF000000) |
-                          (uint32_t) ((tcp_rx_message->rxBuffer_[5] << 16) & 0x00FF0000) |
-                          (uint32_t) ((tcp_rx_message->rxBuffer_[6] << 8) & 0x0000FF00) |
-                          (uint32_t) ((tcp_rx_message->rxBuffer_[7] & 0x000000FF))));
+    uint32_t read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
+      return ((uint32_t) ((uint32_t) ((rx_buffer[4u] << 24) & 0xFF000000) |
+                          (uint32_t) ((rx_buffer[5u] << 16) & 0x00FF0000) |
+                          (uint32_t) ((rx_buffer[6u] << 8) & 0x0000FF00) | (uint32_t) ((rx_buffer[7u] & 0x000000FF))));
     }();
     // reserve the buffer
-    tcp_rx_message->rxBuffer_.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(tcp_socket_, boost::asio::buffer(&tcp_rx_message->rxBuffer_[kDoipheadrSize], read_next_bytes),
-                      ec);
+    rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
+    boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+
     // all message received, transfer to upper layer
     Tcp::endpoint endpoint_{tcp_socket_.remote_endpoint()};
+    TcpMessagePtr tcp_rx_message{
+        std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    // fill the remote endpoints
-    tcp_rx_message->host_ip_address_ = endpoint_.address().to_string();
-    tcp_rx_message->host_port_num_ = endpoint_.port();
-
     // send data to upper layer
     tcp_handler_read_(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {

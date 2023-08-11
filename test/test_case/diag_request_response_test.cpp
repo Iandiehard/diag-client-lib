@@ -5,8 +5,9 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
 #include <string>
 #include <string_view>
 #include <thread>
@@ -206,6 +207,45 @@ TEST_F(DiagReqResFixture, VerifyDiagPositiveResponseDiagSession) {
   EXPECT_TRUE(diag_result.HasValue());
   EXPECT_EQ(diag_result.Value()->GetPayload()[0], 0x50);
   EXPECT_EQ(diag_result.Value()->GetPayload()[1], 0x01);
+
+  diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
+      diag_client_conversation.DisconnectFromDiagServer()};
+
+  EXPECT_EQ(disconnect_result,
+            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+
+  diag_client_conversation.Shutdown();
+  doip_channel.DeInitialize();
+}
+
+TEST_F(DiagReqResFixture, VerifyDiagNegativeResponseDiagSession) {
+  // Get the doip channel and Initialize it
+  DoipTcpHandler::DoipChannel& doip_channel{GetDoipTestTcpHandlerRef().CreateDoipChannel(0xFA25U)};
+  doip_channel.Initialize();
+
+  // Create expected uds response
+  UdsMessage::ByteVector diag_expected_response{0x7F, 0x10, 0x10};
+  doip_channel.SetExpectedDiagnosticMessageUdsMessageToBeSend(diag_expected_response);
+
+  // Get conversation for tester one and start up the conversation
+  diag::client::conversation::DiagClientConversation diag_client_conversation{
+      GetDiagClientRef().GetDiagnosticClientConversation("DiagTesterOne")};
+  diag_client_conversation.Startup();
+
+  // Connect Tester One to remote ip address 172.16.25.128
+  diag::client::uds_message::UdsRequestMessagePtr uds_message{
+      std::make_unique<UdsMessage>(DiagTcpIpAddress, UdsMessage::ByteVector{0x10, 0x01})};
+  diag::client::conversation::DiagClientConversation::ConnectResult connect_result{
+      diag_client_conversation.ConnectToDiagServer(DiagServerLogicalAddress, uds_message->GetHostIpAddress())};
+
+  EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+
+  // Send Diagnostic message
+  auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
+
+  // Verify positive response
+  EXPECT_TRUE(diag_result.HasValue());
+  EXPECT_THAT(diag_result.Value()->GetPayload(), ::testing::ElementsAreArray(diag_expected_response));
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};

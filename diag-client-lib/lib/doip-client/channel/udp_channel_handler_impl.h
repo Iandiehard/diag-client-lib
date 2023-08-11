@@ -12,7 +12,7 @@
 
 #include "channel/udp_channel_state_impl.h"
 #include "common/common_doip_types.h"
-#include "common/doip_payload_type.h"
+#include "common/doip_message.h"
 #include "core/include/common_header.h"
 #include "sockets/udp_socket_handler.h"
 
@@ -111,15 +111,9 @@ private:
   // Function to verify payload length of various payload type
   static auto ProcessDoIPPayloadLength(uint32_t payload_len, uint16_t payload_type) noexcept -> bool;
 
-  // Function to get payload type
-  static auto GetDoIPPayloadType(std::vector<uint8_t> payload) noexcept -> uint16_t;
-
-  // Function to get payload length
-  static auto GetDoIPPayloadLength(std::vector<uint8_t> payload) noexcept -> uint32_t;
-
   // Function to process DoIP payload responses
   void ProcessDoIPPayload(DoipMessage &doip_payload,
-                          DoipMessage::rx_socket_type socket_type = DoipMessage::rx_socket_type::kUnicast);
+                          DoipMessage::RxSocketType socket_type = DoipMessage::RxSocketType::kUnicast);
 
   // handler to process vehicle announcement
   VehicleDiscoveryHandler vehicle_discovery_handler_;
