@@ -17,7 +17,7 @@
 namespace doip_client {
 // forward declaration
 namespace tcpChannel {
-class tcpChannel;
+class TcpChannel;
 }
 
 namespace tcpSocket {
@@ -33,9 +33,9 @@ using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
                        and reception of tcp message from driver                              
  */
 class TcpSocketHandler final {
-public:
+ public:
   // ctor
-  TcpSocketHandler(std::string_view localIpaddress, tcpChannel::tcpChannel &channel);
+  TcpSocketHandler(std::string_view localIpaddress, tcpChannel::TcpChannel &channel);
 
   // dtor
   ~TcpSocketHandler() = default;
@@ -55,7 +55,7 @@ public:
   // Transmit function
   bool Transmit(TcpMessageConstPtr tcp_message);
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
   // local port number
@@ -63,7 +63,7 @@ private:
   // tcp socket
   std::unique_ptr<TcpSocket> tcp_socket_;
   // store tcp channel reference
-  tcpChannel::tcpChannel &channel_;
+  tcpChannel::TcpChannel &channel_;
 };
 }  // namespace tcpSocket
 }  // namespace doip_client

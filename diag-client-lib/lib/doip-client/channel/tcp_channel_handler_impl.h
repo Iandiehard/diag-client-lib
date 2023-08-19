@@ -19,10 +19,10 @@
 namespace doip_client {
 // forward declaration
 namespace tcpChannel {
-class tcpChannel;
+class TcpChannel;
 }
 
-namespace tcpTransport {
+namespace tcp_transport {
 class TcpTransportHandler;
 }
 
@@ -38,15 +38,15 @@ using TcpMessagePtr = tcpSocket::TcpMessagePtr;
  @ Class Description : Class used as a handler to process routing activation messages
  */
 class RoutingActivationHandler {
-public:
+ public:
   // strong type holding activation type
   struct RoutingActivationAckType {
     std::uint8_t act_type_;
   };
 
-public:
+ public:
   // ctor
-  RoutingActivationHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler, tcpChannel::tcpChannel &channel)
+  RoutingActivationHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler, tcpChannel::TcpChannel &channel)
       : tcp_socket_handler_{tcp_socket_handler},
         channel_{channel} {}
 
@@ -60,14 +60,14 @@ public:
   auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr &message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
-private:
+ private:
   void CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType, uint32_t payloadLen);
 
-private:
+ private:
   // socket reference
   tcpSocket::TcpSocketHandler &tcp_socket_handler_;
   // channel reference
-  tcpChannel::tcpChannel &channel_;
+  tcpChannel::TcpChannel &channel_;
 };
 
 /*
@@ -75,16 +75,16 @@ private:
  @ Class Description : Class used as a handler to process diagnostic messages
  */
 class DiagnosticMessageHandler {
-public:
+ public:
   // strong type acknowledgement type
   struct DiagAckType {
     std::uint8_t ack_type_;
   };
 
-public:
+ public:
   // ctor
   DiagnosticMessageHandler(tcpSocket::TcpSocketHandler &tcp_socket_handler,
-                           tcpTransport::TcpTransportHandler &tcp_transport_handler, tcpChannel::tcpChannel &channel)
+                           tcp_transport::TcpTransportHandler &tcp_transport_handler, tcpChannel::TcpChannel &channel)
       : tcp_socket_handler_{tcp_socket_handler},
         tcp_transport_handler_{tcp_transport_handler},
         channel_{channel} {}
@@ -102,16 +102,16 @@ public:
   auto SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
-private:
+ private:
   static auto CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
                                       uint32_t payloadLen) noexcept -> void;
 
   // socket reference
   tcpSocket::TcpSocketHandler &tcp_socket_handler_;
   // transport handler reference
-  tcpTransport::TcpTransportHandler &tcp_transport_handler_;
+  tcp_transport::TcpTransportHandler &tcp_transport_handler_;
   // channel reference
-  tcpChannel::tcpChannel &channel_;
+  tcpChannel::TcpChannel &channel_;
 };
 
 /*
@@ -119,10 +119,10 @@ private:
  @ Class Description : Class to handle received messages from lower layer
  */
 class TcpChannelHandlerImpl {
-public:
+ public:
   // ctor
   TcpChannelHandlerImpl(tcpSocket::TcpSocketHandler &tcp_socket_handler,
-                        tcpTransport::TcpTransportHandler &tcp_transport_handler, tcpChannel::tcpChannel &channel)
+                        tcp_transport::TcpTransportHandler &tcp_transport_handler, tcpChannel::TcpChannel &channel)
       : routing_activation_handler_{tcp_socket_handler, channel},
         diagnostic_message_handler_{tcp_socket_handler, tcp_transport_handler, channel} {}
 
@@ -140,7 +140,7 @@ public:
   // process message
   auto HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void;
 
-private:
+ private:
   // Function to process DoIP Header
   auto ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool;
 

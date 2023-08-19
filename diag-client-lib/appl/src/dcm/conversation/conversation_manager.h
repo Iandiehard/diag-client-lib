@@ -27,7 +27,7 @@ namespace conversation_manager {
  * @brief               Class to manage all the conversation created from usr request
  */
 class ConversationManager {
-public:
+ public:
   /**
    * @brief         Constructs an instance of ConversationManager
    * @param[in]     config
@@ -62,7 +62,7 @@ public:
   diag::client::conversation::Conversation &GetDiagnosticClientConversation(
       std::string_view conversation_name) noexcept;
 
-private:
+ private:
   /**
    * @brief      Store Dm conversation
    */

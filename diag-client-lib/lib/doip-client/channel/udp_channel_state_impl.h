@@ -30,7 +30,7 @@ enum class VehicleIdentificationState : std::uint8_t {
 };
 
 class UdpChannelStateImpl {
-public:
+ public:
   // ctor
   UdpChannelStateImpl();
 
@@ -43,7 +43,7 @@ public:
   // Function to get Vehicle Identification State context
   auto GetVehicleIdentificationStateContext() noexcept -> StateContext<VehicleIdentificationState> &;
 
-private:
+ private:
   // routing activation state
   std::unique_ptr<StateContext<VehicleDiscoveryState>> vehicle_discovery_state_context_;
   // diagnostic state
@@ -51,7 +51,7 @@ private:
 };
 
 class kVdIdle final : public State<VehicleDiscoveryState> {
-public:
+ public:
   // ctor
   explicit kVdIdle(VehicleDiscoveryState state);
 
@@ -69,7 +69,7 @@ public:
 };
 
 class kWaitForVehicleAnnouncement final : public State<VehicleDiscoveryState> {
-public:
+ public:
   // ctor
   explicit kWaitForVehicleAnnouncement(VehicleDiscoveryState state);
 
@@ -87,7 +87,7 @@ public:
 };
 
 class kVdDoIPCtrlTimeout final : public State<VehicleDiscoveryState> {
-public:
+ public:
   // ctor
   explicit kVdDoIPCtrlTimeout(VehicleDiscoveryState state);
 
@@ -105,7 +105,7 @@ public:
 };
 
 class kViIdle final : public State<VehicleIdentificationState> {
-public:
+ public:
   // ctor
   explicit kViIdle(VehicleIdentificationState state);
 
@@ -123,7 +123,7 @@ public:
 };
 
 class kViSendVehicleIdentificationReq final : public State<VehicleIdentificationState> {
-public:
+ public:
   // ctor
   explicit kViSendVehicleIdentificationReq(VehicleIdentificationState state);
 
@@ -141,7 +141,7 @@ public:
 };
 
 class kViWaitForVehicleIdentificationRes final : public State<VehicleIdentificationState> {
-public:
+ public:
   // ctor
   explicit kViWaitForVehicleIdentificationRes(VehicleIdentificationState state);
 
@@ -159,7 +159,7 @@ public:
 };
 
 class kViDoIPCtrlTimeout final : public State<VehicleIdentificationState> {
-public:
+ public:
   // ctor
   explicit kViDoIPCtrlTimeout(VehicleIdentificationState state);
 

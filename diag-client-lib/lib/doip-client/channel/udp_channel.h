@@ -20,7 +20,7 @@
 
 namespace doip_client {
 // Forward declaration
-namespace udpTransport {
+namespace udp_transport {
 class UdpTransportHandler;
 }
 
@@ -35,10 +35,10 @@ using TaskExecutor = utility::executor::Executor<std::function<void(void)>>;
  @ Class Description : Class used to handle Doip Udp Channel
  */
 class UdpChannel {
-public:
+ public:
   //ctor
   UdpChannel(std::string_view local_ip_address, uint16_t port_num,
-             udpTransport::UdpTransportHandler &udp_transport_handler);
+             udp_transport::UdpTransportHandler &udp_transport_handler);
 
   //dtor
   ~UdpChannel() = default;
@@ -70,9 +70,9 @@ public:
   // Function to get the sync timer
   auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
 
-private:
+ private:
   // udp transport handler ref
-  udpTransport::UdpTransportHandler &udp_transport_handler_;
+  udp_transport::UdpTransportHandler &udp_transport_handler_;
   // udp socket handler broadcast
   std::unique_ptr<udpSocket::UdpSocketHandler> udp_socket_handler_bcast_;
   // udp socket handler unicast

@@ -16,7 +16,7 @@ namespace logger {
 using Logger = utility::logger::Logger;
 
 class DoipClientLogger {
-public:
+ public:
   auto static GetDiagClientLogger() noexcept -> DoipClientLogger& {
     static DoipClientLogger diag_client_logger_;
     return diag_client_logger_;
@@ -24,7 +24,7 @@ public:
 
   auto GetLogger() noexcept -> Logger& { return logger_; }
 
-private:
+ private:
   DoipClientLogger() = default;
 
   // actual logger context

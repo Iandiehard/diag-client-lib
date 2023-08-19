@@ -13,23 +13,19 @@
 #include "channel/udp_channel.h"
 #include "common/common_doip_header.h"
 #include "core/include/span.h"
+#include "uds_transport/connection.h"
 
 namespace doip_client {
-//forward declaration
-namespace connection {
-class DoipUdpConnection;
-}
-
-namespace udpTransport {
+namespace udp_transport {
 /*
  @ Class Name        : UdpTransportHandler
  @ Class Description : Class used to create an udp transport handler to initiate transmission
                        and reception of udp message from/to user                            
 */
 class UdpTransportHandler {
-public:
+ public:
   // ctor
-  UdpTransportHandler(std::string_view localIpaddress, uint16_t portNum, connection::DoipUdpConnection &doipConnection);
+  UdpTransportHandler(std::string_view localIpaddress, uint16_t portNum, uds_transport::Connection &connection);
 
   // dtor
   ~UdpTransportHandler();
@@ -58,12 +54,12 @@ public:
   // layer to session layer
   void HandleMessage(uds_transport::UdsMessagePtr message);
 
-private:
+ private:
   // reference to doip Connection
-  connection::DoipUdpConnection &doip_connection_;
+  uds_transport::Connection &connection_;
   // Udp channel responsible for transmitting and reception of UDP messages
   std::unique_ptr<udpChannel::UdpChannel> udp_channel;
 };
-}  // namespace udpTransport
+}  // namespace udp_transport
 }  // namespace doip_client
 #endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_UDP_TRANSPORT_HANDLER_H

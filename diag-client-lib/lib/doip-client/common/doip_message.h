@@ -19,7 +19,7 @@ namespace doip_client {
  * @brief    Immutable class to store received doip message
  */
 class DoipMessage final {
-public:
+ public:
   /**
    * @brief    Definition of message type
    */
@@ -35,7 +35,7 @@ public:
    */
   using IpAddressType = std::string_view;
 
-public:
+ public:
   /**
    * @brief         Constructs an instance of DoipMessage
    * @param[in]     message_type
@@ -117,7 +117,7 @@ public:
    */
   core_type::Span<std::uint8_t> GetPayload() const { return payload_; }
 
-private:
+ private:
   MessageType message_type_;
   /**
    * @brief    rx type -> broadcast, unicast

@@ -31,7 +31,7 @@ namespace conversation {
  * @brief       Class to search for available diagnostic server over a network
  */
 class VdConversation final : public Conversation {
-private:
+ private:
   /**
    * @brief         Type alias of pre-selection mode
    */
@@ -52,7 +52,7 @@ private:
    */
   using LogicalAddress = std::uint16_t;
 
-public:
+ public:
   /**
    * @brief         Constructs an instance of VdConversation
    * @param[in]     conversion_name
@@ -94,7 +94,7 @@ public:
    * @param[in]   connection
    *              The conversation connection object
    */
-  void RegisterConnection(std::shared_ptr<::uds_transport::Connection> connection) noexcept override;
+  void RegisterConnection(std::unique_ptr<::uds_transport::Connection> connection) noexcept override;
 
   /**
    * @brief       Function to get the conversation handler from conversation object
@@ -158,7 +158,7 @@ public:
    */
   vehicle_info::VehicleInfoMessageResponseUniquePtr GetDiagnosticServerList();
 
-private:
+ private:
   /**
    * @brief       Function to verify the received vehicle info request
    * @param[in]   preselection_mode
@@ -205,7 +205,7 @@ private:
   /**
    * @brief       Store the underlying transport protocol connection object
    */
-  std::shared_ptr<::uds_transport::Connection> connection_ptr_;
+  std::unique_ptr<::uds_transport::Connection> connection_ptr_;
 
   /**
    * @brief       Store the vehicle info collection received till now

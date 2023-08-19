@@ -26,7 +26,7 @@ enum class ConversationState : std::uint8_t {
 };
 
 class ConversationStateImpl {
-public:
+ public:
   // ctor
   ConversationStateImpl();
 
@@ -36,13 +36,13 @@ public:
   // Function to get the Conversation State context
   auto GetConversationStateContext() noexcept -> StateContext<ConversationState> &;
 
-private:
+ private:
   // conversation state
   std::unique_ptr<StateContext<ConversationState>> conversation_state_;
 };
 
 class kIdle final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kIdle(ConversationState state);
 
@@ -60,7 +60,7 @@ public:
 };
 
 class kDiagWaitForRes final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kDiagWaitForRes(ConversationState state);
 
@@ -78,7 +78,7 @@ public:
 };
 
 class kDiagStartP2StarTimer final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kDiagStartP2StarTimer(ConversationState state);
 
@@ -96,7 +96,7 @@ public:
 };
 
 class kDiagRecvdPendingRes final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kDiagRecvdPendingRes(ConversationState state);
 
@@ -114,7 +114,7 @@ public:
 };
 
 class kDiagRecvdFinalRes final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kDiagRecvdFinalRes(ConversationState state);
 
@@ -132,7 +132,7 @@ public:
 };
 
 class kDiagSuccess final : public State<ConversationState> {
-public:
+ public:
   // ctor
   explicit kDiagSuccess(ConversationState state);
 

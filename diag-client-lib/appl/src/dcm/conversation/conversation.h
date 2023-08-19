@@ -22,7 +22,7 @@ namespace conversation {
  * @brief    Interface for diag client conversation
  */
 class Conversation {
-public:
+ public:
   /**
    * @brief         Type alias for Ip address
    */
@@ -80,7 +80,7 @@ public:
    * @param[in]   connection
    *              The conversation connection object
    */
-  virtual void RegisterConnection(std::shared_ptr<::uds_transport::Connection> connection) noexcept = 0;
+  virtual void RegisterConnection(std::unique_ptr<::uds_transport::Connection> connection) noexcept = 0;
 
   /**
    * @brief       Function to get the conversation handler from conversation object

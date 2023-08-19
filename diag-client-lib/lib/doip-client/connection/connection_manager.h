@@ -5,152 +5,60 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H_
 
+#include <memory>
 #include <string_view>
+#include <utility>
 
-#include "common/common_doip_types.h"
+#include "uds_transport/connection.h"
 
 namespace doip_client {
-
-//forward declaration
-namespace tcpTransport {
-class TcpTransportHandler;
-}
-
-namespace udpTransport {
-class UdpTransportHandler;
-}
-
 namespace connection {
-/*
- @ Class Name        : DoipTcpConnection
- @ Class Description : Class to create connection to tcp handler
- */
-class DoipTcpConnection final : public uds_transport::Connection {
-public:
-  // type alias for initialization result
-  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
 
-  // ctor
-  DoipTcpConnection(uds_transport::ConversionHandler &conversion, std::string_view tcp_ip_address, uint16_t port_num);
-
-  // dtor
-  ~DoipTcpConnection() override = default;
-
-  // Initialize
-  InitializationResult Initialize() override;
-
-  // Start the connection
-  void Start() override;
-
-  // Stop the connection
-  void Stop() override;
-
-  // Check if already connected to host
-  bool IsConnectToHost() override;
-
-  // Connect to host using the ip address
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      uds_transport::UdsMessageConstPtr message) override;
-
-  // Disconnect from Host Server
-  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
-
-  // Indicate message Diagnostic message reception over TCP to user
-  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
-      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
-      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) override;
-
-  // Transmit tcp
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      uds_transport::UdsMessageConstPtr message) override;
-
-  // Hands over a valid message to conversion
-  void HandleMessage(uds_transport::UdsMessagePtr message) override;
-
-private:
-  // Tcp Transport Handler
-  std::unique_ptr<tcpTransport::TcpTransportHandler> tcp_transport_handler_;
-};
-
-/*
- @ Class Name        : DoipUdpConnection
- @ Class Description : Class to create connection to udp handler
- */
-class DoipUdpConnection final : public uds_transport::Connection {
-public:
-  // type alias for initialization result
-  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
-
-  // ctor
-  DoipUdpConnection(uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address, uint16_t port_num);
-
-  // dtor
-  ~DoipUdpConnection() override = default;
-
-  // Initialize
-  InitializationResult Initialize() override;
-
-  // Start the connection
-  void Start() override;
-
-  // Stop the connection
-  void Stop() override;
-
-  // Check if already connected to host
-  bool IsConnectToHost() override;
-
-  // Connect to host using the ip address
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      uds_transport::UdsMessageConstPtr message) override;
-
-  // Disconnect from Host Server
-  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override;
-
-  // Indicate message Diagnostic message reception over TCP to user
-  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
-      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
-      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) override;
-
-  // Transmit tcp
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
-      uds_transport::UdsMessageConstPtr message) override;
-
-  // Hands over a valid message to conversion
-  void HandleMessage(uds_transport::UdsMessagePtr message) override;
-
-private:
-  // Udp Transport Handler
-  std::unique_ptr<udpTransport::UdpTransportHandler> udp_transport_handler_;
-};
-
-/*
- @ Class Name        : DoipConnectionManager
- @ Class Description : Class manages Doip Connection                              
+/**
+ * @brief    Manages Doip tcp and udp connections
  */
 class DoipConnectionManager {
-public:
-  // ctor
+ public:
+  /**
+   * @brief         Constructs an instance of DoipConnectionManager
+   */
   DoipConnectionManager() = default;
 
-  // dtor
+  /**
+   * @brief         Destruct an instance of DoipConnectionManager
+   */
   ~DoipConnectionManager() = default;
 
-  // Function to create new connection to handle doip tcp request and response
-  std::shared_ptr<DoipTcpConnection> FindOrCreateTcpConnection(uds_transport::ConversionHandler &conversation,
-                                                               std::string_view tcp_ip_address, uint16_t port_num);
+  /**
+   * @brief       Function to find or create a new Tcp connection
+   * @param[in]   conversation
+   *              The conversation handler used by tcp connection to communicate
+   * @param[in]   tcp_ip_address
+   *              The local tcp ip address
+   * @param[in]   port_num
+   *              The local port number
+   * @return      The unique pointer to Connection created
+   */
+  static std::unique_ptr<uds_transport::Connection> FindOrCreateTcpConnection(
+      uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num);
 
-  // Function to create new connection to handle doip udp request and response
-  std::shared_ptr<DoipUdpConnection> FindOrCreateUdpConnection(uds_transport::ConversionHandler &conversation,
-                                                               std::string_view udp_ip_address, uint16_t port_num);
+  /**
+   * @brief       Function to find or create a new Udp connection
+   * @param[in]   conversation
+   *              The conversation handler used by tcp connection to communicate
+   * @param[in]   udp_ip_address
+   *              The local udp ip address
+   * @param[in]   port_num
+   *              The local port number
+   * @return      The unique pointer to Connection created
+   */
+  static std::unique_ptr<uds_transport::Connection> FindOrCreateUdpConnection(
+      uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num);
 };
 }  // namespace connection
 }  // namespace doip_client
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CONNECTION_CONNECTION_MANAGER_H_

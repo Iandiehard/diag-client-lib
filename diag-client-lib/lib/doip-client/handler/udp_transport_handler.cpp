@@ -10,11 +10,11 @@
 #include "connection/connection_manager.h"
 
 namespace doip_client {
-namespace udpTransport {
+namespace udp_transport {
 // ctor
 UdpTransportHandler::UdpTransportHandler(std::string_view localIpaddress, uint16_t portNum,
-                                         connection::DoipUdpConnection &doip_connection)
-    : doip_connection_{doip_connection},
+                                         uds_transport::Connection &connection)
+    : connection_{connection},
       udp_channel{std::make_unique<udpChannel::UdpChannel>(localIpaddress, portNum, *this)} {}
 
 // dtor
@@ -44,12 +44,12 @@ UdpTransportHandler::IndicateMessage(uds_transport::UdsMessage::Address source_a
                                      uds_transport::ChannelID channel_id, std::size_t size,
                                      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                      core_type::Span<std::uint8_t> payloadInfo) {
-  return (doip_connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                           payloadInfo));
+  return (connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                      payloadInfo));
 }
 
 void UdpTransportHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
-  doip_connection_.HandleMessage(std::move(message));
+  connection_.HandleMessage(std::move(message));
 }
-}  // namespace udpTransport
+}  // namespace udp_transport
 }  // namespace doip_client

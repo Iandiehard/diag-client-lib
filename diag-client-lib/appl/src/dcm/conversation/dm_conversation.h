@@ -26,7 +26,7 @@ namespace conversation {
  * @brief    Class to establish connection with Diagnostic Server
  */
 class DmConversation final : public Conversation {
-public:
+ public:
   /**
    * @brief         Type alias for conversation internal state
    */
@@ -77,7 +77,7 @@ public:
    * @param[in]   connection
    *              The conversation connection object
    */
-  void RegisterConnection(std::shared_ptr<::uds_transport::Connection> connection) noexcept override;
+  void RegisterConnection(std::unique_ptr<::uds_transport::Connection> connection) noexcept override;
 
   /**
    * @brief       Function to get the conversation handler from conversation object
@@ -155,7 +155,7 @@ public:
   Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept override;
 
-private:
+ private:
   /**
    * @brief  Definitions of active diagnostic session
    */
@@ -179,7 +179,7 @@ private:
    */
   enum class ActivityStatusType : uint8_t { kActive = 0x00, kInactive = 0x01 };
 
-private:
+ private:
   /**
    * @brief       Helper function to convert response type
    * @param[in]   result_type
@@ -248,7 +248,7 @@ private:
   /**
    * @brief       Store the underlying transport protocol connection object
    */
-  std::shared_ptr<::uds_transport::Connection> connection_ptr_;
+  std::unique_ptr<::uds_transport::Connection> connection_ptr_;
 
   /**
    * @brief       Store the synchronous timer

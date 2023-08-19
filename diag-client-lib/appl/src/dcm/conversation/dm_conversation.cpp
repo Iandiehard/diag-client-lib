@@ -21,7 +21,7 @@ namespace conversation {
  * @brief    Class to manage reception from transport protocol handler to dm connection handler
  */
 class DmConversationHandler final : public ::uds_transport::ConversionHandler {
-public:
+ public:
   /**
    * @brief         Constructs an instance of DmConversationHandler
    * @param[in]     handler_id
@@ -80,7 +80,7 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) noexcept override {
+      core_type::Span<std::uint8_t> payload_info) const noexcept override {
     return (dm_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                              payload_info));
   }
@@ -91,11 +91,11 @@ public:
    *              The The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the conversation here
    */
-  void HandleMessage(::uds_transport::UdsMessagePtr message) noexcept override {
+  void HandleMessage(::uds_transport::UdsMessagePtr message) const noexcept override {
     dm_conversation_.HandleMessage(std::move(message));
   }
 
-private:
+ private:
   /**
    * @brief         Store the reference of dm conversation
    */
@@ -316,7 +316,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
   return result;
 }
 
-void DmConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) noexcept {
+void DmConversation::RegisterConnection(std::unique_ptr<uds_transport::Connection> connection) noexcept {
   connection_ptr_ = std::move(connection);
 }
 

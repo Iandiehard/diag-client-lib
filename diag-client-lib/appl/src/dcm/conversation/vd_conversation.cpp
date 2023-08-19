@@ -76,7 +76,7 @@ void SerializeVINFromString(std::string &input_string, std::vector<uint8_t> &out
 
 // Vehicle Info Message implementation class
 class VehicleInfoMessageImpl final : public vehicle_info::VehicleInfoMessage {
-public:
+ public:
   explicit VehicleInfoMessageImpl(
       std::map<std::uint16_t, vehicle_info::VehicleAddrInfoResponse> &vehicle_info_collection)
       : vehicle_info_messages_{} {
@@ -89,7 +89,7 @@ public:
 
   VehicleInfoListResponseType &GetVehicleList() override { return vehicle_info_messages_; }
 
-private:
+ private:
   // Function to push the vehicle address info received
   void Push(vehicle_info::VehicleAddrInfoResponse &vehicle_addr_info_response) {
     vehicle_info_messages_.emplace_back(vehicle_addr_info_response);
@@ -103,7 +103,7 @@ private:
  * @brief    Class to manage reception from transport protocol handler to vd connection handler
  */
 class VdConversationHandler final : public ::uds_transport::ConversionHandler {
-public:
+ public:
   /**
    * @brief         Constructs an instance of VdConversationHandler
    * @param[in]     handler_id
@@ -162,7 +162,7 @@ public:
       ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
       ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
       ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payloadInfo) noexcept override {
+      core_type::Span<std::uint8_t> payloadInfo) const noexcept override {
     return (vd_conversation_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
                                              payloadInfo));
   }
@@ -173,11 +173,11 @@ public:
    *              The The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the conversation here
    */
-  void HandleMessage(::uds_transport::UdsMessagePtr message) noexcept override {
+  void HandleMessage(::uds_transport::UdsMessagePtr message) const noexcept override {
     vd_conversation_.HandleMessage(std::move(message));
   }
 
-private:
+ private:
   /**
    * @brief         Store the reference of vd conversation
    */
@@ -207,7 +207,7 @@ void VdConversation::Shutdown() noexcept {
   connection_ptr_->Stop();
 }
 
-void VdConversation::RegisterConnection(std::shared_ptr<uds_transport::Connection> connection) noexcept {
+void VdConversation::RegisterConnection(std::unique_ptr<uds_transport::Connection> connection) noexcept {
   connection_ptr_ = std::move(connection);
 }
 

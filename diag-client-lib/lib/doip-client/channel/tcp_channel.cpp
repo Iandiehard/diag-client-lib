@@ -14,37 +14,35 @@
 
 namespace doip_client {
 namespace tcpChannel {
-tcpChannel::tcpChannel(std::string_view localIpaddress, tcpTransport::TcpTransportHandler &tcp_transport_handler)
+TcpChannel::TcpChannel(std::string_view localIpaddress, tcp_transport::TcpTransportHandler &tcp_transport_handler)
     : tcp_socket_handler_{std::make_unique<tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
-      tcp_socket_state_{tcpSocketState::kSocketOffline},
+      tcp_socket_state_{TcpSocketState::kSocketOffline},
       tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {}
 
-tcpChannel::~tcpChannel() = default;
-
-uds_transport::UdsTransportProtocolHandler::InitializationResult tcpChannel::Initialize() {
+uds_transport::UdsTransportProtocolHandler::InitializationResult TcpChannel::Initialize() {
   return (uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
 }
 
-void tcpChannel::Start() { tcp_socket_handler_->Start(); }
+void TcpChannel::Start() { tcp_socket_handler_->Start(); }
 
-void tcpChannel::Stop() {
-  if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
+void TcpChannel::Stop() {
+  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
     tcp_socket_handler_->Stop();
-    if (tcp_socket_handler_->DisconnectFromHost()) { tcp_socket_state_ = tcpSocketState::kSocketOffline; }
+    if (tcp_socket_handler_->DisconnectFromHost()) { tcp_socket_state_ = TcpSocketState::kSocketOffline; }
   }
 }
 
-bool tcpChannel::IsConnectToHost() { return (tcp_socket_state_ == tcpSocketState::kSocketOnline); }
+bool TcpChannel::IsConnectToHost() { return (tcp_socket_state_ == TcpSocketState::kSocketOnline); }
 
-uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHost(
+uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpChannel::ConnectToHost(
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-  if (tcp_socket_state_ == tcpSocketState::kSocketOffline) {
+  if (tcp_socket_state_ == TcpSocketState::kSocketOffline) {
     // sync connect to change the socket state
     if (tcp_socket_handler_->ConnectToHost(message->GetHostIpAddress(), message->GetHostPortNumber())) {
       // set socket state, tcp connection established
-      tcp_socket_state_ = tcpSocketState::kSocketOnline;
+      tcp_socket_state_ = TcpSocketState::kSocketOnline;
     } else {  // failure
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
@@ -58,19 +56,19 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::ConnectToHo
         __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
   }
   // If socket online, send routing activation req and get response
-  if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
+  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
     // send routing activation request and get response
     ret_val = HandleRoutingActivationState(message);
   }
   return ret_val;
 }
 
-uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChannel::DisconnectFromHost() {
+uds_transport::UdsTransportProtocolMgr::DisconnectionResult TcpChannel::DisconnectFromHost() {
   uds_transport::UdsTransportProtocolMgr::DisconnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
-  if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
+  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
     if (tcp_socket_handler_->DisconnectFromHost()) {
-      tcp_socket_state_ = tcpSocketState::kSocketOffline;
+      tcp_socket_state_ = TcpSocketState::kSocketOffline;
       if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
           TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
         // reset previous routing activation
@@ -86,15 +84,15 @@ uds_transport::UdsTransportProtocolMgr::DisconnectionResult tcpChannel::Disconne
   return ret_val;
 }
 
-void tcpChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
+void TcpChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
   tcp_channel_handler_.HandleMessage(std::move(tcp_rx_message));
 }
 
-uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::Transmit(
+uds_transport::UdsTransportProtocolMgr::TransmissionResult TcpChannel::Transmit(
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (tcp_socket_state_ == tcpSocketState::kSocketOnline) {
+  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
     // routing activation should be active before sending diag request
     if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
         TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
@@ -112,7 +110,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::Transmit(
   return ret_val;
 }
 
-uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRoutingActivationState(
+uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpChannel::HandleRoutingActivationState(
     uds_transport::UdsMessageConstPtr &message) {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
@@ -164,7 +162,7 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult tcpChannel::HandleRouti
   return result;
 }
 
-uds_transport::UdsTransportProtocolMgr::TransmissionResult tcpChannel::HandleDiagnosticRequestState(
+uds_transport::UdsTransportProtocolMgr::TransmissionResult TcpChannel::HandleDiagnosticRequestState(
     uds_transport::UdsMessageConstPtr &message) {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult result{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};

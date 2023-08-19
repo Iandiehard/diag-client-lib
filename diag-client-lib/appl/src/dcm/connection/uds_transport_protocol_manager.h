@@ -19,7 +19,7 @@ namespace uds_transport {
                        This will inherit uds transport protocol handler
  */
 class UdsTransportProtocolManager final : public ::uds_transport::UdsTransportProtocolMgr {
-public:
+ public:
   //ctor
   UdsTransportProtocolManager();
 
@@ -35,11 +35,14 @@ public:
   // terminate all the transport protocol handler
   void Shutdown() override;
 
+  ::uds_transport::UdsTransportProtocolHandler& GetTransportProtocolHandler();
+
+ private:
   // store doip transport handler
   std::unique_ptr<::uds_transport::UdsTransportProtocolHandler> doip_transport_handler;
 
   // handler id count
-  ::uds_transport::UdsTransportProtocolHandlerID handler_id_count = 0;
+  ::uds_transport::UdsTransportProtocolHandler::UdsTransportProtocolHandlerId handler_id_count = 0;
 };
 }  // namespace uds_transport
 }  // namespace client

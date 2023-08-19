@@ -5,9 +5,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H
-//includes
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H_
+
+#include <memory>
 #include <string_view>
 
 #include "channel/tcp_channel_handler_impl.h"
@@ -19,7 +20,7 @@
 
 namespace doip_client {
 // forward declaration
-namespace tcpTransport {
+namespace tcp_transport {
 class TcpTransportHandler;
 }
 
@@ -32,23 +33,36 @@ using TcpRoutingActivationChannelState = tcpChannelStateImpl::routingActivationS
 using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
 
-/*
- @ Class Name        : tcpChannel
- @ Class Description : Class used to handle Doip Tcp Channel                              
- @ Threads           : Per Tcp channel one threads will be spawned (one for tcp socket)
+/**
+ * @brief       Class to handle single doip connection
  */
-class tcpChannel final {
-public:
-  //  socket state
-  enum class tcpSocketState : std::uint8_t { kSocketOffline = 0U, kSocketOnline };
+class TcpChannel final {
+ public:
+  /**
+   * @brief  Definitions of different socket state
+   */
+  enum class TcpSocketState : std::uint8_t {
+    kSocketOffline = 0U, /**< Socket offline state */
+    kSocketOnline = 1U   /**< Socket online state */
+  };
 
-  //ctor
-  tcpChannel(std::string_view localIpaddress, tcpTransport::TcpTransportHandler &tcpTransport_Handler);
+  /**
+   * @brief         Constructs an instance of TcpChannel
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     tcp_transport_handler
+   *                The reference to tcp transport handler
+   */
+  TcpChannel(std::string_view local_ip_address, tcp_transport::TcpTransportHandler &tcp_transport_handler);
 
-  //dtor
-  ~tcpChannel();
+  /**
+   * @brief         Destruct an instance of TcpChannel
+   */
+  ~TcpChannel() = default;
 
-  // Initialize
+  /**
+   * @brief        Function to initialize Tcp Channel
+   */
   uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize();
 
   //Start
@@ -78,7 +92,7 @@ public:
   // Function to get the sync timer
   auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
 
-private:
+ private:
   // Function to handle the routing states
   uds_transport::UdsTransportProtocolMgr::ConnectionResult HandleRoutingActivationState(
       uds_transport::UdsMessageConstPtr &message);
@@ -87,11 +101,11 @@ private:
   uds_transport::UdsTransportProtocolMgr::TransmissionResult HandleDiagnosticRequestState(
       uds_transport::UdsMessageConstPtr &message);
 
-private:
+ private:
   // tcp socket handler
   std::unique_ptr<tcpSocket::TcpSocketHandler> tcp_socket_handler_;
   // tcp socket state
-  tcpSocketState tcp_socket_state_{tcpSocketState::kSocketOffline};
+  TcpSocketState tcp_socket_state_{TcpSocketState::kSocketOffline};
   // tcp channel state
   tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
   // tcp channel handler
@@ -102,4 +116,4 @@ private:
 
 }  // namespace tcpChannel
 }  // namespace doip_client
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_H_

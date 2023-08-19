@@ -20,7 +20,7 @@ namespace udpChannel {
  */
 //ctor
 UdpChannel::UdpChannel(std::string_view local_ip_address, uint16_t port_num,
-                       udpTransport::UdpTransportHandler &udp_transport_handler)
+                       udp_transport::UdpTransportHandler &udp_transport_handler)
     : udp_transport_handler_{udp_transport_handler},
       udp_socket_handler_bcast_{std::make_unique<udpSocket::UdpSocketHandler>(
           local_ip_address, port_num, udpSocket::UdpSocketHandler::PortType::kUdp_Broadcast, *this)},

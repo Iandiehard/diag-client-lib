@@ -38,7 +38,7 @@ enum class diagnosticState : std::uint8_t {
 };
 
 class TcpChannelStateImpl {
-public:
+ public:
   // ctor
   TcpChannelStateImpl();
 
@@ -51,7 +51,7 @@ public:
   // Function to get Diagnostic Message State context
   auto GetDiagnosticMessageStateContext() noexcept -> StateContext<diagnosticState> &;
 
-private:
+ private:
   // routing activation state
   std::unique_ptr<StateContext<routingActivationState>> routing_activation_state_context_;
   // diagnostic state
@@ -59,7 +59,7 @@ private:
 };
 
 class kIdle final : public State<routingActivationState> {
-public:
+ public:
   // ctor
   kIdle(routingActivationState state);
 
@@ -77,7 +77,7 @@ public:
 };
 
 class kWaitForRoutingActivationRes final : public State<routingActivationState> {
-public:
+ public:
   // ctor
   kWaitForRoutingActivationRes(routingActivationState state);
 
@@ -95,7 +95,7 @@ public:
 };
 
 class kRoutingActivationSuccessful final : public State<routingActivationState> {
-public:
+ public:
   // ctor
   kRoutingActivationSuccessful(routingActivationState state);
 
@@ -113,7 +113,7 @@ public:
 };
 
 class kRoutingActivationFailed final : public State<routingActivationState> {
-public:
+ public:
   // ctor
   kRoutingActivationFailed(routingActivationState state);
 
@@ -131,7 +131,7 @@ public:
 };
 
 class kDiagIdle final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kDiagIdle(diagnosticState state);
 
@@ -149,7 +149,7 @@ public:
 };
 
 class kWaitForDiagnosticAck final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kWaitForDiagnosticAck(diagnosticState state);
 
@@ -167,7 +167,7 @@ public:
 };
 
 class kSendDiagnosticReqFailed final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kSendDiagnosticReqFailed(diagnosticState state);
 
@@ -185,7 +185,7 @@ public:
 };
 
 class kDiagnosticPositiveAckRecvd final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kDiagnosticPositiveAckRecvd(diagnosticState state);
 
@@ -203,7 +203,7 @@ public:
 };
 
 class kDiagnosticNegativeAckRecvd final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kDiagnosticNegativeAckRecvd(diagnosticState state);
 
@@ -221,7 +221,7 @@ public:
 };
 
 class kWaitForDiagnosticResponse final : public State<diagnosticState> {
-public:
+ public:
   // ctor
   kWaitForDiagnosticResponse(diagnosticState state);
 

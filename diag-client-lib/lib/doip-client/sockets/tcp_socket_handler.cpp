@@ -19,7 +19,7 @@ namespace tcpSocket {
                        and reception of tcp message from driver                              
  */
 //ctor
-TcpSocketHandler::TcpSocketHandler(std::string_view localIpaddress, tcpChannel::tcpChannel &channel)
+TcpSocketHandler::TcpSocketHandler(std::string_view localIpaddress, tcpChannel::TcpChannel &channel)
     : local_ip_address_{localIpaddress},
       local_port_num_{0U},
       channel_{channel},

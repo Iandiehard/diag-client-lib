@@ -5,32 +5,30 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H
-//includes
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H_
+
+#include <memory>
 #include <string_view>
+#include <utility>
 
 #include "channel/tcp_channel.h"
 #include "common/common_doip_types.h"
 #include "core/include/span.h"
+#include "uds_transport/connection.h"
 
 namespace doip_client {
-//forward declaration
-namespace connection {
-class DoipTcpConnection;
-}
-
-namespace tcpTransport {
+namespace tcp_transport {
 /*
  @ Class Name        : tcp_TransportHandler
  @ Class Description : Class used to create a tcp socket for handling transmission
                        and reception of tcp message from driver                              
  */
 class TcpTransportHandler final {
-public:
+ public:
   // ctor
   TcpTransportHandler(std::string_view local_ip_address, uint16_t port_num, uint8_t total_tcp_channel_req,
-                      connection::DoipTcpConnection &doip_connection);
+                      uds_transport::Connection &connection);
 
   // dtor
   ~TcpTransportHandler();
@@ -68,13 +66,13 @@ public:
   // layer to session layer
   void HandleMessage(uds_transport::UdsMessagePtr message);
 
-private:
+ private:
   // reference to doip connection
-  connection::DoipTcpConnection &doip_connection_;
+  uds_transport::Connection &connection_;
   // Tcp channel responsible for transmitting and reception of TCP messages
-  std::unique_ptr<tcpChannel::tcpChannel> tcp_channel_;
+  std::unique_ptr<tcpChannel::TcpChannel> tcp_channel_;
 };
-}  // namespace tcpTransport
+}  // namespace tcp_transport
 }  // namespace doip_client
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_HANDLER_TCP_TRANSPORT_HANDLER_H_

@@ -24,8 +24,6 @@ using ChannelID = uint32_t;
 using Priority = std::uint8_t;
 // This is the type of Protocol Kind
 using ProtocolKind = std::string_view;
-// UdsTransportProtocolHandler are flexible "plugins", which need an identification
-using UdsTransportProtocolHandlerID = std::uint8_t;
 
 namespace conversion_manager {
 // Conversion identification needed by user

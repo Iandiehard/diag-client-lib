@@ -22,7 +22,7 @@ namespace udpChannel {
 class UdpChannel;
 }
 
-namespace udpTransport {
+namespace udp_transport {
 class UdpTransportHandler;
 }
 
@@ -39,10 +39,10 @@ using VehiclePayloadType = std::pair<std::uint16_t, std::uint8_t>;
  @ Class Description : Class used as a handler to process vehicle announcement messages
  */
 class VehicleDiscoveryHandler {
-public:
+ public:
   // ctor
   VehicleDiscoveryHandler(udpSocket::UdpSocketHandler &udp_socket_handler,
-                          udpTransport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
+                          udp_transport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
       : udp_socket_handler_{udp_socket_handler},
         udp_transport_handler_{udp_transport_handler},
         channel_{channel} {}
@@ -60,7 +60,7 @@ public:
   // Function to process Vehicle identification response
   auto ProcessVehicleIdentificationResponse(DoipMessage &doip_payload) noexcept -> void;
 
-private:
+ private:
   // Function to handle Vehicle Identification Request
   auto HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr message) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
@@ -73,7 +73,7 @@ private:
   // socket reference
   udpSocket::UdpSocketHandler &udp_socket_handler_;
   // transport handler reference
-  udpTransport::UdpTransportHandler &udp_transport_handler_;
+  udp_transport::UdpTransportHandler &udp_transport_handler_;
   // channel reference
   udpChannel::UdpChannel &channel_;
 };
@@ -83,11 +83,11 @@ private:
  @ Class Description : Class to handle received messages from lower layer
  */
 class UdpChannelHandlerImpl {
-public:
+ public:
   // ctor
   UdpChannelHandlerImpl(udpSocket::UdpSocketHandler &udp_socket_handler_bcast,
                         udpSocket::UdpSocketHandler &udp_socket_handler_ucast,
-                        udpTransport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
+                        udp_transport::UdpTransportHandler &udp_transport_handler, udpChannel::UdpChannel &channel)
       : vehicle_discovery_handler_{udp_socket_handler_bcast, udp_transport_handler, channel},
         vehicle_identification_handler_{udp_socket_handler_ucast, udp_transport_handler, channel} {}
 
@@ -104,7 +104,7 @@ public:
   // process message broadcast
   auto HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void;
 
-private:
+ private:
   // Function to process DoIP Header
   static auto ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool;
 

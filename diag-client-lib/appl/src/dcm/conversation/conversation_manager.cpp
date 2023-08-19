@@ -42,7 +42,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
                   std::make_unique<diag::client::conversation::DmConversation>(conversation_name_in_map,
                                                                                conversation_type)};
               // Register the connection
-              conversation->RegisterConnection(uds_transport_mgr_.doip_transport_handler->FindOrCreateTcpConnection(
+              conversation->RegisterConnection(uds_transport_mgr_.GetTransportProtocolHandler().CreateTcpConnection(
                   conversation->GetConversationHandler(), conversation_type.tcp_address, conversation_type.port_num));
               return conversation;
             },
@@ -52,7 +52,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
                   std::make_unique<diag::client::conversation::VdConversation>(conversation_name_in_map,
                                                                                conversation_type)};
               // Register the connection
-              conversation->RegisterConnection(uds_transport_mgr_.doip_transport_handler->FindOrCreateUdpConnection(
+              conversation->RegisterConnection(uds_transport_mgr_.GetTransportProtocolHandler().CreateUdpConnection(
                   conversation->GetConversationHandler(), conversation_type.udp_address, conversation_type.port_num));
               return conversation;
             }},

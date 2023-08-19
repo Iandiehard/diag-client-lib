@@ -5,66 +5,102 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H_
 
+#include <memory>
 #include <string_view>
 
 #include "common/common_doip_header.h"
+#include "connection/connection_manager.h"
 
 namespace doip_client {
-//forward declaration
-namespace connection {
-class DoipConnectionManager;
-}
+namespace transport_protocol_handler {
 
-namespace transportProtocolHandler {
-/*
- @ Class Name        : DoipTransportProtocolHandler
- @ Class Description : This class must be instantiated by user for using the DoIP functionalities.  
-                       This will inherit uds transport protocol handler                              
+/**
+ * @brief           Protocol handler class to manage the whole Doip protocol communication
+ * @details         This class must be instantiated by user for using the DoIP functionalities.
+ *                  This will inherit uds transport protocol handler
  */
 class DoipTransportProtocolHandler final : public uds_transport::UdsTransportProtocolHandler {
-public:
-  //ctor
-  DoipTransportProtocolHandler(uds_transport::UdsTransportProtocolHandlerID handler_id,
-                               uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr);
+ public:
+  /**
+   * @brief  Type alias for handler id
+   */
+  using UdsTransportProtocolHandlerId = uds_transport::UdsTransportProtocolHandler::UdsTransportProtocolHandlerId;
 
-  //dtor
+  /**
+   * @brief  Type alias for Initialization result
+   */
+  using InitializationResult = uds_transport::UdsTransportProtocolHandler::InitializationResult;
+
+  /**
+   * @brief         Constructs an instance of DoipTransportProtocolHandler
+   * @param[in]     handler_id
+   *                The id of this transport protocol handler
+   * @param[in]     transport_protocol_mgr
+   *                The reference to transport protocol manager
+   */
+  DoipTransportProtocolHandler(UdsTransportProtocolHandlerId handler_id,
+                               uds_transport::UdsTransportProtocolMgr const &transport_protocol_mgr);
+
+  /**
+   * @brief         Destruct an instance of DoipTransportProtocolHandler
+   */
   ~DoipTransportProtocolHandler() final;
 
-  // Return the UdsTransportProtocolHandlerID, which was given to the implementation during construction (ctor call).
-  uds_transport::UdsTransportProtocolHandlerID GetHandlerID() const override;
+  /**
+   * @brief        Function to initialize the handler
+   * @return       The initialization result
+   */
+  InitializationResult Initialize() override;
 
-  // Initializes handler
-  uds_transport::UdsTransportProtocolHandler::InitializationResult Initialize() override;
-
-  // Start processing the implemented Uds Transport Protocol
+  /**
+   * @brief        Function to start the handler
+   */
   void Start() override;
 
-  // Method to indicate that this UdsTransportProtocolHandler should terminate
+  /**
+   * @brief        Function to stop the handler
+   */
   void Stop() override;
 
-  // Get or Create Tcp connection
-  std::shared_ptr<uds_transport::Connection> FindOrCreateTcpConnection(uds_transport::ConversionHandler &conversation,
-                                                                       std::string_view tcp_ip_address,
-                                                                       uint16_t port_num) override;
+  /**
+   * @brief       Function to create a new Tcp connection
+   * @param[in]   conversation
+   *              The conversation handler used by tcp connection to communicate
+   * @param[in]   tcp_ip_address
+   *              The local tcp ip address
+   * @param[in]   port_num
+   *              The local port number
+   * @return      The unique pointer to Connection created
+   */
+  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(uds_transport::ConversionHandler &conversation,
+                                                                 std::string_view tcp_ip_address,
+                                                                 std::uint16_t port_num) override;
 
-  // Get or Create Udp connection
-  std::shared_ptr<uds_transport::Connection> FindOrCreateUdpConnection(
-      uds_transport::ConversionHandler &conversion_handler, std::string_view udp_ip_address,
-      uint16_t port_num) override;
+  /**
+   * @brief       Function to create a new Udp connection
+   * @param[in]   conversation
+   *              The conversation handler used by tcp connection to communicate
+   * @param[in]   udp_ip_address
+   *              The local udp ip address
+   * @param[in]   port_num
+   *              The local port number
+   * @return      The unique pointer to Connection created
+   */
+  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(uds_transport::ConversionHandler &conversion_handler,
+                                                                 std::string_view udp_ip_address,
+                                                                 std::uint16_t port_num) override;
 
-private:
-  // store handle id
-  uds_transport::UdsTransportProtocolHandlerID handle_id_e;
-  // store the transport protocol manager
-  uds_transport::UdsTransportProtocolMgr &transport_protocol_mgr_;
-  // Create Doip Connection Manager
+ private:
+  /**
+   * @brief         Store Doip Connection manager
+   */
   std::unique_ptr<connection::DoipConnectionManager> doip_connection_mgr_ptr;
 };
 
-}  // namespace transportProtocolHandler
+}  // namespace transport_protocol_handler
 }  // namespace doip_client
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_DOIP_TRANSPORT_PROTOCOL_HANDLER_H_

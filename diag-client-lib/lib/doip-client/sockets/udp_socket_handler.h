@@ -33,11 +33,11 @@ using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
                        and reception of tcp message from driver
  */
 class UdpSocketHandler {
-public:
+ public:
   // Port Type
   using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
 
-public:
+ public:
   //ctor
   UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
                    udpChannel::UdpChannel &channel);
@@ -54,7 +54,7 @@ public:
   // function to trigger transmission
   bool Transmit(UdpMessageConstPtr udp_tx_message);
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
   // Host Ip address

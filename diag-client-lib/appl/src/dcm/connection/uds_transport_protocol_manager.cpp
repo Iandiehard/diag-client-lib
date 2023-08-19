@@ -15,7 +15,7 @@ namespace client {
 namespace uds_transport {
 //ctor
 UdsTransportProtocolManager::UdsTransportProtocolManager(/* pass the protocol kind */)
-    : doip_transport_handler{std::make_unique<doip_client::transportProtocolHandler::DoipTransportProtocolHandler>(
+    : doip_transport_handler{std::make_unique<doip_client::transport_protocol_handler::DoipTransportProtocolHandler>(
           handler_id_count, *this)} {}
 
 // initialize all the transport protocol handler
@@ -34,6 +34,10 @@ void UdsTransportProtocolManager::Run() {
 void UdsTransportProtocolManager::Shutdown() {
   //Stop all the handlers in box
   doip_transport_handler->Stop();
+}
+
+::uds_transport::UdsTransportProtocolHandler& UdsTransportProtocolManager::GetTransportProtocolHandler() {
+  return *doip_transport_handler;
 }
 }  // namespace uds_transport
 }  // namespace client

@@ -10,12 +10,12 @@
 #include "connection/connection_manager.h"
 
 namespace doip_client {
-namespace tcpTransport {
+namespace tcp_transport {
 // ctor
 TcpTransportHandler::TcpTransportHandler(std::string_view local_ip_address, uint16_t port_num,
-                                         uint8_t total_tcp_channel_req, connection::DoipTcpConnection &doip_connection)
-    : doip_connection_{doip_connection},
-      tcp_channel_(std::make_unique<tcpChannel::tcpChannel>(local_ip_address, *this)) {
+                                         uint8_t total_tcp_channel_req, uds_transport::Connection &connection)
+    : connection_{connection},
+      tcp_channel_(std::make_unique<tcpChannel::TcpChannel>(local_ip_address, *this)) {
   (void) port_num;
   (void) total_tcp_channel_req;
 }
@@ -63,15 +63,15 @@ TcpTransportHandler::IndicateMessage(uds_transport::UdsMessage::Address source_a
                                      uds_transport::ChannelID channel_id, std::size_t size,
                                      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
                                      core_type::Span<std::uint8_t> payloadInfo) {
-  return (doip_connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                           payloadInfo));
+  return (connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                      payloadInfo));
 }
 
 // Hands over a valid received Uds message (currently this is only a request type) from transport
 // layer to session layer
 void TcpTransportHandler::HandleMessage(uds_transport::UdsMessagePtr message) {
-  doip_connection_.HandleMessage(std::move(message));
+  connection_.HandleMessage(std::move(message));
 }
 
-}  // namespace tcpTransport
+}  // namespace tcp_transport
 }  // namespace doip_client
