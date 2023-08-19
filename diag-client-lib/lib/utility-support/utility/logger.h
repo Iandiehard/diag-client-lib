@@ -27,7 +27,7 @@ namespace logger {
  *              if "ENABLE_DLT_LOGGER" cmake flag is set to OFF
  */
 class Logger {
-public:
+ public:
   /**
    * @brief       Log fatal message and abort
    * @tparam      Func
@@ -155,7 +155,7 @@ public:
 #endif
   }
 
-public:
+ public:
   /**
    * @brief       Construct an instance of Logger
    * @param[in]   context_id
@@ -177,7 +177,7 @@ public:
    */
   ~Logger();
 
-private:
+ private:
   /**
    * @brief       Function to create the final logging message
    * @tparam      Func

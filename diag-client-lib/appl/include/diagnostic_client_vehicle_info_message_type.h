@@ -72,13 +72,13 @@ struct VehicleAddrInfoRequest {
  * @brief       Class provide storage of list of all available vehicle entity
  */
 class VehicleInfoMessage {
-public:
+ public:
   /**
    * @brief       Alias to collection of Vehicle info response
    */
   using VehicleInfoListResponseType = std::vector<VehicleAddrInfoResponse>;
 
-public:
+ public:
   /**
    * @brief         Constructs an instance of VehicleInfoMessage
    */

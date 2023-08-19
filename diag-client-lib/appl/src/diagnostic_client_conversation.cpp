@@ -17,7 +17,7 @@ namespace client {
 namespace conversation {
 
 class DiagClientConversation::DiagClientConversationImpl final {
-public:
+ public:
   /**
    * @brief         Constructor an instance of DiagClientConversationImpl
    * @param[in]     conversation_name
@@ -78,7 +78,7 @@ public:
     return internal_conversation_.SendDiagnosticRequest(std::move(message));
   }
 
-private:
+ private:
   /**
    * @brief         Reference to valid conversation created
    */

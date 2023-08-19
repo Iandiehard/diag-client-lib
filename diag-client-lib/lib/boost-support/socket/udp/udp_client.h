@@ -28,13 +28,13 @@ using UdpErrorCodeType = boost::system::error_code;
                        and reception of udp message from driver
 */
 class createUdpClientSocket {
-public:
+ public:
   // Udp function template used for reception
   using UdpHandlerRead = std::function<void(UdpMessagePtr)>;
   // Port Type
   enum class PortType : std::uint8_t { kUdp_Broadcast = 0, kUdp_Unicast };
 
-public:
+ public:
   // ctor
   createUdpClientSocket(std::string_view local_ip_address, uint16_t local_port_num, PortType port_type,
                         UdpHandlerRead udp_handler_read);
@@ -51,7 +51,7 @@ public:
   // Function to destroy the socket
   bool Destroy();
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
   // local port number
@@ -79,7 +79,7 @@ private:
   // Rx buffer
   uint8_t rxbuffer_[kDoipUdpResSize];
 
-private:
+ private:
   // function to handle read
   void HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd);
 };

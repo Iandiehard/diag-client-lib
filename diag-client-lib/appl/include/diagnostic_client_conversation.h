@@ -22,13 +22,13 @@ namespace conversation {
  * @details     This only support DoIP communication protocol for connecting to remote Diagnostic Server
  */
 class DiagClientConversation final {
-public:
+ public:
   /**
    * @brief         Type alias of ip address type
    */
   using IpAddress = uds_message::UdsMessage::IpAddress;
 
-public:
+ public:
   /**
    * @brief      Definitions of Connection results
    */
@@ -122,7 +122,7 @@ public:
   Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr message) noexcept;
 
-private:
+ private:
   /**
    * @brief    Forward declaration of diag client conversation implementation
    */

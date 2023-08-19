@@ -27,7 +27,7 @@ namespace client {
  * @brief    Class to provide implementation of diag client 
  */
 class DiagClient::DiagClientImpl final {
-public:
+ public:
   /**
    * @brief         Constructs an instance of DiagClient
    * @param[in]     diag_client_config_path
@@ -140,7 +140,7 @@ public:
     return dcm_instance_->SendVehicleIdentificationRequest(std::move(vehicle_info_request));
   }
 
-private:
+ private:
   /**
    * @brief    Unique pointer to dcm client instance
    */

@@ -190,7 +190,7 @@ template<typename T, std::size_t Extent>
 class Span final {
   static_assert(!std::is_abstract<T>::value, "A span's element type cannot be an abstract class type");
 
-public:
+ public:
   /**
    * @brief  Type alias for the type of elements in this Span
    */
@@ -604,7 +604,7 @@ public:
    */
   constexpr const_reverse_iterator crend() const noexcept { return const_reverse_iterator(begin()); }
 
-private:
+ private:
   /**
    * @brief       The storage of span related data
    */

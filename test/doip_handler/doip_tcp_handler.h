@@ -25,13 +25,13 @@ using TcpMessagePtr = tcpSocket::TcpMessagePtr;
 using TcpMessageConstPtr = tcpSocket::TcpMessageConstPtr;
 
 class DoipTcpHandler {
-public:
+ public:
   using TcpConnectionHandler = tcpSocket::DoipTcpSocketHandler::TcpConnectionHandler;
   using DoipChannelReadCallback = tcpSocket::DoipTcpSocketHandler::TcpHandlerRead;
 
   // Class maintaining the doip channel
   class DoipChannel {
-  public:
+   public:
     DoipChannel(std::uint16_t logical_address, tcpSocket::DoipTcpSocketHandler &tcp_socket_handler);
 
     ~DoipChannel();
@@ -55,7 +55,7 @@ public:
     void SetExpectedDiagnosticMessageWithPendingUdsMessageToBeSend(std::vector<std::uint8_t> payload,
                                                                    std::uint8_t num_of_pending_response);
 
-  private:
+   private:
     // Store the logical address
     std::uint16_t logical_address_;
 
@@ -101,7 +101,7 @@ public:
     // Diag message uds pending payload
     std::vector<std::uint8_t> uds_pending_response_payload_;
 
-  private:
+   private:
     // Function invoked during reception
     void HandleMessage(TcpMessagePtr tcp_rx_message);
 
@@ -131,7 +131,7 @@ public:
     void SendDiagnosticPendingMessageResponse();
   };
 
-public:
+ public:
   // ctor
   DoipTcpHandler(std::string_view local_tcp_address, std::uint16_t tcp_port_num);
 
@@ -141,7 +141,7 @@ public:
   // Function to create doip channel
   DoipChannel &CreateDoipChannel(std::uint16_t logical_address);
 
-private:
+ private:
   // tcp socket handler
   std::unique_ptr<tcpSocket::DoipTcpSocketHandler> tcp_socket_handler_;
 

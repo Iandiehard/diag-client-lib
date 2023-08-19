@@ -16,7 +16,7 @@
 namespace uds_transport {
 
 class UdsMessage {
-public:
+ public:
   // type for UDS source and target addresses
   using Address = std::uint16_t;
   // Ip address

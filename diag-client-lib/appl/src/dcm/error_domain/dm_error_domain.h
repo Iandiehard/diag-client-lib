@@ -29,7 +29,7 @@ enum class DmErrorErrc : core_type::ErrorDomain::CodeType {
  * @brief  Definition of Dcm Client Error domain
  */
 class DmErrorDomain final : public core_type::ErrorDomain {
-public:
+ public:
   /**
    * @brief  Type alias for the error code value enumeration
    */
@@ -59,7 +59,7 @@ public:
    */
   const char *Message(CodeType error_code) noexcept override;
 
-private:
+ private:
   /**
    * @brief  Store the error domain name
    */

@@ -29,7 +29,7 @@ namespace common {
  * @brief    Parent class to create Diagnostic Manager
  */
 class DiagnosticManager {
-public:
+ public:
   /**
    * @brief         Constructs an instance of DiagnosticManager
    */
@@ -99,7 +99,7 @@ public:
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept = 0;
 
-private:
+ private:
   /**
    * @brief         Flag to terminate the main thread
    */

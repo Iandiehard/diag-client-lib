@@ -14,7 +14,7 @@
 #include "include/diagnostic_client_uds_message_type.h"
 
 class UdsMessage final : public diag::client::uds_message::UdsMessage {
-public:
+ public:
   // ctor
   UdsMessage(std::string_view host_ip_address, diag::client::uds_message::UdsMessage::ByteVector payload)
       : host_ip_address_{host_ip_address},
@@ -23,7 +23,7 @@ public:
   // dtor
   ~UdsMessage() = default;
 
-private:
+ private:
   // host ip address
   IpAddress host_ip_address_;
 

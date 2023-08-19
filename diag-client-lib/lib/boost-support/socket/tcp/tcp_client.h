@@ -25,7 +25,7 @@ namespace tcp {
                        and reception of tcp message from driver
 */
 class CreateTcpClientSocket final {
-public:
+ public:
   // Type alias for tcp protocol
   using Tcp = boost::asio::ip::tcp;
   // Type alias for tcp socket
@@ -37,7 +37,7 @@ public:
   // Tcp function template used for reception
   using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
 
-public:
+ public:
   //ctor
   CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                         TcpHandlerRead&& tcp_handler_read);
@@ -60,7 +60,7 @@ public:
   // Function to destroy the socket
   bool Destroy();
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
   // local port number
@@ -82,7 +82,7 @@ private:
   // Handler invoked during read operation
   TcpHandlerRead tcp_handler_read_;
 
-private:
+ private:
   // function to handle read
   void HandleMessage();
 };

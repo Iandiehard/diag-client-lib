@@ -22,7 +22,7 @@ namespace sync_timer {
  */
 template<typename ClockType>
 class SyncTimer final {
-public:
+ public:
   /**
    * @brief  Type alias for the clock type
    */
@@ -81,7 +81,7 @@ public:
    */
   void CancelWait() { Stop(); }
 
-private:
+ private:
   /**
    * @brief       Function to start the timeout monitoring
    * @param[in]   timeout
@@ -128,7 +128,7 @@ private:
     cond_var_.notify_all();
   }
 
-private:
+ private:
   /**
    * @brief       The conditional variable needed for synchronizing between start and stop of running timer
    */

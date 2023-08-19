@@ -23,7 +23,7 @@ namespace tcp {
  * @brief    Immutable class to store received tcp message
  */
 class TcpMessage final {
-public:
+ public:
   /**
    * @brief    Definition of different socket state
    */
@@ -55,7 +55,7 @@ public:
    */
   using IpAddressType = std::string_view;
 
-public:
+ public:
   /**
    * @brief         Default constructor
    */
@@ -116,7 +116,7 @@ public:
    */
   BufferType const &GetTxBuffer() const { return tx_buffer_; }
 
-private:
+ private:
   /**
    * @brief         Store the socket state
    */

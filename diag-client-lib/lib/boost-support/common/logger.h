@@ -16,7 +16,7 @@ namespace logger {
 using Logger = utility::logger::Logger;
 
 class LibBoostLogger {
-public:
+ public:
   auto static GetLibBoostLogger() noexcept -> LibBoostLogger& {
     static LibBoostLogger boost_logger;
     return boost_logger;
@@ -24,7 +24,7 @@ public:
 
   auto GetLogger() noexcept -> Logger& { return logger_; }
 
-private:
+ private:
   LibBoostLogger() = default;
 
   // actual logger context

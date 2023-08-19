@@ -13,13 +13,13 @@ namespace socket {
 namespace udp {
 
 class UdpMessageType {
-public:
+ public:
   // buffer type
   using buffType = std::vector<uint8_t>;
   // ip address type
   using ipAddressType = std::string;
 
-public:
+ public:
   // ctor
   UdpMessageType() = default;
 

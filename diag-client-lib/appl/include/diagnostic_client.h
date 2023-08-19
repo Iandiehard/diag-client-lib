@@ -23,7 +23,7 @@ namespace client {
  * @brief    Class to manage Diagnostic Client
  */
 class DiagClient final {
-public:
+ public:
   /**
    * @brief  Definitions of Vehicle Identification response error code
    */
@@ -33,7 +33,7 @@ public:
     kNoResponseReceived = 2U, /**< No vehicle identification response received */
   };
 
-public:
+ public:
   /**
    * @brief         Constructs an instance of DiagClient
    * @param[in]     diag_client_config_path
@@ -96,7 +96,7 @@ public:
    */
   conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;
 
-private:
+ private:
   /**
    * @brief    Forward declaration of diag client implementation
    */

@@ -25,13 +25,13 @@ using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
 using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 
 class DoipTcpSocketHandler {
-public:
+ public:
   using TcpSocket = boost_support::socket::tcp::CreateTcpServerSocket;
   using TcpConnection = boost_support::socket::tcp::CreateTcpServerSocket::TcpServerConnection;
   using TcpHandlerRead = boost_support::socket::tcp::CreateTcpServerSocket::TcpHandlerRead;
 
   class TcpConnectionHandler {
-  public:
+   public:
     explicit TcpConnectionHandler(std::unique_ptr<TcpConnection> tcp_connection);
 
     ~TcpConnectionHandler();
@@ -46,7 +46,7 @@ public:
     // true on success else false
     bool Transmit(TcpMessageConstPtr tcp_tx_message);
 
-  private:
+   private:
     // read handler
     TcpHandlerRead tcp_handler_read_;
 
@@ -69,7 +69,7 @@ public:
     std::mutex mutex_;
   };
 
-public:
+ public:
   // ctor
   DoipTcpSocketHandler(std::string_view local_ip_address, uint16_t port_num);
 
@@ -79,7 +79,7 @@ public:
   // function to create tcp connection
   std::unique_ptr<TcpConnectionHandler> CreateTcpConnection(TcpHandlerRead &&tcp_handler_read);
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
 

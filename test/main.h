@@ -28,7 +28,7 @@ constexpr std::uint16_t DiagUdpPortNum{13400u};
 const std::string DiagClientJsonPath{"../../diag-client-lib/appl/etc/diag_client_config.json"};
 
 class DoipClientFixture : public ::testing::Test {
-protected:
+ protected:
   DoipClientFixture()
       : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
         doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum} {
@@ -58,7 +58,7 @@ protected:
   // Function to get Doip Test Handler reference
   auto GetDoipTestUdpHandlerRef() noexcept -> doip_handler::DoipUdpHandler& { return doip_udp_handler_; }
 
-private:
+ private:
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;
 

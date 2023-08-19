@@ -17,7 +17,7 @@ namespace uds_transport {
  * @brief    Class to manage reception from transport protocol handler to connection handler
  */
 class ConversionHandler {
-public:
+ public:
   /**
    * @brief         Constructs an instance of ConversionHandler
    * @param[in]     handler_id
@@ -70,7 +70,7 @@ public:
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) noexcept = 0;
+      core_type::Span<std::uint8_t> payload_info) const noexcept = 0;
 
   /**
    * @brief       Function to Hands over a valid received Uds message
@@ -78,9 +78,9 @@ public:
    *              The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the conversation here
    */
-  virtual void HandleMessage(UdsMessagePtr message) noexcept = 0;
+  virtual void HandleMessage(UdsMessagePtr message) const noexcept = 0;
 
-protected:
+ protected:
   /**
    * @brief         Store the conversation handle id
    */

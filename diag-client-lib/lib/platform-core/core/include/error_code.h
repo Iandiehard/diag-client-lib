@@ -20,7 +20,7 @@ namespace core_type {
  * @details     This class is implemented based on API specification of ara::core::ErrorCode from Adaptive Platform Core AUTOSAR AP R21-11
  */
 class ErrorCode final {
-public:
+ public:
   /**
    * @brief       Construct a new ErrorCode instance with parameters
    * @details     This constructor does not participate in overload resolution unless EnumT is an enum type
@@ -73,7 +73,7 @@ public:
    */
   std::string_view Message() noexcept;
 
-private:
+ private:
   /**
    * @brief       Store the domain error code value
    */

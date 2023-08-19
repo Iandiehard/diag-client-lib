@@ -27,7 +27,7 @@ namespace core_type {
  */
 template<typename T, typename E = ErrorCode>
 class Result final {
-public:
+ public:
   /**
    * @brief  Type alias for the type T of values
    */
@@ -436,7 +436,7 @@ public:
     return HasValue() ? Result{*this} : f(Error());
   }
 
-private:
+ private:
   /**
    * @brief      Storage to contain value of type T or error of type E
    */
@@ -451,7 +451,7 @@ private:
  */
 template<typename E>
 class Result<void, E> final {
-public:
+ public:
   /**
    * @brief  Type alias for the type T of values, always "void" for this specialization
    */
@@ -737,7 +737,7 @@ public:
     f(Error());
   }
 
-private:
+ private:
   /**
    * @brief      An empty value for handling void type in value type
    */

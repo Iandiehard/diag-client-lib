@@ -17,14 +17,14 @@ namespace client {
 namespace uds_message {
 
 class DmUdsMessage final : public uds_transport::UdsMessage {
-public:
+ public:
   // ctor
   DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address, uds_transport::ByteVector &payload);
 
   // dtor
   ~DmUdsMessage() noexcept override = default;
 
-private:
+ private:
   // SA
   Address source_address_;
 
@@ -68,12 +68,12 @@ private:
 };
 
 class DmUdsResponse final : public UdsMessage {
-public:
+ public:
   explicit DmUdsResponse(ByteVector &payload);
 
   ~DmUdsResponse() noexcept override = default;
 
-private:
+ private:
   // store only UDS payload to be sent
   ByteVector &uds_payload_;
   // Host Ip Address

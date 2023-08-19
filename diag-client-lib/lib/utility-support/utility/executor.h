@@ -20,7 +20,7 @@ namespace executor {
 
 template<typename ExecutorHandler>
 class Executor {
-public:
+ public:
   // ctor
   Executor() : exit_request_{false}, running_{false} {
     thread_ = std::thread([&]() {
@@ -58,7 +58,7 @@ public:
     cond_var_.notify_one();
   }
 
-private:
+ private:
   // queue to store the elements
   std::queue<ExecutorHandler> queue_;
   // mutex to lock the critical section

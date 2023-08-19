@@ -18,7 +18,7 @@ namespace logger {
  * @brief    Class to create a singleton logger for diag-client
  */
 class DiagClientLogger final {
-public:
+ public:
   /**
    * @brief    Type alias of logger
    */
@@ -41,7 +41,7 @@ public:
    */
   auto GetLogger() noexcept -> Logger& { return logger_; }
 
-private:
+ private:
   /**
    * @brief       Construct an instance of DiagClientLogger
    */

@@ -20,7 +20,7 @@ namespace utility {
 namespace state {
 template<typename EnumState>
 class State {
-public:
+ public:
   // ctor
   explicit State(EnumState state) : state_{state} {}
 
@@ -39,14 +39,14 @@ public:
   // Get the State index
   auto GetState() noexcept -> EnumState { return state_; }
 
-protected:
+ protected:
   // state index number
   EnumState state_;
 };
 
 template<typename EnumState>
 class StateContext {
-public:
+ public:
   // ctor
   StateContext() : current_state_{nullptr}, state_map_{} {}
 
@@ -77,7 +77,7 @@ public:
   // Get Context
   auto GetContext() noexcept -> StateContext * { return this; }
 
-private:
+ private:
   // Start the current state
   void Start() {
     if (this->current_state_ != nullptr) { this->current_state_->Start(); }

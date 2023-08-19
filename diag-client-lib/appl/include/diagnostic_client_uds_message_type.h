@@ -24,7 +24,7 @@ namespace uds_message {
  *           UdsMessage provides the storage for UDS requests/responses.
  */
 class UdsMessage {
-public:
+ public:
   /**
    * @brief         Type alias of ip address type
    */
@@ -35,7 +35,7 @@ public:
    */
   using ByteVector = std::vector<std::uint8_t>;
 
-public:
+ public:
   /**
    * @brief         Default constructs an instance of UdsMessage
    */

@@ -24,7 +24,7 @@ namespace dcm {
  * @brief    Class to create Diagnostic Manager Client functionality
  */
 class DCMClient final : public diag::client::common::DiagnosticManager {
-public:
+ public:
   /**
    * @brief         Constructs an instance of DCMClient
    * @param[in]     dcm_client_config
@@ -84,7 +84,7 @@ public:
   SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
 
-private:
+ private:
   /**
    * @brief         Stores the uds transport protocol manager
    */

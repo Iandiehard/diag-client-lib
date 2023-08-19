@@ -23,13 +23,13 @@ using Tcp = boost::asio::ip::tcp;
 using TcpSocket = Tcp::socket;
 
 class CreateTcpServerSocket {
-public:
+ public:
   // Tcp function template used for reception
   using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
 
   // Tcp Server connection class to create connection with client
   class TcpServerConnection {
-  public:
+   public:
     // ctor
     TcpServerConnection(boost::asio::io_context &io_context, TcpHandlerRead &&tcp_handler_read);
 
@@ -58,7 +58,7 @@ public:
     // function to close the socket
     bool Shutdown();
 
-  private:
+   private:
     // tcp socket
     TcpSocket tcp_socket_;
 
@@ -66,7 +66,7 @@ public:
     TcpHandlerRead tcp_handler_read_;
   };
 
-public:
+ public:
   // type alias for tcp accepter
   using TcpAccepter = boost::asio::ip::tcp::acceptor;
 
@@ -79,7 +79,7 @@ public:
   // Blocking function get a tcp connection
   TcpServerConnection GetTcpServerConnection(TcpHandlerRead &&tcp_handler_read);
 
-private:
+ private:
   // local Ip address
   std::string local_ip_address_;
   // local port number

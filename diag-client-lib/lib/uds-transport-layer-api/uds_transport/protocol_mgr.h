@@ -13,11 +13,7 @@
 namespace uds_transport {
 
 class UdsTransportProtocolMgr {
-public:
-  // Type of tuple to pack UdsTransportProtocolHandlerID and ChannelID together, to form a global
-  // unique (among all used UdsTransportProtocolHandlers within DM) identifier of a UdsTransport
-  // Protocol channel.
-  using GlobalChannelIdentifier = std::tuple<UdsTransportProtocolHandlerID, ChannelID>;
+ public:
   // Result for Indication of message received
   enum class IndicationResult : std::uint8_t {
     kIndicationOk = 0U,

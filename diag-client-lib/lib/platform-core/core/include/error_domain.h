@@ -18,7 +18,7 @@ namespace core_type {
  * @details     This class is a literal type, and subclasses are strongly advised to be literal types as well.
  */
 class ErrorDomain {
-public:
+ public:
   /**
    * @brief  Type alias for a unique ErrorDomain identifier type
    */
@@ -74,7 +74,7 @@ public:
    */
   virtual const char *Message(CodeType error_code) noexcept = 0;
 
-protected:
+ protected:
   /**
    * @brief       Construct a new instance with the given identifier. Identifiers are expected to be system-wide unique.
    * @param[in]   id
@@ -89,7 +89,7 @@ protected:
    */
   virtual ~ErrorDomain() noexcept = default;
 
-private:
+ private:
   /**
    * @brief       Store the unique identifier
    */

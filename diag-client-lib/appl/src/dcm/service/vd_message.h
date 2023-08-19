@@ -17,7 +17,7 @@ namespace client {
 namespace vd_message {
 
 class VdMessage final : public uds_transport::UdsMessage {
-public:
+ public:
   // ctor
   VdMessage(std::uint8_t preselection_mode, uds_transport::ByteVector& preselection_value,
             std::string_view host_ip_address);
@@ -28,7 +28,7 @@ public:
   // dtor
   ~VdMessage() noexcept override = default;
 
-private:
+ private:
   // SA
   Address source_address_;
 

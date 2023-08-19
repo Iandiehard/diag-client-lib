@@ -21,7 +21,7 @@ using UdpMessagePtr = udpSocket::UdpMessagePtr;
 using UdpMessage = udpSocket::UdpMessage;
 
 class DoipUdpHandler {
-public:
+ public:
   struct VehicleAddrInfo {
     std::uint16_t logical_address;
     std::string vin;
@@ -50,7 +50,7 @@ public:
   // function to set the expectation of EID on the request received
   auto VerifyVehicleIdentificationRequestWithExpectedEID(std::string_view eid) noexcept -> bool;
 
-private:
+ private:
   // udp socket handler unicast
   udpSocket::DoipUdpSocketHandler udp_socket_handler_unicast_;
 
@@ -78,7 +78,7 @@ private:
   // locking critical section
   std::mutex mutex_;
 
-private:
+ private:
   // function to process udp unicast message received
   void ProcessUdpUnicastMessage(UdpMessagePtr udp_rx_message);
 

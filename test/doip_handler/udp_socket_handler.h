@@ -32,11 +32,11 @@ using UdpMessageFunctor = std::function<void(UdpMessagePtr)>;
                        and reception of tcp message from driver
  */
 class DoipUdpSocketHandler {
-public:
+ public:
   // Port Type
   using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
 
-public:
+ public:
   //ctor
   DoipUdpSocketHandler(kDoip_String &local_ip_address, uint16_t port_num, PortType port_type,
                        UdpMessageFunctor udp_handler);
@@ -53,7 +53,7 @@ public:
   // function to trigger transmission
   bool Transmit(UdpMessageConstPtr udp_tx_message);
 
-private:
+ private:
   // local Ip address
   kDoip_String local_ip_address_;
 

@@ -47,11 +47,11 @@ constexpr std::uint16_t DiagTcpPortNum{13400u};
 const std::string DiagClientJsonPath{"../../diag-client-lib/appl/etc/diag_client_config.json"};
 
 class UdsMessage : public diag::client::uds_message::UdsMessage {
-public:
+ public:
   // alias of ByteVector
   using ByteVector = diag::client::uds_message::UdsMessage::ByteVector;
 
-public:
+ public:
   // ctor
   UdsMessage(std::string_view host_ip_address, ByteVector payload)
       : host_ip_address(host_ip_address),
@@ -60,7 +60,7 @@ public:
   // dtor
   ~UdsMessage() override = default;
 
-private:
+ private:
   // host ip address
   IpAddress host_ip_address;
   // store only UDS payload to be sent
@@ -76,7 +76,7 @@ private:
 };
 
 class DiagReqResFixture : public ::testing::Test {
-protected:
+ protected:
   DiagReqResFixture()
       : diag_client_{diag::client::CreateDiagnosticClient(DiagClientJsonPath)},
         doip_udp_handler_{DiagUdpIpAddress, DiagUdpPortNum},
@@ -110,7 +110,7 @@ protected:
   // Function to get Doip Tcp Test Handler reference
   auto GetDoipTestTcpHandlerRef() noexcept -> DoipTcpHandler& { return doip_tcp_handler_; }
 
-private:
+ private:
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;
 

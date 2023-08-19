@@ -23,12 +23,12 @@ constexpr uint8_t BYTE_POS_SIX = 0x06;
 constexpr uint8_t BYTE_POS_SEVEN = 0x07;
 
 class DoipMessage {
-public:
+ public:
   enum class rx_socket_type : std::uint8_t { kBroadcast, kUnicast };
   // ip address type
   using IpAddressType = std::string;
 
-public:
+ public:
   // ctor
   DoipMessage() = default;
 

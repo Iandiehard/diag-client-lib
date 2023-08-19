@@ -1,7 +1,7 @@
 # Generated from CLion C/C++ Code Style settings
 BasedOnStyle: Google
 Standard: c++17
-AccessModifierOffset: -2
+AccessModifierOffset: -1
 AlignAfterOpenBracket: Align
 AlignConsecutiveAssignments: None
 AlignOperands: Align
@@ -38,6 +38,7 @@ BreakInheritanceList: BeforeColon
 ColumnLimit: 120
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
+CommentPragmas: '^[^ ]'
 IndentCaseLabels: true
 IndentPPDirectives: None
 IndentWidth: 2
