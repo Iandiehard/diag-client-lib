@@ -97,7 +97,7 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
   /**
    * @brief         Store Doip Connection manager
    */
-  std::unique_ptr<connection::DoipConnectionManager> doip_connection_mgr_ptr;
+  connection::DoipConnectionManager doip_connection_mgr_;
 };
 
 }  // namespace transport_protocol_handler

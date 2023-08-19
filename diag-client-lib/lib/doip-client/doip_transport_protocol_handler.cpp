@@ -18,7 +18,7 @@ DoipTransportProtocolHandler::DoipTransportProtocolHandler(
     UdsTransportProtocolHandlerId const handler_id,
     uds_transport::UdsTransportProtocolMgr const &transport_protocol_mgr)
     : uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
-      doip_connection_mgr_ptr{std::make_unique<connection::DoipConnectionManager>()} {}
+      doip_connection_mgr_{} {}
 
 DoipTransportProtocolHandler::~DoipTransportProtocolHandler() = default;
 
@@ -37,7 +37,7 @@ std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateT
         msg << "Doip Tcp protocol requested with local endpoint : "
             << "<Tcp: " << tcp_ip_address << ">";
       });
-  return (doip_connection_mgr_ptr->FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
+  return (connection::DoipConnectionManager::FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num));
 }
 
 std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateUdpConnection(
@@ -47,7 +47,7 @@ std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateU
         msg << "Doip Udp protocol requested with local endpoint : "
             << "<Udp: " << udp_ip_address << ">";
       });
-  return (doip_connection_mgr_ptr->FindOrCreateUdpConnection(conversation, udp_ip_address, port_num));
+  return (connection::DoipConnectionManager::FindOrCreateUdpConnection(conversation, udp_ip_address, port_num));
 }
 }  // namespace transport_protocol_handler
 }  // namespace doip_client

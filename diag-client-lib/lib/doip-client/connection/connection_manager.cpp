@@ -35,9 +35,8 @@ class DoipTcpConnection final : public uds_transport::Connection {
    */
   DoipTcpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view tcp_ip_address,
                     std::uint16_t port_num)
-      : uds_transport::Connection(1, conversation_handler),
-        tcp_transport_handler_(
-            std::make_unique<tcp_transport::TcpTransportHandler>(tcp_ip_address, port_num, 1, *this)) {}
+      : uds_transport::Connection{1, conversation_handler},
+        tcp_transport_handler_{tcp_ip_address, port_num, 1, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipTcpConnection
@@ -49,25 +48,25 @@ class DoipTcpConnection final : public uds_transport::Connection {
    * @return       The initialization result
    */
   InitializationResult Initialize() override {
-    (void) tcp_transport_handler_->Initialize();
+    (void) tcp_transport_handler_.Initialize();
     return (InitializationResult::kInitializeOk);
   }
 
   /**
    * @brief        Function to start the connection
    */
-  void Start() override { tcp_transport_handler_->Start(); }
+  void Start() override { tcp_transport_handler_.Start(); }
 
   /**
    * @brief        Function to stop the connection
    */
-  void Stop() override { tcp_transport_handler_->Stop(); }
+  void Stop() override { tcp_transport_handler_.Stop(); }
 
   /**
    * @brief        Function to check if connected to host remote server
    * @return       True if connection, False otherwise
    */
-  bool IsConnectToHost() override { return (tcp_transport_handler_->IsConnectToHost()); }
+  bool IsConnectToHost() override { return (tcp_transport_handler_.IsConnectToHost()); }
 
   /**
    * @brief       Function to establish connection to remote host server
@@ -77,7 +76,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
    */
   uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
       uds_transport::UdsMessageConstPtr message) override {
-    return (tcp_transport_handler_->ConnectToHost(std::move(message)));
+    return (tcp_transport_handler_.ConnectToHost(std::move(message)));
   }
 
   /**
@@ -85,7 +84,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
    * @return      Disconnection result
    */
   uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost() override {
-    return (tcp_transport_handler_->DisconnectFromHost());
+    return (tcp_transport_handler_.DisconnectFromHost());
   }
 
   /**
@@ -131,7 +130,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
       uds_transport::UdsMessageConstPtr message) override {
     uds_transport::ChannelID channel_id = 0;
-    return (tcp_transport_handler_->Transmit(std::move(message), channel_id));
+    return (tcp_transport_handler_.Transmit(std::move(message), channel_id));
   }
 
   /**
@@ -149,7 +148,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
   /**
    * @brief        Store the tcp transport handler
    */
-  std::unique_ptr<tcp_transport::TcpTransportHandler> tcp_transport_handler_;
+  tcp_transport::TcpTransportHandler tcp_transport_handler_;
 };
 
 /**

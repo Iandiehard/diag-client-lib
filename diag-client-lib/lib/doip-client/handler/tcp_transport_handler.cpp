@@ -28,26 +28,21 @@ uds_transport::UdsTransportProtocolHandler::InitializationResult TcpTransportHan
   return (tcp_channel_->Initialize());
 }
 
-// start handler
 void TcpTransportHandler::Start() { tcp_channel_->Start(); }
 
-// stop handler
 void TcpTransportHandler::Stop() { tcp_channel_->Stop(); }
 
 bool TcpTransportHandler::IsConnectToHost() { return (tcp_channel_->IsConnectToHost()); }
 
-// Connect to remote Host
 uds_transport::UdsTransportProtocolMgr::ConnectionResult TcpTransportHandler::ConnectToHost(
     uds_transport::UdsMessageConstPtr message) {
   return (tcp_channel_->ConnectToHost(std::move(message)));
 }
 
-// Disconnect from remote host
 uds_transport::UdsTransportProtocolMgr::DisconnectionResult TcpTransportHandler::DisconnectFromHost() {
   return (tcp_channel_->DisconnectFromHost());
 }
 
-// Transmit
 uds_transport::UdsTransportProtocolMgr::TransmissionResult TcpTransportHandler::Transmit(
     uds_transport::UdsMessageConstPtr message, uds_transport::ChannelID channel_id) {
   // find the corresponding channel

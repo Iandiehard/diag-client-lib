@@ -19,35 +19,36 @@ namespace tcpSocket {
                        and reception of tcp message from driver                              
  */
 //ctor
-TcpSocketHandler::TcpSocketHandler(std::string_view localIpaddress, tcpChannel::TcpChannel &channel)
-    : local_ip_address_{localIpaddress},
+TcpSocketHandler::TcpSocketHandler(std::string_view local_ip_address, tcpChannel::TcpChannel &channel)
+    : local_ip_address_{local_ip_address},
       local_port_num_{0U},
       channel_{channel},
-      tcp_socket_{std::make_unique<TcpSocket>(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
-        channel_.HandleMessage(std::move(tcp_message));
-      })} {}
+      tcp_socket_{} {}
 
-void TcpSocketHandler::Start() {}
+void TcpSocketHandler::Start() {
+  tcp_socket_.emplace(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
+    channel_.HandleMessage(std::move(tcp_message));
+  });
+}
 
-void TcpSocketHandler::Stop() {}
+void TcpSocketHandler::Stop() {
+  tcp_socket_.reset();
+}
 
-// Connect to host
-bool TcpSocketHandler::ConnectToHost(std::string_view host_ip_address, uint16_t host_port_num) {
-  bool ret_val{false};
+core_type::Result<void> TcpSocketHandler::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
+  core_type::Result<void> result{core_type::Result<void>::FromError()};
   if (tcp_socket_->Open()) { ret_val = tcp_socket_->ConnectToHost(host_ip_address, host_port_num); }
   return ret_val;
 }
 
-// Disconnect from host
-bool TcpSocketHandler::DisconnectFromHost() {
-  bool ret_val = false;
-  if (tcp_socket_->DisconnectFromHost()) { ret_val = tcp_socket_->Destroy(); }
+core_type::Result<void> TcpSocketHandler::DisconnectFromHost() {
+  bool ret_val{false};
+  if (tcp_socket_.DisconnectFromHost()) { ret_val = tcp_socket_.Destroy(); }
   return ret_val;
 }
 
-// Function to trigger transmission
-bool TcpSocketHandler::Transmit(TcpMessageConstPtr tcp_message) {
-  return (tcp_socket_->Transmit(std::move(tcp_message)));
+core_type::Result<void> TcpSocketHandler::Transmit(TcpMessageConstPtr tcp_message) {
+  return (tcp_socket_.Transmit(std::move(tcp_message)));
 }
 }  // namespace tcpSocket
 }  // namespace doip_client

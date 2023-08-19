@@ -8,14 +8,16 @@
 
 #include "socket/tcp/tcp_client.h"
 
+#include <utility>
+
 #include "common/logger.h"
 
 namespace boost_support {
 namespace socket {
 namespace tcp {
 // ctor
-CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                             TcpHandlerRead &&tcp_handler_read)
+TcpClientSocket::TcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+                                             TcpHandlerRead tcp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       exit_request_{false},
@@ -42,14 +44,14 @@ CreateTcpClientSocket::CreateTcpClientSocket(std::string_view local_ip_address, 
 }
 
 // dtor
-CreateTcpClientSocket::~CreateTcpClientSocket() {
+TcpClientSocket::~TcpClientSocket() {
   exit_request_ = true;
   running_ = false;
   cond_var_.notify_all();
   thread_.join();
 }
 
-bool CreateTcpClientSocket::Open() {
+bool TcpClientSocket::Open() {
   TcpErrorCodeType ec{};
   bool ret_val{false};
   // Open the socket
@@ -59,8 +61,9 @@ bool CreateTcpClientSocket::Open() {
     tcp_socket_->set_option(boost::asio::socket_base::reuse_address{true});
     // Set socket to non blocking
     tcp_socket_->non_blocking(false);
-    //bind to local address and random port
+    // Bind to local ip address and random port
     tcp_socket_->bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -86,7 +89,7 @@ bool CreateTcpClientSocket::Open() {
 }
 
 // connect to host
-bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
+bool TcpClientSocket::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
   TcpErrorCodeType ec{};
   bool ret_val{false};
   // connect to provided ipAddress
@@ -113,7 +116,7 @@ bool CreateTcpClientSocket::ConnectToHost(std::string_view host_ip_address, std:
 }
 
 // Disconnect from Host
-bool CreateTcpClientSocket::DisconnectFromHost() {
+bool TcpClientSocket::DisconnectFromHost() {
   TcpErrorCodeType ec{};
   bool ret_val{false};
 
@@ -134,7 +137,7 @@ bool CreateTcpClientSocket::DisconnectFromHost() {
 }
 
 // Function to transmit tcp messages
-bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
+bool TcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
   TcpErrorCodeType ec{};
   bool ret_val{false};
   boost::asio::write(*tcp_socket_,
@@ -158,14 +161,14 @@ bool CreateTcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
 }
 
 // Destroy the socket
-bool CreateTcpClientSocket::Destroy() {
+bool TcpClientSocket::Destroy() {
   // destroy the socket
   tcp_socket_->close();
   return true;
 }
 
 // Handle reading from socket
-void CreateTcpClientSocket::HandleMessage() {
+void TcpClientSocket::HandleMessage() {
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
