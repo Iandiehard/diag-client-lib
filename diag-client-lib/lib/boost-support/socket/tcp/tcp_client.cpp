@@ -143,8 +143,8 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Transmit
   core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(
-      tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), std::size_t(tcp_message->GetTxBuffer().size())), ec);
+  boost::asio::write(tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), tcp_message->GetTxBuffer().size()),
+                     ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -162,10 +162,11 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Transmit
   return result;
 }
 
-core_type::Result<void> TcpClientSocket::Destroy() {
-  core_type::Result<void> result{};
+core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Destroy() {
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   // destroy the socket
   tcp_socket_.close();
+  result.EmplaceValue();
   return result;
 }
 

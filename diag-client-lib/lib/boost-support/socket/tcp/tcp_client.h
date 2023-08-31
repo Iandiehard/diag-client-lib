@@ -86,7 +86,7 @@ class TcpClientSocket final {
    * @brief         Function to destroy the socket
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void> Destroy();
+  core_type::Result<void, TcpErrorCode> Destroy();
 
  private:
   /**

@@ -14,8 +14,8 @@
 #include "channel/tcp_channel_handler_impl.h"
 #include "channel/tcp_channel_state_impl.h"
 #include "sockets/tcp_socket_handler.h"
-#include "utility/sync_timer.h"
 #include "uds_transport/connection.h"
+#include "utility/sync_timer.h"
 
 namespace doip_client {
 namespace channel {
@@ -135,7 +135,8 @@ class DoipTcpChannel final {
   auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
 
   // Function to Hand over all the message received
-  void HandleMessage(TcpMessagePtr tcp_rx_message);
+  void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
+
  private:
   // Function to handle the routing states
   uds_transport::UdsTransportProtocolMgr::ConnectionResult HandleRoutingActivationState(

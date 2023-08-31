@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKETHANDLER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKETHANDLER_H
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKET_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKET_HANDLER_H_
 //includes
 #include <string>
 #include <string_view>
@@ -70,4 +70,4 @@ class UdpSocketHandler {
 };
 }  // namespace udpSocket
 }  // namespace doip_client
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKETHANDLER_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKET_HANDLER_H_

@@ -70,7 +70,7 @@ class DiagClient::DiagClientImpl final {
     // read configuration
     boost_support::parser::boost_tree config{};
     return boost_support::parser::Read(diag_client_config_path_, config)
-        .MapError([](boost_support::parser::ParsingErrorCode) noexcept {
+        .MapError([](boost_support::parser::ParsingErrorCode const &) noexcept {
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
               __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
           return error_domain::MakeErrorCode(error_domain::DmErrorErrc::kInitializationFailed);

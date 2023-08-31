@@ -7,6 +7,7 @@
  */
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
+
 #include "common/logger.h"
 #include "handler/tcp_transport_handler.h"
 #include "sockets/tcp_socket_handler.h"
@@ -15,7 +16,8 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection)
+DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num,
+                               uds_transport::Connection &connection)
     : tcp_socket_handler_{std::make_unique<tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
       tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {}
 
@@ -25,12 +27,7 @@ uds_transport::UdsTransportProtocolHandler::InitializationResult DoipTcpChannel:
 
 void DoipTcpChannel::Start() { tcp_socket_handler_->Start(); }
 
-void DoipTcpChannel::Stop() {
-  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
-    tcp_socket_handler_->Stop();
-    if (tcp_socket_handler_->DisconnectFromHost()) { tcp_socket_state_ = TcpSocketState::kSocketOffline; }
-  }
-}
+void DoipTcpChannel::Stop() { tcp_socket_handler_->Stop(); }
 
 bool DoipTcpChannel::IsConnectToHost() { return (tcp_socket_state_ == TcpSocketState::kSocketOnline); }
 
@@ -84,7 +81,7 @@ uds_transport::UdsTransportProtocolMgr::DisconnectionResult DoipTcpChannel::Disc
   return ret_val;
 }
 
-void DoipTcpChannel::HandleMessage(TcpMessagePtr tcp_rx_message) {
+void DoipTcpChannel::ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message) {
   tcp_channel_handler_.HandleMessage(std::move(tcp_rx_message));
 }
 

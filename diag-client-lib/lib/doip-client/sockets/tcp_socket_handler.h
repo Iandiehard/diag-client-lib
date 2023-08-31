@@ -5,16 +5,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
 
+#include <optional>
 #include <string>
 #include <string_view>
-#include <optional>
+#include <atomic>
 
 #include "common/common_doip_types.h"
-#include "socket/tcp/tcp_client.h"
 #include "core/include/result.h"
+#include "socket/tcp/tcp_client.h"
 
 namespace doip_client {
 // forward declaration
@@ -23,22 +24,19 @@ class TcpChannel;
 }
 
 namespace tcpSocket {
-
-/*
- @ Class Name        : tcp_SocketHandler
- @ Class Description : Class used to create a tcp socket for handling transmission
-                       and reception of tcp message from driver                              
+/**
+ * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */
 class TcpSocketHandler final {
  public:
   /**
    * @brief  Definitions of different socket state
    */
-  enum class TcpSocketState : std::uint8_t {
-    kSocketOffline = 0U,         /**< Socket offline state */
-    kSocketOnline = 1U,          /**< Socket online state */
-    kSocketConnected = 2U,       /**< Socket connected to remote server */
-    kSocketDisconnected = 4U     /**< Socket disconnected from remote server */
+  enum class SocketHandlerState : std::uint8_t {
+    kSocketOffline = 0U,     /**< Socket offline state */
+    kSocketOnline = 1U,      /**< Socket online state */
+    kSocketConnected = 2U,   /**< Socket connected to remote server */
+    kSocketDisconnected = 4U /**< Socket disconnected from remote server */
   };
 
   /**
@@ -90,11 +88,25 @@ class TcpSocketHandler final {
    */
   core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
 
-  // Disconnect from host
+  /**
+   * @brief         Function to disconnect from remote host if already connected
+   * @return        The
+   */
   core_type::Result<void> DisconnectFromHost();
 
-  // Transmit function
+  /**
+   * @brief         Function to transmit the provided tcp message
+   * @param[in]     tcp_message
+   *                The tcp message
+   * @return        The
+   */
   core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message);
+
+  /**
+   * @brief         Function to get the current state of socket handler
+   * @return        The socket handler state
+   */
+  SocketHandlerState GetSocketHandlerState() const;
 
  private:
   /**
@@ -102,15 +114,31 @@ class TcpSocketHandler final {
    */
   using TcpSocket = boost_support::socket::tcp::TcpClientSocket;
 
-  // local Ip address
+  /**
+   * @brief  Store the local ip address
+   */
   std::string local_ip_address_;
-  // local port number
+
+  /**
+   * @brief  Store the local port number
+   */
   std::uint16_t local_port_num_;
-  // tcp socket
+
+  /**
+   * @brief  Store the socket object
+   */
   std::optional<TcpSocket> tcp_socket_;
-  // store tcp channel reference
+
+  /**
+   * @brief  Store the reference to tcp channel
+   */
   tcpChannel::TcpChannel &channel_;
+
+  /**
+   * @brief  Store the state of handler
+   */
+  std::atomic<SocketHandlerState> state_;
 };
 }  // namespace tcpSocket
 }  // namespace doip_client
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_

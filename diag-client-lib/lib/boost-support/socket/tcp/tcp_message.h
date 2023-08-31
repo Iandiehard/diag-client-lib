@@ -59,7 +59,13 @@ class TcpMessage final {
   /**
    * @brief         Default constructor
    */
-  TcpMessage() = default;
+  TcpMessage()
+      : socket_state_{SocketState::kIdle},
+        socket_error_{SocketError::kNone},
+        rx_buffer_{},
+        tx_buffer_{},
+        host_ip_address_{},
+        host_port_number_{} {}
 
   /**
    * @brief         Constructs an instance of TcpMessage
@@ -71,9 +77,12 @@ class TcpMessage final {
    *                The received data payload
    */
   TcpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number, BufferType &&payload)
-      : host_ip_address_{host_ip_address},
-        host_port_number_{host_port_number},
-        rx_buffer_{std::move(payload)} {}
+      : socket_state_{SocketState::kIdle},
+        socket_error_{SocketError::kNone},
+        rx_buffer_{std::move(payload)},
+        tx_buffer_{},
+        host_ip_address_{host_ip_address},
+        host_port_number_{host_port_number} {}
 
   TcpMessage(TcpMessage &&other) noexcept = default;
   TcpMessage &operator=(TcpMessage &&other) noexcept = default;
@@ -116,16 +125,22 @@ class TcpMessage final {
    */
   BufferType const &GetTxBuffer() const { return tx_buffer_; }
 
+  /**
+   * @brief       Get the state of underlying socket
+   * @return      The socket state
+   */
+  SocketState GetSocketState() const { return socket_state_; }
+
  private:
   /**
    * @brief         Store the socket state
    */
-  SocketState socket_state_{SocketState::kIdle};
+  SocketState socket_state_;
 
   /**
    * @brief         Store the socket error
    */
-  SocketError socket_error_{SocketError::kNone};
+  SocketError socket_error_;
 
   /**
    * @brief         The reception buffer
@@ -135,17 +150,17 @@ class TcpMessage final {
   /**
    * @brief         The transmission buffer
    */
-  BufferType tx_buffer_{};
+  BufferType tx_buffer_;
 
   /**
    * @brief    Store remote ip address
    */
-  std::string host_ip_address_{};
+  std::string host_ip_address_;
 
   /**
    * @brief    Store remote port number
    */
-  uint16_t host_port_number_{};
+  std::uint16_t host_port_number_;
 };
 
 /**
