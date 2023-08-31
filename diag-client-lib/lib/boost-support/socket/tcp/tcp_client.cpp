@@ -15,18 +15,20 @@
 namespace boost_support {
 namespace socket {
 namespace tcp {
-// ctor
+
 TcpClientSocket::TcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                             TcpHandlerRead tcp_handler_read)
+                                 TcpHandlerRead tcp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
+      io_context_{},
+      tcp_socket_{io_context_},
       exit_request_{false},
       running_{false},
+      cond_var_{},
+      mutex_{},
       tcp_handler_read_{std::move(tcp_handler_read)} {
-  // Create socket
-  tcp_socket_ = std::make_unique<TcpSocket>(io_context_);
   // Start thread to receive messages
-  thread_ = std::thread([&]() {
+  thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
@@ -43,7 +45,6 @@ TcpClientSocket::TcpClientSocket(std::string_view local_ip_address, std::uint16_
   });
 }
 
-// dtor
 TcpClientSocket::~TcpClientSocket() {
   exit_request_ = true;
   running_ = false;
@@ -51,53 +52,56 @@ TcpClientSocket::~TcpClientSocket() {
   thread_.join();
 }
 
-bool TcpClientSocket::Open() {
+core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Open() {
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
-  bool ret_val{false};
+
   // Open the socket
-  tcp_socket_->open(Tcp::v4(), ec);
+  tcp_socket_.open(Tcp::v4(), ec);
   if (ec.value() == boost::system::errc::success) {
     // reuse address
-    tcp_socket_->set_option(boost::asio::socket_base::reuse_address{true});
+    tcp_socket_.set_option(boost::asio::socket_base::reuse_address{true});
     // Set socket to non blocking
-    tcp_socket_->non_blocking(false);
+    tcp_socket_.non_blocking(false);
     // Bind to local ip address and random port
-    tcp_socket_->bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+    tcp_socket_.bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
 
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-            Tcp::endpoint const endpoint_{tcp_socket_->local_endpoint()};
+            Tcp::endpoint const endpoint_{tcp_socket_.local_endpoint()};
             msg << "Tcp Socket opened and bound to "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
-      ret_val = true;
+      result.EmplaceValue();
     } else {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
-      ret_val = false;
+      result.EmplaceError(TcpErrorCode::kBindingFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
+    result.EmplaceError(TcpErrorCode::kOpenFailed);
   }
-  return ret_val;
+  return result;
 }
 
-// connect to host
-bool TcpClientSocket::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
+core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::ConnectToHost(std::string_view host_ip_address,
+                                                                                      std::uint16_t host_port_num) {
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
-  bool ret_val{false};
+
   // connect to provided ipAddress
-  tcp_socket_->connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
+  tcp_socket_.connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          Tcp::endpoint const endpoint_{tcp_socket_->remote_endpoint()};
+          Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
           msg << "Tcp Socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
@@ -106,75 +110,72 @@ bool TcpClientSocket::ConnectToHost(std::string_view host_ip_address, std::uint1
       running_ = true;
       cond_var_.notify_all();
     }
-    ret_val = true;
+    result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket connect to host failed with error: " << ec.message(); });
   }
-  return ret_val;
+  return result;
 }
 
-// Disconnect from Host
-bool TcpClientSocket::DisconnectFromHost() {
+core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::DisconnectFromHost() {
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
-  bool ret_val{false};
 
   // Graceful shutdown
-  tcp_socket_->shutdown(TcpSocket::shutdown_both, ec);
+  tcp_socket_.shutdown(TcpSocket::shutdown_both, ec);
   if (ec.value() == boost::system::errc::success) {
     // stop reading
     running_ = false;
     // Socket shutdown success
-    ret_val = true;
+    result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tcp Socket disconnection from host failed with error: " << ec.message();
         });
   }
-  return ret_val;
+  return result;
 }
 
-// Function to transmit tcp messages
-bool TcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
+core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
-  bool ret_val{false};
-  boost::asio::write(*tcp_socket_,
-                     boost::asio::buffer(tcp_message->GetTxBuffer(), std::size_t(tcp_message->GetTxBuffer().size())),
-                     ec);
+
+  boost::asio::write(
+      tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), std::size_t(tcp_message->GetTxBuffer().size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          Tcp::endpoint const endpoint_{tcp_socket_->remote_endpoint()};
+          Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
           msg << "Tcp message sent to "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    ret_val = true;
+    result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp message sending failed with error: " << ec.message(); });
   }
-  return ret_val;
+  return result;
 }
 
-// Destroy the socket
-bool TcpClientSocket::Destroy() {
+core_type::Result<void> TcpClientSocket::Destroy() {
+  core_type::Result<void> result{};
   // destroy the socket
-  tcp_socket_->close();
-  return true;
+  tcp_socket_.close();
+  return result;
 }
 
-// Handle reading from socket
 void TcpClientSocket::HandleMessage() {
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
   rx_buffer.resize(kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(*tcp_socket_, boost::asio::buffer(&rx_buffer[0u], kDoipheadrSize), ec);
+  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -185,10 +186,10 @@ void TcpClientSocket::HandleMessage() {
     }();
     // reserve the buffer
     rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(*tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+    boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
 
     // all message received, transfer to upper layer
-    Tcp::endpoint const endpoint_{tcp_socket_->remote_endpoint()};
+    Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
     TcpMessagePtr tcp_rx_message{
         std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
