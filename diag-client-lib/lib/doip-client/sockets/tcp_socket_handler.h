@@ -8,10 +8,10 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
 
+#include <atomic>
 #include <optional>
 #include <string>
 #include <string_view>
-#include <atomic>
 
 #include "common/common_doip_types.h"
 #include "core/include/result.h"
@@ -19,11 +19,13 @@
 
 namespace doip_client {
 // forward declaration
-namespace tcpChannel {
-class TcpChannel;
-}
+namespace channel {
+namespace tcp_channel {
+class DoipTcpChannel;
+}  // namespace tcp_channel
+}  // namespace channel
 
-namespace tcpSocket {
+namespace sockets {
 /**
  * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */
@@ -55,13 +57,18 @@ class TcpSocketHandler final {
   using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 
   /**
+   * @brief  Type alias for Tcp message
+   */
+  using TcpChannel = channel::tcp_channel::DoipTcpChannel;
+
+  /**
    * @brief         Constructs an instance of TcpSocketHandler
    * @param[in]     local_ip_address
    *                The local ip address
    * @param[in]     channel
    *                The reference to tcp transport handler
    */
-  TcpSocketHandler(std::string_view local_ip_address, tcpChannel::TcpChannel &channel);
+  TcpSocketHandler(std::string_view local_ip_address, TcpChannel &channel);
 
   /**
    * @brief         Destruct an instance of TcpSocketHandler
@@ -132,13 +139,13 @@ class TcpSocketHandler final {
   /**
    * @brief  Store the reference to tcp channel
    */
-  tcpChannel::TcpChannel &channel_;
+  TcpChannel &channel_;
 
   /**
    * @brief  Store the state of handler
    */
   std::atomic<SocketHandlerState> state_;
 };
-}  // namespace tcpSocket
+}  // namespace sockets
 }  // namespace doip_client
 #endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_

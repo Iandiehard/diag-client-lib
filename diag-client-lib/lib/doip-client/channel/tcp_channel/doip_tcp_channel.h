@@ -5,11 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_TCP_CHANNEL_H_
-#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_TCP_CHANNEL_H_
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_
 
 #include <memory>
 #include <string_view>
+#include <utility>
 
 #include "channel/tcp_channel_handler_impl.h"
 #include "channel/tcp_channel_state_impl.h"
@@ -20,13 +21,6 @@
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
-
-// typedefs
-using TcpMessage = tcpSocket::TcpMessage;
-using TcpMessagePtr = tcpSocket::TcpMessagePtr;
-using TcpMessageConstPtr = tcpSocket::TcpMessageConstPtr;
-using TcpRoutingActivationChannelState = tcpChannelStateImpl::routingActivationState;
-using TcpDiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
 
 /**
  * @brief       Class to manage a tcp channel as per DoIP protocol
@@ -39,10 +33,17 @@ class DoipTcpChannel final {
   using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
 
   /**
+   * @brief  Type alias for Tcp message pointer
+   */
+  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+
+  /**
    * @brief         Constructs an instance of TcpChannel
    * @param[in]     tcp_ip_address
    *                The local ip address
    * @param[in]     port_num
+   *                The reference to tcp transport handler
+   * @param[in]     connection
    *                The reference to tcp transport handler
    */
   DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
@@ -128,7 +129,9 @@ class DoipTcpChannel final {
    */
   void HandleMessage(uds_transport::UdsMessagePtr message);
 
-  // Function to get the channel context
+  /**
+   * @brief       Function to get the channel state
+   */
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
 
   // Function to get the sync timer
@@ -147,8 +150,16 @@ class DoipTcpChannel final {
       uds_transport::UdsMessageConstPtr &message);
 
  private:
-  // tcp socket handler
-  std::unique_ptr<tcpSocket::TcpSocketHandler> tcp_socket_handler_;
+  /**
+   * @brief  Type alias for Tcp message pointer
+   */
+  using TcpSocketHandler = sockets::TcpSocketHandler;
+
+  /**
+   * @brief  Store the tcp socket handler
+   */
+  TcpSocketHandler tcp_socket_handler_;
+
   // tcp channel state
   tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
   // tcp channel handler
@@ -160,4 +171,4 @@ class DoipTcpChannel final {
 }  // namespace tcp_channel
 }  // namespace channel
 }  // namespace doip_client
-#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_TCP_CHANNEL_H_
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_

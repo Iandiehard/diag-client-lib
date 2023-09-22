@@ -8,6 +8,8 @@
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
 
+#include <utility>
+
 #include "common/logger.h"
 #include "handler/tcp_transport_handler.h"
 #include "sockets/tcp_socket_handler.h"
@@ -18,44 +20,31 @@ namespace tcp_channel {
 
 DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num,
                                uds_transport::Connection &connection)
-    : tcp_socket_handler_{std::make_unique<tcpSocket::TcpSocketHandler>(localIpaddress, *this)},
+    : tcp_socket_handler_{tcp_ip_address, *this},
       tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {}
 
-uds_transport::UdsTransportProtocolHandler::InitializationResult DoipTcpChannel::Initialize() {
-  return (uds_transport::UdsTransportProtocolHandler::InitializationResult::kInitializeOk);
+void DoipTcpChannel::Start() { tcp_socket_handler_.Start(); }
+
+void DoipTcpChannel::Stop() { tcp_socket_handler_.Stop(); }
+
+bool DoipTcpChannel::IsConnectToHost() {
+  return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
 }
-
-void DoipTcpChannel::Start() { tcp_socket_handler_->Start(); }
-
-void DoipTcpChannel::Stop() { tcp_socket_handler_->Stop(); }
-
-bool DoipTcpChannel::IsConnectToHost() { return (tcp_socket_state_ == TcpSocketState::kSocketOnline); }
 
 uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::ConnectToHost(
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-  if (tcp_socket_state_ == TcpSocketState::kSocketOffline) {
-    // sync connect to change the socket state
-    if (tcp_socket_handler_->ConnectToHost(message->GetHostIpAddress(), message->GetHostPortNumber())) {
-      // set socket state, tcp connection established
-      tcp_socket_state_ = TcpSocketState::kSocketOnline;
-    } else {  // failure
-      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
-            msg << "Doip Tcp socket connect failed for remote endpoints : "
-                << "<Ip: " << message->GetHostIpAddress() << ", Port: " << message->GetHostPortNumber() << ">";
-          });
-    }
-  } else {
-    // socket already online
-    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Doip Tcp socket already connected"; });
-  }
-  // If socket online, send routing activation req and get response
-  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
-    // send routing activation request and get response
+  // sync connect to change the socket state
+  if (tcp_socket_handler_.ConnectToHost(message->GetHostIpAddress(), message->GetHostPortNumber())) {
+    // send routing activation req and get response
     ret_val = HandleRoutingActivationState(message);
+  } else {  // failure
+    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
+        __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
+          msg << "Doip Tcp socket connect failed for remote endpoints : "
+              << "<Ip: " << message->GetHostIpAddress() << ", Port: " << message->GetHostPortNumber() << ">";
+        });
   }
   return ret_val;
 }
@@ -63,20 +52,13 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::Connect
 uds_transport::UdsTransportProtocolMgr::DisconnectionResult DoipTcpChannel::DisconnectFromHost() {
   uds_transport::UdsTransportProtocolMgr::DisconnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
-  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
-    if (tcp_socket_handler_->DisconnectFromHost()) {
-      tcp_socket_state_ = TcpSocketState::kSocketOffline;
-      if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-          TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-        // reset previous routing activation
-        tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
-      }
-      ret_val = uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
+  if (tcp_socket_handler_.DisconnectFromHost()) {
+    if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+        TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
+      // reset previous routing activation
+      tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
     }
-  } else {
-    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Doip Tcp socket already in not connected state"; });
+    ret_val = uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
   }
   return ret_val;
 }
@@ -89,20 +71,14 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (tcp_socket_state_ == TcpSocketState::kSocketOnline) {
-    // routing activation should be active before sending diag request
-    if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-        TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-      ret_val = HandleDiagnosticRequestState(message);
-    } else {
-      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [](std::stringstream &msg) { msg << "Routing Activation required, please connect to server first"; });
-    }
+  // routing activation should be active before sending diag request
+  if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
+      TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
+    ret_val = HandleDiagnosticRequestState(message);
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Socket Offline, please connect to server first"; });
+        [](std::stringstream &msg) { msg << "Routing Activation required, please connect to server first"; });
   }
   return ret_val;
 }
