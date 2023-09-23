@@ -12,7 +12,7 @@
 #include <string_view>
 #include <utility>
 
-#include "channel/tcp_channel_handler_impl.h"
+#include "channel/tcp_channel/doip_tcp_channel_handler.h"
 #include "channel/tcp_channel_state_impl.h"
 #include "sockets/tcp_socket_handler.h"
 #include "uds_transport/connection.h"
@@ -134,9 +134,6 @@ class DoipTcpChannel final {
    */
   auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
 
-  // Function to get the sync timer
-  auto GetSyncTimer() noexcept -> SyncTimer & { return sync_timer_; }
-
   // Function to Hand over all the message received
   void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
 
@@ -160,12 +157,15 @@ class DoipTcpChannel final {
    */
   TcpSocketHandler tcp_socket_handler_;
 
-  // tcp channel state
+  /**
+   * @brief  Store the doip channel state
+   */
   tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
-  // tcp channel handler
-  tcpChannelHandlerImpl::TcpChannelHandlerImpl tcp_channel_handler_;
-  // sync timer
-  SyncTimer sync_timer_;
+
+  /**
+   * @brief  Store the doip channel handler
+   */
+  DoipTcpChannelHandler tcp_channel_handler_;
 };
 
 }  // namespace tcp_channel

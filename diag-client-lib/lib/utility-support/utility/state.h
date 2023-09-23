@@ -34,10 +34,11 @@ class State {
   virtual void Stop() = 0;
 
   // Handle invoked asynchronously
-  virtual void HandleMessage() = 0;
+  // Todo:: Delete this methods, no used anywhere
+  virtual void HandleMessage() {}
 
   // Get the State index
-  auto GetState() noexcept -> EnumState { return state_; }
+  auto GetState() const noexcept -> EnumState { return state_; }
 
  protected:
   // state index number

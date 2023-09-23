@@ -117,7 +117,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
       core_type::Span<std::uint8_t> payload_info) override {
-    // Send Indication to conversion
+    // Send Indication to conversation
     return (conversation_handler_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
                                                   protocol_kind, payload_info));
   }
