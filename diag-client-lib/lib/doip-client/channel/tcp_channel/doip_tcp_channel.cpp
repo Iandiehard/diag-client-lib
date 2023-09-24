@@ -11,7 +11,6 @@
 #include <utility>
 
 #include "common/logger.h"
-#include "handler/tcp_transport_handler.h"
 #include "sockets/tcp_socket_handler.h"
 
 namespace doip_client {
@@ -21,11 +20,18 @@ namespace tcp_channel {
 DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num,
                                uds_transport::Connection &connection)
     : tcp_socket_handler_{tcp_ip_address, *this},
-      tcp_channel_handler_{*(tcp_socket_handler_), tcp_transport_handler, *this} {}
+      tcp_channel_handler_{tcp_socket_handler_, *this},
+      connection_{connection} {}
 
-void DoipTcpChannel::Start() { tcp_socket_handler_.Start(); }
+void DoipTcpChannel::Start() {
+  tcp_socket_handler_.Start();
+  tcp_channel_handler_.Start();
+}
 
-void DoipTcpChannel::Stop() { tcp_socket_handler_.Stop(); }
+void DoipTcpChannel::Stop() {
+  tcp_socket_handler_.Stop();
+  tcp_channel_handler_.Stop();
+}
 
 bool DoipTcpChannel::IsConnectToHost() {
   return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
@@ -35,15 +41,18 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::Connect
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-  // sync connect to change the socket state
-  if (tcp_socket_handler_.ConnectToHost(message->GetHostIpAddress(), message->GetHostPortNumber())) {
-    // send routing activation req and get response
-    ret_val = HandleRoutingActivationState(message);
+
+  uds_transport::UdsMessage::IpAddress const kHostIpAddress{message->GetHostIpAddress()};
+  uds_transport::UdsMessage::PortNumber const kHostPortNumber{message->GetHostPortNumber()};
+  // Initiate connecting to server
+  if (tcp_socket_handler_.ConnectToHost(kHostIpAddress, kHostPortNumber)) {
+    // Once connected, Send routing activation req and get response
+    ret_val = tcp_channel_handler_.SendRoutingActivationRequest(std::move(message));
   } else {  // failure
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [&message](std::stringstream &msg) {
+        __FILE__, __LINE__, __func__, [&kHostIpAddress, &kHostPortNumber](std::stringstream &msg) {
           msg << "Doip Tcp socket connect failed for remote endpoints : "
-              << "<Ip: " << message->GetHostIpAddress() << ", Port: " << message->GetHostPortNumber() << ">";
+              << "<Ip: " << kHostIpAddress << ", Port: " << kHostPortNumber << ">";
         });
   }
   return ret_val;
@@ -53,10 +62,9 @@ uds_transport::UdsTransportProtocolMgr::DisconnectionResult DoipTcpChannel::Disc
   uds_transport::UdsTransportProtocolMgr::DisconnectionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed};
   if (tcp_socket_handler_.DisconnectFromHost()) {
-    if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-        TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-      // reset previous routing activation
-      tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
+    if (tcp_channel_handler_.IsRoutingActivated()) {
+      // Reset the handler
+      tcp_channel_handler_.Reset();
     }
     ret_val = uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk;
   }
@@ -71,10 +79,9 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
     uds_transport::UdsMessageConstPtr message) {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  // routing activation should be active before sending diag request
-  if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-      TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-    ret_val = HandleDiagnosticRequestState(message);
+  // Routing activation should be active before sending diag request
+  if (tcp_channel_handler_.IsRoutingActivated()) {
+    ret_val = tcp_channel_handler_.SendDiagnosticRequest(std::move(message));
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
@@ -83,116 +90,20 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
   return ret_val;
 }
 
-uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::HandleRoutingActivationState(
-    uds_transport::UdsMessageConstPtr &message) {
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
-      uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-  if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-      TcpRoutingActivationChannelState::kIdle) {
-    if (tcp_channel_handler_.SendRoutingActivationRequest(message) ==
-        uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-      tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-          TcpRoutingActivationChannelState::kWaitForRoutingActivationRes);
-      sync_timer_.WaitForTimeout(
-          [&]() {
-            result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
-            tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
-            logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "RoutingActivation response timeout, no response received in: "
-                      << kDoIPRoutingActivationTimeout << " milliseconds";
-                });
-          },
-          [&]() {
-            if (tcp_channel_state_.GetRoutingActivationStateContext().GetActiveState().GetState() ==
-                TcpRoutingActivationChannelState::kRoutingActivationSuccessful) {
-              // success
-              result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
-              logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "RoutingActivation successful with remote server"; });
-            } else {  // failed
-              tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(
-                  TcpRoutingActivationChannelState::kIdle);
-              logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "RoutingActivation failed with remote server"; });
-            }
-          },
-          std::chrono::milliseconds{kDoIPRoutingActivationTimeout});
-    } else {
-      // failed, do nothing
-      tcp_channel_state_.GetRoutingActivationStateContext().TransitionTo(TcpRoutingActivationChannelState::kIdle);
-      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "",
-          [](std::stringstream &msg) { msg << "RoutingActivation Request send failed with remote server"; });
-    }
-  } else {
-    // channel not free
-    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "RoutingActivation channel not free"; });
-  }
-  return result;
+std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+DoipTcpChannel::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                                uds_transport::UdsMessage::Address target_addr,
+                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
+                                std::size_t size, uds_transport::Priority priority,
+                                uds_transport::ProtocolKind protocol_kind, core_type::Span<std::uint8_t> payload_info) {
+  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
+                                     payload_info);
 }
 
-uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::HandleDiagnosticRequestState(
-    uds_transport::UdsMessageConstPtr &message) {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult result{
-      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (tcp_channel_state_.GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
-      TcpDiagnosticMessageChannelState::kDiagIdle) {
-    if (tcp_channel_handler_.SendDiagnosticRequest(message) ==
-        uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
-      tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-          TcpDiagnosticMessageChannelState::kWaitForDiagnosticAck);
-      sync_timer_.WaitForTimeout(
-          [&]() {
-            result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
-            tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                TcpDiagnosticMessageChannelState::kDiagIdle);
-            logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "Diagnostic Message Ack Request timed out, no response received in: "
-                      << kDoIPDiagnosticAckTimeout << "seconds";
-                });
-          },
-          [&]() {
-            if (tcp_channel_state_.GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
-                tcpChannelStateImpl::diagnosticState::kDiagnosticPositiveAckRecvd) {
-              tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                  TcpDiagnosticMessageChannelState::kWaitForDiagnosticResponse);
-              // success
-              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-              logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "Diagnostic Message Positive Ack received"; });
-            } else {
-              // failed with neg acknowledgement from server
-              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
-              tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(
-                  TcpDiagnosticMessageChannelState::kDiagIdle);
-              logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "Diagnostic Message Transmission Failed Neg Ack Received"; });
-            }
-          },
-          std::chrono::milliseconds{kDoIPDiagnosticAckTimeout});
-    } else {
-      // failed, do nothing
-      tcp_channel_state_.GetDiagnosticMessageStateContext().TransitionTo(TcpDiagnosticMessageChannelState::kDiagIdle);
-      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "",
-          [](std::stringstream &msg) { msg << "Diagnostic Request Message Transmission Failed"; });
-    }
-  } else {
-    // channel not in idle state
-    result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
-    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "",
-        [](std::stringstream &msg) { msg << "Diagnostic Message Transmission already in progress"; });
-  }
-  return result;
+void DoipTcpChannel::HandleMessage(uds_transport::UdsMessagePtr message) {
+  connection_.HandleMessage(std::move(message));
 }
+
 }  // namespace tcp_channel
 }  // namespace channel
 }  // namespace doip_client

@@ -8,161 +8,44 @@
 
 #include "channel/tcp_channel/doip_tcp_channel_handler.h"
 
-#include "channel/tcp_channel.h"
+#include <utility>
+
+#include "channel/tcp_channel/doip_tcp_channel.h"
 #include "common/logger.h"
 #include "core/include/span.h"
-#include "handler/tcp_transport_handler.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-std::ostream &operator<<(std::ostream &msg, DiagnosticMessageHandler::DiagAckType diag_ack_type) {
-  switch (diag_ack_type.ack_type_) {
-    case kDoip_DiagnosticMessage_NegAckCode_InvalidSA:
-      msg << "invalid source address.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_UnknownTA:
-      msg << "unknown target address.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge:
-      msg << "diagnostic message too large.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_OutOfMemory:
-      msg << "server out of memory.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable:
-      msg << "target unreachable.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork:
-      msg << "unknown network.";
-      break;
-    case kDoip_DiagnosticMessage_NegAckCode_TPError:
-      msg << "transport protocol error.";
-      break;
-    default:
-      msg << "unknown reason.";
-      break;
-  }
-  return msg;
+DoipTcpChannelHandler::DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
+    : routing_activation_handler_{tcp_socket_handler},
+      diagnostic_message_handler_{tcp_socket_handler, channel} {}
+
+void DoipTcpChannelHandler::Start() {
+  routing_activation_handler_.Start();
+  diagnostic_message_handler_.Start();
 }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessage &doip_payload) noexcept -> void {
-  DiagnosticMessageChannelState final_state{DiagnosticMessageChannelState::kDiagnosticNegativeAckRecvd};
-  if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
-      DiagnosticMessageChannelState::kWaitForDiagnosticAck) {
-    // get the ack code
-    DiagAckType const diag_ack_type{doip_payload.GetPayload()[0u]};
-    if (doip_payload.GetPayloadType() == kDoip_DiagMessagePosAck_Type) {
-      if (diag_ack_type.ack_type_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
-        final_state = DiagnosticMessageChannelState::kDiagnosticPositiveAckRecvd;
-        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "Diagnostic message positively acknowledged from remote server "
-                  << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
-            });
-      } else {
-        // do nothing
-      }
-    } else if (doip_payload.GetPayloadType() == kDoip_DiagMessageNegAck_Type) {
-      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-          __FILE__, __LINE__, __func__,
-          [&diag_ack_type](std::stringstream &msg) { msg << "Diagnostic request denied due to " << diag_ack_type; });
-    } else {
-      // do nothing
-    }
-    channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(final_state);
-    channel_.GetSyncTimer().CancelWait();
-  } else {
-    // ignore
-  }
+void DoipTcpChannelHandler::Stop() {
+  routing_activation_handler_.Stop();
+  diagnostic_message_handler_.Stop();
 }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept -> void {
-  if (channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState() ==
-      DiagnosticMessageChannelState::kWaitForDiagnosticResponse) {
-    // Indicate upper layer about incoming data
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
-        channel_.IndicateMessage(doip_payload.GetServerAddress(), doip_payload.GetClientAddress(),
-                                 uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
-                                 doip_payload.GetPayload().size(), 0u, "DoIPTcp", doip_payload.GetPayload())};
-    if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
-      // keep channel alive since pending request received, do not change channel state
-    } else {
-      // Check result and udsMessagePtr
-      if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
-          (ret_val.second != nullptr)) {
-        // copy to application buffer
-        (void) std::copy(doip_payload.GetPayload().begin(), doip_payload.GetPayload().end(),
-                         ret_val.second->GetPayload().begin());
-        channel_.HandleMessage(std::move(ret_val.second));
-      } else {
-        logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-            __FILE__, __LINE__, __func__,
-            [](std::stringstream &msg) { msg << "Diagnostic message response ignored due to unknown error"; });
-      }
-      channel_.GetChannelState().GetDiagnosticMessageStateContext().TransitionTo(
-          DiagnosticMessageChannelState::kDiagIdle);
-    }
-  } else {
-    // ignore
-    logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          msg << "Diagnostic message response ignored due to channel in state: "
-              << static_cast<int>(
-                     channel_.GetChannelState().GetDiagnosticMessageStateContext().GetActiveState().GetState());
-        });
-  }
-}
-
-auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
-    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
-      uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  TcpMessagePtr doip_diag_req = std::make_unique<TcpMessage>();
-  // reserve bytes in vector
-  doip_diag_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
-  // create header
-  CreateDoipGenericHeader(doip_diag_req->GetTxBuffer(), kDoip_DiagMessage_Type,
-                          kDoip_DiagMessage_ReqResMinLen + message->GetPayload().size());
-  // Add source address
-  doip_diag_req->GetTxBuffer().push_back((uint8_t) ((message->GetSa() & 0xFF00) >> 8));
-  doip_diag_req->GetTxBuffer().push_back((uint8_t) (message->GetSa() & 0x00FF));
-  // Add target address
-  doip_diag_req->GetTxBuffer().push_back((uint8_t) ((message->GetTa() & 0xFF00) >> 8));
-  doip_diag_req->GetTxBuffer().push_back((uint8_t) (message->GetTa() & 0x00FF));
-  // Add data bytes
-  for (std::uint8_t byte: message->GetPayload()) { doip_diag_req->GetTxBuffer().push_back(byte); }
-  // transmit
-  if (!(tcp_socket_handler_.Transmit(std::move(doip_diag_req)))) {
-    // do nothing
-  } else {
-    ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-  }
-  return ret_val;
-}
-
-auto DiagnosticMessageHandler::CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
-                                                       uint32_t payloadLen) noexcept -> void {
-  doipHeader.push_back(kDoip_ProtocolVersion);
-  doipHeader.push_back(~((uint8_t) kDoip_ProtocolVersion));
-  doipHeader.push_back((uint8_t) ((payloadType & 0xFF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadType & 0x00FF));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0xFF000000) >> 24));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x00FF0000) >> 16));
-  doipHeader.push_back((uint8_t) ((payloadLen & 0x0000FF00) >> 8));
-  doipHeader.push_back((uint8_t) (payloadLen & 0x000000FF));
+void DoipTcpChannelHandler::Reset() {
+  routing_activation_handler_.Reset();
+  diagnostic_message_handler_.Reset();
 }
 
 auto DoipTcpChannelHandler::SendRoutingActivationRequest(
     uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
-    -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  return routing_activation_handler_.HandleRoutingActivationRequest(routing_activation_request);
+    -> uds_transport::UdsTransportProtocolMgr::ConnectionResult {
+  return routing_activation_handler_.HandleRoutingActivationRequest(std::move(routing_activation_request));
 }
 
 auto DoipTcpChannelHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
-  return (diagnostic_message_handler_.SendDiagnosticRequest(diagnostic_request));
+  return diagnostic_message_handler_.HandleDiagnosticRequest(std::move(diagnostic_request));
 }
 
 auto DoipTcpChannelHandler::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void {
@@ -177,6 +60,10 @@ auto DoipTcpChannelHandler::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept
     // send NACK or ignore
     (void) nack_code;
   }
+}
+
+auto DoipTcpChannelHandler::IsRoutingActivated() noexcept -> bool {
+  return routing_activation_handler_.IsRoutingActivated();
 }
 
 auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std::uint8_t &nackCode) noexcept -> bool {

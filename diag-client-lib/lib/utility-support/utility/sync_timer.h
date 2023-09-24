@@ -77,6 +77,14 @@ class SyncTimer final {
   }
 
   /**
+   * @brief       Function to query if timer is running
+   */
+  auto IsTimerActive() {
+    std::lock_guard<std::mutex> const lck(mutex_lock_);
+    return start_running_;
+  }
+
+  /**
    * @brief       Function to cancel the synchronous wait
    */
   void CancelWait() { Stop(); }

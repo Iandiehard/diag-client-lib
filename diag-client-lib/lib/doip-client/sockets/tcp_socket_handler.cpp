@@ -18,7 +18,7 @@ namespace sockets {
 
 TcpSocketHandler::TcpSocketHandler(std::string_view local_ip_address, TcpChannel &channel)
     : local_ip_address_{local_ip_address},
-      local_port_num_{0U},
+      local_port_num_{0U},  // port number with "0" will create socket with random port number at client side
       tcp_socket_{},
       channel_{channel},
       state_{SocketHandlerState::kSocketOffline} {}

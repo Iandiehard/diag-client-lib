@@ -5,8 +5,8 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_ROUTING_ACTIVATION_HANDLER_H_
-#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_ROUTING_ACTIVATION_HANDLER_H_
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_DIAGNOSTIC_MESSAGE_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_DIAGNOSTIC_MESSAGE_HANDLER_H_
 
 #include <memory>
 #include <vector>
@@ -24,7 +24,7 @@ class DoipTcpChannel;
 /**
  * @brief       Class used as a handler to process routing activation messages
  */
-class RoutingActivationHandler final {
+class DiagnosticMessageHandler final {
  public:
   /**
    * @brief  Type alias for Tcp message pointer
@@ -38,16 +38,18 @@ class RoutingActivationHandler final {
 
  public:
   /**
-   * @brief         Constructs an instance of RoutingActivationHandler
+   * @brief         Constructs an instance of DiagnosticMessageHandler
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
+   * @param[in]     channel
+   *                The reference to doip channel
    */
-  RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler);
+  DiagnosticMessageHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel);
 
   /**
-   * @brief         Destruct an instance of RoutingActivationHandler
+   * @brief         Destruct an instance of DiagnosticMessageHandler
    */
-  ~RoutingActivationHandler();
+  ~DiagnosticMessageHandler();
 
   /**
    * @brief        Function to start the handler
@@ -67,35 +69,36 @@ class RoutingActivationHandler final {
   void Reset();
 
   /**
-   * @brief       Function to process received routing activation response
+   * @brief       Function to process received diagnostic acknowledgement from server
    * @param[in]   doip_payload
    *              The doip message received
    */
-  void ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept;
+  void ProcessDoIPDiagnosticAckMessageResponse(DoipMessage &doip_payload) noexcept;
 
   /**
-   * @brief       Function to handle sending of routing activation request
-   * @param[in]   routing_activation_request
-   *              The routing activation request
-   * @return      Transmission result
+   * @brief       Function to process received diagnostic positive/negative response from server
+   * @param[in]   doip_payload
+   *              The doip message received
    */
-  auto HandleRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
-      -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
+  void ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept;
 
   /**
-   * @brief       Check if routing activation is active for this handler
-   * @return      True if activated, otherwise False
+   * @brief       Function to handle sending of diagnostic request
+   * @param[in]   diagnostic_request
+   *              The diagnostic request
+   * @return      The Transmission result
    */
-  auto IsRoutingActivated() noexcept -> bool;
+  auto HandleDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
+      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
  private:
   /**
-   * @brief       Function to send routing activation request
-   * @param[in]   routing_activation_request
+   * @brief       Function to send diagnostic request
+   * @param[in]   diagnostic_request
    *              The routing activation request
-   * @return      Transmission result
+   * @return      The Transmission result
    */
-  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto SendDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   /**
@@ -114,15 +117,15 @@ class RoutingActivationHandler final {
   /**
    * @brief  Forward declaration Handler implementation
    */
-  class RoutingActivationHandlerImpl;
+  class DiagnosticMessageHandlerImpl;
 
   /**
    * @brief  Stores the Handler implementation
    */
-  std::unique_ptr<RoutingActivationHandlerImpl> handler_impl_;
+  std::unique_ptr<DiagnosticMessageHandlerImpl> handler_impl_;
 };
 
 }  // namespace tcp_channel
 }  // namespace channel
 }  // namespace doip_client
-#endif  //DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_ROUTING_ACTIVATION_HANDLER_H_
+#endif  //DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_DIAGNOSTIC_MESSAGE_HANDLER_H_

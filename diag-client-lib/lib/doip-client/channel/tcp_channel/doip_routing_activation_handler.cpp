@@ -8,6 +8,9 @@
 
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
 
+#include <utility>
+
+#include "channel/tcp_channel/doip_tcp_channel.h"
 #include "common/logger.h"
 #include "utility/state.h"
 #include "utility/sync_timer.h"
@@ -184,12 +187,9 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
    * @brief         Constructs an instance of RoutingActivationHandlerImpl
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
-   * @param[in]     channel
-   *                The reference to doip channel
    */
-  RoutingActivationHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
+  RoutingActivationHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler)
       : tcp_socket_handler_{tcp_socket_handler},
-        channel_{channel},
         state_context_{},
         sync_timer_{} {
     // create and add state for routing activation
@@ -207,7 +207,29 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
     state_context_.AddState(
         RoutingActivationState::kRoutingActivationFailed,
         std::make_unique<kRoutingActivationFailed>(RoutingActivationState::kRoutingActivationFailed));
+    // Transit to idle state
+    state_context_.TransitionTo(RoutingActivationState::kIdle);
   }
+
+  /**
+   * @brief        Function to start the handler
+   */
+  void Start() {}
+
+  /**
+   * @brief        Function to stop the handler
+   * @details      This will reset all the internal handler back to default state
+   */
+  void Stop() {
+    if (sync_timer_.IsTimerActive()) { sync_timer_.CancelWait(); }
+    state_context_.TransitionTo(RoutingActivationState::kIdle);
+  }
+
+  /**
+   * @brief        Function to reset the handler
+   * @details      This will reset all the internal handler back to default state
+   */
+  void Reset() { Stop(); }
 
   /**
    * @brief       Function to get the Routing Activation State context
@@ -222,12 +244,6 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
   auto GetSocketHandler() noexcept -> sockets::TcpSocketHandler & { return tcp_socket_handler_; }
 
   /**
-   * @brief       Function to get the doip channel
-   * @return      The reference to channel
-   */
-  auto GetDoipChannel() noexcept -> DoipTcpChannel & { return channel_; }
-
-  /**
    * @brief       Function to get the sync timer
    * @return      The reference to sync timer
    */
@@ -240,11 +256,6 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
   sockets::TcpSocketHandler &tcp_socket_handler_;
 
   /**
-   * @brief  The reference to doip channel
-   */
-  DoipTcpChannel &channel_;
-
-  /**
    * @brief  Stores the routing activation states
    */
   RoutingActivationStateContext state_context_;
@@ -255,9 +266,16 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
   SyncTimer sync_timer_;
 };
 
-RoutingActivationHandler::RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler,
-                                                   DoipTcpChannel &channel)
-    : handler_impl_{std::make_unique<RoutingActivationHandlerImpl>(tcp_socket_handler, channel)} {}
+RoutingActivationHandler::RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler)
+    : handler_impl_{std::make_unique<RoutingActivationHandlerImpl>(tcp_socket_handler)} {}
+
+RoutingActivationHandler::~RoutingActivationHandler() = default;
+
+void RoutingActivationHandler::Start() { handler_impl_->Start(); }
+
+void RoutingActivationHandler::Stop() { handler_impl_->Stop(); }
+
+void RoutingActivationHandler::Reset() { handler_impl_->Reset(); }
 
 auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept -> void {
   RoutingActivationState final_state{RoutingActivationState::kRoutingActivationFailed};
@@ -303,11 +321,12 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
   uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
   if (handler_impl_->GetStateContext().GetActiveState().GetState() == RoutingActivationState::kIdle) {
-    if (SendRoutingActivationRequest(routing_activation_request) ==
+    if (SendRoutingActivationRequest(std::move(routing_activation_request)) ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
+      // Wait for routing activation response
       handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kWaitForRoutingActivationRes);
       handler_impl_->GetSyncTimer().WaitForTimeout(
-          [&]() {
+          [this, &result]() {
             result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
             handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
@@ -316,7 +335,7 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
                       << kDoIPRoutingActivationTimeout << " milliseconds";
                 });
           },
-          [&]() {
+          [this, &result]() {
             if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
                 RoutingActivationState::kRoutingActivationSuccessful) {
               // success
@@ -347,7 +366,12 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
   return result;
 }
 
-auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr &message) noexcept
+auto RoutingActivationHandler::IsRoutingActivated() noexcept -> bool {
+  return (handler_impl_->GetStateContext().GetActiveState().GetState() ==
+          RoutingActivationState::kRoutingActivationSuccessful);
+}
+
+auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr message) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};

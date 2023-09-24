@@ -7,73 +7,15 @@
  */
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
-//includes
-#include <mutex>
 
+#include "channel/tcp_channel/doip_diagnostic_message_handler.h"
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
-#include "channel/tcp_channel/doip_tcp_channel.h"
-#include "common/common_doip_types.h"
 #include "common/doip_message.h"
-#include "core/include/common_header.h"
-#include "doip_routing_activation_handler.h"
 #include "sockets/tcp_socket_handler.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
-
-using DiagnosticMessageChannelState = tcpChannelStateImpl::diagnosticState;
-
-/**
- * @brief       Class used as a handler to process diagnostic messages
- */
-class DiagnosticMessageHandler final {
- public:
-  /**
-   * @brief  Type alias for Tcp message pointer
-   */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
-
-  /**
-   * @brief  Type alias for Tcp message
-   */
-  using TcpMessage = sockets::TcpSocketHandler::TcpMessage;
-
-  /**
-   * @brief  Type holding diag acknowledgement type
-   */
-  struct DiagAckType {
-    std::uint8_t ack_type_;
-  };
-
- public:
-  // ctor
-  DiagnosticMessageHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
-      : tcp_socket_handler_{tcp_socket_handler},
-        channel_{channel} {}
-
-  // dtor
-  ~DiagnosticMessageHandler() = default;
-
-  // Function to process Routing activation response
-  auto ProcessDoIPDiagnosticAckMessageResponse(DoipMessage &doip_payload) noexcept -> void;
-
-  // Function to process Diagnostic message response
-  auto ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept -> void;
-
-  // Function to send Diagnostic request
-  auto SendDiagnosticRequest(uds_transport::UdsMessageConstPtr &message) noexcept
-      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
-
- private:
-  static auto CreateDoipGenericHeader(std::vector<uint8_t> &doipHeader, uint16_t payloadType,
-                                      uint32_t payloadLen) noexcept -> void;
-
-  // socket reference
-  tcpSocket::TcpSocketHandler &tcp_socket_handler_;
-  // channel reference
-  DoipTcpChannel &channel_;
-};
 
 /**
  * @brief       Class to handle received messages from lower layer
@@ -92,9 +34,7 @@ class DoipTcpChannelHandler final {
    * @param[in]     channel
    *                The reference to tcp transport handler
    */
-  DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
-      : routing_activation_handler_{tcp_socket_handler, channel},
-        diagnostic_message_handler_{tcp_socket_handler, channel} {}
+  DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel);
 
   /**
    * @brief         Destruct an instance of DoipTcpChannelHandler
@@ -102,14 +42,31 @@ class DoipTcpChannelHandler final {
   ~DoipTcpChannelHandler() = default;
 
   /**
+   * @brief        Function to start the handler
+   */
+  void Start();
+
+  /**
+   * @brief        Function to stop the handler
+   * @details      This will reset all the internal handler back to default state
+   */
+  void Stop();
+
+  /**
+   * @brief        Function to reset the handler
+   * @details      This will reset all the internal handler back to default state
+   */
+  void Reset();
+
+  /**
    * @brief         Function to send routing activation request
    * @param[in]     routing_activation_request
    *                The routing activation request
-   * @return        TransmissionResult
-   *                The transmission result
+   * @return        ConnectionResult
+   *                The connection result
    */
   auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
-      -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
+      -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
    * @brief         Function to send diagnostic request
@@ -127,6 +84,12 @@ class DoipTcpChannelHandler final {
    *                The message received
    */
   void HandleMessage(TcpMessagePtr tcp_rx_message) noexcept;
+
+  /**
+   * @brief       Check if routing activation is active for this handler
+   * @return      True if activated, otherwise False
+   */
+  auto IsRoutingActivated() noexcept -> bool;
 
  private:
   /**

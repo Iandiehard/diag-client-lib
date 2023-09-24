@@ -13,7 +13,6 @@
 #include <utility>
 
 #include "channel/tcp_channel/doip_tcp_channel_handler.h"
-#include "channel/tcp_channel_state_impl.h"
 #include "sockets/tcp_socket_handler.h"
 #include "uds_transport/connection.h"
 #include "utility/sync_timer.h"
@@ -27,11 +26,6 @@ namespace tcp_channel {
  */
 class DoipTcpChannel final {
  public:
-  /**
-   * @brief  Type alias for Sync timer
-   */
-  using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
-
   /**
    * @brief  Type alias for Tcp message pointer
    */
@@ -122,7 +116,7 @@ class DoipTcpChannel final {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
 
   /**
-   * @brief       Function to Hands over a valid received Uds message
+   * @brief       Function to Hands over a valid received Uds message to upper layer
    * @param[in]   message
    *              The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the conversation here
@@ -130,25 +124,16 @@ class DoipTcpChannel final {
   void HandleMessage(uds_transport::UdsMessagePtr message);
 
   /**
-   * @brief       Function to get the channel state
+   * @brief       Function to process the received Tcp message from socket layer
+   * @param[in]   tcp_rx_message
+   *              The Tcp message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   *              back to the channel here
    */
-  auto GetChannelState() noexcept -> tcpChannelStateImpl::TcpChannelStateImpl & { return tcp_channel_state_; }
-
-  // Function to Hand over all the message received
   void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
 
  private:
-  // Function to handle the routing states
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult HandleRoutingActivationState(
-      uds_transport::UdsMessageConstPtr &message);
-
-  // Function to handle the diagnostic request response state
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult HandleDiagnosticRequestState(
-      uds_transport::UdsMessageConstPtr &message);
-
- private:
   /**
-   * @brief  Type alias for Tcp message pointer
+   * @brief  Type alias for Tcp socket handler
    */
   using TcpSocketHandler = sockets::TcpSocketHandler;
 
@@ -158,14 +143,14 @@ class DoipTcpChannel final {
   TcpSocketHandler tcp_socket_handler_;
 
   /**
-   * @brief  Store the doip channel state
-   */
-  tcpChannelStateImpl::TcpChannelStateImpl tcp_channel_state_;
-
-  /**
    * @brief  Store the doip channel handler
    */
   DoipTcpChannelHandler tcp_channel_handler_;
+
+  /**
+   * @brief  Store the reference to doip connection
+   */
+  uds_transport::Connection &connection_;
 };
 
 }  // namespace tcp_channel
