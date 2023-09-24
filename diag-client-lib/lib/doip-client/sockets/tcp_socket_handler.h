@@ -25,6 +25,7 @@ class DoipTcpChannel;
 }  // namespace channel
 
 namespace sockets {
+
 /**
  * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */

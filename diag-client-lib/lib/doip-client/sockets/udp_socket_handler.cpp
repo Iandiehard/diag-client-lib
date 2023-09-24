@@ -8,9 +8,10 @@
 #include "sockets/udp_socket_handler.h"
 
 #include "channel/udp_channel.h"
+#include "error_domain/doip_error_domain.h"
 
 namespace doip_client {
-namespace udpSocket {
+namespace sockets {
 UdpSocketHandler::UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
                                    udpChannel::UdpChannel &channel)
     : local_ip_address_{local_ip_address},
@@ -33,8 +34,10 @@ void UdpSocketHandler::Start() { udp_socket_->Open(); }
 
 void UdpSocketHandler::Stop() { udp_socket_->Destroy(); }
 
-bool UdpSocketHandler::Transmit(UdpMessageConstPtr udpTxMessage) {
-  return (udp_socket_->Transmit(std::move(udpTxMessage)));
+core_type::Result<void> UdpSocketHandler::Transmit(UdpMessageConstPtr udp_message) {
+  core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::DoipErrorErrc::kGenericError)};
+  if (udp_socket_->Transmit(std::move(udp_message)).HasValue()) { result.EmplaceValue(); }
+  return result;
 }
-}  // namespace udpSocket
+}  // namespace sockets
 }  // namespace doip_client

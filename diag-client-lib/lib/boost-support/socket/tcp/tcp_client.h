@@ -14,7 +14,7 @@
 #include <thread>
 
 #include "core/include/result.h"
-#include "tcp_message.h"
+#include "socket/tcp/tcp_message.h"
 
 namespace boost_support {
 namespace socket {
@@ -117,7 +117,7 @@ class TcpClientSocket final {
   /**
    * @brief  Store local port number
    */
-  uint16_t local_port_num_;
+  std::uint16_t local_port_num_;
 
   /**
    * @brief  boost io context

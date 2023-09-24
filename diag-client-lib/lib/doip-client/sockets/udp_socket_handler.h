@@ -11,7 +11,7 @@
 #include <string>
 #include <string_view>
 
-#include "common/common_doip_types.h"
+#include "core/include/result.h"
 #include "socket/udp/udp_client.h"
 
 namespace doip_client {
@@ -20,54 +20,87 @@ namespace udpChannel {
 class UdpChannel;
 }
 
-namespace udpSocket {
-// typedefs
-using UdpSocket = boost_support::socket::udp::createUdpClientSocket;
-using UdpMessage = boost_support::socket::udp::UdpMessageType;
-using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
-using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
+namespace sockets {
 
-/*
- @ Class Name        : UdpSocketHandler
- @ Class Description : Class used to create a tcp socket for handling transmission
-                       and reception of tcp message from driver
+/**
+ * @brief  Class used to create a udp socket for handling transmission and reception of udp message from driver
  */
-class UdpSocketHandler {
+class UdpSocketHandler final {
  public:
-  // Port Type
-  using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
+  /**
+   * @brief  Type alias for port type
+   */
+  using PortType = boost_support::socket::udp::UdpClientSocket::PortType;
 
+  /**
+   * @brief  Type alias for Udp message const pointer
+   */
+  using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
  public:
-  //ctor
+  /**
+   * @brief         Constructs an instance of UdpSocketHandler
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     channel
+   *                The reference to tcp transport handler
+   */
   UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
                    udpChannel::UdpChannel &channel);
 
-  //dtor
+  /**
+   * @brief         Destruct an instance of UdpSocketHandler
+   */
   ~UdpSocketHandler() = default;
 
-  //start
+  /**
+   * @brief        Function to start the socket handler
+   */
   void Start();
 
-  //stop
+  /**
+   * @brief        Function to stop the socket handler
+   */
   void Stop();
 
-  // function to trigger transmission
-  bool Transmit(UdpMessageConstPtr udp_tx_message);
+  /**
+   * @brief         Function to transmit the provided udp message
+   * @param[in]     udp_message
+   *                The udp message
+   * @return        The
+   */
+  core_type::Result<void> Transmit(UdpMessageConstPtr udp_message);
 
  private:
-  // local Ip address
+  /**
+   * @brief  Type alias for tcp client socket
+   */
+  using UdpSocket = boost_support::socket::udp::UdpClientSocket;
+
+  /**
+   * @brief  Store the local ip address
+   */
   std::string local_ip_address_;
-  // Host Ip address
-  std::string host_ip_address_;
-  // Host port number
-  uint16_t port_num_;
-  // Port type
+
+  /**
+   * @brief  Store the local port number
+   */
+  std::uint16_t local_port_num_;
+
+  /**
+   * @brief  Store the port type
+   */
   UdpSocket::PortType port_type_;
-  // udp socket
+
+  /**
+   * @brief  Store the socket object
+   */
   std::unique_ptr<UdpSocket> udp_socket_;
-  // store tcp channel reference
+
+  /**
+   * @brief  Store the reference to tcp channel
+   */
   udpChannel::UdpChannel &channel_;
 };
-}  // namespace udpSocket
+}  // namespace sockets
 }  // namespace doip_client
 #endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_UDP_SOCKET_HANDLER_H_

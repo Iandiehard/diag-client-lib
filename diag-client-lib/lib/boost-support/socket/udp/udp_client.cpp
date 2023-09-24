@@ -14,7 +14,7 @@ namespace boost_support {
 namespace socket {
 namespace udp {
 // ctor
-createUdpClientSocket::createUdpClientSocket(std::string_view local_ip_address, uint16_t local_port_num,
+UdpClientSocket::UdpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                                              PortType port_type, UdpHandlerRead udp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
@@ -43,14 +43,14 @@ createUdpClientSocket::createUdpClientSocket(std::string_view local_ip_address, 
 }
 
 // dtor
-createUdpClientSocket::~createUdpClientSocket() {
+UdpClientSocket::~UdpClientSocket() {
   exit_request_ = true;
   running_ = false;
   cond_var_.notify_all();
   thread_.join();
 }
 
-bool createUdpClientSocket::Open() {
+bool UdpClientSocket::Open() {
   UdpErrorCodeType ec;
   bool retVal = false;
   // Open the socket
@@ -103,7 +103,7 @@ bool createUdpClientSocket::Open() {
 }
 
 // function to transmit udp messages
-bool createUdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
+bool UdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
   bool ret_val{false};
   try {
     // Transmit to remote endpoints
@@ -141,7 +141,7 @@ bool createUdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
 }
 
 // Function to destroy the socket
-bool createUdpClientSocket::Destroy() {
+bool UdpClientSocket::Destroy() {
   // destroy the socket
   udp_socket_->close();
   running_ = false;
@@ -150,7 +150,7 @@ bool createUdpClientSocket::Destroy() {
 }
 
 // function invoked when datagram is received
-void createUdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd) {
+void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd) {
   // Check for error
   if (error.value() == boost::system::errc::success) {
     if (local_ip_address_ != remote_endpoint_.address().to_string()) {

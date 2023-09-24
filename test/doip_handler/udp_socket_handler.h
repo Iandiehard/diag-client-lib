@@ -19,7 +19,7 @@ namespace doip_handler {
 namespace udpSocket {
 
 // typedefs
-using UdpSocket = boost_support::socket::udp::createUdpClientSocket;
+using UdpSocket = boost_support::socket::udp::UdpClientSocket;
 using UdpMessage = boost_support::socket::udp::UdpMessageType;
 using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
 using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
@@ -34,7 +34,7 @@ using UdpMessageFunctor = std::function<void(UdpMessagePtr)>;
 class DoipUdpSocketHandler {
  public:
   // Port Type
-  using PortType = boost_support::socket::udp::createUdpClientSocket::PortType;
+  using PortType = boost_support::socket::udp::UdpClientSocket::PortType;
 
  public:
   //ctor
