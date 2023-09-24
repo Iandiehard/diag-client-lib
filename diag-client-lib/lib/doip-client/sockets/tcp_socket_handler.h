@@ -13,7 +13,6 @@
 #include <string>
 #include <string_view>
 
-#include "common/common_doip_types.h"
 #include "core/include/result.h"
 #include "socket/tcp/tcp_client.h"
 

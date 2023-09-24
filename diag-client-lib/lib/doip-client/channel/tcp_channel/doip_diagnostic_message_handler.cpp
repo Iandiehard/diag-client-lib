@@ -12,6 +12,7 @@
 #include <utility>
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
+#include "common/common_doip_types.h"
 #include "common/logger.h"
 #include "utility/state.h"
 #include "utility/sync_timer.h"
@@ -20,6 +21,46 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 namespace {
+
+/**
+ * @brief  Diagnostic message type
+ */
+constexpr std::uint16_t kDoip_DiagMessage_Type{0x8001};
+constexpr std::uint16_t kDoip_DiagMessagePosAck_Type{0x8002};
+constexpr std::uint16_t kDoip_DiagMessageNegAck_Type{0x8003};
+
+/**
+ * @brief  Diagnostic Message negative acknowledgement code
+ */
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_InvalidSA{0x02};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownTA{0x03};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge{0x04};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_OutOfMemory{0x05};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable{0x06};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork{0x07};
+constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TPError{0x08};
+
+/**
+ * @brief  Diagnostic Message positive acknowledgement code
+ */
+constexpr std::uint8_t kDoip_DiagnosticMessage_PosAckCode_Confirm{0x00};
+
+/**
+ * @brief  Diagnostic Message request/response lengths
+ */
+constexpr std::uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
+constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
+
+/* Description: This timeout specifies the maximum time that
+                the test equipment waits for a confirmation ACK or NACK
+                from the DoIP entity after the last byte of a DoIP Diagnostic
+                request message has been sent
+*/
+/**
+ * @brief   The timeout specifies the maximum time that the test equipment waits for a confirmation ACK or NACK
+ *          from the DoIP entity after the last byte of a DoIP Diagnostic request message has been sent
+ */
+constexpr std::uint32_t kDoIPDiagnosticAckTimeout{2000u};  // 2 sec
 
 /**
  * @brief  Different diagnostic message state

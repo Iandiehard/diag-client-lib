@@ -7,7 +7,6 @@
  */
 #include "doip_transport_protocol_handler.h"
 
-#include "common/common_doip_types.h"
 #include "common/logger.h"
 #include "connection/connection_manager.h"
 

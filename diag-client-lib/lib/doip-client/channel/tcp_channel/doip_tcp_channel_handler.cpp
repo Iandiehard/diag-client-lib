@@ -11,12 +11,57 @@
 #include <utility>
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
+#include "common/common_doip_types.h"
 #include "common/logger.h"
 #include "core/include/span.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
+namespace {
+
+/**
+ * @brief  Routing Activation response Type
+ */
+constexpr std::uint16_t kDoip_RoutingActivation_ResType{0x0006};
+
+/**
+ * @brief  Diagnostic message type
+ */
+constexpr std::uint16_t kDoip_DiagMessage_Type{0x8001};
+constexpr std::uint16_t kDoip_DiagMessagePosAck_Type{0x8002};
+constexpr std::uint16_t kDoip_DiagMessageNegAck_Type{0x8003};
+
+/**
+ * @brief  Alive check type
+ */
+constexpr std::uint16_t kDoip_AliveCheck_ReqType{0x0007};
+constexpr std::uint16_t kDoip_AliveCheck_ResType{0x0008};
+
+/**
+ * @brief  Generic DoIP Header NACK codes
+ */
+constexpr std::uint8_t kDoip_GenericHeader_IncorrectPattern{0x00};
+constexpr std::uint8_t kDoip_GenericHeader_UnknownPayload{0x01};
+constexpr std::uint8_t kDoip_GenericHeader_MessageTooLarge{0x02};
+constexpr std::uint8_t kDoip_GenericHeader_OutOfMemory{0x03};
+constexpr std::uint8_t kDoip_GenericHeader_InvalidPayloadLen{0x04};
+
+/**
+ * @brief  Diagnostic Message request/response lengths
+ */
+constexpr std::uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
+constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
+
+/**
+ * @brief  Routing Activation request lengths
+ */
+constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
+
+}  // namespace
 
 DoipTcpChannelHandler::DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
     : routing_activation_handler_{tcp_socket_handler},
@@ -123,7 +168,7 @@ auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_lengt
       break;
     }
     case kDoip_DiagMessage_Type: {
-      // Req - [20-11][AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00122]
+      // Atleast 1 byte of data must be present
       if (payload_length >= (kDoip_DiagMessage_ReqResMinLen + 1u)) ret_val = true;
       break;
     }

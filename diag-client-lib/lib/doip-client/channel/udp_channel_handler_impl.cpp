@@ -14,6 +14,15 @@
 
 namespace doip_client {
 namespace udpChannelHandlerImpl {
+/**
+ * @brief  Generic DoIP Header NACK codes
+ */
+constexpr std::uint8_t kDoip_GenericHeader_IncorrectPattern{0x00};
+constexpr std::uint8_t kDoip_GenericHeader_UnknownPayload{0x01};
+constexpr std::uint8_t kDoip_GenericHeader_MessageTooLarge{0x02};
+constexpr std::uint8_t kDoip_GenericHeader_OutOfMemory{0x03};
+constexpr std::uint8_t kDoip_GenericHeader_InvalidPayloadLen{0x04};
+
 auto VehicleDiscoveryHandler::ProcessVehicleAnnouncementResponse(DoipMessage &doip_payload) noexcept -> void {
   if (channel_.GetChannelState().GetVehicleDiscoveryStateContext().GetActiveState().GetState() ==
       UdpVehicleDiscoveryState::kWaitForVehicleAnnouncement) {

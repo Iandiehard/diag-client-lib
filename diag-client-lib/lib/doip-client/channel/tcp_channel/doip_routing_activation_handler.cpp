@@ -11,6 +11,7 @@
 #include <utility>
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
+#include "common/common_doip_types.h"
 #include "common/logger.h"
 #include "utility/state.h"
 #include "utility/sync_timer.h"
@@ -19,6 +20,46 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 namespace {
+
+/**
+ * @brief  Routing Activation request activation types
+ */
+constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_Default{0x00};
+constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_WWHOBD{0x01};
+constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_CentralSec{0xE0};
+
+/**
+ * @brief  Routing Activation response code values
+ */
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnknownSA{0x00};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AllSocktActive{0x01};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_DifferentSA{0x02};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ActiveSA{0x03};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AuthentnMissng{0x04};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRejectd{0x05};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnsupportdActType{0x06};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_TLSRequired{0x07};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_RoutingSuccessful{0x10};
+constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired{0x11};
+
+/**
+ * @brief  Routing Activation request lengths
+ */
+constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
+constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
+
+/**
+ * @brief  Routing Activation response Type
+ */
+constexpr std::uint16_t kDoip_RoutingActivation_ReqType{0x0005};
+constexpr std::uint16_t kDoip_RoutingActivation_ResType{0x0006};
+
+/**
+ * @brief  The timeout value for a DoIP Routing Activation request
+ */
+constexpr std::uint32_t kDoIPRoutingActivationTimeout{1000u};  // 1 sec
 
 /**
  * @brief  Different routing activation state

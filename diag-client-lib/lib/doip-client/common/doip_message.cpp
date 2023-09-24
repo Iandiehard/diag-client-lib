@@ -7,8 +7,6 @@
 */
 #include "common/doip_message.h"
 
-#include "common/common_doip_types.h"
-
 namespace doip_client {
 namespace {
 
@@ -42,10 +40,14 @@ DoipMessage::DoipMessage(MessageType message_type, DoipMessage::IpAddressType ho
       client_address_{0u},
       payload_type_{GetDoIPPayloadType(payload)},
       payload_length_{GetDoIPPayloadLength(payload)} {
+  constexpr std::uint8_t kDoipHeaderSize{8u};
+  constexpr std::uint8_t kSourceAddressSize{4u};
+
   payload_ = (message_type_ == MessageType::kTcp)
                  ?  // header + server address(2 byte) + client address(2 byte)
-                 core_type::Span<std::uint8_t>{&payload[kDoipheadrSize + 4u], payload.size() - (kDoipheadrSize + 4u)}
-                 : core_type::Span<std::uint8_t>{&payload[kDoipheadrSize], payload.size() - kDoipheadrSize};
+                 core_type::Span<std::uint8_t>{&payload[kDoipHeaderSize + kSourceAddressSize],
+                                               payload.size() - (kDoipHeaderSize + kSourceAddressSize)}
+                 : core_type::Span<std::uint8_t>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
   if (message_type == MessageType::kTcp) {
     server_address_ = GetServerAddr(payload);
     client_address_ = GetClientAddr(payload);

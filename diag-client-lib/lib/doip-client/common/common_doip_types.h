@@ -31,17 +31,12 @@ constexpr std::uint16_t kDoip_VehicleIdentification_ReqType = 0x0001;
 constexpr std::uint16_t kDoip_VehicleIdentificationEID_ReqType = 0x0002;
 constexpr std::uint16_t kDoip_VehicleIdentificationVIN_ReqType = 0x0003;
 constexpr std::uint16_t kDoip_VehicleAnnouncement_ResType = 0x0004;
-constexpr std::uint16_t kDoip_RoutingActivation_ReqType = 0x0005;
-constexpr std::uint16_t kDoip_RoutingActivation_ResType = 0x0006;
-constexpr std::uint16_t kDoip_AliveCheck_ReqType = 0x0007;
-constexpr std::uint16_t kDoip_AliveCheck_ResType = 0x0008;
+
 //constexpr std::uint16_t kDoipENTITY_STATUS_REQ_TYPE                             0x4001
 //constexpr std::uint16_t kDoipENTITY_STATUS_RES_TYPE                             0x4002
 //constexpr std::uint16_t kDoipDIAG_POWER_MODEINFO_REQ_TYPE                       0x4003
 //constexpr std::uint16_t kDoipDIAG_POWER_MODEINFO_RES_TYPE                       0x4004
-constexpr std::uint16_t kDoip_DiagMessage_Type = 0x8001;
-constexpr std::uint16_t kDoip_DiagMessagePosAck_Type = 0x8002;
-constexpr std::uint16_t kDoip_DiagMessageNegAck_Type = 0x8003;
+
 constexpr std::uint16_t kDoip_InvalidPayload_Type = 0xFFFF;
 /* Payload length excluding header */
 constexpr std::uint32_t kDoip_VehicleIdentification_ReqLen = 0;
@@ -49,44 +44,8 @@ constexpr std::uint32_t kDoip_VehicleIdentificationEID_ReqLen = 6;
 constexpr std::uint32_t kDoip_VehicleIdentificationVIN_ReqLen = 17;
 constexpr std::uint32_t kDoip_VehicleAnnouncement_ResMaxLen = 33;
 constexpr std::uint32_t kDoip_GenericHeader_NackLen = 1;
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen = 7;   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen = 9;   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen = 11;  //with OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen = 13;  //with OEM specific use byte
+
 //constexpr std::uint8_t kDoipALIVE_CHECK_RES_LEN							1
-constexpr std::uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
-constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
-/* Generic DoIP Header NACK codes */
-constexpr std::uint8_t kDoip_GenericHeader_IncorrectPattern = 0x00;
-constexpr std::uint8_t kDoip_GenericHeader_UnknownPayload = 0x01;
-constexpr std::uint8_t kDoip_GenericHeader_MessageTooLarge = 0x02;
-constexpr std::uint8_t kDoip_GenericHeader_OutOfMemory = 0x03;
-constexpr std::uint8_t kDoip_GenericHeader_InvalidPayloadLen = 0x04;
-/* Routing Activation request activation types */
-constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_Default = 0x00;
-constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_WWHOBD = 0x01;
-constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_CentralSec = 0xE0;
-/* Routing Activation response code values */
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnknownSA = 0x00;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AllSocktActive = 0x01;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_DifferentSA = 0x02;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ActiveSA = 0x03;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AuthentnMissng = 0x04;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRejectd = 0x05;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnsupportdActType = 0x06;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_TLSRequired = 0x07;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_RoutingSuccessful = 0x10;
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired = 0x11;
-/* Diagnostic Message positive acknowledgement code */
-constexpr std::uint8_t kDoip_DiagnosticMessage_PosAckCode_Confirm = 0x00;
-/* Diagnostic Message negative acknowledgement code */
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_InvalidSA = 0x02;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownTA = 0x03;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge = 0x04;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_OutOfMemory = 0x05;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable = 0x06;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork = 0x07;
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TPError = 0x08;
 
 /* Further action code values */
 //constexpr std::uint8_t kDoipNO_FURTHER_ACTION                              0x00
@@ -105,15 +64,6 @@ constexpr std::uint8_t kDoip_EID_Invalid_00 = 0x00;
 constexpr std::uint8_t kDoip_GID_Invalid_FF = 0xFF;
 constexpr std::uint8_t kDoip_GID_Invalid_00 = 0x00;
 /* DoIP timing and communication parameter (in millisecond) */
-/* Description: This is used to configure the
-                timeout value for a DoIP Routing Activation request */
-constexpr std::uint32_t kDoIPRoutingActivationTimeout = 1000U;  // 1 sec
-/* Description: This timeout specifies the maximum time that
-                the test equipment waits for a confirmation ACK or NACK
-                from the DoIP entity after the last byte of a DoIP Diagnostic
-                request message has been sent
-*/
-constexpr std::uint32_t kDoIPDiagnosticAckTimeout = 2000U;  // 2 sec
 /* Description: This timeout specifies the maximum time that the
                 client waits for response to a previously sent UDP message.
                 This includes max time to wait and collect multiple responses
