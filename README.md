@@ -1,7 +1,6 @@
 # Diagnostic Client Library
 
 [![CMake](https://github.com/Iandiehard/diag-client-lib/actions/workflows/cmake.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/cmake.yml)
-[![CodeQL](https://github.com/Iandiehard/diag-client-lib/actions/workflows/codeql.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/codeql.yml)
 
 <!-- TOC -->
 * [Diagnostic Client Library](#diagnostic-client-library)
@@ -9,6 +8,8 @@
   * [Overview](#overview)
   * [Get Started](#get-started)
     * [Build and Install](#build-and-install)
+      * [In Linux :-](#in-linux--)
+      * [In Windows :-](#in-windows--)
     * [How to use diag-client-lib](#how-to-use-diag-client-lib)
     * [Logging in diag-client-lib](#logging-in-diag-client-lib)
     * [Documentation in diag-client-lib](#documentation-in-diag-client-lib)
@@ -46,7 +47,9 @@ In this section, you will learn how to [build and install](#build-and-install)
 Diagnostic Client Library and also learn [how to use diag-client-lib](#how-to-use-diag-client-lib)
 
 ### Build and Install
-The following packages needs to be installed in order to build and install Diagnostic Client library:-
+
+#### In Linux :-
+The following packages are needed to build and install Diagnostic Client library:-
 
 | Package                                                       | Usage             | Recommended version |
 |---------------------------------------------------------------|-------------------|---------------------|
@@ -58,6 +61,16 @@ You can also execute to install dependencies :-
 ```bash 
 sh .github/setup.sh 
 ```
+#### In Windows :-
+The following packages are needed to build and install Diagnostic Client library:-
+
+| Package                                                       | Usage             | Recommended version |
+|---------------------------------------------------------------|-------------------|---------------------|
+| [CMake](https://cmake.org/cmake/help/latest/release/3.5.html) | build system      | \>=3.5              |
+| [Boost](https://www.boost.org/)                               | asio operation    | \>= 1.79.0          |
+ 
+Note: Covesa DLT is not directly supported in Windows. For more information see [Dlt Issue](https://github.com/COVESA/dlt-daemon/issues/136)
+
 
 ### How to use diag-client-lib
 Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage.
@@ -80,7 +93,7 @@ by passing the tester/conversation name.
 ```cpp
   // Get conversation for tester one by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  diag::client::conversation::DiagClientConversation &diag_client_conversation {
+  diag::client::conversation::DiagClientConversation diag_client_conversation {
       diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
 ```
 Multiple tester instance can be created using these method as provided in the configuration json file.
@@ -97,6 +110,7 @@ Logging is switched OFF by default using the CMake Flag, can be switched ON by e
 ```cmake
 BUILD_WITH_DLT : ON
 ```
+Note: DLT logging is not supported in Windows. So, CMake Flag must be switched OFF.
 
 ### Documentation in diag-client-lib
 Diagnostic Client Library uses doxygen to generate the documentation of the public api's. 
@@ -115,18 +129,17 @@ Component requirements implemented are documented [REQ](docs/spec/requirement/re
 You can add new issues with label `bug` for notifying us about any defect in library.
 
 ## Future Work
+* Improve internal API documentation
 * DoIP with TLS
 
 For adding more features you can add new issues with label `enhancement` so that we can work on it.
 
 ## License
-
 Full information on project license is available here [LICENSE](LICENSE).
-
 Boost License is available here [LICENSE](diag-client-lib/lib/boost-support/LICENSE).
 
 ## Contact
 For any other queries regarding `diag-client-lib`, please drop a mail to `iandiehard@outlook.com`.
 
 ## Author
-- > Avijit Dey
+Original idea, design and implementation done by Avijit Dey `iandiehard@outlook.com`.
