@@ -35,7 +35,7 @@ CreateTcpServerSocket::TcpServerConnection CreateTcpServerSocket::GetTcpServerCo
   CreateTcpServerSocket::TcpServerConnection tcp_connection{io_context_, std::move(tcp_handler_read)};
 
   // blocking accept
-  auto socket = tcp_accepter_->accept(tcp_connection.GetSocket(), endpoint, ec);
+  static_cast<void>(tcp_accepter_->accept(tcp_connection.GetSocket(), endpoint, ec));
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint](std::stringstream &msg) {
@@ -92,10 +92,12 @@ bool CreateTcpServerSocket::TcpServerConnection::ReceivedMessage() {
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
-    std::uint32_t read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
-      return ((uint32_t) ((uint32_t) ((rx_buffer[4u] << 24) & 0xFF000000) |
-                          (uint32_t) ((rx_buffer[5u] << 16) & 0x00FF0000) |
-                          (uint32_t) ((rx_buffer[6u] << 8) & 0x0000FF00) | (uint32_t) ((rx_buffer[7u] & 0x000000FF))));
+    std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
+      return static_cast<std::uint32_t>(
+          (static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
+          (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
+          (static_cast<std::uint32_t>(rx_buffer[6u] << 8u)  & 0x0000FF00) |
+          (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
     // reserve the buffer
     rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));

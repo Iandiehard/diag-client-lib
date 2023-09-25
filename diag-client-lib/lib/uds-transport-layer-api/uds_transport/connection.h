@@ -40,8 +40,8 @@ class Connection {
    *              The reference to conversation handler
    */
   Connection(ConnectionId connection_id, uds_transport::ConversionHandler const &conversation_handler) noexcept
-      : connection_id_{connection_id},
-        conversation_handler_{conversation_handler} {}
+      : conversation_handler_{conversation_handler},
+        connection_id_{connection_id} {}
 
   /**
    * @brief         Destruct an instance of Connection
@@ -53,6 +53,12 @@ class Connection {
    * @return       The initialization result
    */
   virtual InitializationResult Initialize() = 0;
+
+  /**
+   * @brief        Function to get the connection id
+   * @return       The connection id
+   */
+  ConnectionId GetConnectionId() noexcept { return connection_id_; }
 
   /**
    * @brief        Function to start the connection

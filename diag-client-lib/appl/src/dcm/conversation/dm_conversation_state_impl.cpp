@@ -15,26 +15,26 @@ ConversationStateImpl::ConversationStateImpl()
   // create and add state
   // kIdle
   GetConversationStateContext().AddState(ConversationState::kIdle,
-                                         std::move(std::make_unique<kIdle>(ConversationState::kIdle)));
+                                         std::make_unique<kIdle>(ConversationState::kIdle));
   // kDiagWaitForRes
   GetConversationStateContext().AddState(
       ConversationState::kDiagWaitForRes,
-      std::move(std::make_unique<kDiagWaitForRes>(ConversationState::kDiagWaitForRes)));
+      std::make_unique<kDiagWaitForRes>(ConversationState::kDiagWaitForRes));
   // kDiagStartP2StarTimer
   GetConversationStateContext().AddState(
       ConversationState::kDiagStartP2StarTimer,
-      std::move(std::make_unique<kDiagStartP2StarTimer>(ConversationState::kDiagStartP2StarTimer)));
+      std::make_unique<kDiagStartP2StarTimer>(ConversationState::kDiagStartP2StarTimer));
   // kDiagRecvdPendingRes
   GetConversationStateContext().AddState(
       ConversationState::kDiagRecvdPendingRes,
-      std::move(std::make_unique<kDiagRecvdPendingRes>(ConversationState::kDiagRecvdPendingRes)));
+      std::make_unique<kDiagRecvdPendingRes>(ConversationState::kDiagRecvdPendingRes));
   // kDiagRecvdFinalRes
   GetConversationStateContext().AddState(
       ConversationState::kDiagRecvdFinalRes,
-      std::move(std::make_unique<kDiagRecvdFinalRes>(ConversationState::kDiagRecvdFinalRes)));
+      std::make_unique<kDiagRecvdFinalRes>(ConversationState::kDiagRecvdFinalRes));
   // kDiagSuccess
   GetConversationStateContext().AddState(ConversationState::kDiagSuccess,
-                                         std::move(std::make_unique<kDiagSuccess>(ConversationState::kDiagSuccess)));
+                                         std::make_unique<kDiagSuccess>(ConversationState::kDiagSuccess));
   // transit to idle state
   GetConversationStateContext().TransitionTo(ConversationState::kIdle);
 }

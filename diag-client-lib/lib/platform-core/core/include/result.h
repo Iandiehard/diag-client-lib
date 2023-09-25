@@ -606,7 +606,7 @@ class Result<void, E> final {
    * @return      E &&
    *              An rvalue reference to the contained error
    */
-  E &&Error() &&noexcept { return std::move(Result{*this}.Error()); }
+  E &&Error() &&noexcept { return std::move(storage_.Error()); }
 
   /**
    * @brief       Return the contained error as an Optional
@@ -642,7 +642,7 @@ class Result<void, E> final {
    */
   template<typename F, typename E2 = std::invoke_result_t<F, E>>
   Result<void, E2> MapError(F &&fn) {
-    return HasValue() ? Result<void, E2>{} : Result<void, E2>{fn(std::move(*this).Error())};
+    return HasValue() ? Result<void, E2>{} : Result<void, E2>{fn(Error())};
   }
 
   /**
@@ -688,7 +688,7 @@ class Result<void, E> final {
    */
   template<typename F>
   Result OrElse(F &&fn) &&noexcept {
-    return HasValue() ? Result{std::move(*this)} : Result{fn(std::move(*this).Error())};
+    return HasValue() ? Result{std::move(*this)} : Result{fn(Error())};
   }
 
   /**

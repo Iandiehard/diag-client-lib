@@ -41,7 +41,7 @@ class DmUdsMessage final : public uds_transport::UdsMessage {
   uds_transport::ByteVector &uds_payload_;
 
   // add new metaInfo to this message.
-  void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
+  void AddMetaInfo(std::shared_ptr<const MetaInfoMap>) override {
     // Todo [Add meta info information]
   }
 

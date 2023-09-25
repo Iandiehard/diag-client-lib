@@ -98,7 +98,7 @@ class Conversation {
    * @return      ConnectResult
    *              Connection result returned
    */
-  virtual ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) noexcept {
+  virtual ConnectResult ConnectToDiagServer(std::uint16_t, IpAddress) noexcept {
     return ConnectResult::kConnectFailed;
   }
 
@@ -158,7 +158,7 @@ class Conversation {
    *              Diagnostic Response message received, null_ptr in case of error
    */
   virtual Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
-      uds_message::UdsRequestMessageConstPtr message) noexcept {
+      uds_message::UdsRequestMessageConstPtr) noexcept {
     return Result<uds_message::UdsResponseMessagePtr, DiagError>::FromError(DiagError::kDiagRequestSendFailed);
   }
 
