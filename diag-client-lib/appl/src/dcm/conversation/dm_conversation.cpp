@@ -113,7 +113,10 @@ DmConversation::DmConversation(std::string_view conversion_name, DMConversationT
       source_address_{conversion_identifier.source_address},
       target_address_{},
       conversation_name_{conversion_name},
-      dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
+      dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {
+    (void)(active_session_);
+    (void)(active_security_level_);
+}
 
 DmConversation::~DmConversation() = default;
 
@@ -152,8 +155,8 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
   uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
   DiagClientConversation::ConnectResult const connection_result{static_cast<DiagClientConversation::ConnectResult>(
-      connection_ptr_->ConnectToHost(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-          source_address_, target_address, host_ip_addr, payload))))};
+      connection_ptr_->ConnectToHost(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+          source_address_, target_address, host_ip_addr, payload)))};
   remote_address_ = host_ip_addr;
   target_address_ = target_address;
   if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
@@ -214,8 +217,8 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
     uds_transport::ByteVector payload{message->GetPayload()};
     // Initiate Sending of diagnostic request
     uds_transport::UdsTransportProtocolMgr::TransmissionResult const transmission_result{
-        connection_ptr_->Transmit(std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, message->GetHostIpAddress(), payload)))};
+        connection_ptr_->Transmit(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+            source_address_, target_address_, message->GetHostIpAddress(), payload))};
     if (transmission_result == uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
@@ -325,11 +328,11 @@ void DmConversation::RegisterConnection(std::unique_ptr<uds_transport::Connectio
 }
 
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
-DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
-                                uds_transport::UdsMessage::Address target_addr,
-                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
-                                std::size_t size, uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind,
+DmConversation::IndicateMessage(uds_transport::UdsMessage::Address ,
+                                uds_transport::UdsMessage::Address ,
+                                uds_transport::UdsMessage::TargetAddressType , uds_transport::ChannelID ,
+                                std::size_t size, uds_transport::Priority ,
+                                uds_transport::ProtocolKind ,
                                 core_type::Span<std::uint8_t> payload_info) noexcept {
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
       uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
@@ -359,8 +362,8 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
         // resize the global rx buffer
         payload_rx_buffer_.resize(size);
         ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
-        ret_val.second = std::move(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, "", payload_rx_buffer_));
+        ret_val.second = std::make_unique<diag::client::uds_message::DmUdsMessage>(
+            source_address_, target_address_, "", payload_rx_buffer_);
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
       }
       sync_timer_.CancelWait();

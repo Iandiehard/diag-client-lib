@@ -53,7 +53,7 @@ const char* DmErrorDomain::Message(core_type::ErrorDomain::CodeType error_code) 
   return message_.c_str();
 }
 
-core_type::ErrorCode MakeErrorCode(DmErrorErrc code, core_type::ErrorDomain::SupportDataType data) noexcept {
+core_type::ErrorCode MakeErrorCode(DmErrorErrc, core_type::ErrorDomain::SupportDataType data) noexcept {
   return core_type::ErrorCode{data, dm_error_domain};
 }
 

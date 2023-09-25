@@ -117,13 +117,11 @@ class DoipMessage final {
    */
   core_type::Span<std::uint8_t> GetPayload() const { return payload_; }
 
- private:
-  MessageType message_type_;
+private:
   /**
-   * @brief    rx type -> broadcast, unicast
+   * @brief    Store the message type
    */
-  RxSocketType rx_socket{RxSocketType::kUnicast};
-
+  MessageType message_type_;
   /**
    * @brief    Store remote ip address
    */

@@ -11,12 +11,14 @@ namespace doip_client {
 namespace {
 
 auto GetDoIPPayloadType(core_type::Span<std::uint8_t> payload) noexcept -> std::uint16_t {
-  return ((std::uint16_t)(((payload[2u] & 0xFF) << 8) | (payload[3u] & 0xFF)));
+  return (static_cast<std::uint16_t>(((payload[2u] & 0xFF) << 8) | (payload[3u] & 0xFF)));
 }
 
 auto GetDoIPPayloadLength(core_type::Span<std::uint8_t> payload) noexcept -> std::uint32_t {
-  return ((std::uint32_t)((payload[4u] << 24) & 0xFF000000) | (std::uint32_t)((payload[5u] << 16) & 0x00FF0000) |
-          (std::uint32_t)((payload[6u] << 8) & 0x0000FF00) | (std::uint32_t)((payload[7u] & 0x000000FF)));
+  return ((static_cast<std::uint32_t>(payload[4u] << 24) & 0xFF000000) |
+          (static_cast<std::uint32_t>(payload[5u] << 16) & 0x00FF0000) |
+          (static_cast<std::uint32_t>(payload[6u] << 8) & 0x0000FF00) |
+          (static_cast<std::uint32_t>(payload[7u] & 0x000000FF)));
 }
 
 auto GetServerAddr(core_type::Span<std::uint8_t> payload) noexcept -> std::uint16_t {

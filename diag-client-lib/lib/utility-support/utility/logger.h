@@ -18,6 +18,8 @@
 #include <string_view>
 #include <utility>
 
+#define UNUSED_PARAM(expr) do { (void)(expr); } while (0)
+
 namespace utility {
 namespace logger {
 
@@ -46,6 +48,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
     std::abort();  // abort in case of fatal issue
   }
@@ -68,6 +75,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
   }
 
@@ -89,6 +101,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
   }
 
@@ -110,6 +127,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
   }
 
@@ -131,6 +153,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
   }
 
@@ -152,6 +179,11 @@ class Logger final {
       -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
+#else
+    UNUSED_PARAM(file_name);
+    UNUSED_PARAM(line_no);
+    UNUSED_PARAM(func_name);
+    UNUSED_PARAM(func);
 #endif
   }
 
@@ -225,7 +257,7 @@ class Logger final {
 
 #ifdef ENABLE_DLT_LOGGER
   // Declare the context
-  DLT_DECLARE_CONTEXT(contxt_);
+  DLT_DECLARE_CONTEXT(contxt_)
 #else
   std::string contxt_;
 #endif
@@ -236,7 +268,7 @@ class Logger final {
   std::string context_id_;
 
   // store the information about registration with app id
-  bool registration_with_app_id_{false};
+  bool registration_with_app_id_{};
 };
 }  // namespace logger
 }  // namespace utility

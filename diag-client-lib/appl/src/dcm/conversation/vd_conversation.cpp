@@ -27,7 +27,7 @@ std::string ConvertToHexString(std::uint8_t char_start, std::uint8_t char_count,
   for (std::uint8_t char_start_count = char_start; char_start_count < total_char_count; char_start_count++) {
     std::stringstream vehicle_info_data_eid{};
     int payload_byte{input_buffer[char_start_count]};
-    if ((payload_byte <= 15U)) {
+    if ((payload_byte <= 15)) {
       // "0" appended in case of value upto 15/0xF
       vehicle_info_data_eid << "0";
     }
@@ -226,16 +226,16 @@ VdConversation::SendVehicleIdentificationRequest(
       DeserializeVehicleInfoRequest(vehicle_info_request)};
 
   if (VerifyVehicleInfoRequest(vehicle_info_request_deserialized_value.first,
-                               vehicle_info_request_deserialized_value.second.size())) {
-    if (connection_ptr_->Transmit(std::move(std::make_unique<diag::client::vd_message::VdMessage>(
+                               static_cast<uint8_t>(vehicle_info_request_deserialized_value.second.size()))) {
+    if (connection_ptr_->Transmit(std::make_unique<diag::client::vd_message::VdMessage>(
             vehicle_info_request_deserialized_value.first, vehicle_info_request_deserialized_value.second,
-            broadcast_address_))) != uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
+            broadcast_address_)) != uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed) {
       // Check if any response received
       if (vehicle_info_collection_.empty()) {
         // no response received
         result.EmplaceError(DiagClient::VehicleInfoResponseError::kNoResponseReceived);
       } else {
-        result.EmplaceValue(std::move(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_)));
+        result.EmplaceValue(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_));
         // all the responses are copied, now clear the map
         vehicle_info_collection_.clear();
       }
@@ -252,15 +252,15 @@ std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_tran
 VdConversation::IndicateMessage(uds_transport::UdsMessage::Address /* source_addr */,
                                 uds_transport::UdsMessage::Address /* target_addr */,
                                 uds_transport::UdsMessage::TargetAddressType /* type */,
-                                uds_transport::ChannelID channel_id, std::size_t size, uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind,
+                                uds_transport::ChannelID , std::size_t size, uds_transport::Priority ,
+                                uds_transport::ProtocolKind ,
                                 core_type::Span<std::uint8_t> payload_info) noexcept {
   using IndicationResult =
       std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>;
   IndicationResult ret_val{::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
   if (!payload_info.empty()) {
     ret_val.first = ::uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
-    ret_val.second = std::move(std::make_unique<diag::client::vd_message::VdMessage>());
+    ret_val.second = std::make_unique<diag::client::vd_message::VdMessage>();
     ret_val.second->GetPayload().resize(size);
   }
   return ret_val;
@@ -338,14 +338,14 @@ VdConversation::DeserializeVehicleInfoRequest(vehicle_info::VehicleInfoListReque
   if (ret_val.first == 1U) {
     // 1U : DoIP Entities with given VIN
     SerializeVINFromString(vehicle_info_request.preselection_value, ret_val.second,
-                           vehicle_info_request.preselection_value.length(), 1U);
+                           static_cast<uint8_t>(vehicle_info_request.preselection_value.length()), 1U);
   } else if (ret_val.first == 2U) {
     // 2U : DoIP Entities with given EID
     vehicle_info_request.preselection_value.erase(
         remove(vehicle_info_request.preselection_value.begin(), vehicle_info_request.preselection_value.end(), ':'),
         vehicle_info_request.preselection_value.end());
     SerializeEIDGIDFromString(vehicle_info_request.preselection_value, ret_val.second,
-                              vehicle_info_request.preselection_value.length(), 2U);
+                              static_cast<uint8_t>(vehicle_info_request.preselection_value.length()), 2U);
   } else {
     // log failure
   }

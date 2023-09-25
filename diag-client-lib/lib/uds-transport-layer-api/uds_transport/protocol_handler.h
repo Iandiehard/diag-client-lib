@@ -38,9 +38,8 @@ class UdsTransportProtocolHandler {
    *                The reference to transport protocol manager
    */
   UdsTransportProtocolHandler(UdsTransportProtocolHandlerId const handler_id,
-                              UdsTransportProtocolMgr const& transport_protocol_mgr)
-      : handler_id_{handler_id},
-        transport_protocol_mgr_{transport_protocol_mgr} {}
+                              UdsTransportProtocolMgr const&)
+      : handler_id_{handler_id} {}
 
   /**
    * @brief         Destruct an instance of UdsTransportProtocolHandler
@@ -100,12 +99,6 @@ class UdsTransportProtocolHandler {
    * @brief         Store the handler id
    */
   UdsTransportProtocolHandlerId handler_id_;
-
- private:
-  /**
-   * @brief         Store the reference to protocol manager
-   */
-  UdsTransportProtocolMgr const& transport_protocol_mgr_;
 };
 }  // namespace uds_transport
 #endif  // DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_HANDLER_H

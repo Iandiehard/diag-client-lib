@@ -11,20 +11,24 @@
 namespace utility {
 namespace logger {
 
-Logger::Logger(std::string_view context_id) : contxt_{}, app_id_{}, context_id_{context_id} {
+Logger::Logger(std::string_view context_id) : contxt_{}, app_id_{}, context_id_{context_id}, registration_with_app_id_{false} {
 #ifdef ENABLE_DLT_LOGGER
   DLT_REGISTER_CONTEXT(contxt_, context_id_.c_str(), "Application Context");
+#else
+  UNUSED_PARAM(registration_with_app_id_);
 #endif
 }
 
 Logger::Logger(std::string_view app_id, std::string_view context_id)
     : contxt_{},
       app_id_{app_id},
-      context_id_{context_id} {
+      context_id_{context_id},
+      registration_with_app_id_{true} {
 #ifdef ENABLE_DLT_LOGGER
   DLT_REGISTER_APP(app_id_.c_str(), "Application Id");
   DLT_REGISTER_CONTEXT(contxt_, context_id_.c_str(), "Application Context");
-  registration_with_app_id_ = true;
+#else
+  UNUSED_PARAM(registration_with_app_id_);
 #endif
 }
 
