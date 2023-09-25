@@ -19,7 +19,7 @@ namespace conversation {
 
 /**
  * @brief       Conversation class to establish connection with a Diagnostic Server
- * @details     This only support DoIP communication protocol for connecting to remote Diagnostic Server
+ * @details     This only support DoIP communication protocol for diagnostic communication with remote Diagnostic Server
  */
 class DiagClientConversation final {
  public:
@@ -90,7 +90,8 @@ class DiagClientConversation final {
   void Shutdown() noexcept;
 
   /**
-   * @brief         Function to connect to Diagnostic Server.
+   * @brief         Function to connect to Diagnostic Server using Target address and IP address of the server
+   * @details       This will try to initiate a TCP connection with Server and then send DoIP Routing Activation request
    * @param[in]     target_address
    *                Logical address of the Remote server
    * @param[in]     host_ip_addr
@@ -103,6 +104,7 @@ class DiagClientConversation final {
 
   /**
    * @brief         Function to disconnect from Diagnostic Server
+   * @details       This will close the existing TCP connection with Server and reset Routing Activation state
    * @return        DisconnectResult
    *                Disconnection result returned
    * @implements    DiagClientLib-Conversation-Disconnect
@@ -111,12 +113,14 @@ class DiagClientConversation final {
 
   /**
    * @brief         Function to send Diagnostic Request and get Diagnostic Response
+   * @details       This is a blocking function i.e. function call either returns with final diagnostic response (Positive/Negative)
+   *                or with error. It also handles reception of pending response(NRC 0x78) internally within this function call
    * @param[in]     message
    *                The diagnostic request message wrapped in a unique pointer
    * @return        DiagResult
    *                The result returned
    * @return        uds_message::UdsResponseMessagePtr
-   *                Diagnostic Response message received, null_ptr in case of error
+   *                Diagnostic Response message received, DiagError in case of error
    * @implements    DiagClientLib-Conversation-DiagRequestResponse
    */
   Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
