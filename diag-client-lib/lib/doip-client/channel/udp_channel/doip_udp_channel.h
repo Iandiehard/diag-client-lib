@@ -5,46 +5,46 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_
-#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_H_
 
 #include <memory>
 #include <string_view>
 #include <utility>
 
-#include "channel/tcp_channel/doip_tcp_channel_handler.h"
-#include "sockets/tcp_socket_handler.h"
+#include "channel/udp_channel/doip_udp_channel_handler.h"
+#include "sockets/udp_socket_handler.h"
 #include "uds_transport/connection.h"
 
 namespace doip_client {
 namespace channel {
-namespace tcp_channel {
+namespace udp_channel {
 
 /**
- * @brief       Class to manage a tcp channel as per DoIP protocol
+ * @brief       Class to manage a udp channel as per DoIP protocol
  */
-class DoipTcpChannel final {
+class DoipUdpChannel final {
  public:
   /**
-   * @brief  Type alias for Tcp message pointer
+   * @brief  Type alias for Udp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using UdpMessagePtr = sockets::UdpSocketHandler::UdpMessagePtr;
 
   /**
-   * @brief         Constructs an instance of TcpChannel
-   * @param[in]     tcp_ip_address
+   * @brief         Constructs an instance of UdpChannel
+   * @param[in]     udp_ip_address
    *                The local ip address
    * @param[in]     port_num
    *                The reference to tcp transport handler
    * @param[in]     connection
    *                The reference to tcp transport handler
    */
-  DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
+  DoipUdpChannel(std::string_view udp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
 
   /**
-   * @brief         Destruct an instance of TcpChannel
+   * @brief         Destruct an instance of UdpChannel
    */
-  ~DoipTcpChannel() = default;
+  ~DoipUdpChannel() = default;
 
   /**
    * @brief        Function to start the channel
@@ -55,26 +55,6 @@ class DoipTcpChannel final {
    * @brief        Function to stop the channel
    */
   void Stop();
-
-  /**
-   * @brief        Function to check if connected to host remote server
-   * @return       True if connection, False otherwise
-   */
-  bool IsConnectToHost();
-
-  /**
-   * @brief       Function to establish connection to remote host server
-   * @param[in]   message
-   *              The connection message
-   * @return      Connection result
-   */
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(uds_transport::UdsMessageConstPtr message);
-
-  /**
-   * @brief       Function to disconnect from remote host server
-   * @return      Disconnection result
-   */
-  uds_transport::UdsTransportProtocolMgr::DisconnectionResult DisconnectFromHost();
 
   /**
    * @brief       Function to indicate a start of reception of message
@@ -108,13 +88,6 @@ class DoipTcpChannel final {
       core_type::Span<std::uint8_t> payload_info);
 
   /**
-   * @brief       Function to transmit a valid Uds message
-   * @param[in]   message
-   *              The Uds message ptr (unique_ptr semantics) with the request.
-   */
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
-
-  /**
    * @brief       Function to Hands over a valid received Uds message to upper layer
    * @param[in]   message
    *              The Uds message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
@@ -123,36 +96,56 @@ class DoipTcpChannel final {
   void HandleMessage(uds_transport::UdsMessagePtr message);
 
   /**
-   * @brief       Function to process the received Tcp message from socket layer
-   * @param[in]   tcp_rx_message
-   *              The Tcp message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   * @brief       Function to process the received Udp broadcast message from socket layer
+   * @param[in]   udp_rx_message
+   *              The Udp message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
    *              back to the channel here
    */
-  void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
+  void ProcessReceivedUdpBroadcast(UdpMessagePtr udp_rx_message);
+
+  /**
+   * @brief       Function to process the received Udp unicast message from socket layer
+   * @param[in]   udp_rx_message
+   *              The Udp message ptr (unique_ptr semantics) with the request. Ownership of the UdsMessage is given
+   *              back to the channel here
+   */
+  void ProcessReceivedUdpUnicast(UdpMessagePtr udp_rx_message);
+
+  /**
+   * @brief       Function to transmit a Vehicle Identification request
+   * @param[in]   message
+   *              The vehicle identification message
+   */
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
 
  private:
   /**
-   * @brief  Type alias for Tcp socket handler
+   * @brief  Type alias for Udp socket handler
    */
-  using TcpSocketHandler = sockets::TcpSocketHandler;
+  using UdpSocketHandler = sockets::UdpSocketHandler;
 
   /**
-   * @brief  Store the tcp socket handler
+   * @brief  Store the udp socket handler for broadcast messages
    */
-  TcpSocketHandler tcp_socket_handler_;
+  UdpSocketHandler udp_socket_handler_broadcast_;
+
+  /**
+   * @brief  Store the udp socket handler for unicast messages
+   */
+  UdpSocketHandler udp_socket_handler_unicast_;
 
   /**
    * @brief  Store the doip channel handler
    */
-  DoipTcpChannelHandler tcp_channel_handler_;
+  DoipUdpChannelHandler udp_channel_handler_;
 
   /**
    * @brief  Store the reference to doip connection
    */
   uds_transport::Connection &connection_;
 };
-
-}  // namespace tcp_channel
+}  // namespace udp_channel
 }  // namespace channel
 }  // namespace doip_client
-#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_H_
+
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_H_

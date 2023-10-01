@@ -12,13 +12,18 @@
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
 #include "common/doip_message.h"
 #include "sockets/tcp_socket_handler.h"
+#include "uds_transport/protocol_mgr.h"
+#include "uds_transport/uds_message.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
+// Forward declaration
+class DoipTcpChannel;
+
 /**
- * @brief       Class to handle received messages from lower layer
+ * @brief       Class to handle tcp received messages from lower layer
  */
 class DoipTcpChannelHandler final {
  public:
@@ -35,11 +40,6 @@ class DoipTcpChannelHandler final {
    *                The reference to tcp transport handler
    */
   DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel);
-
-  /**
-   * @brief         Destruct an instance of DoipTcpChannelHandler
-   */
-  ~DoipTcpChannelHandler() = default;
 
   /**
    * @brief        Function to start the handler

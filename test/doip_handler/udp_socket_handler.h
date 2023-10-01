@@ -20,7 +20,7 @@ namespace udpSocket {
 
 // typedefs
 using UdpSocket = boost_support::socket::udp::UdpClientSocket;
-using UdpMessage = boost_support::socket::udp::UdpMessageType;
+using UdpMessage = boost_support::socket::udp::UdpMessage;
 using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
 using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
 using kDoip_String = std::string;

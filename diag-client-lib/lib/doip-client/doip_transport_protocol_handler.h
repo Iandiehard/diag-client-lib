@@ -56,12 +56,12 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
   InitializationResult Initialize() override;
 
   /**
-   * @brief        Function to start the handler
+   * @brief        Function to start the protocol handler
    */
   void Start() override;
 
   /**
-   * @brief        Function to stop the handler
+   * @brief        Function to stop the protocol handler
    */
   void Stop() override;
 

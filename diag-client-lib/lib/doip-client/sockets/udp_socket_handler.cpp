@@ -7,26 +7,26 @@
  */
 #include "sockets/udp_socket_handler.h"
 
-#include "channel/udp_channel.h"
+#include "channel/udp_channel/doip_udp_channel.h"
 #include "error_domain/doip_error_domain.h"
 
 namespace doip_client {
 namespace sockets {
-UdpSocketHandler::UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
-                                   udpChannel::UdpChannel &channel)
+UdpSocketHandler::UdpSocketHandler(std::string_view local_ip_address, std::uint16_t port_num, PortType port_type,
+                                   DoipUdpChannel &channel)
     : local_ip_address_{local_ip_address},
-      port_num_{port_num},
+      local_port_num_{port_num},
       port_type_{port_type},
       channel_{channel} {
   // create sockets and start receiving
   if (port_type == UdpSocket::PortType::kUdp_Broadcast) {
     udp_socket_ = std::make_unique<UdpSocket>(
-        local_ip_address_, port_num_, port_type_,
-        [this](UdpMessagePtr udp_rx_message) { channel_.HandleMessageBroadcast(std::move(udp_rx_message)); });
+        local_ip_address_, local_port_num_, port_type_,
+        [this](UdpMessagePtr udp_rx_message) { channel_.ProcessReceivedUdpBroadcast(std::move(udp_rx_message)); });
   } else {
     udp_socket_ = std::make_unique<UdpSocket>(
-        local_ip_address_, port_num_, port_type_,
-        [this](UdpMessagePtr udp_rx_message) { channel_.HandleMessageUnicast(std::move(udp_rx_message)); });
+        local_ip_address_, local_port_num_, port_type_,
+        [this](UdpMessagePtr udp_rx_message) { channel_.ProcessReceivedUdpUnicast(std::move(udp_rx_message)); });
   }
 }
 

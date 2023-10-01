@@ -9,7 +9,8 @@
 #include "connection/connection_manager.h"
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
-#include "handler/udp_transport_handler.h"
+#include "channel/udp_channel/doip_udp_channel.h"
+#include "uds_transport/conversation_handler.h"
 
 namespace doip_client {
 namespace connection {
@@ -47,7 +48,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
    * @brief        Function to initialize the connection
    * @return       The initialization result
    */
-  InitializationResult Initialize() override { return (InitializationResult::kInitializeOk); }
+  InitializationResult Initialize() override { return InitializationResult::kInitializeOk; }
 
   /**
    * @brief        Function to start the connection
@@ -170,7 +171,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
   DoipUdpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view udp_ip_address,
                     std::uint16_t port_num)
       : uds_transport::Connection(1, conversation_handler),
-        udp_transport_handler_{std::make_unique<udp_transport::UdpTransportHandler>(udp_ip_address, port_num, *this)} {}
+        doip_udp_channel_{udp_ip_address, port_num, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipUdpConnection
@@ -181,20 +182,17 @@ class DoipUdpConnection final : public uds_transport::Connection {
    * @brief        Function to initialize the connection
    * @return       The initialization result
    */
-  InitializationResult Initialize() override {
-    (void) udp_transport_handler_->Initialize();
-    return InitializationResult::kInitializeOk;
-  }
+  InitializationResult Initialize() override { return InitializationResult::kInitializeOk; }
 
   /**
    * @brief        Function to start the connection
    */
-  void Start() override { udp_transport_handler_->Start(); }
+  void Start() override { doip_udp_channel_.Start(); }
 
   /**
    * @brief        Function to stop the connection
    */
-  void Stop() override { udp_transport_handler_->Stop(); }
+  void Stop() override { doip_udp_channel_.Stop(); }
 
   /**
    * @brief        Function to check if connected to host remote server
@@ -208,9 +206,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
    *              The connection message
    * @return      Connection result
    */
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
-      uds_transport::UdsMessageConstPtr message) override {
-    (void) message;
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(uds_transport::UdsMessageConstPtr) override {
     return (uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed);
   }
 
@@ -264,8 +260,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
    */
   uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
       uds_transport::UdsMessageConstPtr message) override {
-    uds_transport::ChannelID channel_id = 0;
-    return (udp_transport_handler_->Transmit(std::move(message), channel_id));
+    return (doip_udp_channel_.Transmit(std::move(message)));
   }
 
   /**
@@ -281,9 +276,9 @@ class DoipUdpConnection final : public uds_transport::Connection {
 
  private:
   /**
-   * @brief        Store the udp transport handler
+   * @brief        Store the reference to doip udp channel
    */
-  std::unique_ptr<udp_transport::UdpTransportHandler> udp_transport_handler_;
+  channel::udp_channel::DoipUdpChannel doip_udp_channel_;
 };
 
 std::unique_ptr<uds_transport::Connection> DoipConnectionManager::FindOrCreateTcpConnection(

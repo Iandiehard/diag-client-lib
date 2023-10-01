@@ -1,9 +1,9 @@
 /* Diagnostic Client library
-* Copyright (C) 2023  Avijit Dey
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ * Copyright (C) 2023  Avijit Dey
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
@@ -212,7 +212,7 @@ std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
 /**
  * @brief       Class implements routing activation handler
  */
-class RoutingActivationHandler::RoutingActivationHandlerImpl {
+class RoutingActivationHandler::RoutingActivationHandlerImpl final {
  public:
   /**
    * @brief  Type alias for state context
@@ -229,7 +229,7 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl {
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
    */
-  RoutingActivationHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler)
+  explicit RoutingActivationHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler)
       : tcp_socket_handler_{tcp_socket_handler},
         state_context_{},
         sync_timer_{} {

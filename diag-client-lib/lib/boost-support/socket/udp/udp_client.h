@@ -165,7 +165,7 @@ class UdpClientSocket final {
   /**
    * @brief  Reception buffer needed for async reception of udp data
    */
-  std::vector<std::uint8_t> rx_buffer_;
+  std::array<std::uint8_t, kDoipUdpResSize> rx_buffer_;
 
  private:
   /**

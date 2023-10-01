@@ -26,7 +26,7 @@ namespace logger {
  * @details     This class uses COVESA DLT infrastructure to send message to DLT. Also the class does not log dlt message
  *              if "ENABLE_DLT_LOGGER" cmake flag is set to OFF
  */
-class Logger {
+class Logger final {
  public:
   /**
    * @brief       Log fatal message and abort

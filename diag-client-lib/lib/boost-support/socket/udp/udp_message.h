@@ -44,7 +44,11 @@ class UdpMessage final {
   /**
    * @brief         Default constructor of UdpMessage
    */
-  UdpMessage() : rx_buffer_{}, tx_buffer_{}, host_ip_address_{}, host_port_number_{} {}
+  UdpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number)
+      : rx_buffer_{},
+        tx_buffer_{},
+        host_ip_address_{host_ip_address},
+        host_port_number_{host_port_number} {}
 
   /**
    * @brief         Constructs an instance of UdpMessage

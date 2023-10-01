@@ -32,11 +32,8 @@ class UdsMessage {
   UdsMessage() = default;
 
   UdsMessage(const UdsMessage &other) = default;
-
   UdsMessage(UdsMessage &&other) noexcept = default;
-
   UdsMessage &operator=(const UdsMessage &other) = default;
-
   UdsMessage &operator=(UdsMessage &&other) noexcept = default;
 
   // dtor

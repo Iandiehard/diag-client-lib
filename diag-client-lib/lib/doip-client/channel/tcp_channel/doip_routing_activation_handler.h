@@ -44,7 +44,7 @@ class RoutingActivationHandler final {
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
    */
-  RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler);
+  explicit RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler);
 
   /**
    * @brief         Destruct an instance of RoutingActivationHandler

@@ -37,7 +37,7 @@ void DoipUdpSocketHandler::Start() { udp_socket_->Open(); }
 void DoipUdpSocketHandler::Stop() { udp_socket_->Destroy(); }
 
 bool DoipUdpSocketHandler::Transmit(UdpMessageConstPtr udpTxMessage) {
-  return (udp_socket_->Transmit(std::move(udpTxMessage)));
+  return (udp_socket_->Transmit(std::move(udpTxMessage)).HasValue());
 }
 
 }  // namespace udpSocket

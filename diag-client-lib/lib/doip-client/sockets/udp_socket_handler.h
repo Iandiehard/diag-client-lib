@@ -15,10 +15,12 @@
 #include "socket/udp/udp_client.h"
 
 namespace doip_client {
-// forward class declaration
-namespace udpChannel {
-class UdpChannel;
-}
+// forward declaration
+namespace channel {
+namespace udp_channel {
+class DoipUdpChannel;
+}  // namespace udp_channel
+}  // namespace channel
 
 namespace sockets {
 
@@ -33,9 +35,25 @@ class UdpSocketHandler final {
   using PortType = boost_support::socket::udp::UdpClientSocket::PortType;
 
   /**
+   * @brief  Type alias for Udp message
+   */
+  using UdpMessage = boost_support::socket::udp::UdpMessage;
+
+  /**
+   * @brief  Type alias for Udp message pointer
+   */
+  using UdpMessagePtr = boost_support::socket::udp::UdpMessagePtr;
+
+  /**
    * @brief  Type alias for Udp message const pointer
    */
   using UdpMessageConstPtr = boost_support::socket::udp::UdpMessageConstPtr;
+
+  /**
+   * @brief  Type alias for Udp message
+   */
+  using DoipUdpChannel = channel::udp_channel::DoipUdpChannel;
+
  public:
   /**
    * @brief         Constructs an instance of UdpSocketHandler
@@ -44,8 +62,8 @@ class UdpSocketHandler final {
    * @param[in]     channel
    *                The reference to tcp transport handler
    */
-  UdpSocketHandler(std::string_view local_ip_address, uint16_t port_num, PortType port_type,
-                   udpChannel::UdpChannel &channel);
+  UdpSocketHandler(std::string_view local_ip_address, std::uint16_t port_num, PortType port_type,
+                   DoipUdpChannel &channel);
 
   /**
    * @brief         Destruct an instance of UdpSocketHandler
@@ -99,7 +117,7 @@ class UdpSocketHandler final {
   /**
    * @brief  Store the reference to tcp channel
    */
-  udpChannel::UdpChannel &channel_;
+  DoipUdpChannel &channel_;
 };
 }  // namespace sockets
 }  // namespace doip_client
