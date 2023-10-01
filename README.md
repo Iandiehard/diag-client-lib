@@ -121,7 +121,7 @@ BUILD_DOXYGEN : ON
 In the future, we will have internal code documentation too.
 
 ## Requirements
-Component requirements implemented are documented [REQ](docs/spec/requirement/requirements.md)
+Component requirements implemented are documented [REQ](docs/requirement/requirements.md)
 
 ## Known Defect
 * No defect is identified yet.
