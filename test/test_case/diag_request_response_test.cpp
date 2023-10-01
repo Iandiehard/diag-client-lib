@@ -86,7 +86,7 @@ class DiagReqResFixture : public ::testing::Test {
     // Initialize doip test handler
     doip_udp_handler_.Initialize();
     // Initialize diag client library
-    diag_client_->Initialize();
+    assert(diag_client_->Initialize() && "Initialization of DiagClient failed");
     std::this_thread::sleep_for(std::chrono::seconds(1));
   }
 
