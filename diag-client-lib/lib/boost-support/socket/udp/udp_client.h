@@ -5,16 +5,17 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
+#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H_
+#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H_
 // includes
 #include <boost/asio.hpp>
 #include <string>
 #include <string_view>
 #include <thread>
+#include <vector>
 
 #include "core/include/result.h"
-#include "socket/udp/udp_types.h"
+#include "socket/udp/udp_message.h"
 
 namespace boost_support {
 namespace socket {
@@ -23,7 +24,7 @@ namespace udp {
 /**
  * @brief       Class used to create a udp socket for handling transmission and reception of udp message from driver
  */
-class UdpClientSocket {
+class UdpClientSocket final {
  public:
   /**
    * @brief         Udp error code
@@ -53,7 +54,7 @@ class UdpClientSocket {
    *                The handler to send received data to user
    */
   UdpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, PortType port_type,
-                        UdpHandlerRead udp_handler_read);
+                  UdpHandlerRead udp_handler_read);
 
   /**
    * @brief         Destruct an instance of UdpClientSocket
@@ -84,7 +85,7 @@ class UdpClientSocket {
   /**
    * @brief  Type alias for udp protocol
    */
-  using Udp = boost::asio::ip::tcp;
+  using Udp = boost::asio::ip::udp;
 
   /**
    * @brief  Type alias for udp socket
@@ -161,16 +162,18 @@ class UdpClientSocket {
    */
   UdpHandlerRead udp_handler_read_;
 
-  // Rx buffer
-  std::uint8_t rxbuffer_[kDoipUdpResSize];
+  /**
+   * @brief  Reception buffer needed for async reception of udp data
+   */
+  std::vector<std::uint8_t> rx_buffer_;
 
  private:
   /**
    * @brief  Function to handle the reception of tcp message
    */
-  void HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd);
+  void HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_received);
 };
 }  // namespace udp
 }  // namespace socket
 }  // namespace boost_support
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H
+#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_CLIENT_H_

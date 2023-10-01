@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-// includes
+
 #include "socket/udp/udp_client.h"
 
 #include "common/logger.h"
@@ -13,20 +13,25 @@
 namespace boost_support {
 namespace socket {
 namespace udp {
-// ctor
-UdpClientSocket::UdpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                             PortType port_type, UdpHandlerRead udp_handler_read)
+
+UdpClientSocket::UdpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, PortType port_type,
+                                 UdpHandlerRead udp_handler_read)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
+      io_context_{},
+      udp_socket_{io_context_},
       exit_request_{false},
       running_{false},
+      cond_var_{},
+      mutex_{},
       port_type_{port_type},
       udp_handler_read_{std::move(udp_handler_read)},
-      rxbuffer_{} {
-  // Create socket
-  udp_socket_ = std::make_unique<UdpSocket::socket>(io_context_);
+      rx_buffer_{} {
+  // Reserve the rx buffer
+  rx_buffer_.reserve(kDoipUdpResSize);
+
   // Start thread to receive messages
-  thread_ = std::thread([&]() {
+  thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
@@ -42,7 +47,6 @@ UdpClientSocket::UdpClientSocket(std::string_view local_ip_address, std::uint16_
   });
 }
 
-// dtor
 UdpClientSocket::~UdpClientSocket() {
   exit_request_ = true;
   running_ = false;
@@ -50,44 +54,47 @@ UdpClientSocket::~UdpClientSocket() {
   thread_.join();
 }
 
-bool UdpClientSocket::Open() {
-  UdpErrorCodeType ec;
-  bool retVal = false;
+core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Open() {
+  core_type::Result<void, UdpErrorCode> result{UdpErrorCode::kGenericError};
+  UdpErrorCodeType ec{};
+
   // Open the socket
-  udp_socket_->open(UdpSocket::v4(), ec);
+  udp_socket_.open(Udp::v4(), ec);
   if (ec.value() == boost::system::errc::success) {
     // set broadcast option
     boost::asio::socket_base::broadcast broadcast_option(true);
-    udp_socket_->set_option(broadcast_option);
+    udp_socket_.set_option(broadcast_option);
     // reuse address
     boost::asio::socket_base::reuse_address reuse_address_option(true);
-    udp_socket_->set_option(reuse_address_option);
+    udp_socket_.set_option(reuse_address_option);
 
     if (port_type_ == PortType::kUdp_Broadcast) {
       // Todo : change the hardcoded value of port number 13400
-      udp_socket_->bind(UdpSocket::endpoint(boost::asio::ip::address_v4::any(), 13400), ec);
+      udp_socket_.bind(Udp::endpoint(boost::asio::ip::address_v4::any(), 13400), ec);
     } else {
       //bind to local address and random port
-      udp_socket_->bind(UdpSocket::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+      udp_socket_.bind(Udp::endpoint(UdpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
     }
 
     if (ec.value() == boost::system::errc::success) {
-      UdpSocket::endpoint endpoint{udp_socket_->local_endpoint()};
+      Udp::endpoint endpoint{udp_socket_.local_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [endpoint](std::stringstream &msg) {
             msg << "Udp Socket Opened and bound to "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
       // Update the port number with new one
-      local_port_num_ = udp_socket_->local_endpoint().port();
-      // start reading
-      running_ = true;
-      cond_var_.notify_all();
-      retVal = true;
+      local_port_num_ = udp_socket_.local_endpoint().port();
+      {  // start reading
+        std::lock_guard<std::mutex> lock{mutex_};
+        running_ = true;
+        cond_var_.notify_all();
+      }
       // start async receive
-      udp_socket_->async_receive_from(
-          boost::asio::buffer(rxbuffer_, kDoipUdpResSize), remote_endpoint_,
+      udp_socket_.async_receive_from(
+          boost::asio::buffer(rx_buffer_, kDoipUdpResSize), remote_endpoint_,
           [this](const UdpErrorCodeType &error, std::size_t bytes_recvd) { HandleMessage(error, bytes_recvd); });
+      result.EmplaceValue();
     } else {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -99,33 +106,35 @@ bool UdpClientSocket::Open() {
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Udp Socket Opening failed with error: " << ec.message(); });
   }
-  return retVal;
+  return result;
 }
 
-// function to transmit udp messages
-bool UdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
-  bool ret_val{false};
+core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
+  core_type::Result<void, UdpErrorCode> result{UdpErrorCode::kGenericError};
+  UdpErrorCodeType ec{};
+
   try {
     // Transmit to remote endpoints
-    std::size_t send_size{udp_socket_->send_to(
-        boost::asio::buffer(udp_message->tx_buffer_, std::size_t(udp_message->tx_buffer_.size())),
-        UdpSocket::endpoint(UdpIpAddress::from_string(udp_message->host_ip_address_), udp_message->host_port_num_))};
+    std::size_t send_size{udp_socket_.send_to(
+        boost::asio::buffer(udp_message->GetTxBuffer(), std::size_t(udp_message->GetTxBuffer().size())),
+        Udp::endpoint{UdpIpAddress::from_string(std::string{udp_message->GetHostIpAddress()}),
+                      udp_message->GetHostPortNumber()})};
     // Check for error
-    if (send_size == udp_message->tx_buffer_.size()) {
+    if (send_size == udp_message->GetTxBuffer().size()) {
       // successful
-      UdpSocket::endpoint endpoint{udp_socket_->local_endpoint()};
+      Udp::endpoint endpoint{udp_socket_.local_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [&udp_message, endpoint](std::stringstream &msg) {
             msg << "Udp message sent : "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">"
                 << " -> "
-                << "<" << udp_message->host_ip_address_ << "," << udp_message->host_port_num_ << ">";
+                << "<" << udp_message->GetHostIpAddress() << "," << udp_message->GetHostIpAddress() << ">";
           });
-      ret_val = true;
+      result.EmplaceValue();
       // start async receive
-      udp_socket_->async_receive_from(
-          boost::asio::buffer(rxbuffer_, kDoipUdpResSize), remote_endpoint_,
-          [this](const UdpErrorCodeType &error, std::size_t bytes_recvd) { HandleMessage(error, bytes_recvd); });
+      udp_socket_.async_receive_from(
+          boost::asio::buffer(rx_buffer_, kDoipUdpResSize), remote_endpoint_,
+          [this](const UdpErrorCodeType &error, std::size_t bytes_received) { HandleMessage(error, bytes_received); });
     }
   } catch (boost::system::system_error const &ec) {
     UdpErrorCodeType error = ec.code();
@@ -133,41 +142,35 @@ bool UdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [error, &udp_message](std::stringstream &msg) {
           msg << "Udp message sending to "
-              << "<" << udp_message->host_ip_address_ << "> "
+              << "<" << udp_message->GetHostIpAddress() << "> "
               << "failed with error: " << error.message();
         });
   }
-  return ret_val;
+  return result;
 }
 
-// Function to destroy the socket
-bool UdpClientSocket::Destroy() {
+core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Destroy() {
+  core_type::Result<void, UdpErrorCode> result{UdpErrorCode::kGenericError};
   // destroy the socket
-  udp_socket_->close();
+  udp_socket_.close();
   running_ = false;
   io_context_.stop();
-  return true;
+  result.EmplaceValue();
+  return result;
 }
 
 // function invoked when datagram is received
-void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_recvd) {
+void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_received) {
   // Check for error
   if (error.value() == boost::system::errc::success) {
     if (local_ip_address_ != remote_endpoint_.address().to_string()) {
-      UdpMessagePtr udp_rx_message = std::make_unique<UdpMessageType>();
-      // Copy the data
-      udp_rx_message->rx_buffer_.insert(udp_rx_message->rx_buffer_.end(), rxbuffer_, rxbuffer_ + bytes_recvd);
-      // fill the remote endpoints
-      udp_rx_message->host_ip_address_ = remote_endpoint_.address().to_string();
-      udp_rx_message->host_port_num_ = remote_endpoint_.port();
+      UdpMessagePtr udp_rx_message{std::make_unique<UdpMessage>(remote_endpoint_.address().to_string(),
+                                                                remote_endpoint_.port(), std::move(rx_buffer_))};
 
-      // all message received, transfer to upper layer
-      UdpSocket::endpoint remote_endpoint{remote_endpoint_};
-      UdpSocket::endpoint local_endpoint{udp_socket_->local_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
-          __FILE__, __LINE__, __func__, [this, remote_endpoint](std::stringstream &msg) {
+          __FILE__, __LINE__, __func__, [this, &udp_rx_message](std::stringstream &msg) {
             msg << "Udp Message received: "
-                << "<" << remote_endpoint.address().to_string() << "," << remote_endpoint.port() << ">"
+                << "<" << udp_rx_message->GetHostIpAddress() << "," << udp_rx_message->GetHostPortNumber() << ">"
                 << " -> "
                 << "<" << local_ip_address_ << "," << local_port_num_ << ">";
           });
@@ -175,11 +178,11 @@ void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t b
       // send data to upper layer
       udp_handler_read_(std::move(udp_rx_message));
       // start async receive
-      udp_socket_->async_receive_from(
-          boost::asio::buffer(rxbuffer_, kDoipUdpResSize), remote_endpoint_,
-          [this](const UdpErrorCodeType &error, std::size_t bytes_recvd) { HandleMessage(error, bytes_recvd); });
+      udp_socket_.async_receive_from(
+          boost::asio::buffer(rx_buffer_, kDoipUdpResSize), remote_endpoint_,
+          [this](const UdpErrorCodeType &error, std::size_t bytes_received) { HandleMessage(error, bytes_received); });
     } else {
-      UdpSocket::endpoint endpoint_{remote_endpoint_};
+      Udp::endpoint endpoint_{remote_endpoint_};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
           __FILE__, __LINE__, __func__, [endpoint_, this](std::stringstream &msg) {
             msg << "Udp Message received from "
