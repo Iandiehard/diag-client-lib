@@ -5,8 +5,8 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H
+#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H_
+#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H_
 
 // includes
 #include <boost/asio.hpp>
@@ -94,4 +94,4 @@ class CreateTcpServerSocket {
 }  // namespace socket
 }  // namespace boost_support
 
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H
+#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_SERVER_H_

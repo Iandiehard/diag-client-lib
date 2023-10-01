@@ -5,8 +5,8 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#ifndef DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H
-#define DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H
+#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_
+#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_
 
 #include <memory>
 #include <string>
@@ -40,10 +40,7 @@ class TcpMessage final {
   /**
    * @brief    Definition of different socket error that could occur
    */
-  enum class SocketError : std::uint8_t {
-    // state
-    kNone = 0x00
-  };
+  enum class SocketError : std::uint8_t { kNone = 0x00 };
 
   /**
    * @brief    Type alias for underlying buffer
@@ -131,6 +128,12 @@ class TcpMessage final {
    */
   SocketState GetSocketState() const { return socket_state_; }
 
+  /**
+   * @brief       Get the error of underlying socket
+   * @return      The socket error
+   */
+  SocketError GetSocketError() const { return socket_error_; }
+
  private:
   /**
    * @brief         Store the socket state
@@ -181,4 +184,4 @@ constexpr std::uint8_t kDoipheadrSize = 8U;
 }  // namespace tcp
 }  // namespace socket
 }  // namespace boost_support
-#endif  // DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_TYPES_H
+#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_
