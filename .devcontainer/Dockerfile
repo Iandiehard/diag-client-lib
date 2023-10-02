@@ -30,6 +30,7 @@ RUN apt-get update &&\
         clang-format \
         python3-pip \
         doxygen \
+        graphviz \
         net-tools \
         iproute2 \
         locales-all &&\
