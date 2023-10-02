@@ -1,0 +1,8 @@
+<map id="doip_client::connection::DoipTcpConnection::ConnectToHost" name="doip_client::connection::DoipTcpConnection::ConnectToHost">
+<area shape="rect" id="node1" title="Function to establish connection to remote host server." alt="" coords="5,71,220,127"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ad75252930aaee13aed42674f4160f8a4" title="Function to establish connection to remote host server." alt="" coords="268,71,488,127"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#ab00579179e4db258bf970faff3063331" title="Function to connect to remote ip address and port number." alt="" coords="574,71,781,127"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="881,5,1038,61"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#aeed1b25a8109eb3a6045cc393a1a1249" title="Function to send routing activation request." alt="" coords="536,151,819,207"/>
+<area shape="rect" id="node5" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="867,86,1052,127"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="boost_support::socket::tcp::TcpClientSocket::HandleMessage" name="boost_support::socket::tcp::TcpClientSocket::HandleMessage">
+<area shape="rect" id="node1" title="Function to handle the reception of tcp message." alt="" coords="217,5,381,61"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#adf3ac3579f280fa183aa2a3b62ea8d85" title="Constructs an instance of TcpClientSocket." alt="" coords="5,5,169,61"/>
+</map>

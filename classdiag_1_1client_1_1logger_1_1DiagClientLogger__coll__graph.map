@@ -1,0 +1,4 @@
+<map id="diag::client::logger::DiagClientLogger" name="diag::client::logger::DiagClientLogger">
+<area shape="rect" id="node1" title="Class to create a singleton logger for diag&#45;client." alt="" coords="14,95,157,136"/>
+<area shape="rect" id="node2" href="$classutility_1_1logger_1_1Logger.html" title="Logger class that is used to log Dlt messages from the component." alt="" coords="5,5,165,32"/>
+</map>

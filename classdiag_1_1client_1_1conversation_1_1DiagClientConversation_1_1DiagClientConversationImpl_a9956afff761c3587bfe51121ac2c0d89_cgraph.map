@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Shutdown" name="diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Shutdown">
+<area shape="rect" id="node1" title="Function to shutdown the Diagnostic Client Conversation." alt="" coords="5,5,219,76"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47" title="Function to shutdown the Conversation." alt="" coords="267,20,455,61"/>
+</map>

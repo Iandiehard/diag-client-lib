@@ -1,0 +1,5 @@
+<map id="diag::client::conversation_manager::ConversationManager" name="diag::client::conversation_manager::ConversationManager">
+<area shape="rect" id="node1" title="Class to manage all the conversation created from usr request." alt="" coords="5,200,244,241"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html" title=" " alt="" coords="12,96,237,137"/>
+<area shape="rect" id="node3" href="$classuds__transport_1_1UdsTransportProtocolMgr.html" title=" " alt="" coords="23,5,227,47"/>
+</map>

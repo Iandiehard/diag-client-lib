@@ -1,0 +1,7 @@
+<map id="core_type::Span::front" name="core_type::Span::front">
+<area shape="rect" id="node1" title="Return a reference to the first element of this Span." alt="" coords="5,71,171,98"/>
+<area shape="rect" id="node2" href="$namespacecore__type_1_1details.html#a693453854f21e718f1c641405d627579" title="Check if the condition is as expected otherwise abort with provided message." alt="" coords="219,5,408,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a42a3bfe51e540ebeb150ea8d316927de" title="Return a pointer to the start of the memory block covered by this Span." alt="" coords="232,71,395,98"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#ae7c9c27721ea74446b2a36ca549e4731" title="Return whether this Span is empty." alt="" coords="225,122,401,149"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381" title="Return the size of this Span." alt="" coords="456,122,616,149"/>
+</map>

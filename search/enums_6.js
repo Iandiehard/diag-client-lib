@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['socketerror_735',['SocketError',['../classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a',1,'boost_support::socket::tcp::TcpMessage']]],
-  ['sockethandlerstate_736',['SocketHandlerState',['../classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a6158048c1514a96e53a52e3e9b40616d',1,'doip_client::sockets::TcpSocketHandler']]],
-  ['socketstate_737',['SocketState',['../classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2',1,'boost_support::socket::tcp::TcpMessage']]]
+  ['routingactivationstate_1780',['RoutingActivationState',['../namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a15f86c53bb6b02cfc5b34744f1df1683',1,'doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}']]],
+  ['rxsockettype_1781',['RxSocketType',['../classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34',1,'doip_client::DoipMessage']]]
 ];

@@ -1,0 +1,5 @@
+<map id="uds_transport::ConversionHandler::IndicateMessage" name="uds_transport::ConversionHandler::IndicateMessage">
+<area shape="rect" id="node1" title="Function to indicate a start of reception of message." alt="" coords="272,53,464,94"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#ad36336c1c314ef3c1304d2ddc5d8b620" title="Function to indicate a start of reception of message." alt="" coords="7,5,222,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipUdpConnection.html#a45a557b60912603c53832a815679efb0" title="Function to indicate a start of reception of message." alt="" coords="5,85,224,141"/>
+</map>

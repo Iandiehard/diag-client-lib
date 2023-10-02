@@ -1,0 +1,6 @@
+<map id="core_type::Span::cend" name="core_type::Span::cend">
+<area shape="rect" id="node1" title="Return a const_iterator pointing past the last element of this Span." alt="" coords="5,31,171,57"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#ad3d76b996115ae441c53b665c7e7dc04" title="Return an iterator pointing past the last element of this Span." alt="" coords="219,31,377,57"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a42a3bfe51e540ebeb150ea8d316927de" title="Return a pointer to the start of the memory block covered by this Span." alt="" coords="425,5,588,32"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381" title="Return the size of this Span." alt="" coords="427,56,587,83"/>
+</map>

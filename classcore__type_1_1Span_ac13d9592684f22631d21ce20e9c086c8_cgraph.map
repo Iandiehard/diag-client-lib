@@ -1,0 +1,5 @@
+<map id="core_type::Span::rend" name="core_type::Span::rend">
+<area shape="rect" id="node1" title="Return a reverse_iterator pointing past the first element of this Span." alt="" coords="5,5,168,32"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#afea9f9f4c09a450b98c4a4edf96b0092" title="Return an iterator pointing to the first element of this Span." alt="" coords="216,5,387,32"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a42a3bfe51e540ebeb150ea8d316927de" title="Return a pointer to the start of the memory block covered by this Span." alt="" coords="435,5,597,32"/>
+</map>

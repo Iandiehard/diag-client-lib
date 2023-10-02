@@ -1,0 +1,7 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannel::Transmit" name="doip_client::channel::tcp_channel::DoipTcpChannel::Transmit">
+<area shape="rect" id="node1" title="Function to transmit a valid Uds message." alt="" coords="5,85,225,141"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="312,5,469,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="281,85,501,141"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ac027906ab011ade4d104a6510ac4424b" title="Function to send diagnostic request." alt="" coords="273,165,508,221"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="556,85,788,141"/>
+</map>

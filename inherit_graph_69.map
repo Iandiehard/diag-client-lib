@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="5,5,204,47"/>
+<area shape="rect" id="node1" href="$classutility_1_1state_1_1State.html" title=" " alt="" coords="5,177,208,219"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_1_1kIdle.html" title="Class implements idle state." alt="" coords="257,5,481,76"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation3c480dab518df1dac57ba6fa892db79c.html" title="Class implements routing activation failure." alt="" coords="273,101,466,186"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation531fc9598570ceb56cfd7559cdb1159f.html" title="Class implements routing activation success." alt="" coords="258,210,481,295"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activationb2a49725409b4e0027ca37e05e9adc63.html" title="Class implements wait for routing activation response." alt="" coords="256,319,483,405"/>
 </map>

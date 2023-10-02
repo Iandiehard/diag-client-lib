@@ -1,0 +1,4 @@
+<map id="core_type::ErrorDomain::Message" name="core_type::ErrorDomain::Message">
+<area shape="rect" id="node1" title="Return a textual representation of the given error code." alt="" coords="212,5,388,47"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1ErrorCode.html#a33edaac48267e5f692323d8ea9858de4" title="Return a textual representation of this ErrorCode." alt="" coords="5,5,164,47"/>
+</map>

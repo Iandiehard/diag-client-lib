@@ -1,0 +1,16 @@
+<map id="core_type::Span::size" name="core_type::Span::size">
+<area shape="rect" id="node1" title="Return the size of this Span." alt="" coords="483,215,643,242"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#a0270bb642f6c2d2edee922a87eed2483" title="Return a reference to the last element of this Span." alt="" coords="14,30,179,57"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1DoipMessage.html#a1a69ffa1b3a4e70d109bfef6f72faba7" title="Constructs an instance of DoipMessage." alt="" coords="241,48,430,89"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#ae7c9c27721ea74446b2a36ca549e4731" title="Return whether this Span is empty." alt="" coords="247,114,423,141"/>
+<area shape="rect" id="node6" href="$classcore__type_1_1Span.html#ad3d76b996115ae441c53b665c7e7dc04" title="Return an iterator pointing past the last element of this Span." alt="" coords="256,165,415,191"/>
+<area shape="rect" id="node10" href="$classcore__type_1_1Span.html#a73a8a619f959543c03df54dccda590e8" title="Return a subspan containing only the first elements of this Span." alt="" coords="256,215,415,242"/>
+<area shape="rect" id="node11" href="$classcore__type_1_1Span.html#a97377e0da5903b38e2c16834cdaec20a" title="Return a subspan containing only the last elements of this Span." alt="" coords="256,266,415,293"/>
+<area shape="rect" id="node12" href="$classcore__type_1_1Span.html#af3ffd47eedbda3bb75f98f43b18dde6d" title="Return a reference to the n&#45;th element of this Span." alt="" coords="236,317,435,343"/>
+<area shape="rect" id="node13" href="$classcore__type_1_1Span.html#a1f50badfa4abd535a496f57fc72f73a4" title="Return the size of this Span in bytes." alt="" coords="255,368,415,409"/>
+<area shape="rect" id="node14" href="$classcore__type_1_1Span.html#a5e78b38f7a60ad41e1645cb2281d2990" title="Return a subspan of this Span." alt="" coords="241,434,429,461"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Span.html#afb9b6048dad5857b64065ded6cdae0bc" title="Return a reference to the first element of this Span." alt="" coords="14,89,179,115"/>
+<area shape="rect" id="node7" href="$classcore__type_1_1Span.html#ad871e19efad20219c8e84567d8447199" title="Return a const_iterator pointing past the last element of this Span." alt="" coords="14,139,179,166"/>
+<area shape="rect" id="node8" href="$classcore__type_1_1Span.html#a5f9a36267bf815ba521d4c763246fc47" title="Return a const_reverse_iterator pointing to the last element of this Span." alt="" coords="5,190,188,217"/>
+<area shape="rect" id="node9" href="$classcore__type_1_1Span.html#abcc1b58b3e532bc6cda7b0c31f3dec13" title="Return a reverse_iterator pointing to the last element of this Span." alt="" coords="9,241,184,267"/>
+</map>

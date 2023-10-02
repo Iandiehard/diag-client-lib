@@ -1,0 +1,6 @@
+<map id="core_type::Span::subspan" name="core_type::Span::subspan">
+<area shape="rect" id="node1" title="Return a subspan of this Span." alt="" coords="5,71,193,98"/>
+<area shape="rect" id="node2" href="$namespacecore__type_1_1details.html#a693453854f21e718f1c641405d627579" title="Check if the condition is as expected otherwise abort with provided message." alt="" coords="241,5,431,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a42a3bfe51e540ebeb150ea8d316927de" title="Return a pointer to the start of the memory block covered by this Span." alt="" coords="255,71,417,98"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381" title="Return the size of this Span." alt="" coords="256,122,416,149"/>
+</map>

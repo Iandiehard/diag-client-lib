@@ -1,0 +1,11 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost" name="doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost">
+<area shape="rect" id="node1" title="Function to disconnect from remote host server." alt="" coords="5,156,225,212"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="273,76,499,132"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="276,156,496,212"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211" title="Function to reset the handler." alt="" coords="276,236,496,292"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="589,5,747,61"/>
+<area shape="rect" id="node4" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="575,86,761,127"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="552,156,784,212"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a56a6e4796d2ac9918de596789dce5baa" title="Function to reset the handler." alt="" coords="547,236,789,292"/>
+<area shape="rect" id="node9" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a510c796006fc6ccb49df16b1c6c50a75" title="Function to reset the handler." alt="" coords="552,316,784,372"/>
+</map>

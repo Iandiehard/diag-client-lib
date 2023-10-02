@@ -1,0 +1,5 @@
+<map id="doip_client::channel::udp_channel::DoipUdpChannelHandler" name="doip_client::channel::udp_channel::DoipUdpChannelHandler">
+<area shape="rect" id="node1" title="Class to handle udp received messages from lower layer." alt="" coords="491,45,720,101"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,5,247,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,85,257,141"/>
+</map>

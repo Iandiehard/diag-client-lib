@@ -1,0 +1,10 @@
+<map id="core_type::details::CheckIfExpectedOrAbort" name="core_type::details::CheckIfExpectedOrAbort">
+<area shape="rect" id="node1" title="Check if the condition is as expected otherwise abort with provided message." alt="" coords="252,150,441,191"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#a0270bb642f6c2d2edee922a87eed2483" title="Return a reference to the last element of this Span." alt="" coords="22,5,187,32"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a73a8a619f959543c03df54dccda590e8" title="Return a subspan containing only the first elements of this Span." alt="" coords="25,56,184,83"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#afb9b6048dad5857b64065ded6cdae0bc" title="Return a reference to the first element of this Span." alt="" coords="22,107,187,133"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Span.html#a97377e0da5903b38e2c16834cdaec20a" title="Return a subspan containing only the last elements of this Span." alt="" coords="25,157,184,184"/>
+<area shape="rect" id="node6" href="$classcore__type_1_1Span.html#af3ffd47eedbda3bb75f98f43b18dde6d" title="Return a reference to the n&#45;th element of this Span." alt="" coords="5,208,204,235"/>
+<area shape="rect" id="node7" href="$classcore__type_1_1Span.html#a5b6e053f3b8681bb8bd3858849f7482e" title="Construct a new Span from the given pointer and size." alt="" coords="21,259,188,285"/>
+<area shape="rect" id="node8" href="$classcore__type_1_1Span.html#a5e78b38f7a60ad41e1645cb2281d2990" title="Return a subspan of this Span." alt="" coords="11,309,199,336"/>
+</map>

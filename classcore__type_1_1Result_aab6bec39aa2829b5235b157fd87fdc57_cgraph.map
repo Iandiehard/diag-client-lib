@@ -1,0 +1,5 @@
+<map id="core_type::Result::Resolve" name="core_type::Result::Resolve">
+<area shape="rect" id="node1" title="Return the contained value or return the result of a function call." alt="" coords="5,39,148,80"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707" title="Access the contained error." alt="" coords="196,5,339,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="196,71,339,112"/>
+</map>

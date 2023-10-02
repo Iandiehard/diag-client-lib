@@ -61,12 +61,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>diag</b></li><li class="navelem"><b>client</b></li><li class="navelem"><b>dcm</b></li><li class="navelem"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacediag.html">diag</a></li><li class="navelem"><a class="el" href="namespacediag_1_1client.html">client</a></li><li class="navelem"><a class="el" href="namespacediag_1_1client_1_1dcm.html">dcm</a></li><li class="navelem"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdiag_1_1client_1_1dcm_1_1DCMClient-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">diag::client::dcm::DCMClient Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -91,8 +92,12 @@ Collaboration diagram for diag::client::dcm::DCMClient:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdiag_1_1client_1_1dcm_1_1DCMClient__coll__graph.png" border="0" usemap="#adiag_1_1client_1_1dcm_1_1DCMClient_coll__map" alt="Collaboration graph"/></div>
 <map name="adiag_1_1client_1_1dcm_1_1DCMClient_coll__map" id="adiag_1_1client_1_1dcm_1_1DCMClient_coll__map">
-<area shape="rect" title="Class to create Diagnostic Manager Client functionality." alt="" coords="15,95,154,136"/>
-<area shape="rect" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager." alt="" coords="5,5,164,47"/>
+<area shape="rect" title="Class to create Diagnostic Manager Client functionality." alt="" coords="1172,71,1311,112"/>
+<area shape="rect" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager." alt="" coords="705,5,864,47"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html" title="Class to manage all the conversation created from usr request." alt="" coords="665,71,904,112"/>
+<area shape="rect" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html" title=" " alt="" coords="259,71,484,112"/>
+<area shape="rect" href="classuds__transport_1_1UdsTransportProtocolMgr.html" title=" " alt="" coords="5,71,209,112"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation." alt="" coords="691,136,878,177"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -101,79 +106,77 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1b3f36b8f32363e8a2a9da6c6cbc86c6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1b3f36b8f32363e8a2a9da6c6cbc86c6">DCMClient</a> (<a class="el" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html">config_parser::DcmClientConfig</a> dcm_client_config)</td></tr>
 <tr class="memdesc:a1b3f36b8f32363e8a2a9da6c6cbc86c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1b3f36b8f32363e8a2a9da6c6cbc86c6">More...</a><br /></td></tr>
 <tr class="separator:a1b3f36b8f32363e8a2a9da6c6cbc86c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe525e065be93cf6f73eb43e800c8eaf"><td class="memItemLeft" align="right" valign="top"><a id="afe525e065be93cf6f73eb43e800c8eaf"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afe525e065be93cf6f73eb43e800c8eaf">DCMClient</a> (const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;other) noexcept=delete</td></tr>
-<tr class="memdesc:afe525e065be93cf6f73eb43e800c8eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment and copy constructor. <br /></td></tr>
+<tr class="memitem:afe525e065be93cf6f73eb43e800c8eaf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afe525e065be93cf6f73eb43e800c8eaf">DCMClient</a> (const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;other) noexcept=delete</td></tr>
+<tr class="memdesc:afe525e065be93cf6f73eb43e800c8eaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment and copy constructor.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afe525e065be93cf6f73eb43e800c8eaf">More...</a><br /></td></tr>
 <tr class="separator:afe525e065be93cf6f73eb43e800c8eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0d988d7a6646e1aa4b1b58bbf39a50e"><td class="memItemLeft" align="right" valign="top"><a id="ac0d988d7a6646e1aa4b1b58bbf39a50e"></a>
-<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;other) noexcept=delete</td></tr>
+<tr class="memitem:ac0d988d7a6646e1aa4b1b58bbf39a50e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ac0d988d7a6646e1aa4b1b58bbf39a50e">operator=</a> (const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;other) noexcept=delete</td></tr>
 <tr class="separator:ac0d988d7a6646e1aa4b1b58bbf39a50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a048c820a1b826585dba28121abd7779b"><td class="memItemLeft" align="right" valign="top"><a id="a048c820a1b826585dba28121abd7779b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a048c820a1b826585dba28121abd7779b">DCMClient</a> (<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;other) noexcept=delete</td></tr>
-<tr class="memdesc:a048c820a1b826585dba28121abd7779b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted move assignment and move constructor. <br /></td></tr>
+<tr class="memitem:a048c820a1b826585dba28121abd7779b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a048c820a1b826585dba28121abd7779b">DCMClient</a> (<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;other) noexcept=delete</td></tr>
+<tr class="memdesc:a048c820a1b826585dba28121abd7779b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted move assignment and move constructor.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a048c820a1b826585dba28121abd7779b">More...</a><br /></td></tr>
 <tr class="separator:a048c820a1b826585dba28121abd7779b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c0151f43fd39d3ed9a3f3af7c5e51d5"><td class="memItemLeft" align="right" valign="top"><a id="a9c0151f43fd39d3ed9a3f3af7c5e51d5"></a>
-<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;other) noexcept=delete</td></tr>
+<tr class="memitem:a9c0151f43fd39d3ed9a3f3af7c5e51d5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a9c0151f43fd39d3ed9a3f3af7c5e51d5">operator=</a> (<a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;other) noexcept=delete</td></tr>
 <tr class="separator:a9c0151f43fd39d3ed9a3f3af7c5e51d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a948909daff7b6850354f487099cf1a49"><td class="memItemLeft" align="right" valign="top"><a id="a948909daff7b6850354f487099cf1a49"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a948909daff7b6850354f487099cf1a49">~DCMClient</a> () noexcept override</td></tr>
-<tr class="memdesc:a948909daff7b6850354f487099cf1a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. <br /></td></tr>
+<tr class="memitem:a948909daff7b6850354f487099cf1a49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a948909daff7b6850354f487099cf1a49">~DCMClient</a> () noexcept override</td></tr>
+<tr class="memdesc:a948909daff7b6850354f487099cf1a49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a948909daff7b6850354f487099cf1a49">More...</a><br /></td></tr>
 <tr class="separator:a948909daff7b6850354f487099cf1a49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd3eb60ce836ed767b3bed4f3b29a23a"><td class="memItemLeft" align="right" valign="top"><a id="acd3eb60ce836ed767b3bed4f3b29a23a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#acd3eb60ce836ed767b3bed4f3b29a23a">Initialize</a> () noexcept override</td></tr>
-<tr class="memdesc:acd3eb60ce836ed767b3bed4f3b29a23a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. <br /></td></tr>
+<tr class="memitem:acd3eb60ce836ed767b3bed4f3b29a23a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#acd3eb60ce836ed767b3bed4f3b29a23a">Initialize</a> () noexcept override</td></tr>
+<tr class="memdesc:acd3eb60ce836ed767b3bed4f3b29a23a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#acd3eb60ce836ed767b3bed4f3b29a23a">More...</a><br /></td></tr>
 <tr class="separator:acd3eb60ce836ed767b3bed4f3b29a23a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a910ef6d79835dcb3cfba157b96f18d98"><td class="memItemLeft" align="right" valign="top"><a id="a910ef6d79835dcb3cfba157b96f18d98"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a910ef6d79835dcb3cfba157b96f18d98">Run</a> () noexcept override</td></tr>
-<tr class="memdesc:a910ef6d79835dcb3cfba157b96f18d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to run <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. <br /></td></tr>
+<tr class="memitem:a910ef6d79835dcb3cfba157b96f18d98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a910ef6d79835dcb3cfba157b96f18d98">Run</a> () noexcept override</td></tr>
+<tr class="memdesc:a910ef6d79835dcb3cfba157b96f18d98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to run <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a910ef6d79835dcb3cfba157b96f18d98">More...</a><br /></td></tr>
 <tr class="separator:a910ef6d79835dcb3cfba157b96f18d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d30bd8fe3c5c9a2294118174ebd19cd"><td class="memItemLeft" align="right" valign="top"><a id="a1d30bd8fe3c5c9a2294118174ebd19cd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1d30bd8fe3c5c9a2294118174ebd19cd">Shutdown</a> () noexcept override</td></tr>
-<tr class="memdesc:a1d30bd8fe3c5c9a2294118174ebd19cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to shutdown the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. <br /></td></tr>
+<tr class="memitem:a1d30bd8fe3c5c9a2294118174ebd19cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1d30bd8fe3c5c9a2294118174ebd19cd">Shutdown</a> () noexcept override</td></tr>
+<tr class="memdesc:a1d30bd8fe3c5c9a2294118174ebd19cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to shutdown the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1d30bd8fe3c5c9a2294118174ebd19cd">More...</a><br /></td></tr>
 <tr class="separator:a1d30bd8fe3c5c9a2294118174ebd19cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfeb07980596e3eea477ddea8ce84873"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">conversation::DiagClientConversation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#abfeb07980596e3eea477ddea8ce84873">GetDiagnosticClientConversation</a> (std::string_view conversation_name) noexcept override</td></tr>
 <tr class="memdesc:abfeb07980596e3eea477ddea8ce84873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get required diag client conversation object based on conversation name.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#abfeb07980596e3eea477ddea8ce84873">More...</a><br /></td></tr>
 <tr class="separator:abfeb07980596e3eea477ddea8ce84873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbb7218bb465559aff619c48fca45577"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afbb7218bb465559aff619c48fca45577">SendVehicleIdentificationRequest</a> (<a class="el" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a> vehicle_info_request) noexcept override</td></tr>
+<tr class="memitem:afbb7218bb465559aff619c48fca45577"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; <a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afbb7218bb465559aff619c48fca45577">SendVehicleIdentificationRequest</a> (<a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a4f76f1f5c8ff2137fd56fb6a74bf0ae5">diag::client::vehicle_info::VehicleInfoListRequestType</a> vehicle_info_request) noexcept override</td></tr>
 <tr class="memdesc:afbb7218bb465559aff619c48fca45577"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to send vehicle identification request and get the Diagnostic Server list.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#afbb7218bb465559aff619c48fca45577">More...</a><br /></td></tr>
 <tr class="separator:afbb7218bb465559aff619c48fca45577"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">diag::client::common::DiagnosticManager</a></td></tr>
-<tr class="memitem:a5344d9e5ea9b98bbf8e18dbc15728bc2 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="a5344d9e5ea9b98bbf8e18dbc15728bc2"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">DiagnosticManager</a> () noexcept</td></tr>
-<tr class="memdesc:a5344d9e5ea9b98bbf8e18dbc15728bc2 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>. <br /></td></tr>
+<tr class="memitem:a5344d9e5ea9b98bbf8e18dbc15728bc2 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">DiagnosticManager</a> () noexcept</td></tr>
+<tr class="memdesc:a5344d9e5ea9b98bbf8e18dbc15728bc2 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">More...</a><br /></td></tr>
 <tr class="separator:a5344d9e5ea9b98bbf8e18dbc15728bc2 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52b67877df0f9d3ba1cfcf798633a7ab inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="a52b67877df0f9d3ba1cfcf798633a7ab"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a52b67877df0f9d3ba1cfcf798633a7ab">DiagnosticManager</a> (const <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;other) noexcept=delete</td></tr>
-<tr class="memdesc:a52b67877df0f9d3ba1cfcf798633a7ab inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment and copy constructor. <br /></td></tr>
+<tr class="memitem:a52b67877df0f9d3ba1cfcf798633a7ab inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a52b67877df0f9d3ba1cfcf798633a7ab">DiagnosticManager</a> (const <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;other) noexcept=delete</td></tr>
+<tr class="memdesc:a52b67877df0f9d3ba1cfcf798633a7ab inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment and copy constructor.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a52b67877df0f9d3ba1cfcf798633a7ab">More...</a><br /></td></tr>
 <tr class="separator:a52b67877df0f9d3ba1cfcf798633a7ab inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6be1d2f175d5ef776f9e2f8aff853111 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="a6be1d2f175d5ef776f9e2f8aff853111"></a>
-<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;other) noexcept=delete</td></tr>
+<tr class="memitem:a6be1d2f175d5ef776f9e2f8aff853111 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a6be1d2f175d5ef776f9e2f8aff853111">operator=</a> (const <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;other) noexcept=delete</td></tr>
 <tr class="separator:a6be1d2f175d5ef776f9e2f8aff853111 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad390a0cff15c80f3c30b67e532cb6bf0 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="ad390a0cff15c80f3c30b67e532cb6bf0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ad390a0cff15c80f3c30b67e532cb6bf0">DiagnosticManager</a> (<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&amp;other) noexcept=delete</td></tr>
-<tr class="memdesc:ad390a0cff15c80f3c30b67e532cb6bf0 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted move assignment and move constructor. <br /></td></tr>
+<tr class="memitem:ad390a0cff15c80f3c30b67e532cb6bf0 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ad390a0cff15c80f3c30b67e532cb6bf0">DiagnosticManager</a> (<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&amp;other) noexcept=delete</td></tr>
+<tr class="memdesc:ad390a0cff15c80f3c30b67e532cb6bf0 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted move assignment and move constructor.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ad390a0cff15c80f3c30b67e532cb6bf0">More...</a><br /></td></tr>
 <tr class="separator:ad390a0cff15c80f3c30b67e532cb6bf0 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e8cf39a64e8ad165ca0f65e89c0759 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="ac9e8cf39a64e8ad165ca0f65e89c0759"></a>
-<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&amp;other) noexcept=delete</td></tr>
+<tr class="memitem:ac9e8cf39a64e8ad165ca0f65e89c0759 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ac9e8cf39a64e8ad165ca0f65e89c0759">operator=</a> (<a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">DiagnosticManager</a> &amp;&amp;other) noexcept=delete</td></tr>
 <tr class="separator:ac9e8cf39a64e8ad165ca0f65e89c0759 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae99bb4739fd65d683f9d51b872efff66 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="ae99bb4739fd65d683f9d51b872efff66"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ae99bb4739fd65d683f9d51b872efff66">~DiagnosticManager</a> () noexcept</td></tr>
-<tr class="memdesc:ae99bb4739fd65d683f9d51b872efff66 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>. <br /></td></tr>
+<tr class="memitem:ae99bb4739fd65d683f9d51b872efff66 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ae99bb4739fd65d683f9d51b872efff66">~DiagnosticManager</a> () noexcept</td></tr>
+<tr class="memdesc:ae99bb4739fd65d683f9d51b872efff66 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#ae99bb4739fd65d683f9d51b872efff66">More...</a><br /></td></tr>
 <tr class="separator:ae99bb4739fd65d683f9d51b872efff66 inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e32dfd12a64b4d08821c0d58ac30b4a inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="a0e32dfd12a64b4d08821c0d58ac30b4a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a">Main</a> () noexcept</td></tr>
-<tr class="memdesc:a0e32dfd12a64b4d08821c0d58ac30b4a inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to manage the whole lifecycle of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>. <br /></td></tr>
+<tr class="memitem:a0e32dfd12a64b4d08821c0d58ac30b4a inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a">Main</a> () noexcept</td></tr>
+<tr class="memdesc:a0e32dfd12a64b4d08821c0d58ac30b4a inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to manage the whole lifecycle of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a">More...</a><br /></td></tr>
 <tr class="separator:a0e32dfd12a64b4d08821c0d58ac30b4a inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecb6135ac7d761a650f510bd922db9be inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top"><a id="aecb6135ac7d761a650f510bd922db9be"></a>
-virtual <a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#aecb6135ac7d761a650f510bd922db9be">SignalShutdown</a> () noexcept</td></tr>
-<tr class="memdesc:aecb6135ac7d761a650f510bd922db9be inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initiate shutdown of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>. <br /></td></tr>
+<tr class="memitem:aecb6135ac7d761a650f510bd922db9be inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacediag_1_1client.html#ab95b0ec764f960ab3086b02813932c7f">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#aecb6135ac7d761a650f510bd922db9be">SignalShutdown</a> () noexcept</td></tr>
+<tr class="memdesc:aecb6135ac7d761a650f510bd922db9be inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initiate shutdown of <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager.">DiagnosticManager</a>.  <a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#aecb6135ac7d761a650f510bd922db9be">More...</a><br /></td></tr>
 <tr class="separator:aecb6135ac7d761a650f510bd922db9be inherit pub_methods_classdiag_1_1client_1_1common_1_1DiagnosticManager"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a01e2af645494ee4935afbf9335459b0d"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html">uds_transport::UdsTransportProtocolManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a></td></tr>
+<tr class="memdesc:a01e2af645494ee4935afbf9335459b0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the uds transport protocol manager.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">More...</a><br /></td></tr>
+<tr class="separator:a01e2af645494ee4935afbf9335459b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b2a6981d2568d1805e44398da0c3e47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html">conversation_manager::ConversationManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a></td></tr>
+<tr class="memdesc:a4b2a6981d2568d1805e44398da0c3e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the conversation manager instance.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">More...</a><br /></td></tr>
+<tr class="separator:a4b2a6981d2568d1805e44398da0c3e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9ac4dbcc13d23e4d49fdc13b6ac3da3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html">conversation::Conversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a></td></tr>
+<tr class="memdesc:ae9ac4dbcc13d23e4d49fdc13b6ac3da3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the conversation for vehicle discovery.  <a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">More...</a><br /></td></tr>
+<tr class="separator:ae9ac4dbcc13d23e4d49fdc13b6ac3da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to create Diagnostic Manager Client functionality. </p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00026">26</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1b3f36b8f32363e8a2a9da6c6cbc86c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b3f36b8f32363e8a2a9da6c6cbc86c6">&#9670;&nbsp;</a></span>DCMClient()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b3f36b8f32363e8a2a9da6c6cbc86c6">&#9670;&nbsp;</a></span>DCMClient() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,6 +206,107 @@ virtual <a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void 
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00030">30</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">DiagnosticManager</a>{},</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>{std::make_unique&lt;uds_transport::UdsTransportProtocolManager&gt;()},</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>{std::move(dcm_client_config), *<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>},</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>{<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">GetDiagnosticClientConversation</a>(<a class="code" href="namespacediag_1_1client_1_1dcm.html#ae4765e55a64b9cd99e73e243e8c8fff8">VehicleDiscoveryConversation</a>)} {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// make the conversation manager reference available externally</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">conversation_manager_ref</a>.emplace(<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1common_1_1DiagnosticManager_html_a5344d9e5ea9b98bbf8e18dbc15728bc2"><div class="ttname"><a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">diag::client::common::DiagnosticManager::DiagnosticManager</a></div><div class="ttdeci">DiagnosticManager() noexcept</div><div class="ttdoc">Constructs an instance of DiagnosticManager.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__manager_8cpp_source.html#l00014">diagnostic_manager.cpp:14</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a415c577ed5f384c075b54d5aecc88dd9"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">diag::client::conversation_manager::ConversationManager::GetDiagnosticClientConversation</a></div><div class="ttdeci">diag::client::conversation::Conversation &amp; GetDiagnosticClientConversation(std::string_view conversation_name) noexcept</div><div class="ttdoc">Function to get DM conversation object based on conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00031">conversation_manager.cpp:31</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_a01e2af645494ee4935afbf9335459b0d"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">diag::client::dcm::DCMClient::uds_transport_protocol_mgr_</a></div><div class="ttdeci">std::unique_ptr&lt; uds_transport::UdsTransportProtocolManager &gt; uds_transport_protocol_mgr_</div><div class="ttdoc">Stores the uds transport protocol manager.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00091">dcm_client.h:91</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_a4b2a6981d2568d1805e44398da0c3e47"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">diag::client::dcm::DCMClient::conversation_mgr_</a></div><div class="ttdeci">conversation_manager::ConversationManager conversation_mgr_</div><div class="ttdoc">Stores the conversation manager instance.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00096">dcm_client.h:96</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_ae9ac4dbcc13d23e4d49fdc13b6ac3da3"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">diag::client::dcm::DCMClient::vehicle_discovery_conversation_</a></div><div class="ttdeci">conversation::Conversation &amp; vehicle_discovery_conversation_</div><div class="ttdoc">Store the conversation for vehicle discovery.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00101">dcm_client.h:101</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03_html_a1cf9bf2db025472d9405d40f11945e88"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a></div><div class="ttdeci">std::optional&lt; std::reference_wrapper&lt; conversation_manager::ConversationManager &gt; &gt; conversation_manager_ref</div><div class="ttdoc">Store the conversation manager reference optionally.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00023">dcm_client.cpp:23</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1dcm_html_ae4765e55a64b9cd99e73e243e8c8fff8"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm.html#ae4765e55a64b9cd99e73e243e8c8fff8">diag::client::dcm::VehicleDiscoveryConversation</a></div><div class="ttdeci">constexpr std::string_view VehicleDiscoveryConversation</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00028">dcm_client.cpp:28</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="dcm__client_8cpp_source.html#l00023">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a>, and <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>.</p>
+
+</div>
+</div>
+<a id="afe525e065be93cf6f73eb43e800c8eaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe525e065be93cf6f73eb43e800c8eaf">&#9670;&nbsp;</a></span>DCMClient() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">diag::client::dcm::DCMClient::DCMClient </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deleted copy assignment and copy constructor. </p>
+
+</div>
+</div>
+<a id="a048c820a1b826585dba28121abd7779b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a048c820a1b826585dba28121abd7779b">&#9670;&nbsp;</a></span>DCMClient() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">diag::client::dcm::DCMClient::DCMClient </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deleted move assignment and move constructor. </p>
+
+</div>
+</div>
+<a id="a948909daff7b6850354f487099cf1a49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a948909daff7b6850354f487099cf1a49">&#9670;&nbsp;</a></span>~DCMClient()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">diag::client::dcm::DCMClient::~DCMClient </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructs an instance of <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. </p>
 
 </div>
 </div>
@@ -242,6 +346,167 @@ virtual <a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void 
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a62ca123acedfcdd29fe12b5bc823d46c">diag::client::common::DiagnosticManager</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00072">72</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                               {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordflow">return</span> conversation::DiagClientConversation{conversation_name};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="acd3eb60ce836ed767b3bed4f3b29a23a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd3eb60ce836ed767b3bed4f3b29a23a">&#9670;&nbsp;</a></span>Initialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void diag::client::dcm::DCMClient::Initialize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to initialize the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. </p>
+
+<p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0de2245e8af7252d0135618057ddf3f0">diag::client::common::DiagnosticManager</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00041">41</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                    {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// start Conversation Manager</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">Startup</a>();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// start all the udsTransportProtocol Layer</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Startup();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// start Vehicle Discovery</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#afe961bd20874b18460b84082e56ac2d8">Startup</a>();</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Initialized&quot;</span>; });</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_afe961bd20874b18460b84082e56ac2d8"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#afe961bd20874b18460b84082e56ac2d8">diag::client::conversation::Conversation::Startup</a></div><div class="ttdeci">virtual void Startup() noexcept=0</div><div class="ttdoc">Function to start the Conversation.</div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a7147941ae5c6c31e4b539f421ff8d3a2"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">diag::client::conversation_manager::ConversationManager::Startup</a></div><div class="ttdeci">void Startup() noexcept</div><div class="ttdoc">Function to start the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00027">conversation_manager.cpp:27</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1dcm_1_1DCMClient_acd3eb60ce836ed767b3bed4f3b29a23a_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1dcm_1_1DCMClient_acd3eb60ce836ed767b3bed4f3b29a23a_cgraph" alt=""/></div>
+<map name="aclassdiag_1_1client_1_1dcm_1_1DCMClient_acd3eb60ce836ed767b3bed4f3b29a23a_cgraph" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_acd3eb60ce836ed767b3bed4f3b29a23a_cgraph">
+<area shape="rect" title="Function to initialize the DCMClient." alt="" coords="5,13,160,54"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="208,5,411,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ac0d988d7a6646e1aa4b1b58bbf39a50e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0d988d7a6646e1aa4b1b58bbf39a50e">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a>&amp; diag::client::dcm::DCMClient::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9c0151f43fd39d3ed9a3f3af7c5e51d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c0151f43fd39d3ed9a3f3af7c5e51d5">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a>&amp; diag::client::dcm::DCMClient::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html">DCMClient</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a910ef6d79835dcb3cfba157b96f18d98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a910ef6d79835dcb3cfba157b96f18d98">&#9670;&nbsp;</a></span>Run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void diag::client::dcm::DCMClient::Run </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to run <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. </p>
+
+<p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a316d7898714ecadd10106252f97a787c">diag::client::common::DiagnosticManager</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00053">53</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                             {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// run udsTransportProtocol layer</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Run();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client is ready to serve&quot;</span>; });</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, and <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1dcm_1_1DCMClient_a910ef6d79835dcb3cfba157b96f18d98_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1dcm_1_1DCMClient_a910ef6d79835dcb3cfba157b96f18d98_cgraph" alt=""/></div>
+<map name="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a910ef6d79835dcb3cfba157b96f18d98_cgraph" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a910ef6d79835dcb3cfba157b96f18d98_cgraph">
+<area shape="rect" title="Function to run DCMClient." alt="" coords="5,13,144,54"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="192,5,395,61"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="afbb7218bb465559aff619c48fca45577"></a>
@@ -254,9 +519,9 @@ virtual <a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void 
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt; diag::client::dcm::DCMClient::SendVehicleIdentificationRequest </td>
+          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; <a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt; diag::client::dcm::DCMClient::SendVehicleIdentificationRequest </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a4f76f1f5c8ff2137fd56fb6a74bf0ae5">diag::client::vehicle_info::VehicleInfoListRequestType</a>&#160;</td>
           <td class="paramname"><em>vehicle_info_request</em></td><td>)</td>
           <td></td>
         </tr>
@@ -279,11 +544,159 @@ virtual <a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void 
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a8c991fa3f15f65f4d6b0ac0c2ddde926">diag::client::common::DiagnosticManager</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00078">78</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                                                                    {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">SendVehicleIdentificationRequest</a>(vehicle_info_request);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_addda0140e6ae162084c2f2e6993cc523"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">diag::client::conversation::Conversation::SendVehicleIdentificationRequest</a></div><div class="ttdeci">virtual core_type::Result&lt; diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, DiagClient::VehicleInfoResponseError &gt; SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType) noexcept</div><div class="ttdoc">Function to send vehicle identification request and get the Diagnostic Server list.</div><div class="ttdef"><b>Definition:</b> <a href="conversation_8h_source.html#l00171">conversation.h:171</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1d30bd8fe3c5c9a2294118174ebd19cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d30bd8fe3c5c9a2294118174ebd19cd">&#9670;&nbsp;</a></span>Shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void diag::client::dcm::DCMClient::Shutdown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to shutdown the <a class="el" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality.">DCMClient</a>. </p>
+
+<p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a44b040548411c43a585b9e14e96a596f">diag::client::common::DiagnosticManager</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00060">60</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                  {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">// shutdown Vehicle Discovery</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">Shutdown</a>();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// shutdown udsTransportProtocol layer</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Shutdown();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// shutdown Conversation Manager</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">Shutdown</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Shutdown completed&quot;</span>; });</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_aa6c42460745768edc4517fd74e692a47"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">diag::client::conversation::Conversation::Shutdown</a></div><div class="ttdeci">virtual void Shutdown() noexcept=0</div><div class="ttdoc">Function to shutdown the Conversation.</div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a53073a865efdabd0281f0ae0351b70fa"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">diag::client::conversation_manager::ConversationManager::Shutdown</a></div><div class="ttdeci">void Shutdown() noexcept</div><div class="ttdoc">Function to shutdown the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00029">conversation_manager.cpp:29</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>, <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="conversation__manager_8cpp_source.html#l00029">diag::client::conversation_manager::ConversationManager::Shutdown()</a>, <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">diag::client::conversation::Conversation::Shutdown()</a>, <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>, and <a class="el" href="dcm__client_8h_source.html#l00101">vehicle_discovery_conversation_</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph" alt=""/></div>
+<map name="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph">
+<area shape="rect" title="Function to shutdown the DCMClient." alt="" coords="5,93,168,134"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="234,5,437,61"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa" title="Function to shutdown the ConversationManager." alt="" coords="216,85,455,141"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47" title="Function to shutdown the Conversation." alt="" coords="241,166,429,207"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4b2a6981d2568d1805e44398da0c3e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b2a6981d2568d1805e44398da0c3e47">&#9670;&nbsp;</a></span>conversation_mgr_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html">conversation_manager::ConversationManager</a> diag::client::dcm::DCMClient::conversation_mgr_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the conversation manager instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00096">96</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00030">DCMClient()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+
+</div>
+</div>
+<a id="a01e2af645494ee4935afbf9335459b0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e2af645494ee4935afbf9335459b0d">&#9670;&nbsp;</a></span>uds_transport_protocol_mgr_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html">uds_transport::UdsTransportProtocolManager</a>&gt; diag::client::dcm::DCMClient::uds_transport_protocol_mgr_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the uds transport protocol manager. </p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00091">91</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00053">Run()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+
+</div>
+</div>
+<a id="ae9ac4dbcc13d23e4d49fdc13b6ac3da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">&#9670;&nbsp;</a></span>vehicle_discovery_conversation_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html">conversation::Conversation</a>&amp; diag::client::dcm::DCMClient::vehicle_discovery_conversation_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the conversation for vehicle discovery. </p>
+
+<p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00101">101</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/<a class="el" href="dcm__client_8h_source.html">dcm_client.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/dcm_client.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/<a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

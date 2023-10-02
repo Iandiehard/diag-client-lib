@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>doip_client</b></li><li class="navelem"><b>channel</b></li><li class="navelem"><b>tcp_channel</b></li><li class="navelem"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html">RoutingActivationHandler</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacedoip__client.html">doip_client</a></li><li class="navelem"><a class="el" href="namespacedoip__client_1_1channel.html">channel</a></li><li class="navelem"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel.html">tcp_channel</a></li><li class="navelem"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html">RoutingActivationHandler</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -69,6 +69,9 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::channel::tcp_channel::RoutingActivationHandler Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -88,13 +91,11 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a0a97b35e41a234b1d6b776515eb9dd9d"><td class="memItemLeft" align="right" valign="top"><a id="a0a97b35e41a234b1d6b776515eb9dd9d"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">TcpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td></tr>
-<tr class="memdesc:a0a97b35e41a234b1d6b776515eb9dd9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message pointer. <br /></td></tr>
+<tr class="memitem:a0a97b35e41a234b1d6b776515eb9dd9d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">TcpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td></tr>
+<tr class="memdesc:a0a97b35e41a234b1d6b776515eb9dd9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message pointer.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">More...</a><br /></td></tr>
 <tr class="separator:a0a97b35e41a234b1d6b776515eb9dd9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7fa5eb8dd7d614b9cf077df7de922a9"><td class="memItemLeft" align="right" valign="top"><a id="ac7fa5eb8dd7d614b9cf077df7de922a9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac7fa5eb8dd7d614b9cf077df7de922a9">TcpMessage</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#af7ae707e09a2af885ed2c1dc86a49141">sockets::TcpSocketHandler::TcpMessage</a></td></tr>
-<tr class="memdesc:ac7fa5eb8dd7d614b9cf077df7de922a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message. <br /></td></tr>
+<tr class="memitem:ac7fa5eb8dd7d614b9cf077df7de922a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac7fa5eb8dd7d614b9cf077df7de922a9">TcpMessage</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#af7ae707e09a2af885ed2c1dc86a49141">sockets::TcpSocketHandler::TcpMessage</a></td></tr>
+<tr class="memdesc:ac7fa5eb8dd7d614b9cf077df7de922a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac7fa5eb8dd7d614b9cf077df7de922a9">More...</a><br /></td></tr>
 <tr class="separator:ac7fa5eb8dd7d614b9cf077df7de922a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -102,13 +103,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8a217824d95a205cbe8b8f950bce23b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a8a217824d95a205cbe8b8f950bce23b0">RoutingActivationHandler</a> (<a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html">sockets::TcpSocketHandler</a> &amp;tcp_socket_handler)</td></tr>
 <tr class="memdesc:a8a217824d95a205cbe8b8f950bce23b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages.">RoutingActivationHandler</a>.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a8a217824d95a205cbe8b8f950bce23b0">More...</a><br /></td></tr>
 <tr class="separator:a8a217824d95a205cbe8b8f950bce23b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71d8734c67a1933d1fdd170481a77a4f"><td class="memItemLeft" align="right" valign="top"><a id="a71d8734c67a1933d1fdd170481a77a4f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a71d8734c67a1933d1fdd170481a77a4f">~RoutingActivationHandler</a> ()</td></tr>
-<tr class="memdesc:a71d8734c67a1933d1fdd170481a77a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages.">RoutingActivationHandler</a>. <br /></td></tr>
+<tr class="memitem:a71d8734c67a1933d1fdd170481a77a4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a71d8734c67a1933d1fdd170481a77a4f">~RoutingActivationHandler</a> ()</td></tr>
+<tr class="memdesc:a71d8734c67a1933d1fdd170481a77a4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages.">RoutingActivationHandler</a>.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a71d8734c67a1933d1fdd170481a77a4f">More...</a><br /></td></tr>
 <tr class="separator:a71d8734c67a1933d1fdd170481a77a4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeea909063355e6ad6172d1a1146cdf21"><td class="memItemLeft" align="right" valign="top"><a id="aeea909063355e6ad6172d1a1146cdf21"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21">Start</a> ()</td></tr>
-<tr class="memdesc:aeea909063355e6ad6172d1a1146cdf21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the handler. <br /></td></tr>
+<tr class="memitem:aeea909063355e6ad6172d1a1146cdf21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21">Start</a> ()</td></tr>
+<tr class="memdesc:aeea909063355e6ad6172d1a1146cdf21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21">More...</a><br /></td></tr>
 <tr class="separator:aeea909063355e6ad6172d1a1146cdf21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0135100db4d69d1716bc4d617f496943"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0135100db4d69d1716bc4d617f496943">Stop</a> ()</td></tr>
 <tr class="memdesc:a0135100db4d69d1716bc4d617f496943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0135100db4d69d1716bc4d617f496943">More...</a><br /></td></tr>
@@ -119,16 +118,73 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="memitem:a5444cf901409cd5e9b939650d1d4ce77"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5444cf901409cd5e9b939650d1d4ce77">ProcessDoIPRoutingActivationResponse</a> (<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;doip_payload) noexcept</td></tr>
 <tr class="memdesc:a5444cf901409cd5e9b939650d1d4ce77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to process received routing activation response.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5444cf901409cd5e9b939650d1d4ce77">More...</a><br /></td></tr>
 <tr class="separator:a5444cf901409cd5e9b939650d1d4ce77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8ac818661af652d80799ad96683b047"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac8ac818661af652d80799ad96683b047">HandleRoutingActivationRequest</a> (uds_transport::UdsMessageConstPtr routing_activation_request) noexcept -&gt; uds_transport::UdsTransportProtocolMgr::ConnectionResult</td></tr>
+<tr class="memitem:ac8ac818661af652d80799ad96683b047"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac8ac818661af652d80799ad96683b047">HandleRoutingActivationRequest</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a> routing_activation_request) noexcept -&gt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a></td></tr>
 <tr class="memdesc:ac8ac818661af652d80799ad96683b047"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to handle sending of routing activation request.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac8ac818661af652d80799ad96683b047">More...</a><br /></td></tr>
 <tr class="separator:ac8ac818661af652d80799ad96683b047"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae578fb73c66ea109fe5f1ae45d186be9"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9">IsRoutingActivated</a> () noexcept -&gt; bool</td></tr>
 <tr class="memdesc:ae578fb73c66ea109fe5f1ae45d186be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if routing activation is active for this handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9">More...</a><br /></td></tr>
 <tr class="separator:ae578fb73c66ea109fe5f1ae45d186be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a5f1457021cf25855f04603a4f5ce09e2"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5f1457021cf25855f04603a4f5ce09e2">SendRoutingActivationRequest</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a> routing_activation_request) noexcept -&gt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a></td></tr>
+<tr class="memdesc:a5f1457021cf25855f04603a4f5ce09e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to send routing activation request.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5f1457021cf25855f04603a4f5ce09e2">More...</a><br /></td></tr>
+<tr class="separator:a5f1457021cf25855f04603a4f5ce09e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
+Static Private Member Functions</h2></td></tr>
+<tr class="memitem:a488dc7e512f6c1ac96ceb7703704ab51"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a488dc7e512f6c1ac96ceb7703704ab51">CreateDoipGenericHeader</a> (std::vector&lt; std::uint8_t &gt; &amp;doip_header, std::uint16_t payload_type, std::uint32_t payload_len)</td></tr>
+<tr class="memdesc:a488dc7e512f6c1ac96ceb7703704ab51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create doip generic header.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a488dc7e512f6c1ac96ceb7703704ab51">More...</a><br /></td></tr>
+<tr class="separator:a488dc7e512f6c1ac96ceb7703704ab51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa4b2526fe0bc8060bacc3332bc1d71fa"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html">RoutingActivationHandlerImpl</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a></td></tr>
+<tr class="memdesc:aa4b2526fe0bc8060bacc3332bc1d71fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the Handler implementation.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">More...</a><br /></td></tr>
+<tr class="separator:aa4b2526fe0bc8060bacc3332bc1d71fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class used as a handler to process routing activation messages. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8h_source.html#l00029">29</a> of file <a class="el" href="doip__routing__activation__handler_8h_source.html">doip_routing_activation_handler.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac7fa5eb8dd7d614b9cf077df7de922a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7fa5eb8dd7d614b9cf077df7de922a9">&#9670;&nbsp;</a></span>TcpMessage</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac7fa5eb8dd7d614b9cf077df7de922a9">doip_client::channel::tcp_channel::RoutingActivationHandler::TcpMessage</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#af7ae707e09a2af885ed2c1dc86a49141">sockets::TcpSocketHandler::TcpMessage</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for Tcp message. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8h_source.html#l00039">39</a> of file <a class="el" href="doip__routing__activation__handler_8h_source.html">doip_routing_activation_handler.h</a>.</p>
+
+</div>
+</div>
+<a id="a0a97b35e41a234b1d6b776515eb9dd9d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a97b35e41a234b1d6b776515eb9dd9d">&#9670;&nbsp;</a></span>TcpMessagePtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">doip_client::channel::tcp_channel::RoutingActivationHandler::TcpMessagePtr</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for Tcp message pointer. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8h_source.html#l00034">34</a> of file <a class="el" href="doip__routing__activation__handler_8h_source.html">doip_routing_activation_handler.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8a217824d95a205cbe8b8f950bce23b0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8a217824d95a205cbe8b8f950bce23b0">&#9670;&nbsp;</a></span>RoutingActivationHandler()</h2>
 
@@ -161,9 +217,107 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00310">310</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>{std::make_unique&lt;RoutingActivationHandlerImpl&gt;(tcp_socket_handler)} {}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_html_aa4b2526fe0bc8060bacc3332bc1d71fa"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">doip_client::channel::tcp_channel::RoutingActivationHandler::handler_impl_</a></div><div class="ttdeci">std::unique_ptr&lt; RoutingActivationHandlerImpl &gt; handler_impl_</div><div class="ttdoc">Stores the Handler implementation.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8h_source.html#l00124">doip_routing_activation_handler.h:119</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a71d8734c67a1933d1fdd170481a77a4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71d8734c67a1933d1fdd170481a77a4f">&#9670;&nbsp;</a></span>~RoutingActivationHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::channel::tcp_channel::RoutingActivationHandler::~RoutingActivationHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destruct an instance of <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages.">RoutingActivationHandler</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a488dc7e512f6c1ac96ceb7703704ab51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a488dc7e512f6c1ac96ceb7703704ab51">&#9670;&nbsp;</a></span>CreateDoipGenericHeader()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void doip_client::channel::tcp_channel::RoutingActivationHandler::CreateDoipGenericHeader </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::uint8_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>doip_header</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint16_t&#160;</td>
+          <td class="paramname"><em>payload_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>payload_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to create doip generic header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">doip_header</td><td>The doip header </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">payload_type</td><td>The type of payload </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">payload_len</td><td>The length of payload </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00443">443</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;                                                                                                          {</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  doip_header_buffer.emplace_back(<a class="code" href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">kDoip_ProtocolVersion</a>);</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;  doip_header_buffer.emplace_back(~(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">kDoip_ProtocolVersion</a>)));</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_type &amp; 0xFF00) &gt;&gt; 8));</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(payload_type &amp; 0x00FF));</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0xFF000000) &gt;&gt; 24));</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0x00FF0000) &gt;&gt; 16));</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0x0000FF00) &gt;&gt; 8));</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  doip_header_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(payload_len &amp; 0x000000FF));</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;}</div>
+<div class="ttc" id="anamespacedoip__client_html_a71eef2a6c930342c07446395c83cb741"><div class="ttname"><a href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">doip_client::kDoip_ProtocolVersion</a></div><div class="ttdeci">constexpr std::uint8_t kDoip_ProtocolVersion</div><div class="ttdef"><b>Definition:</b> <a href="common__doip__types_8h_source.html#l00025">common_doip_types.h:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="common__doip__types_8h_source.html#l00025">doip_client::kDoip_ProtocolVersion</a>.</p>
+
+</div>
+</div>
 <a id="ac8ac818661af652d80799ad96683b047"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac8ac818661af652d80799ad96683b047">&#9670;&nbsp;</a></span>HandleRoutingActivationRequest()</h2>
 
@@ -176,9 +330,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">auto doip_client::channel::tcp_channel::RoutingActivationHandler::HandleRoutingActivationRequest </td>
           <td>(</td>
-          <td class="paramtype">uds_transport::UdsMessageConstPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a>&#160;</td>
           <td class="paramname"><em>routing_activation_request</em></td><td>)</td>
-          <td> -&gt; uds_transport::UdsTransportProtocolMgr::ConnectionResult</td>
+          <td> -&gt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a></td>
         </tr>
       </table>
   </td>
@@ -196,6 +350,75 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Transmission result </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00359">359</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                                                            {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a> result{</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;      <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed</a>};</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() == RoutingActivationState::kIdle) {</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5f1457021cf25855f04603a4f5ce09e2">SendRoutingActivationRequest</a>(std::move(routing_activation_request)) ==</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk</a>) {</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;      <span class="comment">// Wait for routing activation response</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().TransitionTo(RoutingActivationState::kWaitForRoutingActivationRes);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetSyncTimer().WaitForTimeout(</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;          [<span class="keyword">this</span>, &amp;result]() {</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            result = <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout</a>;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().TransitionTo(RoutingActivationState::kIdle);</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;                __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                  msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation response timeout, no response received in: &quot;</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                      &lt;&lt; <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#ad61b99db1d08c71bb1f3b897248d9b43">kDoIPRoutingActivationTimeout</a> &lt;&lt; <span class="stringliteral">&quot; milliseconds&quot;</span>;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                });</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;          },</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;          [<span class="keyword">this</span>, &amp;result]() {</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() ==</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;                RoutingActivationState::kRoutingActivationSuccessful) {</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;              <span class="comment">// success</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;              result = <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk</a>;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;              <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;                  __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;                  [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation successful with remote server&quot;</span>; });</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            } <span class="keywordflow">else</span> {  <span class="comment">// failed</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;              <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().TransitionTo(RoutingActivationState::kIdle);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;              <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;                  __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                  [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation failed with remote server&quot;</span>; });</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;          },</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;          std::chrono::milliseconds{<a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#ad61b99db1d08c71bb1f3b897248d9b43">kDoIPRoutingActivationTimeout</a>});</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;      <span class="comment">// failed, do nothing</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().TransitionTo(RoutingActivationState::kIdle);</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;      <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;          __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;          [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation Request send failed with remote server&quot;</span>; });</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="comment">// channel not free</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogVerbose(</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation channel not free&quot;</span>; });</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  }</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_html_a5f1457021cf25855f04603a4f5ce09e2"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5f1457021cf25855f04603a4f5ce09e2">doip_client::channel::tcp_channel::RoutingActivationHandler::SendRoutingActivationRequest</a></div><div class="ttdeci">auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept -&gt; uds_transport::UdsTransportProtocolMgr::TransmissionResult</div><div class="ttdoc">Function to send routing activation request.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00415">doip_routing_activation_handler.cpp:415</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1logger_1_1DoipClientLogger_html_aa441830cb20a19d78d76067b769c67b2"><div class="ttname"><a href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">doip_client::logger::DoipClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DoipClientLogger &amp;</div><div class="ttdef"><b>Definition:</b> <a href="lib_2doip-client_2common_2logger_8h_source.html#l00020">logger.h:20</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a></div><div class="ttdeci">ConnectionResult</div><div class="ttdef"><b>Definition:</b> <a href="protocol__mgr_8h_source.html#l00035">protocol_mgr.h:35</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed</a></div><div class="ttdeci">@ kConnectionFailed</div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout</a></div><div class="ttdeci">@ kConnectionTimeout</div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk</a></div><div class="ttdeci">@ kConnectionOk</div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk</a></div><div class="ttdeci">@ kTransmitOk</div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_ad61b99db1d08c71bb1f3b897248d9b43"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#ad61b99db1d08c71bb1f3b897248d9b43">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoIPRoutingActivationTimeout</a></div><div class="ttdeci">constexpr std::uint32_t kDoIPRoutingActivationTimeout</div><div class="ttdoc">The timeout value for a DoIP Routing Activation request.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00062">doip_routing_activation_handler.cpp:62</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::kConnectionFailed</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a">uds_transport::UdsTransportProtocolMgr::kConnectionOk</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f">uds_transport::UdsTransportProtocolMgr::kConnectionTimeout</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00062">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoIPRoutingActivationTimeout</a>, and <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">uds_transport::UdsTransportProtocolMgr::kTransmitOk</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ac8ac818661af652d80799ad96683b047_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ac8ac818661af652d80799ad96683b047_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ac8ac818661af652d80799ad96683b047_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ac8ac818661af652d80799ad96683b047_cgraph">
+<area shape="rect" title="Function to handle sending of routing activation request." alt="" coords="5,5,301,61"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="349,5,507,61"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -224,6 +447,29 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Check if routing activation is active for this handler. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if activated, otherwise False </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00410">410</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                                                                   {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() ==</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;          RoutingActivationState::kRoutingActivationSuccessful);</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__routing__activation__handler_8h_source.html#l00119">handler_impl_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00110">doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ae578fb73c66ea109fe5f1ae45d186be9_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ae578fb73c66ea109fe5f1ae45d186be9_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ae578fb73c66ea109fe5f1ae45d186be9_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_ae578fb73c66ea109fe5f1ae45d186be9_icgraph">
+<area shape="rect" title="Check if routing activation is active for this handler." alt="" coords="824,45,1056,101"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="556,45,776,101"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afba7750333863947ee799091ad3c1922" title="Function to transmit a valid Uds message." alt="" coords="288,85,508,141"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3e600064ff99848ff724f53970dd4c70" title="Function to transmit a valid Uds message." alt="" coords="13,93,232,134"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -259,6 +505,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00321">321</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                                                                                                              {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;  <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a15f86c53bb6b02cfc5b34744f1df1683">RoutingActivationState</a> final_state{RoutingActivationState::kRoutingActivationFailed};</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() ==</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;      RoutingActivationState::kWaitForRoutingActivationRes) {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="comment">// get the ack code</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    RoutingActivationAckType <span class="keyword">const</span> rout_act_type{doip_payload.GetPayload()[0u]};</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">switch</span> (rout_act_type.act_type_) {</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a6ae7d137dc25b0d47aa5026c0d63f733">kDoip_RoutingActivation_ResCode_RoutingSuccessful</a>: {</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="comment">// routing successful</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        final_state = RoutingActivationState::kRoutingActivationSuccessful;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            __FILE__, __LINE__, __func__, [&amp;doip_payload](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;              msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation successfully activated in remote server with logical Address&quot;</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot; (0x&quot;</span> &lt;&lt; std::hex &lt;&lt; doip_payload.GetServerAddress() &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            });</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;      } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#ac7efbc1429744e20cbb5715f0de9676d">kDoip_RoutingActivation_ResCode_ConfirmtnRequired</a>: {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="comment">// trigger routing activation after sometime, not implemented yet</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            __FILE__, __LINE__, __func__, [&amp;doip_payload](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;              msg &lt;&lt; <span class="stringliteral">&quot;RoutingActivation is activated, confirmation required in remote server with logical Address&quot;</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot; (0x&quot;</span> &lt;&lt; std::hex &lt;&lt; doip_payload.GetServerAddress() &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            });</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;      } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;      <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        <span class="comment">// failure, do nothing</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogWarn(</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            __FILE__, __LINE__, __func__,</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            [&amp;rout_act_type](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Routing activation denied due to &quot;</span> &lt;&lt; rout_act_type; });</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    }</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetStateContext().TransitionTo(final_state);</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetSyncTimer().CancelWait();</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="comment">/* ignore */</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  }</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;}</div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_a15f86c53bb6b02cfc5b34744f1df1683"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a15f86c53bb6b02cfc5b34744f1df1683">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::RoutingActivationState</a></div><div class="ttdeci">RoutingActivationState</div><div class="ttdoc">Different routing activation state.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00067">doip_routing_activation_handler.cpp:67</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_a6ae7d137dc25b0d47aa5026c0d63f733"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a6ae7d137dc25b0d47aa5026c0d63f733">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ResCode_RoutingSuccessful</a></div><div class="ttdeci">constexpr std::uint8_t kDoip_RoutingActivation_ResCode_RoutingSuccessful</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00042">doip_routing_activation_handler.cpp:42</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_ac7efbc1429744e20cbb5715f0de9676d"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#ac7efbc1429744e20cbb5715f0de9676d">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ResCode_ConfirmtnRequired</a></div><div class="ttdeci">constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00043">doip_routing_activation_handler.cpp:43</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00043">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ResCode_ConfirmtnRequired</a>, and <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00042">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ResCode_RoutingSuccessful</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5444cf901409cd5e9b939650d1d4ce77_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5444cf901409cd5e9b939650d1d4ce77_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5444cf901409cd5e9b939650d1d4ce77_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5444cf901409cd5e9b939650d1d4ce77_cgraph">
+<area shape="rect" title="Function to process received routing activation response." alt="" coords="5,5,283,76"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="331,13,488,69"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="a510c796006fc6ccb49df16b1c6c50a75"></a>
@@ -278,6 +577,143 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Function to reset the handler. </p>
 <p>This will reset all the internal handler back to default state </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00319">319</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;{ <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;Reset(); }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__routing__activation__handler_8h_source.html#l00119">handler_impl_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00080">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Reset()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a510c796006fc6ccb49df16b1c6c50a75_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a510c796006fc6ccb49df16b1c6c50a75_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a510c796006fc6ccb49df16b1c6c50a75_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a510c796006fc6ccb49df16b1c6c50a75_icgraph">
+<area shape="rect" title="Function to reset the handler." alt="" coords="824,5,1056,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211" title="Function to reset the handler." alt="" coords="556,5,776,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5f1457021cf25855f04603a4f5ce09e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1457021cf25855f04603a4f5ce09e2">&#9670;&nbsp;</a></span>SendRoutingActivationRequest()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto doip_client::channel::tcp_channel::RoutingActivationHandler::SendRoutingActivationRequest </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a>&#160;</td>
+          <td class="paramname"><em>routing_activation_request</em></td><td>)</td>
+          <td> -&gt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to send routing activation request. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">routing_activation_request</td><td>The routing activation request </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Transmission result </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00415">415</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;                                                              {</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a> ret_val{</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;      <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed</a>};</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">TcpMessagePtr</a> doip_routing_act_req{std::make_unique&lt;TcpMessage&gt;()};</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  <span class="comment">// reserve bytes in vector</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().reserve(<a class="code" href="namespacedoip__client.html#a0dad4e0edc1d736cb95cacfdd5b17d53">kDoipheadrSize</a> + <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#abcfbf2d1c61e69c12c6244c168ef5e79">kDoip_RoutingActivation_ReqMinLen</a>);</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;  <span class="comment">// create header</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a488dc7e512f6c1ac96ceb7703704ab51">CreateDoipGenericHeader</a>(doip_routing_act_req-&gt;GetTxBuffer(), <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#af173ee80aa3f0bdedac5693aeacf5828">kDoip_RoutingActivation_ReqType</a>,</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;                          <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#abcfbf2d1c61e69c12c6244c168ef5e79">kDoip_RoutingActivation_ReqMinLen</a>);</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;  <span class="comment">// Add source address</span></div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((message-&gt;GetSa() &amp; 0xFF00) &gt;&gt; 8u));</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(message-&gt;GetSa() &amp; 0x00FF));</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  <span class="comment">// Add activation type</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(<a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a65d2bf1e15ad0fee7ffd91b9a7a7caff">kDoip_RoutingActivation_ReqActType_Default</a>);</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <span class="comment">// Add reservation byte , default zeroes</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(0x00);</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(0x00);</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(0x00);</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  doip_routing_act_req-&gt;GetTxBuffer().emplace_back(0x00);</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="comment">// Initiate transmission</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;GetSocketHandler().Transmit(std::move(doip_routing_act_req))) {</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    ret_val = <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk</a>;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  }</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  <span class="keywordflow">return</span> ret_val;</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_html_a0a97b35e41a234b1d6b776515eb9dd9d"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">doip_client::channel::tcp_channel::RoutingActivationHandler::TcpMessagePtr</a></div><div class="ttdeci">sockets::TcpSocketHandler::TcpMessagePtr TcpMessagePtr</div><div class="ttdoc">Type alias for Tcp message pointer.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8h_source.html#l00034">doip_routing_activation_handler.h:34</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_html_a488dc7e512f6c1ac96ceb7703704ab51"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a488dc7e512f6c1ac96ceb7703704ab51">doip_client::channel::tcp_channel::RoutingActivationHandler::CreateDoipGenericHeader</a></div><div class="ttdeci">static void CreateDoipGenericHeader(std::vector&lt; std::uint8_t &gt; &amp;doip_header, std::uint16_t payload_type, std::uint32_t payload_len)</div><div class="ttdoc">Function to create doip generic header.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00443">doip_routing_activation_handler.cpp:443</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a675a5d498c842cca407d2ce2a0399158"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a></div><div class="ttdeci">TransmissionResult</div><div class="ttdef"><b>Definition:</b> <a href="protocol__mgr_8h_source.html#l00027">protocol_mgr.h:27</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed</a></div><div class="ttdeci">@ kTransmitFailed</div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_a65d2bf1e15ad0fee7ffd91b9a7a7caff"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#a65d2bf1e15ad0fee7ffd91b9a7a7caff">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqActType_Default</a></div><div class="ttdeci">constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_Default</div><div class="ttdoc">Routing Activation request activation types.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00027">doip_routing_activation_handler.cpp:27</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_abcfbf2d1c61e69c12c6244c168ef5e79"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#abcfbf2d1c61e69c12c6244c168ef5e79">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqMinLen</a></div><div class="ttdeci">constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen</div><div class="ttdoc">Routing Activation request lengths.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00048">doip_routing_activation_handler.cpp:48</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03_html_af173ee80aa3f0bdedac5693aeacf5828"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__routing__activation__handler_8cpp_03.html#af173ee80aa3f0bdedac5693aeacf5828">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqType</a></div><div class="ttdeci">constexpr std::uint16_t kDoip_RoutingActivation_ReqType</div><div class="ttdoc">Routing Activation response Type.</div><div class="ttdef"><b>Definition:</b> <a href="doip__routing__activation__handler_8cpp_source.html#l00056">doip_routing_activation_handler.cpp:56</a></div></div>
+<div class="ttc" id="anamespacedoip__client_html_a0dad4e0edc1d736cb95cacfdd5b17d53"><div class="ttname"><a href="namespacedoip__client.html#a0dad4e0edc1d736cb95cacfdd5b17d53">doip_client::kDoipheadrSize</a></div><div class="ttdeci">constexpr std::uint8_t kDoipheadrSize</div><div class="ttdef"><b>Definition:</b> <a href="common__doip__types_8h_source.html#l00022">common_doip_types.h:22</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__vehicle__identification__handler_8cpp_source.html#l00133">doip_client::channel::udp_channel::anonymous_namespace{doip_vehicle_identification_handler.cpp}::CreateDoipGenericHeader()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00027">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqActType_Default</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00048">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqMinLen</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00056">doip_client::channel::tcp_channel::anonymous_namespace{doip_routing_activation_handler.cpp}::kDoip_RoutingActivation_ReqType</a>, <a class="el" href="common__doip__types_8h_source.html#l00022">doip_client::kDoipheadrSize</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::kTransmitFailed</a>, and <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">uds_transport::UdsTransportProtocolMgr::kTransmitOk</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5f1457021cf25855f04603a4f5ce09e2_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5f1457021cf25855f04603a4f5ce09e2_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5f1457021cf25855f04603a4f5ce09e2_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a5f1457021cf25855f04603a4f5ce09e2_cgraph">
+<area shape="rect" title="Function to send routing activation request." alt="" coords="5,20,288,76"/>
+<area shape="rect" href="namespacedoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identification__handler_8cpp_03.html#adf23eda2a90f7f6ab0550338a0ae1594" title="Create the doip generic header." alt="" coords="336,5,567,91"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aeea909063355e6ad6172d1a1146cdf21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea909063355e6ad6172d1a1146cdf21">&#9670;&nbsp;</a></span>Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void doip_client::channel::tcp_channel::RoutingActivationHandler::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to start the handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00315">315</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;{ <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;Start(); }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__routing__activation__handler_8h_source.html#l00119">handler_impl_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00070">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Start()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_aeea909063355e6ad6172d1a1146cdf21_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_aeea909063355e6ad6172d1a1146cdf21_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_aeea909063355e6ad6172d1a1146cdf21_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_aeea909063355e6ad6172d1a1146cdf21_icgraph">
+<area shape="rect" title="Function to start the handler." alt="" coords="783,5,1015,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e" title="Function to start the handler." alt="" coords="515,5,735,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89" title="Function to start the channel." alt="" coords="247,5,467,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3236801a8cf87a5d2b0f1e2afd1aa1da" title="Function to start the connection." alt="" coords="5,13,199,54"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -299,11 +735,58 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <p>Function to stop the handler. </p>
 <p>This will reset all the internal handler back to default state </p>
 
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00317">317</a> of file <a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;{ <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa4b2526fe0bc8060bacc3332bc1d71fa">handler_impl_</a>-&gt;Stop(); }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__routing__activation__handler_8h_source.html#l00119">handler_impl_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00075">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Stop()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a0135100db4d69d1716bc4d617f496943_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a0135100db4d69d1716bc4d617f496943_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a0135100db4d69d1716bc4d617f496943_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_a0135100db4d69d1716bc4d617f496943_icgraph">
+<area shape="rect" title="Function to stop the handler." alt="" coords="817,5,1049,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ad2cd83ee13eeff3afef9297409075e9f" title="Function to stop the handler." alt="" coords="549,5,769,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140" title="Function to stop the channel." alt="" coords="244,13,501,54"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a7118670417286ee60f84ad4b3cc21eff" title="Function to stop the connection." alt="" coords="5,13,196,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa4b2526fe0bc8060bacc3332bc1d71fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4b2526fe0bc8060bacc3332bc1d71fa">&#9670;&nbsp;</a></span>handler_impl_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html">RoutingActivationHandlerImpl</a>&gt; doip_client::channel::tcp_channel::RoutingActivationHandler::handler_impl_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Stores the Handler implementation. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__routing__activation__handler_8h_source.html#l00124">124</a> of file <a class="el" href="doip__routing__activation__handler_8h_source.html">doip_routing_activation_handler.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00410">IsRoutingActivated()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00319">Reset()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00315">Start()</a>, and <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00317">Stop()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/<a class="el" href="doip__routing__activation__handler_8h_source.html">doip_routing_activation_handler.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/doip_routing_activation_handler.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/<a class="el" href="doip__routing__activation__handler_8cpp_source.html">doip_routing_activation_handler.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

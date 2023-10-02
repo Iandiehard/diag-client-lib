@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::Conversation::DisconnectFromDiagServer" name="diag::client::conversation::Conversation::DisconnectFromDiagServer">
+<area shape="rect" id="node1" title="Function to disconnect from Diagnostic Server." alt="" coords="267,13,525,69"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a1654ddae12ed2f1f095fda3323920e9c" title="Function to disconnect from Diagnostic Server." alt="" coords="5,5,219,76"/>
+</map>

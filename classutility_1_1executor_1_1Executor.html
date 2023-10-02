@@ -61,24 +61,384 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>utility</b></li><li class="navelem"><b>executor</b></li><li class="navelem"><a class="el" href="classutility_1_1executor_1_1Executor.html">Executor</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceutility.html">utility</a></li><li class="navelem"><a class="el" href="namespaceutility_1_1executor.html">executor</a></li><li class="navelem"><a class="el" href="classutility_1_1executor_1_1Executor.html">Executor</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classutility_1_1executor_1_1Executor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">utility::executor::Executor&lt; ExecutorHandler &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="executor_8h_source.html">executor.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4965d949500b3bfae679946a58d5cb3a"><td class="memItemLeft" align="right" valign="top"><a id="a4965d949500b3bfae679946a58d5cb3a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>AddExecute</b> (ExecutorHandler executor_handler)</td></tr>
+<tr class="memitem:acb4d83d67e56a77b13d01ada5c78269a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#acb4d83d67e56a77b13d01ada5c78269a">Executor</a> ()</td></tr>
+<tr class="separator:acb4d83d67e56a77b13d01ada5c78269a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1d9f6c527b9b8698ef0767178baad6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#aa1d9f6c527b9b8698ef0767178baad6e">~Executor</a> ()</td></tr>
+<tr class="separator:aa1d9f6c527b9b8698ef0767178baad6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4965d949500b3bfae679946a58d5cb3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#a4965d949500b3bfae679946a58d5cb3a">AddExecute</a> (ExecutorHandler executor_handler)</td></tr>
 <tr class="separator:a4965d949500b3bfae679946a58d5cb3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a156605b2d1362b08a8ecd0828994874b"><td class="memItemLeft" align="right" valign="top">std::queue&lt; ExecutorHandler &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">queue_</a></td></tr>
+<tr class="separator:a156605b2d1362b08a8ecd0828994874b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9727c35c59773a1c964240291ac55c98"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#a9727c35c59773a1c964240291ac55c98">mutex_lock_</a></td></tr>
+<tr class="separator:a9727c35c59773a1c964240291ac55c98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1275e5842ae92761f50095384d772a2"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#ae1275e5842ae92761f50095384d772a2">exit_mutex_lock_</a></td></tr>
+<tr class="separator:ae1275e5842ae92761f50095384d772a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff865520e215ffb7442d523c847393dd"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#aff865520e215ffb7442d523c847393dd">thread_</a></td></tr>
+<tr class="separator:aff865520e215ffb7442d523c847393dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2c1b6aa72f999546ec4685dfff0a7de"><td class="memItemLeft" align="right" valign="top">std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#ab2c1b6aa72f999546ec4685dfff0a7de">cond_var_</a></td></tr>
+<tr class="separator:ab2c1b6aa72f999546ec4685dfff0a7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ed97929913747eed98c3dae816c5f7"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#a37ed97929913747eed98c3dae816c5f7">exit_request_</a></td></tr>
+<tr class="separator:a37ed97929913747eed98c3dae816c5f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f4999d9ce8dd93cf75517289044d5e8"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a></td></tr>
+<tr class="separator:a9f4999d9ce8dd93cf75517289044d5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename ExecutorHandler&gt;<br />
+class utility::executor::Executor&lt; ExecutorHandler &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00022">22</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acb4d83d67e56a77b13d01ada5c78269a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb4d83d67e56a77b13d01ada5c78269a">&#9670;&nbsp;</a></span>Executor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::<a class="el" href="classutility_1_1executor_1_1Executor.html">Executor</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00025">25</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;             : <a class="code" href="classutility_1_1executor_1_1Executor.html#a37ed97929913747eed98c3dae816c5f7">exit_request_</a>{<span class="keyword">false</span>}, <a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a>{<span class="keyword">false</span>} {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#aff865520e215ffb7442d523c847393dd">thread_</a> = std::thread([&amp;]() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      std::unique_lock&lt;std::mutex&gt; exit_lck(<a class="code" href="classutility_1_1executor_1_1Executor.html#ae1275e5842ae92761f50095384d772a2">exit_mutex_lock_</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      <span class="keywordflow">while</span> (!<a class="code" href="classutility_1_1executor_1_1Executor.html#a37ed97929913747eed98c3dae816c5f7">exit_request_</a>.load()) {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a>.load()) { <a class="code" href="classutility_1_1executor_1_1Executor.html#ab2c1b6aa72f999546ec4685dfff0a7de">cond_var_</a>.wait(exit_lck); }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a>) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;          std::unique_lock&lt;std::mutex&gt; lck(<a class="code" href="classutility_1_1executor_1_1Executor.html#a9727c35c59773a1c964240291ac55c98">mutex_lock_</a>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;          <span class="keywordflow">while</span> (!<a class="code" href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">queue_</a>.empty()) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keyword">auto</span> func = <a class="code" href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">queue_</a>.front();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            lck.unlock();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            func();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            lck.lock();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <a class="code" href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">queue_</a>.pop();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;          }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;          <a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a>.store(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    });</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  }</div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_a156605b2d1362b08a8ecd0828994874b"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">utility::executor::Executor::queue_</a></div><div class="ttdeci">std::queue&lt; ExecutorHandler &gt; queue_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00063">executor.h:63</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_a37ed97929913747eed98c3dae816c5f7"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#a37ed97929913747eed98c3dae816c5f7">utility::executor::Executor::exit_request_</a></div><div class="ttdeci">std::atomic&lt; bool &gt; exit_request_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00073">executor.h:73</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_a9727c35c59773a1c964240291ac55c98"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#a9727c35c59773a1c964240291ac55c98">utility::executor::Executor::mutex_lock_</a></div><div class="ttdeci">std::mutex mutex_lock_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00065">executor.h:65</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_a9f4999d9ce8dd93cf75517289044d5e8"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">utility::executor::Executor::running_</a></div><div class="ttdeci">std::atomic&lt; bool &gt; running_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00075">executor.h:75</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_ab2c1b6aa72f999546ec4685dfff0a7de"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#ab2c1b6aa72f999546ec4685dfff0a7de">utility::executor::Executor::cond_var_</a></div><div class="ttdeci">std::condition_variable cond_var_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00071">executor.h:71</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_ae1275e5842ae92761f50095384d772a2"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#ae1275e5842ae92761f50095384d772a2">utility::executor::Executor::exit_mutex_lock_</a></div><div class="ttdeci">std::mutex exit_mutex_lock_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00067">executor.h:67</a></div></div>
+<div class="ttc" id="aclassutility_1_1executor_1_1Executor_html_aff865520e215ffb7442d523c847393dd"><div class="ttname"><a href="classutility_1_1executor_1_1Executor.html#aff865520e215ffb7442d523c847393dd">utility::executor::Executor::thread_</a></div><div class="ttdeci">std::thread thread_</div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00069">executor.h:69</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="executor_8h_source.html#l00071">utility::executor::Executor&lt; ExecutorHandler &gt;::cond_var_</a>, <a class="el" href="executor_8h_source.html#l00067">utility::executor::Executor&lt; ExecutorHandler &gt;::exit_mutex_lock_</a>, <a class="el" href="executor_8h_source.html#l00073">utility::executor::Executor&lt; ExecutorHandler &gt;::exit_request_</a>, <a class="el" href="executor_8h_source.html#l00065">utility::executor::Executor&lt; ExecutorHandler &gt;::mutex_lock_</a>, <a class="el" href="executor_8h_source.html#l00063">utility::executor::Executor&lt; ExecutorHandler &gt;::queue_</a>, <a class="el" href="executor_8h_source.html#l00075">utility::executor::Executor&lt; ExecutorHandler &gt;::running_</a>, and <a class="el" href="executor_8h_source.html#l00069">utility::executor::Executor&lt; ExecutorHandler &gt;::thread_</a>.</p>
+
+</div>
+</div>
+<a id="aa1d9f6c527b9b8698ef0767178baad6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1d9f6c527b9b8698ef0767178baad6e">&#9670;&nbsp;</a></span>~Executor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::~<a class="el" href="classutility_1_1executor_1_1Executor.html">Executor</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00046">46</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;              {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#a37ed97929913747eed98c3dae816c5f7">exit_request_</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#ab2c1b6aa72f999546ec4685dfff0a7de">cond_var_</a>.notify_one();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#aff865520e215ffb7442d523c847393dd">thread_</a>.join();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="executor_8h_source.html#l00071">utility::executor::Executor&lt; ExecutorHandler &gt;::cond_var_</a>, <a class="el" href="executor_8h_source.html#l00073">utility::executor::Executor&lt; ExecutorHandler &gt;::exit_request_</a>, <a class="el" href="executor_8h_source.html#l00075">utility::executor::Executor&lt; ExecutorHandler &gt;::running_</a>, and <a class="el" href="executor_8h_source.html#l00069">utility::executor::Executor&lt; ExecutorHandler &gt;::thread_</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4965d949500b3bfae679946a58d5cb3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4965d949500b3bfae679946a58d5cb3a">&#9670;&nbsp;</a></span>AddExecute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::AddExecute </td>
+          <td>(</td>
+          <td class="paramtype">ExecutorHandler&#160;</td>
+          <td class="paramname"><em>executor_handler</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00054">54</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                                                    {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unique_lock&lt;std::mutex&gt; lck(<a class="code" href="classutility_1_1executor_1_1Executor.html#a9727c35c59773a1c964240291ac55c98">mutex_lock_</a>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#a156605b2d1362b08a8ecd0828994874b">queue_</a>.push(std::move(executor_handler));</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#a9f4999d9ce8dd93cf75517289044d5e8">running_</a>.store(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="classutility_1_1executor_1_1Executor.html#ab2c1b6aa72f999546ec4685dfff0a7de">cond_var_</a>.notify_one();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="executor_8h_source.html#l00071">utility::executor::Executor&lt; ExecutorHandler &gt;::cond_var_</a>, <a class="el" href="executor_8h_source.html#l00065">utility::executor::Executor&lt; ExecutorHandler &gt;::mutex_lock_</a>, <a class="el" href="executor_8h_source.html#l00063">utility::executor::Executor&lt; ExecutorHandler &gt;::queue_</a>, and <a class="el" href="executor_8h_source.html#l00075">utility::executor::Executor&lt; ExecutorHandler &gt;::running_</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab2c1b6aa72f999546ec4685dfff0a7de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2c1b6aa72f999546ec4685dfff0a7de">&#9670;&nbsp;</a></span>cond_var_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::condition_variable <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::cond_var_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00071">71</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00054">utility::executor::Executor&lt; ExecutorHandler &gt;::AddExecute()</a>, <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>, and <a class="el" href="executor_8h_source.html#l00046">utility::executor::Executor&lt; ExecutorHandler &gt;::~Executor()</a>.</p>
+
+</div>
+</div>
+<a id="ae1275e5842ae92761f50095384d772a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1275e5842ae92761f50095384d772a2">&#9670;&nbsp;</a></span>exit_mutex_lock_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::exit_mutex_lock_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00067">67</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>.</p>
+
+</div>
+</div>
+<a id="a37ed97929913747eed98c3dae816c5f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37ed97929913747eed98c3dae816c5f7">&#9670;&nbsp;</a></span>exit_request_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::exit_request_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00073">73</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>, and <a class="el" href="executor_8h_source.html#l00046">utility::executor::Executor&lt; ExecutorHandler &gt;::~Executor()</a>.</p>
+
+</div>
+</div>
+<a id="a9727c35c59773a1c964240291ac55c98"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9727c35c59773a1c964240291ac55c98">&#9670;&nbsp;</a></span>mutex_lock_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::mutex_lock_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00065">65</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00054">utility::executor::Executor&lt; ExecutorHandler &gt;::AddExecute()</a>, and <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>.</p>
+
+</div>
+</div>
+<a id="a156605b2d1362b08a8ecd0828994874b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a156605b2d1362b08a8ecd0828994874b">&#9670;&nbsp;</a></span>queue_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::queue&lt;ExecutorHandler&gt; <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::queue_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00063">63</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00054">utility::executor::Executor&lt; ExecutorHandler &gt;::AddExecute()</a>, and <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>.</p>
+
+</div>
+</div>
+<a id="a9f4999d9ce8dd93cf75517289044d5e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f4999d9ce8dd93cf75517289044d5e8">&#9670;&nbsp;</a></span>running_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;bool&gt; <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::running_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00075">75</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00054">utility::executor::Executor&lt; ExecutorHandler &gt;::AddExecute()</a>, <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>, and <a class="el" href="executor_8h_source.html#l00046">utility::executor::Executor&lt; ExecutorHandler &gt;::~Executor()</a>.</p>
+
+</div>
+</div>
+<a id="aff865520e215ffb7442d523c847393dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff865520e215ffb7442d523c847393dd">&#9670;&nbsp;</a></span>thread_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename ExecutorHandler &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::thread <a class="el" href="classutility_1_1executor_1_1Executor.html">utility::executor::Executor</a>&lt; ExecutorHandler &gt;::thread_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="executor_8h_source.html#l00069">69</a> of file <a class="el" href="executor_8h_source.html">executor.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="executor_8h_source.html#l00025">utility::executor::Executor&lt; ExecutorHandler &gt;::Executor()</a>, and <a class="el" href="executor_8h_source.html#l00046">utility::executor::Executor&lt; ExecutorHandler &gt;::~Executor()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/utility-support/utility/<a class="el" href="executor_8h_source.html">executor.h</a></li>
 </ul>

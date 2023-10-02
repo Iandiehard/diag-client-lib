@@ -61,13 +61,14 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>boost_support</b></li><li class="navelem"><b>socket</b></li><li class="navelem"><b>tcp</b></li><li class="navelem"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceboost__support.html">boost_support</a></li><li class="navelem"><a class="el" href="namespaceboost__support_1_1socket.html">socket</a></li><li class="navelem"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html">tcp</a></li><li class="navelem"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">boost_support::socket::tcp::TcpMessage Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -81,56 +82,48 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a01307bfb94a9de71b8a4ebe5581dc7f2"><td class="memItemLeft" align="right" valign="top"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">SocketState</a> : std::uint8_t { <br />
-&#160;&#160;<b>kIdle</b> = 0x00
-, <b>kSocketOnline</b>
-, <b>kSocketOffline</b>
-, <b>kSocketRxMessageReceived</b>
+<tr class="memitem:a01307bfb94a9de71b8a4ebe5581dc7f2"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">SocketState</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b">kIdle</a> = 0x00
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2a502287b54a185aa022e5f9090d408a18">kSocketOnline</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2a627d3d5cbe3a93f6e090c665dfdcafb8">kSocketOffline</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2a59f6517b2e97a4f7d0d2c8095713fbe0">kSocketRxMessageReceived</a>
 , <br />
-&#160;&#160;<b>kSocketTxMessageSend</b>
-, <b>kSocketTxMessageConf</b>
-, <b>kSocketError</b>
+&#160;&#160;<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2adfb7362026a7fe2d15d9df0c46fdc2e1">kSocketTxMessageSend</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2a5bf80ddf69d48cab25aa993d51837918">kSocketTxMessageConf</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2a25fc3e3b54afe30844aeea0fce218046">kSocketError</a>
 <br />
  }</td></tr>
-<tr class="memdesc:a01307bfb94a9de71b8a4ebe5581dc7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of different socket state. <br /></td></tr>
+<tr class="memdesc:a01307bfb94a9de71b8a4ebe5581dc7f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of different socket state.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">More...</a><br /></td></tr>
 <tr class="separator:a01307bfb94a9de71b8a4ebe5581dc7f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"><td class="memItemLeft" align="right" valign="top"><a id="a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">SocketError</a> : std::uint8_t { <b>kNone</b> = 0x00
+<tr class="memitem:a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">SocketError</a> : std::uint8_t { <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13">kNone</a> = 0x00
  }</td></tr>
-<tr class="memdesc:a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of different socket error that could occur. <br /></td></tr>
+<tr class="memdesc:a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of different socket error that could occur.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">More...</a><br /></td></tr>
 <tr class="separator:a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb34553c72bb98efa565aff178ffaf5"><td class="memItemLeft" align="right" valign="top"><a id="aabb34553c72bb98efa565aff178ffaf5"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a> = std::vector&lt; uint8_t &gt;</td></tr>
-<tr class="memdesc:aabb34553c72bb98efa565aff178ffaf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for underlying buffer. <br /></td></tr>
+<tr class="memitem:aabb34553c72bb98efa565aff178ffaf5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a> = std::vector&lt; uint8_t &gt;</td></tr>
+<tr class="memdesc:aabb34553c72bb98efa565aff178ffaf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for underlying buffer.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">More...</a><br /></td></tr>
 <tr class="separator:aabb34553c72bb98efa565aff178ffaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e1bf6facddd0d798e19e2d498501ed"><td class="memItemLeft" align="right" valign="top"><a id="aa8e1bf6facddd0d798e19e2d498501ed"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">IpAddressType</a> = std::string_view</td></tr>
-<tr class="memdesc:aa8e1bf6facddd0d798e19e2d498501ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of IP address type. <br /></td></tr>
+<tr class="memitem:aa8e1bf6facddd0d798e19e2d498501ed"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">IpAddressType</a> = std::string_view</td></tr>
+<tr class="memdesc:aa8e1bf6facddd0d798e19e2d498501ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of IP address type.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">More...</a><br /></td></tr>
 <tr class="separator:aa8e1bf6facddd0d798e19e2d498501ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0272f539c8a53af19ca91b4223a67988"><td class="memItemLeft" align="right" valign="top"><a id="a0272f539c8a53af19ca91b4223a67988"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a0272f539c8a53af19ca91b4223a67988">TcpMessage</a> ()</td></tr>
-<tr class="memdesc:a0272f539c8a53af19ca91b4223a67988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="memitem:a0272f539c8a53af19ca91b4223a67988"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a0272f539c8a53af19ca91b4223a67988">TcpMessage</a> ()</td></tr>
+<tr class="memdesc:a0272f539c8a53af19ca91b4223a67988"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a0272f539c8a53af19ca91b4223a67988">More...</a><br /></td></tr>
 <tr class="separator:a0272f539c8a53af19ca91b4223a67988"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80fcfa9a7535dcb9d0f057d3fd829f3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a80fcfa9a7535dcb9d0f057d3fd829f3a">TcpMessage</a> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">IpAddressType</a> host_ip_address, std::uint16_t host_port_number, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a> &amp;&amp;payload)</td></tr>
 <tr class="memdesc:a80fcfa9a7535dcb9d0f057d3fd829f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a80fcfa9a7535dcb9d0f057d3fd829f3a">More...</a><br /></td></tr>
 <tr class="separator:a80fcfa9a7535dcb9d0f057d3fd829f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae076b94a7d81ce2f91c9d5bc2a6c5c37"><td class="memItemLeft" align="right" valign="top"><a id="ae076b94a7d81ce2f91c9d5bc2a6c5c37"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TcpMessage</b> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:ae076b94a7d81ce2f91c9d5bc2a6c5c37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ae076b94a7d81ce2f91c9d5bc2a6c5c37">TcpMessage</a> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:ae076b94a7d81ce2f91c9d5bc2a6c5c37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7efa18ce271cffd8c1a5591b877cbff"><td class="memItemLeft" align="right" valign="top"><a id="ab7efa18ce271cffd8c1a5591b877cbff"></a>
-<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:ab7efa18ce271cffd8c1a5591b877cbff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab7efa18ce271cffd8c1a5591b877cbff">operator=</a> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:ab7efa18ce271cffd8c1a5591b877cbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5ea82334bc418ff3e72ef66e1cda66a"><td class="memItemLeft" align="right" valign="top"><a id="ae5ea82334bc418ff3e72ef66e1cda66a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>TcpMessage</b> (const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;other)=delete</td></tr>
+<tr class="memitem:ae5ea82334bc418ff3e72ef66e1cda66a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ae5ea82334bc418ff3e72ef66e1cda66a">TcpMessage</a> (const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;other)=delete</td></tr>
 <tr class="separator:ae5ea82334bc418ff3e72ef66e1cda66a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61f7ddda76f195fe92288329735ddc72"><td class="memItemLeft" align="right" valign="top"><a id="a61f7ddda76f195fe92288329735ddc72"></a>
-<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;other)=delete</td></tr>
+<tr class="memitem:a61f7ddda76f195fe92288329735ddc72"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a61f7ddda76f195fe92288329735ddc72">operator=</a> (const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;other)=delete</td></tr>
 <tr class="separator:a61f7ddda76f195fe92288329735ddc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63ceacf8030694ebde8a9d3810cfe9a0"><td class="memItemLeft" align="right" valign="top"><a id="a63ceacf8030694ebde8a9d3810cfe9a0"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a63ceacf8030694ebde8a9d3810cfe9a0">~TcpMessage</a> ()=default</td></tr>
-<tr class="memdesc:a63ceacf8030694ebde8a9d3810cfe9a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>. <br /></td></tr>
+<tr class="memitem:a63ceacf8030694ebde8a9d3810cfe9a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a63ceacf8030694ebde8a9d3810cfe9a0">~TcpMessage</a> ()=default</td></tr>
+<tr class="memdesc:a63ceacf8030694ebde8a9d3810cfe9a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a63ceacf8030694ebde8a9d3810cfe9a0">More...</a><br /></td></tr>
 <tr class="separator:a63ceacf8030694ebde8a9d3810cfe9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3422f78c49a0338c9bbf3f225495f48c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">IpAddressType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a3422f78c49a0338c9bbf3f225495f48c">GetHostIpAddress</a> () const</td></tr>
 <tr class="memdesc:a3422f78c49a0338c9bbf3f225495f48c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the host ip address.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a3422f78c49a0338c9bbf3f225495f48c">More...</a><br /></td></tr>
@@ -153,12 +146,192 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a52047b1a9d6357567e8b5f5562d786c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">SocketError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a52047b1a9d6357567e8b5f5562d786c3">GetSocketError</a> () const</td></tr>
 <tr class="memdesc:a52047b1a9d6357567e8b5f5562d786c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the error of underlying socket.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a52047b1a9d6357567e8b5f5562d786c3">More...</a><br /></td></tr>
 <tr class="separator:a52047b1a9d6357567e8b5f5562d786c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aae451663e32ad0159e1b3a6dbcb9ca4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">SocketState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">socket_state_</a></td></tr>
+<tr class="memdesc:aae451663e32ad0159e1b3a6dbcb9ca4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the socket state.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">More...</a><br /></td></tr>
+<tr class="separator:aae451663e32ad0159e1b3a6dbcb9ca4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43098332cb31a3eda0d37ad3f32166b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">SocketError</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">socket_error_</a></td></tr>
+<tr class="memdesc:a43098332cb31a3eda0d37ad3f32166b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the socket error.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">More...</a><br /></td></tr>
+<tr class="separator:a43098332cb31a3eda0d37ad3f32166b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1404a19a59f3872c6a34573c7cb62d5a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">rx_buffer_</a></td></tr>
+<tr class="memdesc:a1404a19a59f3872c6a34573c7cb62d5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reception buffer.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">More...</a><br /></td></tr>
+<tr class="separator:a1404a19a59f3872c6a34573c7cb62d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e49303c84c76f7aba43b34126d4306"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">tx_buffer_</a></td></tr>
+<tr class="memdesc:ab5e49303c84c76f7aba43b34126d4306"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transmission buffer.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">More...</a><br /></td></tr>
+<tr class="separator:ab5e49303c84c76f7aba43b34126d4306"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02472af69ba73a79caca3584d0326266"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">host_ip_address_</a></td></tr>
+<tr class="memdesc:a02472af69ba73a79caca3584d0326266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store remote ip address.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">More...</a><br /></td></tr>
+<tr class="separator:a02472af69ba73a79caca3584d0326266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a266867c5f4152139eda663f5189ade37"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">host_port_number_</a></td></tr>
+<tr class="memdesc:a266867c5f4152139eda663f5189ade37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store remote port number.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">More...</a><br /></td></tr>
+<tr class="separator:a266867c5f4152139eda663f5189ade37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Immutable class to store received tcp message. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00025">25</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aabb34553c72bb98efa565aff178ffaf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabb34553c72bb98efa565aff178ffaf5">&#9670;&nbsp;</a></span>BufferType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">boost_support::socket::tcp::TcpMessage::BufferType</a> =  std::vector&lt;uint8_t&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for underlying buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00048">48</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+</div>
+</div>
+<a id="aa8e1bf6facddd0d798e19e2d498501ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8e1bf6facddd0d798e19e2d498501ed">&#9670;&nbsp;</a></span>IpAddressType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">boost_support::socket::tcp::TcpMessage::IpAddressType</a> =  std::string_view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias of IP address type. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00053">53</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a2c2c3b3f03e9a4f7f1b6a5dc82670b1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">&#9670;&nbsp;</a></span>SocketError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">boost_support::socket::tcp::TcpMessage::SocketError</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition of different socket error that could occur. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13"></a>kNone&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00043">43</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;: std::uint8_t { kNone = 0x00 };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a01307bfb94a9de71b8a4ebe5581dc7f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01307bfb94a9de71b8a4ebe5581dc7f2">&#9670;&nbsp;</a></span>SocketState</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">boost_support::socket::tcp::TcpMessage::SocketState</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition of different socket state. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b"></a>kIdle&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2a502287b54a185aa022e5f9090d408a18"></a>kSocketOnline&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2a627d3d5cbe3a93f6e090c665dfdcafb8"></a>kSocketOffline&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2a59f6517b2e97a4f7d0d2c8095713fbe0"></a>kSocketRxMessageReceived&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2adfb7362026a7fe2d15d9df0c46fdc2e1"></a>kSocketTxMessageSend&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2a5bf80ddf69d48cab25aa993d51837918"></a>kSocketTxMessageConf&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a01307bfb94a9de71b8a4ebe5581dc7f2a25fc3e3b54afe30844aeea0fce218046"></a>kSocketError&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00030">30</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                         : std::uint8_t {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="namespacediag_1_1client_1_1conversation__state__impl.html#a9c2bb91cddd15bf012256d5451a3fd87af5137a026a4b2f3b1c8a21cfc60dd14b">kIdle</a> = 0x00,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    kSocketOnline,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    kSocketOffline,</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    kSocketRxMessageReceived,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    kSocketTxMessageSend,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    kSocketTxMessageConf,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="namespacedoip__client_1_1error__domain.html#a705067473ce35292d7a008dd9be33688a25fc3e3b54afe30844aeea0fce218046">kSocketError</a></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  };</div>
+<div class="ttc" id="anamespacediag_1_1client_1_1conversation__state__impl_html_a9c2bb91cddd15bf012256d5451a3fd87af5137a026a4b2f3b1c8a21cfc60dd14b"><div class="ttname"><a href="namespacediag_1_1client_1_1conversation__state__impl.html#a9c2bb91cddd15bf012256d5451a3fd87af5137a026a4b2f3b1c8a21cfc60dd14b">diag::client::conversation_state_impl::ConversationState::kIdle</a></div><div class="ttdeci">@ kIdle</div></div>
+<div class="ttc" id="anamespacedoip__client_1_1error__domain_html_a705067473ce35292d7a008dd9be33688a25fc3e3b54afe30844aeea0fce218046"><div class="ttname"><a href="namespacedoip__client_1_1error__domain.html#a705067473ce35292d7a008dd9be33688a25fc3e3b54afe30844aeea0fce218046">doip_client::error_domain::DoipErrorErrc::kSocketError</a></div><div class="ttdeci">@ kSocketError</div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0272f539c8a53af19ca91b4223a67988"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0272f539c8a53af19ca91b4223a67988">&#9670;&nbsp;</a></span>TcpMessage() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::TcpMessage::TcpMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00059">59</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      : <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">socket_state_</a>{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b">SocketState::kIdle</a>},</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">socket_error_</a>{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13">SocketError::kNone</a>},</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">rx_buffer_</a>{},</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">tx_buffer_</a>{},</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">host_ip_address_</a>{},</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">host_port_number_</a>{} {}</div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b">boost_support::socket::tcp::TcpMessage::SocketState::kIdle</a></div><div class="ttdeci">@ kIdle</div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a02472af69ba73a79caca3584d0326266"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">boost_support::socket::tcp::TcpMessage::host_ip_address_</a></div><div class="ttdeci">std::string host_ip_address_</div><div class="ttdoc">Store remote ip address.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00161">tcp_message.h:161</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a1404a19a59f3872c6a34573c7cb62d5a"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">boost_support::socket::tcp::TcpMessage::rx_buffer_</a></div><div class="ttdeci">BufferType rx_buffer_</div><div class="ttdoc">The reception buffer.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00151">tcp_message.h:151</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a266867c5f4152139eda663f5189ade37"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">boost_support::socket::tcp::TcpMessage::host_port_number_</a></div><div class="ttdeci">std::uint16_t host_port_number_</div><div class="ttdoc">Store remote port number.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00166">tcp_message.h:166</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13">boost_support::socket::tcp::TcpMessage::SocketError::kNone</a></div><div class="ttdeci">@ kNone</div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_a43098332cb31a3eda0d37ad3f32166b2"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">boost_support::socket::tcp::TcpMessage::socket_error_</a></div><div class="ttdeci">SocketError socket_error_</div><div class="ttdoc">Store the socket error.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00146">tcp_message.h:146</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_aae451663e32ad0159e1b3a6dbcb9ca4e"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">boost_support::socket::tcp::TcpMessage::socket_state_</a></div><div class="ttdeci">SocketState socket_state_</div><div class="ttdoc">Store the socket state.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00141">tcp_message.h:141</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1TcpMessage_html_ab5e49303c84c76f7aba43b34126d4306"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">boost_support::socket::tcp::TcpMessage::tx_buffer_</a></div><div class="ttdeci">BufferType tx_buffer_</div><div class="ttdoc">The transmission buffer.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__message_8h_source.html#l00156">tcp_message.h:156</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a80fcfa9a7535dcb9d0f057d3fd829f3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80fcfa9a7535dcb9d0f057d3fd829f3a">&#9670;&nbsp;</a></span>TcpMessage()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80fcfa9a7535dcb9d0f057d3fd829f3a">&#9670;&nbsp;</a></span>TcpMessage() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,6 +380,93 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00076">76</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;      : <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">socket_state_</a>{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2af5137a026a4b2f3b1c8a21cfc60dd14b">SocketState::kIdle</a>},</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">socket_error_</a>{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1aa35c3ace1970663a16e5c65baa5941b13">SocketError::kNone</a>},</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">rx_buffer_</a>{std::move(payload)},</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">tx_buffer_</a>{},</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">host_ip_address_</a>{host_ip_address},</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">host_port_number_</a>{host_port_number} {}</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ae076b94a7d81ce2f91c9d5bc2a6c5c37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae076b94a7d81ce2f91c9d5bc2a6c5c37">&#9670;&nbsp;</a></span>TcpMessage() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::TcpMessage::TcpMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae5ea82334bc418ff3e72ef66e1cda66a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ea82334bc418ff3e72ef66e1cda66a">&#9670;&nbsp;</a></span>TcpMessage() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::TcpMessage::TcpMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a63ceacf8030694ebde8a9d3810cfe9a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63ceacf8030694ebde8a9d3810cfe9a0">&#9670;&nbsp;</a></span>~TcpMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::TcpMessage::~TcpMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructs an instance of <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -236,6 +496,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the host ip address. </p>
 <dl class="section return"><dt>Returns</dt><dd>The IP address </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00099">99</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a02472af69ba73a79caca3584d0326266">host_ip_address_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00161">host_ip_address_</a>.</p>
+
 </div>
 </div>
 <a id="ab2c5e85e19d18463abc02dc78fcd1793"></a>
@@ -263,6 +528,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the host port number. </p>
 <dl class="section return"><dt>Returns</dt><dd>The port number </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00105">105</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a266867c5f4152139eda663f5189ade37">host_port_number_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00166">host_port_number_</a>.</p>
 
 </div>
 </div>
@@ -292,6 +562,12 @@ Public Member Functions</h2></td></tr>
 <p>Get the view to the rx buffer. </p>
 <dl class="section return"><dt>Returns</dt><dd>The rx buffer </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00111">111</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Span.html">core_type::Span&lt;std::uint8_t&gt;</a>{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a1404a19a59f3872c6a34573c7cb62d5a">rx_buffer_</a>}; }</div>
+<div class="ttc" id="aclasscore__type_1_1Span_html"><div class="ttname"><a href="classcore__type_1_1Span.html">core_type::Span&lt; std::uint8_t &gt;</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00151">rx_buffer_</a>.</p>
+
 </div>
 </div>
 <a id="a52047b1a9d6357567e8b5f5562d786c3"></a>
@@ -319,6 +595,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the error of underlying socket. </p>
 <dl class="section return"><dt>Returns</dt><dd>The socket error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00135">135</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a43098332cb31a3eda0d37ad3f32166b2">socket_error_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00146">socket_error_</a>.</p>
 
 </div>
 </div>
@@ -348,6 +629,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the state of underlying socket. </p>
 <dl class="section return"><dt>Returns</dt><dd>The socket state </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00129">129</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aae451663e32ad0159e1b3a6dbcb9ca4e">socket_state_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00141">socket_state_</a>.</p>
+
 </div>
 </div>
 <a id="ad043d769978ffa1025aefceb77e584a5"></a>
@@ -376,6 +662,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the reference to tx buffer. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reference to buffer </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00117">117</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">tx_buffer_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00156">tx_buffer_</a>.</p>
+
 </div>
 </div>
 <a id="af099309a5519e021d5f24e1a4db9d1ac"></a>
@@ -403,6 +694,232 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the reference to tx buffer. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reference to buffer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00123">123</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab5e49303c84c76f7aba43b34126d4306">tx_buffer_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__message_8h_source.html#l00156">tx_buffer_</a>.</p>
+
+</div>
+</div>
+<a id="a61f7ddda76f195fe92288329735ddc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61f7ddda76f195fe92288329735ddc72">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a>&amp; boost_support::socket::tcp::TcpMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab7efa18ce271cffd8c1a5591b877cbff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7efa18ce271cffd8c1a5591b877cbff">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a>&amp; boost_support::socket::tcp::TcpMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">TcpMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a02472af69ba73a79caca3584d0326266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02472af69ba73a79caca3584d0326266">&#9670;&nbsp;</a></span>host_ip_address_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string boost_support::socket::tcp::TcpMessage::host_ip_address_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store remote ip address. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00161">161</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00099">GetHostIpAddress()</a>.</p>
+
+</div>
+</div>
+<a id="a266867c5f4152139eda663f5189ade37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a266867c5f4152139eda663f5189ade37">&#9670;&nbsp;</a></span>host_port_number_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t boost_support::socket::tcp::TcpMessage::host_port_number_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store remote port number. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00166">166</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00105">GetHostPortNumber()</a>.</p>
+
+</div>
+</div>
+<a id="a1404a19a59f3872c6a34573c7cb62d5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1404a19a59f3872c6a34573c7cb62d5a">&#9670;&nbsp;</a></span>rx_buffer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a> boost_support::socket::tcp::TcpMessage::rx_buffer_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The reception buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00151">151</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00111">GetRxBuffer()</a>.</p>
+
+</div>
+</div>
+<a id="a43098332cb31a3eda0d37ad3f32166b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a43098332cb31a3eda0d37ad3f32166b2">&#9670;&nbsp;</a></span>socket_error_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a2c2c3b3f03e9a4f7f1b6a5dc82670b1a">SocketError</a> boost_support::socket::tcp::TcpMessage::socket_error_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the socket error. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00146">146</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00135">GetSocketError()</a>.</p>
+
+</div>
+</div>
+<a id="aae451663e32ad0159e1b3a6dbcb9ca4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae451663e32ad0159e1b3a6dbcb9ca4e">&#9670;&nbsp;</a></span>socket_state_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a01307bfb94a9de71b8a4ebe5581dc7f2">SocketState</a> boost_support::socket::tcp::TcpMessage::socket_state_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the socket state. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00141">141</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00129">GetSocketState()</a>.</p>
+
+</div>
+</div>
+<a id="ab5e49303c84c76f7aba43b34126d4306"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e49303c84c76f7aba43b34126d4306">&#9670;&nbsp;</a></span>tx_buffer_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">BufferType</a> boost_support::socket::tcp::TcpMessage::tx_buffer_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The transmission buffer. </p>
+
+<p class="definition">Definition at line <a class="el" href="tcp__message_8h_source.html#l00156">156</a> of file <a class="el" href="tcp__message_8h_source.html">tcp_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__message_8h_source.html#l00117">GetTxBuffer()</a>.</p>
 
 </div>
 </div>

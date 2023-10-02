@@ -1,0 +1,4 @@
+<map id="diag::client::config_parser::ReadDcmClientConfig" name="diag::client::config_parser::ReadDcmClientConfig">
+<area shape="rect" id="node1" title="Function to read from config tree and get the DcmClient configuration." alt="" coords="244,5,464,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,5,196,47"/>
+</map>

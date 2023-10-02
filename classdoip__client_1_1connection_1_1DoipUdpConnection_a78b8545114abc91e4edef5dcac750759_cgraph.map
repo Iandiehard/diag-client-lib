@@ -1,0 +1,5 @@
+<map id="doip_client::connection::DoipUdpConnection::Transmit" name="doip_client::connection::DoipUdpConnection::Transmit">
+<area shape="rect" id="node1" title="Function to transmit a valid Uds message." alt="" coords="5,20,228,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a27e67b4b0c8424a9830eb222c9fdd21e" title="Function to transmit a Vehicle Identification request." alt="" coords="276,13,505,69"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a44b6597f01d47683ee43772b765eb26b" title="Function to vehicle identification request to the connected network." alt="" coords="553,5,799,76"/>
+</map>

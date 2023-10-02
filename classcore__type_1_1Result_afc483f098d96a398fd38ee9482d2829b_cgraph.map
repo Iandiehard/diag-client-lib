@@ -1,0 +1,5 @@
+<map id="core_type::Result::Err" name="core_type::Result::Err">
+<area shape="rect" id="node1" title="Return the contained error as an Optional." alt="" coords="5,46,167,73"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707" title="Access the contained error." alt="" coords="215,5,357,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="215,71,357,112"/>
+</map>

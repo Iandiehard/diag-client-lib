@@ -1,0 +1,10 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannel::Stop" name="doip_client::channel::tcp_channel::DoipTcpChannel::Stop">
+<area shape="rect" id="node1" title="Function to stop the channel." alt="" coords="5,133,263,174"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ad2cd83ee13eeff3afef9297409075e9f" title="Function to stop the handler." alt="" coords="311,85,531,141"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a7ea7677ae1134313c9edcbe3d5fbb75f" title="Function to stop the socket handler." alt="" coords="329,169,512,210"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a009f40a581a69aed1a4e39c6aea26cd4" title="Function to stop the handler." alt="" coords="579,5,821,61"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0135100db4d69d1716bc4d617f496943" title="Function to stop the handler." alt="" coords="584,85,816,141"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="587,165,813,221"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="883,128,1041,184"/>
+<area shape="rect" id="node8" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="869,209,1055,250"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="core_type::Span::begin" name="core_type::Span::begin">
+<area shape="rect" id="node1" title="Return an iterator pointing to the first element of this Span." alt="" coords="231,56,401,83"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#aed244ed6f8ae7c9d5285f14ed1def7b1" title="Return a const_iterator pointing to the first element of this Span." alt="" coords="5,5,183,32"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#adb9fb751a12144dfff05ba56ac9c3f52" title="Return a const_reverse_iterator pointing past the first element of this Span." alt="" coords="9,56,179,83"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#ac13d9592684f22631d21ce20e9c086c8" title="Return a reverse_iterator pointing past the first element of this Span." alt="" coords="13,107,175,133"/>
+</map>

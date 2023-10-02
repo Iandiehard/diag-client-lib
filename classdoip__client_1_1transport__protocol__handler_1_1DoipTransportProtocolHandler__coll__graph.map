@@ -1,4 +1,5 @@
 <map id="doip_client::transport_protocol_handler::DoipTransportProtocolHandler" name="doip_client::transport_protocol_handler::DoipTransportProtocolHandler">
-<area shape="rect" id="node1" title="Protocol handler class to manage the whole Doip protocol communication." alt="" coords="5,95,241,151"/>
-<area shape="rect" id="node2" href="$classuds__transport_1_1UdsTransportProtocolHandler.html" title=" " alt="" coords="21,5,225,47"/>
+<area shape="rect" id="node1" title="Protocol handler class to manage the whole Doip protocol communication." alt="" coords="408,31,644,87"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1UdsTransportProtocolHandler.html" title=" " alt="" coords="5,5,209,47"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipConnectionManager.html" title="Manages Doip tcp and udp connections." alt="" coords="12,71,203,112"/>
 </map>

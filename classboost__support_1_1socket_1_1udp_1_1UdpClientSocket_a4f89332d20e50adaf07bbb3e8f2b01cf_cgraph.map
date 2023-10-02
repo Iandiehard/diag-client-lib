@@ -1,0 +1,4 @@
+<map id="boost_support::socket::udp::UdpClientSocket::Destroy" name="boost_support::socket::udp::UdpClientSocket::Destroy">
+<area shape="rect" id="node1" title="Function to destroy the socket." alt="" coords="5,5,175,61"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="223,13,365,54"/>
+</map>

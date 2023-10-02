@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::Conversation::SendDiagnosticRequest" name="diag::client::conversation::Conversation::SendDiagnosticRequest">
+<area shape="rect" id="node1" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="5,5,284,47"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#a7946df58d8b8943580f3ae780593af0d" title="Build a new Result from the specified error (given as lvalue)" alt="" coords="332,5,475,47"/>
+</map>

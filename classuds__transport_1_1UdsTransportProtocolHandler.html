@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>uds_transport</b></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceuds__transport.html">uds_transport</a></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,6 +74,8 @@ $(function() {
 <div class="title">uds_transport::UdsTransportProtocolHandler Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for uds_transport::UdsTransportProtocolHandler:</div>
 <div class="dyncontent">
@@ -86,14 +88,13 @@ Inheritance diagram for uds_transport::UdsTransportProtocolHandler:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:accfa340ccbdf0b514f17617b8fdfd585"><td class="memItemLeft" align="right" valign="top"><a id="accfa340ccbdf0b514f17617b8fdfd585"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">InitializationResult</a> : std::uint8_t { <b>kInitializeOk</b> = 0
-, <b>kInitializeFailed</b> = 1
+<tr class="memitem:accfa340ccbdf0b514f17617b8fdfd585"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">InitializationResult</a> : std::uint8_t { <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585a49ada67321f8aa316c2ad73e412a56c4">kInitializeOk</a> = 0
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585a35dfe8e6f35adc3e3c06b1a8f3e8702e">kInitializeFailed</a> = 1
  }</td></tr>
-<tr class="memdesc:accfa340ccbdf0b514f17617b8fdfd585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of different initialization result. <br /></td></tr>
+<tr class="memdesc:accfa340ccbdf0b514f17617b8fdfd585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of different initialization result.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">More...</a><br /></td></tr>
 <tr class="separator:accfa340ccbdf0b514f17617b8fdfd585"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ddf6506b11c0e191dd5fca72f401b1f"><td class="memItemLeft" align="right" valign="top"><a id="a2ddf6506b11c0e191dd5fca72f401b1f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a> = std::uint8_t</td></tr>
-<tr class="memdesc:a2ddf6506b11c0e191dd5fca72f401b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for handler id. <br /></td></tr>
+<tr class="memitem:a2ddf6506b11c0e191dd5fca72f401b1f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a> = std::uint8_t</td></tr>
+<tr class="memdesc:a2ddf6506b11c0e191dd5fca72f401b1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for handler id.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">More...</a><br /></td></tr>
 <tr class="separator:a2ddf6506b11c0e191dd5fca72f401b1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -101,9 +102,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a605cc857fc7e968f952e3f76dd1b1c81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a605cc857fc7e968f952e3f76dd1b1c81">UdsTransportProtocolHandler</a> (<a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a> const handler_id, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html">UdsTransportProtocolMgr</a> const &amp;)</td></tr>
 <tr class="memdesc:a605cc857fc7e968f952e3f76dd1b1c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a>.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a605cc857fc7e968f952e3f76dd1b1c81">More...</a><br /></td></tr>
 <tr class="separator:a605cc857fc7e968f952e3f76dd1b1c81"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7c2a58693f41593102f10c8f313a793"><td class="memItemLeft" align="right" valign="top"><a id="ac7c2a58693f41593102f10c8f313a793"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#ac7c2a58693f41593102f10c8f313a793">~UdsTransportProtocolHandler</a> ()=default</td></tr>
-<tr class="memdesc:ac7c2a58693f41593102f10c8f313a793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a>. <br /></td></tr>
+<tr class="memitem:ac7c2a58693f41593102f10c8f313a793"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#ac7c2a58693f41593102f10c8f313a793">~UdsTransportProtocolHandler</a> ()=default</td></tr>
+<tr class="memdesc:ac7c2a58693f41593102f10c8f313a793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a>.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#ac7c2a58693f41593102f10c8f313a793">More...</a><br /></td></tr>
 <tr class="separator:ac7c2a58693f41593102f10c8f313a793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a353beda8b9a254769424e78c5f6fbf76"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a353beda8b9a254769424e78c5f6fbf76">GetHandlerID</a> () const</td></tr>
 <tr class="memdesc:a353beda8b9a254769424e78c5f6fbf76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the handler id.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a353beda8b9a254769424e78c5f6fbf76">More...</a><br /></td></tr>
@@ -111,13 +111,11 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ae40964d52f335dba5d9c87447b409620"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">InitializationResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#ae40964d52f335dba5d9c87447b409620">Initialize</a> ()=0</td></tr>
 <tr class="memdesc:ae40964d52f335dba5d9c87447b409620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the handler.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#ae40964d52f335dba5d9c87447b409620">More...</a><br /></td></tr>
 <tr class="separator:ae40964d52f335dba5d9c87447b409620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f1f2c411aa83a72ebd666cf126d0d18"><td class="memItemLeft" align="right" valign="top"><a id="a5f1f2c411aa83a72ebd666cf126d0d18"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a5f1f2c411aa83a72ebd666cf126d0d18">Start</a> ()=0</td></tr>
-<tr class="memdesc:a5f1f2c411aa83a72ebd666cf126d0d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the handler. <br /></td></tr>
+<tr class="memitem:a5f1f2c411aa83a72ebd666cf126d0d18"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a5f1f2c411aa83a72ebd666cf126d0d18">Start</a> ()=0</td></tr>
+<tr class="memdesc:a5f1f2c411aa83a72ebd666cf126d0d18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the handler.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a5f1f2c411aa83a72ebd666cf126d0d18">More...</a><br /></td></tr>
 <tr class="separator:a5f1f2c411aa83a72ebd666cf126d0d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedfbcbad7041ec612c517cfcf8b46aa3"><td class="memItemLeft" align="right" valign="top"><a id="aedfbcbad7041ec612c517cfcf8b46aa3"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#aedfbcbad7041ec612c517cfcf8b46aa3">Stop</a> ()=0</td></tr>
-<tr class="memdesc:aedfbcbad7041ec612c517cfcf8b46aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the handler. <br /></td></tr>
+<tr class="memitem:aedfbcbad7041ec612c517cfcf8b46aa3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#aedfbcbad7041ec612c517cfcf8b46aa3">Stop</a> ()=0</td></tr>
+<tr class="memdesc:aedfbcbad7041ec612c517cfcf8b46aa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the handler.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#aedfbcbad7041ec612c517cfcf8b46aa3">More...</a><br /></td></tr>
 <tr class="separator:aedfbcbad7041ec612c517cfcf8b46aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fce2cd14105f2ad1e873df95af14cdc"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classuds__transport_1_1Connection.html">Connection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2fce2cd14105f2ad1e873df95af14cdc">CreateTcpConnection</a> (<a class="el" href="classuds__transport_1_1ConversionHandler.html">ConversionHandler</a> &amp;conversion_handler, std::string_view tcpIpaddress, uint16_t portNum)=0</td></tr>
 <tr class="memdesc:a2fce2cd14105f2ad1e873df95af14cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create a new Tcp connection.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2fce2cd14105f2ad1e873df95af14cdc">More...</a><br /></td></tr>
@@ -128,11 +126,64 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a58353b0d1ada0c7cf832960b7b2e923a"><td class="memItemLeft" align="right" valign="top"><a id="a58353b0d1ada0c7cf832960b7b2e923a"></a>
-<a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">handler_id_</a></td></tr>
-<tr class="memdesc:a58353b0d1ada0c7cf832960b7b2e923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the handler id. <br /></td></tr>
+<tr class="memitem:a58353b0d1ada0c7cf832960b7b2e923a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">handler_id_</a></td></tr>
+<tr class="memdesc:a58353b0d1ada0c7cf832960b7b2e923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the handler id.  <a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">More...</a><br /></td></tr>
 <tr class="separator:a58353b0d1ada0c7cf832960b7b2e923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00021">21</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a2ddf6506b11c0e191dd5fca72f401b1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ddf6506b11c0e191dd5fca72f401b1f">&#9670;&nbsp;</a></span>UdsTransportProtocolHandlerId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">uds_transport::UdsTransportProtocolHandler::UdsTransportProtocolHandlerId</a> =  std::uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for handler id. </p>
+
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00026">26</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="accfa340ccbdf0b514f17617b8fdfd585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfa340ccbdf0b514f17617b8fdfd585">&#9670;&nbsp;</a></span>InitializationResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">uds_transport::UdsTransportProtocolHandler::InitializationResult</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definitions of different initialization result. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="accfa340ccbdf0b514f17617b8fdfd585a49ada67321f8aa316c2ad73e412a56c4"></a>kInitializeOk&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="accfa340ccbdf0b514f17617b8fdfd585a35dfe8e6f35adc3e3c06b1a8f3e8702e"></a>kInitializeFailed&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00031">31</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: std::uint8_t { kInitializeOk = 0, kInitializeFailed = 1 };</div>
+</div><!-- fragment -->
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a605cc857fc7e968f952e3f76dd1b1c81"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a605cc857fc7e968f952e3f76dd1b1c81">&#9670;&nbsp;</a></span>UdsTransportProtocolHandler()</h2>
@@ -176,6 +227,37 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00040">40</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      : <a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">handler_id_</a>{handler_id} {}</div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolHandler_html_a58353b0d1ada0c7cf832960b7b2e923a"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">uds_transport::UdsTransportProtocolHandler::handler_id_</a></div><div class="ttdeci">UdsTransportProtocolHandlerId handler_id_</div><div class="ttdoc">Store the handler id.</div><div class="ttdef"><b>Definition:</b> <a href="protocol__handler_8h_source.html#l00100">protocol_handler.h:100</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ac7c2a58693f41593102f10c8f313a793"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7c2a58693f41593102f10c8f313a793">&#9670;&nbsp;</a></span>~UdsTransportProtocolHandler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uds_transport::UdsTransportProtocolHandler::~UdsTransportProtocolHandler </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destruct an instance of <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html">UdsTransportProtocolHandler</a>. </p>
 
 </div>
 </div>
@@ -312,6 +394,11 @@ Protected Attributes</h2></td></tr>
 <p>Function to get the handler id. </p>
 <dl class="section return"><dt>Returns</dt><dd>The handler id </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00052">52</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a58353b0d1ada0c7cf832960b7b2e923a">handler_id_</a>; };</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="protocol__handler_8h_source.html#l00100">handler_id_</a>.</p>
+
 </div>
 </div>
 <a id="ae40964d52f335dba5d9c87447b409620"></a>
@@ -341,6 +428,93 @@ Protected Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The initialization result </dd></dl>
 
 <p>Implemented in <a class="el" href="classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#ad6abd98ad3effaf02e03dac4669c2dbf">doip_client::transport_protocol_handler::DoipTransportProtocolHandler</a>.</p>
+
+</div>
+</div>
+<a id="a5f1f2c411aa83a72ebd666cf126d0d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f1f2c411aa83a72ebd666cf126d0d18">&#9670;&nbsp;</a></span>Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsTransportProtocolHandler::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to start the handler. </p>
+
+<p>Implemented in <a class="el" href="classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#a2e03cda5036a4e8e98e3925406338738">doip_client::transport_protocol_handler::DoipTransportProtocolHandler</a>.</p>
+
+</div>
+</div>
+<a id="aedfbcbad7041ec612c517cfcf8b46aa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedfbcbad7041ec612c517cfcf8b46aa3">&#9670;&nbsp;</a></span>Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsTransportProtocolHandler::Stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to stop the handler. </p>
+
+<p>Implemented in <a class="el" href="classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#a0c46fc3b0eb7ce151b617c8217517c7e">doip_client::transport_protocol_handler::DoipTransportProtocolHandler</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a58353b0d1ada0c7cf832960b7b2e923a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58353b0d1ada0c7cf832960b7b2e923a">&#9670;&nbsp;</a></span>handler_id_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2ddf6506b11c0e191dd5fca72f401b1f">UdsTransportProtocolHandlerId</a> uds_transport::UdsTransportProtocolHandler::handler_id_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the handler id. </p>
+
+<p class="definition">Definition at line <a class="el" href="protocol__handler_8h_source.html#l00100">100</a> of file <a class="el" href="protocol__handler_8h_source.html">protocol_handler.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="protocol__handler_8h_source.html#l00052">GetHandlerID()</a>.</p>
 
 </div>
 </div>

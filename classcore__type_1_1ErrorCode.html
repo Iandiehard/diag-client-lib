@@ -61,12 +61,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>core_type</b></li><li class="navelem"><a class="el" href="classcore__type_1_1ErrorCode.html">ErrorCode</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacecore__type.html">core_type</a></li><li class="navelem"><a class="el" href="classcore__type_1_1ErrorCode.html">ErrorCode</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classcore__type_1_1ErrorCode-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">core_type::ErrorCode Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -77,6 +78,15 @@ $(function() {
  <a href="classcore__type_1_1ErrorCode.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="error__code_8h_source.html">error_code.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for core_type::ErrorCode:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcore__type_1_1ErrorCode__coll__graph.png" border="0" usemap="#acore__type_1_1ErrorCode_coll__map" alt="Collaboration graph"/></div>
+<map name="acore__type_1_1ErrorCode_coll__map" id="acore__type_1_1ErrorCode_coll__map">
+<area shape="rect" title="Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain...." alt="" coords="14,95,173,121"/>
+<area shape="rect" href="classcore__type_1_1ErrorDomain.html" title="Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod..." alt="" coords="5,5,181,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -99,10 +109,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a33edaac48267e5f692323d8ea9858de4"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorCode.html#a33edaac48267e5f692323d8ea9858de4">Message</a> () noexcept</td></tr>
 <tr class="memdesc:a33edaac48267e5f692323d8ea9858de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a textual representation of this <a class="el" href="classcore__type_1_1ErrorCode.html" title="Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....">ErrorCode</a>.  <a href="classcore__type_1_1ErrorCode.html#a33edaac48267e5f692323d8ea9858de4">More...</a><br /></td></tr>
 <tr class="separator:a33edaac48267e5f692323d8ea9858de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a52a23e3ec699821d87ff62e3157df0fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">ErrorDomain::CodeType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">code_value_</a> {}</td></tr>
+<tr class="memdesc:a52a23e3ec699821d87ff62e3157df0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the domain error code value.  <a href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">More...</a><br /></td></tr>
+<tr class="separator:a52a23e3ec699821d87ff62e3157df0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbdd16275d47b1734a5b628136a7d438"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">domain_</a></td></tr>
+<tr class="memdesc:acbdd16275d47b1734a5b628136a7d438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the reference to error domain contained.  <a href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">More...</a><br /></td></tr>
+<tr class="separator:acbdd16275d47b1734a5b628136a7d438"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63a0ca680faecff81772a736a2b4c13b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">ErrorDomain::SupportDataType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">support_data_</a> {}</td></tr>
+<tr class="memdesc:a63a0ca680faecff81772a736a2b4c13b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the supported data.  <a href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">More...</a><br /></td></tr>
+<tr class="separator:a63a0ca680faecff81772a736a2b4c13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Encapsulation of an error code. An <a class="el" href="classcore__type_1_1ErrorCode.html" title="Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....">ErrorCode</a> contains a raw error code value and an error domain. The raw error code value is specific to this error domain. </p>
 <p>This class is implemented based on API specification of ara::core::ErrorCode from Adaptive Platform Core AUTOSAR AP R21-11 </p>
+
+<p class="definition">Definition at line <a class="el" href="error__code_8h_source.html#l00022">22</a> of file <a class="el" href="error__code_8h_source.html">error_code.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae6a44a70bf3b32081a30cb67f61a14a4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae6a44a70bf3b32081a30cb67f61a14a4">&#9670;&nbsp;</a></span>ErrorCode() <span class="overload">[1/2]</span></h2>
@@ -155,6 +179,12 @@ template&lt;typename EnumT &gt; </div>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00014">14</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                                                      : <a class="code" href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">code_value_</a>{e},</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                                                            <a class="code" href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">support_data_</a>{data} {}</div>
+<div class="ttc" id="aclasscore__type_1_1ErrorCode_html_a52a23e3ec699821d87ff62e3157df0fe"><div class="ttname"><a href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">core_type::ErrorCode::code_value_</a></div><div class="ttdeci">ErrorDomain::CodeType code_value_</div><div class="ttdoc">Store the domain error code value.</div><div class="ttdef"><b>Definition:</b> <a href="error__code_8h_source.html#l00080">error_code.h:80</a></div></div>
+<div class="ttc" id="aclasscore__type_1_1ErrorCode_html_a63a0ca680faecff81772a736a2b4c13b"><div class="ttname"><a href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">core_type::ErrorCode::support_data_</a></div><div class="ttdeci">ErrorDomain::SupportDataType support_data_</div><div class="ttdoc">Store the supported data.</div><div class="ttdef"><b>Definition:</b> <a href="error__code_8h_source.html#l00090">error_code.h:90</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <a id="a72eab7a9ac943a4e05b2ca454b71065e"></a>
@@ -213,6 +243,12 @@ template&lt;typename EnumT &gt; </div>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00017">17</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    : <a class="code" href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">code_value_</a>{value},</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <a class="code" href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">domain_</a>{domain},</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      <a class="code" href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">support_data_</a>{data} {}</div>
+<div class="ttc" id="aclasscore__type_1_1ErrorCode_html_acbdd16275d47b1734a5b628136a7d438"><div class="ttname"><a href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">core_type::ErrorCode::domain_</a></div><div class="ttdeci">ErrorDomain &amp; domain_</div><div class="ttdoc">Store the reference to error domain contained.</div><div class="ttdef"><b>Definition:</b> <a href="error__code_8h_source.html#l00085">error_code.h:85</a></div></div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -242,6 +278,11 @@ template&lt;typename EnumT &gt; </div>
 <p>Return the domain with which this <a class="el" href="classcore__type_1_1ErrorCode.html" title="Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....">ErrorCode</a> is associated. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reference to error domain </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00024">24</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">domain_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="error__code_8h_source.html#l00085">domain_</a>.</p>
+
 </div>
 </div>
 <a id="a33edaac48267e5f692323d8ea9858de4"></a>
@@ -269,6 +310,21 @@ template&lt;typename EnumT &gt; </div>
 
 <p>Return a textual representation of this <a class="el" href="classcore__type_1_1ErrorCode.html" title="Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....">ErrorCode</a>. </p>
 <dl class="section return"><dt>Returns</dt><dd>The error message </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00028">28</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{ <span class="keywordflow">return</span> std::string_view{<a class="code" href="classcore__type_1_1ErrorCode.html#acbdd16275d47b1734a5b628136a7d438">domain_</a>.<a class="code" href="classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b">Message</a>(<a class="code" href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">code_value_</a>)}; }</div>
+<div class="ttc" id="aclasscore__type_1_1ErrorDomain_html_ab3563a40f3e863f7a382ded341c2ec1b"><div class="ttname"><a href="classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b">core_type::ErrorDomain::Message</a></div><div class="ttdeci">virtual const char * Message(CodeType error_code) noexcept=0</div><div class="ttdoc">Return a textual representation of the given error code.</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="error__code_8h_source.html#l00080">code_value_</a>, <a class="el" href="error__code_8h_source.html#l00085">domain_</a>, and <a class="el" href="classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b">core_type::ErrorDomain::Message()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcore__type_1_1ErrorCode_a33edaac48267e5f692323d8ea9858de4_cgraph.png" border="0" usemap="#aclasscore__type_1_1ErrorCode_a33edaac48267e5f692323d8ea9858de4_cgraph" alt=""/></div>
+<map name="aclasscore__type_1_1ErrorCode_a33edaac48267e5f692323d8ea9858de4_cgraph" id="aclasscore__type_1_1ErrorCode_a33edaac48267e5f692323d8ea9858de4_cgraph">
+<area shape="rect" title="Return a textual representation of this ErrorCode." alt="" coords="5,5,164,47"/>
+<area shape="rect" href="classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b" title="Return a textual representation of the given error code." alt="" coords="212,5,388,47"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -298,6 +354,11 @@ template&lt;typename EnumT &gt; </div>
 <p>Return the supplementary error context data. </p>
 <p>The underlying type and the meaning of the returned value are implementation-defined </p><dl class="section return"><dt>Returns</dt><dd>The support data type </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00026">26</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1ErrorCode.html#a63a0ca680faecff81772a736a2b4c13b">support_data_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="error__code_8h_source.html#l00090">support_data_</a>.</p>
+
 </div>
 </div>
 <a id="a02801dda37392665df735714fa3da07d"></a>
@@ -326,11 +387,101 @@ template&lt;typename EnumT &gt; </div>
 <p>Return the raw error code value. </p>
 <dl class="section return"><dt>Returns</dt><dd>The raw code value </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="error__code_8cpp_source.html#l00022">22</a> of file <a class="el" href="error__code_8cpp_source.html">error_code.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1ErrorCode.html#a52a23e3ec699821d87ff62e3157df0fe">code_value_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="error__code_8h_source.html#l00080">code_value_</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a52a23e3ec699821d87ff62e3157df0fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52a23e3ec699821d87ff62e3157df0fe">&#9670;&nbsp;</a></span>code_value_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">ErrorDomain::CodeType</a> core_type::ErrorCode::code_value_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the domain error code value. </p>
+
+<p class="definition">Definition at line <a class="el" href="error__code_8h_source.html#l00080">80</a> of file <a class="el" href="error__code_8h_source.html">error_code.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="error__code_8cpp_source.html#l00028">Message()</a>, and <a class="el" href="error__code_8cpp_source.html#l00022">Value()</a>.</p>
+
+</div>
+</div>
+<a id="acbdd16275d47b1734a5b628136a7d438"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbdd16275d47b1734a5b628136a7d438">&#9670;&nbsp;</a></span>domain_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a>&amp; core_type::ErrorCode::domain_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the reference to error domain contained. </p>
+
+<p class="definition">Definition at line <a class="el" href="error__code_8h_source.html#l00085">85</a> of file <a class="el" href="error__code_8h_source.html">error_code.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="error__code_8cpp_source.html#l00024">Domain()</a>, and <a class="el" href="error__code_8cpp_source.html#l00028">Message()</a>.</p>
+
+</div>
+</div>
+<a id="a63a0ca680faecff81772a736a2b4c13b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63a0ca680faecff81772a736a2b4c13b">&#9670;&nbsp;</a></span>support_data_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">ErrorDomain::SupportDataType</a> core_type::ErrorCode::support_data_ {}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the supported data. </p>
+
+<p class="definition">Definition at line <a class="el" href="error__code_8h_source.html#l00090">90</a> of file <a class="el" href="error__code_8h_source.html">error_code.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="error__code_8cpp_source.html#l00026">SupportData()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/platform-core/core/include/<a class="el" href="error__code_8h_source.html">error_code.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/platform-core/core/src/error_code.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/platform-core/core/src/<a class="el" href="error__code_8cpp_source.html">error_code.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

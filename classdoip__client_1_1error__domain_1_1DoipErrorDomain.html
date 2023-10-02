@@ -61,13 +61,14 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>doip_client</b></li><li class="navelem"><b>error_domain</b></li><li class="navelem"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html">DoipErrorDomain</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacedoip__client.html">doip_client</a></li><li class="navelem"><a class="el" href="namespacedoip__client_1_1error__domain.html">error_domain</a></li><li class="navelem"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html">DoipErrorDomain</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::error_domain::DoipErrorDomain Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -99,33 +100,27 @@ Collaboration diagram for doip_client::error_domain::DoipErrorDomain:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a00d63d631ad64ddba4a2e14274b3ec81"><td class="memItemLeft" align="right" valign="top"><a id="a00d63d631ad64ddba4a2e14274b3ec81"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#a00d63d631ad64ddba4a2e14274b3ec81">Errc</a> = DoipErrorErrc</td></tr>
-<tr class="memdesc:a00d63d631ad64ddba4a2e14274b3ec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for the error code value enumeration. <br /></td></tr>
+<tr class="memitem:a00d63d631ad64ddba4a2e14274b3ec81"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#a00d63d631ad64ddba4a2e14274b3ec81">Errc</a> = <a class="el" href="namespacedoip__client_1_1error__domain.html#a705067473ce35292d7a008dd9be33688">DoipErrorErrc</a></td></tr>
+<tr class="memdesc:a00d63d631ad64ddba4a2e14274b3ec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for the error code value enumeration.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#a00d63d631ad64ddba4a2e14274b3ec81">More...</a><br /></td></tr>
 <tr class="separator:a00d63d631ad64ddba4a2e14274b3ec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classcore__type_1_1ErrorDomain"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classcore__type_1_1ErrorDomain')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classcore__type_1_1ErrorDomain.html">core_type::ErrorDomain</a></td></tr>
-<tr class="memitem:ae26e0151da8375012d092ff8dd4e26fb inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="ae26e0151da8375012d092ff8dd4e26fb"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ae26e0151da8375012d092ff8dd4e26fb">IdType</a> = std::uint64_t</td></tr>
-<tr class="memdesc:ae26e0151da8375012d092ff8dd4e26fb inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for a unique <a class="el" href="classcore__type_1_1ErrorDomain.html" title="Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod...">ErrorDomain</a> identifier type. <br /></td></tr>
+<tr class="memitem:ae26e0151da8375012d092ff8dd4e26fb inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ae26e0151da8375012d092ff8dd4e26fb">IdType</a> = std::uint64_t</td></tr>
+<tr class="memdesc:ae26e0151da8375012d092ff8dd4e26fb inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for a unique <a class="el" href="classcore__type_1_1ErrorDomain.html" title="Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod...">ErrorDomain</a> identifier type.  <a href="classcore__type_1_1ErrorDomain.html#ae26e0151da8375012d092ff8dd4e26fb">More...</a><br /></td></tr>
 <tr class="separator:ae26e0151da8375012d092ff8dd4e26fb inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05eba1837de5d8494f95044309de6cc0 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="a05eba1837de5d8494f95044309de6cc0"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">CodeType</a> = std::int32_t</td></tr>
-<tr class="memdesc:a05eba1837de5d8494f95044309de6cc0 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for a domain-specific error code value. <br /></td></tr>
+<tr class="memitem:a05eba1837de5d8494f95044309de6cc0 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">CodeType</a> = std::int32_t</td></tr>
+<tr class="memdesc:a05eba1837de5d8494f95044309de6cc0 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for a domain-specific error code value.  <a href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">More...</a><br /></td></tr>
 <tr class="separator:a05eba1837de5d8494f95044309de6cc0 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab600e8230dea42636d9c168872f41426 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="ab600e8230dea42636d9c168872f41426"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">SupportDataType</a> = std::uint8_t</td></tr>
-<tr class="memdesc:ab600e8230dea42636d9c168872f41426 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias type for vendor-specific supplementary data. <br /></td></tr>
+<tr class="memitem:ab600e8230dea42636d9c168872f41426 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">SupportDataType</a> = std::uint8_t</td></tr>
+<tr class="memdesc:ab600e8230dea42636d9c168872f41426 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias type for vendor-specific supplementary data.  <a href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">More...</a><br /></td></tr>
 <tr class="separator:ab600e8230dea42636d9c168872f41426 inherit pub_types_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"><td class="memItemLeft" align="right" valign="top"><a id="ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c">DoipErrorDomain</a> () noexcept</td></tr>
-<tr class="memdesc:ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="memitem:ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c">DoipErrorDomain</a> () noexcept</td></tr>
+<tr class="memdesc:ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c">More...</a><br /></td></tr>
 <tr class="separator:ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaca334322ceef2fb1355ee2cb941951"><td class="memItemLeft" align="right" valign="top"><a id="aaaca334322ceef2fb1355ee2cb941951"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aaaca334322ceef2fb1355ee2cb941951">~DoipErrorDomain</a> () noexcept override=default</td></tr>
-<tr class="memdesc:aaaca334322ceef2fb1355ee2cb941951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor. <br /></td></tr>
+<tr class="memitem:aaaca334322ceef2fb1355ee2cb941951"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aaaca334322ceef2fb1355ee2cb941951">~DoipErrorDomain</a> () noexcept override=default</td></tr>
+<tr class="memdesc:aaaca334322ceef2fb1355ee2cb941951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default destructor.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aaaca334322ceef2fb1355ee2cb941951">More...</a><br /></td></tr>
 <tr class="separator:aaaca334322ceef2fb1355ee2cb941951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef963f23b910bc6e2f85fdf83334062a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aef963f23b910bc6e2f85fdf83334062a">Name</a> () const noexcept override</td></tr>
 <tr class="memdesc:aef963f23b910bc6e2f85fdf83334062a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of this error domain.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aef963f23b910bc6e2f85fdf83334062a">More...</a><br /></td></tr>
@@ -134,25 +129,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:adcb2dab918f427fb594f0973e48868c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a textual representation of the given error code.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#adcb2dab918f427fb594f0973e48868c8">More...</a><br /></td></tr>
 <tr class="separator:adcb2dab918f427fb594f0973e48868c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classcore__type_1_1ErrorDomain"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classcore__type_1_1ErrorDomain')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classcore__type_1_1ErrorDomain.html">core_type::ErrorDomain</a></td></tr>
-<tr class="memitem:ac98804f4cc234dd7a44a435088554985 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="ac98804f4cc234dd7a44a435088554985"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ac98804f4cc234dd7a44a435088554985">ErrorDomain</a> (const <a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;)=delete</td></tr>
-<tr class="memdesc:ac98804f4cc234dd7a44a435088554985 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction shall be disabled. <br /></td></tr>
+<tr class="memitem:ac98804f4cc234dd7a44a435088554985 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ac98804f4cc234dd7a44a435088554985">ErrorDomain</a> (const <a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;)=delete</td></tr>
+<tr class="memdesc:ac98804f4cc234dd7a44a435088554985 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction shall be disabled.  <a href="classcore__type_1_1ErrorDomain.html#ac98804f4cc234dd7a44a435088554985">More...</a><br /></td></tr>
 <tr class="separator:ac98804f4cc234dd7a44a435088554985 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20b7fae2f895d10f9dc3f7b57eeb2677 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="a20b7fae2f895d10f9dc3f7b57eeb2677"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a20b7fae2f895d10f9dc3f7b57eeb2677">ErrorDomain</a> (<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a20b7fae2f895d10f9dc3f7b57eeb2677 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction shall be disabled. <br /></td></tr>
+<tr class="memitem:a20b7fae2f895d10f9dc3f7b57eeb2677 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a20b7fae2f895d10f9dc3f7b57eeb2677">ErrorDomain</a> (<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a20b7fae2f895d10f9dc3f7b57eeb2677 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction shall be disabled.  <a href="classcore__type_1_1ErrorDomain.html#a20b7fae2f895d10f9dc3f7b57eeb2677">More...</a><br /></td></tr>
 <tr class="separator:a20b7fae2f895d10f9dc3f7b57eeb2677 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c3df9115b942daf10fe76ff3e07b112 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="a8c3df9115b942daf10fe76ff3e07b112"></a>
-<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a8c3df9115b942daf10fe76ff3e07b112">operator=</a> (const <a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a8c3df9115b942daf10fe76ff3e07b112 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment shall be disabled. <br /></td></tr>
+<tr class="memitem:a8c3df9115b942daf10fe76ff3e07b112 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a8c3df9115b942daf10fe76ff3e07b112">operator=</a> (const <a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;)=delete</td></tr>
+<tr class="memdesc:a8c3df9115b942daf10fe76ff3e07b112 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment shall be disabled.  <a href="classcore__type_1_1ErrorDomain.html#a8c3df9115b942daf10fe76ff3e07b112">More...</a><br /></td></tr>
 <tr class="separator:a8c3df9115b942daf10fe76ff3e07b112 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75082720ded5781334a60b7ef54bbc3f inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a id="a75082720ded5781334a60b7ef54bbc3f"></a>
-<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a75082720ded5781334a60b7ef54bbc3f">operator=</a> (<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a75082720ded5781334a60b7ef54bbc3f inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment shall be disabled. <br /></td></tr>
+<tr class="memitem:a75082720ded5781334a60b7ef54bbc3f inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#a75082720ded5781334a60b7ef54bbc3f">operator=</a> (<a class="el" href="classcore__type_1_1ErrorDomain.html">ErrorDomain</a> &amp;&amp;)=delete</td></tr>
+<tr class="memdesc:a75082720ded5781334a60b7ef54bbc3f inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment shall be disabled.  <a href="classcore__type_1_1ErrorDomain.html#a75082720ded5781334a60b7ef54bbc3f">More...</a><br /></td></tr>
 <tr class="separator:a75082720ded5781334a60b7ef54bbc3f inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac14f3b7860fb9b5215f932c854f4b024 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="classcore__type_1_1ErrorDomain.html#ae26e0151da8375012d092ff8dd4e26fb">IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1ErrorDomain.html#ac14f3b7860fb9b5215f932c854f4b024">Id</a> () const noexcept</td></tr>
 <tr class="memdesc:ac14f3b7860fb9b5215f932c854f4b024 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the unique domain identifier.  <a href="classcore__type_1_1ErrorDomain.html#ac14f3b7860fb9b5215f932c854f4b024">More...</a><br /></td></tr>
 <tr class="separator:ac14f3b7860fb9b5215f932c854f4b024 inherit pub_methods_classcore__type_1_1ErrorDomain"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:ad505e3804aba562f138f01e87e31d3f9"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ad505e3804aba562f138f01e87e31d3f9">domain_name_</a> {&quot;DoipClientErrorDomain&quot;}</td></tr>
+<tr class="memdesc:ad505e3804aba562f138f01e87e31d3f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the error domain name.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ad505e3804aba562f138f01e87e31d3f9">More...</a><br /></td></tr>
+<tr class="separator:ad505e3804aba562f138f01e87e31d3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa70dd9d76be3b3b33d617e1bcdc90e9b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">message_</a></td></tr>
+<tr class="memdesc:aa70dd9d76be3b3b33d617e1bcdc90e9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the error message.  <a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">More...</a><br /></td></tr>
+<tr class="separator:aa70dd9d76be3b3b33d617e1bcdc90e9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -166,7 +166,88 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Definition of Doip Client Error domain. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8h_source.html#l00032">32</a> of file <a class="el" href="doip__error__domain_8h_source.html">doip_error_domain.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a00d63d631ad64ddba4a2e14274b3ec81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00d63d631ad64ddba4a2e14274b3ec81">&#9670;&nbsp;</a></span>Errc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacedoip__client_1_1error__domain.html#a705067473ce35292d7a008dd9be33688">doip_client::error_domain::DoipErrorDomain::Errc</a> =  <a class="el" href="namespacedoip__client_1_1error__domain.html#a705067473ce35292d7a008dd9be33688">DoipErrorErrc</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for the error code value enumeration. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8h_source.html#l00037">37</a> of file <a class="el" href="doip__error__domain_8h_source.html">doip_error_domain.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28f3dbbb6bbe9e2ae6bd5bd3612ab0c">&#9670;&nbsp;</a></span>DoipErrorDomain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::error_domain::DoipErrorDomain::DoipErrorDomain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default constructor. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8cpp_source.html#l00051">51</a> of file <a class="el" href="doip__error__domain_8cpp_source.html">doip_error_domain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;: <a class="code" href="classcore__type_1_1ErrorDomain.html">core_type::ErrorDomain</a>(<a class="code" href="namespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03.html#a4345f431c6a8b389f51c353907e4f4c0">unique_identifier</a>) {}</div>
+<div class="ttc" id="aclasscore__type_1_1ErrorDomain_html"><div class="ttname"><a href="classcore__type_1_1ErrorDomain.html">core_type::ErrorDomain</a></div><div class="ttdoc">Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod...</div><div class="ttdef"><b>Definition:</b> <a href="error__domain_8h_source.html#l00020">error_domain.h:20</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03_html_a4345f431c6a8b389f51c353907e4f4c0"><div class="ttname"><a href="namespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03.html#a4345f431c6a8b389f51c353907e4f4c0">doip_client::error_domain::anonymous_namespace{doip_error_domain.cpp}::unique_identifier</a></div><div class="ttdeci">constexpr core_type::ErrorDomain::IdType unique_identifier</div><div class="ttdoc">Store the unique identifier of this domain.</div><div class="ttdef"><b>Definition:</b> <a href="doip__error__domain_8cpp_source.html#l00021">doip_error_domain.cpp:21</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="aaaca334322ceef2fb1355ee2cb941951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaca334322ceef2fb1355ee2cb941951">&#9670;&nbsp;</a></span>~DoipErrorDomain()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::error_domain::DoipErrorDomain::~DoipErrorDomain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default destructor. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="adcb2dab918f427fb594f0973e48868c8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adcb2dab918f427fb594f0973e48868c8">&#9670;&nbsp;</a></span>Message()</h2>
 
@@ -202,6 +283,26 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b">core_type::ErrorDomain</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8cpp_source.html#l00055">55</a> of file <a class="el" href="doip__error__domain_8cpp_source.html">doip_error_domain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                                     {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">message_</a>.clear();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <a class="code" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">message_</a> = <a class="code" href="namespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03.html#ab6535e6654f82dff944932b98b4d2e72">ConvertErrorCodeToString</a>(error_code);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">message_</a>.c_str();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1error__domain_1_1DoipErrorDomain_html_aa70dd9d76be3b3b33d617e1bcdc90e9b"><div class="ttname"><a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#aa70dd9d76be3b3b33d617e1bcdc90e9b">doip_client::error_domain::DoipErrorDomain::message_</a></div><div class="ttdeci">std::string message_</div><div class="ttdoc">Store the error message.</div><div class="ttdef"><b>Definition:</b> <a href="doip__error__domain_8h_source.html#l00072">doip_error_domain.h:72</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03_html_ab6535e6654f82dff944932b98b4d2e72"><div class="ttname"><a href="namespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03.html#ab6535e6654f82dff944932b98b4d2e72">doip_client::error_domain::anonymous_namespace{doip_error_domain.cpp}::ConvertErrorCodeToString</a></div><div class="ttdeci">auto ConvertErrorCodeToString(core_type::ErrorDomain::CodeType error_code) noexcept -&gt; std::string</div><div class="ttdef"><b>Definition:</b> <a href="doip__error__domain_8cpp_source.html#l00028">doip_error_domain.cpp:28</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__error__domain_8cpp_source.html#l00028">doip_client::error_domain::anonymous_namespace{doip_error_domain.cpp}::ConvertErrorCodeToString()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1error__domain_1_1DoipErrorDomain_adcb2dab918f427fb594f0973e48868c8_cgraph.png" border="0" usemap="#aclassdoip__client_1_1error__domain_1_1DoipErrorDomain_adcb2dab918f427fb594f0973e48868c8_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1error__domain_1_1DoipErrorDomain_adcb2dab918f427fb594f0973e48868c8_cgraph" id="aclassdoip__client_1_1error__domain_1_1DoipErrorDomain_adcb2dab918f427fb594f0973e48868c8_cgraph">
+<area shape="rect" title="Return a textual representation of the given error code." alt="" coords="5,13,204,69"/>
+<area shape="rect" href="namespacedoip__client_1_1error__domain_1_1anonymous__namespace_02doip__error__domain_8cpp_03.html#ab6535e6654f82dff944932b98b4d2e72" title=" " alt="" coords="252,5,496,76"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="aef963f23b910bc6e2f85fdf83334062a"></a>
@@ -232,11 +333,72 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="classcore__type_1_1ErrorDomain.html#abe16829b6d78bc24aa90a860a343a44c">core_type::ErrorDomain</a>.</p>
 
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8cpp_source.html#l00053">53</a> of file <a class="el" href="doip__error__domain_8cpp_source.html">doip_error_domain.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ad505e3804aba562f138f01e87e31d3f9">domain_name_</a>.c_str(); }</div>
+<div class="ttc" id="aclassdoip__client_1_1error__domain_1_1DoipErrorDomain_html_ad505e3804aba562f138f01e87e31d3f9"><div class="ttname"><a href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#ad505e3804aba562f138f01e87e31d3f9">doip_client::error_domain::DoipErrorDomain::domain_name_</a></div><div class="ttdeci">const std::string domain_name_</div><div class="ttdoc">Store the error domain name.</div><div class="ttdef"><b>Definition:</b> <a href="doip__error__domain_8h_source.html#l00067">doip_error_domain.h:67</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__error__domain_8h_source.html#l00067">domain_name_</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad505e3804aba562f138f01e87e31d3f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad505e3804aba562f138f01e87e31d3f9">&#9670;&nbsp;</a></span>domain_name_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string doip_client::error_domain::DoipErrorDomain::domain_name_ {&quot;DoipClientErrorDomain&quot;}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the error domain name. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8h_source.html#l00067">67</a> of file <a class="el" href="doip__error__domain_8h_source.html">doip_error_domain.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__error__domain_8cpp_source.html#l00053">Name()</a>.</p>
+
+</div>
+</div>
+<a id="aa70dd9d76be3b3b33d617e1bcdc90e9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa70dd9d76be3b3b33d617e1bcdc90e9b">&#9670;&nbsp;</a></span>message_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string doip_client::error_domain::DoipErrorDomain::message_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the error message. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__error__domain_8h_source.html#l00072">72</a> of file <a class="el" href="doip__error__domain_8h_source.html">doip_error_domain.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/error_domain/<a class="el" href="doip__error__domain_8h_source.html">doip_error_domain.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/error_domain/doip_error_domain.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/error_domain/<a class="el" href="doip__error__domain_8cpp_source.html">doip_error_domain.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

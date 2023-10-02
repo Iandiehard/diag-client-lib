@@ -1,0 +1,4 @@
+<map id="boost_support::parser::Read" name="boost_support::parser::Read">
+<area shape="rect" id="node1" title="Parser to get the configuration from json file." alt="" coords="244,5,407,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,5,196,47"/>
+</map>

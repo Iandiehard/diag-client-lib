@@ -1,0 +1,4 @@
+<map id="diag::client::DiagClient::DiagClientImpl::GetDiagnosticClientConversation" name="diag::client::DiagClient::DiagClientImpl::GetDiagnosticClientConversation">
+<area shape="rect" id="node1" title="Function to get required diag client conversation object based on conversation name." alt="" coords="5,5,232,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="280,5,483,61"/>
+</map>

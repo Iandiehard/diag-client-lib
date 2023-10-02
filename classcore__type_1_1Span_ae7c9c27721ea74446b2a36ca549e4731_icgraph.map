@@ -1,0 +1,5 @@
+<map id="core_type::Span::empty" name="core_type::Span::empty">
+<area shape="rect" id="node1" title="Return whether this Span is empty." alt="" coords="219,31,395,57"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Span.html#a0270bb642f6c2d2edee922a87eed2483" title="Return a reference to the last element of this Span." alt="" coords="5,5,171,32"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#afb9b6048dad5857b64065ded6cdae0bc" title="Return a reference to the first element of this Span." alt="" coords="5,56,171,83"/>
+</map>

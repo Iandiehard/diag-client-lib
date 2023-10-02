@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::Conversation::SendDiagnosticRequest" name="diag::client::conversation::Conversation::SendDiagnosticRequest">
+<area shape="rect" id="node1" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="267,20,545,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a8c9708f915c86ad88baebb4237a77424" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="5,5,219,76"/>
+</map>

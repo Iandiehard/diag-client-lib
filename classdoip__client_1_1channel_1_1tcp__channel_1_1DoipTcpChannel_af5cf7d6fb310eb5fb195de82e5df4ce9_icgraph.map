@@ -1,0 +1,4 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost" name="doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost">
+<area shape="rect" id="node1" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+</map>

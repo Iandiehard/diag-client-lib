@@ -1,0 +1,4 @@
+<map id="utility::sync_timer::SyncTimer::WaitForTimeout" name="utility::sync_timer::SyncTimer::WaitForTimeout">
+<area shape="rect" id="node1" title="Helper function to wait for response with timeout monitoring." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node2" href="$classutility_1_1sync__timer_1_1SyncTimer.html#a0aa3713926430b033ef670d2c7323b58" title="Function to start the timeout monitoring." alt="" coords="264,5,403,47"/>
+</map>

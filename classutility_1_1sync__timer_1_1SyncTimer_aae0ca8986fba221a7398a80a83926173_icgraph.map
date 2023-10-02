@@ -1,0 +1,7 @@
+<map id="utility::sync_timer::SyncTimer::IsTimerActive" name="utility::sync_timer::SyncTimer::IsTimerActive">
+<area shape="rect" id="node1" title="Function to query if timer is running." alt="" coords="760,53,957,94"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a068f0a8e0669a4e3114006a73baa55e4" title="Function to stop the handler." alt="" coords="387,5,712,61"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#a9afe5255cb85323ee3dd9e6b2e57d825" title="Function to stop the handler." alt="" coords="392,85,707,141"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#aca175a9f4736cd590bb2e33389af904d" title="Function to reset the handler." alt="" coords="5,5,339,61"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#ab892afc1252d701800627286c3d3b88f" title="Function to reset the handler." alt="" coords="11,85,333,141"/>
+</map>

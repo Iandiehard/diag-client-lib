@@ -1,6 +1,10 @@
 var searchData=
 [
-  ['size_5ftype_710',['size_type',['../classcore__type_1_1Span.html#a5ebd591de7a7c1cf8ab7405c8b8529b3',1,'core_type::Span']]],
-  ['supportdatatype_711',['SupportDataType',['../classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426',1,'core_type::ErrorDomain']]],
-  ['synctimer_712',['SyncTimer',['../classdiag_1_1client_1_1conversation_1_1DmConversation.html#a04530f4a4711f85cb31a5800d7ec7a10',1,'diag::client::conversation::DmConversation::SyncTimer()'],['../classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a1ac5d8caaa4d6d0059df06dd5ac05079',1,'doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::SyncTimer()'],['../classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#a6e4fe330a050b2f799e3b17aa0106bf0',1,'doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::SyncTimer()'],['../classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html#aae6422f839242bf42226e791e7879206',1,'doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::SyncTimer()']]]
+  ['pointer_1715',['pointer',['../classcore__type_1_1Span.html#aafcd5a30f9bffec7827dce24a436d6b0',1,'core_type::Span']]],
+  ['portnumber_1716',['PortNumber',['../classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9',1,'uds_transport::UdsMessage']]],
+  ['porttype_1717',['PortType',['../classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a3240b729a64cdb184686ac4428670138',1,'doip_client::sockets::UdpSocketHandler']]],
+  ['preselectionmode_1718',['PreselectionMode',['../classdiag_1_1client_1_1conversation_1_1VdConversation.html#ae0b5d406af0e6095a2d519d9bc8fa990',1,'diag::client::conversation::VdConversation']]],
+  ['preselectionvalue_1719',['PreselectionValue',['../classdiag_1_1client_1_1conversation_1_1VdConversation.html#a0af316c7e692434ac617f862c079bd33',1,'diag::client::conversation::VdConversation']]],
+  ['priority_1720',['Priority',['../namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a',1,'uds_transport']]],
+  ['protocolkind_1721',['ProtocolKind',['../namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e',1,'uds_transport']]]
 ];

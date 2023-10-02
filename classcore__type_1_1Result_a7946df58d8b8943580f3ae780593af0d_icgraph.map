@@ -1,0 +1,6 @@
+<map id="core_type::Result::FromError" name="core_type::Result::FromError">
+<area shape="rect" id="node1" title="Build a new Result from the specified error (given as lvalue)" alt="" coords="593,50,736,91"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a9951cd6a198e638ffd77943c2d4e0fbf" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="282,5,530,61"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html#ad5d986a110f666c9128cb4b59b0023ea" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="267,86,545,127"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a8c9708f915c86ad88baebb4237a77424" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="5,71,219,142"/>
+</map>

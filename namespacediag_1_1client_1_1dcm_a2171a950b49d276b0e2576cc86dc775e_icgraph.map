@@ -1,0 +1,4 @@
+<map id="diag::client::dcm::GetConversationManager" name="diag::client::dcm::GetConversationManager">
+<area shape="rect" id="node1" title="Function to get the reference to conversation manager." alt="" coords="267,20,455,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a570901736fe3a5a0127917cbd6ea2b16" title="Constructor an instance of DiagClientConversationImpl." alt="" coords="5,5,219,76"/>
+</map>

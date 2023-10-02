@@ -61,13 +61,14 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>doip_client</b></li><li class="navelem"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacedoip__client.html">doip_client</a></li><li class="navelem"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdoip__client_1_1DoipMessage-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::DoipMessage Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -78,22 +79,30 @@ $(function() {
  <a href="classdoip__client_1_1DoipMessage.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="doip__message_8h_source.html">doip_message.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for doip_client::DoipMessage:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1DoipMessage__coll__graph.png" border="0" usemap="#adoip__client_1_1DoipMessage_coll__map" alt="Collaboration graph"/></div>
+<map name="adoip__client_1_1DoipMessage_coll__map" id="adoip__client_1_1DoipMessage_coll__map">
+<area shape="rect" title="Immutable class to store received doip message." alt="" coords="5,109,195,136"/>
+<area shape="rect" href="classcore__type_1_1Span.html" title=" " alt="" coords="19,5,181,47"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a92ae19c7512d74737995307f94b32078"><td class="memItemLeft" align="right" valign="top"><a id="a92ae19c7512d74737995307f94b32078"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">MessageType</a> : std::uint8_t { <b>kUdp</b>
-, <b>kTcp</b>
+<tr class="memitem:a92ae19c7512d74737995307f94b32078"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">MessageType</a> : std::uint8_t { <a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a413d3304b6cf5212793031b3fec2023f">kUdp</a>
+, <a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3">kTcp</a>
  }</td></tr>
-<tr class="memdesc:a92ae19c7512d74737995307f94b32078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of message type. <br /></td></tr>
+<tr class="memdesc:a92ae19c7512d74737995307f94b32078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of message type.  <a href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">More...</a><br /></td></tr>
 <tr class="separator:a92ae19c7512d74737995307f94b32078"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f7c410625d039dc59ee0b64e62aa34"><td class="memItemLeft" align="right" valign="top"><a id="ab5f7c410625d039dc59ee0b64e62aa34"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34">RxSocketType</a> : std::uint8_t { <b>kBroadcast</b>
-, <b>kUnicast</b>
+<tr class="memitem:ab5f7c410625d039dc59ee0b64e62aa34"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34">RxSocketType</a> : std::uint8_t { <a class="el" href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34abe25b0e999c2c6f8512daf825368566e">kBroadcast</a>
+, <a class="el" href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34a346497adaa88f4b72af887db083f2d11">kUnicast</a>
  }</td></tr>
-<tr class="memdesc:ab5f7c410625d039dc59ee0b64e62aa34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of socket type from where the request was received. <br /></td></tr>
+<tr class="memdesc:ab5f7c410625d039dc59ee0b64e62aa34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definition of socket type from where the request was received.  <a href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34">More...</a><br /></td></tr>
 <tr class="separator:ab5f7c410625d039dc59ee0b64e62aa34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb8b92edfb6e3b1d44db74f4cb159813"><td class="memItemLeft" align="right" valign="top"><a id="afb8b92edfb6e3b1d44db74f4cb159813"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">IpAddressType</a> = std::string_view</td></tr>
-<tr class="memdesc:afb8b92edfb6e3b1d44db74f4cb159813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of IP address type. <br /></td></tr>
+<tr class="memitem:afb8b92edfb6e3b1d44db74f4cb159813"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">IpAddressType</a> = std::string_view</td></tr>
+<tr class="memdesc:afb8b92edfb6e3b1d44db74f4cb159813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of IP address type.  <a href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">More...</a><br /></td></tr>
 <tr class="separator:afb8b92edfb6e3b1d44db74f4cb159813"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -101,22 +110,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1a69ffa1b3a4e70d109bfef6f72faba7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a1a69ffa1b3a4e70d109bfef6f72faba7">DoipMessage</a> (<a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">MessageType</a> message_type, <a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">IpAddressType</a> host_ip_address, std::uint16_t host_port_number, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload)</td></tr>
 <tr class="memdesc:a1a69ffa1b3a4e70d109bfef6f72faba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdoip__client_1_1DoipMessage.html" title="Immutable class to store received doip message.">DoipMessage</a>.  <a href="classdoip__client_1_1DoipMessage.html#a1a69ffa1b3a4e70d109bfef6f72faba7">More...</a><br /></td></tr>
 <tr class="separator:a1a69ffa1b3a4e70d109bfef6f72faba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aced5a02352a542e00c9a0713da32dd9e"><td class="memItemLeft" align="right" valign="top"><a id="aced5a02352a542e00c9a0713da32dd9e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#aced5a02352a542e00c9a0713da32dd9e">DoipMessage</a> (const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;other)=default</td></tr>
-<tr class="memdesc:aced5a02352a542e00c9a0713da32dd9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignment, copy constructor, move assignment and move constructor. <br /></td></tr>
+<tr class="memitem:aced5a02352a542e00c9a0713da32dd9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#aced5a02352a542e00c9a0713da32dd9e">DoipMessage</a> (const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;other)=default</td></tr>
+<tr class="memdesc:aced5a02352a542e00c9a0713da32dd9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default copy assignment, copy constructor, move assignment and move constructor.  <a href="classdoip__client_1_1DoipMessage.html#aced5a02352a542e00c9a0713da32dd9e">More...</a><br /></td></tr>
 <tr class="separator:aced5a02352a542e00c9a0713da32dd9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37a12d2871776cf8930af9320445eb84"><td class="memItemLeft" align="right" valign="top"><a id="a37a12d2871776cf8930af9320445eb84"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>DoipMessage</b> (<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:a37a12d2871776cf8930af9320445eb84"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a37a12d2871776cf8930af9320445eb84">DoipMessage</a> (<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:a37a12d2871776cf8930af9320445eb84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1301c8e39f051d05c52bc3ad5e6442f"><td class="memItemLeft" align="right" valign="top"><a id="ac1301c8e39f051d05c52bc3ad5e6442f"></a>
-<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;other)=default</td></tr>
+<tr class="memitem:ac1301c8e39f051d05c52bc3ad5e6442f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ac1301c8e39f051d05c52bc3ad5e6442f">operator=</a> (const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;other)=default</td></tr>
 <tr class="separator:ac1301c8e39f051d05c52bc3ad5e6442f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f40880dbc07625c0ffc5113522cd0bf"><td class="memItemLeft" align="right" valign="top"><a id="a7f40880dbc07625c0ffc5113522cd0bf"></a>
-<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:a7f40880dbc07625c0ffc5113522cd0bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a7f40880dbc07625c0ffc5113522cd0bf">operator=</a> (<a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:a7f40880dbc07625c0ffc5113522cd0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a392103bec4abfa6a4afc62b21b41427c"><td class="memItemLeft" align="right" valign="top"><a id="a392103bec4abfa6a4afc62b21b41427c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a392103bec4abfa6a4afc62b21b41427c">~DoipMessage</a> () noexcept=default</td></tr>
-<tr class="memdesc:a392103bec4abfa6a4afc62b21b41427c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdoip__client_1_1DoipMessage.html" title="Immutable class to store received doip message.">DoipMessage</a>. <br /></td></tr>
+<tr class="memitem:a392103bec4abfa6a4afc62b21b41427c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a392103bec4abfa6a4afc62b21b41427c">~DoipMessage</a> () noexcept=default</td></tr>
+<tr class="memdesc:a392103bec4abfa6a4afc62b21b41427c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classdoip__client_1_1DoipMessage.html" title="Immutable class to store received doip message.">DoipMessage</a>.  <a href="classdoip__client_1_1DoipMessage.html#a392103bec4abfa6a4afc62b21b41427c">More...</a><br /></td></tr>
 <tr class="separator:a392103bec4abfa6a4afc62b21b41427c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae318381698eb6c2f281e4cb05b515c9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">IpAddressType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ae318381698eb6c2f281e4cb05b515c9f">GetHostIpAddress</a> () const</td></tr>
 <tr class="memdesc:ae318381698eb6c2f281e4cb05b515c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the host ip address.  <a href="classdoip__client_1_1DoipMessage.html#ae318381698eb6c2f281e4cb05b515c9f">More...</a><br /></td></tr>
@@ -145,12 +149,129 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6dd3d4b679b7cbcdc4e747964d5e8132"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a6dd3d4b679b7cbcdc4e747964d5e8132">GetPayload</a> () const</td></tr>
 <tr class="memdesc:a6dd3d4b679b7cbcdc4e747964d5e8132"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the payload.  <a href="classdoip__client_1_1DoipMessage.html#a6dd3d4b679b7cbcdc4e747964d5e8132">More...</a><br /></td></tr>
 <tr class="separator:a6dd3d4b679b7cbcdc4e747964d5e8132"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a0e6e83f576907e452818aa6509011c12"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">MessageType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a0e6e83f576907e452818aa6509011c12">message_type_</a></td></tr>
+<tr class="memdesc:a0e6e83f576907e452818aa6509011c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the message type.  <a href="classdoip__client_1_1DoipMessage.html#a0e6e83f576907e452818aa6509011c12">More...</a><br /></td></tr>
+<tr class="separator:a0e6e83f576907e452818aa6509011c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf18cceefb4e80a04cff74fc23f25f06"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#acf18cceefb4e80a04cff74fc23f25f06">host_ip_address_</a></td></tr>
+<tr class="memdesc:acf18cceefb4e80a04cff74fc23f25f06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store remote ip address.  <a href="classdoip__client_1_1DoipMessage.html#acf18cceefb4e80a04cff74fc23f25f06">More...</a><br /></td></tr>
+<tr class="separator:acf18cceefb4e80a04cff74fc23f25f06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad510a2165285182c0e657d89a471d585"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ad510a2165285182c0e657d89a471d585">host_port_number_</a></td></tr>
+<tr class="memdesc:ad510a2165285182c0e657d89a471d585"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store remote port number.  <a href="classdoip__client_1_1DoipMessage.html#ad510a2165285182c0e657d89a471d585">More...</a><br /></td></tr>
+<tr class="separator:ad510a2165285182c0e657d89a471d585"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b00d46fe05755ab8e43a73c49b0f0ce"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a5b00d46fe05755ab8e43a73c49b0f0ce">protocol_version_</a></td></tr>
+<tr class="memdesc:a5b00d46fe05755ab8e43a73c49b0f0ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store protocol version.  <a href="classdoip__client_1_1DoipMessage.html#a5b00d46fe05755ab8e43a73c49b0f0ce">More...</a><br /></td></tr>
+<tr class="separator:a5b00d46fe05755ab8e43a73c49b0f0ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ea597799d97736844593fd312030f66"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a8ea597799d97736844593fd312030f66">protocol_version_inv_</a></td></tr>
+<tr class="memdesc:a8ea597799d97736844593fd312030f66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store protocol inverse version.  <a href="classdoip__client_1_1DoipMessage.html#a8ea597799d97736844593fd312030f66">More...</a><br /></td></tr>
+<tr class="separator:a8ea597799d97736844593fd312030f66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97a36e4d699bf8f2236f858f9a86ad44"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">server_address_</a></td></tr>
+<tr class="memdesc:a97a36e4d699bf8f2236f858f9a86ad44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store server address.  <a href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">More...</a><br /></td></tr>
+<tr class="separator:a97a36e4d699bf8f2236f858f9a86ad44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b39a0332e8ad37998bf2d6a435901c1"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">client_address_</a></td></tr>
+<tr class="memdesc:a3b39a0332e8ad37998bf2d6a435901c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store server address.  <a href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">More...</a><br /></td></tr>
+<tr class="separator:a3b39a0332e8ad37998bf2d6a435901c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfe75c73b7debd62122e5d0547e6b81d"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#adfe75c73b7debd62122e5d0547e6b81d">payload_type_</a></td></tr>
+<tr class="memdesc:adfe75c73b7debd62122e5d0547e6b81d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store payload type.  <a href="classdoip__client_1_1DoipMessage.html#adfe75c73b7debd62122e5d0547e6b81d">More...</a><br /></td></tr>
+<tr class="separator:adfe75c73b7debd62122e5d0547e6b81d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98007a8ae56518f1a4e9c0af2a8f32a0"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#a98007a8ae56518f1a4e9c0af2a8f32a0">payload_length_</a></td></tr>
+<tr class="memdesc:a98007a8ae56518f1a4e9c0af2a8f32a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store payload length.  <a href="classdoip__client_1_1DoipMessage.html#a98007a8ae56518f1a4e9c0af2a8f32a0">More...</a><br /></td></tr>
+<tr class="separator:a98007a8ae56518f1a4e9c0af2a8f32a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4c4a26b27a896b7395f776363070ce6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1DoipMessage.html#ac4c4a26b27a896b7395f776363070ce6">payload_</a></td></tr>
+<tr class="memdesc:ac4c4a26b27a896b7395f776363070ce6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store payload.  <a href="classdoip__client_1_1DoipMessage.html#ac4c4a26b27a896b7395f776363070ce6">More...</a><br /></td></tr>
+<tr class="separator:ac4c4a26b27a896b7395f776363070ce6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Immutable class to store received doip message. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00021">21</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="afb8b92edfb6e3b1d44db74f4cb159813"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb8b92edfb6e3b1d44db74f4cb159813">&#9670;&nbsp;</a></span>IpAddressType</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">doip_client::DoipMessage::IpAddressType</a> =  std::string_view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias of IP address type. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00036">36</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a92ae19c7512d74737995307f94b32078"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ae19c7512d74737995307f94b32078">&#9670;&nbsp;</a></span>MessageType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">doip_client::DoipMessage::MessageType</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition of message type. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a92ae19c7512d74737995307f94b32078a413d3304b6cf5212793031b3fec2023f"></a>kUdp&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3"></a>kTcp&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00026">26</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: std::uint8_t { kUdp, kTcp };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ab5f7c410625d039dc59ee0b64e62aa34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f7c410625d039dc59ee0b64e62aa34">&#9670;&nbsp;</a></span>RxSocketType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classdoip__client_1_1DoipMessage.html#ab5f7c410625d039dc59ee0b64e62aa34">doip_client::DoipMessage::RxSocketType</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition of socket type from where the request was received. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab5f7c410625d039dc59ee0b64e62aa34abe25b0e999c2c6f8512daf825368566e"></a>kBroadcast&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab5f7c410625d039dc59ee0b64e62aa34a346497adaa88f4b72af887db083f2d11"></a>kUnicast&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00031">31</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;: std::uint8_t { kBroadcast, kUnicast };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a1a69ffa1b3a4e70d109bfef6f72faba7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a69ffa1b3a4e70d109bfef6f72faba7">&#9670;&nbsp;</a></span>DoipMessage()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a69ffa1b3a4e70d109bfef6f72faba7">&#9670;&nbsp;</a></span>DoipMessage() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,6 +319,141 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8cpp_source.html#l00034">34</a> of file <a class="el" href="doip__message_8cpp_source.html">doip_message.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    : <a class="code" href="classdoip__client_1_1DoipMessage.html#a0e6e83f576907e452818aa6509011c12">message_type_</a>{message_type},</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#acf18cceefb4e80a04cff74fc23f25f06">host_ip_address_</a>{host_ip_address},</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#ad510a2165285182c0e657d89a471d585">host_port_number_</a>{host_port_number},</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#a5b00d46fe05755ab8e43a73c49b0f0ce">protocol_version_</a>{payload[0u]},</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#a8ea597799d97736844593fd312030f66">protocol_version_inv_</a>{payload[1u]},</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">server_address_</a>{0u},</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">client_address_</a>{0u},</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#adfe75c73b7debd62122e5d0547e6b81d">payload_type_</a>{<a class="code" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#af7c2200dc4a4d60f83f43c7e1c272edc">GetDoIPPayloadType</a>(payload)},</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <a class="code" href="classdoip__client_1_1DoipMessage.html#a98007a8ae56518f1a4e9c0af2a8f32a0">payload_length_</a>{<a class="code" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a9b6c6c41de3c3647aa6f9f9fdbbeac34">GetDoIPPayloadLength</a>(payload)} {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  constexpr std::uint8_t kDoipHeaderSize{8u};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  constexpr std::uint8_t kSourceAddressSize{4u};</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classdoip__client_1_1DoipMessage.html#ac4c4a26b27a896b7395f776363070ce6">payload_</a> = (<a class="code" href="classdoip__client_1_1DoipMessage.html#a0e6e83f576907e452818aa6509011c12">message_type_</a> == <a class="code" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3">MessageType::kTcp</a>)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                 ?  <span class="comment">// header + server address(2 byte) + client address(2 byte)</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                 <a class="code" href="classcore__type_1_1Span.html">core_type::Span&lt;std::uint8_t&gt;</a>{&amp;payload[kDoipHeaderSize + kSourceAddressSize],</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                               payload.<a class="code" href="classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381">size</a>() - (kDoipHeaderSize + kSourceAddressSize)}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                 : <a class="code" href="classcore__type_1_1Span.html">core_type::Span&lt;std::uint8_t&gt;</a>{&amp;payload[kDoipHeaderSize], payload.<a class="code" href="classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381">size</a>() - kDoipHeaderSize};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">if</span> (message_type == <a class="code" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3">MessageType::kTcp</a>) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">server_address_</a> = <a class="code" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a93a5d27df690660be2180d514a596256">GetServerAddr</a>(payload);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">client_address_</a> = <a class="code" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a096d4a19e3b6470240241fb4bf265ab0">GetClientAddr</a>(payload);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }  <span class="comment">// no client</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="ttc" id="aclasscore__type_1_1Span_html"><div class="ttname"><a href="classcore__type_1_1Span.html">core_type::Span&lt; std::uint8_t &gt;</a></div></div>
+<div class="ttc" id="aclasscore__type_1_1Span_html_a6de43a790e9c4b6bef01f678f15b4381"><div class="ttname"><a href="classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381">core_type::Span::size</a></div><div class="ttdeci">constexpr size_type size() const noexcept</div><div class="ttdoc">Return the size of this Span.</div><div class="ttdef"><b>Definition:</b> <a href="span_8h_source.html#l00508">span.h:508</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a0e6e83f576907e452818aa6509011c12"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a0e6e83f576907e452818aa6509011c12">doip_client::DoipMessage::message_type_</a></div><div class="ttdeci">MessageType message_type_</div><div class="ttdoc">Store the message type.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00124">doip_message.h:124</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a3b39a0332e8ad37998bf2d6a435901c1"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">doip_client::DoipMessage::client_address_</a></div><div class="ttdeci">std::uint16_t client_address_</div><div class="ttdoc">Store server address.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00153">doip_message.h:153</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a5b00d46fe05755ab8e43a73c49b0f0ce"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a5b00d46fe05755ab8e43a73c49b0f0ce">doip_client::DoipMessage::protocol_version_</a></div><div class="ttdeci">std::uint8_t protocol_version_</div><div class="ttdoc">Store protocol version.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00138">doip_message.h:138</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a8ea597799d97736844593fd312030f66"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a8ea597799d97736844593fd312030f66">doip_client::DoipMessage::protocol_version_inv_</a></div><div class="ttdeci">std::uint8_t protocol_version_inv_</div><div class="ttdoc">Store protocol inverse version.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00143">doip_message.h:143</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3">doip_client::DoipMessage::MessageType::kTcp</a></div><div class="ttdeci">@ kTcp</div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a97a36e4d699bf8f2236f858f9a86ad44"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">doip_client::DoipMessage::server_address_</a></div><div class="ttdeci">std::uint16_t server_address_</div><div class="ttdoc">Store server address.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00148">doip_message.h:148</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_a98007a8ae56518f1a4e9c0af2a8f32a0"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#a98007a8ae56518f1a4e9c0af2a8f32a0">doip_client::DoipMessage::payload_length_</a></div><div class="ttdeci">std::uint32_t payload_length_</div><div class="ttdoc">Store payload length.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00163">doip_message.h:163</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_ac4c4a26b27a896b7395f776363070ce6"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#ac4c4a26b27a896b7395f776363070ce6">doip_client::DoipMessage::payload_</a></div><div class="ttdeci">core_type::Span&lt; std::uint8_t &gt; payload_</div><div class="ttdoc">Store payload.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00168">doip_message.h:168</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_acf18cceefb4e80a04cff74fc23f25f06"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#acf18cceefb4e80a04cff74fc23f25f06">doip_client::DoipMessage::host_ip_address_</a></div><div class="ttdeci">std::string host_ip_address_</div><div class="ttdoc">Store remote ip address.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00128">doip_message.h:128</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_ad510a2165285182c0e657d89a471d585"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#ad510a2165285182c0e657d89a471d585">doip_client::DoipMessage::host_port_number_</a></div><div class="ttdeci">std::uint16_t host_port_number_</div><div class="ttdoc">Store remote port number.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00133">doip_message.h:133</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1DoipMessage_html_adfe75c73b7debd62122e5d0547e6b81d"><div class="ttname"><a href="classdoip__client_1_1DoipMessage.html#adfe75c73b7debd62122e5d0547e6b81d">doip_client::DoipMessage::payload_type_</a></div><div class="ttdeci">std::uint16_t payload_type_</div><div class="ttdoc">Store payload type.</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8h_source.html#l00158">doip_message.h:158</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03_html_a096d4a19e3b6470240241fb4bf265ab0"><div class="ttname"><a href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a096d4a19e3b6470240241fb4bf265ab0">doip_client::anonymous_namespace{doip_message.cpp}::GetClientAddr</a></div><div class="ttdeci">auto GetClientAddr(core_type::Span&lt; std::uint8_t &gt; payload) noexcept -&gt; std::uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8cpp_source.html#l00028">doip_message.cpp:28</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03_html_a93a5d27df690660be2180d514a596256"><div class="ttname"><a href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a93a5d27df690660be2180d514a596256">doip_client::anonymous_namespace{doip_message.cpp}::GetServerAddr</a></div><div class="ttdeci">auto GetServerAddr(core_type::Span&lt; std::uint8_t &gt; payload) noexcept -&gt; std::uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8cpp_source.html#l00024">doip_message.cpp:24</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03_html_a9b6c6c41de3c3647aa6f9f9fdbbeac34"><div class="ttname"><a href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a9b6c6c41de3c3647aa6f9f9fdbbeac34">doip_client::anonymous_namespace{doip_message.cpp}::GetDoIPPayloadLength</a></div><div class="ttdeci">auto GetDoIPPayloadLength(core_type::Span&lt; std::uint8_t &gt; payload) noexcept -&gt; std::uint32_t</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8cpp_source.html#l00017">doip_message.cpp:17</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03_html_af7c2200dc4a4d60f83f43c7e1c272edc"><div class="ttname"><a href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#af7c2200dc4a4d60f83f43c7e1c272edc">doip_client::anonymous_namespace{doip_message.cpp}::GetDoIPPayloadType</a></div><div class="ttdeci">auto GetDoIPPayloadType(core_type::Span&lt; std::uint8_t &gt; payload) noexcept -&gt; std::uint16_t</div><div class="ttdef"><b>Definition:</b> <a href="doip__message_8cpp_source.html#l00013">doip_message.cpp:13</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00153">client_address_</a>, <a class="el" href="doip__message_8cpp_source.html#l00028">doip_client::anonymous_namespace{doip_message.cpp}::GetClientAddr()</a>, <a class="el" href="doip__message_8cpp_source.html#l00024">doip_client::anonymous_namespace{doip_message.cpp}::GetServerAddr()</a>, <a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078a9cfe38b93cdff5d14e712910b4be0fd3">kTcp</a>, <a class="el" href="doip__message_8h_source.html#l00124">message_type_</a>, <a class="el" href="doip__message_8h_source.html#l00168">payload_</a>, <a class="el" href="doip__message_8h_source.html#l00148">server_address_</a>, and <a class="el" href="span_8h_source.html#l00508">core_type::Span&lt; T, Extent &gt;::size()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1DoipMessage_a1a69ffa1b3a4e70d109bfef6f72faba7_cgraph.png" border="0" usemap="#aclassdoip__client_1_1DoipMessage_a1a69ffa1b3a4e70d109bfef6f72faba7_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1DoipMessage_a1a69ffa1b3a4e70d109bfef6f72faba7_cgraph" id="aclassdoip__client_1_1DoipMessage_a1a69ffa1b3a4e70d109bfef6f72faba7_cgraph">
+<area shape="rect" title="Constructs an instance of DoipMessage." alt="" coords="5,93,195,134"/>
+<area shape="rect" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a096d4a19e3b6470240241fb4bf265ab0" title=" " alt="" coords="243,5,449,61"/>
+<area shape="rect" href="namespacedoip__client_1_1anonymous__namespace_02doip__message_8cpp_03.html#a93a5d27df690660be2180d514a596256" title=" " alt="" coords="243,85,449,141"/>
+<area shape="rect" href="classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381" title="Return the size of this Span." alt="" coords="266,165,426,192"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="aced5a02352a542e00c9a0713da32dd9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aced5a02352a542e00c9a0713da32dd9e">&#9670;&nbsp;</a></span>DoipMessage() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::DoipMessage::DoipMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Default copy assignment, copy constructor, move assignment and move constructor. </p>
+
+</div>
+</div>
+<a id="a37a12d2871776cf8930af9320445eb84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37a12d2871776cf8930af9320445eb84">&#9670;&nbsp;</a></span>DoipMessage() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::DoipMessage::DoipMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a392103bec4abfa6a4afc62b21b41427c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a392103bec4abfa6a4afc62b21b41427c">&#9670;&nbsp;</a></span>~DoipMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::DoipMessage::~DoipMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destructs an instance of <a class="el" href="classdoip__client_1_1DoipMessage.html" title="Immutable class to store received doip message.">DoipMessage</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -227,6 +483,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the payload type. </p>
 <dl class="section return"><dt>Returns</dt><dd>The payload type </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00106">106</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#a3b39a0332e8ad37998bf2d6a435901c1">client_address_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00153">client_address_</a>.</p>
+
 </div>
 </div>
 <a id="ae318381698eb6c2f281e4cb05b515c9f"></a>
@@ -254,6 +515,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the host ip address. </p>
 <dl class="section return"><dt>Returns</dt><dd>The IP address </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00070">70</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#acf18cceefb4e80a04cff74fc23f25f06">host_ip_address_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00128">host_ip_address_</a>.</p>
 
 </div>
 </div>
@@ -283,6 +549,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the host port number. </p>
 <dl class="section return"><dt>Returns</dt><dd>The port number </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00076">76</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#ad510a2165285182c0e657d89a471d585">host_port_number_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00133">host_port_number_</a>.</p>
+
 </div>
 </div>
 <a id="a201df9dfa3d656ee5840699d297df56b"></a>
@@ -310,6 +581,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the inverse protocol version. </p>
 <dl class="section return"><dt>Returns</dt><dd>The inverse protocol version </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00088">88</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#a8ea597799d97736844593fd312030f66">protocol_version_inv_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00143">protocol_version_inv_</a>.</p>
 
 </div>
 </div>
@@ -339,6 +615,11 @@ Public Member Functions</h2></td></tr>
 <p>Get the payload. </p>
 <dl class="section return"><dt>Returns</dt><dd>The payload </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00118">118</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#ac4c4a26b27a896b7395f776363070ce6">payload_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00168">payload_</a>.</p>
+
 </div>
 </div>
 <a id="acd8515b3aec13aac418656a564f015fa"></a>
@@ -366,6 +647,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the payload length. </p>
 <dl class="section return"><dt>Returns</dt><dd>The payload length </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00112">112</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#a98007a8ae56518f1a4e9c0af2a8f32a0">payload_length_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00163">payload_length_</a>.</p>
 
 </div>
 </div>
@@ -395,6 +681,22 @@ Public Member Functions</h2></td></tr>
 <p>Get the payload type. </p>
 <dl class="section return"><dt>Returns</dt><dd>The payload type </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00094">94</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#adfe75c73b7debd62122e5d0547e6b81d">payload_type_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00158">payload_type_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00139">doip_client::channel::udp_channel::DoipUdpChannelHandler::ProcessDoIPPayload()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1DoipMessage_a61d6f758d817fc0a7712466a6ce629a0_icgraph.png" border="0" usemap="#aclassdoip__client_1_1DoipMessage_a61d6f758d817fc0a7712466a6ce629a0_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1DoipMessage_a61d6f758d817fc0a7712466a6ce629a0_icgraph" id="aclassdoip__client_1_1DoipMessage_a61d6f758d817fc0a7712466a6ce629a0_icgraph">
+<area shape="rect" title="Get the payload type." alt="" coords="283,13,472,54"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a5d2c213ab01b69e63f91629d726be69e" title="Function to process the doip payload." alt="" coords="5,5,235,61"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="aee3647f5001a09d46d749875420aafb0"></a>
@@ -422,6 +724,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Get the protocol version. </p>
 <dl class="section return"><dt>Returns</dt><dd>The protocol version </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00082">82</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#a5b00d46fe05755ab8e43a73c49b0f0ce">protocol_version_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00138">protocol_version_</a>.</p>
 
 </div>
 </div>
@@ -451,11 +758,349 @@ Public Member Functions</h2></td></tr>
 <p>Get the payload type. </p>
 <dl class="section return"><dt>Returns</dt><dd>The payload type </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00100">100</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1DoipMessage.html#a97a36e4d699bf8f2236f858f9a86ad44">server_address_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__message_8h_source.html#l00148">server_address_</a>.</p>
+
+</div>
+</div>
+<a id="ac1301c8e39f051d05c52bc3ad5e6442f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1301c8e39f051d05c52bc3ad5e6442f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a>&amp; doip_client::DoipMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f40880dbc07625c0ffc5113522cd0bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f40880dbc07625c0ffc5113522cd0bf">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a>&amp; doip_client::DoipMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1DoipMessage.html">DoipMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a3b39a0332e8ad37998bf2d6a435901c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b39a0332e8ad37998bf2d6a435901c1">&#9670;&nbsp;</a></span>client_address_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t doip_client::DoipMessage::client_address_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store server address. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00153">153</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8cpp_source.html#l00034">DoipMessage()</a>, and <a class="el" href="doip__message_8h_source.html#l00106">GetClientAddress()</a>.</p>
+
+</div>
+</div>
+<a id="acf18cceefb4e80a04cff74fc23f25f06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf18cceefb4e80a04cff74fc23f25f06">&#9670;&nbsp;</a></span>host_ip_address_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string doip_client::DoipMessage::host_ip_address_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store remote ip address. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00128">128</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00070">GetHostIpAddress()</a>.</p>
+
+</div>
+</div>
+<a id="ad510a2165285182c0e657d89a471d585"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad510a2165285182c0e657d89a471d585">&#9670;&nbsp;</a></span>host_port_number_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t doip_client::DoipMessage::host_port_number_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store remote port number. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00133">133</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00076">GetHostPortNumber()</a>.</p>
+
+</div>
+</div>
+<a id="a0e6e83f576907e452818aa6509011c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6e83f576907e452818aa6509011c12">&#9670;&nbsp;</a></span>message_type_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdoip__client_1_1DoipMessage.html#a92ae19c7512d74737995307f94b32078">MessageType</a> doip_client::DoipMessage::message_type_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the message type. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00124">124</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8cpp_source.html#l00034">DoipMessage()</a>.</p>
+
+</div>
+</div>
+<a id="ac4c4a26b27a896b7395f776363070ce6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4c4a26b27a896b7395f776363070ce6">&#9670;&nbsp;</a></span>payload_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt;std::uint8_t&gt; doip_client::DoipMessage::payload_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store payload. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00168">168</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8cpp_source.html#l00034">DoipMessage()</a>, and <a class="el" href="doip__message_8h_source.html#l00118">GetPayload()</a>.</p>
+
+</div>
+</div>
+<a id="a98007a8ae56518f1a4e9c0af2a8f32a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98007a8ae56518f1a4e9c0af2a8f32a0">&#9670;&nbsp;</a></span>payload_length_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint32_t doip_client::DoipMessage::payload_length_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store payload length. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00163">163</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00112">GetPayloadLength()</a>.</p>
+
+</div>
+</div>
+<a id="adfe75c73b7debd62122e5d0547e6b81d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfe75c73b7debd62122e5d0547e6b81d">&#9670;&nbsp;</a></span>payload_type_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t doip_client::DoipMessage::payload_type_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store payload type. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00158">158</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00094">GetPayloadType()</a>.</p>
+
+</div>
+</div>
+<a id="a5b00d46fe05755ab8e43a73c49b0f0ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b00d46fe05755ab8e43a73c49b0f0ce">&#9670;&nbsp;</a></span>protocol_version_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t doip_client::DoipMessage::protocol_version_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store protocol version. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00138">138</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00082">GetProtocolVersion()</a>.</p>
+
+</div>
+</div>
+<a id="a8ea597799d97736844593fd312030f66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ea597799d97736844593fd312030f66">&#9670;&nbsp;</a></span>protocol_version_inv_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t doip_client::DoipMessage::protocol_version_inv_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store protocol inverse version. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00143">143</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8h_source.html#l00088">GetInverseProtocolVersion()</a>.</p>
+
+</div>
+</div>
+<a id="a97a36e4d699bf8f2236f858f9a86ad44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97a36e4d699bf8f2236f858f9a86ad44">&#9670;&nbsp;</a></span>server_address_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint16_t doip_client::DoipMessage::server_address_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store server address. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__message_8h_source.html#l00148">148</a> of file <a class="el" href="doip__message_8h_source.html">doip_message.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__message_8cpp_source.html#l00034">DoipMessage()</a>, and <a class="el" href="doip__message_8h_source.html#l00100">GetServerAddress()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/common/<a class="el" href="doip__message_8h_source.html">doip_message.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/common/doip_message.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/common/<a class="el" href="doip__message_8cpp_source.html">doip_message.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

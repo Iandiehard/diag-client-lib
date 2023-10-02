@@ -1,0 +1,4 @@
+<map id="diag::client::common::DiagnosticManager::Run" name="diag::client::common::DiagnosticManager::Run">
+<area shape="rect" id="node1" title="Function to run DiagnosticManager." alt="" coords="249,5,439,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a" title="Function to manage the whole lifecycle of DiagnosticManager." alt="" coords="5,5,201,47"/>
+</map>

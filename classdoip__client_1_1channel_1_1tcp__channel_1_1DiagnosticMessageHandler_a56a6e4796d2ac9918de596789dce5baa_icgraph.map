@@ -1,0 +1,6 @@
+<map id="doip_client::channel::tcp_channel::DiagnosticMessageHandler::Reset" name="doip_client::channel::tcp_channel::DiagnosticMessageHandler::Reset">
+<area shape="rect" id="node1" title="Function to reset the handler." alt="" coords="824,5,1067,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211" title="Function to reset the handler." alt="" coords="556,5,776,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+</map>

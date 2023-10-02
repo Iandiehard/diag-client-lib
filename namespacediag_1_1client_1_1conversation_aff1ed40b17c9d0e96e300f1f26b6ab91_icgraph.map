@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::ConvertToHexString" name="diag::client::conversation::ConvertToHexString">
+<area shape="rect" id="node1" title=" " alt="" coords="315,13,501,54"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1VdConversation.html#a3da751fa94fd3f6ef1f8417a31f9252a" title="Function to deserialize the received Vehicle Identification Response/ Announcement." alt="" coords="5,5,267,61"/>
+</map>

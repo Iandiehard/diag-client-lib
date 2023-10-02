@@ -1,0 +1,9 @@
+<map id="doip_client::sockets::UdpSocketHandler" name="doip_client::sockets::UdpSocketHandler">
+<area shape="rect" id="node1" title="Class used to create a udp socket for handling transmission and reception of udp message from driver." alt="" coords="530,35,681,77"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="917,99,1147,141"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,109,720,165"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,29,247,85"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,109,257,165"/>
+<area shape="rect" id="node6" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="509,193,701,220"/>
+<area shape="rect" id="node7" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="35,190,227,231"/>
+</map>

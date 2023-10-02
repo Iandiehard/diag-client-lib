@@ -1,0 +1,4 @@
+<map id="doip_client::channel::udp_channel::VehicleIdentificationHandler::ProcessVehicleIdentificationResponse" name="doip_client::channel::udp_channel::VehicleIdentificationHandler::ProcessVehicleIdentificationResponse">
+<area shape="rect" id="node1" title="Function to process received vehicle identification response." alt="" coords="283,5,609,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a5d2c213ab01b69e63f91629d726be69e" title="Function to process the doip payload." alt="" coords="5,5,235,61"/>
+</map>

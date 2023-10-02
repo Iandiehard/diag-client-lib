@@ -1,0 +1,5 @@
+<map id="diag::client::DiagClient::DiagClientImpl::DeInitialize" name="diag::client::DiagClient::DiagClientImpl::DeInitialize">
+<area shape="rect" id="node1" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="5,50,215,91"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="263,5,465,61"/>
+<area shape="rect" id="node3" href="$namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="271,86,457,127"/>
+</map>

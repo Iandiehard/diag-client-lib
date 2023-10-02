@@ -1,0 +1,5 @@
+<map id="core_type::Result::Value" name="core_type::Result::Value">
+<area shape="rect" id="node1" title="Access the contained value." alt="" coords="215,35,357,76"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#a37282503c28519fb3494afec2aff4471" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="15,5,157,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#a28f0ac522919d7636a9bde535c514486" title="Return the contained value as an Optional." alt="" coords="5,71,167,98"/>
+</map>

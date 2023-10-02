@@ -69,7 +69,7 @@ $(function() {
 <div class="title">json_parser.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* Diagnostic Client library</span></div>
+<a href="json__parser_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* Diagnostic Client library</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright (C) 2023  Avijit Dey</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> * </span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * This Source Code Form is subject to the terms of the Mozilla Public</span></div>
@@ -83,22 +83,28 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;boost/property_tree/ptree.hpp&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;core/include/result.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="result_8h.html">core/include/result.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span>boost_support {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceboost__support.html">boost_support</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>parser {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> boost_tree = boost::property_tree::ptree;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> = boost::property_tree::ptree;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">enum class</span> ParsingErrorCode : std::uint8_t { kError = 0U };</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">   28</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> : std::uint8_t { <a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">kError</a> = 0U };</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;void, ParsingErrorCode&gt;</a> Read(std::string_view config_path, boost_tree &amp;json_tree);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;void, ParsingErrorCode&gt;</a> <a class="code" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">Read</a>(std::string_view config_path, <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> &amp;json_tree);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}  <span class="comment">// namespace parser</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}  <span class="comment">// namespace boost_support</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DIAGNOSTIC_CLIENT_LIB_LIB_BOOST_SUPPORT_PARSER_JSON_PARSER_H</span></div>
-<div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> result.h:29</div></div>
+<div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00029">result.h:29</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_a0a0d7b238a0e28c154468d7c6bdac016"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">boost_support::parser::ParsingErrorCode</a></div><div class="ttdeci">ParsingErrorCode</div><div class="ttdoc">Definitions of Parsing failure error codes.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00028">json_parser.h:28</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">boost_support::parser::ParsingErrorCode::kError</a></div><div class="ttdeci">@ kError</div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_a7e533fae6e596304315e8624faec856b"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">boost_support::parser::Read</a></div><div class="ttdeci">core_type::Result&lt; void, ParsingErrorCode &gt; Read(std::string_view config_path, boost_tree &amp;json_tree)</div><div class="ttdoc">Parser to get the configuration from json file.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8cpp_source.html#l00016">json_parser.cpp:16</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_af348e830747440589cd07863d5b8e3ae"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a></div><div class="ttdeci">boost::property_tree::ptree boost_tree</div><div class="ttdoc">Type alias for boost property tree.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00023">json_parser.h:23</a></div></div>
+<div class="ttc" id="anamespaceboost__support_html"><div class="ttname"><a href="namespaceboost__support.html">boost_support</a></div><div class="ttdef"><b>Definition:</b> <a href="lib_2boost-support_2common_2logger_8h_source.html#l00013">logger.h:13</a></div></div>
+<div class="ttc" id="aresult_8h_html"><div class="ttname"><a href="result_8h.html">result.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

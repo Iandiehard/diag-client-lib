@@ -1,0 +1,9 @@
+<map id="diag::client::DiagClient::DiagClientImpl::Initialize" name="diag::client::DiagClient::DiagClientImpl::Initialize">
+<area shape="rect" id="node1" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,119,196,161"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="253,5,455,61"/>
+<area shape="rect" id="node3" href="$namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="261,86,447,127"/>
+<area shape="rect" id="node4" href="$namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b" title="Parser to get the configuration from json file." alt="" coords="273,151,435,193"/>
+<area shape="rect" id="node7" href="$namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27" title="Function to read from config tree and get the DcmClient configuration." alt="" coords="244,217,464,258"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="530,114,673,155"/>
+<area shape="rect" id="node6" href="$classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="512,180,691,236"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="doip_client::channel::udp_channel::DoipUdpChannel::Transmit" name="doip_client::channel::udp_channel::DoipUdpChannel::Transmit">
+<area shape="rect" id="node1" title="Function to transmit a Vehicle Identification request." alt="" coords="5,13,235,69"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a44b6597f01d47683ee43772b765eb26b" title="Function to vehicle identification request to the connected network." alt="" coords="283,5,528,76"/>
+</map>

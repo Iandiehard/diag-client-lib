@@ -1,0 +1,10 @@
+<map id="core_type::Result::Error" name="core_type::Result::Error">
+<area shape="rect" id="node1" title="Access the contained error." alt="" coords="217,188,360,229"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a26c68639afe1eb890ea885de5558f7cc" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="5,5,169,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#a209be5546dbec57f944cebda4a591dcd" title="Return the contained error as an Optional." alt="" coords="7,71,168,98"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#ad7150853e90b7b2de1a3335130a596b9" title="Return the contained error as an Optional." alt="" coords="14,123,161,164"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a7aef854c9805e4fc6bfbcf59f9d7ba72" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="11,188,163,229"/>
+<area shape="rect" id="node6" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a61ef9f59f45205b0bc3209334318aebc" title="Returns the result itself if it contains a value; otherwise, returns the result of the given function..." alt="" coords="14,253,161,295"/>
+<area shape="rect" id="node7" href="$classcore__type_1_1Result.html#aab6bec39aa2829b5235b157fd87fdc57" title="Return the contained value or return the result of a function call." alt="" coords="16,319,159,360"/>
+<area shape="rect" id="node8" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#acd08fee5f382a120c4df3b547984ba2e" title="Do nothing or call a function." alt="" coords="14,384,161,425"/>
+</map>

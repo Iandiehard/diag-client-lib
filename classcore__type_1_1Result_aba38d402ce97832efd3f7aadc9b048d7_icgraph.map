@@ -1,0 +1,19 @@
+<map id="core_type::Result::HasValue" name="core_type::Result::HasValue">
+<area shape="rect" id="node1" title="Check whether *this contains a value." alt="" coords="233,483,376,524"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#abdd842373ded3c629f52aeb8eb4c6d86" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="24,5,167,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a49a453267fc1c24d6e561bc0eb867775" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="20,71,171,112"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a26c68639afe1eb890ea885de5558f7cc" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="13,136,177,177"/>
+<area shape="rect" id="node5" href="$classcore__type_1_1Result.html#a209be5546dbec57f944cebda4a591dcd" title="Return the contained error as an Optional." alt="" coords="15,202,176,229"/>
+<area shape="rect" id="node6" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#ad7150853e90b7b2de1a3335130a596b9" title="Return the contained error as an Optional." alt="" coords="22,253,169,295"/>
+<area shape="rect" id="node7" href="$classcore__type_1_1Result.html#a99c12d03d1e87b08f9f081d9c74947db" title="Return the contained error or the given default error." alt="" coords="24,319,167,360"/>
+<area shape="rect" id="node8" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#ac43e710197e2732abbf40df665e43825" title="Return the contained error or the given default error." alt="" coords="22,384,169,425"/>
+<area shape="rect" id="node9" href="$classcore__type_1_1Result.html#a37282503c28519fb3494afec2aff4471" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="24,449,167,491"/>
+<area shape="rect" id="node10" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a7aef854c9805e4fc6bfbcf59f9d7ba72" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="19,515,171,556"/>
+<area shape="rect" id="node11" href="$classcore__type_1_1Result.html#a28f0ac522919d7636a9bde535c514486" title="Return the contained value as an Optional." alt="" coords="15,581,176,607"/>
+<area shape="rect" id="node12" href="$classcore__type_1_1Result.html#aba61b2279f67f852b0386c2bacb0a235" title="Check whether *this contains a value." alt="" coords="24,632,167,673"/>
+<area shape="rect" id="node13" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a905230e688f49b0f95f2a988c9e2713f" title="Check whether *this contains a value." alt="" coords="5,697,185,739"/>
+<area shape="rect" id="node14" href="$classcore__type_1_1Result.html#acbedc1806b8f48c9bc2d16f69ae0d32a" title="Returns the result itself if it contains a value; otherwise, returns the result of the given function..." alt="" coords="24,763,167,804"/>
+<area shape="rect" id="node15" href="$classcore__type_1_1Result_3_01void_00_01E_01_4.html#a61ef9f59f45205b0bc3209334318aebc" title="Returns the result itself if it contains a value; otherwise, returns the result of the given function..." alt="" coords="22,828,169,869"/>
+<area shape="rect" id="node16" href="$classcore__type_1_1Result.html#aab6bec39aa2829b5235b157fd87fdc57" title="Return the contained value or return the result of a function call." alt="" coords="24,893,167,935"/>
+<area shape="rect" id="node17" href="$classcore__type_1_1Result.html#a2d0c04e17c7bee9170a3237ee9f7a9b1" title="Return the contained value or the given default value." alt="" coords="24,959,167,1000"/>
+</map>

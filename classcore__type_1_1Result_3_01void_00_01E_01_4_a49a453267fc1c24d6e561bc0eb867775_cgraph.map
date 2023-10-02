@@ -1,0 +1,4 @@
+<map id="core_type::Result&lt; void, E &gt;::AndThen" name="core_type::Result&lt; void, E &gt;::AndThen">
+<area shape="rect" id="node1" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="204,5,347,47"/>
+</map>

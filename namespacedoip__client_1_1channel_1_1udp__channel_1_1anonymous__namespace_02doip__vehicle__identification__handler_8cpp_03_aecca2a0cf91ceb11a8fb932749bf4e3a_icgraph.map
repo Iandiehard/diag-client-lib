@@ -1,0 +1,4 @@
+<map id="doip_client::channel::udp_channel::anonymous_namespace{doip_vehicle_identification_handler::cpp}::GetVehicleIdentificationPayloadType" name="doip_client::channel::udp_channel::anonymous_namespace{doip_vehicle_identification_handler::cpp}::GetVehicleIdentificationPayloadType">
+<area shape="rect" id="node1" title="Get the vehicle identification payload type based on preselection mode." alt="" coords="352,5,649,91"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#a2f295b8a9b9a517e02069d06254a1d0d" title="Function to send vehicle identification request." alt="" coords="5,20,304,76"/>
+</map>

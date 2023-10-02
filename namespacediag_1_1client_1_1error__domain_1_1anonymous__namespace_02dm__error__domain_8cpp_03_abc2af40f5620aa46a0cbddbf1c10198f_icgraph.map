@@ -1,0 +1,4 @@
+<map id="diag::client::error_domain::anonymous_namespace{dm_error_domain::cpp}::ConvertErrorCodeToString" name="diag::client::error_domain::anonymous_namespace{dm_error_domain::cpp}::ConvertErrorCodeToString">
+<area shape="rect" id="node1" title=" " alt="" coords="244,5,519,76"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#ac45ecd8f76270739c92572c738760e10" title="Return a textual representation of the given error code." alt="" coords="5,13,196,69"/>
+</map>

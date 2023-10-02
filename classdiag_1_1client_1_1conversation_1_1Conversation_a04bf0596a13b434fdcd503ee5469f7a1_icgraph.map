@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::Conversation::ConnectToDiagServer" name="diag::client::conversation::Conversation::ConnectToDiagServer">
+<area shape="rect" id="node1" title="Function to connect to Diagnostic Server." alt="" coords="267,20,529,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a920676d546f9b2198ce25cae14f18986" title="Function to connect to Diagnostic Server." alt="" coords="5,5,219,76"/>
+</map>

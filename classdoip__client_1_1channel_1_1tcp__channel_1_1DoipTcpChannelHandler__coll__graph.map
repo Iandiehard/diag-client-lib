@@ -1,0 +1,5 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannelHandler" name="doip_client::channel::tcp_channel::DoipTcpChannelHandler">
+<area shape="rect" id="node1" title="Class to handle tcp received messages from lower layer." alt="" coords="433,45,653,101"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="5,5,248,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="11,85,243,141"/>
+</map>

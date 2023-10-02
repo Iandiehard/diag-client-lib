@@ -1,0 +1,5 @@
+<map id="doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageUnicast" name="doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageUnicast">
+<area shape="rect" id="node1" title="Function to process the received unicast udp message." alt="" coords="557,5,792,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c" title="Function to process the received Udp unicast message from socket layer." alt="" coords="280,5,509,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a01a6190881af0a42404974ba48d0def4" title="Constructs an instance of UdpSocketHandler." alt="" coords="5,5,232,61"/>
+</map>

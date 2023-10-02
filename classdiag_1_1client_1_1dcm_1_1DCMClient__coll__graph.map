@@ -1,4 +1,8 @@
 <map id="diag::client::dcm::DCMClient" name="diag::client::dcm::DCMClient">
-<area shape="rect" id="node1" title="Class to create Diagnostic Manager Client functionality." alt="" coords="15,95,154,136"/>
-<area shape="rect" id="node2" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager." alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node1" title="Class to create Diagnostic Manager Client functionality." alt="" coords="1172,71,1311,112"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html" title="Parent class to create Diagnostic Manager." alt="" coords="705,5,864,47"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html" title="Class to manage all the conversation created from usr request." alt="" coords="665,71,904,112"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html" title=" " alt="" coords="259,71,484,112"/>
+<area shape="rect" id="node5" href="$classuds__transport_1_1UdsTransportProtocolMgr.html" title=" " alt="" coords="5,71,209,112"/>
+<area shape="rect" id="node6" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation." alt="" coords="691,136,878,177"/>
 </map>

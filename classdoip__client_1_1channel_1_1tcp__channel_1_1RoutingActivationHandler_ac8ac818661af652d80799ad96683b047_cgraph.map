@@ -1,0 +1,4 @@
+<map id="doip_client::channel::tcp_channel::RoutingActivationHandler::HandleRoutingActivationRequest" name="doip_client::channel::tcp_channel::RoutingActivationHandler::HandleRoutingActivationRequest">
+<area shape="rect" id="node1" title="Function to handle sending of routing activation request." alt="" coords="5,5,301,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="349,5,507,61"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="doip_client::sockets::TcpSocketHandler::ConnectToHost" name="doip_client::sockets::TcpSocketHandler::ConnectToHost">
+<area shape="rect" id="node1" title="Function to connect to remote ip address and port number." alt="" coords="536,5,743,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ad75252930aaee13aed42674f4160f8a4" title="Function to establish connection to remote host server." alt="" coords="268,5,488,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a8763720bd5fd916103b3b97e77b2ee16" title="Function to establish connection to remote host server." alt="" coords="5,5,220,61"/>
+</map>

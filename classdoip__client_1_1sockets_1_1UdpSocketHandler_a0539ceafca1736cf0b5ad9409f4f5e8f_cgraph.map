@@ -1,0 +1,4 @@
+<map id="doip_client::sockets::UdpSocketHandler::Transmit" name="doip_client::sockets::UdpSocketHandler::Transmit">
+<area shape="rect" id="node1" title="Function to transmit the provided udp message." alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="268,5,453,47"/>
+</map>

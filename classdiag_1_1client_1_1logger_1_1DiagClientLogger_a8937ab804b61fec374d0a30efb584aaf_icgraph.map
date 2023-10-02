@@ -1,0 +1,20 @@
+<map id="diag::client::logger::DiagClientLogger::GetDiagClientLogger" name="diag::client::logger::DiagClientLogger::GetDiagClientLogger">
+<area shape="rect" id="node1" title="Get the diag client logger instance." alt="" coords="613,517,816,573"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a6099c6e16d61015089a61a1114714687" title="Function to connect to Diagnostic Server." alt="" coords="294,5,538,61"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a34cba10a67b7d502cb4e8f84cfa9c5b5" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="311,86,521,127"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a3439dc982dba1cfff4dc0803b4431c82" title="Function to disconnect from Diagnostic Server." alt="" coords="290,152,542,208"/>
+<area shape="rect" id="node5" href="$namespacediag_1_1client_1_1dcm.html#a2171a950b49d276b0e2576cc86dc775e" title="Function to get the reference to conversation manager." alt="" coords="322,233,510,274"/>
+<area shape="rect" id="node7" href="$classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9" title="Function to get DM conversation object based on conversation name." alt="" coords="293,299,539,355"/>
+<area shape="rect" id="node8" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a4975e863bbd9ef9cbb2d47795bf61519" title="Function to get required diag client conversation object based on conversation name." alt="" coords="303,379,529,435"/>
+<area shape="rect" id="node9" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a003ef136362563dcb4357bc24e9c8b54" title="Function to indicate a start of reception of message." alt="" coords="287,459,545,501"/>
+<area shape="rect" id="node11" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="321,525,511,566"/>
+<area shape="rect" id="node12" href="$classdiag_1_1client_1_1dcm_1_1DCMClient.html#acd3eb60ce836ed767b3bed4f3b29a23a" title="Function to initialize the DCMClient." alt="" coords="339,590,493,631"/>
+<area shape="rect" id="node13" href="$classdiag_1_1client_1_1dcm_1_1DCMClient.html#a910ef6d79835dcb3cfba157b96f18d98" title="Function to run DCMClient." alt="" coords="347,655,485,697"/>
+<area shape="rect" id="node14" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a9951cd6a198e638ffd77943c2d4e0fbf" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="292,721,540,777"/>
+<area shape="rect" id="node15" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a59ecd7a9ad7cbfcbb496415943033975" title="Function to send vehicle identification request and get the Diagnostic Server list." alt="" coords="267,801,565,857"/>
+<area shape="rect" id="node16" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#ab508bd59afc9e4465f2ca4de1235e0e0" title="Function to shutdown the DmConversation." alt="" coords="311,882,521,923"/>
+<area shape="rect" id="node17" href="$classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1d30bd8fe3c5c9a2294118174ebd19cd" title="Function to shutdown the DCMClient." alt="" coords="335,947,497,989"/>
+<area shape="rect" id="node18" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a086228579f40afb55176639829f0b386" title="Function to start the DmConversation." alt="" coords="319,1013,513,1054"/>
+<area shape="rect" id="node6" href="$classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a570901736fe3a5a0127917cbd6ea2b16" title="Constructor an instance of DiagClientConversationImpl." alt="" coords="5,218,219,289"/>
+<area shape="rect" id="node10" href="$classdiag_1_1client_1_1conversation_1_1DmConversationHandler.html#abea3b150b1b8e57eea1e2a4fc3f8ee68" title="Function to indicate a start of reception of message." alt="" coords="17,452,207,508"/>
+</map>

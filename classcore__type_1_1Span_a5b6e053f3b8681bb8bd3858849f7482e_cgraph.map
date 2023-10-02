@@ -1,0 +1,4 @@
+<map id="core_type::Span::Span" name="core_type::Span::Span">
+<area shape="rect" id="node1" title="Construct a new Span from the given pointer and size." alt="" coords="5,13,172,39"/>
+<area shape="rect" id="node2" href="$namespacecore__type_1_1details.html#a693453854f21e718f1c641405d627579" title="Check if the condition is as expected otherwise abort with provided message." alt="" coords="220,5,409,47"/>
+</map>

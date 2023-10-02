@@ -1,0 +1,6 @@
+<map id="diag::client::common::DiagnosticManager::Main" name="diag::client::common::DiagnosticManager::Main">
+<area shape="rect" id="node1" title="Function to manage the whole lifecycle of DiagnosticManager." alt="" coords="5,86,201,127"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0de2245e8af7252d0135618057ddf3f0" title="Function to initialize the DiagnosticManager." alt="" coords="262,5,426,61"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a316d7898714ecadd10106252f97a787c" title="Function to run DiagnosticManager." alt="" coords="249,86,439,127"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a44b040548411c43a585b9e14e96a596f" title="Function to shutdown the DiagnosticManager." alt="" coords="262,152,426,208"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="diag::client::conversation_manager::ConversationManager::Shutdown" name="diag::client::conversation_manager::ConversationManager::Shutdown">
+<area shape="rect" id="node1" title="Function to shutdown the ConversationManager." alt="" coords="216,5,455,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1dcm_1_1DCMClient.html#a1d30bd8fe3c5c9a2294118174ebd19cd" title="Function to shutdown the DCMClient." alt="" coords="5,13,168,54"/>
+</map>

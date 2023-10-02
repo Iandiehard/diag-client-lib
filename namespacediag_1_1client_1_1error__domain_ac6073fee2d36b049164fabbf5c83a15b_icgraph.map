@@ -1,0 +1,5 @@
+<map id="diag::client::error_domain::MakeErrorCode" name="diag::client::error_domain::MakeErrorCode">
+<area shape="rect" id="node1" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="263,39,448,80"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a34cba10a67b7d502cb4e8f84cfa9c5b5" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="5,5,215,47"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="15,71,205,112"/>
+</map>

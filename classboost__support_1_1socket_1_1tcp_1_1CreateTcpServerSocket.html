@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>boost_support</b></li><li class="navelem"><b>socket</b></li><li class="navelem"><b>tcp</b></li><li class="navelem"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html">CreateTcpServerSocket</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceboost__support.html">boost_support</a></li><li class="navelem"><a class="el" href="namespaceboost__support_1_1socket.html">socket</a></li><li class="navelem"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html">tcp</a></li><li class="navelem"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html">CreateTcpServerSocket</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -69,11 +69,14 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">boost_support::socket::tcp::CreateTcpServerSocket Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -82,25 +85,308 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:acee754dc2f43575065120f7776d230d3"><td class="memItemLeft" align="right" valign="top"><a id="acee754dc2f43575065120f7776d230d3"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>TcpHandlerRead</b> = std::function&lt; void(TcpMessagePtr)&gt;</td></tr>
+<tr class="memitem:acee754dc2f43575065120f7776d230d3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#acee754dc2f43575065120f7776d230d3">TcpHandlerRead</a> = std::function&lt; void(<a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html#aeb9906d07b254e104e4d631c30f2bc9c">TcpMessagePtr</a>)&gt;</td></tr>
 <tr class="separator:acee754dc2f43575065120f7776d230d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31ed41e623f7473c2ed0e8f937e5b0b8"><td class="memItemLeft" align="right" valign="top"><a id="a31ed41e623f7473c2ed0e8f937e5b0b8"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>TcpAccepter</b> = boost::asio::ip::tcp::acceptor</td></tr>
+<tr class="memitem:a31ed41e623f7473c2ed0e8f937e5b0b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a31ed41e623f7473c2ed0e8f937e5b0b8">TcpAccepter</a> = boost::asio::ip::tcp::acceptor</td></tr>
 <tr class="separator:a31ed41e623f7473c2ed0e8f937e5b0b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6e2557372600e8e383257b3f0b96d5c5"><td class="memItemLeft" align="right" valign="top"><a id="a6e2557372600e8e383257b3f0b96d5c5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CreateTcpServerSocket</b> (std::string_view local_ip_address, uint16_t local_port_num)</td></tr>
+<tr class="memitem:a6e2557372600e8e383257b3f0b96d5c5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a6e2557372600e8e383257b3f0b96d5c5">CreateTcpServerSocket</a> (std::string_view local_ip_address, uint16_t local_port_num)</td></tr>
 <tr class="separator:a6e2557372600e8e383257b3f0b96d5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa8a9e85edf0f2c1b4ec5afbccec6d6e"><td class="memItemLeft" align="right" valign="top"><a id="afa8a9e85edf0f2c1b4ec5afbccec6d6e"></a>
-<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_1_1TcpServerConnection.html">TcpServerConnection</a>&#160;</td><td class="memItemRight" valign="bottom"><b>GetTcpServerConnection</b> (TcpHandlerRead &amp;&amp;tcp_handler_read)</td></tr>
+<tr class="memitem:a15433675dc162aa04ebaef9a311b648d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a15433675dc162aa04ebaef9a311b648d">~CreateTcpServerSocket</a> ()=default</td></tr>
+<tr class="separator:a15433675dc162aa04ebaef9a311b648d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa8a9e85edf0f2c1b4ec5afbccec6d6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_1_1TcpServerConnection.html">TcpServerConnection</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#afa8a9e85edf0f2c1b4ec5afbccec6d6e">GetTcpServerConnection</a> (<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#acee754dc2f43575065120f7776d230d3">TcpHandlerRead</a> &amp;&amp;tcp_handler_read)</td></tr>
 <tr class="separator:afa8a9e85edf0f2c1b4ec5afbccec6d6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a3e3ef85310d6866050c2906175c43b6f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a3e3ef85310d6866050c2906175c43b6f">local_ip_address_</a></td></tr>
+<tr class="separator:a3e3ef85310d6866050c2906175c43b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af46764e316aa63302919f4abd2cc5d3e"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#af46764e316aa63302919f4abd2cc5d3e">local_port_num_</a></td></tr>
+<tr class="separator:af46764e316aa63302919f4abd2cc5d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a2de12748fd46cd6952a3dadc08ff7"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a31ed41e623f7473c2ed0e8f937e5b0b8">TcpAccepter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a06a2de12748fd46cd6952a3dadc08ff7">tcp_accepter_</a></td></tr>
+<tr class="separator:a06a2de12748fd46cd6952a3dadc08ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb6460ff51cdc6d98baa0ce3f9cd7ca9"><td class="memItemLeft" align="right" valign="top">boost::asio::io_context&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#abb6460ff51cdc6d98baa0ce3f9cd7ca9">io_context_</a></td></tr>
+<tr class="separator:abb6460ff51cdc6d98baa0ce3f9cd7ca9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00025">25</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a31ed41e623f7473c2ed0e8f937e5b0b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ed41e623f7473c2ed0e8f937e5b0b8">&#9670;&nbsp;</a></span>TcpAccepter</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a31ed41e623f7473c2ed0e8f937e5b0b8">boost_support::socket::tcp::CreateTcpServerSocket::TcpAccepter</a> =  boost::asio::ip::tcp::acceptor</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00071">71</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+</div>
+</div>
+<a id="acee754dc2f43575065120f7776d230d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acee754dc2f43575065120f7776d230d3">&#9670;&nbsp;</a></span>TcpHandlerRead</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#acee754dc2f43575065120f7776d230d3">boost_support::socket::tcp::CreateTcpServerSocket::TcpHandlerRead</a> =  std::function&lt;void(<a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html#aeb9906d07b254e104e4d631c30f2bc9c">TcpMessagePtr</a>)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00028">28</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6e2557372600e8e383257b3f0b96d5c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e2557372600e8e383257b3f0b96d5c5">&#9670;&nbsp;</a></span>CreateTcpServerSocket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::CreateTcpServerSocket::CreateTcpServerSocket </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>local_ip_address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>local_port_num</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8cpp_source.html#l00019">19</a> of file <a class="el" href="tcp__server_8cpp_source.html">tcp_server.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    : <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a3e3ef85310d6866050c2906175c43b6f">local_ip_address_</a>{local_ip_address},</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#af46764e316aa63302919f4abd2cc5d3e">local_port_num_</a>{local_port_num} {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="comment">// Create accepter</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a06a2de12748fd46cd6952a3dadc08ff7">tcp_accepter_</a> = std::make_unique&lt;TcpAccepter&gt;(<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#abb6460ff51cdc6d98baa0ce3f9cd7ca9">io_context_</a>, Tcp::endpoint(Tcp::v4(), <a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#af46764e316aa63302919f4abd2cc5d3e">local_port_num_</a>), <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03">common::logger::LibBoostLogger::GetLibBoostLogger</a>().GetLogger().LogDebug(</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;      __FILE__, __LINE__, __func__, [&amp;local_ip_address, &amp;local_port_num](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        msg &lt;&lt; <span class="stringliteral">&quot;Tcp Socket Accepter created at &quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            &lt;&lt; <span class="stringliteral">&quot;&lt;&quot;</span> &lt;&lt; local_ip_address &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; local_port_num &lt;&lt; <span class="stringliteral">&quot;&gt;&quot;</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      });</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="ttc" id="aclassboost__support_1_1common_1_1logger_1_1LibBoostLogger_html_a1bd0463c401680be926b1f2209090a03"><div class="ttname"><a href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03">boost_support::common::logger::LibBoostLogger::GetLibBoostLogger</a></div><div class="ttdeci">static auto GetLibBoostLogger() noexcept -&gt; LibBoostLogger &amp;</div><div class="ttdef"><b>Definition:</b> <a href="lib_2boost-support_2common_2logger_8h_source.html#l00020">logger.h:20</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_html_a06a2de12748fd46cd6952a3dadc08ff7"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a06a2de12748fd46cd6952a3dadc08ff7">boost_support::socket::tcp::CreateTcpServerSocket::tcp_accepter_</a></div><div class="ttdeci">std::unique_ptr&lt; TcpAccepter &gt; tcp_accepter_</div><div class="ttdef"><b>Definition:</b> <a href="tcp__server_8h_source.html#l00088">tcp_server.h:88</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_html_a3e3ef85310d6866050c2906175c43b6f"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a3e3ef85310d6866050c2906175c43b6f">boost_support::socket::tcp::CreateTcpServerSocket::local_ip_address_</a></div><div class="ttdeci">std::string local_ip_address_</div><div class="ttdef"><b>Definition:</b> <a href="tcp__server_8h_source.html#l00084">tcp_server.h:84</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_html_abb6460ff51cdc6d98baa0ce3f9cd7ca9"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#abb6460ff51cdc6d98baa0ce3f9cd7ca9">boost_support::socket::tcp::CreateTcpServerSocket::io_context_</a></div><div class="ttdeci">boost::asio::io_context io_context_</div><div class="ttdef"><b>Definition:</b> <a href="tcp__server_8h_source.html#l00090">tcp_server.h:90</a></div></div>
+<div class="ttc" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_html_af46764e316aa63302919f4abd2cc5d3e"><div class="ttname"><a href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#af46764e316aa63302919f4abd2cc5d3e">boost_support::socket::tcp::CreateTcpServerSocket::local_port_num_</a></div><div class="ttdeci">uint16_t local_port_num_</div><div class="ttdef"><b>Definition:</b> <a href="tcp__server_8h_source.html#l00086">tcp_server.h:86</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lib_2boost-support_2common_2logger_8h_source.html#l00020">boost_support::common::logger::LibBoostLogger::GetLibBoostLogger()</a>, <a class="el" href="tcp__server_8h_source.html#l00090">io_context_</a>, <a class="el" href="tcp__server_8h_source.html#l00086">local_port_num_</a>, and <a class="el" href="tcp__server_8h_source.html#l00088">tcp_accepter_</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_a6e2557372600e8e383257b3f0b96d5c5_cgraph.png" border="0" usemap="#aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_a6e2557372600e8e383257b3f0b96d5c5_cgraph" alt=""/></div>
+<map name="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_a6e2557372600e8e383257b3f0b96d5c5_cgraph" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_a6e2557372600e8e383257b3f0b96d5c5_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,212,61"/>
+<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="260,5,439,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a15433675dc162aa04ebaef9a311b648d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15433675dc162aa04ebaef9a311b648d">&#9670;&nbsp;</a></span>~CreateTcpServerSocket()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost_support::socket::tcp::CreateTcpServerSocket::~CreateTcpServerSocket </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="afa8a9e85edf0f2c1b4ec5afbccec6d6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa8a9e85edf0f2c1b4ec5afbccec6d6e">&#9670;&nbsp;</a></span>GetTcpServerConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_1_1TcpServerConnection.html">CreateTcpServerSocket::TcpServerConnection</a> boost_support::socket::tcp::CreateTcpServerSocket::GetTcpServerConnection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#acee754dc2f43575065120f7776d230d3">TcpHandlerRead</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>tcp_handler_read</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8cpp_source.html#l00031">31</a> of file <a class="el" href="tcp__server_8cpp_source.html">tcp_server.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                       {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="namespaceboost__support_1_1socket_1_1tcp.html#a3ef279e7ad06bf10fcba396aebc60089">TcpErrorCodeType</a> ec;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  Tcp::endpoint endpoint{};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  CreateTcpServerSocket::TcpServerConnection tcp_connection{<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#abb6460ff51cdc6d98baa0ce3f9cd7ca9">io_context_</a>, std::move(tcp_handler_read)};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// blocking accept</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(<a class="code" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a06a2de12748fd46cd6952a3dadc08ff7">tcp_accepter_</a>-&gt;accept(tcp_connection.GetSocket(), endpoint, ec));</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">if</span> (ec.value() == boost::system::errc::success) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03">common::logger::LibBoostLogger::GetLibBoostLogger</a>().GetLogger().LogDebug(</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        __FILE__, __LINE__, __func__, [endpoint](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Tcp Socket connection received from client &quot;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;              &lt;&lt; <span class="stringliteral">&quot;&lt;&quot;</span> &lt;&lt; endpoint.address().to_string() &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; endpoint.port() &lt;&lt; <span class="stringliteral">&quot;&gt;&quot;</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        });</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03">common::logger::LibBoostLogger::GetLibBoostLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        __FILE__, __LINE__, __func__,</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        [ec](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Tcp Socket Connect to client failed with error: &quot;</span> &lt;&lt; ec.message(); });</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> tcp_connection;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="ttc" id="anamespaceboost__support_1_1socket_1_1tcp_html_a3ef279e7ad06bf10fcba396aebc60089"><div class="ttname"><a href="namespaceboost__support_1_1socket_1_1tcp.html#a3ef279e7ad06bf10fcba396aebc60089">boost_support::socket::tcp::TcpErrorCodeType</a></div><div class="ttdeci">boost::system::error_code TcpErrorCodeType</div><div class="ttdef"><b>Definition:</b> <a href="tcp__server_8cpp_source.html#l00017">tcp_server.cpp:17</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lib_2boost-support_2common_2logger_8h_source.html#l00020">boost_support::common::logger::LibBoostLogger::GetLibBoostLogger()</a>, <a class="el" href="tcp__server_8h_source.html#l00090">io_context_</a>, and <a class="el" href="tcp__server_8h_source.html#l00088">tcp_accepter_</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_afa8a9e85edf0f2c1b4ec5afbccec6d6e_cgraph.png" border="0" usemap="#aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_afa8a9e85edf0f2c1b4ec5afbccec6d6e_cgraph" alt=""/></div>
+<map name="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_afa8a9e85edf0f2c1b4ec5afbccec6d6e_cgraph" id="aclassboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_afa8a9e85edf0f2c1b4ec5afbccec6d6e_cgraph">
+<area shape="rect" title=" " alt="" coords="5,5,212,61"/>
+<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="260,5,439,61"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abb6460ff51cdc6d98baa0ce3f9cd7ca9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb6460ff51cdc6d98baa0ce3f9cd7ca9">&#9670;&nbsp;</a></span>io_context_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boost::asio::io_context boost_support::socket::tcp::CreateTcpServerSocket::io_context_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00090">90</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__server_8cpp_source.html#l00019">CreateTcpServerSocket()</a>, and <a class="el" href="tcp__server_8cpp_source.html#l00031">GetTcpServerConnection()</a>.</p>
+
+</div>
+</div>
+<a id="a3e3ef85310d6866050c2906175c43b6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e3ef85310d6866050c2906175c43b6f">&#9670;&nbsp;</a></span>local_ip_address_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string boost_support::socket::tcp::CreateTcpServerSocket::local_ip_address_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00084">84</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+</div>
+</div>
+<a id="af46764e316aa63302919f4abd2cc5d3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af46764e316aa63302919f4abd2cc5d3e">&#9670;&nbsp;</a></span>local_port_num_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t boost_support::socket::tcp::CreateTcpServerSocket::local_port_num_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00086">86</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__server_8cpp_source.html#l00019">CreateTcpServerSocket()</a>.</p>
+
+</div>
+</div>
+<a id="a06a2de12748fd46cd6952a3dadc08ff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a2de12748fd46cd6952a3dadc08ff7">&#9670;&nbsp;</a></span>tcp_accepter_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a31ed41e623f7473c2ed0e8f937e5b0b8">TcpAccepter</a>&gt; boost_support::socket::tcp::CreateTcpServerSocket::tcp_accepter_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tcp__server_8h_source.html#l00088">88</a> of file <a class="el" href="tcp__server_8h_source.html">tcp_server.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__server_8cpp_source.html#l00019">CreateTcpServerSocket()</a>, and <a class="el" href="tcp__server_8cpp_source.html#l00031">GetTcpServerConnection()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/socket/tcp/<a class="el" href="tcp__server_8h_source.html">tcp_server.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/socket/tcp/tcp_server.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/socket/tcp/<a class="el" href="tcp__server_8cpp_source.html">tcp_server.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

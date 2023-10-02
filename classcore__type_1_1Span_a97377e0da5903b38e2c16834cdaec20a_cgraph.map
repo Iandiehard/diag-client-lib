@@ -1,0 +1,6 @@
+<map id="core_type::Span::last" name="core_type::Span::last">
+<area shape="rect" id="node1" title="Return a subspan containing only the last elements of this Span." alt="" coords="5,71,164,98"/>
+<area shape="rect" id="node2" href="$namespacecore__type_1_1details.html#a693453854f21e718f1c641405d627579" title="Check if the condition is as expected otherwise abort with provided message." alt="" coords="212,5,401,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Span.html#a42a3bfe51e540ebeb150ea8d316927de" title="Return a pointer to the start of the memory block covered by this Span." alt="" coords="225,71,388,98"/>
+<area shape="rect" id="node4" href="$classcore__type_1_1Span.html#a6de43a790e9c4b6bef01f678f15b4381" title="Return the size of this Span." alt="" coords="227,122,387,149"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated" name="doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated">
+<area shape="rect" id="node1" title="Check if routing activation is active for this handler." alt="" coords="5,5,225,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="273,5,505,61"/>
+</map>

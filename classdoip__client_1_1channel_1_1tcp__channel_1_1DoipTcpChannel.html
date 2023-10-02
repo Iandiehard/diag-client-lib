@@ -61,13 +61,15 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>doip_client</b></li><li class="navelem"><b>channel</b></li><li class="navelem"><b>tcp_channel</b></li><li class="navelem"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html">DoipTcpChannel</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespacedoip__client.html">doip_client</a></li><li class="navelem"><a class="el" href="namespacedoip__client_1_1channel.html">channel</a></li><li class="navelem"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel.html">tcp_channel</a></li><li class="navelem"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html">DoipTcpChannel</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-types">Private Types</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::channel::tcp_channel::DoipTcpChannel Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
@@ -78,12 +80,25 @@ $(function() {
  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for doip_client::channel::tcp_channel::DoipTcpChannel:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel__coll__graph.png" border="0" usemap="#adoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_coll__map" alt="Collaboration graph"/></div>
+<map name="adoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_coll__map" id="adoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_coll__map">
+<area shape="rect" title="Class to manage a tcp channel as per DoIP protocol." alt="" coords="861,130,1081,171"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html" title="Class used to create a tcp socket for handling transmission and reception of tcp message from driver." alt="" coords="1267,130,1417,171"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html" title="Class to handle tcp received messages from lower layer." alt="" coords="448,85,668,141"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="5,5,248,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="11,85,243,141"/>
+<area shape="rect" href="classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="462,169,654,196"/>
+<area shape="rect" href="classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="31,166,223,207"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ab92a194b0032ef51d1264238b6def72a"><td class="memItemLeft" align="right" valign="top"><a id="ab92a194b0032ef51d1264238b6def72a"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">TcpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td></tr>
-<tr class="memdesc:ab92a194b0032ef51d1264238b6def72a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message pointer. <br /></td></tr>
+<tr class="memitem:ab92a194b0032ef51d1264238b6def72a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">TcpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td></tr>
+<tr class="memdesc:ab92a194b0032ef51d1264238b6def72a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp message pointer.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">More...</a><br /></td></tr>
 <tr class="separator:ab92a194b0032ef51d1264238b6def72a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -91,43 +106,105 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af78118bf4e779d6828a8c48143d827f1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af78118bf4e779d6828a8c48143d827f1">DoipTcpChannel</a> (std::string_view tcp_ip_address, std::uint16_t port_num, <a class="el" href="classuds__transport_1_1Connection.html">uds_transport::Connection</a> &amp;connection)</td></tr>
 <tr class="memdesc:af78118bf4e779d6828a8c48143d827f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of TcpChannel.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af78118bf4e779d6828a8c48143d827f1">More...</a><br /></td></tr>
 <tr class="separator:af78118bf4e779d6828a8c48143d827f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc2e9dd546dbbfdbaac5511bd207af83"><td class="memItemLeft" align="right" valign="top"><a id="abc2e9dd546dbbfdbaac5511bd207af83"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#abc2e9dd546dbbfdbaac5511bd207af83">~DoipTcpChannel</a> ()=default</td></tr>
-<tr class="memdesc:abc2e9dd546dbbfdbaac5511bd207af83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of TcpChannel. <br /></td></tr>
+<tr class="memitem:abc2e9dd546dbbfdbaac5511bd207af83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#abc2e9dd546dbbfdbaac5511bd207af83">~DoipTcpChannel</a> ()=default</td></tr>
+<tr class="memdesc:abc2e9dd546dbbfdbaac5511bd207af83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of TcpChannel.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#abc2e9dd546dbbfdbaac5511bd207af83">More...</a><br /></td></tr>
 <tr class="separator:abc2e9dd546dbbfdbaac5511bd207af83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a547ad0334aa9d4524c38dc452a0b0a89"><td class="memItemLeft" align="right" valign="top"><a id="a547ad0334aa9d4524c38dc452a0b0a89"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89">Start</a> ()</td></tr>
-<tr class="memdesc:a547ad0334aa9d4524c38dc452a0b0a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the channel. <br /></td></tr>
+<tr class="memitem:a547ad0334aa9d4524c38dc452a0b0a89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89">Start</a> ()</td></tr>
+<tr class="memdesc:a547ad0334aa9d4524c38dc452a0b0a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the channel.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89">More...</a><br /></td></tr>
 <tr class="separator:a547ad0334aa9d4524c38dc452a0b0a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08eabfe82f510561e23c35dbe23bc140"><td class="memItemLeft" align="right" valign="top"><a id="a08eabfe82f510561e23c35dbe23bc140"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140">Stop</a> ()</td></tr>
-<tr class="memdesc:a08eabfe82f510561e23c35dbe23bc140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the channel. <br /></td></tr>
+<tr class="memitem:a08eabfe82f510561e23c35dbe23bc140"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140">Stop</a> ()</td></tr>
+<tr class="memdesc:a08eabfe82f510561e23c35dbe23bc140"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the channel.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140">More...</a><br /></td></tr>
 <tr class="separator:a08eabfe82f510561e23c35dbe23bc140"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac029d001f4d8c6d977d9d62dc7cc5184"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ac029d001f4d8c6d977d9d62dc7cc5184">IsConnectToHost</a> ()</td></tr>
 <tr class="memdesc:ac029d001f4d8c6d977d9d62dc7cc5184"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to check if connected to host remote server.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ac029d001f4d8c6d977d9d62dc7cc5184">More...</a><br /></td></tr>
 <tr class="separator:ac029d001f4d8c6d977d9d62dc7cc5184"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad75252930aaee13aed42674f4160f8a4"><td class="memItemLeft" align="right" valign="top">uds_transport::UdsTransportProtocolMgr::ConnectionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ad75252930aaee13aed42674f4160f8a4">ConnectToHost</a> (uds_transport::UdsMessageConstPtr message)</td></tr>
+<tr class="memitem:ad75252930aaee13aed42674f4160f8a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ad75252930aaee13aed42674f4160f8a4">ConnectToHost</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a> message)</td></tr>
 <tr class="memdesc:ad75252930aaee13aed42674f4160f8a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to establish connection to remote host server.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ad75252930aaee13aed42674f4160f8a4">More...</a><br /></td></tr>
 <tr class="separator:ad75252930aaee13aed42674f4160f8a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5cf7d6fb310eb5fb195de82e5df4ce9"><td class="memItemLeft" align="right" valign="top">uds_transport::UdsTransportProtocolMgr::DisconnectionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9">DisconnectFromHost</a> ()</td></tr>
+<tr class="memitem:af5cf7d6fb310eb5fb195de82e5df4ce9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">uds_transport::UdsTransportProtocolMgr::DisconnectionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9">DisconnectFromHost</a> ()</td></tr>
 <tr class="memdesc:af5cf7d6fb310eb5fb195de82e5df4ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to disconnect from remote host server.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9">More...</a><br /></td></tr>
 <tr class="separator:af5cf7d6fb310eb5fb195de82e5df4ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaffc372592d39ce33dc52a3b82a31772"><td class="memItemLeft" align="right" valign="top">std::pair&lt; uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aaffc372592d39ce33dc52a3b82a31772">IndicateMessage</a> (uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr, uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size, uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info)</td></tr>
+<tr class="memitem:aaffc372592d39ce33dc52a3b82a31772"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aaffc372592d39ce33dc52a3b82a31772">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info)</td></tr>
 <tr class="memdesc:aaffc372592d39ce33dc52a3b82a31772"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aaffc372592d39ce33dc52a3b82a31772">More...</a><br /></td></tr>
 <tr class="separator:aaffc372592d39ce33dc52a3b82a31772"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afba7750333863947ee799091ad3c1922"><td class="memItemLeft" align="right" valign="top">uds_transport::UdsTransportProtocolMgr::TransmissionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afba7750333863947ee799091ad3c1922">Transmit</a> (uds_transport::UdsMessageConstPtr message)</td></tr>
+<tr class="memitem:afba7750333863947ee799091ad3c1922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afba7750333863947ee799091ad3c1922">Transmit</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a> message)</td></tr>
 <tr class="memdesc:afba7750333863947ee799091ad3c1922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to transmit a valid Uds message.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afba7750333863947ee799091ad3c1922">More...</a><br /></td></tr>
 <tr class="separator:afba7750333863947ee799091ad3c1922"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1419e62e306d88a34f80c3abb3ff6edc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a1419e62e306d88a34f80c3abb3ff6edc">HandleMessage</a> (uds_transport::UdsMessagePtr message)</td></tr>
+<tr class="memitem:a1419e62e306d88a34f80c3abb3ff6edc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a1419e62e306d88a34f80c3abb3ff6edc">HandleMessage</a> (<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> message)</td></tr>
 <tr class="memdesc:a1419e62e306d88a34f80c3abb3ff6edc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Hands over a valid received Uds message to upper layer.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a1419e62e306d88a34f80c3abb3ff6edc">More...</a><br /></td></tr>
 <tr class="separator:a1419e62e306d88a34f80c3abb3ff6edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec985c52f185dde5267face4349eab34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34">ProcessReceivedTcpMessage</a> (<a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">TcpMessagePtr</a> tcp_rx_message)</td></tr>
 <tr class="memdesc:aec985c52f185dde5267face4349eab34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to process the received Tcp message from socket layer.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34">More...</a><br /></td></tr>
 <tr class="separator:aec985c52f185dde5267face4349eab34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
+Private Types</h2></td></tr>
+<tr class="memitem:a7ad7bcc50326107a4b94ecfc89cb1809"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">TcpSocketHandler</a> = <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html">sockets::TcpSocketHandler</a></td></tr>
+<tr class="memdesc:a7ad7bcc50326107a4b94ecfc89cb1809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp socket handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">More...</a><br /></td></tr>
+<tr class="separator:a7ad7bcc50326107a4b94ecfc89cb1809"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:afed01a759c386cf93cbf4ed32f631938"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">TcpSocketHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a></td></tr>
+<tr class="memdesc:afed01a759c386cf93cbf4ed32f631938"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the tcp socket handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">More...</a><br /></td></tr>
+<tr class="separator:afed01a759c386cf93cbf4ed32f631938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73ac0ef4712cc9c0606514e72111204"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html">DoipTcpChannelHandler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a></td></tr>
+<tr class="memdesc:aa73ac0ef4712cc9c0606514e72111204"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the doip channel handler.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">More...</a><br /></td></tr>
+<tr class="separator:aa73ac0ef4712cc9c0606514e72111204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f52974283934c91fca0a6503a3500fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1Connection.html">uds_transport::Connection</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">connection_</a></td></tr>
+<tr class="memdesc:a0f52974283934c91fca0a6503a3500fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the reference to doip connection.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">More...</a><br /></td></tr>
+<tr class="separator:a0f52974283934c91fca0a6503a3500fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to manage a tcp channel as per DoIP protocol. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00026">26</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ab92a194b0032ef51d1264238b6def72a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab92a194b0032ef51d1264238b6def72a">&#9670;&nbsp;</a></span>TcpMessagePtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">doip_client::channel::tcp_channel::DoipTcpChannel::TcpMessagePtr</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">sockets::TcpSocketHandler::TcpMessagePtr</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for Tcp message pointer. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00031">31</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+
+</div>
+</div>
+<a id="a7ad7bcc50326107a4b94ecfc89cb1809"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ad7bcc50326107a4b94ecfc89cb1809">&#9670;&nbsp;</a></span>TcpSocketHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">doip_client::channel::tcp_channel::DoipTcpChannel::TcpSocketHandler</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html">sockets::TcpSocketHandler</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Type alias for Tcp socket handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00137">137</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af78118bf4e779d6828a8c48143d827f1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af78118bf4e779d6828a8c48143d827f1">&#9670;&nbsp;</a></span>DoipTcpChannel()</h2>
 
@@ -170,6 +247,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00020">20</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>{tcp_ip_address, *<span class="keyword">this</span>},</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>{<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>, *<span class="keyword">this</span>},</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">connection_</a>{connection} {}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_html_a0f52974283934c91fca0a6503a3500fa"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">doip_client::channel::tcp_channel::DoipTcpChannel::connection_</a></div><div class="ttdeci">uds_transport::Connection &amp; connection_</div><div class="ttdoc">Store the reference to doip connection.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel_8h_source.html#l00152">doip_tcp_channel.h:152</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_html_aa73ac0ef4712cc9c0606514e72111204"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">doip_client::channel::tcp_channel::DoipTcpChannel::tcp_channel_handler_</a></div><div class="ttdeci">DoipTcpChannelHandler tcp_channel_handler_</div><div class="ttdoc">Store the doip channel handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel_8h_source.html#l00147">doip_tcp_channel.h:147</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_html_afed01a759c386cf93cbf4ed32f631938"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">doip_client::channel::tcp_channel::DoipTcpChannel::tcp_socket_handler_</a></div><div class="ttdeci">TcpSocketHandler tcp_socket_handler_</div><div class="ttdoc">Store the tcp socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel_8h_source.html#l00142">doip_tcp_channel.h:142</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abc2e9dd546dbbfdbaac5511bd207af83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2e9dd546dbbfdbaac5511bd207af83">&#9670;&nbsp;</a></span>~DoipTcpChannel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">doip_client::channel::tcp_channel::DoipTcpChannel::~DoipTcpChannel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destruct an instance of TcpChannel. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -180,9 +292,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uds_transport::UdsTransportProtocolMgr::ConnectionResult doip_client::channel::tcp_channel::DoipTcpChannel::ConnectToHost </td>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a> doip_client::channel::tcp_channel::DoipTcpChannel::ConnectToHost </td>
           <td>(</td>
-          <td class="paramtype">uds_transport::UdsMessageConstPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -198,6 +310,59 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Connection result </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00039">39</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                                             {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a> ret_val{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed</a>};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">uds_transport::UdsMessage::IpAddress</a> <span class="keyword">const</span> kHostIpAddress{message-&gt;GetHostIpAddress()};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">uds_transport::UdsMessage::PortNumber</a> <span class="keyword">const</span> kHostPortNumber{message-&gt;GetHostPortNumber()};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// Initiate connecting to server</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#ab00579179e4db258bf970faff3063331">ConnectToHost</a>(kHostIpAddress, kHostPortNumber)) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// Once connected, Send routing activation req and get response</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    ret_val = <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#aeed1b25a8109eb3a6045cc393a1a1249">SendRoutingActivationRequest</a>(std::move(message));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  } <span class="keywordflow">else</span> {  <span class="comment">// failure</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        __FILE__, __LINE__, __func__, [&amp;kHostIpAddress, &amp;kHostPortNumber](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Doip Tcp socket connect failed for remote endpoints : &quot;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;              &lt;&lt; <span class="stringliteral">&quot;&lt;Ip: &quot;</span> &lt;&lt; kHostIpAddress &lt;&lt; <span class="stringliteral">&quot;, Port: &quot;</span> &lt;&lt; kHostPortNumber &lt;&lt; <span class="stringliteral">&quot;&gt;&quot;</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        });</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">return</span> ret_val;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_aeed1b25a8109eb3a6045cc393a1a1249"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#aeed1b25a8109eb3a6045cc393a1a1249">doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendRoutingActivationRequest</a></div><div class="ttdeci">auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept -&gt; uds_transport::UdsTransportProtocolMgr::ConnectionResult</div><div class="ttdoc">Function to send routing activation request.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00085">doip_tcp_channel_handler.cpp:85</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1logger_1_1DoipClientLogger_html_aa441830cb20a19d78d76067b769c67b2"><div class="ttname"><a href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">doip_client::logger::DoipClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DoipClientLogger &amp;</div><div class="ttdef"><b>Definition:</b> <a href="lib_2doip-client_2common_2logger_8h_source.html#l00020">logger.h:20</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_ab00579179e4db258bf970faff3063331"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#ab00579179e4db258bf970faff3063331">doip_client::sockets::TcpSocketHandler::ConnectToHost</a></div><div class="ttdeci">core_type::Result&lt; void &gt; ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num)</div><div class="ttdoc">Function to connect to remote ip address and port number.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__socket__handler_8cpp_source.html#l00037">tcp_socket_handler.cpp:37</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsMessage_html_a0c536b0fac254e0f8d62caff5caa132f"><div class="ttname"><a href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">uds_transport::UdsMessage::IpAddress</a></div><div class="ttdeci">std::string_view IpAddress</div><div class="ttdef"><b>Definition:</b> <a href="uds__message_8h_source.html#l00023">uds_message.h:23</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsMessage_html_aa240b7cbb3c1ea224e77fa3a4136b3f9"><div class="ttname"><a href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">uds_transport::UdsMessage::PortNumber</a></div><div class="ttdeci">std::uint16_t PortNumber</div><div class="ttdef"><b>Definition:</b> <a href="uds__message_8h_source.html#l00025">uds_message.h:25</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a></div><div class="ttdeci">ConnectionResult</div><div class="ttdef"><b>Definition:</b> <a href="protocol__mgr_8h_source.html#l00035">protocol_mgr.h:35</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed</a></div><div class="ttdeci">@ kConnectionFailed</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__socket__handler_8cpp_source.html#l00037">doip_client::sockets::TcpSocketHandler::ConnectToHost()</a>, <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">uds_transport::UdsTransportProtocolMgr::kConnectionFailed</a>, <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00085">doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendRoutingActivationRequest()</a>, <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00142">tcp_socket_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00075">doip_client::connection::DoipTcpConnection::ConnectToHost()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_cgraph">
+<area shape="rect" title="Function to establish connection to remote host server." alt="" coords="5,71,225,127"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#ab00579179e4db258bf970faff3063331" title="Function to connect to remote ip address and port number." alt="" coords="311,71,518,127"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="618,5,775,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#aeed1b25a8109eb3a6045cc393a1a1249" title="Function to send routing activation request." alt="" coords="273,151,556,207"/>
+<area shape="rect" href="namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="604,86,789,127"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ad75252930aaee13aed42674f4160f8a4_icgraph">
+<area shape="rect" title="Function to establish connection to remote host server." alt="" coords="268,5,488,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a8763720bd5fd916103b3b97e77b2ee16" title="Function to establish connection to remote host server." alt="" coords="5,5,220,61"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="af5cf7d6fb310eb5fb195de82e5df4ce9"></a>
@@ -207,7 +372,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uds_transport::UdsTransportProtocolMgr::DisconnectionResult doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost </td>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">uds_transport::UdsTransportProtocolMgr::DisconnectionResult</a> doip_client::channel::tcp_channel::DoipTcpChannel::DisconnectFromHost </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -217,6 +382,55 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Function to disconnect from remote host server. </p>
 <dl class="section return"><dt>Returns</dt><dd>Disconnection result </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00060">60</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                                                                           {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">uds_transport::UdsTransportProtocolMgr::DisconnectionResult</a> ret_val{</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18">uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed</a>};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6">DisconnectFromHost</a>()) {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543">IsRoutingActivated</a>()) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <span class="comment">// Reset the handler</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211">Reset</a>();</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    ret_val = <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f">uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="keywordflow">return</span> ret_val;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_a31ea0890230f6c0a21a0f32a113ba543"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543">doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated</a></div><div class="ttdeci">auto IsRoutingActivated() noexcept -&gt; bool</div><div class="ttdoc">Check if routing activation is active for this handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00110">doip_tcp_channel_handler.cpp:110</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_a75420c6d5082b5c762a9ee626cd59211"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Reset</a></div><div class="ttdeci">void Reset()</div><div class="ttdoc">Function to reset the handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00080">doip_tcp_channel_handler.cpp:80</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_a517a7c1eaef2f61aeffed3c1948f89a6"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6">doip_client::sockets::TcpSocketHandler::DisconnectFromHost</a></div><div class="ttdeci">core_type::Result&lt; void &gt; DisconnectFromHost()</div><div class="ttdoc">Function to disconnect from remote host if already connected.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__socket__handler_8cpp_source.html#l00057">tcp_socket_handler.cpp:57</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a059e635c811bdaf1760e32626e88ff8d"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">uds_transport::UdsTransportProtocolMgr::DisconnectionResult</a></div><div class="ttdeci">DisconnectionResult</div><div class="ttdef"><b>Definition:</b> <a href="protocol__mgr_8h_source.html#l00037">protocol_mgr.h:37</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18">uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionFailed</a></div><div class="ttdeci">@ kDisconnectionFailed</div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f">uds_transport::UdsTransportProtocolMgr::DisconnectionResult::kDisconnectionOk</a></div><div class="ttdeci">@ kDisconnectionOk</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__socket__handler_8cpp_source.html#l00057">doip_client::sockets::TcpSocketHandler::DisconnectFromHost()</a>, <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00110">doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated()</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18">uds_transport::UdsTransportProtocolMgr::kDisconnectionFailed</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f">uds_transport::UdsTransportProtocolMgr::kDisconnectionOk</a>, <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00080">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Reset()</a>, <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00142">tcp_socket_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00084">doip_client::connection::DoipTcpConnection::DisconnectFromHost()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_cgraph">
+<area shape="rect" title="Function to disconnect from remote host server." alt="" coords="5,156,225,212"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="273,76,499,132"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="276,156,496,212"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211" title="Function to reset the handler." alt="" coords="276,236,496,292"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="589,5,747,61"/>
+<area shape="rect" href="namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="575,86,761,127"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="552,156,784,212"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a56a6e4796d2ac9918de596789dce5baa" title="Function to reset the handler." alt="" coords="547,236,789,292"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a510c796006fc6ccb49df16b1c6c50a75" title="Function to reset the handler." alt="" coords="552,316,784,372"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_af5cf7d6fb310eb5fb195de82e5df4ce9_icgraph">
+<area shape="rect" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -229,7 +443,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void doip_client::channel::tcp_channel::DoipTcpChannel::HandleMessage </td>
           <td>(</td>
-          <td class="paramtype">uds_transport::UdsMessagePtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -244,6 +458,23 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00102">102</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                                     {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">HandleMessage</a>(std::move(message));</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="ttc" id="aclassuds__transport_1_1Connection_html_acc0661d13a5f96f405feb0086db8c87d"><div class="ttname"><a href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">uds_transport::Connection::HandleMessage</a></div><div class="ttdeci">virtual void HandleMessage(UdsMessagePtr message)=0</div><div class="ttdoc">Function to Hands over a valid received Uds message.</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__tcp__channel_8h_source.html#l00152">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">uds_transport::Connection::HandleMessage()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a1419e62e306d88a34f80c3abb3ff6edc_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a1419e62e306d88a34f80c3abb3ff6edc_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a1419e62e306d88a34f80c3abb3ff6edc_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a1419e62e306d88a34f80c3abb3ff6edc_cgraph">
+<area shape="rect" title="Function to Hands over a valid received Uds message to upper layer." alt="" coords="5,5,225,61"/>
+<area shape="rect" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d" title="Function to Hands over a valid received Uds message." alt="" coords="273,13,465,54"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="aaffc372592d39ce33dc52a3b82a31772"></a>
@@ -253,27 +484,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr &gt; doip_client::channel::tcp_channel::DoipTcpChannel::IndicateMessage </td>
+          <td class="memname">std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt; doip_client::channel::tcp_channel::DoipTcpChannel::IndicateMessage </td>
           <td>(</td>
-          <td class="paramtype">uds_transport::UdsMessage::Address&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a>&#160;</td>
           <td class="paramname"><em>source_addr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uds_transport::UdsMessage::Address&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a>&#160;</td>
           <td class="paramname"><em>target_addr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uds_transport::UdsMessage::TargetAddressType&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uds_transport::ChannelID&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a>&#160;</td>
           <td class="paramname"><em>channel_id</em>, </td>
         </tr>
         <tr>
@@ -285,13 +516,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uds_transport::Priority&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a>&#160;</td>
           <td class="paramname"><em>priority</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">uds_transport::ProtocolKind&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a>&#160;</td>
           <td class="paramname"><em>protocol_kind</em>, </td>
         </tr>
         <tr>
@@ -324,6 +555,24 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt; IndicationResult, UdsMessagePtr &gt; The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned to the handler to get filled </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00093">93</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                                                                                                 {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a0f52974283934c91fca0a6503a3500fa">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">IndicateMessage</a>(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;                                     payload_info);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<div class="ttc" id="aclassuds__transport_1_1Connection_html_a6bfd6f133fc13ccba97b4dd3fbfb61a7"><div class="ttname"><a href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">uds_transport::Connection::IndicateMessage</a></div><div class="ttdeci">virtual std::pair&lt; UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr &gt; IndicateMessage(UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind, core_type::Span&lt; std::uint8_t &gt; payload_info)=0</div><div class="ttdoc">Function to indicate a start of reception of message.</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__tcp__channel_8h_source.html#l00152">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">uds_transport::Connection::IndicateMessage()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aaffc372592d39ce33dc52a3b82a31772_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aaffc372592d39ce33dc52a3b82a31772_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aaffc372592d39ce33dc52a3b82a31772_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aaffc372592d39ce33dc52a3b82a31772_cgraph">
+<area shape="rect" title="Function to indicate a start of reception of message." alt="" coords="5,5,225,61"/>
+<area shape="rect" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7" title="Function to indicate a start of reception of message." alt="" coords="273,13,465,54"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="ac029d001f4d8c6d977d9d62dc7cc5184"></a>
@@ -343,6 +592,35 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Function to check if connected to host remote server. </p>
 <dl class="section return"><dt>Returns</dt><dd>True if connection, False otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00035">35</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                     {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a80adf1a3a9f90c44a445dba5e5c17ade">GetSocketHandlerState</a>() == <a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a6158048c1514a96e53a52e3e9b40616daaed5e523c2dcccf5872ba654893cd5ba">TcpSocketHandler::SocketHandlerState::kSocketConnected</a>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_a6158048c1514a96e53a52e3e9b40616daaed5e523c2dcccf5872ba654893cd5ba"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a6158048c1514a96e53a52e3e9b40616daaed5e523c2dcccf5872ba654893cd5ba">doip_client::sockets::TcpSocketHandler::SocketHandlerState::kSocketConnected</a></div><div class="ttdeci">@ kSocketConnected</div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_a80adf1a3a9f90c44a445dba5e5c17ade"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a80adf1a3a9f90c44a445dba5e5c17ade">doip_client::sockets::TcpSocketHandler::GetSocketHandlerState</a></div><div class="ttdeci">SocketHandlerState GetSocketHandlerState() const</div><div class="ttdoc">Function to get the current state of socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__socket__handler_8cpp_source.html#l00090">tcp_socket_handler.cpp:90</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="tcp__socket__handler_8cpp_source.html#l00090">doip_client::sockets::TcpSocketHandler::GetSocketHandlerState()</a>, <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a6158048c1514a96e53a52e3e9b40616daaed5e523c2dcccf5872ba654893cd5ba">doip_client::sockets::TcpSocketHandler::kSocketConnected</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00142">tcp_socket_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00067">doip_client::connection::DoipTcpConnection::IsConnectToHost()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_cgraph">
+<area shape="rect" title="Function to check if connected to host remote server." alt="" coords="5,5,225,61"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a80adf1a3a9f90c44a445dba5e5c17ade" title="Function to get the current state of socket handler." alt="" coords="273,5,492,61"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_ac029d001f4d8c6d977d9d62dc7cc5184_icgraph">
+<area shape="rect" title="Function to check if connected to host remote server." alt="" coords="280,5,500,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a0ae4b0490d4e34ad83b1762c6117d7a7" title="Function to check if connected to host remote server." alt="" coords="5,5,232,61"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -370,6 +648,145 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00073">73</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                                                           {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b">HandleMessage</a>(std::move(tcp_rx_message));</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_afe1f391981b260a3ce0cba1eccb2e74b"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b">doip_client::channel::tcp_channel::DoipTcpChannelHandler::HandleMessage</a></div><div class="ttdeci">void HandleMessage(TcpMessagePtr tcp_rx_message) noexcept</div><div class="ttdoc">Function to process the received message.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00096">doip_tcp_channel_handler.cpp:96</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00096">doip_client::channel::tcp_channel::DoipTcpChannelHandler::HandleMessage()</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tcp__socket__handler_8cpp_source.html#l00026">doip_client::sockets::TcpSocketHandler::Start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_cgraph">
+<area shape="rect" title="Function to process the received Tcp message from socket layer." alt="" coords="5,5,225,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b" title="Function to process the received message." alt="" coords="273,5,493,61"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_aec985c52f185dde5267face4349eab34_icgraph">
+<area shape="rect" title="Function to process the received Tcp message from socket layer." alt="" coords="747,5,967,61"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a8885be524ee4a5c39f6b7e2e21d52909" title="Function to start the socket handler." alt="" coords="515,13,699,54"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89" title="Function to start the channel." alt="" coords="247,5,467,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3236801a8cf87a5d2b0f1e2afd1aa1da" title="Function to start the connection." alt="" coords="5,13,199,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a547ad0334aa9d4524c38dc452a0b0a89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a547ad0334aa9d4524c38dc452a0b0a89">&#9670;&nbsp;</a></span>Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void doip_client::channel::tcp_channel::DoipTcpChannel::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to start the channel. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00025">25</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                           {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a8885be524ee4a5c39f6b7e2e21d52909">Start</a>();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e">Start</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_a614c3191cc6a1884f6983abae9e5a63e"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdoc">Function to start the handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00070">doip_tcp_channel_handler.cpp:70</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_a8885be524ee4a5c39f6b7e2e21d52909"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a8885be524ee4a5c39f6b7e2e21d52909">doip_client::sockets::TcpSocketHandler::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdoc">Function to start the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__socket__handler_8cpp_source.html#l00026">tcp_socket_handler.cpp:26</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00070">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Start()</a>, <a class="el" href="tcp__socket__handler_8cpp_source.html#l00026">doip_client::sockets::TcpSocketHandler::Start()</a>, <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00142">tcp_socket_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00056">doip_client::connection::DoipTcpConnection::Start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_cgraph">
+<area shape="rect" title="Function to start the channel." alt="" coords="5,125,225,181"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e" title="Function to start the handler." alt="" coords="273,85,493,141"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a8885be524ee4a5c39f6b7e2e21d52909" title="Function to start the socket handler." alt="" coords="291,169,475,210"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a2ee41a5ed5f26d24929702470913af76" title="Function to start the handler." alt="" coords="541,5,784,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21" title="Function to start the handler." alt="" coords="547,85,779,141"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34" title="Function to process the received Tcp message from socket layer." alt="" coords="553,165,773,221"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b" title="Function to process the received message." alt="" coords="832,165,1052,221"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a547ad0334aa9d4524c38dc452a0b0a89_icgraph">
+<area shape="rect" title="Function to start the channel." alt="" coords="247,5,467,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3236801a8cf87a5d2b0f1e2afd1aa1da" title="Function to start the connection." alt="" coords="5,13,199,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a08eabfe82f510561e23c35dbe23bc140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08eabfe82f510561e23c35dbe23bc140">&#9670;&nbsp;</a></span>Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void doip_client::channel::tcp_channel::DoipTcpChannel::Stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to stop the channel. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00030">30</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                          {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afed01a759c386cf93cbf4ed32f631938">tcp_socket_handler_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a7ea7677ae1134313c9edcbe3d5fbb75f">Stop</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ad2cd83ee13eeff3afef9297409075e9f">Stop</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_ad2cd83ee13eeff3afef9297409075e9f"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ad2cd83ee13eeff3afef9297409075e9f">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Stop</a></div><div class="ttdeci">void Stop()</div><div class="ttdoc">Function to stop the handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00075">doip_tcp_channel_handler.cpp:75</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1TcpSocketHandler_html_a7ea7677ae1134313c9edcbe3d5fbb75f"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a7ea7677ae1134313c9edcbe3d5fbb75f">doip_client::sockets::TcpSocketHandler::Stop</a></div><div class="ttdeci">void Stop()</div><div class="ttdoc">Function to stop the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="tcp__socket__handler_8cpp_source.html#l00032">tcp_socket_handler.cpp:32</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00075">doip_client::channel::tcp_channel::DoipTcpChannelHandler::Stop()</a>, <a class="el" href="tcp__socket__handler_8cpp_source.html#l00032">doip_client::sockets::TcpSocketHandler::Stop()</a>, <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00142">tcp_socket_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00061">doip_client::connection::DoipTcpConnection::Stop()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_cgraph">
+<area shape="rect" title="Function to stop the channel." alt="" coords="5,133,263,174"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ad2cd83ee13eeff3afef9297409075e9f" title="Function to stop the handler." alt="" coords="311,85,531,141"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a7ea7677ae1134313c9edcbe3d5fbb75f" title="Function to stop the socket handler." alt="" coords="329,169,512,210"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a009f40a581a69aed1a4e39c6aea26cd4" title="Function to stop the handler." alt="" coords="579,5,821,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0135100db4d69d1716bc4d617f496943" title="Function to stop the handler." alt="" coords="584,85,816,141"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="587,165,813,221"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="883,128,1041,184"/>
+<area shape="rect" href="namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="869,209,1055,250"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_a08eabfe82f510561e23c35dbe23bc140_icgraph">
+<area shape="rect" title="Function to stop the channel." alt="" coords="244,5,501,47"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a7118670417286ee60f84ad4b3cc21eff" title="Function to stop the connection." alt="" coords="5,5,196,47"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="afba7750333863947ee799091ad3c1922"></a>
@@ -379,9 +796,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uds_transport::UdsTransportProtocolMgr::TransmissionResult doip_client::channel::tcp_channel::DoipTcpChannel::Transmit </td>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a> doip_client::channel::tcp_channel::DoipTcpChannel::Transmit </td>
           <td>(</td>
-          <td class="paramtype">uds_transport::UdsMessageConstPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -396,11 +813,139 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8cpp_source.html#l00077">77</a> of file <a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                             {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a> ret_val{</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <a class="code" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed</a>};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="comment">// Routing activation should be active before sending diag request</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543">IsRoutingActivated</a>()) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    ret_val = <a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aa73ac0ef4712cc9c0606514e72111204">tcp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ac027906ab011ade4d104a6510ac4424b">SendDiagnosticRequest</a>(std::move(message));</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        __FILE__, __LINE__, __func__,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Routing Activation required, please connect to server first&quot;</span>; });</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="keywordflow">return</span> ret_val;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler_html_ac027906ab011ade4d104a6510ac4424b"><div class="ttname"><a href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ac027906ab011ade4d104a6510ac4424b">doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendDiagnosticRequest</a></div><div class="ttdeci">auto SendDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept -&gt; uds_transport::UdsTransportProtocolMgr::TransmissionResult</div><div class="ttdoc">Function to send diagnostic request.</div><div class="ttdef"><b>Definition:</b> <a href="doip__tcp__channel__handler_8cpp_source.html#l00091">doip_tcp_channel_handler.cpp:91</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a675a5d498c842cca407d2ce2a0399158"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a></div><div class="ttdeci">TransmissionResult</div><div class="ttdef"><b>Definition:</b> <a href="protocol__mgr_8h_source.html#l00027">protocol_mgr.h:27</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolMgr_html_a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed</a></div><div class="ttdeci">@ kTransmitFailed</div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>, <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00110">doip_client::channel::tcp_channel::DoipTcpChannelHandler::IsRoutingActivated()</a>, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">uds_transport::UdsTransportProtocolMgr::kTransmitFailed</a>, <a class="el" href="doip__tcp__channel__handler_8cpp_source.html#l00091">doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendDiagnosticRequest()</a>, and <a class="el" href="doip__tcp__channel_8h_source.html#l00147">tcp_channel_handler_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00128">doip_client::connection::DoipTcpConnection::Transmit()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_cgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_cgraph">
+<area shape="rect" title="Function to transmit a valid Uds message." alt="" coords="5,85,225,141"/>
+<area shape="rect" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="312,5,469,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="281,85,501,141"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#ac027906ab011ade4d104a6510ac4424b" title="Function to send diagnostic request." alt="" coords="273,165,508,221"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="556,85,788,141"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_icgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_icgraph" id="aclassdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel_afba7750333863947ee799091ad3c1922_icgraph">
+<area shape="rect" title="Function to transmit a valid Uds message." alt="" coords="272,5,492,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3e600064ff99848ff724f53970dd4c70" title="Function to transmit a valid Uds message." alt="" coords="5,13,224,54"/>
+</map>
+</div>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0f52974283934c91fca0a6503a3500fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f52974283934c91fca0a6503a3500fa">&#9670;&nbsp;</a></span>connection_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1Connection.html">uds_transport::Connection</a>&amp; doip_client::channel::tcp_channel::DoipTcpChannel::connection_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the reference to doip connection. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00152">152</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel_8cpp_source.html#l00102">HandleMessage()</a>, and <a class="el" href="doip__tcp__channel_8cpp_source.html#l00093">IndicateMessage()</a>.</p>
+
+</div>
+</div>
+<a id="aa73ac0ef4712cc9c0606514e72111204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73ac0ef4712cc9c0606514e72111204">&#9670;&nbsp;</a></span>tcp_channel_handler_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html">DoipTcpChannelHandler</a> doip_client::channel::tcp_channel::DoipTcpChannel::tcp_channel_handler_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the doip channel handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00147">147</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel_8cpp_source.html#l00039">ConnectToHost()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00060">DisconnectFromHost()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00073">ProcessReceivedTcpMessage()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00025">Start()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00030">Stop()</a>, and <a class="el" href="doip__tcp__channel_8cpp_source.html#l00077">Transmit()</a>.</p>
+
+</div>
+</div>
+<a id="afed01a759c386cf93cbf4ed32f631938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afed01a759c386cf93cbf4ed32f631938">&#9670;&nbsp;</a></span>tcp_socket_handler_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">TcpSocketHandler</a> doip_client::channel::tcp_channel::DoipTcpChannel::tcp_socket_handler_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the tcp socket handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__tcp__channel_8h_source.html#l00142">142</a> of file <a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel_8cpp_source.html#l00039">ConnectToHost()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00060">DisconnectFromHost()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00035">IsConnectToHost()</a>, <a class="el" href="doip__tcp__channel_8cpp_source.html#l00025">Start()</a>, and <a class="el" href="doip__tcp__channel_8cpp_source.html#l00030">Stop()</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/<a class="el" href="doip__tcp__channel_8h_source.html">doip_tcp_channel.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/doip_tcp_channel.cpp</li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/doip-client/channel/tcp_channel/<a class="el" href="doip__tcp__channel_8cpp_source.html">doip_tcp_channel.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

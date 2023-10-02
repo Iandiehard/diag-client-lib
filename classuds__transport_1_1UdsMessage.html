@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>uds_transport</b></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceuds__transport.html">uds_transport</a></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,6 +73,8 @@ $(function() {
 <div class="title">uds_transport::UdsMessage Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="uds__message_8h_source.html">uds_message.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for uds_transport::UdsMessage:</div>
 <div class="dyncontent">
@@ -86,62 +88,521 @@ Inheritance diagram for uds_transport::UdsMessage:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ab9378ed73cf8182d0bcf6c741f5e09fb"><td class="memItemLeft" align="right" valign="top"><a id="ab9378ed73cf8182d0bcf6c741f5e09fb"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>TargetAddressType</b> : std::uint8_t { <b>kPhysical</b> = 0U
-, <b>kFunctional</b> = 1U
+<tr class="memitem:ab9378ed73cf8182d0bcf6c741f5e09fb"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">TargetAddressType</a> : std::uint8_t { <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fbae616eb797e4f38350b116ceed13b1c54">kPhysical</a> = 0U
+, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fba2396498c3d09ffee6d390b4dc4939025">kFunctional</a> = 1U
  }</td></tr>
 <tr class="separator:ab9378ed73cf8182d0bcf6c741f5e09fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6d537dda1e75682145c879e70891cab"><td class="memItemLeft" align="right" valign="top"><a id="ac6d537dda1e75682145c879e70891cab"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Address</b> = std::uint16_t</td></tr>
+<tr class="memitem:ac6d537dda1e75682145c879e70891cab"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">Address</a> = std::uint16_t</td></tr>
 <tr class="separator:ac6d537dda1e75682145c879e70891cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c536b0fac254e0f8d62caff5caa132f"><td class="memItemLeft" align="right" valign="top"><a id="a0c536b0fac254e0f8d62caff5caa132f"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>IpAddress</b> = std::string_view</td></tr>
+<tr class="memitem:a0c536b0fac254e0f8d62caff5caa132f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">IpAddress</a> = std::string_view</td></tr>
 <tr class="separator:a0c536b0fac254e0f8d62caff5caa132f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa240b7cbb3c1ea224e77fa3a4136b3f9"><td class="memItemLeft" align="right" valign="top"><a id="aa240b7cbb3c1ea224e77fa3a4136b3f9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>PortNumber</b> = std::uint16_t</td></tr>
+<tr class="memitem:aa240b7cbb3c1ea224e77fa3a4136b3f9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">PortNumber</a> = std::uint16_t</td></tr>
 <tr class="separator:aa240b7cbb3c1ea224e77fa3a4136b3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99a91626162be9133f3a4e9e86fd8ab7"><td class="memItemLeft" align="right" valign="top"><a id="a99a91626162be9133f3a4e9e86fd8ab7"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>MetaInfoMap</b> = std::map&lt; std::string, std::string &gt;</td></tr>
+<tr class="memitem:a99a91626162be9133f3a4e9e86fd8ab7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a99a91626162be9133f3a4e9e86fd8ab7">MetaInfoMap</a> = std::map&lt; std::string, std::string &gt;</td></tr>
 <tr class="separator:a99a91626162be9133f3a4e9e86fd8ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a606ccede66ea8e2a267c5b308c66f7bb"><td class="memItemLeft" align="right" valign="top"><a id="a606ccede66ea8e2a267c5b308c66f7bb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UdsMessage</b> (const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;other)=default</td></tr>
+<tr class="memitem:aa85361bc16ec9c3abac085f8af797d64"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#aa85361bc16ec9c3abac085f8af797d64">UdsMessage</a> ()=default</td></tr>
+<tr class="separator:aa85361bc16ec9c3abac085f8af797d64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a606ccede66ea8e2a267c5b308c66f7bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a606ccede66ea8e2a267c5b308c66f7bb">UdsMessage</a> (const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;other)=default</td></tr>
 <tr class="separator:a606ccede66ea8e2a267c5b308c66f7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6b20b7e741793b0451c2461682d0594"><td class="memItemLeft" align="right" valign="top"><a id="ad6b20b7e741793b0451c2461682d0594"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>UdsMessage</b> (<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:ad6b20b7e741793b0451c2461682d0594"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#ad6b20b7e741793b0451c2461682d0594">UdsMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:ad6b20b7e741793b0451c2461682d0594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d96377636f9eca79a7ccd708ac4e84f"><td class="memItemLeft" align="right" valign="top"><a id="a3d96377636f9eca79a7ccd708ac4e84f"></a>
-<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;other)=default</td></tr>
+<tr class="memitem:a3d96377636f9eca79a7ccd708ac4e84f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a3d96377636f9eca79a7ccd708ac4e84f">operator=</a> (const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;other)=default</td></tr>
 <tr class="separator:a3d96377636f9eca79a7ccd708ac4e84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16b74db140511691504c6fba32fc372d"><td class="memItemLeft" align="right" valign="top"><a id="a16b74db140511691504c6fba32fc372d"></a>
-<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memitem:a16b74db140511691504c6fba32fc372d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a16b74db140511691504c6fba32fc372d">operator=</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;other) noexcept=default</td></tr>
 <tr class="separator:a16b74db140511691504c6fba32fc372d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a314304733e4894c7000462d95d5f5e0c"><td class="memItemLeft" align="right" valign="top"><a id="a314304733e4894c7000462d95d5f5e0c"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>AddMetaInfo</b> (std::shared_ptr&lt; const MetaInfoMap &gt; meta_info)=0</td></tr>
+<tr class="memitem:a65519421eae5bdfe8e806d5ca2275d3e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a65519421eae5bdfe8e806d5ca2275d3e">~UdsMessage</a> ()=default</td></tr>
+<tr class="separator:a65519421eae5bdfe8e806d5ca2275d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a314304733e4894c7000462d95d5f5e0c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a314304733e4894c7000462d95d5f5e0c">AddMetaInfo</a> (std::shared_ptr&lt; const <a class="el" href="classuds__transport_1_1UdsMessage.html#a99a91626162be9133f3a4e9e86fd8ab7">MetaInfoMap</a> &gt; meta_info)=0</td></tr>
 <tr class="separator:a314304733e4894c7000462d95d5f5e0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68732d11033175f33100bfedadcf9b45"><td class="memItemLeft" align="right" valign="top"><a id="a68732d11033175f33100bfedadcf9b45"></a>
-virtual const ByteVector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPayload</b> () const =0</td></tr>
+<tr class="memitem:a68732d11033175f33100bfedadcf9b45"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespaceuds__transport.html#ac2f810a6e5b70d080745e7b59eaf28d1">ByteVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a68732d11033175f33100bfedadcf9b45">GetPayload</a> () const =0</td></tr>
 <tr class="separator:a68732d11033175f33100bfedadcf9b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab804e76755c79ef34783e430ed79b640"><td class="memItemLeft" align="right" valign="top"><a id="ab804e76755c79ef34783e430ed79b640"></a>
-virtual ByteVector &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetPayload</b> ()=0</td></tr>
+<tr class="memitem:ab804e76755c79ef34783e430ed79b640"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceuds__transport.html#ac2f810a6e5b70d080745e7b59eaf28d1">ByteVector</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#ab804e76755c79ef34783e430ed79b640">GetPayload</a> ()=0</td></tr>
 <tr class="separator:ab804e76755c79ef34783e430ed79b640"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47a1da1391bcfe30727290fe70eefd1d"><td class="memItemLeft" align="right" valign="top"><a id="a47a1da1391bcfe30727290fe70eefd1d"></a>
-virtual Address&#160;</td><td class="memItemRight" valign="bottom"><b>GetSa</b> () const noexcept=0</td></tr>
+<tr class="memitem:a47a1da1391bcfe30727290fe70eefd1d"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">Address</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a47a1da1391bcfe30727290fe70eefd1d">GetSa</a> () const noexcept=0</td></tr>
 <tr class="separator:a47a1da1391bcfe30727290fe70eefd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cad1aca20dced8e0dfd0d54297e1b4b"><td class="memItemLeft" align="right" valign="top"><a id="a3cad1aca20dced8e0dfd0d54297e1b4b"></a>
-virtual Address&#160;</td><td class="memItemRight" valign="bottom"><b>GetTa</b> () const noexcept=0</td></tr>
+<tr class="memitem:a3cad1aca20dced8e0dfd0d54297e1b4b"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">Address</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a3cad1aca20dced8e0dfd0d54297e1b4b">GetTa</a> () const noexcept=0</td></tr>
 <tr class="separator:a3cad1aca20dced8e0dfd0d54297e1b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af187ea3720ea2ed097864dd983c39913"><td class="memItemLeft" align="right" valign="top"><a id="af187ea3720ea2ed097864dd983c39913"></a>
-virtual TargetAddressType&#160;</td><td class="memItemRight" valign="bottom"><b>GetTaType</b> () const noexcept=0</td></tr>
+<tr class="memitem:af187ea3720ea2ed097864dd983c39913"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">TargetAddressType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#af187ea3720ea2ed097864dd983c39913">GetTaType</a> () const noexcept=0</td></tr>
 <tr class="separator:af187ea3720ea2ed097864dd983c39913"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01e417469b880726733252770250ff41"><td class="memItemLeft" align="right" valign="top"><a id="a01e417469b880726733252770250ff41"></a>
-virtual IpAddress&#160;</td><td class="memItemRight" valign="bottom"><b>GetHostIpAddress</b> () const noexcept=0</td></tr>
+<tr class="memitem:a01e417469b880726733252770250ff41"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">IpAddress</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#a01e417469b880726733252770250ff41">GetHostIpAddress</a> () const noexcept=0</td></tr>
 <tr class="separator:a01e417469b880726733252770250ff41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3380eca0717e96240762a52e131fc74"><td class="memItemLeft" align="right" valign="top"><a id="ab3380eca0717e96240762a52e131fc74"></a>
-virtual PortNumber&#160;</td><td class="memItemRight" valign="bottom"><b>GetHostPortNumber</b> () const noexcept=0</td></tr>
+<tr class="memitem:ab3380eca0717e96240762a52e131fc74"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">PortNumber</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsMessage.html#ab3380eca0717e96240762a52e131fc74">GetHostPortNumber</a> () const noexcept=0</td></tr>
 <tr class="separator:ab3380eca0717e96240762a52e131fc74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00018">18</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac6d537dda1e75682145c879e70891cab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6d537dda1e75682145c879e70891cab">&#9670;&nbsp;</a></span>Address</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> =  std::uint16_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00021">21</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+
+</div>
+</div>
+<a id="a0c536b0fac254e0f8d62caff5caa132f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c536b0fac254e0f8d62caff5caa132f">&#9670;&nbsp;</a></span>IpAddress</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">uds_transport::UdsMessage::IpAddress</a> =  std::string_view</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00023">23</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+
+</div>
+</div>
+<a id="a99a91626162be9133f3a4e9e86fd8ab7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99a91626162be9133f3a4e9e86fd8ab7">&#9670;&nbsp;</a></span>MetaInfoMap</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsMessage.html#a99a91626162be9133f3a4e9e86fd8ab7">uds_transport::UdsMessage::MetaInfoMap</a> =  std::map&lt;std::string, std::string&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00027">27</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+
+</div>
+</div>
+<a id="aa240b7cbb3c1ea224e77fa3a4136b3f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa240b7cbb3c1ea224e77fa3a4136b3f9">&#9670;&nbsp;</a></span>PortNumber</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">uds_transport::UdsMessage::PortNumber</a> =  std::uint16_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00025">25</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ab9378ed73cf8182d0bcf6c741f5e09fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9378ed73cf8182d0bcf6c741f5e09fb">&#9670;&nbsp;</a></span>TargetAddressType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab9378ed73cf8182d0bcf6c741f5e09fbae616eb797e4f38350b116ceed13b1c54"></a>kPhysical&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ab9378ed73cf8182d0bcf6c741f5e09fba2396498c3d09ffee6d390b4dc4939025"></a>kFunctional&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="uds__message_8h_source.html#l00029">29</a> of file <a class="el" href="uds__message_8h_source.html">uds_message.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;: std::uint8_t { kPhysical = 0U, kFunctional = 1U };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aa85361bc16ec9c3abac085f8af797d64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa85361bc16ec9c3abac085f8af797d64">&#9670;&nbsp;</a></span>UdsMessage() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uds_transport::UdsMessage::UdsMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a606ccede66ea8e2a267c5b308c66f7bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a606ccede66ea8e2a267c5b308c66f7bb">&#9670;&nbsp;</a></span>UdsMessage() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uds_transport::UdsMessage::UdsMessage </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad6b20b7e741793b0451c2461682d0594"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6b20b7e741793b0451c2461682d0594">&#9670;&nbsp;</a></span>UdsMessage() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uds_transport::UdsMessage::UdsMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a65519421eae5bdfe8e806d5ca2275d3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65519421eae5bdfe8e806d5ca2275d3e">&#9670;&nbsp;</a></span>~UdsMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uds_transport::UdsMessage::~UdsMessage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a314304733e4894c7000462d95d5f5e0c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a314304733e4894c7000462d95d5f5e0c">&#9670;&nbsp;</a></span>AddMetaInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsMessage::AddMetaInfo </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; const <a class="el" href="classuds__transport_1_1UdsMessage.html#a99a91626162be9133f3a4e9e86fd8ab7">MetaInfoMap</a> &gt;&#160;</td>
+          <td class="paramname"><em>meta_info</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#afd1757fc83b9b8cfb9adbb7d51eb57e6">diag::client::uds_message::DmUdsMessage</a>, and <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a6186b2705568634aae9236685e7af5e7">diag::client::vd_message::VdMessage</a>.</p>
+
+</div>
+</div>
+<a id="a01e417469b880726733252770250ff41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01e417469b880726733252770250ff41">&#9670;&nbsp;</a></span>GetHostIpAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">IpAddress</a> uds_transport::UdsMessage::GetHostIpAddress </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a8caeff2551f40d8c3871d63c9b087523">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a6045a37b86d9d5d34186b385b508018c">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="ab3380eca0717e96240762a52e131fc74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3380eca0717e96240762a52e131fc74">&#9670;&nbsp;</a></span>GetHostPortNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">PortNumber</a> uds_transport::UdsMessage::GetHostPortNumber </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#acd2f4fe1f1def5ba8090f3247797e4dd">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#ab8dc10611585f54dbfba042dd67ed9a2">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="a68732d11033175f33100bfedadcf9b45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68732d11033175f33100bfedadcf9b45">&#9670;&nbsp;</a></span>GetPayload() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespaceuds__transport.html#ac2f810a6e5b70d080745e7b59eaf28d1">ByteVector</a>&amp; uds_transport::UdsMessage::GetPayload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#abbe7f9ac49858ddb6243236428ff8f28">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a4ca51b8eaed33c3a64553e477175b8f1">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="ab804e76755c79ef34783e430ed79b640"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab804e76755c79ef34783e430ed79b640">&#9670;&nbsp;</a></span>GetPayload() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceuds__transport.html#ac2f810a6e5b70d080745e7b59eaf28d1">ByteVector</a>&amp; uds_transport::UdsMessage::GetPayload </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a881183c0aa4593c37a4f3becc3b03158">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a73c2ecefcc599315c1ff49d3f3676e01">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="a47a1da1391bcfe30727290fe70eefd1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47a1da1391bcfe30727290fe70eefd1d">&#9670;&nbsp;</a></span>GetSa()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">Address</a> uds_transport::UdsMessage::GetSa </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a630076e3dda34b5d194e5c82feceab35">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a0710760b921546820026e312a29310db">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="a3cad1aca20dced8e0dfd0d54297e1b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cad1aca20dced8e0dfd0d54297e1b4b">&#9670;&nbsp;</a></span>GetTa()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">Address</a> uds_transport::UdsMessage::GetTa </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#ae946ce44438470dd351d225e4898a7b3">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#ae9ab2ae21d404bb46f548824a2f1139d">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="af187ea3720ea2ed097864dd983c39913"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af187ea3720ea2ed097864dd983c39913">&#9670;&nbsp;</a></span>GetTaType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">TargetAddressType</a> uds_transport::UdsMessage::GetTaType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a31443b353bbc823f24619f06182bfc10">diag::client::vd_message::VdMessage</a>, and <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#ac8fe9f370c93fb02a6d78b8003153368">diag::client::uds_message::DmUdsMessage</a>.</p>
+
+</div>
+</div>
+<a id="a3d96377636f9eca79a7ccd708ac4e84f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d96377636f9eca79a7ccd708ac4e84f">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a>&amp; uds_transport::UdsMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a16b74db140511691504c6fba32fc372d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16b74db140511691504c6fba32fc372d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a>&amp; uds_transport::UdsMessage::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/uds-transport-layer-api/uds_transport/<a class="el" href="uds__message_8h_source.html">uds_message.h</a></li>
 </ul>

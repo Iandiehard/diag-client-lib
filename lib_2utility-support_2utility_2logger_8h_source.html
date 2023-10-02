@@ -69,7 +69,7 @@ $(function() {
 <div class="title">logger.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* Diagnostic Client library</span></div>
+<a href="lib_2utility-support_2utility_2logger_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* Diagnostic Client library</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment"> * Copyright (C) 2023  Avijit Dey</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment"> *</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment"> * This Source Code Form is subject to the terms of the Mozilla Public</span></div>
@@ -89,10 +89,10 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define UNUSED_PARAM(expr) \</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">   21</a></span>&#160;<span class="preprocessor">#define UNUSED_PARAM(expr) \</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">  do { (void) (expr); } while (0)</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>utility {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceutility.html">utility</a> {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">namespace </span>logger {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html">   32</a></span>&#160;<span class="keyword">class </span><a class="code" href="classutility_1_1logger_1_1Logger.html">Logger</a> final {</div>
@@ -103,10 +103,10 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::abort();  <span class="comment">// abort in case of fatal issue</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
@@ -117,10 +117,10 @@ $(function() {
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
@@ -130,10 +130,10 @@ $(function() {
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  }</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
@@ -143,10 +143,10 @@ $(function() {
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  }</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
@@ -156,10 +156,10 @@ $(function() {
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  }</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
@@ -169,10 +169,10 @@ $(function() {
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward&lt;Func&gt;(func));</div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    UNUSED_PARAM(file_name);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    UNUSED_PARAM(line_no);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    UNUSED_PARAM(func_name);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    UNUSED_PARAM(func);</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(file_name);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(line_no);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func_name);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a>(func);</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  }</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
@@ -185,7 +185,7 @@ $(function() {
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Func&gt;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  <span class="keyword">auto</span> CreateLoggingMessage(<span class="keyword">const</span> std::string_view file_name, <span class="keyword">const</span> std::string_view <span class="comment">/* func_name */</span>, <span class="keywordtype">int</span> line_no,</div>
+<div class="line"><a name="l00228"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html#adccd53ae39a62273021b4709310e1f67">  228</a></span>&#160;  <span class="keyword">auto</span> <a class="code" href="classutility_1_1logger_1_1Logger.html#adccd53ae39a62273021b4709310e1f67">CreateLoggingMessage</a>(<span class="keyword">const</span> std::string_view file_name, <span class="keyword">const</span> std::string_view <span class="comment">/* func_name */</span>, <span class="keywordtype">int</span> line_no,</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                            Func &amp;&amp;func) noexcept -&gt; std::stringstream {</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    std::stringstream msg{};</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    func(msg);</div>
@@ -198,38 +198,45 @@ $(function() {
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keywordtype">void</span> LogDltMessage(DltLogLevelType log_level, <span class="keyword">const</span> std::string_view file_name, <span class="keyword">const</span> std::string_view func_name,</div>
 <div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                     <span class="keywordtype">int</span> line_no, Func &amp;&amp;func) {</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    DLT_LOG(contxt_, log_level,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward&lt;Func&gt;(func)).str().c_str()));</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    DLT_LOG(<a class="code" href="classutility_1_1logger_1_1Logger.html#a5eeb7c6bc1808ba567b011976fba34df">contxt_</a>, log_level,</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            DLT_CSTRING(<a class="code" href="classutility_1_1logger_1_1Logger.html#adccd53ae39a62273021b4709310e1f67">CreateLoggingMessage</a>(file_name, func_name, line_no, std::forward&lt;Func&gt;(func)).str().c_str()));</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  }</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="preprocessor">#ifdef ENABLE_DLT_LOGGER</span></div>
 <div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="comment">// Declare the context</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  DLT_DECLARE_CONTEXT(contxt_)</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  DLT_DECLARE_CONTEXT(<a class="code" href="classutility_1_1logger_1_1Logger.html#a5eeb7c6bc1808ba567b011976fba34df">contxt_</a>)</div>
 <div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  std::string contxt_;</div>
+<div class="line"><a name="l00263"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html#a5eeb7c6bc1808ba567b011976fba34df">  263</a></span>&#160;  std::string <a class="code" href="classutility_1_1logger_1_1Logger.html#a5eeb7c6bc1808ba567b011976fba34df">contxt_</a>;</div>
 <div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <span class="comment">// Stores application id</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  std::string app_id_;</div>
+<div class="line"><a name="l00266"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html#a379e09094af62c7a4301e88d05122e0a">  266</a></span>&#160;  std::string <a class="code" href="classutility_1_1logger_1_1Logger.html#a379e09094af62c7a4301e88d05122e0a">app_id_</a>;</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
 <div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <span class="comment">// Stores context id</span></div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  std::string context_id_;</div>
+<div class="line"><a name="l00269"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html#a4fe8bb9de8a38361c1d66a55de38c519">  269</a></span>&#160;  std::string <a class="code" href="classutility_1_1logger_1_1Logger.html#a4fe8bb9de8a38361c1d66a55de38c519">context_id_</a>;</div>
 <div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <span class="comment">// store the information about registration with app id</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <span class="keywordtype">bool</span> registration_with_app_id_{};</div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="classutility_1_1logger_1_1Logger.html#a4539496f6adee0105a2fbcff42b4ee57">  272</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="classutility_1_1logger_1_1Logger.html#a4539496f6adee0105a2fbcff42b4ee57">registration_with_app_id_</a>{};</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;};</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}  <span class="comment">// namespace logger</span></div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;}  <span class="comment">// namespace utility</span></div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_LOGGER_H</span></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html">utility::logger::Logger</a></div><div class="ttdoc">Logger class that is used to log Dlt messages from the component.</div><div class="ttdef"><b>Definition:</b> logger.h:32</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a1cbfd090ba8675a49887f8522a48a661"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a1cbfd090ba8675a49887f8522a48a661">utility::logger::Logger::LogDebug</a></div><div class="ttdeci">auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log debug message.</div><div class="ttdef"><b>Definition:</b> logger.h:153</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a2220b0fa09cffb0aa26600ae151cf225"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a2220b0fa09cffb0aa26600ae151cf225">utility::logger::Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdoc">Destruct an instance of Logger.</div><div class="ttdef"><b>Definition:</b> logger.cpp:39</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a392153223c58d2911f691176bd74abce"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a392153223c58d2911f691176bd74abce">utility::logger::Logger::Logger</a></div><div class="ttdeci">Logger(std::string_view context_id)</div><div class="ttdoc">Construct an instance of Logger.</div><div class="ttdef"><b>Definition:</b> logger.cpp:14</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a7d8032ed105c5d43b68d78c1397b1b1b"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a7d8032ed105c5d43b68d78c1397b1b1b">utility::logger::Logger::LogVerbose</a></div><div class="ttdeci">auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log verbose message.</div><div class="ttdef"><b>Definition:</b> logger.h:179</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a890d141d0864572ee093064d126abbba"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a890d141d0864572ee093064d126abbba">utility::logger::Logger::LogError</a></div><div class="ttdeci">auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log error message.</div><div class="ttdef"><b>Definition:</b> logger.h:75</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a9e1e857264793a7a9d5f3c3a7ee0f598"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a9e1e857264793a7a9d5f3c3a7ee0f598">utility::logger::Logger::LogInfo</a></div><div class="ttdeci">auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log info message.</div><div class="ttdef"><b>Definition:</b> logger.h:127</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_ac63f8cef90bec3fde30602db54565876"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#ac63f8cef90bec3fde30602db54565876">utility::logger::Logger::LogFatal</a></div><div class="ttdeci">auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log fatal message and abort.</div><div class="ttdef"><b>Definition:</b> logger.h:48</div></div>
-<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_ae88ab5e157f47752d254098f88f87a8f"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#ae88ab5e157f47752d254098f88f87a8f">utility::logger::Logger::LogWarn</a></div><div class="ttdeci">auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log warning message.</div><div class="ttdef"><b>Definition:</b> logger.h:101</div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html">utility::logger::Logger</a></div><div class="ttdoc">Logger class that is used to log Dlt messages from the component.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a1cbfd090ba8675a49887f8522a48a661"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a1cbfd090ba8675a49887f8522a48a661">utility::logger::Logger::LogDebug</a></div><div class="ttdeci">auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log debug message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00153">logger.h:153</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a2220b0fa09cffb0aa26600ae151cf225"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a2220b0fa09cffb0aa26600ae151cf225">utility::logger::Logger::~Logger</a></div><div class="ttdeci">~Logger()</div><div class="ttdoc">Destruct an instance of Logger.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8cpp_source.html#l00039">logger.cpp:39</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a379e09094af62c7a4301e88d05122e0a"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a379e09094af62c7a4301e88d05122e0a">utility::logger::Logger::app_id_</a></div><div class="ttdeci">std::string app_id_</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00266">logger.h:266</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a392153223c58d2911f691176bd74abce"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a392153223c58d2911f691176bd74abce">utility::logger::Logger::Logger</a></div><div class="ttdeci">Logger(std::string_view context_id)</div><div class="ttdoc">Construct an instance of Logger.</div><div class="ttdef"><b>Definition:</b> <a href="logger_8cpp_source.html#l00014">logger.cpp:14</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a4539496f6adee0105a2fbcff42b4ee57"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a4539496f6adee0105a2fbcff42b4ee57">utility::logger::Logger::registration_with_app_id_</a></div><div class="ttdeci">bool registration_with_app_id_</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00272">logger.h:272</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a4fe8bb9de8a38361c1d66a55de38c519"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a4fe8bb9de8a38361c1d66a55de38c519">utility::logger::Logger::context_id_</a></div><div class="ttdeci">std::string context_id_</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00269">logger.h:269</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a5eeb7c6bc1808ba567b011976fba34df"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a5eeb7c6bc1808ba567b011976fba34df">utility::logger::Logger::contxt_</a></div><div class="ttdeci">std::string contxt_</div><div class="ttdoc">Function to send the messages to dlt infrastructure.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00263">logger.h:263</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a7d8032ed105c5d43b68d78c1397b1b1b"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a7d8032ed105c5d43b68d78c1397b1b1b">utility::logger::Logger::LogVerbose</a></div><div class="ttdeci">auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log verbose message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00179">logger.h:179</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a890d141d0864572ee093064d126abbba"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a890d141d0864572ee093064d126abbba">utility::logger::Logger::LogError</a></div><div class="ttdeci">auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log error message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00075">logger.h:75</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_a9e1e857264793a7a9d5f3c3a7ee0f598"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#a9e1e857264793a7a9d5f3c3a7ee0f598">utility::logger::Logger::LogInfo</a></div><div class="ttdeci">auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log info message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00127">logger.h:127</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_ac63f8cef90bec3fde30602db54565876"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#ac63f8cef90bec3fde30602db54565876">utility::logger::Logger::LogFatal</a></div><div class="ttdeci">auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log fatal message and abort.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00048">logger.h:48</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_adccd53ae39a62273021b4709310e1f67"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#adccd53ae39a62273021b4709310e1f67">utility::logger::Logger::CreateLoggingMessage</a></div><div class="ttdeci">auto CreateLoggingMessage(const std::string_view file_name, const std::string_view, int line_no, Func &amp;&amp;func) noexcept -&gt; std::stringstream</div><div class="ttdoc">Function to create the final logging message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00228">logger.h:228</a></div></div>
+<div class="ttc" id="aclassutility_1_1logger_1_1Logger_html_ae88ab5e157f47752d254098f88f87a8f"><div class="ttname"><a href="classutility_1_1logger_1_1Logger.html#ae88ab5e157f47752d254098f88f87a8f">utility::logger::Logger::LogWarn</a></div><div class="ttdeci">auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name, Func &amp;&amp;func) noexcept -&gt; void</div><div class="ttdoc">Log warning message.</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00101">logger.h:101</a></div></div>
+<div class="ttc" id="alib_2utility-support_2utility_2logger_8h_html_a21d70e1e2f9df4e3dc4b07ed27e83dcd"><div class="ttname"><a href="lib_2utility-support_2utility_2logger_8h.html#a21d70e1e2f9df4e3dc4b07ed27e83dcd">UNUSED_PARAM</a></div><div class="ttdeci">#define UNUSED_PARAM(expr)</div><div class="ttdef"><b>Definition:</b> <a href="lib_2utility-support_2utility_2logger_8h_source.html#l00021">logger.h:21</a></div></div>
+<div class="ttc" id="anamespaceutility_html"><div class="ttname"><a href="namespaceutility.html">utility</a></div><div class="ttdef"><b>Definition:</b> <a href="executor_8h_source.html#l00018">executor.h:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

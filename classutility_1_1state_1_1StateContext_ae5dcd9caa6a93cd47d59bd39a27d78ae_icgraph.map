@@ -1,0 +1,7 @@
+<map id="utility::state::StateContext::AddState" name="utility::state::StateContext::AddState">
+<area shape="rect" id="node1" title=" " alt="" coords="347,163,540,204"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a7cf3983f0d0233d8c3a9f99d7bfeee9c" title="Constructs an instance of DiagnosticMessageHandlerImpl." alt="" coords="8,5,296,76"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#aa60220e266a1d9162a03cc35e47801cf" title="Constructs an instance of RoutingActivationHandlerImpl." alt="" coords="13,100,291,171"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a1fdd3ad687b979e1b48935dd1f04794e" title="Constructs an instance of VehicleDiscoveryHandlerImpl." alt="" coords="15,195,289,265"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html#a3660752b5dbf2d55e222763c3204eac6" title="Constructs an instance of VehicleDiscoveryHandlerImpl." alt="" coords="5,289,299,360"/>
+</map>

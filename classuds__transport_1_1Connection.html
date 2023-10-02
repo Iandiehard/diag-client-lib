@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>uds_transport</b></li><li class="navelem"><a class="el" href="classuds__transport_1_1Connection.html">Connection</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceuds__transport.html">uds_transport</a></li><li class="navelem"><a class="el" href="classuds__transport_1_1Connection.html">Connection</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -69,6 +69,7 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classuds__transport_1_1Connection-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">uds_transport::Connection Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -101,13 +102,11 @@ Collaboration diagram for uds_transport::Connection:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a095968a88c91b5066a817039b4723f46"><td class="memItemLeft" align="right" valign="top"><a id="a095968a88c91b5066a817039b4723f46"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a> = std::uint8_t</td></tr>
-<tr class="memdesc:a095968a88c91b5066a817039b4723f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for connection id. <br /></td></tr>
+<tr class="memitem:a095968a88c91b5066a817039b4723f46"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a> = std::uint8_t</td></tr>
+<tr class="memdesc:a095968a88c91b5066a817039b4723f46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for connection id.  <a href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">More...</a><br /></td></tr>
 <tr class="separator:a095968a88c91b5066a817039b4723f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e71935827263d952d8957634c855e7a"><td class="memItemLeft" align="right" valign="top"><a id="a0e71935827263d952d8957634c855e7a"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a0e71935827263d952d8957634c855e7a">InitializationResult</a> = <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">uds_transport::UdsTransportProtocolHandler::InitializationResult</a></td></tr>
-<tr class="memdesc:a0e71935827263d952d8957634c855e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Initialization result. <br /></td></tr>
+<tr class="memitem:a0e71935827263d952d8957634c855e7a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a0e71935827263d952d8957634c855e7a">InitializationResult</a> = <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">uds_transport::UdsTransportProtocolHandler::InitializationResult</a></td></tr>
+<tr class="memdesc:a0e71935827263d952d8957634c855e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Initialization result.  <a href="classuds__transport_1_1Connection.html#a0e71935827263d952d8957634c855e7a">More...</a><br /></td></tr>
 <tr class="separator:a0e71935827263d952d8957634c855e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -115,9 +114,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a886c36f3b0b801e2414826e7981cd06a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a886c36f3b0b801e2414826e7981cd06a">Connection</a> (<a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a> connection_id, <a class="el" href="classuds__transport_1_1ConversionHandler.html">uds_transport::ConversionHandler</a> const &amp;conversation_handler) noexcept</td></tr>
 <tr class="memdesc:a886c36f3b0b801e2414826e7981cd06a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor to create a new connection.  <a href="classuds__transport_1_1Connection.html#a886c36f3b0b801e2414826e7981cd06a">More...</a><br /></td></tr>
 <tr class="separator:a886c36f3b0b801e2414826e7981cd06a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dbac98c30578aa9df81a37037f4b19d"><td class="memItemLeft" align="right" valign="top"><a id="a1dbac98c30578aa9df81a37037f4b19d"></a>
-virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a1dbac98c30578aa9df81a37037f4b19d">~Connection</a> ()=default</td></tr>
-<tr class="memdesc:a1dbac98c30578aa9df81a37037f4b19d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers.">Connection</a>. <br /></td></tr>
+<tr class="memitem:a1dbac98c30578aa9df81a37037f4b19d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a1dbac98c30578aa9df81a37037f4b19d">~Connection</a> ()=default</td></tr>
+<tr class="memdesc:a1dbac98c30578aa9df81a37037f4b19d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers.">Connection</a>.  <a href="classuds__transport_1_1Connection.html#a1dbac98c30578aa9df81a37037f4b19d">More...</a><br /></td></tr>
 <tr class="separator:a1dbac98c30578aa9df81a37037f4b19d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a819914143707c81f2e594cecc28d8ddd"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">InitializationResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a819914143707c81f2e594cecc28d8ddd">Initialize</a> ()=0</td></tr>
 <tr class="memdesc:a819914143707c81f2e594cecc28d8ddd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the connection.  <a href="classuds__transport_1_1Connection.html#a819914143707c81f2e594cecc28d8ddd">More...</a><br /></td></tr>
@@ -125,30 +123,28 @@ virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <tr class="memitem:ae7eccca9f2421c94b1c380fe719d6364"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#ae7eccca9f2421c94b1c380fe719d6364">GetConnectionId</a> () noexcept</td></tr>
 <tr class="memdesc:ae7eccca9f2421c94b1c380fe719d6364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the connection id.  <a href="classuds__transport_1_1Connection.html#ae7eccca9f2421c94b1c380fe719d6364">More...</a><br /></td></tr>
 <tr class="separator:ae7eccca9f2421c94b1c380fe719d6364"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0fa83ad8829bf99841e5c74de564e8a"><td class="memItemLeft" align="right" valign="top"><a id="ac0fa83ad8829bf99841e5c74de564e8a"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#ac0fa83ad8829bf99841e5c74de564e8a">Start</a> ()=0</td></tr>
-<tr class="memdesc:ac0fa83ad8829bf99841e5c74de564e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the connection. <br /></td></tr>
+<tr class="memitem:ac0fa83ad8829bf99841e5c74de564e8a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#ac0fa83ad8829bf99841e5c74de564e8a">Start</a> ()=0</td></tr>
+<tr class="memdesc:ac0fa83ad8829bf99841e5c74de564e8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to start the connection.  <a href="classuds__transport_1_1Connection.html#ac0fa83ad8829bf99841e5c74de564e8a">More...</a><br /></td></tr>
 <tr class="separator:ac0fa83ad8829bf99841e5c74de564e8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a900daf7d1034a48cbc379b66fe76b477"><td class="memItemLeft" align="right" valign="top"><a id="a900daf7d1034a48cbc379b66fe76b477"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a900daf7d1034a48cbc379b66fe76b477">Stop</a> ()=0</td></tr>
-<tr class="memdesc:a900daf7d1034a48cbc379b66fe76b477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the connection. <br /></td></tr>
+<tr class="memitem:a900daf7d1034a48cbc379b66fe76b477"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a900daf7d1034a48cbc379b66fe76b477">Stop</a> ()=0</td></tr>
+<tr class="memdesc:a900daf7d1034a48cbc379b66fe76b477"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the connection.  <a href="classuds__transport_1_1Connection.html#a900daf7d1034a48cbc379b66fe76b477">More...</a><br /></td></tr>
 <tr class="separator:a900daf7d1034a48cbc379b66fe76b477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f19cc323236813813573a820026c062"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a9f19cc323236813813573a820026c062">IsConnectToHost</a> ()=0</td></tr>
 <tr class="memdesc:a9f19cc323236813813573a820026c062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to check if connected to host remote server.  <a href="classuds__transport_1_1Connection.html#a9f19cc323236813813573a820026c062">More...</a><br /></td></tr>
 <tr class="separator:a9f19cc323236813813573a820026c062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4f3279e6ba69d6b1a863528a740125a"><td class="memItemLeft" align="right" valign="top">virtual UdsTransportProtocolMgr::ConnectionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#ab4f3279e6ba69d6b1a863528a740125a">ConnectToHost</a> (UdsMessageConstPtr message)=0</td></tr>
+<tr class="memitem:ab4f3279e6ba69d6b1a863528a740125a"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">UdsTransportProtocolMgr::ConnectionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#ab4f3279e6ba69d6b1a863528a740125a">ConnectToHost</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">UdsMessageConstPtr</a> message)=0</td></tr>
 <tr class="memdesc:ab4f3279e6ba69d6b1a863528a740125a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to establish connection to remote host server.  <a href="classuds__transport_1_1Connection.html#ab4f3279e6ba69d6b1a863528a740125a">More...</a><br /></td></tr>
 <tr class="separator:ab4f3279e6ba69d6b1a863528a740125a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af647b9f07d799b87234e915386220c43"><td class="memItemLeft" align="right" valign="top">virtual UdsTransportProtocolMgr::DisconnectionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#af647b9f07d799b87234e915386220c43">DisconnectFromHost</a> ()=0</td></tr>
+<tr class="memitem:af647b9f07d799b87234e915386220c43"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">UdsTransportProtocolMgr::DisconnectionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#af647b9f07d799b87234e915386220c43">DisconnectFromHost</a> ()=0</td></tr>
 <tr class="memdesc:af647b9f07d799b87234e915386220c43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to disconnect from remote host server.  <a href="classuds__transport_1_1Connection.html#af647b9f07d799b87234e915386220c43">More...</a><br /></td></tr>
 <tr class="separator:af647b9f07d799b87234e915386220c43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bfd6f133fc13ccba97b4dd3fbfb61a7"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">IndicateMessage</a> (UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info)=0</td></tr>
+<tr class="memitem:a6bfd6f133fc13ccba97b4dd3fbfb61a7"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info)=0</td></tr>
 <tr class="memdesc:a6bfd6f133fc13ccba97b4dd3fbfb61a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">More...</a><br /></td></tr>
 <tr class="separator:a6bfd6f133fc13ccba97b4dd3fbfb61a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f16f19c4ee793c3198aa2be9363effd"><td class="memItemLeft" align="right" valign="top">virtual UdsTransportProtocolMgr::TransmissionResult&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a6f16f19c4ee793c3198aa2be9363effd">Transmit</a> (UdsMessageConstPtr message)=0</td></tr>
+<tr class="memitem:a6f16f19c4ee793c3198aa2be9363effd"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">UdsTransportProtocolMgr::TransmissionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a6f16f19c4ee793c3198aa2be9363effd">Transmit</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">UdsMessageConstPtr</a> message)=0</td></tr>
 <tr class="memdesc:a6f16f19c4ee793c3198aa2be9363effd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to transmit a valid Uds message.  <a href="classuds__transport_1_1Connection.html#a6f16f19c4ee793c3198aa2be9363effd">More...</a><br /></td></tr>
 <tr class="separator:a6f16f19c4ee793c3198aa2be9363effd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc0661d13a5f96f405feb0086db8c87d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">HandleMessage</a> (UdsMessagePtr message)=0</td></tr>
+<tr class="memitem:acc0661d13a5f96f405feb0086db8c87d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">HandleMessage</a> (<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a> message)=0</td></tr>
 <tr class="memdesc:acc0661d13a5f96f405feb0086db8c87d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Hands over a valid received Uds message.  <a href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">More...</a><br /></td></tr>
 <tr class="separator:acc0661d13a5f96f405feb0086db8c87d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadcfe231926f3b1e04d5087483bbbd0e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#aadcfe231926f3b1e04d5087483bbbd0e">GetConnectionId</a> () const</td></tr>
@@ -157,14 +153,58 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a22fd98c7ded07dbf7fe6e007b3a6eef3"><td class="memItemLeft" align="right" valign="top"><a id="a22fd98c7ded07dbf7fe6e007b3a6eef3"></a>
-<a class="el" href="classuds__transport_1_1ConversionHandler.html">uds_transport::ConversionHandler</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3">conversation_handler_</a></td></tr>
-<tr class="memdesc:a22fd98c7ded07dbf7fe6e007b3a6eef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the conversation handler. <br /></td></tr>
+<tr class="memitem:a22fd98c7ded07dbf7fe6e007b3a6eef3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1ConversionHandler.html">uds_transport::ConversionHandler</a> const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3">conversation_handler_</a></td></tr>
+<tr class="memdesc:a22fd98c7ded07dbf7fe6e007b3a6eef3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the conversation handler.  <a href="classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3">More...</a><br /></td></tr>
 <tr class="separator:a22fd98c7ded07dbf7fe6e007b3a6eef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a86d53a0b2bcc0f45608e44bcbcb78343"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">connection_id_</a></td></tr>
+<tr class="memdesc:a86d53a0b2bcc0f45608e44bcbcb78343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the connection id.  <a href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">More...</a><br /></td></tr>
+<tr class="separator:a86d53a0b2bcc0f45608e44bcbcb78343"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface class to handle connection between two layers. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00023">23</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a095968a88c91b5066a817039b4723f46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a095968a88c91b5066a817039b4723f46">&#9670;&nbsp;</a></span>ConnectionId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">uds_transport::Connection::ConnectionId</a> =  std::uint8_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for connection id. </p>
+
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00028">28</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+
+</div>
+</div>
+<a id="a0e71935827263d952d8957634c855e7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e71935827263d952d8957634c855e7a">&#9670;&nbsp;</a></span>InitializationResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">uds_transport::Connection::InitializationResult</a> =  <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585">uds_transport::UdsTransportProtocolHandler::InitializationResult</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias for Initialization result. </p>
+
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00033">33</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a886c36f3b0b801e2414826e7981cd06a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a886c36f3b0b801e2414826e7981cd06a">&#9670;&nbsp;</a></span>Connection()</h2>
 
@@ -208,6 +248,39 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00042">42</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;      : <a class="code" href="classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3">conversation_handler_</a>{conversation_handler},</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">connection_id_</a>{connection_id} {}</div>
+<div class="ttc" id="aclassuds__transport_1_1Connection_html_a22fd98c7ded07dbf7fe6e007b3a6eef3"><div class="ttname"><a href="classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3">uds_transport::Connection::conversation_handler_</a></div><div class="ttdeci">uds_transport::ConversionHandler const  &amp; conversation_handler_</div><div class="ttdoc">Store the conversation handler.</div><div class="ttdef"><b>Definition:</b> <a href="connection_8h_source.html#l00148">connection.h:148</a></div></div>
+<div class="ttc" id="aclassuds__transport_1_1Connection_html_a86d53a0b2bcc0f45608e44bcbcb78343"><div class="ttname"><a href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">uds_transport::Connection::connection_id_</a></div><div class="ttdeci">ConnectionId connection_id_</div><div class="ttdoc">Store the connection id.</div><div class="ttdef"><b>Definition:</b> <a href="connection_8h_source.html#l00154">connection.h:154</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a1dbac98c30578aa9df81a37037f4b19d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dbac98c30578aa9df81a37037f4b19d">&#9670;&nbsp;</a></span>~Connection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uds_transport::Connection::~Connection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destruct an instance of <a class="el" href="classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers.">Connection</a>. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -221,9 +294,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UdsTransportProtocolMgr::ConnectionResult uds_transport::Connection::ConnectToHost </td>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">UdsTransportProtocolMgr::ConnectionResult</a> uds_transport::Connection::ConnectToHost </td>
           <td>(</td>
-          <td class="paramtype">UdsMessageConstPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">UdsMessageConstPtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -258,7 +331,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UdsTransportProtocolMgr::DisconnectionResult uds_transport::Connection::DisconnectFromHost </td>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">UdsTransportProtocolMgr::DisconnectionResult</a> uds_transport::Connection::DisconnectFromHost </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -304,6 +377,11 @@ Protected Attributes</h2></td></tr>
 <p>Function to get the connection id. </p>
 <dl class="section return"><dt>Returns</dt><dd>The connection id </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00142">142</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">connection_id_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="connection_8h_source.html#l00154">connection_id_</a>.</p>
+
 </div>
 </div>
 <a id="ae7eccca9f2421c94b1c380fe719d6364"></a>
@@ -332,6 +410,11 @@ Protected Attributes</h2></td></tr>
 <p>Function to get the connection id. </p>
 <dl class="section return"><dt>Returns</dt><dd>The connection id </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00061">61</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classuds__transport_1_1Connection.html#a86d53a0b2bcc0f45608e44bcbcb78343">connection_id_</a>; }</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="connection_8h_source.html#l00154">connection_id_</a>.</p>
+
 </div>
 </div>
 <a id="acc0661d13a5f96f405feb0086db8c87d"></a>
@@ -346,7 +429,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">virtual void uds_transport::Connection::HandleMessage </td>
           <td>(</td>
-          <td class="paramtype">UdsMessagePtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -368,6 +451,18 @@ Protected Attributes</h2></td></tr>
 
 <p>Implemented in <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a98273699b49e145da5b73108c785bb9e">doip_client::connection::DoipUdpConnection</a>, and <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a444b07106c4efc0870e5d63e608caf22">doip_client::connection::DoipTcpConnection</a>.</p>
 
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel_8cpp_source.html#l00102">doip_client::channel::tcp_channel::DoipTcpChannel::HandleMessage()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00055">doip_client::channel::udp_channel::DoipUdpChannel::HandleMessage()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classuds__transport_1_1Connection_acc0661d13a5f96f405feb0086db8c87d_icgraph.png" border="0" usemap="#aclassuds__transport_1_1Connection_acc0661d13a5f96f405feb0086db8c87d_icgraph" alt=""/></div>
+<map name="aclassuds__transport_1_1Connection_acc0661d13a5f96f405feb0086db8c87d_icgraph" id="aclassuds__transport_1_1Connection_acc0661d13a5f96f405feb0086db8c87d_icgraph">
+<area shape="rect" title="Function to Hands over a valid received Uds message." alt="" coords="283,53,475,94"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a1419e62e306d88a34f80c3abb3ff6edc" title="Function to Hands over a valid received Uds message to upper layer." alt="" coords="10,5,230,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a40fa79e63bf99be1f3d4beb4e0e6b076" title="Function to Hands over a valid received Uds message to upper layer." alt="" coords="5,85,235,141"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="a6bfd6f133fc13ccba97b4dd3fbfb61a7"></a>
@@ -380,27 +475,27 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::pair&lt;UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr&gt; uds_transport::Connection::IndicateMessage </td>
+          <td class="memname">virtual std::pair&lt;<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a>&gt; uds_transport::Connection::IndicateMessage </td>
           <td>(</td>
-          <td class="paramtype">UdsMessage::Address&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a>&#160;</td>
           <td class="paramname"><em>source_addr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UdsMessage::Address&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a>&#160;</td>
           <td class="paramname"><em>target_addr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">UdsMessage::TargetAddressType&#160;</td>
+          <td class="paramtype"><a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">UdsMessage::TargetAddressType</a>&#160;</td>
           <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ChannelID&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">ChannelID</a>&#160;</td>
           <td class="paramname"><em>channel_id</em>, </td>
         </tr>
         <tr>
@@ -412,13 +507,13 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Priority&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">Priority</a>&#160;</td>
           <td class="paramname"><em>priority</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ProtocolKind&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">ProtocolKind</a>&#160;</td>
           <td class="paramname"><em>protocol_kind</em>, </td>
         </tr>
         <tr>
@@ -457,6 +552,18 @@ Protected Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt; IndicationResult, UdsMessagePtr &gt; The pair of IndicationResult and a pointer to <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> owned/created by DM core and returned to the handler to get filled </dd></dl>
 
 <p>Implemented in <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a45a557b60912603c53832a815679efb0">doip_client::connection::DoipUdpConnection</a>, and <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#ad36336c1c314ef3c1304d2ddc5d8b620">doip_client::connection::DoipTcpConnection</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__tcp__channel_8cpp_source.html#l00093">doip_client::channel::tcp_channel::DoipTcpChannel::IndicateMessage()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00046">doip_client::channel::udp_channel::DoipUdpChannel::IndicateMessage()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classuds__transport_1_1Connection_a6bfd6f133fc13ccba97b4dd3fbfb61a7_icgraph.png" border="0" usemap="#aclassuds__transport_1_1Connection_a6bfd6f133fc13ccba97b4dd3fbfb61a7_icgraph" alt=""/></div>
+<map name="aclassuds__transport_1_1Connection_a6bfd6f133fc13ccba97b4dd3fbfb61a7_icgraph" id="aclassuds__transport_1_1Connection_a6bfd6f133fc13ccba97b4dd3fbfb61a7_icgraph">
+<area shape="rect" title="Function to indicate a start of reception of message." alt="" coords="283,53,475,94"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aaffc372592d39ce33dc52a3b82a31772" title="Function to indicate a start of reception of message." alt="" coords="10,5,230,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aaf3dba763a51a6eb1d8f951bd69ee523" title="Function to indicate a start of reception of message." alt="" coords="5,85,235,141"/>
+</map>
+</div>
 
 </div>
 </div>
@@ -520,6 +627,64 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="ac0fa83ad8829bf99841e5c74de564e8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0fa83ad8829bf99841e5c74de564e8a">&#9670;&nbsp;</a></span>Start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::Connection::Start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to start the connection. </p>
+
+<p>Implemented in <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a93c33dc3b8b3a3120eef54ea2822c525">doip_client::connection::DoipUdpConnection</a>, and <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3236801a8cf87a5d2b0f1e2afd1aa1da">doip_client::connection::DoipTcpConnection</a>.</p>
+
+</div>
+</div>
+<a id="a900daf7d1034a48cbc379b66fe76b477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900daf7d1034a48cbc379b66fe76b477">&#9670;&nbsp;</a></span>Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::Connection::Stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to stop the connection. </p>
+
+<p>Implemented in <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a43119b0d3db214490829ff062a1dbbe8">doip_client::connection::DoipUdpConnection</a>, and <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a7118670417286ee60f84ad4b3cc21eff">doip_client::connection::DoipTcpConnection</a>.</p>
+
+</div>
+</div>
 <a id="a6f16f19c4ee793c3198aa2be9363effd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f16f19c4ee793c3198aa2be9363effd">&#9670;&nbsp;</a></span>Transmit()</h2>
 
@@ -530,9 +695,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual UdsTransportProtocolMgr::TransmissionResult uds_transport::Connection::Transmit </td>
+          <td class="memname">virtual <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">UdsTransportProtocolMgr::TransmissionResult</a> uds_transport::Connection::Transmit </td>
           <td>(</td>
-          <td class="paramtype">UdsMessageConstPtr&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">UdsMessageConstPtr</a>&#160;</td>
           <td class="paramname"><em>message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -553,6 +718,63 @@ Protected Attributes</h2></td></tr>
 </dl>
 
 <p>Implemented in <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a78b8545114abc91e4edef5dcac750759">doip_client::connection::DoipUdpConnection</a>, and <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3e600064ff99848ff724f53970dd4c70">doip_client::connection::DoipTcpConnection</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a86d53a0b2bcc0f45608e44bcbcb78343"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86d53a0b2bcc0f45608e44bcbcb78343">&#9670;&nbsp;</a></span>connection_id_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1Connection.html#a095968a88c91b5066a817039b4723f46">ConnectionId</a> uds_transport::Connection::connection_id_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the connection id. </p>
+
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00154">154</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection_8h_source.html#l00061">GetConnectionId()</a>.</p>
+
+</div>
+</div>
+<a id="a22fd98c7ded07dbf7fe6e007b3a6eef3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22fd98c7ded07dbf7fe6e007b3a6eef3">&#9670;&nbsp;</a></span>conversation_handler_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classuds__transport_1_1ConversionHandler.html">uds_transport::ConversionHandler</a> const&amp; uds_transport::Connection::conversation_handler_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the conversation handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="connection_8h_source.html#l00148">148</a> of file <a class="el" href="connection_8h_source.html">connection.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00139">doip_client::connection::DoipTcpConnection::HandleMessage()</a>, <a class="el" href="connection__manager_8cpp_source.html#l00271">doip_client::connection::DoipUdpConnection::HandleMessage()</a>, <a class="el" href="connection__manager_8cpp_source.html#l00113">doip_client::connection::DoipTcpConnection::IndicateMessage()</a>, and <a class="el" href="connection__manager_8cpp_source.html#l00245">doip_client::connection::DoipUdpConnection::IndicateMessage()</a>.</p>
 
 </div>
 </div>

@@ -1,0 +1,5 @@
+<map id="core_type::Result&lt; void, E &gt;::CheckError" name="core_type::Result&lt; void, E &gt;::CheckError">
+<area shape="rect" id="node1" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="5,39,169,80"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707" title="Access the contained error." alt="" coords="217,5,360,47"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="217,71,360,112"/>
+</map>

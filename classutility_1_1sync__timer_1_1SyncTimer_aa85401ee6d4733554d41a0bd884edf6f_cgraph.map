@@ -1,0 +1,4 @@
+<map id="utility::sync_timer::SyncTimer::CancelWait" name="utility::sync_timer::SyncTimer::CancelWait">
+<area shape="rect" id="node1" title="Function to cancel the synchronous wait." alt="" coords="5,5,185,47"/>
+<area shape="rect" id="node2" href="$classutility_1_1sync__timer_1_1SyncTimer.html#a7ef01f46fc1dbf6b3a57a7e9573f37fa" title="Function to stop the current timeout monitoring." alt="" coords="233,5,372,47"/>
+</map>

@@ -1,6 +1,12 @@
 var searchData=
 [
-  ['main_558',['Main',['../classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a',1,'diag::client::common::DiagnosticManager']]],
-  ['maperror_559',['MapError',['../classcore__type_1_1Result.html#a37282503c28519fb3494afec2aff4471',1,'core_type::Result::MapError()'],['../classcore__type_1_1Result_3_01void_00_01E_01_4.html#a7aef854c9805e4fc6bfbcf59f9d7ba72',1,'core_type::Result&lt; void, E &gt;::MapError()']]],
-  ['message_560',['Message',['../classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#ac45ecd8f76270739c92572c738760e10',1,'diag::client::error_domain::DmErrorDomain::Message()'],['../classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#adcb2dab918f427fb594f0973e48868c8',1,'doip_client::error_domain::DoipErrorDomain::Message()'],['../classcore__type_1_1ErrorCode.html#a33edaac48267e5f692323d8ea9858de4',1,'core_type::ErrorCode::Message()'],['../classcore__type_1_1ErrorDomain.html#ab3563a40f3e863f7a382ded341c2ec1b',1,'core_type::ErrorDomain::Message()']]]
+  ['last_1301',['last',['../classcore__type_1_1Span.html#a97377e0da5903b38e2c16834cdaec20a',1,'core_type::Span::last() const'],['../classcore__type_1_1Span.html#a1e90b05b5e4ac0a6a35ebc31f7b8d7b7',1,'core_type::Span::last(size_type count) const']]],
+  ['libboostlogger_1302',['LibBoostLogger',['../classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a7ae8b1955ee76a125ad93460a17910e7',1,'boost_support::common::logger::LibBoostLogger']]],
+  ['logdebug_1303',['LogDebug',['../classutility_1_1logger_1_1Logger.html#a1cbfd090ba8675a49887f8522a48a661',1,'utility::logger::Logger']]],
+  ['logerror_1304',['LogError',['../classutility_1_1logger_1_1Logger.html#a890d141d0864572ee093064d126abbba',1,'utility::logger::Logger']]],
+  ['logfatal_1305',['LogFatal',['../classutility_1_1logger_1_1Logger.html#ac63f8cef90bec3fde30602db54565876',1,'utility::logger::Logger']]],
+  ['logger_1306',['Logger',['../classutility_1_1logger_1_1Logger.html#a392153223c58d2911f691176bd74abce',1,'utility::logger::Logger::Logger(std::string_view context_id)'],['../classutility_1_1logger_1_1Logger.html#a0928b7132248090125979024cf71149f',1,'utility::logger::Logger::Logger(std::string_view app_id, std::string_view context_id)']]],
+  ['loginfo_1307',['LogInfo',['../classutility_1_1logger_1_1Logger.html#a9e1e857264793a7a9d5f3c3a7ee0f598',1,'utility::logger::Logger']]],
+  ['logverbose_1308',['LogVerbose',['../classutility_1_1logger_1_1Logger.html#a7d8032ed105c5d43b68d78c1397b1b1b',1,'utility::logger::Logger']]],
+  ['logwarn_1309',['LogWarn',['../classutility_1_1logger_1_1Logger.html#ae88ab5e157f47752d254098f88f87a8f',1,'utility::logger::Logger']]]
 ];

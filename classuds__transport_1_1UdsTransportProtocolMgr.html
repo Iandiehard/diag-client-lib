@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>uds_transport</b></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html">UdsTransportProtocolMgr</a></li>  </ul>
+<li class="navelem"><a class="el" href="namespaceuds__transport.html">uds_transport</a></li><li class="navelem"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html">UdsTransportProtocolMgr</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,6 +73,8 @@ $(function() {
 <div class="title">uds_transport::UdsTransportProtocolMgr Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for uds_transport::UdsTransportProtocolMgr:</div>
 <div class="dyncontent">
@@ -85,49 +87,324 @@ Inheritance diagram for uds_transport::UdsTransportProtocolMgr:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af00157597b8d587f27088b31ee43bdbe"><td class="memItemLeft" align="right" valign="top"><a id="af00157597b8d587f27088b31ee43bdbe"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>IndicationResult</b> : std::uint8_t { <br />
-&#160;&#160;<b>kIndicationOk</b> = 0U
-, <b>kIndicationOccupied</b>
-, <b>kIndicationOverflow</b>
-, <b>kIndicationUnknownTargetAddress</b>
+<tr class="memitem:af00157597b8d587f27088b31ee43bdbe"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">IndicationResult</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbea408c6ce36c29ad236be0ba1314d49802">kIndicationOk</a> = 0U
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbea8d0e47238ad7b5bf3105b89c8d86831e">kIndicationOccupied</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbea345d483ffe52926a7c2bd41090f7427b">kIndicationOverflow</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbea2cb9b45d3443cd2b637394fcc2b24f94">kIndicationUnknownTargetAddress</a>
 , <br />
-&#160;&#160;<b>kIndicationPending</b>
-, <b>kIndicationNOk</b>
+&#160;&#160;<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbeaf7b9e7152bfd6a30e295cfd7fb7ba697">kIndicationPending</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbea65ff6ae438c88babf6947e2ac50c3976">kIndicationNOk</a>
 <br />
  }</td></tr>
 <tr class="separator:af00157597b8d587f27088b31ee43bdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a675a5d498c842cca407d2ce2a0399158"><td class="memItemLeft" align="right" valign="top"><a id="a675a5d498c842cca407d2ce2a0399158"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>TransmissionResult</b> : std::uint8_t { <br />
-&#160;&#160;<b>kTransmitOk</b> = 0U
-, <b>kTransmitFailed</b>
-, <b>kNoTransmitAckReceived</b>
-, <b>kNegTransmitAckReceived</b>
+<tr class="memitem:a675a5d498c842cca407d2ce2a0399158"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">TransmissionResult</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b">kTransmitOk</a> = 0U
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18">kTransmitFailed</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a5a4540281fb520c2b9228edefcd1d0bb">kNoTransmitAckReceived</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a6d07b7ebf510674ab616f3a00abfa772">kNegTransmitAckReceived</a>
 , <br />
-&#160;&#160;<b>kBusyProcessing</b>
+&#160;&#160;<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158a95d35fd198eeeab3c32aaffba3c4ca77">kBusyProcessing</a>
 <br />
  }</td></tr>
 <tr class="separator:a675a5d498c842cca407d2ce2a0399158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42df4ce8182bcd9a21f6a3b097c1e188"><td class="memItemLeft" align="right" valign="top"><a id="a42df4ce8182bcd9a21f6a3b097c1e188"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>ConnectionResult</b> : std::uint8_t { <b>kConnectionOk</b> = 0U
-, <b>kConnectionFailed</b>
-, <b>kConnectionTimeout</b>
+<tr class="memitem:a42df4ce8182bcd9a21f6a3b097c1e188"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">ConnectionResult</a> : std::uint8_t { <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a">kConnectionOk</a> = 0U
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b">kConnectionFailed</a>
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f">kConnectionTimeout</a>
  }</td></tr>
 <tr class="separator:a42df4ce8182bcd9a21f6a3b097c1e188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a059e635c811bdaf1760e32626e88ff8d"><td class="memItemLeft" align="right" valign="top"><a id="a059e635c811bdaf1760e32626e88ff8d"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DisconnectionResult</b> : std::uint8_t { <b>kDisconnectionOk</b> = 0U
-, <b>kDisconnectionFailed</b>
+<tr class="memitem:a059e635c811bdaf1760e32626e88ff8d"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">DisconnectionResult</a> : std::uint8_t { <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f">kDisconnectionOk</a> = 0U
+, <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18">kDisconnectionFailed</a>
  }</td></tr>
 <tr class="separator:a059e635c811bdaf1760e32626e88ff8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3237da027cc187db3fad4cfb7ab3d051"><td class="memItemLeft" align="right" valign="top"><a id="a3237da027cc187db3fad4cfb7ab3d051"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Startup</b> ()=0</td></tr>
+<tr class="memitem:a32f0750f34ae19e25d8fd03b273868f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a32f0750f34ae19e25d8fd03b273868f5">UdsTransportProtocolMgr</a> ()=default</td></tr>
+<tr class="separator:a32f0750f34ae19e25d8fd03b273868f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f7f71c990ba2c839a110d6f3cfe542"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a24f7f71c990ba2c839a110d6f3cfe542">~UdsTransportProtocolMgr</a> ()=default</td></tr>
+<tr class="separator:a24f7f71c990ba2c839a110d6f3cfe542"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3237da027cc187db3fad4cfb7ab3d051"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a3237da027cc187db3fad4cfb7ab3d051">Startup</a> ()=0</td></tr>
 <tr class="separator:a3237da027cc187db3fad4cfb7ab3d051"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6baec2aa84ec00b2c5003e4cde140a38"><td class="memItemLeft" align="right" valign="top"><a id="a6baec2aa84ec00b2c5003e4cde140a38"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Run</b> ()=0</td></tr>
+<tr class="memitem:a6baec2aa84ec00b2c5003e4cde140a38"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a6baec2aa84ec00b2c5003e4cde140a38">Run</a> ()=0</td></tr>
 <tr class="separator:a6baec2aa84ec00b2c5003e4cde140a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaab1b3212a78075eb9feeea294840e8b"><td class="memItemLeft" align="right" valign="top"><a id="aaab1b3212a78075eb9feeea294840e8b"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>Shutdown</b> ()=0</td></tr>
+<tr class="memitem:aaab1b3212a78075eb9feeea294840e8b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#aaab1b3212a78075eb9feeea294840e8b">Shutdown</a> ()=0</td></tr>
 <tr class="separator:aaab1b3212a78075eb9feeea294840e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="protocol__mgr_8h_source.html#l00015">15</a> of file <a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a42df4ce8182bcd9a21f6a3b097c1e188"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42df4ce8182bcd9a21f6a3b097c1e188">&#9670;&nbsp;</a></span>ConnectionResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a42df4ce8182bcd9a21f6a3b097c1e188">uds_transport::UdsTransportProtocolMgr::ConnectionResult</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a42df4ce8182bcd9a21f6a3b097c1e188a4e44eeab22910cf8583e332ab76f6b3a"></a>kConnectionOk&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a42df4ce8182bcd9a21f6a3b097c1e188a02ab6c0d9ade5980eab9b310c5ca642b"></a>kConnectionFailed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a42df4ce8182bcd9a21f6a3b097c1e188a3d26728cd13be3a1cf8936abf4b9151f"></a>kConnectionTimeout&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="protocol__mgr_8h_source.html#l00035">35</a> of file <a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;: std::uint8_t { kConnectionOk = 0U, kConnectionFailed, kConnectionTimeout };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a059e635c811bdaf1760e32626e88ff8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a059e635c811bdaf1760e32626e88ff8d">&#9670;&nbsp;</a></span>DisconnectionResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a059e635c811bdaf1760e32626e88ff8d">uds_transport::UdsTransportProtocolMgr::DisconnectionResult</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a059e635c811bdaf1760e32626e88ff8dabe329cdb769cc168700c884e0dff837f"></a>kDisconnectionOk&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a059e635c811bdaf1760e32626e88ff8da7623e8d5c9524bd0f0fa02b7591bcc18"></a>kDisconnectionFailed&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="protocol__mgr_8h_source.html#l00037">37</a> of file <a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;: std::uint8_t { kDisconnectionOk = 0U, kDisconnectionFailed };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="af00157597b8d587f27088b31ee43bdbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af00157597b8d587f27088b31ee43bdbe">&#9670;&nbsp;</a></span>IndicationResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbea408c6ce36c29ad236be0ba1314d49802"></a>kIndicationOk&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbea8d0e47238ad7b5bf3105b89c8d86831e"></a>kIndicationOccupied&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbea345d483ffe52926a7c2bd41090f7427b"></a>kIndicationOverflow&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbea2cb9b45d3443cd2b637394fcc2b24f94"></a>kIndicationUnknownTargetAddress&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbeaf7b9e7152bfd6a30e295cfd7fb7ba697"></a>kIndicationPending&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af00157597b8d587f27088b31ee43bdbea65ff6ae438c88babf6947e2ac50c3976"></a>kIndicationNOk&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="protocol__mgr_8h_source.html#l00018">18</a> of file <a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                              : std::uint8_t {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    kIndicationOk = 0U,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    kIndicationOccupied,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    kIndicationOverflow,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    kIndicationUnknownTargetAddress,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    kIndicationPending,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    kIndicationNOk</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a675a5d498c842cca407d2ce2a0399158"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a675a5d498c842cca407d2ce2a0399158">&#9670;&nbsp;</a></span>TransmissionResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a675a5d498c842cca407d2ce2a0399158a347d13f0f3f419edb9d3fd336491984b"></a>kTransmitOk&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a675a5d498c842cca407d2ce2a0399158a0225bac412583ee007d235b8f8301f18"></a>kTransmitFailed&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a675a5d498c842cca407d2ce2a0399158a5a4540281fb520c2b9228edefcd1d0bb"></a>kNoTransmitAckReceived&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a675a5d498c842cca407d2ce2a0399158a6d07b7ebf510674ab616f3a00abfa772"></a>kNegTransmitAckReceived&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a675a5d498c842cca407d2ce2a0399158a95d35fd198eeeab3c32aaffba3c4ca77"></a>kBusyProcessing&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="protocol__mgr_8h_source.html#l00027">27</a> of file <a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                : std::uint8_t {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    kTransmitOk = 0U,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    kTransmitFailed,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    kNoTransmitAckReceived,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    kNegTransmitAckReceived,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    kBusyProcessing</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  };</div>
+</div><!-- fragment -->
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a32f0750f34ae19e25d8fd03b273868f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32f0750f34ae19e25d8fd03b273868f5">&#9670;&nbsp;</a></span>UdsTransportProtocolMgr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uds_transport::UdsTransportProtocolMgr::UdsTransportProtocolMgr </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a24f7f71c990ba2c839a110d6f3cfe542"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f7f71c990ba2c839a110d6f3cfe542">&#9670;&nbsp;</a></span>~UdsTransportProtocolMgr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual uds_transport::UdsTransportProtocolMgr::~UdsTransportProtocolMgr </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6baec2aa84ec00b2c5003e4cde140a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6baec2aa84ec00b2c5003e4cde140a38">&#9670;&nbsp;</a></span>Run()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsTransportProtocolMgr::Run </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#aad5fa0b55ed8eb19ee2412d5ea13403f">diag::client::uds_transport::UdsTransportProtocolManager</a>.</p>
+
+</div>
+</div>
+<a id="aaab1b3212a78075eb9feeea294840e8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaab1b3212a78075eb9feeea294840e8b">&#9670;&nbsp;</a></span>Shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsTransportProtocolMgr::Shutdown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a12fc1e5ad6299e8c1d541a76c23387d1">diag::client::uds_transport::UdsTransportProtocolManager</a>.</p>
+
+</div>
+</div>
+<a id="a3237da027cc187db3fad4cfb7ab3d051"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3237da027cc187db3fad4cfb7ab3d051">&#9670;&nbsp;</a></span>Startup()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void uds_transport::UdsTransportProtocolMgr::Startup </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#ad51675d15e05e5f4594ce0cee5004cf6">diag::client::uds_transport::UdsTransportProtocolManager</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/uds-transport-layer-api/uds_transport/<a class="el" href="protocol__mgr_8h_source.html">protocol_mgr.h</a></li>
 </ul>

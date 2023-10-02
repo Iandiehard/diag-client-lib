@@ -1,0 +1,4 @@
+<map id="core_type::Result::ValueOr" name="core_type::Result::ValueOr">
+<area shape="rect" id="node1" title="Return the contained value or the given default value." alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="196,5,339,47"/>
+</map>

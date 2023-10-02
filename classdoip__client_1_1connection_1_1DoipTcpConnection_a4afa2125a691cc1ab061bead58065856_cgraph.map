@@ -1,0 +1,12 @@
+<map id="doip_client::connection::DoipTcpConnection::DisconnectFromHost" name="doip_client::connection::DoipTcpConnection::DisconnectFromHost">
+<area shape="rect" id="node1" title="Function to disconnect from remote host server." alt="" coords="5,156,240,212"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9" title="Function to disconnect from remote host server." alt="" coords="288,156,508,212"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="556,76,781,132"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a31ea0890230f6c0a21a0f32a113ba543" title="Check if routing activation is active for this handler." alt="" coords="559,156,779,212"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a75420c6d5082b5c762a9ee626cd59211" title="Function to reset the handler." alt="" coords="559,236,779,292"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="872,5,1029,61"/>
+<area shape="rect" id="node5" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="858,86,1043,127"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ae578fb73c66ea109fe5f1ae45d186be9" title="Check if routing activation is active for this handler." alt="" coords="835,156,1067,212"/>
+<area shape="rect" id="node9" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a56a6e4796d2ac9918de596789dce5baa" title="Function to reset the handler." alt="" coords="829,236,1072,292"/>
+<area shape="rect" id="node10" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a510c796006fc6ccb49df16b1c6c50a75" title="Function to reset the handler." alt="" coords="835,316,1067,372"/>
+</map>

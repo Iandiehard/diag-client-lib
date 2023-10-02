@@ -1,4 +1,6 @@
 <map id="diag::client::conversation::VdConversationHandler" name="diag::client::conversation::VdConversationHandler">
-<area shape="rect" id="node1" title="Class to manage reception from transport protocol handler to vd connection handler." alt="" coords="8,95,195,136"/>
-<area shape="rect" id="node2" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node1" title="Class to manage reception from transport protocol handler to vd connection handler." alt="" coords="72,200,259,241"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="5,96,197,137"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation_1_1VdConversation.html" title="Class to search for available diagnostic server over a network." alt="" coords="221,96,408,137"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation." alt="" coords="221,5,408,47"/>
 </map>

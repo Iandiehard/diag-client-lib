@@ -1,0 +1,6 @@
+<map id="diag::client::dcm::DCMClient::Shutdown" name="diag::client::dcm::DCMClient::Shutdown">
+<area shape="rect" id="node1" title="Function to shutdown the DCMClient." alt="" coords="5,93,168,134"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="234,5,437,61"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa" title="Function to shutdown the ConversationManager." alt="" coords="216,85,455,141"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47" title="Function to shutdown the Conversation." alt="" coords="241,166,429,207"/>
+</map>

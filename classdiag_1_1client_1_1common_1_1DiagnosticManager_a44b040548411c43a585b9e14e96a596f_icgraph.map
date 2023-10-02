@@ -1,0 +1,4 @@
+<map id="diag::client::common::DiagnosticManager::Shutdown" name="diag::client::common::DiagnosticManager::Shutdown">
+<area shape="rect" id="node1" title="Function to shutdown the DiagnosticManager." alt="" coords="249,5,413,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0e32dfd12a64b4d08821c0d58ac30b4a" title="Function to manage the whole lifecycle of DiagnosticManager." alt="" coords="5,13,201,54"/>
+</map>

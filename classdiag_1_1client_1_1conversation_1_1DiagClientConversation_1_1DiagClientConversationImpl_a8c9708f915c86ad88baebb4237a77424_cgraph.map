@@ -1,0 +1,5 @@
+<map id="diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::SendDiagnosticRequest" name="diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::SendDiagnosticRequest">
+<area shape="rect" id="node1" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="5,5,219,76"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html#ad5d986a110f666c9128cb4b59b0023ea" title="Function to send Diagnostic Request and get Diagnostic Response." alt="" coords="267,20,545,61"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#a7946df58d8b8943580f3ae780593af0d" title="Build a new Result from the specified error (given as lvalue)" alt="" coords="593,20,736,61"/>
+</map>

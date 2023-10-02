@@ -1,0 +1,6 @@
+<map id="core_type::Result::EmplaceValue" name="core_type::Result::EmplaceValue">
+<area shape="rect" id="node1" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="461,50,604,91"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a4f89332d20e50adaf07bbb3e8f2b01cf" title="Function to destroy the socket." alt="" coords="244,5,413,61"/>
+<area shape="rect" id="node3" href="$namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b" title="Parser to get the configuration from json file." alt="" coords="247,86,410,127"/>
+<area shape="rect" id="node4" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,86,196,127"/>
+</map>

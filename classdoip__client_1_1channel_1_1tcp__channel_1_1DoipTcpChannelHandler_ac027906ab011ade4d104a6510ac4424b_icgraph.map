@@ -1,0 +1,5 @@
+<map id="doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendDiagnosticRequest" name="doip_client::channel::tcp_channel::DoipTcpChannelHandler::SendDiagnosticRequest">
+<area shape="rect" id="node1" title="Function to send diagnostic request." alt="" coords="540,5,775,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#afba7750333863947ee799091ad3c1922" title="Function to transmit a valid Uds message." alt="" coords="272,5,492,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3e600064ff99848ff724f53970dd4c70" title="Function to transmit a valid Uds message." alt="" coords="5,13,224,54"/>
+</map>

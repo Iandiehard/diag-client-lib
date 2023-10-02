@@ -1,0 +1,11 @@
+<map id="utility::state::StateContext::TransitionTo" name="utility::state::StateContext::TransitionTo">
+<area shape="rect" id="node1" title=" " alt="" coords="760,243,953,284"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a7cf3983f0d0233d8c3a9f99d7bfeee9c" title="Constructs an instance of DiagnosticMessageHandlerImpl." alt="" coords="405,5,693,76"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#aa60220e266a1d9162a03cc35e47801cf" title="Constructs an instance of RoutingActivationHandlerImpl." alt="" coords="411,100,688,171"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a068f0a8e0669a4e3114006a73baa55e4" title="Function to stop the handler." alt="" coords="387,195,712,251"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#a9afe5255cb85323ee3dd9e6b2e57d825" title="Function to stop the handler." alt="" coords="392,275,707,331"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a1fdd3ad687b979e1b48935dd1f04794e" title="Constructs an instance of VehicleDiscoveryHandlerImpl." alt="" coords="413,356,686,427"/>
+<area shape="rect" id="node9" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html#a3660752b5dbf2d55e222763c3204eac6" title="Constructs an instance of VehicleDiscoveryHandlerImpl." alt="" coords="403,451,696,521"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#aca175a9f4736cd590bb2e33389af904d" title="Function to reset the handler." alt="" coords="5,195,339,251"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#ab892afc1252d701800627286c3d3b88f" title="Function to reset the handler." alt="" coords="11,275,333,331"/>
+</map>
