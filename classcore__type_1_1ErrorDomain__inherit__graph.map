@@ -1,0 +1,5 @@
+<map id="core_type::ErrorDomain" name="core_type::ErrorDomain">
+<area shape="rect" id="node1" title="Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod..." alt="" coords="5,46,181,73"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html" title="Definition of Dcm Client Error domain." alt="" coords="233,5,424,47"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1error__domain_1_1DoipErrorDomain.html" title="Definition of Doip Client Error domain." alt="" coords="229,71,428,112"/>
+</map>

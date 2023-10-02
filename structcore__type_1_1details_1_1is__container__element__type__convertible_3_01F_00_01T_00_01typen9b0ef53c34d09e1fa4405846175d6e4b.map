@@ -1,0 +1,4 @@
+<map id="core_type::details::is_container_element_type_convertible&lt; F, T, typename std::enable_if&lt; std::is_convertible&lt; std::remove_pointer_t&lt; decltype(std::data(std::declval&lt; F &gt;()))&gt;(*)[], T(*)[]&gt;::value &gt;::type &gt;" name="core_type::details::is_container_element_type_convertible&lt; F, T, typename std::enable_if&lt; std::is_convertible&lt; std::remove_pointer_t&lt; decltype(std::data(std::declval&lt; F &gt;()))&gt;(*)[], T(*)[]&gt;::value &gt;::type &gt;">
+<area shape="rect" id="node1" title="Checks if std::remove_pointer_t&lt;decltype(std::data(arr))&gt;(*)[] is convertible to T(*)[]." alt="" coords="5,80,256,209"/>
+<area shape="rect" id="node2" title=" " alt="" coords="75,5,187,32"/>
+</map>

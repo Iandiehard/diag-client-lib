@@ -1,0 +1,4 @@
+<map id="diag::client::uds_message::DmUdsResponse" name="diag::client::uds_message::DmUdsResponse">
+<area shape="rect" id="node1" title=" " alt="" coords="5,95,196,136"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1uds__message_1_1UdsMessage.html" title="Class represents an UDS message exchanged between User of diag&#45;client&#45;lib and implementation of diag&#45;..." alt="" coords="5,5,196,47"/>
+</map>

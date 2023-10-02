@@ -1,0 +1,4 @@
+<map id="diag::client::common::DiagnosticManager" name="diag::client::common::DiagnosticManager">
+<area shape="rect" id="node1" title="Parent class to create Diagnostic Manager." alt="" coords="5,5,164,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1dcm_1_1DCMClient.html" title="Class to create Diagnostic Manager Client functionality." alt="" coords="15,95,154,136"/>
+</map>

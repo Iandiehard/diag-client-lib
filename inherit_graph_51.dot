@@ -1,8 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="doip_client::channel\l::udp_channel::VehicleIdentification\lHandler::VehicleIdentificationHandlerImpl",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html",tooltip="Class implements vehicle identification handler."];
-}

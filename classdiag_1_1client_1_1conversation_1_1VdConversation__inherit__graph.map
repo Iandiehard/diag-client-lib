@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::VdConversation" name="diag::client::conversation::VdConversation">
+<area shape="rect" id="node1" title="Class to search for available diagnostic server over a network." alt="" coords="5,95,192,136"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation." alt="" coords="5,5,192,47"/>
+</map>

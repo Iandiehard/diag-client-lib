@@ -1,0 +1,4 @@
+<map id="core_type::details::is_data_size_valid&lt; T, std::void_t&lt; decltype(std::data(std::declval&lt; T &gt;())), decltype(std::size(std::declval&lt; T &gt;()))&gt; &gt;" name="core_type::details::is_data_size_valid&lt; T, std::void_t&lt; decltype(std::data(std::declval&lt; T &gt;())), decltype(std::size(std::declval&lt; T &gt;()))&gt; &gt;">
+<area shape="rect" id="node1" title="Type trait to check if std::data(cont) and std::size(cont) are both well&#45;formed." alt="" coords="5,80,197,180"/>
+<area shape="rect" id="node2" title=" " alt="" coords="45,5,157,32"/>
+</map>

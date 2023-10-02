@@ -1,0 +1,4 @@
+<map id="core_type::details::is_container_element_type_convertible&lt; typename, typename, typename &gt;" name="core_type::details::is_container_element_type_convertible&lt; typename, typename, typename &gt;">
+<area shape="rect" id="node1" title="Checks if std::remove_pointer_t&lt;decltype(std::data(arr))&gt;(*)[] is convertible to T(*)[]." alt="" coords="5,80,228,151"/>
+<area shape="rect" id="node2" title=" " alt="" coords="57,5,176,32"/>
+</map>

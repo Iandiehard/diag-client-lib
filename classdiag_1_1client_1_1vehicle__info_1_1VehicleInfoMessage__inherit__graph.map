@@ -1,0 +1,4 @@
+<map id="diag::client::vehicle_info::VehicleInfoMessage" name="diag::client::vehicle_info::VehicleInfoMessage">
+<area shape="rect" id="node1" title="Class provide storage of list of all available vehicle entity." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1VehicleInfoMessageImpl.html" title=" " alt="" coords="7,95,196,136"/>
+</map>

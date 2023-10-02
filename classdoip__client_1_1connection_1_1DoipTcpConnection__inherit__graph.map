@@ -1,0 +1,4 @@
+<map id="doip_client::connection::DoipTcpConnection" name="doip_client::connection::DoipTcpConnection">
+<area shape="rect" id="node1" title="Doip Tcp Connection handle connection between two layers." alt="" coords="15,80,187,121"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="5,5,197,32"/>
+</map>

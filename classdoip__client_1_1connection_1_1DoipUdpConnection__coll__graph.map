@@ -1,0 +1,5 @@
+<map id="doip_client::connection::DoipUdpConnection" name="doip_client::connection::DoipUdpConnection">
+<area shape="rect" id="node1" title="Doip Udp Connection handle connection between two layers." alt="" coords="15,185,187,227"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="5,109,197,136"/>
+<area shape="rect" id="node3" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="5,5,197,47"/>
+</map>

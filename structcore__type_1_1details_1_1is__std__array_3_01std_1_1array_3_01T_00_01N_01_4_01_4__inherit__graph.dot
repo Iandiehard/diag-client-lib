@@ -1,9 +1,0 @@
-digraph "core_type::details::is_std_array&lt; std::array&lt; T, N &gt; &gt;"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  Node1 [label="core_type::details\l::is_std_array\< std\l::array\< T, N \> \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Type trait to check if passed element is std::array or not."];
-  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="std::true_type",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-}

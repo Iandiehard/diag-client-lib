@@ -1,8 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="diag::client::vehicle\l_info::VehicleAddrInfoRequest",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html",tooltip="Struct containing Vehicle selection mode."];
-}

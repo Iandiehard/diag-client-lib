@@ -1,8 +1,0 @@
-digraph "Graphical Class Hierarchy"
-{
- // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
-  rankdir="LR";
-  Node0 [label="core_type::details\l::span_storage\< T, dynamic\l_extent \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structcore__type_1_1details_1_1span__storage_3_01T_00_01dynamic__extent_01_4.html",tooltip="Storage class needed for span."];
-}
