@@ -42,7 +42,8 @@ Diagnostic Client library supports below Diagnostic Protocols :-
 
 Diagnostic Client library supports opening of multiple conversation(tester instance) for sending diagnostic request to multiple ECU at the same time. 
 
-Public Api's can be found in [include](diag-client-lib/appl/include) to understand the usage of Diagnostic Client library, 
+## Documentation
+[Github pages](https://iandiehard.github.io/diag-client-lib/) is used to publish the documentation of this project using Doxygen.
 
 ## Get Started
 In this section, you will learn how to [build and install](#build-and-install)
