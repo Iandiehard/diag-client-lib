@@ -103,13 +103,15 @@ Overview</h1>
 <li>UDS (Unified Diagnostic Services)</li>
 </ul>
 <p>Diagnostic Client library supports opening of multiple conversation(tester instance) for sending diagnostic request to multiple ECU at the same time.</p>
-<p>Public Api's can be found in <a href="diag-client-lib/appl/include">include</a> to understand the usage of Diagnostic Client library,</p>
 <h1><a class="anchor" id="autotoc_md3"></a>
+Documentation</h1>
+<p><a href="https://iandiehard.github.io/diag-client-lib/">Github pages</a> is used to publish the documentation of this project using Doxygen.</p>
+<h1><a class="anchor" id="autotoc_md4"></a>
 Get Started</h1>
 <p>In this section, you will learn how to <a href="#build-and-install">build and install</a> Diagnostic Client Library and also learn <a href="#how-to-use-diag-client-lib">how to use diag-client-lib</a></p>
-<h2><a class="anchor" id="autotoc_md4"></a>
+<h2><a class="anchor" id="autotoc_md5"></a>
 Build and Install</h2>
-<h3><a class="anchor" id="autotoc_md5"></a>
+<h3><a class="anchor" id="autotoc_md6"></a>
 In Linux :-</h3>
 <p>The following packages are needed to build and install Diagnostic Client library:-</p>
 <table class="markdownTable">
@@ -123,7 +125,7 @@ In Linux :-</h3>
 <td class="markdownTableBodyNone"><a href="https://www.boost.org/">Boost</a>   </td><td class="markdownTableBodyNone">asio operation   </td><td class="markdownTableBodyNone">&gt;= 1.79.0   </td></tr>
 </table>
 <p>You can also execute to install dependencies :- </p><div class="fragment"><div class="line">sh .github/setup.sh </div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md6"></a>
+</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md7"></a>
 In Windows :-</h3>
 <p>The following packages are needed to build and install Diagnostic Client library:-</p>
 <table class="markdownTable">
@@ -135,7 +137,7 @@ In Windows :-</h3>
 <td class="markdownTableBodyNone"><a href="https://www.boost.org/">Boost</a>   </td><td class="markdownTableBodyNone">asio operation   </td><td class="markdownTableBodyNone">&gt;= 1.79.0   </td></tr>
 </table>
 <p>Note: Covesa DLT is not directly supported in Windows. For more information see <a href="https://github.com/COVESA/dlt-daemon/issues/136">Dlt Issue</a></p>
-<h2><a class="anchor" id="autotoc_md7"></a>
+<h2><a class="anchor" id="autotoc_md8"></a>
 How to use diag-client-lib</h2>
 <p>Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage. Diagnostic Client library can be built as shared library by setting the below CMake Flag to ON </p><div class="fragment"><div class="line">BUILD_SHARED_LIBS : ON</div>
 </div><!-- fragment --><p>Main instance of Diagnostic Client Library must be created using <code>CreateDiagnosticClient</code> method call by passing the path to <a href="diag-client-lib/appl/etc/diag_client_config.json">diag-client config json</a> file as parameter. </p><div class="fragment"><div class="line"><span class="comment">// Create the Diagnostic client and pass the config for creating internal properties</span></div>
@@ -149,37 +151,37 @@ How to use diag-client-lib</h2>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">diag::client::conversation::DiagClientConversation</a></div><div class="ttdoc">Conversation class to establish connection with a Diagnostic Server.</div><div class="ttdef"><b>Definition:</b> diagnostic_client_conversation.h:24</div></div>
 </div><!-- fragment --><p> Multiple tester instance can be created using these method as provided in the configuration json file.</p>
 <p>Check the example application [Examples](examples) on how Diagnostic Client Library can be linked and used. Example can be built too by enabling CMake Flag:- </p><div class="fragment"><div class="line">BUILD_EXAMPLES : ON</div>
-</div><!-- fragment --><h2><a class="anchor" id="autotoc_md8"></a>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Logging in diag-client-lib</h2>
 <p>Diagnostic Client Library supports logging and tracing by using the logging infrastructure from <a href="https://github.com/COVESA/dlt-daemon">COVESA DLT</a>. Logging is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:- </p><div class="fragment"><div class="line">BUILD_WITH_DLT : ON</div>
 </div><!-- fragment --><p> Note: DLT logging is not supported in Windows. So, CMake Flag must be switched OFF.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Documentation in diag-client-lib</h2>
 <p>Diagnostic Client Library uses doxygen to generate the documentation of the public api's. Doxygen build is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:- </p><div class="fragment"><div class="line">BUILD_DOXYGEN : ON</div>
 </div><!-- fragment --><p> In the future, we will have internal code documentation too.</p>
-<h1><a class="anchor" id="autotoc_md10"></a>
+<h1><a class="anchor" id="autotoc_md11"></a>
 Requirements</h1>
 <p>Component requirements implemented are documented <a class="el" href="md__home_runner_work_diag_client_lib_diag_client_lib_docs_requirement_requirements.html">REQ</a></p>
-<h1><a class="anchor" id="autotoc_md11"></a>
+<h1><a class="anchor" id="autotoc_md12"></a>
 Known Defect</h1>
 <ul>
 <li>No defect is identified yet.</li>
 </ul>
 <p>You can add new issues with label <code>bug</code> for notifying us about any defect in library.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Future Work</h1>
 <ul>
 <li>Improve internal API documentation</li>
 <li>DoIP with TLS</li>
 </ul>
 <p>For adding more features you can add new issues with label <code>enhancement</code> so that we can work on it.</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 License</h1>
 <p>Full information on project license is available here [LICENSE](LICENSE). Boost License is available here <a href="diag-client-lib/lib/boost-support/LICENSE">LICENSE</a>.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Contact</h1>
 <p>For any other queries regarding <code>diag-client-lib</code>, please drop a mail to <code>iandiehard@outlook.com</code>.</p>
-<h1><a class="anchor" id="autotoc_md15"></a>
+<h1><a class="anchor" id="autotoc_md16"></a>
 Author</h1>
 <p>Original idea, design and implementation done by Avijit Dey <code>iandiehard@outlook.com</code>. </p>
 </div></div><!-- PageDoc -->

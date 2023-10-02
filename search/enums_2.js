@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vehicleinforesponseerror_95',['VehicleInfoResponseError',['../classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5',1,'diag::client::DiagClient']]]
+  ['initializationresult_731',['InitializationResult',['../classuds__transport_1_1UdsTransportProtocolHandler.html#accfa340ccbdf0b514f17617b8fdfd585',1,'uds_transport::UdsTransportProtocolHandler']]]
 ];

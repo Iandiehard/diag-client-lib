@@ -66,52 +66,52 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>The following software requirements are derived from ISO 22900-2 2022 (Diagnostic protocol data unit(D-PDU API)) and <a href="https://www.autosar.org/fileadmin/standards/R21-11/AP/AUTOSAR_SWS_Diagnostics.pdf">Adaptive AUTOSAR Diagnostic Specification 21-11</a></p>
-<h2><a class="anchor" id="autotoc_md17"></a>
+<h2><a class="anchor" id="autotoc_md18"></a>
 REQ: DiagClientLib-Library-Support</h2>
 <p>Diagnostic client library shall be used as a shared or static library. Diagnostic client library shall be easily linkable with any executable and shall be ready to use.</p>
-<h2><a class="anchor" id="autotoc_md18"></a>
+<h2><a class="anchor" id="autotoc_md19"></a>
 REQ: DiagClientLib-DoIP-Support</h2>
 <p>Diagnostic client library only provide support for DoIP(Diagnostic Over IP) as a diagnostic communication protocol for sending diagnostic request to Diagnostic Servers.</p>
-<h2><a class="anchor" id="autotoc_md19"></a>
+<h2><a class="anchor" id="autotoc_md20"></a>
 REQ: DiagClientLib-MultipleTester-Connection</h2>
 <p>Diagnostic client library shall support creation of multiple diagnostic logical connection towards a single ECU or towards multiple ECUs. Each of these connection is known as Diagnostic Client Conversation.</p>
-<h2><a class="anchor" id="autotoc_md20"></a>
+<h2><a class="anchor" id="autotoc_md21"></a>
 REQ: DiagClientLib-ComParam-Settings</h2>
 <p>Diagnostic client library shall support setting of diagnostic communication protocol parameter value via JSON file. In this case ComParam of DoIP protocol shall be configured via JSON file provided. A set of ComParams can be used to individually define communication to a single ECU or a functional group of ECUs.</p>
-<h2><a class="anchor" id="autotoc_md21"></a>
+<h2><a class="anchor" id="autotoc_md22"></a>
 REQ: DiagClientLib-Construction</h2>
 <p>Diagnostic client library shall provide an API to construct an instance of Diagnostic Client Library with specific settings(ComParam etc).</p>
-<h2><a class="anchor" id="autotoc_md22"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 REQ: DiagClientLib-Destruction</h2>
 <p>Diagnostic client library shall provide an API to destruct the already created instance of Diagnostic Client Library.</p>
-<h2><a class="anchor" id="autotoc_md23"></a>
+<h2><a class="anchor" id="autotoc_md24"></a>
 REQ: DiagClientLib-Initialization</h2>
 <p>Diagnostic client library shall provide an API to initialize the library during start-up phase.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md25"></a>
 REQ: DiagClientLib-DeInitialization</h2>
 <p>Diagnostic client library shall provide an API to de-initialize the library and stop all the internal processing during shutdown phase.</p>
-<h2><a class="anchor" id="autotoc_md25"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 REQ: DiagClientLib-VehicleDiscovery</h2>
 <p>Diagnostic client library shall provide an API to send vehicle identification request to all the ECU within the network and receive vehicle identification response.</p>
-<h2><a class="anchor" id="autotoc_md26"></a>
+<h2><a class="anchor" id="autotoc_md27"></a>
 REQ: DiagClientLib-Conversation-Construction</h2>
 <p>Diagnostic client library shall provide an API to construct the Diagnostic Client Conversation instance required for logical connection towards single or multiple ECUs.</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md28"></a>
 REQ: DiagClientLib-Conversation-Destruction</h2>
 <p>Diagnostic client library shall provide an API to destruct the existing Diagnostic Client Conversation instance.</p>
-<h2><a class="anchor" id="autotoc_md28"></a>
+<h2><a class="anchor" id="autotoc_md29"></a>
 REQ: DiagClientLib-Conversation-StartUp</h2>
 <p>Diagnostic client library shall provide an API to start the Diagnostic Client Conversation instance.</p>
-<h2><a class="anchor" id="autotoc_md29"></a>
+<h2><a class="anchor" id="autotoc_md30"></a>
 REQ: DiagClientLib-Conversation-Shutdown</h2>
 <p>Diagnostic client library shall provide an API to shut down the Diagnostic Client Conversation instance.</p>
-<h2><a class="anchor" id="autotoc_md30"></a>
+<h2><a class="anchor" id="autotoc_md31"></a>
 REQ: DiagClientLib-Conversation-Connect</h2>
 <p>Diagnostic client library shall provide an API for establishing diagnostic logical connection towards single or multiple ECUs.</p>
-<h2><a class="anchor" id="autotoc_md31"></a>
+<h2><a class="anchor" id="autotoc_md32"></a>
 REQ: DiagClientLib-Conversation-Disconnect</h2>
 <p>Diagnostic client library shall provide an API to disconnect the diagnostic logical connection towards single or multiple ECUs.</p>
-<h2><a class="anchor" id="autotoc_md32"></a>
+<h2><a class="anchor" id="autotoc_md33"></a>
 REQ: DiagClientLib-Conversation-DiagRequestResponse</h2>
 <p>Diagnostic client library shall provide an API to send diagnostic request towards the connected ECU/ECUs and receive diagnostic response and provide back the diagnostic response to the user. </p>
 </div></div><!-- contents -->

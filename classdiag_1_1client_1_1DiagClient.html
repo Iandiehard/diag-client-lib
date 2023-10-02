@@ -66,6 +66,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classdiag_1_1client_1_1DiagClient-members.html">List of all members</a>  </div>
@@ -79,6 +80,12 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="diagnostic__client_8h_source.html">diagnostic_client.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html">DiagClientImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class to provide implementation of diag client.  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a0c8616e98d9c476446749a84f83a7db5"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">VehicleInfoResponseError</a> : std::uint8_t { <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18">kTransmitFailed</a> = 0U
@@ -111,15 +118,15 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#ae1caf4133248b451d591d5c43dfba4d2">~DiagClient</a> () noexcept</td></tr>
 <tr class="memdesc:ae1caf4133248b451d591d5c43dfba4d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a> -Destruction. <br /></td></tr>
 <tr class="separator:ae1caf4133248b451d591d5c43dfba4d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af00ec96d37f6e059c75563717ff8ecd3"><td class="memItemLeft" align="right" valign="top">Result&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#af00ec96d37f6e059c75563717ff8ecd3">Initialize</a> () noexcept</td></tr>
-<tr class="memdesc:af00ec96d37f6e059c75563717ff8ecd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the already created instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a>.  <a href="classdiag_1_1client_1_1DiagClient.html#af00ec96d37f6e059c75563717ff8ecd3">More...</a><br /></td></tr>
-<tr class="separator:af00ec96d37f6e059c75563717ff8ecd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89f153e891cdc87f480bea764f99b433"><td class="memItemLeft" align="right" valign="top">Result&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a89f153e891cdc87f480bea764f99b433">DeInitialize</a> () noexcept</td></tr>
-<tr class="memdesc:a89f153e891cdc87f480bea764f99b433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to de-initialize the already initialized instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a>.  <a href="classdiag_1_1client_1_1DiagClient.html#a89f153e891cdc87f480bea764f99b433">More...</a><br /></td></tr>
-<tr class="separator:a89f153e891cdc87f480bea764f99b433"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40d52ff2845ca2cf03f9cba1228532e8"><td class="memItemLeft" align="right" valign="top">Result&lt; vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">VehicleInfoResponseError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a40d52ff2845ca2cf03f9cba1228532e8">SendVehicleIdentificationRequest</a> (<a class="el" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a> vehicle_info_request) noexcept</td></tr>
-<tr class="memdesc:a40d52ff2845ca2cf03f9cba1228532e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to send vehicle identification request and get the Diagnostic Server list.  <a href="classdiag_1_1client_1_1DiagClient.html#a40d52ff2845ca2cf03f9cba1228532e8">More...</a><br /></td></tr>
-<tr class="separator:a40d52ff2845ca2cf03f9cba1228532e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a063bd5a2a5f5e4b4f4a7e27f1d77267e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a063bd5a2a5f5e4b4f4a7e27f1d77267e">Initialize</a> () noexcept</td></tr>
+<tr class="memdesc:a063bd5a2a5f5e4b4f4a7e27f1d77267e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to initialize the already created instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a>.  <a href="classdiag_1_1client_1_1DiagClient.html#a063bd5a2a5f5e4b4f4a7e27f1d77267e">More...</a><br /></td></tr>
+<tr class="separator:a063bd5a2a5f5e4b4f4a7e27f1d77267e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae58859dacf7b73c9d829be798ea49eb1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#ae58859dacf7b73c9d829be798ea49eb1">DeInitialize</a> () noexcept</td></tr>
+<tr class="memdesc:ae58859dacf7b73c9d829be798ea49eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to de-initialize the already initialized instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a>.  <a href="classdiag_1_1client_1_1DiagClient.html#ae58859dacf7b73c9d829be798ea49eb1">More...</a><br /></td></tr>
+<tr class="separator:ae58859dacf7b73c9d829be798ea49eb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b874ba766f3717fc273810318489cc5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">VehicleInfoResponseError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a2b874ba766f3717fc273810318489cc5">SendVehicleIdentificationRequest</a> (<a class="el" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a> vehicle_info_request) noexcept</td></tr>
+<tr class="memdesc:a2b874ba766f3717fc273810318489cc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to send vehicle identification request and get the Diagnostic Server list.  <a href="classdiag_1_1client_1_1DiagClient.html#a2b874ba766f3717fc273810318489cc5">More...</a><br /></td></tr>
+<tr class="separator:a2b874ba766f3717fc273810318489cc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8adb3beb7c2d63e8db8fc76d185d422a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">conversation::DiagClientConversation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient.html#a8adb3beb7c2d63e8db8fc76d185d422a">GetDiagnosticClientConversation</a> (std::string_view conversation_name) noexcept</td></tr>
 <tr class="memdesc:a8adb3beb7c2d63e8db8fc76d185d422a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get required diag client conversation object based on conversation name.  <a href="classdiag_1_1client_1_1DiagClient.html#a8adb3beb7c2d63e8db8fc76d185d422a">More...</a><br /></td></tr>
 <tr class="separator:a8adb3beb7c2d63e8db8fc76d185d422a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -195,8 +202,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a89f153e891cdc87f480bea764f99b433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89f153e891cdc87f480bea764f99b433">&#9670;&nbsp;</a></span>DeInitialize()</h2>
+<a id="ae58859dacf7b73c9d829be798ea49eb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae58859dacf7b73c9d829be798ea49eb1">&#9670;&nbsp;</a></span>DeInitialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,7 +212,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Result&lt;void&gt; diag::client::DiagClient::DeInitialize </td>
+          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void &gt; diag::client::DiagClient::DeInitialize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -258,8 +265,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="af00ec96d37f6e059c75563717ff8ecd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af00ec96d37f6e059c75563717ff8ecd3">&#9670;&nbsp;</a></span>Initialize()</h2>
+<a id="a063bd5a2a5f5e4b4f4a7e27f1d77267e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a063bd5a2a5f5e4b4f4a7e27f1d77267e">&#9670;&nbsp;</a></span>Initialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,7 +275,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Result&lt;void&gt; diag::client::DiagClient::Initialize </td>
+          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; void &gt; diag::client::DiagClient::Initialize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -286,8 +293,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a40d52ff2845ca2cf03f9cba1228532e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40d52ff2845ca2cf03f9cba1228532e8">&#9670;&nbsp;</a></span>SendVehicleIdentificationRequest()</h2>
+<a id="a2b874ba766f3717fc273810318489cc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b874ba766f3717fc273810318489cc5">&#9670;&nbsp;</a></span>SendVehicleIdentificationRequest()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,7 +303,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Result&lt;vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">VehicleInfoResponseError</a>&gt; diag::client::DiagClient::SendVehicleIdentificationRequest </td>
+          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; vehicle_info::VehicleInfoMessageResponseUniquePtr, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt; diag::client::DiagClient::SendVehicleIdentificationRequest </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a>&#160;</td>
           <td class="paramname"><em>vehicle_info_request</em></td><td>)</td>
@@ -321,8 +328,9 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/include/<a class="el" href="diagnostic__client_8h_source.html">diagnostic_client.h</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diagnostic_client.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

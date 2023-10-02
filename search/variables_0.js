@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['eid_82',['eid',['../structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoResponse.html#a496ea96b1ac4ac9610b18490deabbc8b',1,'diag::client::vehicle_info::VehicleAddrInfoResponse']]]
+  ['conversation_5fhandler_5f_661',['conversation_handler_',['../classuds__transport_1_1Connection.html#a22fd98c7ded07dbf7fe6e007b3a6eef3',1,'uds_transport::Connection']]]
 ];
