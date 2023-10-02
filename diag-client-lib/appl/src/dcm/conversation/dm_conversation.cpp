@@ -114,8 +114,8 @@ DmConversation::DmConversation(std::string_view conversion_name, DMConversationT
       target_address_{},
       conversation_name_{conversion_name},
       dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {
-    (void)(active_session_);
-    (void)(active_security_level_);
+  (void) (active_session_);
+  (void) (active_security_level_);
 }
 
 DmConversation::~DmConversation() = default;
@@ -328,11 +328,9 @@ void DmConversation::RegisterConnection(std::unique_ptr<uds_transport::Connectio
 }
 
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
-DmConversation::IndicateMessage(uds_transport::UdsMessage::Address ,
-                                uds_transport::UdsMessage::Address ,
-                                uds_transport::UdsMessage::TargetAddressType , uds_transport::ChannelID ,
-                                std::size_t size, uds_transport::Priority ,
-                                uds_transport::ProtocolKind ,
+DmConversation::IndicateMessage(uds_transport::UdsMessage::Address, uds_transport::UdsMessage::Address,
+                                uds_transport::UdsMessage::TargetAddressType, uds_transport::ChannelID,
+                                std::size_t size, uds_transport::Priority, uds_transport::ProtocolKind,
                                 core_type::Span<std::uint8_t> payload_info) noexcept {
   std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
       uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationNOk, nullptr};
@@ -362,8 +360,8 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address ,
         // resize the global rx buffer
         payload_rx_buffer_.resize(size);
         ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
-        ret_val.second = std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, "", payload_rx_buffer_);
+        ret_val.second = std::make_unique<diag::client::uds_message::DmUdsMessage>(source_address_, target_address_, "",
+                                                                                   payload_rx_buffer_);
         conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kDiagRecvdFinalRes);
       }
       sync_timer_.CancelWait();

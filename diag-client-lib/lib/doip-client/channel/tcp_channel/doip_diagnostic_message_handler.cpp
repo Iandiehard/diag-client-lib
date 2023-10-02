@@ -517,14 +517,15 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
   doip_diag_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
                                        diagnostic_request->GetPayload().size());
   // create header
-  CreateDoipGenericHeader(doip_diag_req->GetTxBuffer(), kDoip_DiagMessage_Type,
-                          kDoip_DiagMessage_ReqResMinLen + diagnostic_request->GetPayload().size());
+  CreateDoipGenericHeader(
+      doip_diag_req->GetTxBuffer(), kDoip_DiagMessage_Type,
+      kDoip_DiagMessage_ReqResMinLen + static_cast<std::uint32_t>(diagnostic_request->GetPayload().size()));
   // Add source address
-  doip_diag_req->GetTxBuffer().emplace_back((uint8_t) ((diagnostic_request->GetSa() & 0xFF00) >> 8));
-  doip_diag_req->GetTxBuffer().emplace_back((uint8_t) (diagnostic_request->GetSa() & 0x00FF));
+  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
   // Add target address
-  doip_diag_req->GetTxBuffer().emplace_back((uint8_t) ((diagnostic_request->GetTa() & 0xFF00) >> 8));
-  doip_diag_req->GetTxBuffer().emplace_back((uint8_t) (diagnostic_request->GetTa() & 0x00FF));
+  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
   // Copy data bytes
   doip_diag_req->GetTxBuffer().insert(doip_diag_req->GetTxBuffer().begin() + kDoipheadrSize + kSourceAddressSize,
                                       diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());

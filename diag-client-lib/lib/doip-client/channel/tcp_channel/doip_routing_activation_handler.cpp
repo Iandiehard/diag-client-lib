@@ -423,15 +423,15 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
   CreateDoipGenericHeader(doip_routing_act_req->GetTxBuffer(), kDoip_RoutingActivation_ReqType,
                           kDoip_RoutingActivation_ReqMinLen);
   // Add source address
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t)((message->GetSa() & 0xFF00) >> 8u));
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t)(message->GetSa() & 0x00FF));
+  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
+  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
   // Add activation type
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t) kDoip_RoutingActivation_ReqActType_Default);
+  doip_routing_act_req->GetTxBuffer().emplace_back(kDoip_RoutingActivation_ReqActType_Default);
   // Add reservation byte , default zeroes
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t) 0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t) 0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t) 0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back((std::uint8_t) 0x00);
+  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
+  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
+  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
+  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
 
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_routing_act_req))) {

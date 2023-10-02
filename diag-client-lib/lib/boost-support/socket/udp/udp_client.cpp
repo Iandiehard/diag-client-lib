@@ -108,8 +108,6 @@ core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Open() {
 
 core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Transmit(UdpMessageConstPtr udp_message) {
   core_type::Result<void, UdpErrorCode> result{UdpErrorCode::kGenericError};
-  UdpErrorCodeType ec{};
-
   try {
     // Transmit to remote endpoints
     std::size_t send_size{udp_socket_.send_to(
@@ -157,14 +155,14 @@ core_type::Result<void, UdpClientSocket::UdpErrorCode> UdpClientSocket::Destroy(
 }
 
 // function invoked when datagram is received
-void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t bytes_received) {
+void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t total_bytes_received) {
   // Check for error
   if (error.value() == boost::system::errc::success) {
     if (local_ip_address_ != remote_endpoint_.address().to_string()) {
       UdpMessage::BufferType received_data{};
-      received_data.reserve(bytes_received);
+      received_data.reserve(total_bytes_received);
       // copy the received bytes into local buffer
-      received_data.insert(received_data.begin(), rx_buffer_.begin(), rx_buffer_.begin() + bytes_received);
+      received_data.insert(received_data.begin(), rx_buffer_.begin(), rx_buffer_.begin() + total_bytes_received);
 
       UdpMessagePtr udp_rx_message{std::make_unique<UdpMessage>(remote_endpoint_.address().to_string(),
                                                                 remote_endpoint_.port(), std::move(received_data))};
@@ -180,9 +178,10 @@ void UdpClientSocket::HandleMessage(const UdpErrorCodeType &error, std::size_t b
       // send data to upper layer
       udp_handler_read_(std::move(udp_rx_message));
       // start async receive
-      udp_socket_.async_receive_from(
-          boost::asio::buffer(rx_buffer_), remote_endpoint_,
-          [this](const UdpErrorCodeType &error, std::size_t bytes_received) { HandleMessage(error, bytes_received); });
+      udp_socket_.async_receive_from(boost::asio::buffer(rx_buffer_), remote_endpoint_,
+                                     [this](const UdpErrorCodeType &error_received, std::size_t bytes_received) {
+                                       HandleMessage(error_received, bytes_received);
+                                     });
     } else {
       Udp::endpoint endpoint_{remote_endpoint_};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(

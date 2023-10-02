@@ -82,13 +82,13 @@ auto DoipUdpChannelHandler::HandleMessageBroadcast(UdpMessagePtr udp_rx_message)
   }
 }
 
-auto DoipUdpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint8_t &nackCode) noexcept -> bool {
+auto DoipUdpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std::uint8_t &nack_code) noexcept -> bool {
   bool ret_val{false};
   /* Check the header synchronisation pattern */
   if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion) &&
-       (doip_rx_message.GetInverseProtocolVersion() == (uint8_t) (~(kDoip_ProtocolVersion)))) ||
+       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion))) ||
       ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_Def) &&
-       (doip_rx_message.GetInverseProtocolVersion() == (uint8_t) (~(kDoip_ProtocolVersion_Def))))) {
+       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {
     /* Check the supported payload type */
     if (doip_rx_message.GetPayloadType() == kDoip_VehicleAnnouncement_ResType) {
       /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00017] */
@@ -100,22 +100,22 @@ auto DoipUdpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, uint
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
-            nackCode = kDoip_GenericHeader_InvalidPayloadLen;
+            nack_code = kDoip_GenericHeader_InvalidPayloadLen;
             // socket closure ??
           }
         } else {
           // Send NACK code 0x03, discard message
-          nackCode = kDoip_GenericHeader_OutOfMemory;
+          nack_code = kDoip_GenericHeader_OutOfMemory;
         }
       } else {
         // Send NACK code 0x02, discard message
-        nackCode = kDoip_GenericHeader_MessageTooLarge;
+        nack_code = kDoip_GenericHeader_MessageTooLarge;
       }
     } else {  // Send NACK code 0x01, discard message
-      nackCode = kDoip_GenericHeader_UnknownPayload;
+      nack_code = kDoip_GenericHeader_UnknownPayload;
     }
   } else {  // Send NACK code 0x00, close the socket
-    nackCode = kDoip_GenericHeader_IncorrectPattern;
+    nack_code = kDoip_GenericHeader_IncorrectPattern;
     // socket closure
   }
   return ret_val;
@@ -136,7 +136,7 @@ auto DoipUdpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_len, 
   return ret_val;
 }
 
-void DoipUdpChannelHandler::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::RxSocketType socket_type) {
+void DoipUdpChannelHandler::ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::RxSocketType) {
   std::lock_guard<std::mutex> const lck(channel_handler_lock);
   switch (doip_payload.GetPayloadType()) {
     case kDoip_VehicleAnnouncement_ResType: {

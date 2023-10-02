@@ -127,7 +127,6 @@ class DoipTcpConnection final : public uds_transport::Connection {
    */
   uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
       uds_transport::UdsMessageConstPtr message) override {
-    uds_transport::ChannelID channel_id = 0;
     return doip_tcp_channel_.Transmit(std::move(message));
   }
 

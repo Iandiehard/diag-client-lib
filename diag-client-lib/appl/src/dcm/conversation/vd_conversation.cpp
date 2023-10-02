@@ -251,9 +251,8 @@ vehicle_info::VehicleInfoMessageResponseUniquePtr VdConversation::GetDiagnosticS
 std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>
 VdConversation::IndicateMessage(uds_transport::UdsMessage::Address /* source_addr */,
                                 uds_transport::UdsMessage::Address /* target_addr */,
-                                uds_transport::UdsMessage::TargetAddressType /* type */,
-                                uds_transport::ChannelID , std::size_t size, uds_transport::Priority ,
-                                uds_transport::ProtocolKind ,
+                                uds_transport::UdsMessage::TargetAddressType /* type */, uds_transport::ChannelID,
+                                std::size_t size, uds_transport::Priority, uds_transport::ProtocolKind,
                                 core_type::Span<std::uint8_t> payload_info) noexcept {
   using IndicationResult =
       std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>;

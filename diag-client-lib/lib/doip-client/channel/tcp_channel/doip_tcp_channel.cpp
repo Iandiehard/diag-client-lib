@@ -17,8 +17,7 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num,
-                               uds_transport::Connection &connection)
+DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t, uds_transport::Connection &connection)
     : tcp_socket_handler_{tcp_ip_address, *this},
       tcp_channel_handler_{tcp_socket_handler_, *this},
       connection_{connection} {}
