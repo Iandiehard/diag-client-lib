@@ -33,7 +33,6 @@ jobs:
         export DLT_LOCAL_PRINT_MODE=FORCE_ON
         export DLT_INITIAL_LOG_LEVEL="::6"
         ./gtest-diag-client-lib --gtest_output="xml:test-report.xml"
-        ls .
 
     - name: Archive test results
       uses: actions/upload-artifact@v3
