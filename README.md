@@ -1,6 +1,8 @@
 # Diagnostic Client Library
 
-[![CMake](https://github.com/Iandiehard/diag-client-lib/actions/workflows/cmake.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/cmake.yml)
+[![Clang14](https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml)
+[![Gcc9](https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9.yml)
+[![Gcc9_GTest](https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9_with_test.yml/badge.svg)](https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9_with_test.yml)
 
 <!-- TOC -->
 * [Diagnostic Client Library](#diagnostic-client-library)
