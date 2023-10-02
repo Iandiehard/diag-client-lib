@@ -37,8 +37,7 @@ class UdsTransportProtocolHandler {
    * @param[in]     transport_protocol_mgr
    *                The reference to transport protocol manager
    */
-  UdsTransportProtocolHandler(UdsTransportProtocolHandlerId const handler_id,
-                              UdsTransportProtocolMgr const&)
+  UdsTransportProtocolHandler(UdsTransportProtocolHandlerId const handler_id, UdsTransportProtocolMgr const&)
       : handler_id_{handler_id} {}
 
   /**

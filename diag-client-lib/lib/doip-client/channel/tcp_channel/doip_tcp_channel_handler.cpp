@@ -111,13 +111,13 @@ auto DoipTcpChannelHandler::IsRoutingActivated() noexcept -> bool {
   return routing_activation_handler_.IsRoutingActivated();
 }
 
-auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std::uint8_t &nackCode) noexcept -> bool {
+auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std::uint8_t &nack_code) noexcept -> bool {
   bool ret_val = false;
   /* Check the header synchronisation pattern */
   if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion) &&
-       (doip_rx_message.GetInverseProtocolVersion() == (std::uint8_t)(~(kDoip_ProtocolVersion)))) ||
+       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion))) ||
       ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_Def) &&
-       (doip_rx_message.GetInverseProtocolVersion() == (std::uint8_t)(~(kDoip_ProtocolVersion_Def))))) {
+       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {
     /* Check the supported payload type */
     if ((doip_rx_message.GetPayloadType() == kDoip_RoutingActivation_ResType) ||
         (doip_rx_message.GetPayloadType() == kDoip_DiagMessagePosAck_Type) ||
@@ -133,22 +133,22 @@ auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std:
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
-            nackCode = kDoip_GenericHeader_InvalidPayloadLen;
+            nack_code = kDoip_GenericHeader_InvalidPayloadLen;
             // socket closure ??
           }
         } else {
           // Send NACK code 0x03, discard message
-          nackCode = kDoip_GenericHeader_OutOfMemory;
+          nack_code = kDoip_GenericHeader_OutOfMemory;
         }
       } else {
         // Send NACK code 0x02, discard message
-        nackCode = kDoip_GenericHeader_MessageTooLarge;
+        nack_code = kDoip_GenericHeader_MessageTooLarge;
       }
     } else {  // Send NACK code 0x01, discard message
-      nackCode = kDoip_GenericHeader_UnknownPayload;
+      nack_code = kDoip_GenericHeader_UnknownPayload;
     }
   } else {  // Send NACK code 0x00, close the socket
-    nackCode = kDoip_GenericHeader_IncorrectPattern;
+    nack_code = kDoip_GenericHeader_IncorrectPattern;
     // socket closure
   }
   return ret_val;

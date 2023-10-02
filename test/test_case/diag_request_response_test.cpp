@@ -44,7 +44,7 @@ constexpr std::uint16_t DiagUdpPortNum{13400u};
 constexpr std::uint16_t DiagTcpPortNum{13400u};
 
 // Path to json file
-const std::string DiagClientJsonPath{"../../diag-client-lib/appl/etc/diag_client_config.json"};
+const std::string DiagClientJsonPath{"../../../diag-client-lib/appl/etc/diag_client_config.json"};
 
 class UdsMessage : public diag::client::uds_message::UdsMessage {
  public:

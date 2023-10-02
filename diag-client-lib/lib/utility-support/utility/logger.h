@@ -18,7 +18,8 @@
 #include <string_view>
 #include <utility>
 
-#define UNUSED_PARAM(expr) do { (void)(expr); } while (0)
+#define UNUSED_PARAM(expr) \
+  do { (void) (expr); } while (0)
 
 namespace utility {
 namespace logger {

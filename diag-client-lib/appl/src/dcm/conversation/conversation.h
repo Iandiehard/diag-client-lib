@@ -98,9 +98,7 @@ class Conversation {
    * @return      ConnectResult
    *              Connection result returned
    */
-  virtual ConnectResult ConnectToDiagServer(std::uint16_t, IpAddress) noexcept {
-    return ConnectResult::kConnectFailed;
-  }
+  virtual ConnectResult ConnectToDiagServer(std::uint16_t, IpAddress) noexcept { return ConnectResult::kConnectFailed; }
 
   /**
    * @brief       Function to disconnect from Diagnostic Server

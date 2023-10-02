@@ -117,7 +117,7 @@ class DoipMessage final {
    */
   core_type::Span<std::uint8_t> GetPayload() const { return payload_; }
 
-private:
+ private:
   /**
    * @brief    Store the message type
    */

@@ -11,7 +11,11 @@
 namespace utility {
 namespace logger {
 
-Logger::Logger(std::string_view context_id) : contxt_{}, app_id_{}, context_id_{context_id}, registration_with_app_id_{false} {
+Logger::Logger(std::string_view context_id)
+    : contxt_{},
+      app_id_{},
+      context_id_{context_id},
+      registration_with_app_id_{false} {
 #ifdef ENABLE_DLT_LOGGER
   DLT_REGISTER_CONTEXT(contxt_, context_id_.c_str(), "Application Context");
 #else

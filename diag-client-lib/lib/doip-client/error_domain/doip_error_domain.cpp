@@ -58,7 +58,7 @@ const char* DoipErrorDomain::Message(core_type::ErrorDomain::CodeType error_code
   return message_.c_str();
 }
 
-core_type::ErrorCode MakeErrorCode(DoipErrorErrc code, core_type::ErrorDomain::SupportDataType data) noexcept {
+core_type::ErrorCode MakeErrorCode(DoipErrorErrc, core_type::ErrorDomain::SupportDataType data) noexcept {
   return core_type::ErrorCode{data, doip_error_domain};
 }
 
