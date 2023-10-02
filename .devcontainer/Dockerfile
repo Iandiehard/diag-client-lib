@@ -1,4 +1,4 @@
-ARG VARIANT=22.10
+ARG VARIANT=22.04
 FROM ubuntu:${VARIANT}
 
 # Install necessary dependencies
@@ -15,6 +15,8 @@ RUN apt-get update &&\
         wget \
         git \
         gcc \
+        g++-9 \
+        clang-14 \ 
         curl \
         gnupg \
         zlib1g-dev \
@@ -50,7 +52,7 @@ ARG DLT_MAJOR_VERSION="2"
 ARG DLT_MINOR_VERSION="18"
 ARG DLT_PATCH_VERSION="8"
 
-RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v2.18.8.tar.gz" && \
+RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v${DLT_MAJOR_VERSION}.${DLT_MINOR_VERSION}.${DLT_PATCH_VERSION}.tar.gz" && \
     mkdir /opt/dlt-daemon  && \
     tar -xvf v${DLT_MAJOR_VERSION}.${DLT_MINOR_VERSION}.${DLT_PATCH_VERSION}.tar.gz -C /opt/dlt-daemon  && \
     rm -rf v${DLT_MAJOR_VERSION}.${DLT_MINOR_VERSION}.${DLT_PATCH_VERSION}.tar.gz && \
