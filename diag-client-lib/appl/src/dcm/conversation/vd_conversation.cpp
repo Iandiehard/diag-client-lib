@@ -234,6 +234,12 @@ VdConversation::SendVehicleIdentificationRequest(
       if (vehicle_info_collection_.empty()) {
         // no response received
         result.EmplaceError(DiagClient::VehicleInfoResponseError::kNoResponseReceived);
+        logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
+            __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+              msg << "'" << conversation_name_ << "'"
+                  << "-> "
+                  << "No vehicle identification response received, timed out without response";
+            });
       } else {
         result.EmplaceValue(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_));
         // all the responses are copied, now clear the map

@@ -8,6 +8,7 @@
 * [Diagnostic Client Library](#diagnostic-client-library)
   * [Diagnostic Client Library](#diagnostic-client-library-1)
   * [Overview](#overview)
+  * [Documentation](#documentation)
   * [Get Started](#get-started)
     * [Build and Install](#build-and-install)
       * [In Linux :-](#in-linux--)
@@ -43,7 +44,7 @@ Diagnostic Client library supports below Diagnostic Protocols :-
 Diagnostic Client library supports opening of multiple conversation(tester instance) for sending diagnostic request to multiple ECU at the same time. 
 
 ## Documentation
-[Github pages](https://iandiehard.github.io/diag-client-lib/) is used to publish the documentation of this project using Doxygen.
+The documentation of this project can be found here [GitHub pages](https://iandiehard.github.io/diag-client-lib/)
 
 ## Get Started
 In this section, you will learn how to [build and install](#build-and-install)

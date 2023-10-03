@@ -429,7 +429,7 @@ TEST_F(DiagReqResFixture, VerifyDiagReqResponseWithVehicleDiscovery) {
   auto diag_result{diag_client_conversation.SendDiagnosticRequest(std::move(uds_message))};
 
   // Verify positive response
-  EXPECT_TRUE(diag_result.HasValue());
+  EXPECT_TRUE(diag_result.HasValue()) << " Error received, code: " << static_cast<int>(diag_result.Error());
   EXPECT_EQ(diag_result.Value()->GetPayload()[0], 0x50);
   EXPECT_EQ(diag_result.Value()->GetPayload()[1], 0x01);
 
