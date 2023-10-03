@@ -1,0 +1,6 @@
+{
+    "C_Cpp.default.compilerPath": "/usr/bin/g++-9",
+    "files.associations": {
+        "utility": "cpp"
+    }
+}
