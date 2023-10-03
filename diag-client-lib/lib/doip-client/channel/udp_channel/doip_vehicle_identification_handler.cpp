@@ -273,24 +273,32 @@ auto VehicleIdentificationHandler::HandleVehicleIdentificationRequest(
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   if (handler_impl_->GetStateContext().GetActiveState().GetState() == VehicleIdentificationState::kIdle) {
+    // change state before sending if SendVehicleIdentificationRequest call takes more time to return and in the
+    // same time async reception starts
+    handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kWaitForVehicleIdentificationRes);
     if (SendVehicleIdentificationRequest(std::move(vehicle_identification_request)) ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
-
-      handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kWaitForVehicleIdentificationRes);
       // Wait for 2 sec to collect all the vehicle identification response
       handler_impl_->GetSyncTimer().WaitForTimeout(
-          [&]() { handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kDoIPCtrlTimeout); },
           [&]() {
-            // do nothing
+            handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kDoIPCtrlTimeout);
+            // Todo: Send data to upper layer here
+          },
+          [&]() {
+            // no cancellation
           },
           std::chrono::milliseconds{kDoIPCtrl});
       handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kIdle);
     } else {
       // failed, do nothing
+      handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kIdle);
+      logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
+          __FILE__, __LINE__, "",
+          [](std::stringstream &msg) { msg << "Vehicle Identification request transmission Failed"; });
     }
   } else {
-    // not free
+    // not free, state already in idle state
   }
   return ret_val;
 }
