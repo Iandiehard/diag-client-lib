@@ -5,7 +5,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/workspaces/diag-client-lib/build/test/gtest-diag-client-lib",
+            "program": "/workspaces/diag-client-lib/gcc9-Debug/test/gtest-diag-client-lib",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
@@ -30,7 +30,7 @@
             "name": "(gdb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "/workspaces/diag-client-lib/build/test/gtest-diag-client-lib",
+            "program": "/workspaces/diag-client-lib/gcc9-Debug/test/gtest-diag-client-lib",
             "processId": "${command:pickProcess}",
             "MIMode": "gdb",
             "setupCommands": [

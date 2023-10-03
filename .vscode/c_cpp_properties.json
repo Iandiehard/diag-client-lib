@@ -4,12 +4,12 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/boost/include/**"
+                "/opt/boost/include/**",
+                "/usr/include/c++/9/**"
             ],
             "defines": [],
-            "compilerPath": "/usr/bin/clang-14",
             "cStandard": "c17",
-            "cppStandard": "c++14",
+            "cppStandard": "c++17",
             "intelliSenseMode": "linux-clang-arm64"
         }
     ],
