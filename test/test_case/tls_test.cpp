@@ -12,7 +12,8 @@
 #include "socket/tcp/tls_server.h"
 
 /**
- * @brief         Fixture to test all kind of TLS connection with supported cipher list
+ * @brief       Fixture to test the TLS connection between client and server with supported cipher list
+ * 
  */
 class TLSFixture : public ::testing::Test {
  protected:

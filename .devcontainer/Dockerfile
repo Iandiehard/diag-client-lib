@@ -33,6 +33,7 @@ RUN apt-get update &&\
         graphviz \
         net-tools \
         iproute2 \
+        libssl-dev \
         locales-all &&\
     apt-get clean
 
@@ -62,6 +63,10 @@ RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v${DLT_MAJOR_VE
     cmake -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build --config Release && \
     cmake --install build --config Release
+
+RUN wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz -O - | tar -xz
+WORKDIR /openssl-1.1.1w
+RUN ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl && make && make install
 
 # Add Dlt environment variable to bashrc for google test
  RUN echo 'export DLT_INITIAL_LOG_LEVEL="::6"' >> ~/.bashrc && \
