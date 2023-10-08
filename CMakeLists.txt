@@ -7,7 +7,7 @@
 #
 # Entry Project CMake
 #
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.25)
 project(diag-client)
 
 # Cmake options

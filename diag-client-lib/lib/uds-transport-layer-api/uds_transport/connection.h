@@ -58,7 +58,7 @@ class Connection {
    * @brief        Function to get the connection id
    * @return       The connection id
    */
-  ConnectionId GetConnectionId() noexcept { return connection_id_; }
+  ConnectionId GetConnectionId() const noexcept { return connection_id_; }
 
   /**
    * @brief        Function to start the connection
@@ -134,12 +134,6 @@ class Connection {
    *              back to the conversation here
    */
   virtual void HandleMessage(UdsMessagePtr message) = 0;
-
-  /**
-   * @brief       Function to get the connection id
-   * @return      The connection id
-   */
-  ConnectionId GetConnectionId() const { return connection_id_; }
 
  protected:
   /**
