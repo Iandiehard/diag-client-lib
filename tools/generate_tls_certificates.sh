@@ -1,7 +1,8 @@
 #! /bin/bash
 
-# References:- 1. https://devopscube.com/create-self-signed-certificates-openssl/,
-#              2. https://mariadb.com/docs/server/security/data-in-transit-encryption/create-self-signed-certificates-keys-openssl/
+# References:-
+# 1. https://devopscube.com/create-self-signed-certificates-openssl/,
+# 2. https://mariadb.com/docs/server/security/data-in-transit-encryption/create-self-signed-certificates-keys-openssl/
 # Modification is done as per this project
 
 DOMAIN=DiagClientLib
@@ -70,3 +71,12 @@ openssl x509 -req \
     -CAcreateserial -out ${DOMAIN}.crt \
     -days 365 \
     -sha256 -extfile cert.conf
+
+
+# Convert from CRT to PEM format
+openssl x509 -in rootCA.crt -out rootCA.pem
+openssl x509 -in ${DOMAIN}.crt -out ${DOMAIN}.pem
+
+# Verify the certificates
+openssl verify -CAfile rootCA.pem DiagClientLib.crt
+

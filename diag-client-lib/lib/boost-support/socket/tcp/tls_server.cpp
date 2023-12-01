@@ -54,9 +54,12 @@ std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHa
 }
 
 TcpServerConnection::TcpServerConnection(boost::asio::io_context &io_context, TcpHandlerRead tcp_handler_read)
-    : io_ssl_context_{boost::asio::ssl::context::tlsv12_client},
+    : io_ssl_context_{boost::asio::ssl::context::tlsv12_server},
       tls_socket_{io_context, io_ssl_context_},
-      tcp_handler_read_{std::move(tcp_handler_read)} {}
+      tcp_handler_read_{std::move(tcp_handler_read)} {
+  io_ssl_context_.use_certificate_chain_file("../../../tools/openssl/DiagClientLib.crt");
+  io_ssl_context_.use_private_key_file("../../../tools/openssl/DiagClientLib.key", boost::asio::ssl::context::pem);
+}
 
 TcpServerConnection::TlsStream::lowest_layer_type &TcpServerConnection::GetSocket() {
   return tls_socket_.lowest_layer();
@@ -64,8 +67,8 @@ TcpServerConnection::TlsStream::lowest_layer_type &TcpServerConnection::GetSocke
 
 core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::Transmit(
     TcpMessageConstPtr tcp_tx_message) {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
   TcpErrorCodeType ec{};
+  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
 
   boost::asio::write(
       tls_socket_,
@@ -88,47 +91,57 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
 }
 
 bool TcpServerConnection::ReceivedMessage() {
-  TcpErrorCodeType ec;
+  TcpErrorCodeType ec{};
   bool connection_closed{false};
 
-  // create and reserve the buffer
-  TcpMessage::BufferType rx_buffer{};
-  rx_buffer.resize(kDoipheadrSize);
-  // start blocking read to read Header first
-  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], kDoipheadrSize), ec);
-  // Check for error
-  if (ec.value() == boost::system::errc::success) {
-    // read the next bytes to read
-    std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
-      return static_cast<std::uint32_t>((static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
-                                        (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
-                                        (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
-                                        (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
-    }();
-    // reserve the buffer
-    rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+  // Perform TLS handshake
+  tls_socket_.handshake(boost::asio::ssl::stream_base::server, ec);
 
-    // all message received, transfer to upper layer
-    Tcp::endpoint endpoint_{GetSocket().remote_endpoint()};
-    TcpMessagePtr tcp_rx_message{
-        std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
-    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-          msg << "Tcp Message received from "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
-        });
-    // send data to upper layer
-    tcp_handler_read_(std::move(tcp_rx_message));
-  } else if (ec.value() == boost::asio::error::eof) {
-    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
-    connection_closed = true;
+  if (ec.value() == boost::system::errc::success) {
+    // Create and reserve the buffer
+    TcpMessage::BufferType rx_buffer{};
+    rx_buffer.resize(kDoipheadrSize);
+    // Start blocking read to read Header first
+    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], kDoipheadrSize), ec);
+    // Check for error
+    if (ec.value() == boost::system::errc::success) {
+      // Read the next bytes to read
+      std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
+        return static_cast<std::uint32_t>((static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
+                                          (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
+                                          (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
+                                          (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
+      }();
+      // reserve the buffer
+      rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+
+      // all message received, transfer to upper layer
+      Tcp::endpoint endpoint_{GetSocket().remote_endpoint()};
+      TcpMessagePtr tcp_rx_message{
+          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+            msg << "Tcp Message received from "
+                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          });
+      // send data to upper layer
+      tcp_handler_read_(std::move(tcp_rx_message));
+    } else if (ec.value() == boost::asio::error::eof) {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__,
+          [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
+      connection_closed = true;
+    } else {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+          __FILE__, __LINE__, __func__,
+          [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
+      connection_closed = true;
+    }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
+        [ec](std::stringstream &msg) { msg << "Tls server handshake with host failed with error: " << ec.message(); });
     connection_closed = true;
   }
   return connection_closed;

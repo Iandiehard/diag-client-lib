@@ -17,7 +17,7 @@ namespace socket {
 namespace tcp {
 
 TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                 TcpHandlerRead tcp_handler_read)
+                                 TcpHandlerRead tcp_handler_read, std::string_view ca_certification_path)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       io_service{},
@@ -27,12 +27,16 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
       running_{false},
       cond_var_{},
       mutex_{},
+      thread_{},
       tcp_handler_read_{std::move(tcp_handler_read)} {
   // Set verification mode
   tls_socket_.set_verify_mode(boost::asio::ssl::verify_peer);
   // Set the verification callback
   tls_socket_.set_verify_callback(
       [](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool { return true; });
+  // Load the root CA certificates
+  io_ssl_context_.load_verify_file(std::string{ca_certification_path});
+
   // Start thread to receive messages
   thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);
@@ -65,7 +69,7 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Open() {
   // Open the socket
   GetNativeTcpSocket().open(Tcp::v4(), ec);
   if (ec.value() == boost::system::errc::success) {
-    // reuse address
+    // Re-use address
     GetNativeTcpSocket().set_option(boost::asio::socket_base::reuse_address{true});
     // Set socket to non blocking
     GetNativeTcpSocket().non_blocking(false);

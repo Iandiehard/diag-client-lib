@@ -26,6 +26,7 @@ CreateTcpServerSocket::CreateTcpServerSocket(std::string_view local_ip_address, 
         msg << "Tcp Socket Accepter created at "
             << "<" << local_ip_address << "," << local_port_num << ">";
       });
+  tcp_accepter_->listen();
 }
 
 CreateTcpServerSocket::TcpServerConnection CreateTcpServerSocket::GetTcpServerConnection(

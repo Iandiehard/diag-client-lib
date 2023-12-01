@@ -52,7 +52,8 @@ class TlsClientSocket final {
    * @param[in]     tcp_handler_read
    *                The handler to send received data to user
    */
-  TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead tcp_handler_read);
+  TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead tcp_handler_read,
+                  std::string_view ca_certification_path);
 
   /**
    * @brief         Destruct an instance of TcpClientSocket
@@ -162,14 +163,14 @@ class TlsClientSocket final {
   std::condition_variable cond_var_;
 
   /**
-   * @brief  The thread itself
-   */
-  std::thread thread_;
-
-  /**
    * @brief  mutex to lock critical section
    */
   std::mutex mutex_;
+
+  /**
+   * @brief  The thread itself
+   */
+  std::thread thread_;
 
   /**
    * @brief  Store the handler

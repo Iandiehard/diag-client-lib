@@ -26,7 +26,7 @@ class DiagClient;
  *              Unique pointer to diag client object
  * @implements  DiagClientLib-Library-Support, DiagClientLib-ComParam-Settings
  */
-std::unique_ptr<diag::client::DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path);
+std::unique_ptr<DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path);
 
 }  // namespace client
 }  // namespace diag
