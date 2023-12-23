@@ -1,4 +1,4 @@
-name: Gcc7
+name: Gcc11
 
 on:
   push:
@@ -11,7 +11,7 @@ env:
   BUILD_TYPE: Debug
 
 jobs:
-  Build-gcc-7:
+  Build-gcc-11:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
