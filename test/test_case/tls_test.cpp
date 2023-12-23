@@ -25,7 +25,7 @@ constexpr std::string_view TlsServerIpAddress{"172.16.25.128"};
 // TLS port number
 std::uint16_t TlsPort{3496u};
 
-constexpr std::string_view RootCACertificatePath{"../../../tools/openssl/rootCA.pem"};
+constexpr std::string_view RootCACertificatePath{"../../../openssl/rootCA.pem"};
 
 class TlsClient final {
  public:
@@ -84,7 +84,7 @@ class TlsServer final {
           if (running_) {
             lck.unlock();
             // start receiving messages on accepted message
-            if (tcp_server_connection_->ReceivedMessage()) {
+            if (tcp_server_connection_->TryReceivingMessage()) {
               tcp_server_connection_->Shutdown();
               // connection is closed
               running_ = false;
@@ -199,7 +199,16 @@ class TLSFixture : public ::testing::Test {
 TEST_F(TLSFixture, SendAndReceiveMessage) {
   tls_server_->StartAcceptingNewConnection();
   tls_client_->Connect(TlsServerIpAddress, TlsPort);
+
+  boost_support::socket::tcp::TcpMessagePtr tcp_message{std::make_unique<boost_support::socket::tcp::TcpMessage>()};
+
+  tcp_message->GetTxBuffer().reserve(2u);
+  tcp_message->GetTxBuffer().emplace_back(1u);
+  tcp_message->GetTxBuffer().emplace_back(2u);
+
+  tls_client_->Transmit(std::move(tcp_message));
   std::this_thread::sleep_for(std::chrono::seconds(5));
+  tls_client_->Disconnect();
 }
 
 }  // namespace doip_client

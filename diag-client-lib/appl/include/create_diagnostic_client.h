@@ -18,12 +18,12 @@ namespace client {
 class DiagClient;
 
 /**
- * @brief       Function to get the instance of Diagnostic Client Object.
- *              This instance to be further used for all the functionalities.
+ * @brief       Creates a diagnostic client to communicate with diagnostic server.
+ * @details     This creates an instance of Diagnostic Client Object.
+ *              The created instance is further used for all the functionalities.
  * @param[in]   diag_client_config_path
  *              path to diag client config file
- * @return      std::unique_ptr<diag::client::DiagClient>
- *              Unique pointer to diag client object
+ * @return      Unique pointer to diag client object
  * @implements  DiagClientLib-Library-Support, DiagClientLib-ComParam-Settings
  */
 std::unique_ptr<DiagClient> CreateDiagnosticClient(std::string_view diag_client_config_path);

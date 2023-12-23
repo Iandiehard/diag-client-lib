@@ -117,8 +117,7 @@ class DiagClientConversation final {
    *                or with error. It also handles reception of pending response(NRC 0x78) internally within this function call
    * @param[in]     message
    *                The diagnostic request message wrapped in a unique pointer
-   * @return        DiagResult
-   *                The result returned
+   * @pre           Must be connected to diagnostic server
    * @return        uds_message::UdsResponseMessagePtr
    *                Diagnostic Response message received, DiagError in case of error
    * @implements    DiagClientLib-Conversation-DiagRequestResponse

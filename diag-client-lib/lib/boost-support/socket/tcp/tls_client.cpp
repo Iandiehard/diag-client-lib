@@ -33,7 +33,13 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
   tls_socket_.set_verify_mode(boost::asio::ssl::verify_peer);
   // Set the verification callback
   tls_socket_.set_verify_callback(
-      [](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool { return true; });
+      [](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool { 
+
+        X509* cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
+        X509_NAME* iname = cert ? X509_get_issuer_name(cert) : nullptr;
+        X509_NAME* sname = cert ? X509_get_subject_name(cert) : nullptr;
+        return true; 
+        });
   // Load the root CA certificates
   io_ssl_context_.load_verify_file(std::string{ca_certification_path});
 
@@ -56,8 +62,11 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
 }
 
 TlsClientSocket::~TlsClientSocket() {
-  exit_request_ = true;
-  running_ = false;
+  {
+    std::unique_lock<std::mutex> lck(mutex_);
+    exit_request_ = true;
+    running_ = false;
+  }
   cond_var_.notify_all();
   thread_.join();
 }
@@ -119,16 +128,17 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectT
     // Perform TLS handshake
     tls_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
     if (ec.value() == boost::system::errc::success) {
-      {  // start reading
+      {
         std::lock_guard<std::mutex> lock{mutex_};
+        // start reading
         running_ = true;
-        cond_var_.notify_all();
       }
+      cond_var_.notify_all();
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tls handshake with host failed with error: " << ec.message(); });
+          [ec](std::stringstream &msg) { msg << "Tls client handshake with host failed with error: " << ec.message(); });
       result.EmplaceError(TlsErrorCode::kTlsHandshakeFailed);
     }
   } else {
@@ -149,8 +159,11 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Disconne
   GetNativeTcpSocket().shutdown(TcpSocket::shutdown_both, ec);
 
   if (ec.value() == boost::system::errc::success) {
-    // stop reading
-    running_ = false;
+    {
+      std::lock_guard<std::mutex> lock{mutex_};
+      // stop reading
+      running_ = false;
+    }
     // Socket shutdown success
     result.EmplaceValue();
   } else {
@@ -209,21 +222,29 @@ void TlsClientSocket::HandleMessage() {
                                         (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
                                         (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
-    // reserve the buffer
-    rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
 
-    // all message received, transfer to upper layer
-    Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-    TcpMessagePtr tcp_rx_message{
-        std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
-    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-          msg << "Tcp Message received from "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
-        });
-    // notify upper layer about received message
-    tcp_handler_read_(std::move(tcp_rx_message));
+    if(read_next_bytes != 0u) {
+      // reserve the buffer
+      rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+
+      // all message received, transfer to upper layer
+      Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
+      TcpMessagePtr tcp_rx_message{
+          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+            msg << "Tcp Message received from "
+                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          });
+      // notify upper layer about received message
+      tcp_handler_read_(std::move(tcp_rx_message));
+    } else {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+            msg << "Tcp Message read ignored as header size is zero";
+          });
+    }
   } else if (ec.value() == boost::asio::error::eof) {
     running_ = false;
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(

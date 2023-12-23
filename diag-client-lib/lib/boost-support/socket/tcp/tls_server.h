@@ -60,7 +60,7 @@ class TcpServerConnection final {
    * @param[in]     tcp_handler_read
    *                The handler to send received data to user
    */
-  TcpServerConnection(boost::asio::io_context &io_context, TcpHandlerRead tcp_handler_read);
+  TcpServerConnection(TlsStream tls_socket, TcpHandlerRead tcp_handler_read);
 
   /**
    * @brief         Destruct an instance of TcpServerConnection
@@ -80,11 +80,6 @@ class TcpServerConnection final {
   TcpServerConnection &operator=(TcpServerConnection const &) = delete;
 
   /**
-   * @brief  Function to get the native tcp socket under tls socket
-   */
-  TlsStream::lowest_layer_type &GetSocket();
-
-  /**
    * @brief         Function to trigger transmission
    * @param[in]     tcp_message
    *                The tcp message to be transmitted
@@ -95,7 +90,7 @@ class TcpServerConnection final {
   /**
    * @brief  Function to initiate reception of tcp message
    */
-  bool ReceivedMessage();
+  bool TryReceivingMessage();
 
   /**
    * @brief         Function to shutdown the socket
@@ -105,11 +100,6 @@ class TcpServerConnection final {
 
  private:
   /**
-   * @brief  boost io ssl context
-   */
-  boost::asio::ssl::context io_ssl_context_;
-
-  /**
    * @brief  Store ssl socket
    */
   TlsStream tls_socket_;
@@ -118,6 +108,11 @@ class TcpServerConnection final {
    * @brief  Store the handler
    */
   TcpHandlerRead tcp_handler_read_;
+
+  /**
+   * @brief  Function to get the native tcp socket under tls socket
+   */
+  TlsStream::lowest_layer_type &GetNativeTcpSocket();
 };
 
 /**
@@ -177,6 +172,11 @@ class TlsServerSocket final {
    * @brief  boost io context
    */
   boost::asio::io_context io_context_;
+
+  /**
+   * @brief  boost io ssl context
+   */
+  boost::asio::ssl::context io_ssl_context_;
 
   /**
    * @brief  Store tcp acceptor

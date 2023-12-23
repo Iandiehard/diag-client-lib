@@ -42,12 +42,6 @@ add_library(${PROJECT_NAME}
         ${LIB_MAIN_SRCS}
 )
 
-# Include headers
-set(include_header_path ${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-# Src headers
-set(src_header_path ${CMAKE_CURRENT_SOURCE_DIR}/src)
-
 # include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"

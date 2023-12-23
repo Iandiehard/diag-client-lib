@@ -42,7 +42,7 @@ class DoipConnectionManager final {
    *              The local port number
    * @return      The unique pointer to Connection created
    */
-  std::unique_ptr<uds_transport::Connection> FindOrCreateTcpConnection(
+  static std::unique_ptr<uds_transport::Connection> CreateTcpConnection(
       uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num);
 
   /**
@@ -55,7 +55,7 @@ class DoipConnectionManager final {
    *              The local port number
    * @return      The unique pointer to Connection created
    */
-  std::unique_ptr<uds_transport::Connection> FindOrCreateUdpConnection(
+  static std::unique_ptr<uds_transport::Connection> CreateUdpConnection(
       uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num);
 };
 }  // namespace connection

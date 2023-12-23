@@ -9,7 +9,7 @@ on:
 env:
   # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
   BUILD_TYPE: Debug
-  COMPILER_NAME: gcc9
+  COMPILER_NAME: gcc11
 jobs:
   Gtest-gcc-9:
     runs-on: ubuntu-latest
@@ -19,7 +19,7 @@ jobs:
       run: sudo sh .github/setup.sh
 
     - name: Configure CMake
-      run: cmake -B ${{github.workspace}}/build/${{env.COMPILER_NAME}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_WITH_DLT:BOOL=ON -DBUILD_WITH_TEST:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_9.cmake
+      run: cmake -B ${{github.workspace}}/build/${{env.COMPILER_NAME}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_WITH_DLT:BOOL=ON -DBUILD_WITH_TEST:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_11.cmake
 
     - name: Build
       run: cmake --build ${{github.workspace}}/build/${{env.COMPILER_NAME}} --config ${{env.BUILD_TYPE}}

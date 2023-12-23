@@ -2,7 +2,7 @@ ARG VARIANT=22.04
 FROM ubuntu:${VARIANT}
 
 # Install necessary dependencies
-RUN apt-get update &&\
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         autoconf \
@@ -15,7 +15,7 @@ RUN apt-get update &&\
         wget \
         git \
         gcc \
-        g++-9 \
+        g++-11 \
         clang-14 \ 
         curl \
         gnupg \

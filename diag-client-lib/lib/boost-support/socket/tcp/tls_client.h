@@ -51,6 +51,8 @@ class TlsClientSocket final {
    *                The local port number
    * @param[in]     tcp_handler_read
    *                The handler to send received data to user
+   * @param[in]     ca_certification_path
+   *                The path to root ca certificate
    */
   TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead tcp_handler_read,
                   std::string_view ca_certification_path);

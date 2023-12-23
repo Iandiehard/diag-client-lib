@@ -91,7 +91,7 @@ class DiagClient final {
    * @brief       Function to get required diag client conversation object based on conversation name
    * @param[in]   conversation_name
    *              Name of conversation configured as json parameter "ConversationName"
-   * @return      Diag client conversation object as per passed conversation name
+   * @return      Diag client conversation object
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
   conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;

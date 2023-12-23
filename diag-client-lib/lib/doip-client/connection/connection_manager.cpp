@@ -280,12 +280,12 @@ class DoipUdpConnection final : public uds_transport::Connection {
   channel::udp_channel::DoipUdpChannel doip_udp_channel_;
 };
 
-std::unique_ptr<uds_transport::Connection> DoipConnectionManager::FindOrCreateTcpConnection(
+std::unique_ptr<uds_transport::Connection> DoipConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num) {
   return (std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num));
 }
 
-std::unique_ptr<uds_transport::Connection> DoipConnectionManager::FindOrCreateUdpConnection(
+std::unique_ptr<uds_transport::Connection> DoipConnectionManager::CreateUdpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num) {
   return (std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num));
 }

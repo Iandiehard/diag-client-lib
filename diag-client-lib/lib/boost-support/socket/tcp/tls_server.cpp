@@ -14,33 +14,38 @@
 namespace boost_support {
 namespace socket {
 namespace tcp {
-
-using TcpIpAddress = boost::asio::ip::address;
+namespace {
 using TcpErrorCodeType = boost::system::error_code;
+}  // namespace
 
 TlsServerSocket::TlsServerSocket(std::string_view local_ip_address, std::uint16_t local_port_num)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       io_context_{},
+      io_ssl_context_{boost::asio::ssl::context::tlsv12_server},
       tcp_acceptor_{io_context_, Tcp::endpoint(Tcp::v4(), local_port_num_), true} {
   common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
       __FILE__, __LINE__, __func__, [&local_ip_address, &local_port_num](std::stringstream &msg) {
         msg << "Tcp Socket Acceptor created at "
             << "<" << local_ip_address << "," << local_port_num << ">";
       });
+  // Load certificate and private key from provided locations
+  io_ssl_context_.use_certificate_chain_file("../../../openssl/DiagClientLib.crt");
+  io_ssl_context_.use_private_key_file("../../../openssl/DiagClientLib.key", boost::asio::ssl::context::pem);
 }
 
 std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHandlerRead tcp_handler_read) {
-  std::optional<TcpServerConnection> tcp_connection{};
+  std::optional<TcpServerConnection> tcp_connection{std::nullopt};
   TcpErrorCodeType ec{};
   Tcp::endpoint endpoint{};
-  tcp_connection.emplace(io_context_, std::move(tcp_handler_read));
+  TcpServerConnection::TlsStream tls_socket{io_context_, io_ssl_context_};
 
   // blocking accept
-  static_cast<void>(tcp_acceptor_.accept(tcp_connection->GetSocket(), endpoint, ec));
+  tcp_acceptor_.accept(tls_socket.lowest_layer(), endpoint, ec);
   if (ec.value() == boost::system::errc::success) {
+    tcp_connection.emplace(std::move(tls_socket), std::move(tcp_handler_read));
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [endpoint](std::stringstream &msg) {
+        __FILE__, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
           msg << "TLS Socket connection received from client "
               << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
         });
@@ -48,20 +53,15 @@ std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHa
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "TLS Socket Connect to client failed with error: " << ec.message(); });
-    tcp_connection.reset();
   }
   return tcp_connection;
 }
 
-TcpServerConnection::TcpServerConnection(boost::asio::io_context &io_context, TcpHandlerRead tcp_handler_read)
-    : io_ssl_context_{boost::asio::ssl::context::tlsv12_server},
-      tls_socket_{io_context, io_ssl_context_},
-      tcp_handler_read_{std::move(tcp_handler_read)} {
-  io_ssl_context_.use_certificate_chain_file("../../../tools/openssl/DiagClientLib.crt");
-  io_ssl_context_.use_private_key_file("../../../tools/openssl/DiagClientLib.key", boost::asio::ssl::context::pem);
-}
+TcpServerConnection::TcpServerConnection(TlsStream tls_socket, TcpHandlerRead tcp_handler_read)
+    : tls_socket_{std::move(tls_socket)},
+      tcp_handler_read_{std::move(tcp_handler_read)} {}
 
-TcpServerConnection::TlsStream::lowest_layer_type &TcpServerConnection::GetSocket() {
+TcpServerConnection::TlsStream::lowest_layer_type &TcpServerConnection::GetNativeTcpSocket() {
   return tls_socket_.lowest_layer();
 }
 
@@ -75,7 +75,7 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
       boost::asio::buffer(tcp_tx_message->GetTxBuffer(), std::size_t(tcp_tx_message->GetTxBuffer().size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
-    Tcp::endpoint endpoint_{GetSocket().remote_endpoint()};
+    Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
           msg << "Tcp message sent to "
@@ -90,7 +90,7 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
   return result;
 }
 
-bool TcpServerConnection::ReceivedMessage() {
+bool TcpServerConnection::TryReceivingMessage() {
   TcpErrorCodeType ec{};
   bool connection_closed{false};
 
@@ -117,7 +117,7 @@ bool TcpServerConnection::ReceivedMessage() {
       boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
-      Tcp::endpoint endpoint_{GetSocket().remote_endpoint()};
+      Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};
       TcpMessagePtr tcp_rx_message{
           std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -152,11 +152,11 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
   TcpErrorCodeType ec{};
 
   // Graceful shutdown
-  if (GetSocket().is_open()) {
+  if (GetNativeTcpSocket().is_open()) {
     // Shutdown TLS connection
     tls_socket_.shutdown(ec);
     // Shutdown of TCP connection
-    GetSocket().shutdown(TcpSocket::shutdown_both, ec);
+    GetNativeTcpSocket().shutdown(TcpSocket::shutdown_both, ec);
     if (ec.value() == boost::system::errc::success) {
       // Socket shutdown success
       result.EmplaceValue();
@@ -165,7 +165,7 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp Socket Disconnection failed with error: " << ec.message(); });
     }
-    GetSocket().close();
+    GetNativeTcpSocket().close();
   }
   return result;
 }

@@ -512,7 +512,7 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   constexpr std::uint8_t kDoipheadrSize{8u};
   constexpr std::uint8_t kSourceAddressSize{4u};
-  TcpMessagePtr doip_diag_req = std::make_unique<TcpMessage>();
+  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>()};
   // reserve bytes in vector
   doip_diag_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
                                        diagnostic_request->GetPayload().size());
