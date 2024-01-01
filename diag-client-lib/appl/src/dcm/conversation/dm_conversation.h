@@ -248,7 +248,7 @@ class DmConversation final : public Conversation {
   /**
    * @brief       Store the underlying transport protocol connection object
    */
-  std::unique_ptr<::uds_transport::Connection> connection_ptr_;
+  std::unique_ptr<::uds_transport::Connection> connection_;
 
   /**
    * @brief       Store the synchronous timer

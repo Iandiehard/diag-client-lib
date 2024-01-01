@@ -40,7 +40,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
-# link library
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
         platform-core

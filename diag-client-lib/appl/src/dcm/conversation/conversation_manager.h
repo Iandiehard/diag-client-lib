@@ -26,7 +26,7 @@ namespace conversation_manager {
 /**
  * @brief               Class to manage all the conversation created from usr request
  */
-class ConversationManager {
+class ConversationManager final {
  public:
   /**
    * @brief         Constructs an instance of ConversationManager

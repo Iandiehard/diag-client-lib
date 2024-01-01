@@ -121,9 +121,9 @@ DmConversation::~DmConversation() = default;
 
 void DmConversation::Startup() noexcept {
   // initialize the connection
-  connection_ptr_->Initialize();
+  connection_->Initialize();
   // start the connection
-  connection_ptr_->Start();
+  connection_->Start();
   // Change the state to Active
   activity_status_ = ActivityStatusType::kActive;
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
@@ -136,7 +136,7 @@ void DmConversation::Startup() noexcept {
 
 void DmConversation::Shutdown() noexcept {
   // shutdown connection
-  connection_ptr_->Stop();
+  connection_->Stop();
   // Change the state to InActive
   activity_status_ = ActivityStatusType::kInactive;
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
@@ -154,7 +154,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
   uds_transport::ByteVector payload{};  // empty payload
   // Send Connect request to doip layer
   DiagClientConversation::ConnectResult const connection_result{static_cast<DiagClientConversation::ConnectResult>(
-      connection_ptr_->ConnectToHost(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+      connection_->ConnectToHost(std::make_unique<diag::client::uds_message::DmUdsMessage>(
           source_address_, target_address, host_ip_addr, payload)))};
   remote_address_ = host_ip_addr;
   target_address_ = target_address;
@@ -181,9 +181,9 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::u
 DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServer() noexcept {
   DiagClientConversation::DisconnectResult ret_val{DiagClientConversation::DisconnectResult::kDisconnectFailed};
   // Check if already connected before disconnecting
-  if (connection_ptr_->IsConnectToHost()) {
+  if (connection_->IsConnectToHost()) {
     // Send disconnect request to doip layer
-    ret_val = static_cast<DiagClientConversation::DisconnectResult>(connection_ptr_->DisconnectFromHost());
+    ret_val = static_cast<DiagClientConversation::DisconnectResult>(connection_->DisconnectFromHost());
     if (ret_val == DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
@@ -216,7 +216,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
     uds_transport::ByteVector payload{message->GetPayload()};
     // Initiate Sending of diagnostic request
     uds_transport::UdsTransportProtocolMgr::TransmissionResult const transmission_result{
-        connection_ptr_->Transmit(std::make_unique<diag::client::uds_message::DmUdsMessage>(
+        connection_->Transmit(std::make_unique<diag::client::uds_message::DmUdsMessage>(
             source_address_, target_address_, message->GetHostIpAddress(), payload))};
     if (transmission_result == uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
@@ -273,7 +273,6 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
                             << "-> "
                             << "Diagnostic Response P2 Star Timeout happened after " << p2_star_client_max_
                             << " milliseconds";
-                        ;
                       });
                   result.EmplaceError(DiagClientConversation::DiagError::kDiagResponseTimeout);
                   conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);
@@ -319,7 +318,7 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
 }
 
 void DmConversation::RegisterConnection(std::unique_ptr<uds_transport::Connection> connection) noexcept {
-  connection_ptr_ = std::move(connection);
+  connection_ = std::move(connection);
 }
 
 ::uds_transport::ConversionHandler &DmConversation::GetConversationHandler() noexcept {

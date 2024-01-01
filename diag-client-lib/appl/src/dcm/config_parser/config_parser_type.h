@@ -20,6 +20,8 @@ namespace config_parser {
 struct DoipNetworkType {
   // local tcp address
   std::string tcp_ip_address;
+  // tls handling (True = secured, False = unsecured)
+  bool tls_handling;
 };
 
 // Properties of a single conversation

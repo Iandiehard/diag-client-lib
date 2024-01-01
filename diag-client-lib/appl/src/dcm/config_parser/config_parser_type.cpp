@@ -29,6 +29,7 @@ diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(boost_support::
     conversation.rx_buffer_size = conversation_ptr.second.get<std::uint16_t>("RxBufferSize");
     conversation.source_address = conversation_ptr.second.get<std::uint16_t>("SourceAddress");
     conversation.network.tcp_ip_address = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
+    conversation.network.tls_handling = conversation_ptr.second.get<bool>("Network.TlsHandling");
     config.conversations.emplace_back(conversation);
   }
   return config;

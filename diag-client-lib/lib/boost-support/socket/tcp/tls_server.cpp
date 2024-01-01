@@ -22,7 +22,7 @@ TlsServerSocket::TlsServerSocket(std::string_view local_ip_address, std::uint16_
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       io_context_{},
-      io_ssl_context_{boost::asio::ssl::context::tlsv12_server},
+      io_ssl_context_{boost::asio::ssl::context::tlsv13_server},
       tcp_acceptor_{io_context_, Tcp::endpoint(Tcp::v4(), local_port_num_), true} {
   common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
       __FILE__, __LINE__, __func__, [&local_ip_address, &local_port_num](std::stringstream &msg) {
@@ -32,6 +32,7 @@ TlsServerSocket::TlsServerSocket(std::string_view local_ip_address, std::uint16_
   // Load certificate and private key from provided locations
   io_ssl_context_.use_certificate_chain_file("../../../openssl/DiagClientLib.crt");
   io_ssl_context_.use_private_key_file("../../../openssl/DiagClientLib.key", boost::asio::ssl::context::pem);
+  SSL_CTX_set_ciphersuites(io_ssl_context_.native_handle(), "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256");
 }
 
 std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHandlerRead tcp_handler_read) {

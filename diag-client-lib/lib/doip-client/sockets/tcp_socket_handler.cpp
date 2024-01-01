@@ -16,35 +16,46 @@
 namespace doip_client {
 namespace sockets {
 
-TcpSocketHandler::TcpSocketHandler(std::string_view local_ip_address, TcpChannel &channel)
-    : local_ip_address_{local_ip_address},
-      local_port_num_{0U},  // port number with "0" will create socket with random port number at client side
-      tcp_socket_{},
-      channel_{channel},
-      state_{SocketHandlerState::kSocketOffline} {}
+TcpSocketHandler::TcpSocketHandler(TcpSocket socket)
+    : tcp_client_{std::make_unique<TcpClient>(std::move(socket),
+                                              [this](TcpMessagePtr tcp_message) {
+                                                if (handler_read_) { handler_read_(std::move(tcp_message)); }
+                                              })},
+      state_{SocketHandlerState::kSocketDisconnected},
+      handler_read_{} {}
 
-void TcpSocketHandler::Start() {
-  tcp_socket_.emplace(local_ip_address_, local_port_num_, [this](TcpMessagePtr tcp_message) {
-    channel_.ProcessReceivedTcpMessage(std::move(tcp_message));
-  });
+TcpSocketHandler::TcpSocketHandler(TcpSocketHandler &&other) noexcept
+    : tcp_client_{std::move(other.tcp_client_)},
+      state_{other.state_.load()},
+      handler_read_{std::move(other.handler_read_)} {}
+
+TcpSocketHandler &TcpSocketHandler::operator=(TcpSocketHandler &&other) noexcept {
+  if (this != &other) {
+    tcp_client_ = std::move(other.tcp_client_);
+    state_.store(other.state_.load());
+    handler_read_ = std::move(other.handler_read_);
+  }
+  return *this;
 }
 
+void TcpSocketHandler::Start() { tcp_client_->Initialize(); }
+
 void TcpSocketHandler::Stop() {
-  if (state_.load() != SocketHandlerState::kSocketOffline) { DisconnectFromHost(); }
-  tcp_socket_.reset();
+  if (state_.load() != SocketHandlerState::kSocketDisconnected) { DisconnectFromHost(); }
+  tcp_client_->Deinitialize();
+}
+
+void TcpSocketHandler::SetReadHandler(TcpSocketHandler::HandlerRead read_handler) {
+  handler_read_ = std::move(read_handler);
 }
 
 core_type::Result<void> TcpSocketHandler::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
   core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::DoipErrorErrc::kGenericError)};
   if (state_.load() != SocketHandlerState::kSocketConnected) {
-    tcp_socket_->Open()
-        .AndThen([this]() noexcept { state_.store(SocketHandlerState::kSocketOnline); })
-        .AndThen([this, &result, host_ip_address, host_port_num]() {
-          return tcp_socket_->ConnectToHost(host_ip_address, host_port_num).AndThen([this, &result]() {
-            state_.store(SocketHandlerState::kSocketConnected);
-            result.EmplaceValue();
-          });
-        });
+    if (tcp_client_->ConnectToHost(host_ip_address, host_port_num)) {
+      state_.store(SocketHandlerState::kSocketConnected);
+      result.EmplaceValue();
+    }  // else, connect failed
   } else {
     // already connected
     result.EmplaceValue();
@@ -57,19 +68,14 @@ core_type::Result<void> TcpSocketHandler::ConnectToHost(std::string_view host_ip
 core_type::Result<void> TcpSocketHandler::DisconnectFromHost() {
   core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::DoipErrorErrc::kGenericError)};
   if (state_.load() == SocketHandlerState::kSocketConnected) {
-    tcp_socket_->DisconnectFromHost()
-        .AndThen([this]() noexcept { state_.store(SocketHandlerState::kSocketDisconnected); })
-        .AndThen([this, &result]() noexcept {
-          return tcp_socket_->Destroy().AndThen([this, &result]() {
-            state_.store(SocketHandlerState::kSocketOffline);
-            result.EmplaceValue();
-          });
-        });
+    tcp_client_->DisconnectFromHost();
+    state_.store(SocketHandlerState::kSocketDisconnected);
+    result.EmplaceValue();
   } else {
     // not connected
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Tcp socket already in not connected state"; });
+        [](std::stringstream &msg) { msg << "Tcp socket already is in disconnected state"; });
   }
   return result;
 }
@@ -77,7 +83,7 @@ core_type::Result<void> TcpSocketHandler::DisconnectFromHost() {
 core_type::Result<void> TcpSocketHandler::Transmit(TcpMessageConstPtr tcp_message) {
   core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::DoipErrorErrc::kGenericError)};
   if (state_.load() == SocketHandlerState::kSocketConnected) {
-    if (tcp_socket_->Transmit(std::move(tcp_message)).HasValue()) { result.EmplaceValue(); }
+    if (tcp_client_->Transmit(std::move(tcp_message))) { result.EmplaceValue(); }
   } else {
     // not connected
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(

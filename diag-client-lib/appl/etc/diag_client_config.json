@@ -13,7 +13,7 @@
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false
+          "TlsHandling": true
         },
         "ConversationName": "DiagTesterOne"
       },
@@ -26,7 +26,7 @@
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false
+          "TlsHandling": false
         },
         "ConversationName": "DiagTesterTwo"
       }

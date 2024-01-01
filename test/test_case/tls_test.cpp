@@ -124,10 +124,11 @@ class TlsServer final {
    * @brief       Function to create the server connection
    */
   void CreateTcpServerConnection() {
+    /*
     tcp_server_connection_ = tls_server_socket_.GetTcpServerConnection(
         [this](boost_support::socket::tcp::TcpMessagePtr message) { OnMessageReceived(std::move(message)); });
     // terminate if no connection received
-    assert(tcp_server_connection_);
+    assert(tcp_server_connection_); */
   }
 
  private:

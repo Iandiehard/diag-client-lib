@@ -33,9 +33,10 @@ class DiagClientConversation final {
    * @brief      Definitions of Connection results
    */
   enum class ConnectResult : std::uint8_t {
-    kConnectSuccess = 0U, /**< Successfully connected to Diagnostic Server */
-    kConnectFailed = 1U,  /**< Connection failure to Diagnostic Server, check logs for more failure information */
-    kConnectTimeout = 2U  /**< No Connection response received from Diagnostic Server */
+    kConnectSuccess = 0U, /**< Successfully connected to the Diagnostic Server */
+    kConnectFailed = 1U,  /**< Connection failure to the Diagnostic Server, check logs for more failure information */
+    kConnectTimeout = 2U, /**< No Connection response received from the Diagnostic Server */
+    kTlsRequired = 3U     /**< The Diagnostic Server only accepts secured connections, open TLS connection */
   };
 
   /**
@@ -91,13 +92,13 @@ class DiagClientConversation final {
 
   /**
    * @brief         Function to connect to Diagnostic Server using Target address and IP address of the server
-   * @details       This will try to initiate a TCP connection with Server and then send DoIP Routing Activation request
+   * @details       This shall initiate a TCP connection with server and then send DoIP Routing Activation request
    * @param[in]     target_address
    *                Logical address of the Remote server
    * @param[in]     host_ip_addr
    *                IP address of the Remote server
    * @return        ConnectResult
-   *                Connection result returned
+   *                The connection result
    * @implements    DiagClientLib-Conversation-Connect
    */
   ConnectResult ConnectToDiagServer(std::uint16_t target_address, IpAddress host_ip_addr) noexcept;

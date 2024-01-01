@@ -1,12 +1,12 @@
 /* Diagnostic Client library
- * Copyright (C) 2023  Avijit Dey
- * 
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/.
- */
+* Copyright (C) 2023  Avijit Dey
+*
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at http://mozilla.org/MPL/2.0/.
+*/
 
-#include "socket/tcp/tcp_client.h"
+#include "socket/tcp/tcp_socket.h"
 
 #include <utility>
 
@@ -16,44 +16,17 @@ namespace boost_support {
 namespace socket {
 namespace tcp {
 
-TcpClientSocket::TcpClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                 TcpHandlerRead tcp_handler_read)
+TcpSocket::TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+                     boost::asio::io_context &io_context) noexcept
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
-      io_context_{},
-      tcp_socket_{io_context_},
-      exit_request_{false},
-      running_{false},
-      cond_var_{},
-      mutex_{},
-      tcp_handler_read_{std::move(tcp_handler_read)} {
-  // Start thread to receive messages
-  thread_ = std::thread([this]() {
-    std::unique_lock<std::mutex> lck(mutex_);
-    while (!exit_request_) {
-      if (!running_) {
-        cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
-      }
-      if (!exit_request_.load()) {
-        if (running_) {
-          lck.unlock();
-          HandleMessage();
-          lck.lock();
-        }
-      }
-    }
-  });
-}
+      io_context_{io_context},
+      tcp_socket_{io_context_} {}
 
-TcpClientSocket::~TcpClientSocket() {
-  exit_request_ = true;
-  running_ = false;
-  cond_var_.notify_all();
-  thread_.join();
-}
+TcpSocket::~TcpSocket() noexcept = default;
 
-core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Open() {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
+core_type::Result<void, TcpSocket::SocketError> TcpSocket::Open() noexcept {
+  core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
   // Open the socket
@@ -80,23 +53,23 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Open() {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
-      result.EmplaceError(TcpErrorCode::kBindingFailed);
+      result.EmplaceError(SocketError::kBindingFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
-    result.EmplaceError(TcpErrorCode::kOpenFailed);
+    result.EmplaceError(SocketError::kOpenFailed);
   }
   return result;
 }
 
-core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::ConnectToHost(std::string_view host_ip_address,
-                                                                                      std::uint16_t host_port_num) {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
+core_type::Result<void, TcpSocket::SocketError> TcpSocket::Connect(std::string_view host_ip_address,
+                                                                   std::uint16_t host_port_num) noexcept {
+  core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
-  // connect to provided ipAddress
+  // Connect to provided Ip address
   tcp_socket_.connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -105,11 +78,6 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::ConnectT
           msg << "Tcp Socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    {  // start reading
-      std::lock_guard<std::mutex> lock{mutex_};
-      running_ = true;
-      cond_var_.notify_all();
-    }
     result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -119,15 +87,13 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::ConnectT
   return result;
 }
 
-core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::DisconnectFromHost() {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
+core_type::Result<void, TcpSocket::SocketError> TcpSocket::Disconnect() noexcept {
+  core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
   // Graceful shutdown
-  tcp_socket_.shutdown(TcpSocket::shutdown_both, ec);
+  tcp_socket_.shutdown(Socket::shutdown_both, ec);
   if (ec.value() == boost::system::errc::success) {
-    // stop reading
-    running_ = false;
     // Socket shutdown success
     result.EmplaceValue();
   } else {
@@ -139,8 +105,8 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Disconne
   return result;
 }
 
-core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Transmit(TcpMessageConstPtr tcp_message) {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
+core_type::Result<void, TcpSocket::SocketError> TcpSocket::Transmit(TcpMessageConstPtr tcp_message) noexcept {
+  core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
   boost::asio::write(tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), tcp_message->GetTxBuffer().size()),
@@ -162,15 +128,16 @@ core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Transmit
   return result;
 }
 
-core_type::Result<void, TcpClientSocket::TcpErrorCode> TcpClientSocket::Destroy() {
-  core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
+core_type::Result<void, TcpSocket::SocketError> TcpSocket::Close() noexcept {
+  core_type::Result<void, SocketError> result{SocketError::kGenericError};
   // destroy the socket
   tcp_socket_.close();
   result.EmplaceValue();
   return result;
 }
 
-void TcpClientSocket::HandleMessage() {
+core_type::Result<TcpMessagePtr, TcpSocket::SocketError> TcpSocket::Read() noexcept {
+  core_type::Result<TcpMessagePtr, SocketError> result{SocketError::kRemoteDisconnected};
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
@@ -199,19 +166,17 @@ void TcpClientSocket::HandleMessage() {
           msg << "Tcp Message received from "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    // notify upper layer about received message
-    tcp_handler_read_(std::move(tcp_rx_message));
+    result.EmplaceValue(std::move(tcp_rx_message));
   } else if (ec.value() == boost::asio::error::eof) {
-    running_ = false;
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {
-    running_ = false;
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
   }
+  return result;
 }
 }  // namespace tcp
 }  // namespace socket

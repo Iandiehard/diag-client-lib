@@ -92,6 +92,12 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
   std::unique_ptr<uds_transport::Connection> CreateUdpConnection(uds_transport::ConversionHandler &conversion_handler,
                                                                  std::string_view udp_ip_address,
                                                                  std::uint16_t port_num) override;
+
+ private:
+  /**
+   * @brief         Store Doip Connection manager
+   */
+  connection::ConnectionManager connection_mgr_;
 };
 
 }  // namespace transport_protocol_handler

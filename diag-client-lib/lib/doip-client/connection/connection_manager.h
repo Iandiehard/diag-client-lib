@@ -12,6 +12,7 @@
 #include <string_view>
 #include <utility>
 
+#include "socket/io_context.h"
 #include "uds_transport/connection.h"
 
 namespace doip_client {
@@ -20,17 +21,23 @@ namespace connection {
 /**
  * @brief    Manages Doip tcp and udp connections
  */
-class DoipConnectionManager final {
+class ConnectionManager final {
+ public:
+  /**
+   * @brief  Type alias for boost context
+   */
+  using IoContext = boost_support::socket::IoContext;
+
  public:
   /**
    * @brief         Constructs an instance of DoipConnectionManager
    */
-  DoipConnectionManager() = default;
+  ConnectionManager() noexcept;
 
   /**
    * @brief         Destruct an instance of DoipConnectionManager
    */
-  ~DoipConnectionManager() = default;
+  ~ConnectionManager() noexcept = default;
 
   /**
    * @brief       Function to find or create a new Tcp connection
@@ -40,10 +47,11 @@ class DoipConnectionManager final {
    *              The local tcp ip address
    * @param[in]   port_num
    *              The local port number
-   * @return      The unique pointer to Connection created
+   * @return      The unique pointer to tcp connection created
    */
-  static std::unique_ptr<uds_transport::Connection> CreateTcpConnection(
-      uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num);
+  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(uds_transport::ConversionHandler const &conversation,
+                                                                 std::string_view tcp_ip_address,
+                                                                 std::uint16_t port_num);
 
   /**
    * @brief       Function to find or create a new Udp connection
@@ -53,10 +61,17 @@ class DoipConnectionManager final {
    *              The local udp ip address
    * @param[in]   port_num
    *              The local port number
-   * @return      The unique pointer to Connection created
+   * @return      The unique pointer to udp connection created
    */
-  static std::unique_ptr<uds_transport::Connection> CreateUdpConnection(
-      uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num);
+  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(uds_transport::ConversionHandler const &conversation,
+                                                                 std::string_view udp_ip_address,
+                                                                 std::uint16_t port_num);
+
+ private:
+  /**
+   * @brief  Stores the io context
+   */
+  IoContext io_context_;
 };
 }  // namespace connection
 }  // namespace doip_client

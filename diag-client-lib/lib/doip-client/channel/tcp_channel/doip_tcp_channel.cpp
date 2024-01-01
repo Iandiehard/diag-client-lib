@@ -17,12 +17,16 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t, uds_transport::Connection &connection)
-    : tcp_socket_handler_{tcp_ip_address, *this},
+DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler, uds_transport::Connection &connection)
+    : tcp_socket_handler_{std::move(tcp_socket_handler)},
       tcp_channel_handler_{tcp_socket_handler_, *this},
       connection_{connection} {}
 
 void DoipTcpChannel::Start() {
+  // Set the handler to receive data from socket handler
+  tcp_socket_handler_.SetReadHandler(
+      [this](TcpMessagePtr tcp_message) { ProcessReceivedTcpMessage(std::move(tcp_message)); });
+  // Start the socket and channel handler
   tcp_socket_handler_.Start();
   tcp_channel_handler_.Start();
 }
@@ -32,7 +36,7 @@ void DoipTcpChannel::Stop() {
   tcp_channel_handler_.Stop();
 }
 
-bool DoipTcpChannel::IsConnectToHost() {
+bool DoipTcpChannel::IsConnectedToHost() {
   return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
 }
 

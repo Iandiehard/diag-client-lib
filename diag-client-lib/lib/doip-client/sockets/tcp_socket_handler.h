@@ -13,8 +13,9 @@
 #include <string>
 #include <string_view>
 
+#include "client/tcp/tcp_client.h"
 #include "core/include/result.h"
-#include "socket/tcp/tcp_client.h"
+#include "socket/tcp/tcp_socket.h"
 
 namespace doip_client {
 // forward declaration
@@ -32,34 +33,47 @@ namespace sockets {
 class TcpSocketHandler final {
  public:
   /**
-   * @brief  Definitions of different socket state
+   * @brief  Definitions of different connection state
    */
   enum class SocketHandlerState : std::uint8_t {
-    kSocketOffline = 0U,     /**< Socket offline state */
-    kSocketOnline = 1U,      /**< Socket online state */
-    kSocketConnected = 2U,   /**< Socket connected to remote server */
-    kSocketDisconnected = 4U /**< Socket disconnected from remote server */
+    kSocketConnected = 0U,   /**< Connected to remote server */
+    kSocketDisconnected = 1U /**< Disconnected from remote server */
   };
+
+  /**
+   * @brief  Type alias for tcp unsecured socket
+   */
+  using TcpSocket = boost_support::socket::tcp::TcpSocket;
+
+  /**
+   * @brief  Type alias for tcp client with unsecured socket
+   */
+  using TcpClient = boost_support::client::tcp::TcpClient<TcpSocket>;
 
   /**
    * @brief  Type alias for Tcp message
    */
-  using TcpMessage = boost_support::socket::tcp::TcpMessage;
+  using TcpMessage = TcpClient::TcpMessage;
 
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
+  using TcpMessagePtr = TcpClient::TcpMessagePtr;
 
   /**
    * @brief  Type alias for Tcp message const pointer
    */
-  using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
+  using TcpMessageConstPtr = TcpClient::TcpMessageConstPtr;
 
   /**
    * @brief  Type alias for Tcp message
    */
   using TcpChannel = channel::tcp_channel::DoipTcpChannel;
+
+  /**
+   * @brief         Tcp function template used for reception
+   */
+  using HandlerRead = std::function<void(TcpMessagePtr)>;
 
   /**
    * @brief         Constructs an instance of TcpSocketHandler
@@ -68,7 +82,19 @@ class TcpSocketHandler final {
    * @param[in]     channel
    *                The reference to tcp transport handler
    */
-  TcpSocketHandler(std::string_view local_ip_address, TcpChannel &channel);
+  explicit TcpSocketHandler(TcpSocket socket);
+
+  /**
+   * @brief  Deleted copy assignment and copy constructor
+   */
+  TcpSocketHandler(const TcpSocketHandler &other) noexcept = delete;
+  TcpSocketHandler &operator=(const TcpSocketHandler &other) noexcept = delete;
+
+  /**
+   * @brief  Move assignment and Move constructor
+   */
+  TcpSocketHandler(TcpSocketHandler &&other) noexcept;
+  TcpSocketHandler &operator=(TcpSocketHandler &&other) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpSocketHandler
@@ -86,18 +112,26 @@ class TcpSocketHandler final {
   void Stop();
 
   /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(HandlerRead read_handler);
+
+  /**
    * @brief         Function to connect to remote ip address and port number
    * @param[in]     host_ip_address
    *                The host ip address
    * @param[in]     host_port_num
    *                The host port number
-   * @return        The
+   * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
 
   /**
    * @brief         Function to disconnect from remote host if already connected
-   * @return        The
+   * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> DisconnectFromHost();
 
@@ -105,7 +139,7 @@ class TcpSocketHandler final {
    * @brief         Function to transmit the provided tcp message
    * @param[in]     tcp_message
    *                The tcp message
-   * @return        The
+   * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message);
 
@@ -117,34 +151,19 @@ class TcpSocketHandler final {
 
  private:
   /**
-   * @brief  Type alias for tcp client socket
+   * @brief  Store the client object
    */
-  using TcpSocket = boost_support::socket::tcp::TcpClientSocket;
-
-  /**
-   * @brief  Store the local ip address
-   */
-  std::string local_ip_address_;
-
-  /**
-   * @brief  Store the local port number
-   */
-  std::uint16_t local_port_num_;
-
-  /**
-   * @brief  Store the socket object
-   */
-  std::optional<TcpSocket> tcp_socket_;
-
-  /**
-   * @brief  Store the reference to tcp channel
-   */
-  TcpChannel &channel_;
+  std::unique_ptr<TcpClient> tcp_client_;
 
   /**
    * @brief  Store the state of handler
    */
   std::atomic<SocketHandlerState> state_;
+
+  /**
+   * @brief  Store the handler
+   */
+  HandlerRead handler_read_;
 };
 }  // namespace sockets
 }  // namespace doip_client

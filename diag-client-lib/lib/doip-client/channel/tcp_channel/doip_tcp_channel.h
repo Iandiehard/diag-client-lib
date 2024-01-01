@@ -26,6 +26,11 @@ namespace tcp_channel {
 class DoipTcpChannel final {
  public:
   /**
+   * @brief  Type alias for Tcp socket handler
+   */
+  using TcpSocketHandler = sockets::TcpSocketHandler;
+
+  /**
    * @brief  Type alias for Tcp message pointer
    */
   using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
@@ -39,7 +44,7 @@ class DoipTcpChannel final {
    * @param[in]     connection
    *                The reference to tcp transport handler
    */
-  DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
+  DoipTcpChannel(TcpSocketHandler tcp_socket_handler, uds_transport::Connection &connection);
 
   /**
    * @brief         Destruct an instance of TcpChannel
@@ -60,7 +65,7 @@ class DoipTcpChannel final {
    * @brief        Function to check if connected to host remote server
    * @return       True if connection, False otherwise
    */
-  bool IsConnectToHost();
+  bool IsConnectedToHost();
 
   /**
    * @brief       Function to establish connection to remote host server
@@ -131,11 +136,6 @@ class DoipTcpChannel final {
   void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
 
  private:
-  /**
-   * @brief  Type alias for Tcp socket handler
-   */
-  using TcpSocketHandler = sockets::TcpSocketHandler;
-
   /**
    * @brief  Store the tcp socket handler
    */

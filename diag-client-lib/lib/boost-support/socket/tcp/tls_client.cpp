@@ -1,10 +1,10 @@
 /* Diagnostic Client library
-* Copyright (C) 2023  Avijit Dey
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ * Copyright (C) 2023  Avijit Dey
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #include "socket/tcp/tls_client.h"
 
@@ -15,14 +15,46 @@
 namespace boost_support {
 namespace socket {
 namespace tcp {
+namespace {
+
+void print_cn_name(const char *label, X509_NAME *const name) {
+  int idx = -1, success = 0;
+  unsigned char *utf8 = NULL;
+
+  do {
+    if (!name) break; /* failed */
+
+    idx = X509_NAME_get_index_by_NID(name, NID_commonName, -1);
+    if (!(idx > -1)) break; /* failed */
+
+    X509_NAME_ENTRY *entry = X509_NAME_get_entry(name, idx);
+    if (!entry) break; /* failed */
+
+    ASN1_STRING *data = X509_NAME_ENTRY_get_data(entry);
+    if (!data) break; /* failed */
+
+    int length = ASN1_STRING_to_UTF8(&utf8, data);
+    if (!utf8 || !(length > 0)) break; /* failed */
+
+    fprintf(stdout, "  %s: %s\n", label, utf8);
+    success = 1;
+
+  } while (0);
+
+  if (utf8) OPENSSL_free(utf8);
+
+  if (!success) fprintf(stdout, "  %s: <not available>\n", label);
+}
+
+}  // namespace
 
 TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                                  TcpHandlerRead tcp_handler_read, std::string_view ca_certification_path)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
-      io_service{},
-      io_ssl_context_{boost::asio::ssl::context::tlsv12_client},
-      tls_socket_{io_service, io_ssl_context_},
+      io_context_{},
+      io_ssl_context_{boost::asio::ssl::context::tlsv13_client},
+      tls_socket_{io_context_, io_ssl_context_},
       exit_request_{false},
       running_{false},
       cond_var_{},
@@ -32,16 +64,26 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
   // Set verification mode
   tls_socket_.set_verify_mode(boost::asio::ssl::verify_peer);
   // Set the verification callback
-  tls_socket_.set_verify_callback(
-      [](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool { 
+  tls_socket_.set_verify_callback([](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool {
+    X509 *cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
+    int depth = X509_STORE_CTX_get_error_depth(ctx.native_handle());
 
-        X509* cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
-        X509_NAME* iname = cert ? X509_get_issuer_name(cert) : nullptr;
-        X509_NAME* sname = cert ? X509_get_subject_name(cert) : nullptr;
-        return true; 
-        });
+    fprintf(stdout, "verify_callback (depth=%d)(preverify=%d)\n", depth, pre_verified);
+
+    X509_NAME *iname = cert ? X509_get_issuer_name(cert) : nullptr;
+    X509_NAME *sname = cert ? X509_get_subject_name(cert) : nullptr;
+
+    /* Issuer is the authority we trust that warrants nothing useful */
+    print_cn_name("Issuer (cn)", iname);
+    /* Subject is who the certificate is issued to by the authority  */
+    print_cn_name("Subject (cn)", sname);
+    return true;
+  });
   // Load the root CA certificates
   io_ssl_context_.load_verify_file(std::string{ca_certification_path});
+
+  SSL_set_ciphersuites(tls_socket_.native_handle(),
+                       "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256");
 
   // Start thread to receive messages
   thread_ = std::thread([this]() {
@@ -115,7 +157,7 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectT
   core_type::Result<void, TlsErrorCode> result{TlsErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
-  // Connect to provided ipAddress
+  // Connect to provided Ip address
   GetNativeTcpSocket().connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num),
                                ec);
   if (ec.value() == boost::system::errc::success) {
@@ -128,17 +170,18 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectT
     // Perform TLS handshake
     tls_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
     if (ec.value() == boost::system::errc::success) {
-      {
+      {  // start reading
         std::lock_guard<std::mutex> lock{mutex_};
-        // start reading
         running_ = true;
       }
       cond_var_.notify_all();
+      printf("Connected with %s encryption\n", SSL_get_cipher(tls_socket_.native_handle()));
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tls client handshake with host failed with error: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tls client handshake with host failed with error: " << ec.message();
+          });
       result.EmplaceError(TlsErrorCode::kTlsHandshakeFailed);
     }
   } else {
@@ -223,7 +266,7 @@ void TlsClientSocket::HandleMessage() {
                                         (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
 
-    if(read_next_bytes != 0u) {
+    if (read_next_bytes != 0u) {
       // reserve the buffer
       rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
       boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
@@ -241,9 +284,8 @@ void TlsClientSocket::HandleMessage() {
       tcp_handler_read_(std::move(tcp_rx_message));
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
-            msg << "Tcp Message read ignored as header size is zero";
-          });
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp Message read ignored as header size is zero"; });
     }
   } else if (ec.value() == boost::asio::error::eof) {
     running_ = false;

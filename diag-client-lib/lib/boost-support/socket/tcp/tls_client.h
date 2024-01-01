@@ -44,7 +44,7 @@ class TlsClientSocket final {
 
  public:
   /**
-   * @brief         Constructs an instance of TcpClientSocket
+   * @brief         Constructs an instance of TlsClientSocket
    * @param[in]     local_ip_address
    *                The local ip address
    * @param[in]     local_port_num
@@ -135,9 +135,9 @@ class TlsClientSocket final {
   std::uint16_t local_port_num_;
 
   /**
-   * @brief  boost io service
+   * @brief  boost io context
    */
-  boost::asio::io_service io_service;
+  boost::asio::io_context io_context_;
 
   /**
    * @brief  boost io ssl context
