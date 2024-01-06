@@ -14,7 +14,8 @@ namespace diag {
 namespace client {
 namespace uds_transport {
 //ctor
-UdsTransportProtocolManager::UdsTransportProtocolManager(/* pass the protocol kind */)
+UdsTransportProtocolManager::UdsTransportProtocolManager(
+    /* pass the protocol kind */)
     : doip_transport_handler{std::make_unique<doip_client::transport_protocol_handler::DoipTransportProtocolHandler>(
           handler_id_count, *this)} {}
 

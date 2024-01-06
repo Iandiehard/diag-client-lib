@@ -84,8 +84,8 @@ class TcpMessage final {
   TcpMessage(TcpMessage &&other) noexcept = default;
   TcpMessage &operator=(TcpMessage &&other) noexcept = default;
 
-  TcpMessage(const TcpMessage &other) = delete;
-  TcpMessage &operator=(const TcpMessage &other) = delete;
+  TcpMessage(const TcpMessage &other) = default;
+  TcpMessage &operator=(const TcpMessage &other) = default;
 
   /**
    * @brief         Destructs an instance of TcpMessage

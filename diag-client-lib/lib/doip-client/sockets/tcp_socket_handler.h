@@ -66,21 +66,14 @@ class TcpSocketHandler final {
   using TcpMessageConstPtr = TcpClient::TcpMessageConstPtr;
 
   /**
-   * @brief  Type alias for Tcp message
-   */
-  using TcpChannel = channel::tcp_channel::DoipTcpChannel;
-
-  /**
    * @brief         Tcp function template used for reception
    */
   using HandlerRead = std::function<void(TcpMessagePtr)>;
 
   /**
    * @brief         Constructs an instance of TcpSocketHandler
-   * @param[in]     local_ip_address
-   *                The local ip address
-   * @param[in]     channel
-   *                The reference to tcp transport handler
+   * @param[in]     socket
+   *                The socket used
    */
   explicit TcpSocketHandler(TcpSocket socket);
 

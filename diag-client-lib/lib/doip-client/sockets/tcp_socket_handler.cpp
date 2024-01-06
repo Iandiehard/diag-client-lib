@@ -17,10 +17,7 @@ namespace doip_client {
 namespace sockets {
 
 TcpSocketHandler::TcpSocketHandler(TcpSocket socket)
-    : tcp_client_{std::make_unique<TcpClient>(std::move(socket),
-                                              [this](TcpMessagePtr tcp_message) {
-                                                if (handler_read_) { handler_read_(std::move(tcp_message)); }
-                                              })},
+    : tcp_client_{std::make_unique<TcpClient>(std::move(socket))},
       state_{SocketHandlerState::kSocketDisconnected},
       handler_read_{} {}
 
@@ -38,11 +35,16 @@ TcpSocketHandler &TcpSocketHandler::operator=(TcpSocketHandler &&other) noexcept
   return *this;
 }
 
-void TcpSocketHandler::Start() { tcp_client_->Initialize(); }
+void TcpSocketHandler::Start() {
+  tcp_client_->SetReadHandler([this](TcpMessagePtr tcp_message) {
+    if (handler_read_) { handler_read_(std::move(tcp_message)); }
+  });
+  tcp_client_->Initialize();
+}
 
 void TcpSocketHandler::Stop() {
   if (state_.load() != SocketHandlerState::kSocketDisconnected) { DisconnectFromHost(); }
-  tcp_client_->Deinitialize();
+  tcp_client_->DeInitialize();
 }
 
 void TcpSocketHandler::SetReadHandler(TcpSocketHandler::HandlerRead read_handler) {
@@ -72,7 +74,7 @@ core_type::Result<void> TcpSocketHandler::DisconnectFromHost() {
     state_.store(SocketHandlerState::kSocketDisconnected);
     result.EmplaceValue();
   } else {
-    // not connected
+    // Not connected
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
         [](std::stringstream &msg) { msg << "Tcp socket already is in disconnected state"; });

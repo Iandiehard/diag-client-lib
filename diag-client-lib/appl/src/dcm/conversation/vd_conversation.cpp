@@ -238,7 +238,8 @@ VdConversation::SendVehicleIdentificationRequest(
             __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "-> "
-                  << "No vehicle identification response received, timed out without response";
+                  << "No vehicle identification response received, timed out "
+                     "without response";
             });
       } else {
         result.EmplaceValue(std::make_unique<VehicleInfoMessageImpl>(vehicle_info_collection_));

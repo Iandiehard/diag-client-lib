@@ -30,11 +30,6 @@ template<typename SocketType>
 class TcpClient final {
  public:
   /**
-   * @brief         Tcp error code
-   */
-  enum class TcpErrorCode : std::uint8_t { kOpenFailed, kBindingFailed, kGenericError };
-
-  /**
    * @brief  Type alias for Tcp message
    */
   using TcpMessage = typename SocketType::TcpMessage;
@@ -62,9 +57,9 @@ class TcpClient final {
    * @param[in]     handler_read
    *                The handler to send received data to user
    */
-  TcpClient(SocketType socket, HandlerRead handler_read) noexcept
+  TcpClient(SocketType socket) noexcept
       : socket_{std::move(socket)},
-        handler_read_{std::move(handler_read)},
+        handler_read_{},
         exit_request_{false},
         running_{false},
         cond_var_{},
@@ -89,6 +84,14 @@ class TcpClient final {
   ~TcpClient() noexcept = default;
 
   /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(HandlerRead read_handler) { handler_read_ = std::move(read_handler); }
+
+  /**
    * @brief         Initialize the client
    * @return        Empty result on success otherwise error code
    */
@@ -103,7 +106,11 @@ class TcpClient final {
           cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
         }
         if (!exit_request_.load()) {
-          if (running_) { running_ = ReadMessage(); }
+          if (running_) {
+            lck.unlock();
+            running_ = ReadMessage();
+            lck.lock();
+          }
         }
       }
     });
@@ -153,7 +160,7 @@ class TcpClient final {
    * @brief         De-initialize the client
    * @return        Empty result on success otherwise error code
    */
-  void Deinitialize() noexcept {
+  void DeInitialize() noexcept {
     socket_.Close();
     {
       std::unique_lock<std::mutex> lck(mutex_);
@@ -206,15 +213,12 @@ class TcpClient final {
    * @return        True if message is read successfully, otherwise False
    */
   bool ReadMessage() {
-    bool is_message_read{false};
-    if (handler_read_) {
-      core_type::Result<TcpMessagePtr, typename SocketType::SocketError> read_result{socket_.Read()};
-      if (read_result.HasValue()) {
-        handler_read_(std::move(read_result).Value());
-        is_message_read = true;
-      }
+    // Try reading from socket
+    core_type::Result<TcpMessagePtr, typename SocketType::SocketError> read_result{socket_.Read()};
+    if (read_result.HasValue()) {
+      if (handler_read_) { handler_read_(std::move(read_result).Value()); }
     }
-    return is_message_read;
+    return read_result.HasValue();
   }
 };
 }  // namespace tcp

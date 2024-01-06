@@ -396,7 +396,8 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
         final_state = DiagnosticMessageState::kDiagnosticPositiveAckRecvd;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "Diagnostic message positively acknowledged from remote server "
+              msg << "Diagnostic message positively acknowledged from remote "
+                     "server "
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } else {
@@ -466,7 +467,8 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
             handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "Diagnostic Message Ack Request timed out, no response received in: "
+                  msg << "Diagnostic Message Ack Request timed out, no "
+                         "response received in: "
                       << kDoIPDiagnosticAckTimeout << "seconds";
                 });
           },
@@ -484,8 +486,10 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
               result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
               handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "Diagnostic Message Transmission Failed Neg Ack Received"; });
+                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                    msg << "Diagnostic Message Transmission Failed Neg Ack "
+                           "Received";
+                  });
             }
           },
           std::chrono::milliseconds{kDoIPDiagnosticAckTimeout});

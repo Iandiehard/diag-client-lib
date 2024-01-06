@@ -271,8 +271,9 @@ Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> Dm
                       __FILE__, __LINE__, "", [&](std::stringstream &msg) {
                         msg << "'" << conversation_name_ << "'"
                             << "-> "
-                            << "Diagnostic Response P2 Star Timeout happened after " << p2_star_client_max_
-                            << " milliseconds";
+                            << "Diagnostic Response P2 Star Timeout "
+                               "happened after "
+                            << p2_star_client_max_ << " milliseconds";
                       });
                   result.EmplaceError(DiagClientConversation::DiagError::kDiagResponseTimeout);
                   conversation_state_.GetConversationStateContext().TransitionTo(ConversationState::kIdle);

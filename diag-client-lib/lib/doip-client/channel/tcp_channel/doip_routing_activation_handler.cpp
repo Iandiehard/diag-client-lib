@@ -330,7 +330,8 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
         final_state = RoutingActivationState::kRoutingActivationSuccessful;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "RoutingActivation successfully activated in remote server with logical Address"
+              msg << "RoutingActivation successfully activated in remote "
+                     "server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } break;
@@ -338,7 +339,8 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
         // trigger routing activation after sometime, not implemented yet
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "RoutingActivation is activated, confirmation required in remote server with logical Address"
+              msg << "RoutingActivation is activated, confirmation required in "
+                     "remote server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } break;
@@ -372,7 +374,8 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
             handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "RoutingActivation response timeout, no response received in: "
+                  msg << "RoutingActivation response timeout, no response "
+                         "received in: "
                       << kDoIPRoutingActivationTimeout << " milliseconds";
                 });
           },

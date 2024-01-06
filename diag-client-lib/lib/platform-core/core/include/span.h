@@ -480,7 +480,8 @@ class Span final {
       -> Span<element_type,
               Count != dynamic_extent ? Count : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)> {
     details::CheckIfExpectedOrAbort((Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)),
-                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset))",
+                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - "
+                                    "Offset))",
                                     __FILE__, __LINE__);
     return Span{data() + Offset, Count != dynamic_extent ? Count : size() - Offset};
   }
@@ -496,7 +497,8 @@ class Span final {
    */
   constexpr Span<element_type, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const {
     details::CheckIfExpectedOrAbort((offset <= size() && (count == dynamic_extent || count <= size() - offset)),
-                                    "(offset <= size() && (count == dynamic_extent || count <= size() - offset))",
+                                    "(offset <= size() && (count == dynamic_extent || count <= size() - "
+                                    "offset))",
                                     __FILE__, __LINE__);
     return {data() + offset, count == dynamic_extent ? size() - offset : count};
   }

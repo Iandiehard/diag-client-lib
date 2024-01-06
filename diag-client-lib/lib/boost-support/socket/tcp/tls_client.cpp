@@ -83,7 +83,8 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
   io_ssl_context_.load_verify_file(std::string{ca_certification_path});
 
   SSL_set_ciphersuites(tls_socket_.native_handle(),
-                       "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256");
+                       "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_"
+                       "CHACHA20_POLY1305_SHA256");
 
   // Start thread to receive messages
   thread_ = std::thread([this]() {
