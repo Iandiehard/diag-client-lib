@@ -1,5 +1,5 @@
 /* Diagnostic Client library
- * Copyright (C) 2023  Avijit Dey
+ * Copyright (C) 2024  Avijit Dey
  * 
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -8,7 +8,9 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 
-#include "uds_message.h"
+#include <cstdint>
+
+#include "uds_transport/uds_message.h"
 
 namespace uds_transport {
 
