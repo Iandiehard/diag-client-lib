@@ -8,10 +8,11 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_UDS_MESSAGE_H
 
+#include <cstdint>
 #include <map>
 #include <string_view>
 
-#include "protocol_types.h"
+#include "uds_transport/protocol_types.h"
 
 namespace uds_transport {
 
