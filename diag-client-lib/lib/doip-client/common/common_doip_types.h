@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_COMMON_DOIP_TYPES_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_DOIP_CLIENT_COMMON_COMMON_DOIP_TYPES_H
 
-#include "common_doip_header.h"
+#include <cstdint>
 
 namespace doip_client {
 

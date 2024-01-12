@@ -39,7 +39,7 @@ auto DoipUdpChannelHandler::SendVehicleIdentificationRequest(
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   // Get the udp handler type from payload
-  std::uint8_t const handler_type{vehicle_identification_request->GetPayload()[BYTE_POS_ZERO]};
+  std::uint8_t const handler_type{vehicle_identification_request->GetPayload()[0u]};
   // deserialize and send to proper handler
   switch (handler_type) {
     case 0U:

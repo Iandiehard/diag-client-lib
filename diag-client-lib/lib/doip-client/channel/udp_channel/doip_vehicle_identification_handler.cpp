@@ -337,7 +337,7 @@ auto VehicleIdentificationHandler::SendVehicleIdentificationRequest(
       vehicle_identification_request->GetHostIpAddress(), vehicle_identification_request->GetHostPortNumber())};
 
   // Get preselection mode
-  std::uint8_t preselection_mode{vehicle_identification_request->GetPayload()[BYTE_POS_ONE]};
+  std::uint8_t preselection_mode{vehicle_identification_request->GetPayload()[1u]};
   // Get the payload type & length from preselection mode
   VehiclePayloadType const doip_vehicle_payload_type{GetVehicleIdentificationPayloadType(preselection_mode)};
 

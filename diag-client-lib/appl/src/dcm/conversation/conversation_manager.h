@@ -56,8 +56,8 @@ class ConversationManager final {
   /**
    * @brief       Function to get DM conversation object based on conversation name
    * @param[in]   conversation_name
-   *              The passed conversation name
-   * @return      The reference to diag client conversation as per passed conversation name
+   *              The conversation name
+   * @return      The reference to diag client conversation as per provided conversation name
    */
   diag::client::conversation::Conversation &GetDiagnosticClientConversation(
       std::string_view conversation_name) noexcept;

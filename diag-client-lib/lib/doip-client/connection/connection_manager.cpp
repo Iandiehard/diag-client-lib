@@ -39,6 +39,8 @@ class DoipTcpConnection final : public uds_transport::Connection {
    *              The local tcp ip address
    * @param[in]   port_num
    *              The local port number
+   * @param[in]   io_context
+   *              The reference to io context
    */
   DoipTcpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view tcp_ip_address,
                     std::uint16_t port_num, IoContext::Context &io_context)

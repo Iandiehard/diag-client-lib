@@ -9,7 +9,6 @@
 
 #include <utility>
 
-#include "channel/tcp_channel/doip_tcp_channel.h"
 #include "common/logger.h"
 #include "error_domain/doip_error_domain.h"
 

@@ -15,6 +15,18 @@
 namespace diag {
 namespace client {
 namespace conversation_manager {
+namespace {
+
+/**
+  * @brief         Needed to create random port number from client side
+  */
+constexpr std::uint16_t kRandomPortNumber{0u};
+
+/**
+  * @brief        The conversation name for Vehicle discovery
+  */
+std::string const kVdConversationName{"VehicleDiscovery"};
+}  // namespace
 
 ConversationManager::ConversationManager(
     diag::client::config_parser::DcmClientConfig config,
@@ -71,8 +83,8 @@ void ConversationManager::StoreConversationConfig(diag::client::config_parser::D
     conversation::VDConversationType conversion_identifier{};
     conversion_identifier.udp_address = config.udp_ip_address;
     conversion_identifier.udp_broadcast_address = config.udp_broadcast_address;
-    conversion_identifier.port_num = 0U;  // random selection of port number
-    (void) conversation_map_.emplace("VehicleDiscovery", ConversationStorage{conversion_identifier, nullptr});
+    conversion_identifier.port_num = kRandomPortNumber;  // random selection of port number
+    conversation_map_.emplace(kVdConversationName, ConversationStorage{conversion_identifier, nullptr});
   }
 
   {  // Create Conversation config
@@ -83,10 +95,9 @@ void ConversationManager::StoreConversationConfig(diag::client::config_parser::D
       conversion_identifier.p2_star_client_max = config.conversations[conv_count].p2_star_client_max;
       conversion_identifier.source_address = config.conversations[conv_count].source_address;
       conversion_identifier.tcp_address = config.conversations[conv_count].network.tcp_ip_address;
-      conversion_identifier.port_num = 0U;  // random selection of port number
-      // push to config map
-      (void) conversation_map_.emplace(config.conversations[conv_count].conversation_name,
-                                       ConversationStorage{conversion_identifier, nullptr});
+      conversion_identifier.port_num = kRandomPortNumber;  // random selection of port number
+      conversation_map_.emplace(config.conversations[conv_count].conversation_name,
+                                ConversationStorage{conversion_identifier, nullptr});
     }
   }
 }

@@ -147,8 +147,8 @@ void DmConversation::Shutdown() noexcept {
                                                                       });
 }
 
-DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::uint16_t target_address,
-                                                                          IpAddress host_ip_addr) noexcept {
+DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::uint16_t const target_address,
+                                                                          IpAddress const host_ip_addr) noexcept {
   // create an uds message just to get the port number
   // source address required for Routing Activation
   uds_transport::ByteVector payload{};  // empty payload

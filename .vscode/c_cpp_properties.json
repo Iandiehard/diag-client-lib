@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/boost/include/**",
-                "/usr/include/c++/9/**"
+                "/usr/include/c++/11/**"
             ],
             "defines": [],
             "cStandard": "c17",

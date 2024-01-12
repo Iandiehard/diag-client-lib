@@ -18,13 +18,6 @@
 #include "socket/tcp/tcp_socket.h"
 
 namespace doip_client {
-// forward declaration
-namespace channel {
-namespace tcp_channel {
-class DoipTcpChannel;
-}  // namespace tcp_channel
-}  // namespace channel
-
 namespace sockets {
 
 /**

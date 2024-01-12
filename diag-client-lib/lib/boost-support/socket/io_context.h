@@ -14,7 +14,7 @@ namespace boost_support {
 namespace socket {
 
 /**
-* @brief       Class used to create a tcp socket for handling transmission and reception of tcp message from driver
+* @brief       Wrapper class to hold boost io context required for io object( sockets)
 */
 class IoContext final {
  public:
