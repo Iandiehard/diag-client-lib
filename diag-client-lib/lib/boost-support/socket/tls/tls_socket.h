@@ -1,10 +1,10 @@
 /* Diagnostic Client library
-* Copyright (C) 2023  Avijit Dey
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ * Copyright (C) 2023  Avijit Dey
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 #ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TLS_TLS_SOCKET_H_
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TLS_TLS_SOCKET_H_
 
@@ -12,6 +12,7 @@
 
 #include "core/include/result.h"
 #include "socket/tcp/tcp_message.h"
+#include "socket/tls/tls_context.h"
 
 namespace boost_support {
 namespace socket {
@@ -20,20 +21,19 @@ namespace tls {
 /**
  * @brief       Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */
-class TlsSocket final {
+template<TlsVersionType TlsVersion>
+class TlsSocket final : public TlsContext<TlsVersion> {
  public:
-  /**
-   * @brief         The TLS version to be used by this socket
-   */
-  enum class Version : std::uint8_t {
-    kTls12,  // Tls version 1.2
-    kTls13   // Tls version 1.3
-  };
-
   /**
    * @brief         Socket error code
    */
-  enum class SocketError : std::uint8_t { kOpenFailed, kBindingFailed, kRemoteDisconnected, kGenericError };
+  enum class SocketError : std::uint8_t {
+    kOpenFailed,
+    kBindingFailed,
+    kRemoteDisconnected,
+    kTlsHandshakeFailed,
+    kGenericError
+  };
 
   /**
    * @brief  Type alias for Tcp message
@@ -60,8 +60,8 @@ class TlsSocket final {
    * @param[in]     io_context
    *                The I/O context required to create socket
    */
-  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, Version tls_version,
-            std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept;
+  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, std::string_view ca_certification_path,
+            boost::asio::io_context &io_context) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor
@@ -141,7 +141,7 @@ class TlsSocket final {
   /**
    * @brief  Type alias for tcp socket
    */
-  using Socket = Tcp::socket;
+  using Socket = boost::asio::ssl::stream<Tcp::socket>;
 
   /**
    * @brief  Store local ip address
@@ -154,14 +154,15 @@ class TlsSocket final {
   std::uint16_t local_port_num_;
 
   /**
-   * @brief  boost io context
-   */
-  boost::asio::io_context &io_context_;
-
-  /**
    * @brief  Store the underlying tcp socket
    */
   Socket tcp_socket_;
+
+ private:
+  /**
+   * @brief  Function to get the native tcp socket under tls socket
+   */
+  Socket ::lowest_layer_type &GetNativeTcpSocket();
 };
 }  // namespace tls
 }  // namespace socket

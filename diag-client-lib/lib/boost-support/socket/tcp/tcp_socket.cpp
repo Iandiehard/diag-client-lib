@@ -153,20 +153,27 @@ core_type::Result<TcpMessagePtr, TcpSocket::SocketError> TcpSocket::Read() noexc
                                         (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
                                         (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
-    // reserve the buffer
-    rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
 
-    // all message received, transfer to upper layer
-    Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
-    TcpMessagePtr tcp_rx_message{
-        std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
-    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-          msg << "Tcp Message received from "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
-        });
-    result.EmplaceValue(std::move(tcp_rx_message));
+    if (read_next_bytes != 0u) {
+      // reserve the buffer
+      rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+
+      // all message received, transfer to upper layer
+      Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
+      TcpMessagePtr tcp_rx_message{
+          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+            msg << "Tcp Message received from "
+                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          });
+      result.EmplaceValue(std::move(tcp_rx_message));
+    } else {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp Message read ignored as header size is zero"; });
+    }
   } else if (ec.value() == boost::asio::error::eof) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,

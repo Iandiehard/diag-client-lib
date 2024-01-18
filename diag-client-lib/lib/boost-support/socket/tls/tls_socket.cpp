@@ -16,34 +16,37 @@ namespace boost_support {
 namespace socket {
 namespace tls {
 
-TlsSocket::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, Version tls_version,
-                     std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept
-    : local_ip_address_{local_ip_address},
+template<TlsVersionType TlsVersion>
+TlsSocket<TlsVersion>::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+                                 std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept
+    : TlsContext<TlsVersion>{ca_certification_path, io_context},
+      local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
-      io_context_{io_context},
-      tcp_socket_{io_context_} {}
+      tcp_socket_{io_context, this->GetContext()} {}
 
-TlsSocket::~TlsSocket() noexcept = default;
+template<TlsVersionType TlsVersion>
+TlsSocket<TlsVersion>::~TlsSocket() noexcept = default;
 
-core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Open() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
   // Open the socket
-  tcp_socket_.open(Tcp::v4(), ec);
+  GetNativeTcpSocket().open(Tcp::v4(), ec);
   if (ec.value() == boost::system::errc::success) {
-    // reuse address
-    tcp_socket_.set_option(boost::asio::socket_base::reuse_address{true});
+    // Reuse address
+    GetNativeTcpSocket().set_option(boost::asio::socket_base::reuse_address{true});
     // Set socket to non blocking
-    tcp_socket_.non_blocking(false);
+    GetNativeTcpSocket().non_blocking(false);
     // Bind to local ip address and random port
-    tcp_socket_.bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+    GetNativeTcpSocket().bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
 
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-            Tcp::endpoint const endpoint_{tcp_socket_.local_endpoint()};
+            Tcp::endpoint const endpoint_{GetNativeTcpSocket().local_endpoint()};
             msg << "Tcp Socket opened and bound to "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
@@ -64,21 +67,34 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
   return result;
 }
 
-core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_view host_ip_address,
-                                                                   std::uint16_t host_port_num) noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Connect(
+    std::string_view host_ip_address, std::uint16_t host_port_num) noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
   // Connect to provided Ip address
-  tcp_socket_.connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
+  GetNativeTcpSocket().connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num),
+                               ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
+          Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
           msg << "Tcp Socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
-    result.EmplaceValue();
+    // Perform TLS handshake
+    tcp_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
+    if (ec.value() == boost::system::errc::success) {
+      printf("Connected with %s encryption\n", SSL_get_cipher(tcp_socket_.native_handle()));
+      result.EmplaceValue();
+    } else {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tls client handshake with host failed with error: " << ec.message();
+          });
+      result.EmplaceError(SocketError::kTlsHandshakeFailed);
+    }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
@@ -87,12 +103,15 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_v
   return result;
 }
 
-core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Disconnect() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
+  // Shutdown TLS connection
+  tcp_socket_.shutdown(ec);
+  // Shutdown of TCP connection
+  GetNativeTcpSocket().shutdown(Tcp::socket ::shutdown_both, ec);
 
-  // Graceful shutdown
-  tcp_socket_.shutdown(Socket::shutdown_both, ec);
   if (ec.value() == boost::system::errc::success) {
     // Socket shutdown success
     result.EmplaceValue();
@@ -105,7 +124,9 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept
   return result;
 }
 
-core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(TcpMessageConstPtr tcp_message) noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Transmit(
+    TcpMessageConstPtr tcp_message) noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
@@ -115,7 +136,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(TcpMessageCo
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
+          Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
           msg << "Tcp message sent to "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
@@ -128,15 +149,18 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(TcpMessageCo
   return result;
 }
 
-core_type::Result<void, TlsSocket::SocketError> TlsSocket::Close() noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Close() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
-  // destroy the socket
-  tcp_socket_.close();
+  // Destroy the socket
+  GetNativeTcpSocket().close();
   result.EmplaceValue();
   return result;
 }
 
-core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::Read() noexcept {
+template<TlsVersionType TlsVersion>
+core_type::Result<typename TlsSocket<TlsVersion>::TcpMessagePtr, typename TlsSocket<TlsVersion>::SocketError>
+TlsSocket<TlsVersion>::Read() noexcept {
   core_type::Result<TcpMessagePtr, SocketError> result{SocketError::kRemoteDisconnected};
   TcpErrorCodeType ec{};
   // create and reserve the buffer
@@ -153,20 +177,28 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
                                         (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
                                         (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
-    // reserve the buffer
-    rx_buffer.resize(tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-    boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[tcp::kDoipheadrSize], read_next_bytes), ec);
 
-    // all message received, transfer to upper layer
-    Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
-    TcpMessagePtr tcp_rx_message{
-        std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
-    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-          msg << "Tcp Message received from "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
-        });
-    result.EmplaceValue(std::move(tcp_rx_message));
+    if (read_next_bytes != 0u) {
+      // reserve the buffer
+      rx_buffer.resize(tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[tcp::kDoipheadrSize], read_next_bytes), ec);
+
+      // all message received, transfer to upper layer
+      Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
+      TcpMessagePtr tcp_rx_message{
+          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+            msg << "Tcp Message received from "
+                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          });
+      result.EmplaceValue(std::move(tcp_rx_message));
+    } else {
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp Message read ignored as header size is zero"; });
+    }
+
   } else if (ec.value() == boost::asio::error::eof) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,
@@ -178,6 +210,12 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
   }
   return result;
 }
+
+template<TlsVersionType TlsVersion>
+TlsSocket<TlsVersion>::Socket::lowest_layer_type &TlsSocket<TlsVersion>::GetNativeTcpSocket() {
+  return tcp_socket_.lowest_layer();
+}
+
 }  // namespace tls
 }  // namespace socket
 }  // namespace boost_support

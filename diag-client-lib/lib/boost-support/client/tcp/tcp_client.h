@@ -57,7 +57,7 @@ class TcpClient final {
    * @param[in]     handler_read
    *                The handler to send received data to user
    */
-  TcpClient(SocketType socket) noexcept
+  explicit TcpClient(SocketType socket) noexcept
       : socket_{std::move(socket)},
         handler_read_{},
         exit_request_{false},
@@ -124,7 +124,7 @@ class TcpClient final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  bool ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept {
+  auto ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept -> bool {
     return socket_.Connect(host_ip_address, host_port_num)
         .AndThen([this]() noexcept {
           {  // start reading
@@ -145,7 +145,7 @@ class TcpClient final {
       std::lock_guard<std::mutex> lock{mutex_};
       running_ = false;
     }
-    static_cast<void>(socket_.Disconnect());
+    socket_.Disconnect();
   }
 
   /**
@@ -154,7 +154,7 @@ class TcpClient final {
    *                The tcp message to be transmitted
    * @return        Empty result on success otherwise error code
    */
-  bool Transmit(TcpMessageConstPtr message) noexcept { return socket_.Transmit(std::move(message)).HasValue(); }
+  auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
 
   /**
    * @brief         De-initialize the client
@@ -212,7 +212,7 @@ class TcpClient final {
    * @brief         Function to send the received message to stored handler
    * @return        True if message is read successfully, otherwise False
    */
-  bool ReadMessage() {
+  auto ReadMessage() -> bool {
     // Try reading from socket
     core_type::Result<TcpMessagePtr, typename SocketType::SocketError> read_result{socket_.Read()};
     if (read_result.HasValue()) {
