@@ -108,8 +108,8 @@ struct is_data_size_valid<T,
 
 /**
  * @brief       Check if the element type is not a specialization of Span, Container is not a specialization of Array, Container is not a
-*               specialization of std::array, std::is_array<Container>::value is false, std::data(cont) and std::size(cont) are
-*               both well-formed.
+ *              specialization of std::array, std::is_array<Container>::value is false, std::data(cont) and std::size(cont) are
+ *              both well-formed.
  * @tparam      T
  *              The Element type
  */
