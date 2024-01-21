@@ -6,9 +6,9 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-#include "include/boost-support/parser/json_parser.h"
+#include "boost-support/parser/json_parser.h"
 
-#include "src/boost-support/common/logger.h"
+#include "boost-support/common/logger.h"
 
 namespace boost_support {
 namespace parser {

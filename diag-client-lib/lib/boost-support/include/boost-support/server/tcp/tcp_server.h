@@ -13,7 +13,7 @@
 #include <string_view>
 #include <vector>
 
-#include "src/boost-support/socket/tcp/tcp_message.h"
+#include "boost-support/socket/tcp/tcp_message.h"
 
 namespace boost_support {
 namespace socket {

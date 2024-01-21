@@ -5,11 +5,11 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include "tls_server.h"
+#include "boost-support/socket/tcp/tls_server.h"
 
 #include <utility>
 
-#include "common/logger.h"
+#include "boost-support/common/logger.h"
 
 namespace boost_support {
 namespace socket {

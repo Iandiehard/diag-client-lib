@@ -10,8 +10,8 @@
 
 #include <boost/asio.hpp>
 
+#include "boost-support/socket/tcp/tcp_message.h"
 #include "core/include/result.h"
-#include "src/boost-support/socket/tcp/tcp_message.h"
 
 namespace boost_support {
 namespace socket {

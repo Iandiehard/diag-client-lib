@@ -6,11 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "include/boost-support/socket/tls/tls_socket.h"
+#include "boost-support/socket/tls/tls_socket.h"
 
 #include <utility>
 
-#include "common/logger.h"
+#include "boost-support/common/logger.h"
 
 namespace boost_support {
 namespace socket {
