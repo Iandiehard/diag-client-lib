@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "socket/tcp/tls_client.h"
+#include "tls_client.h"
 
 #include <utility>
 

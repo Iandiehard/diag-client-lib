@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "socket/tls/tls_socket.h"
+#include "include/boost-support/socket/tls/tls_socket.h"
 
 #include <utility>
 

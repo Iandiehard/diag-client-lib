@@ -15,7 +15,7 @@
 #include <thread>
 
 #include "core/include/result.h"
-#include "socket/tcp/tcp_message.h"
+#include "tcp_message.h"
 
 namespace boost_support {
 namespace socket {

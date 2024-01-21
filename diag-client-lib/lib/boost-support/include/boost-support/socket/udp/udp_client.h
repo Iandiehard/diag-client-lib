@@ -15,7 +15,7 @@
 #include <vector>
 
 #include "core/include/result.h"
-#include "socket/udp/udp_message.h"
+#include "udp_message.h"
 
 namespace boost_support {
 namespace socket {

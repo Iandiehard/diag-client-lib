@@ -11,7 +11,7 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 
-#include "socket/tls/tls_version.h"
+#include "tls_version.h"
 
 namespace boost_support {
 namespace socket {

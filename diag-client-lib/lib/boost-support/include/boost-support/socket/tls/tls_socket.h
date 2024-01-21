@@ -11,8 +11,8 @@
 #include <boost/asio.hpp>
 
 #include "core/include/result.h"
-#include "socket/tcp/tcp_message.h"
-#include "socket/tls/tls_context.h"
+#include "src/boost-support/socket/tcp/tcp_message.h"
+#include "tls_context.h"
 
 namespace boost_support {
 namespace socket {
