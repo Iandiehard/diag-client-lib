@@ -42,6 +42,16 @@ class TcpSocket final {
    */
   using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
 
+  /**
+   * @brief  Type alias for tcp protocol
+   */
+  using Tcp = boost::asio::ip::tcp;
+
+  /**
+   * @brief  Type alias for tcp socket
+   */
+  using Socket = Tcp::socket;
+
  public:
   /**
    * @brief         Constructs an instance of TcpSocket
@@ -56,6 +66,17 @@ class TcpSocket final {
             boost::asio::io_context &io_context) noexcept;
 
   /**
+   * @brief         Constructs an instance of TcpSocket
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     local_port_num
+   *                The local port number
+   * @param[in]     socket
+   *                The socket
+   */
+  explicit TcpSocket(Socket socket) noexcept;
+
+  /**
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpSocket(const TcpSocket &other) noexcept = delete;
@@ -65,7 +86,7 @@ class TcpSocket final {
    * @brief  Move assignment and Move constructor
    */
   TcpSocket(TcpSocket &&other) noexcept = default;
-  TcpSocket &operator=(TcpSocket &&other) noexcept = delete;
+  TcpSocket &operator=(TcpSocket &&other) noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpSocket
@@ -126,14 +147,9 @@ class TcpSocket final {
   using TcpErrorCodeType = boost::system::error_code;
 
   /**
-   * @brief  Type alias for tcp protocol
+   * @brief  Store the underlying tcp socket
    */
-  using Tcp = boost::asio::ip::tcp;
-
-  /**
-   * @brief  Type alias for tcp socket
-   */
-  using Socket = Tcp::socket;
+  Socket tcp_socket_;
 
   /**
    * @brief  Store local ip address
@@ -144,16 +160,6 @@ class TcpSocket final {
    * @brief  Store local port number
    */
   std::uint16_t local_port_num_;
-
-  /**
-   * @brief  boost io context
-   */
-  boost::asio::io_context &io_context_;
-
-  /**
-   * @brief  Store the underlying tcp socket
-   */
-  Socket tcp_socket_;
 };
 }  // namespace tcp
 }  // namespace socket

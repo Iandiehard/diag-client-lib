@@ -13,8 +13,8 @@
 #include <string>
 #include <thread>
 
+#include "boost-support/parser/json_parser.h"
 #include "core/include/result.h"
-#include "parser/json_parser.h"
 #include "src/common/diagnostic_manager.h"
 #include "src/common/logger.h"
 #include "src/dcm/dcm_client.h"

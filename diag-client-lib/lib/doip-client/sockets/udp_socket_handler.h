@@ -11,8 +11,8 @@
 #include <string>
 #include <string_view>
 
+#include "boost-support/socket/udp/udp_client.h"
 #include "core/include/result.h"
-#include "socket/udp/udp_client.h"
 
 namespace doip_client {
 // forward declaration

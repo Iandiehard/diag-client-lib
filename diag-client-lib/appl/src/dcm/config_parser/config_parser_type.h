@@ -10,7 +10,7 @@
 /* includes */
 #include <string>
 
-#include "parser/json_parser.h"
+#include "boost-support/parser/json_parser.h"
 
 namespace diag {
 namespace client {

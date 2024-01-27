@@ -10,8 +10,8 @@
 
 #include <optional>
 
-#include "socket/tcp/tls_client.h"
-#include "socket/tcp/tls_server.h"
+#include "boost-support/socket/tcp/tls_client.h"
+#include "boost-support/socket/tcp/tls_server.h"
 
 namespace doip_client {
 namespace {

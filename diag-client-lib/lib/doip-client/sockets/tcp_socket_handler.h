@@ -13,9 +13,9 @@
 #include <string>
 #include <string_view>
 
-#include "client/tcp/tcp_client.h"
+#include "boost-support/client/tcp/tcp_client.h"
+#include "boost-support/socket/tcp/tcp_socket.h"
 #include "core/include/result.h"
-#include "socket/tcp/tcp_socket.h"
 
 namespace doip_client {
 namespace sockets {

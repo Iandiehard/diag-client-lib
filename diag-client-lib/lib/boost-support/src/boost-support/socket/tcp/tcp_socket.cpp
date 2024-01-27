@@ -18,10 +18,14 @@ namespace tcp {
 
 TcpSocket::TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                      boost::asio::io_context &io_context) noexcept
-    : local_ip_address_{local_ip_address},
-      local_port_num_{local_port_num},
-      io_context_{io_context},
-      tcp_socket_{io_context_} {}
+    : tcp_socket_{io_context},
+      local_ip_address_{local_ip_address},
+      local_port_num_{local_port_num} {}
+
+TcpSocket::TcpSocket(TcpSocket::Socket socket) noexcept
+    : tcp_socket_{std::move(socket)},
+      local_ip_address_{tcp_socket_.local_endpoint().address().to_string()},
+      local_port_num_{tcp_socket_.local_endpoint().port()} {}
 
 TcpSocket::~TcpSocket() noexcept = default;
 
