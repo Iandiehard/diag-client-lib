@@ -281,10 +281,24 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
 
   /**
-   * @brief  Move assignment and move constructor
+   * @brief  Move assignment
    */
-  TcpConnection(TcpConnection &&other) noexcept = default;
-  TcpConnection &operator=(TcpConnection &&other) &noexcept = default;
+  TcpConnection(TcpConnection &&other) noexcept
+      : socket_{std::move(other.socket_)},
+        handler_read_{std::move(other.handler_read_)},
+        exit_request_{other.exit_request_.load()},
+        running_{other.running_.load()} {}
+
+  /**
+   * @brief  Move constructor
+   */
+  TcpConnection &operator=(TcpConnection &&other) &noexcept {
+    socket_ = std::move(other.socket_);
+    handler_read_ = std::move(other.handler_read_);
+    exit_request_.store(other.exit_request_.load());
+    running_.store(other.running_.load());
+    return *this;
+  }
 
   /**
    * @brief         Destruct an instance of TcpConnection
@@ -351,12 +365,12 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   /**
    * @brief  Flag to terminate the thread
    */
-  bool exit_request_;
+  std::atomic_bool exit_request_;
 
   /**
    * @brief  Flag to start the thread
    */
-  bool running_;
+  std::atomic_bool running_;
 
   /**
    * @brief  Conditional variable to block the thread

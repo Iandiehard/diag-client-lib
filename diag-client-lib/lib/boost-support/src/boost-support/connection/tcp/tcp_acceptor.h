@@ -42,6 +42,8 @@ class TcpAcceptor final {
    *                The local ip address
    * @param[in]     local_port_num
    *                The local port number
+   * @param[in]     io_context
+   *                The I/O context from which connection is created
    */
   TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
               boost::asio::io_context io_context) noexcept;
@@ -65,16 +67,6 @@ class TcpAcceptor final {
    * @brief  Type alias for tcp acceptor
    */
   using Acceptor = boost::asio::ip::tcp::acceptor;
-
-  /**
-   * @brief  Type alias for tcp protocol
-   */
-  using Tcp = boost::asio::ip::tcp;
-
-  /**
-   * @brief  Type alias for tcp ip address
-   */
-  using TcpIpAddress = boost::asio::ip::address;
 
   /**
    * @brief  Store the tcp acceptor

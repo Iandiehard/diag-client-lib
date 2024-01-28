@@ -13,6 +13,18 @@
 namespace boost_support {
 namespace connection {
 namespace tcp {
+namespace {
+/**
+ * @brief  Type alias for tcp protocol
+ */
+using Tcp = boost::asio::ip::tcp;
+
+/**
+ * @brief  Type alias for tcp ip address
+ */
+using TcpIpAddress = boost::asio::ip::address;
+
+}  // namespace
 
 TcpAcceptor::TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
                          boost::asio::io_context io_context) noexcept
