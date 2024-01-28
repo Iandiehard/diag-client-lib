@@ -5,12 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
-#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
+#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
+#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
 
 // includes
-#include <boost/asio.hpp>
 #include <optional>
+#include <boost/asio.hpp>
 
 #include "boost-support/connection/tcp/tcp_connection.h"
 #include "boost-support/socket/tcp/tcp_socket.h"
@@ -76,4 +76,4 @@ class TcpAcceptor final {
 }  // namespace tcp
 }  // namespace connection
 }  // namespace boost_support
-#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
+#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_

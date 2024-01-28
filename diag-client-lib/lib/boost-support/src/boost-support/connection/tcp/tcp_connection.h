@@ -5,8 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
-#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
+#ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_CONNECTION_H_
+#define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_CONNECTION_H_
 
 #include <atomic>
 #include <condition_variable>
@@ -14,6 +14,7 @@
 #include <memory>
 #include <mutex>
 #include <thread>
+#include <utility>
 
 #include "core/include/result.h"
 
@@ -403,4 +404,4 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
 }  // namespace tcp
 }  // namespace connection
 }  // namespace boost_support
-#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
+#endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_CONNECTION_H_

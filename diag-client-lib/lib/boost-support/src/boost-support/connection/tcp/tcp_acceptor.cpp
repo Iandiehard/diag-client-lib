@@ -6,8 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "boost-support/connection/tcp/tcp_acceptor.h"
+#include <string>
+#include <utility>
 
+#include "boost-support/connection/tcp/tcp_acceptor.h"
 #include "boost-support/common/logger.h"
 
 namespace boost_support {
@@ -39,7 +41,7 @@ std::optional<TcpAcceptor::Connection> TcpAcceptor::GetConnection(TcpAcceptor::H
   TcpErrorCodeType ec{};
   Tcp::endpoint endpoint{};
 
-  //blocking accept
+  // blocking accept
   TcpSocket::Socket accepted_socket{acceptor_.accept(endpoint, ec)};
   if (ec.value() == boost::system::errc::success) {
     tcp_connection.emplace(TcpSocket{std::move(accepted_socket)}, std::move(read_handler));
