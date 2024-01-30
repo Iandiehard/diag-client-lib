@@ -8,14 +8,19 @@
 #ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_INCLUDE_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_INCLUDE_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
 
-#include "boost-support/"
+#include "boost-support/connection/tcp/tcp_connection.h"
+#include "boost-support/socket/tcp/tcp_socket.h"
+#include "boost-support/socket/tls/tls_socket.h"
+
 namespace boost_support {
 namespace client {
 namespace tcp {
 
-
-
 using TcpClientUnsecure =
+    connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, socket::tcp::TcpSocket>;
+
+using TcpClientSecured =
+    connection::tcp::TcpConnection<connection::tcp::ConnectionType::kServer, socket::tcp::TcpSocket>;
 
 }  // namespace tcp
 }  // namespace client

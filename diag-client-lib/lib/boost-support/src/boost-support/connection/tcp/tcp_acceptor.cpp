@@ -6,10 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
+#include "boost-support/connection/tcp/tcp_acceptor.h"
+
 #include <string>
 #include <utility>
 
-#include "boost-support/connection/tcp/tcp_acceptor.h"
 #include "boost-support/common/logger.h"
 
 namespace boost_support {

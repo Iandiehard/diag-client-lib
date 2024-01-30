@@ -9,8 +9,8 @@
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SRC_BOOST_SUPPORT_CONNECTION_TCP_TCP_ACCEPTOR_H_
 
 // includes
-#include <optional>
 #include <boost/asio.hpp>
+#include <optional>
 
 #include "boost-support/connection/tcp/tcp_connection.h"
 #include "boost-support/socket/tcp/tcp_socket.h"
