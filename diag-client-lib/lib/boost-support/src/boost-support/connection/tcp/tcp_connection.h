@@ -107,7 +107,6 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
 
   /**
    * @brief         Initialize the client
-   * @return        Empty result on success otherwise error code
    */
   void Initialize() noexcept {
     // Open socket
@@ -126,6 +125,20 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
         }
       }
     });
+  }
+
+  /**
+   * @brief         De-initialize the client
+   */
+  void DeInitialize() noexcept {
+    socket_.Close();
+    {
+      std::unique_lock<std::mutex> lck(mutex_);
+      exit_request_ = true;
+      running_ = false;
+    }
+    cond_var_.notify_all();
+    thread_.join();
   }
 
   /**
@@ -167,21 +180,6 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    * @return        Empty result on success otherwise error code
    */
   auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
-
-  /**
-   * @brief         De-initialize the client
-   * @return        Empty result on success otherwise error code
-   */
-  void DeInitialize() noexcept {
-    socket_.Close();
-    {
-      std::unique_lock<std::mutex> lck(mutex_);
-      exit_request_ = true;
-      running_ = false;
-    }
-    cond_var_.notify_all();
-    thread_.join();
-  }
 
  private:
   /**
@@ -307,8 +305,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   ~TcpConnection() noexcept = default;
 
   /**
-   * @brief         Initialize the client
-   * @return        Empty result on success otherwise error code
+   * @brief         Initialize the Server
    */
   void Initialize() noexcept {
     // Open socket
@@ -330,16 +327,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   }
 
   /**
-   * @brief         Function to trigger transmission
-   * @param[in]     message
-   *                The tcp message to be transmitted
-   * @return        Empty result on success otherwise error code
-   */
-  auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
-
-  /**
    * @brief         De-initialize the server
-   * @return        Empty result on success otherwise error code
    */
   void DeInitialize() noexcept {
     socket_.Close();
@@ -351,6 +339,14 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
     cond_var_.notify_all();
     thread_.join();
   }
+
+  /**
+   * @brief         Function to trigger transmission
+   * @param[in]     message
+   *                The tcp message to be transmitted
+   * @return        Empty result on success otherwise error code
+   */
+  auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
 
  private:
   /**

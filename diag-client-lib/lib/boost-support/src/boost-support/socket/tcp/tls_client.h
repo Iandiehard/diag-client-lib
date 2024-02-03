@@ -14,8 +14,8 @@
 #include <string_view>
 #include <thread>
 
+#include "boost-support/client/tcp/tcp_message.h"
 #include "core/include/result.h"
-#include "tcp_message.h"
 
 namespace boost_support {
 namespace socket {
@@ -40,7 +40,7 @@ class TlsClientSocket final {
   /**
    * @brief         Tcp function template used for reception
    */
-  using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
+  using TcpHandlerRead = std::function<void(client::tcp::TcpMessagePtr)>;
 
  public:
   /**
@@ -90,7 +90,7 @@ class TlsClientSocket final {
    *                The tcp message to be transmitted
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void, TlsErrorCode> Transmit(TcpMessageConstPtr tcp_message);
+  core_type::Result<void, TlsErrorCode> Transmit(client::tcp::TcpMessageConstPtr tcp_message);
 
   /**
    * @brief         Function to destroy the socket

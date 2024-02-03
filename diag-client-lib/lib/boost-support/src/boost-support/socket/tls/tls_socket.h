@@ -10,7 +10,7 @@
 
 #include <boost/asio.hpp>
 
-#include "boost-support/socket/tcp/tcp_message.h"
+#include "boost-support/client/tcp/tcp_message.h"
 #include "boost-support/socket/tls/tls_context.h"
 #include "core/include/result.h"
 
@@ -20,6 +20,8 @@ namespace tls {
 
 /**
  * @brief       Class used to create a tcp socket for handling transmission and reception of tcp message from driver
+ * @tparam      TlsVersion
+ *              The version of Tls to be used
  */
 template<TlsVersionType TlsVersion>
 class TlsSocket final : public TlsContext<TlsVersion> {
@@ -38,17 +40,17 @@ class TlsSocket final : public TlsContext<TlsVersion> {
   /**
    * @brief  Type alias for Tcp message
    */
-  using TcpMessage = boost_support::socket::tcp::TcpMessage;
+  using TcpMessage = boost_support::client::tcp::TcpMessage;
 
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
+  using TcpMessagePtr = boost_support::client::tcp::TcpMessagePtr;
 
   /**
    * @brief  Type alias for Tcp message const pointer
    */
-  using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
+  using TcpMessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
 
  public:
   /**
@@ -72,8 +74,8 @@ class TlsSocket final : public TlsContext<TlsVersion> {
   /**
    * @brief  Move assignment and Move constructor
    */
-  TlsSocket(TlsSocket &&other) noexcept = default;
-  TlsSocket &operator=(TlsSocket &&other) noexcept = delete;
+  TlsSocket(TlsSocket &&other) noexcept;
+  TlsSocket &operator=(TlsSocket &&other) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpSocket

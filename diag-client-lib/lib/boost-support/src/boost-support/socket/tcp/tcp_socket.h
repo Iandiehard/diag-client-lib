@@ -10,7 +10,7 @@
 
 #include <boost/asio.hpp>
 
-#include "boost-support/socket/tcp/tcp_message.h"
+#include "boost-support/client/tcp/tcp_message.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -23,24 +23,24 @@ namespace tcp {
 class TcpSocket final {
  public:
   /**
-   * @brief         Socket error code
+   * @brief   Socket error code
    */
   enum class SocketError : std::uint8_t { kOpenFailed, kBindingFailed, kRemoteDisconnected, kGenericError };
 
   /**
-   * @brief  Type alias for Tcp message
+   * @brief   Type alias for Tcp message
    */
-  using TcpMessage = boost_support::socket::tcp::TcpMessage;
+  using TcpMessage = boost_support::client::tcp::TcpMessage;
 
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = boost_support::socket::tcp::TcpMessagePtr;
+  using TcpMessagePtr = boost_support::client::tcp::TcpMessagePtr;
 
   /**
    * @brief  Type alias for Tcp message const pointer
    */
-  using TcpMessageConstPtr = boost_support::socket::tcp::TcpMessageConstPtr;
+  using TcpMessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
 
   /**
    * @brief  Type alias for tcp protocol

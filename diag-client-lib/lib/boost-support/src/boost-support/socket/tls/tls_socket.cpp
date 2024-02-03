@@ -25,6 +25,22 @@ TlsSocket<TlsVersion>::TlsSocket(std::string_view local_ip_address, std::uint16_
       tcp_socket_{io_context, this->GetContext()} {}
 
 template<TlsVersionType TlsVersion>
+TlsSocket<TlsVersion>::TlsSocket(TlsSocket &&other) noexcept
+    : TlsContext<TlsVersion>(std::move(other)),
+      local_ip_address_{std::move(other.local_ip_address_)},
+      local_port_num_{std::move(other.local_port_num_)},
+      tcp_socket_{std::move(other.tcp_socket_)} {}
+
+template<TlsVersionType TlsVersion>
+TlsSocket<TlsVersion> &TlsSocket<TlsVersion>::operator=(TlsSocket &&other) noexcept {
+  TlsContext<TlsVersion>::operator=(std::move(other));
+  local_ip_address_ = std::move(other.local_ip_address_);
+  local_port_num_ = std::move(other.local_port_num_);
+  tcp_socket_ = std::move(other.tcp_socket_);
+  return *this;
+}
+
+template<TlsVersionType TlsVersion>
 TlsSocket<TlsVersion>::~TlsSocket() noexcept = default;
 
 template<TlsVersionType TlsVersion>
@@ -165,9 +181,9 @@ TlsSocket<TlsVersion>::Read() noexcept {
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
-  rx_buffer.resize(tcp::kDoipheadrSize);
+  rx_buffer.resize(client::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], tcp::kDoipheadrSize), ec);
+  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], client::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -180,8 +196,8 @@ TlsSocket<TlsVersion>::Read() noexcept {
 
     if (read_next_bytes != 0u) {
       // reserve the buffer
-      rx_buffer.resize(tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[tcp::kDoipheadrSize], read_next_bytes), ec);
+      rx_buffer.resize(client::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[client::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};

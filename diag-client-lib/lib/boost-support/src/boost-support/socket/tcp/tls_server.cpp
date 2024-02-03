@@ -67,7 +67,7 @@ TcpServerConnection::TlsStream::lowest_layer_type &TcpServerConnection::GetNativ
 }
 
 core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::Transmit(
-    TcpMessageConstPtr tcp_tx_message) {
+    client::tcp::TcpMessageConstPtr tcp_tx_message) {
   TcpErrorCodeType ec{};
   core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
 
@@ -100,10 +100,10 @@ bool TcpServerConnection::TryReceivingMessage() {
 
   if (ec.value() == boost::system::errc::success) {
     // Create and reserve the buffer
-    TcpMessage::BufferType rx_buffer{};
-    rx_buffer.resize(kDoipheadrSize);
+    client::tcp::TcpMessage::BufferType rx_buffer{};
+    rx_buffer.resize(client::tcp::kDoipheadrSize);
     // Start blocking read to read Header first
-    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], kDoipheadrSize), ec);
+    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], client::tcp::kDoipheadrSize), ec);
     // Check for error
     if (ec.value() == boost::system::errc::success) {
       // Read the next bytes to read
@@ -114,13 +114,13 @@ bool TcpServerConnection::TryReceivingMessage() {
                                           (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
       }();
       // reserve the buffer
-      rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+      rx_buffer.resize(client::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[client::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};
-      TcpMessagePtr tcp_rx_message{
-          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      client::tcp::TcpMessagePtr tcp_rx_message{std::make_unique<client::tcp::TcpMessage>(
+          endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
             msg << "Tcp Message received from "

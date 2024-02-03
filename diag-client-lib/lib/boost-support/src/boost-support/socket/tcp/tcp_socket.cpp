@@ -140,14 +140,14 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Close() noexcept {
   return result;
 }
 
-core_type::Result<TcpMessagePtr, TcpSocket::SocketError> TcpSocket::Read() noexcept {
+core_type::Result<TcpSocket::TcpMessagePtr, TcpSocket::SocketError> TcpSocket::Read() noexcept {
   core_type::Result<TcpMessagePtr, SocketError> result{SocketError::kRemoteDisconnected};
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
-  rx_buffer.resize(kDoipheadrSize);
+  rx_buffer.resize(client::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], kDoipheadrSize), ec);
+  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], client::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -160,8 +160,8 @@ core_type::Result<TcpMessagePtr, TcpSocket::SocketError> TcpSocket::Read() noexc
 
     if (read_next_bytes != 0u) {
       // reserve the buffer
-      rx_buffer.resize(kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[kDoipheadrSize], read_next_bytes), ec);
+      rx_buffer.resize(client::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[client::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};

@@ -59,8 +59,8 @@ class TlsContext {
   /**
    * @brief  Deleted move assignment and move constructor
    */
-  TlsContext(TlsContext &&other) noexcept = delete;
-  TlsContext &operator=(TlsContext &&other) noexcept = delete;
+  TlsContext(TlsContext &&other) noexcept = default;
+  TlsContext &operator=(TlsContext &&other) noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpSocket

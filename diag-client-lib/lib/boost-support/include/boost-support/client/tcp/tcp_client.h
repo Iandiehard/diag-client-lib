@@ -8,19 +8,132 @@
 #ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_INCLUDE_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_INCLUDE_BOOST_SUPPORT_CLIENT_TCP_TCP_CLIENT_H_
 
-#include "boost-support/connection/tcp/tcp_connection.h"
-#include "boost-support/socket/tcp/tcp_socket.h"
-#include "boost-support/socket/tls/tls_socket.h"
+#include <functional>
+#include <string_view>
+
+#include "boost-support/client/tcp/tcp_message.h"
+#include "core/include/result.h"
 
 namespace boost_support {
 namespace client {
 namespace tcp {
 
-using TcpClientUnsecure =
-    connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, socket::tcp::TcpSocket>;
+/**
+ * @brief  Strong type for TLS version 1.2
+ */
+struct TlsVersion12 {};
 
-using TcpClientSecured =
-    connection::tcp::TcpConnection<connection::tcp::ConnectionType::kServer, socket::tcp::TcpSocket>;
+/**
+ * @brief  Strong type for TLS version 1.3
+ */
+struct TlsVersion13 {};
+
+/**
+ * @brief    Client that manages unsecured/ secured tcp connection
+ */
+class TcpClient final {
+ public:
+  /**
+   * @brief         Tcp function template used for reception
+   */
+  using HandlerRead = std::function<void(TcpMessagePtr)>;
+
+ public:
+  /**
+   * @brief         Constructs an instance of TcpClient
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     local_port_num
+   *                The local port number
+   */
+  TcpClient(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept;
+
+  /**
+   * @brief         Constructs an instance of TcpClient
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     local_port_num
+   *                The local port number
+   * @param[in]     ca_certification_path
+   *                The path to root ca certificate
+   */
+  TcpClient(TlsVersion12, std::string_view local_ip_address, std::uint16_t local_port_num,
+            std::string_view ca_certification_path) noexcept;
+
+  /**
+   * @brief         Constructs an instance of TcpClient
+   * @param[in]     local_ip_address
+   *                The local ip address
+   * @param[in]     local_port_num
+   *                The local port number
+   * @param[in]     ca_certification_path
+   *                The path to root ca certificate
+   */
+  TcpClient(TlsVersion13, std::string_view local_ip_address, std::uint16_t local_port_num,
+            std::string_view ca_certification_path) noexcept;
+
+  /**
+   * @brief         Deleted copy assignment and copy constructor
+   */
+  TcpClient(const TcpClient &other) noexcept = delete;
+  TcpClient &operator=(const TcpClient &other) noexcept = delete;
+
+  /**
+   * @brief         Defaulted move assignment and move constructor
+   */
+  TcpClient(TcpClient &&other) noexcept = default;
+  TcpClient &operator=(TcpClient &&other) noexcept = default;
+
+  /**
+   * @brief         Destruct an instance of TcpClient
+   */
+  ~TcpClient() noexcept;
+
+  /**
+   * @brief         Initialize the client
+   */
+  void Initialize() noexcept;
+
+  /**
+   * @brief         De-initialize the client
+   */
+  void DeInitialize() noexcept;
+
+  /**
+   * @brief         Function to connect to remote ip address and port number
+   * @param[in]     host_ip_address
+   *                The host ip address
+   * @param[in]     host_port_num
+   *                The host port number
+   * @return        Empty void on success, otherwise error is returned
+   */
+  core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
+
+  /**
+   * @brief         Function to disconnect from remote host if already connected
+   * @return        Empty void on success, otherwise error is returned
+   */
+  core_type::Result<void> DisconnectFromHost();
+
+  /**
+   * @brief         Function to transmit the provided tcp message
+   * @param[in]     tcp_message
+   *                The tcp message
+   * @return        Empty void on success, otherwise error is returned
+   */
+  core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message);
+
+ private:
+  /**
+   * @brief    Forward declaration of tcp client implementation
+   */
+  class TcpClientImpl;
+
+  /**
+   * @brief    Unique pointer to tcp client implementation
+   */
+  std::unique_ptr<TcpClientImpl> tcp_client_impl_;
+};
 
 }  // namespace tcp
 }  // namespace client

@@ -15,8 +15,8 @@
 #include <string_view>
 #include <vector>
 
+#include "boost-support/client/tcp/tcp_message.h"
 #include "core/include/result.h"
-#include "tcp_message.h"
 
 namespace boost_support {
 namespace socket {
@@ -35,7 +35,7 @@ class TcpServerConnection final {
   /**
    * @brief         Tcp function template used for reception
    */
-  using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
+  using TcpHandlerRead = std::function<void(client::tcp::TcpMessagePtr)>;
 
   /**
    * @brief  Type alias for tcp protocol
@@ -85,7 +85,7 @@ class TcpServerConnection final {
    *                The tcp message to be transmitted
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void, TcpErrorCode> Transmit(TcpMessageConstPtr tcp_message);
+  core_type::Result<void, TcpErrorCode> Transmit(client::tcp::TcpMessageConstPtr tcp_message);
 
   /**
    * @brief  Function to initiate reception of tcp message
@@ -123,7 +123,7 @@ class TlsServerSocket final {
   /**
    * @brief         Tcp function template used for reception
    */
-  using TcpHandlerRead = std::function<void(TcpMessagePtr)>;
+  using TcpHandlerRead = std::function<void(client::tcp::TcpMessagePtr)>;
 
   /**
    * @brief  Type alias for tcp acceptor
