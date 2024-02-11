@@ -10,7 +10,9 @@
 
 #include <variant>
 
+#include "boost-support/common/logger.h"
 #include "boost-support/connection/tcp/tcp_connection.h"
+#include "boost-support/error_domain/boost_support_error_domain.h"
 #include "boost-support/socket/io_context.h"
 #include "boost-support/socket/tcp/tcp_socket.h"
 #include "boost-support/socket/tls/tls_socket.h"
@@ -158,17 +160,29 @@ class TcpClient::TcpClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
-    if (std::visit(core_type::visit::overloaded{
-                       [host_ip_address, host_port_num](TcpConnectionUnsecured &tcp_connection) noexcept {
-                         return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
-                       },
-                       [host_ip_address, host_port_num](TcpConnectionSecuredTls12 &tcp_connection) noexcept {
-                         return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
-                       },
-                       [host_ip_address, host_port_num](TcpConnectionSecuredTls13 &tcp_connection) noexcept {
-                         return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
-                       }},
-                   tcp_connection_)) {}
+    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+    if (connection_state_.load(std::memory_order_seq_cst) != State::kConnected) {
+      if (std::visit(core_type::visit::overloaded{
+                         [host_ip_address, host_port_num](TcpConnectionUnsecured &tcp_connection) noexcept {
+                           return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
+                         },
+                         [host_ip_address, host_port_num](TcpConnectionSecuredTls12 &tcp_connection) noexcept {
+                           return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
+                         },
+                         [host_ip_address, host_port_num](TcpConnectionSecuredTls13 &tcp_connection) noexcept {
+                           return tcp_connection.ConnectToHost(host_ip_address, host_port_num);
+                         }},
+                     tcp_connection_)) {
+        connection_state_.store(State::kConnected, std::memory_order_seq_cst);
+        result.EmplaceValue();
+      }  // else, connect failed
+    } else {
+      // already connected
+      result.EmplaceValue();
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
+    }
+    return result;
   }
 
   /**
@@ -176,11 +190,21 @@ class TcpClient::TcpClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> DisconnectFromHost() {
-    std::visit(core_type::visit::overloaded{
-                   [](TcpConnectionUnsecured &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); },
-                   [](TcpConnectionSecuredTls12 &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); },
-                   [](TcpConnectionSecuredTls13 &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); }},
-               tcp_connection_);
+    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+    if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
+      std::visit(core_type::visit::overloaded{
+                     [](TcpConnectionUnsecured &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); },
+                     [](TcpConnectionSecuredTls12 &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); },
+                     [](TcpConnectionSecuredTls13 &tcp_connection) noexcept { tcp_connection.DisconnectFromHost(); }},
+                 tcp_connection_);
+      connection_state_.store(State::kDisconnected, std::memory_order_seq_cst);
+      result.EmplaceValue();
+    } else {
+      // Not connected
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
+    }
+    return result;
   }
 
   /**
@@ -190,16 +214,27 @@ class TcpClient::TcpClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message) {
-    if (std::visit(core_type::visit::overloaded{[&tcp_message](TcpConnectionUnsecured &tcp_connection) noexcept {
-                                                  return tcp_connection.Transmit(std::move(tcp_message));
-                                                },
-                                                [&tcp_message](TcpConnectionSecuredTls12 &tcp_connection) noexcept {
-                                                  return tcp_connection.Transmit(std::move(tcp_message));
-                                                },
-                                                [&tcp_message](TcpConnectionSecuredTls13 &tcp_connection) noexcept {
-                                                  return tcp_connection.Transmit(std::move(tcp_message));
-                                                }},
-                   tcp_connection_)) {}
+    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
+    if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
+      if (std::visit(core_type::visit::overloaded{[&tcp_message](TcpConnectionUnsecured &tcp_connection) noexcept {
+                                                    return tcp_connection.Transmit(std::move(tcp_message));
+                                                  },
+                                                  [&tcp_message](TcpConnectionSecuredTls12 &tcp_connection) noexcept {
+                                                    return tcp_connection.Transmit(std::move(tcp_message));
+                                                  },
+                                                  [&tcp_message](TcpConnectionSecuredTls13 &tcp_connection) noexcept {
+                                                    return tcp_connection.Transmit(std::move(tcp_message));
+                                                  }},
+                     tcp_connection_)) {
+        result.EmplaceValue();
+      }
+    } else {
+      // not connected
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp client is Offline, please connect to server first"; });
+    }
+    return result;
   }
 
  private:
