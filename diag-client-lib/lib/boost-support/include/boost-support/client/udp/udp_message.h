@@ -17,12 +17,12 @@
 #include "core/include/span.h"
 
 namespace boost_support {
-namespace socket {
+namespace client {
 namespace udp {
 
 /**
-   * @brief    Doip maximum response size
-   */
+ * @brief    DoIP maximum response size
+ */
 constexpr std::uint8_t kDoipUdpResSize{40u};
 
 /**
@@ -131,7 +131,7 @@ class UdpMessage final {
 /**
  * @brief    The unique pointer to const UdpMessage
  */
-using UdpMessageConstPtr = std::unique_ptr<const UdpMessage>;
+using UdpMessageConstPtr = std::unique_ptr<UdpMessage const>;
 
 /**
  * @brief    The unique pointer to UdpMessage
@@ -139,6 +139,6 @@ using UdpMessageConstPtr = std::unique_ptr<const UdpMessage>;
 using UdpMessagePtr = std::unique_ptr<UdpMessage>;
 
 }  // namespace udp
-}  // namespace socket
+}  // namespace client
 }  // namespace boost_support
 #endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_MESSAGE_H_

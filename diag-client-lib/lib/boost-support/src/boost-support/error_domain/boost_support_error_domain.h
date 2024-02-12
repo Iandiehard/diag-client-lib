@@ -64,13 +64,20 @@ class BoostSupportErrorDomain final : public core_type::ErrorDomain {
   /**
    * @brief  Store the error domain name
    */
-  const std::string domain_name_{"DoipClientErrorDomain"};
+  const std::string domain_name_{"BoostSupportErrorDomain"};
 
   /**
    * @brief  Store the error message
    */
   std::string message_;
 };
+
+namespace internal {
+/**
+ * @brief  Dm error domain
+ */
+BoostSupportErrorDomain boost_support_error_domain{};
+}  // namespace internal
 
 /**
  * @brief       Create a new ErrorCode within DoipErrorDomain.
@@ -83,8 +90,23 @@ class BoostSupportErrorDomain final : public core_type::ErrorDomain {
  * @return      ErrorCode
  *              A new ErrorCode instance
  */
-core_type::ErrorCode MakeErrorCode(BoostSupportErrorErrc code, core_type::ErrorDomain::SupportDataType data =
-                                                                   core_type::ErrorDomain::SupportDataType{}) noexcept;
+inline auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
+    -> core_type::ErrorCode {
+  return {static_cast<core_type::ErrorDomain::CodeType>(code), internal::boost_support_error_domain, data};
+}
+
+/**
+ * @brief       Create a new ErrorCode within DoipErrorDomain.
+ * @details     This function is used internally by constructors of ErrorCode. It is usually not used directly by
+ *              users
+ * @param[in]   code
+ *              The DoipErrorDomain-specific error code value
+ * @return      ErrorCode
+ *              A new ErrorCode instance
+ */
+inline auto MakeErrorCode(BoostSupportErrorErrc code) noexcept -> core_type::ErrorCode {
+  return MakeErrorCode(code, {});
+}
 
 }  // namespace error_domain
 }  // namespace boost_support

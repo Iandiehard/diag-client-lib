@@ -232,7 +232,7 @@ class TcpClient::TcpClientImpl final {
    *                The tcp message
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message) {
+  core_type::Result<void> Transmit(MessageConstPtr tcp_message) {
     core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
     if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
       if (std::visit(core_type::visit::overloaded{[&tcp_message](TcpConnectionUnsecured &tcp_connection) noexcept {
@@ -305,7 +305,7 @@ core_type::Result<void> TcpClient::ConnectToHost(std::string_view host_ip_addres
 
 core_type::Result<void> TcpClient::DisconnectFromHost() { return tcp_client_impl_->DisconnectFromHost(); }
 
-core_type::Result<void> TcpClient::Transmit(TcpMessageConstPtr tcp_message) {
+core_type::Result<void> TcpClient::Transmit(MessageConstPtr tcp_message) {
   return tcp_client_impl_->Transmit(std::move(tcp_message));
 }
 

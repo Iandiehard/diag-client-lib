@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "common/doip_message.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 

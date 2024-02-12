@@ -48,7 +48,8 @@ SeparateDefinitionBlocks: Always
 NamespaceIndentation: None
 ObjCSpaceAfterProperty: false
 ObjCSpaceBeforeProtocolList: true
-PointerAlignment: Right
+PointerAlignment: Left
+ReferenceAlignment: Left
 ReflowComments: false
 SpaceAfterCStyleCast: true
 SpaceAfterLogicalNot: false

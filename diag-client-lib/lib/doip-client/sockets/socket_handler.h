@@ -5,13 +5,12 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
-#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
+#ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_SOCKET_HANDLER_H_
+#define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_SOCKET_HANDLER_H_
 
 #include <string_view>
 
 #include "boost-support/client/tcp/tcp_client.h"
-#include "boost-support/client/tcp/tcp_message.h"
 #include "core/include/result.h"
 
 namespace doip_client {
@@ -20,67 +19,67 @@ namespace sockets {
 /**
  * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */
-template<typename TcpClientType>
-class TcpSocketHandlerImpl final {
+template<typename ClientType>
+class SocketHandler final {
  public:
   /**
-   * @brief  Type alias for tcp client
+   * @brief  Type alias for client
    */
-  using TcpClient = TcpClientType;
+  using Client = ClientType;
 
   /**
-   * @brief  Type alias for Tcp message
+   * @brief  Type alias for message
    */
-  using TcpMessage = boost_support::client::tcp::TcpMessage;
+  using Message = typename Client::Message;
 
   /**
-   * @brief  Type alias for Tcp message pointer
+   * @brief  Type alias for message pointer
    */
-  using TcpMessagePtr = boost_support::client::tcp::TcpMessagePtr;
+  using MessagePtr = typename Client::MessagePtr;
 
   /**
-   * @brief  Type alias for Tcp message const pointer
+   * @brief  Type alias for message const pointer
    */
-  using TcpMessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
+  using MessageConstPtr = typename Client::MessageConstPtr;
 
   /**
    * @brief         Tcp function template used for reception
    */
-  using HandlerRead = std::function<void(TcpMessagePtr)>;
+  using HandlerRead = std::function<void(MessagePtr)>;
 
   /**
    * @brief         Constructs an instance of TcpSocketHandler
    * @param[in]     socket
    *                The socket used
    */
-  explicit TcpSocketHandlerImpl(TcpClient tcp_client) noexcept : tcp_client_{std::move(tcp_client)} {}
+  explicit SocketHandler(Client client) noexcept : client_{std::move(client)} {}
 
   /**
    * @brief  Deleted copy assignment and copy constructor
    */
-  TcpSocketHandlerImpl(const TcpSocketHandlerImpl &other) noexcept = delete;
-  TcpSocketHandlerImpl &operator=(const TcpSocketHandlerImpl &other) noexcept = delete;
+  SocketHandler(const SocketHandler &other) noexcept = delete;
+  SocketHandler &operator=(const SocketHandler &other) noexcept = delete;
 
   /**
    * @brief  Move assignment and Move constructor
    */
-  TcpSocketHandlerImpl(TcpSocketHandlerImpl &&other) noexcept = default;
-  TcpSocketHandlerImpl &operator=(TcpSocketHandlerImpl &&other) noexcept = default;
+  SocketHandler(SocketHandler &&other) noexcept = default;
+  SocketHandler &operator=(SocketHandler &&other) noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpSocketHandler
    */
-  ~TcpSocketHandlerImpl() = default;
+  ~SocketHandler() = default;
 
   /**
    * @brief        Function to start the socket handler
    */
-  void Initialize() noexcept { tcp_client_.Initialize(); }
+  void Initialize() noexcept { client_.Initialize(); }
 
   /**
    * @brief        Function to stop the socket handler
    */
-  void DeInitialize() noexcept { tcp_client_.DeInitialize(); }
+  void DeInitialize() noexcept { client_.DeInitialize(); }
 
   /**
    * @brief         Function to set the read handler that is invoked when message is received
@@ -88,7 +87,7 @@ class TcpSocketHandlerImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) { tcp_client_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) { client_.SetReadHandler(std::move(read_handler)); }
 
   /**
    * @brief         Function to connect to remote ip address and port number
@@ -99,14 +98,14 @@ class TcpSocketHandlerImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
-    return tcp_client_.ConnectToHost(host_ip_address, host_port_num);
+    return client_.ConnectToHost(host_ip_address, host_port_num);
   }
 
   /**
    * @brief         Function to disconnect from remote host if already connected
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> DisconnectFromHost() { return tcp_client_.DisconnectFromHost(); }
+  core_type::Result<void> DisconnectFromHost() { return client_.DisconnectFromHost(); }
 
   /**
    * @brief         Function to transmit the provided tcp message
@@ -114,25 +113,20 @@ class TcpSocketHandlerImpl final {
    *                The message to be sent
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> Transmit(TcpMessageConstPtr message) { return tcp_client_.Transmit(std::move(message)); }
+  core_type::Result<void> Transmit(MessageConstPtr message) { return client_.Transmit(std::move(message)); }
 
  private:
   /**
    * @brief  Store the client object
    */
-  TcpClientType tcp_client_;
-
-  /**
-   * @brief  Store the handler
-   */
-  HandlerRead handler_read_;
+  Client client_;
 };
 
 /**
- * @brief  Type alias of socket handler with tcp client from boost support
+ * @brief  Type alias of Tcp socket handler
  */
-using TcpSocketHandler = TcpSocketHandlerImpl<boost_support::client::tcp::TcpClient>;
+using TcpSocketHandler = SocketHandler<boost_support::client::tcp::TcpClient>;
 
 }  // namespace sockets
 }  // namespace doip_client
-#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
+#endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_SOCKET_HANDLER_H_

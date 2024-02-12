@@ -10,7 +10,7 @@
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
 #include "channel/udp_channel/doip_udp_channel.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/conversation_handler.h"
 
 namespace doip_client {
@@ -29,7 +29,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
   /**
    * @brief   Type alias for Tcp client used by socket handler
    */
-  using TcpClient = sockets::TcpSocketHandler::TcpClient;
+  using TcpClient = sockets::TcpSocketHandler::Client;
 
   /**
    * @brief       Constructor to create a new tcp connection

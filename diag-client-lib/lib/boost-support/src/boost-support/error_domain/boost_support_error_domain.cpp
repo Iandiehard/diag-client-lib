@@ -20,11 +20,6 @@ namespace {
  */
 constexpr core_type::ErrorDomain::IdType unique_identifier{0x5000000000000003};
 
-/**
- * @brief  Dm error domain
- */
-BoostSupportErrorDomain boost_support_error_domain{};
-
 auto ConvertErrorCodeToString(core_type::ErrorDomain::CodeType error_code) noexcept -> std::string {
   std::string result{};
   BoostSupportErrorErrc const boost_support_error_code{error_code};
@@ -58,9 +53,13 @@ const char* BoostSupportErrorDomain::Message(core_type::ErrorDomain::CodeType er
   return message_.c_str();
 }
 
-core_type::ErrorCode MakeErrorCode(BoostSupportErrorErrc, core_type::ErrorDomain::SupportDataType data) noexcept {
-  return core_type::ErrorCode{data, boost_support_error_domain};
+/*
+auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
+    -> core_type::ErrorCode {
+  return {static_cast<core_type::ErrorDomain::CodeType>(code), boost_support_error_domain, data};
 }
 
+auto MakeErrorCode(BoostSupportErrorErrc code) noexcept -> core_type::ErrorCode { return MakeErrorCode(code, {}); }
+*/
 }  // namespace error_domain
 }  // namespace boost_support

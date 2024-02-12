@@ -169,7 +169,7 @@ class TcpMessage final {
 /**
  * @brief    The unique pointer to const TcpMessage
  */
-using TcpMessageConstPtr = std::unique_ptr<const TcpMessage>;
+using TcpMessageConstPtr = std::unique_ptr<TcpMessage const>;
 
 /**
  * @brief    The unique pointer to TcpMessage

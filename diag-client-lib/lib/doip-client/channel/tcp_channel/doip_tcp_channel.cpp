@@ -11,7 +11,7 @@
 #include <utility>
 
 #include "common/logger.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 
 namespace doip_client {
 namespace channel {

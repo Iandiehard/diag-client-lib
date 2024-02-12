@@ -9,10 +9,11 @@
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 
 #include <mutex>
+
 #include "channel/tcp_channel/doip_diagnostic_message_handler.h"
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
 #include "common/doip_message.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 

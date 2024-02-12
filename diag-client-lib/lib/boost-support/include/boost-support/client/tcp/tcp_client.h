@@ -34,9 +34,24 @@ struct TlsVersion13 {};
 class TcpClient final {
  public:
   /**
+   * @brief  Type alias for Tcp message
+   */
+  using Message = boost_support::client::tcp::TcpMessage;
+
+  /**
+   * @brief  Type alias for Tcp message pointer
+   */
+  using MessagePtr = boost_support::client::tcp::TcpMessagePtr;
+
+  /**
+   * @brief  Type alias for Tcp message const pointer
+   */
+  using MessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
+
+  /**
    * @brief         Tcp function template used for reception
    */
-  using HandlerRead = std::function<void(TcpMessagePtr)>;
+  using HandlerRead = std::function<void(MessagePtr)>;
 
  public:
   /**
@@ -129,7 +144,7 @@ class TcpClient final {
    *                The tcp message
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> Transmit(TcpMessageConstPtr tcp_message);
+  core_type::Result<void> Transmit(MessageConstPtr tcp_message);
 
  private:
   /**

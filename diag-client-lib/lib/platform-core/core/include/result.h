@@ -324,9 +324,9 @@ class Result final {
    * @return      Result
    *              An Result
    */
-  template<typename F, typename T2 = typename std::invoke_result_t<F, T>>
-  Result<T2, E> AndThen(F &&fn) &&noexcept {
-    return HasValue() ? Result<T2, E>{fn(std::move(*this).Value())} : Result<T2, E>{*this};
+  template<typename F, typename R2 = typename std::invoke_result_t<F, value_type &&>>
+  auto AndThen(F &&fn) &&noexcept -> R2 {
+    return HasValue() ? std::forward<F>(fn)(std::move(*this).Value()) : R2{std::move(*this).Error()};
   }
 
   /**

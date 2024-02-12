@@ -393,7 +393,11 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
     // Try reading from socket
     core_type::Result<TcpMessagePtr, typename Socket::SocketError> read_result{socket_.Read()};
     if (read_result.HasValue() && handler_read_) { handler_read_(std::move(read_result).Value()); }
-    return read_result.HasValue();
+    return socket_.Read()
+        .AndThen([this](TcpMessagePtr tcp_message) {
+          if (handler_read_) { handler_read_(std::move(tcp_message)); }
+        })
+        .HasValue();
   }
 };
 
