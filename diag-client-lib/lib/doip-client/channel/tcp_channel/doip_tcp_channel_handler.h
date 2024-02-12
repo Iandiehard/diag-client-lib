@@ -8,6 +8,7 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 
+#include <mutex>
 #include "channel/tcp_channel/doip_diagnostic_message_handler.h"
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
 #include "common/doip_message.h"
