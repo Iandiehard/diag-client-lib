@@ -8,9 +8,6 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_
 
-#include <atomic>
-#include <optional>
-#include <string>
 #include <string_view>
 
 #include "boost-support/client/tcp/tcp_client.h"
@@ -23,13 +20,13 @@ namespace sockets {
 /**
  * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
  */
-template<typename SocketType>
-class TcpSocketHandler final {
+template<typename TcpClientType>
+class TcpSocketHandlerImpl final {
  public:
   /**
    * @brief  Type alias for tcp client
    */
-  using TcpClient = boost_support::client::tcp::TcpClient;
+  using TcpClient = TcpClientType;
 
   /**
    * @brief  Type alias for Tcp message
@@ -56,24 +53,24 @@ class TcpSocketHandler final {
    * @param[in]     socket
    *                The socket used
    */
-  explicit TcpSocketHandler(TcpSocket socket);
+  explicit TcpSocketHandlerImpl(TcpClient tcp_client) noexcept : tcp_client_{std::move(tcp_client)} {}
 
   /**
    * @brief  Deleted copy assignment and copy constructor
    */
-  TcpSocketHandler(const TcpSocketHandler &other) noexcept = delete;
-  TcpSocketHandler &operator=(const TcpSocketHandler &other) noexcept = delete;
+  TcpSocketHandlerImpl(const TcpSocketHandlerImpl &other) noexcept = delete;
+  TcpSocketHandlerImpl &operator=(const TcpSocketHandlerImpl &other) noexcept = delete;
 
   /**
    * @brief  Move assignment and Move constructor
    */
-  TcpSocketHandler(TcpSocketHandler &&other) noexcept = default;
-  TcpSocketHandler &operator=(TcpSocketHandler &&other) noexcept = default;
+  TcpSocketHandlerImpl(TcpSocketHandlerImpl &&other) noexcept = default;
+  TcpSocketHandlerImpl &operator=(TcpSocketHandlerImpl &&other) noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpSocketHandler
    */
-  ~TcpSocketHandler() = default;
+  ~TcpSocketHandlerImpl() = default;
 
   /**
    * @brief        Function to start the socket handler
@@ -91,7 +88,7 @@ class TcpSocketHandler final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) {}
+  void SetReadHandler(HandlerRead read_handler) { tcp_client_.SetReadHandler(std::move(read_handler)); }
 
   /**
    * @brief         Function to connect to remote ip address and port number
@@ -123,13 +120,19 @@ class TcpSocketHandler final {
   /**
    * @brief  Store the client object
    */
-  TcpClient tcp_client_;
+  TcpClientType tcp_client_;
 
   /**
    * @brief  Store the handler
    */
   HandlerRead handler_read_;
 };
+
+/**
+ * @brief  Type alias of socket handler with tcp client from boost support
+ */
+using TcpSocketHandler = TcpSocketHandlerImpl<boost_support::client::tcp::TcpClient>;
+
 }  // namespace sockets
 }  // namespace doip_client
 #endif  // DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_SOCKETS_TCP_SOCKET_HANDLER_H_

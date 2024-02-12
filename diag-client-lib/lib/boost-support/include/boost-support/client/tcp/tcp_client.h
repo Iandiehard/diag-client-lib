@@ -81,8 +81,8 @@ class TcpClient final {
   /**
    * @brief         Defaulted move assignment and move constructor
    */
-  TcpClient(TcpClient &&other) noexcept = default;
-  TcpClient &operator=(TcpClient &&other) noexcept = default;
+  TcpClient(TcpClient &&other) noexcept;
+  TcpClient &operator=(TcpClient &&other) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpClient
@@ -98,6 +98,14 @@ class TcpClient final {
    * @brief         De-initialize the client
    */
   void DeInitialize() noexcept;
+
+  /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(HandlerRead read_handler) noexcept;
 
   /**
    * @brief         Function to connect to remote ip address and port number

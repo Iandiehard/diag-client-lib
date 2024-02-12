@@ -152,6 +152,25 @@ class TcpClient::TcpClientImpl final {
   }
 
   /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    std::visit(core_type::visit::overloaded{[&read_handler](TcpConnectionUnsecured &tcp_connection) noexcept {
+                                              tcp_connection.SetReadHandler(std::move(read_handler));
+                                            },
+                                            [&read_handler](TcpConnectionSecuredTls12 &tcp_connection) noexcept {
+                                              tcp_connection.SetReadHandler(std::move(read_handler));
+                                            },
+                                            [&read_handler](TcpConnectionSecuredTls13 &tcp_connection) noexcept {
+                                              tcp_connection.SetReadHandler(std::move(read_handler));
+                                            }},
+               tcp_connection_);
+  }
+
+  /**
    * @brief         Function to connect to remote ip address and port number
    * @param[in]     host_ip_address
    *                The host ip address
@@ -267,11 +286,18 @@ TcpClient::TcpClient(TlsVersion13, std::string_view local_ip_address, std::uint1
     : tcp_client_impl_{
           std::make_unique<TcpClientImpl>(TlsVersion13{}, local_ip_address, local_port_num, ca_certification_path)} {}
 
+TcpClient::TcpClient(TcpClient &&other) noexcept = default;
+TcpClient &TcpClient::operator=(TcpClient &&other) noexcept = default;
+
 TcpClient::~TcpClient() noexcept = default;
 
 void TcpClient::Initialize() noexcept { tcp_client_impl_->Initialize(); }
 
 void TcpClient::DeInitialize() noexcept { tcp_client_impl_->DeInitialize(); }
+
+void TcpClient::SetReadHandler(TcpClient::HandlerRead read_handler) noexcept {
+  tcp_client_impl_->SetReadHandler(std::move(read_handler));
+}
 
 core_type::Result<void> TcpClient::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
   return tcp_client_impl_->ConnectToHost(host_ip_address, host_port_num);

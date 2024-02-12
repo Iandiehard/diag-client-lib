@@ -27,17 +27,17 @@ void DoipTcpChannel::Start() {
   tcp_socket_handler_.SetReadHandler(
       [this](TcpMessagePtr tcp_message) { ProcessReceivedTcpMessage(std::move(tcp_message)); });
   // Start the socket and channel handler
-  tcp_socket_handler_.Start();
+  tcp_socket_handler_.Initialize();
   tcp_channel_handler_.Start();
 }
 
 void DoipTcpChannel::Stop() {
-  tcp_socket_handler_.Stop();
+  tcp_socket_handler_.DeInitialize();
   tcp_channel_handler_.Stop();
 }
 
 bool DoipTcpChannel::IsConnectedToHost() {
-  return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
+  // return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
 }
 
 uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::ConnectToHost(

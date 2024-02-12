@@ -27,9 +27,9 @@ class DoipTcpConnection final : public uds_transport::Connection {
   using InitializationResult = uds_transport::Connection::InitializationResult;
 
   /**
-   * @brief  Type alias for boost context
+   * @brief   Type alias for Tcp client used by socket handler
    */
-  using IoContext = ConnectionManager::IoContext;
+  using TcpClient = sockets::TcpSocketHandler::TcpClient;
 
   /**
    * @brief       Constructor to create a new tcp connection
@@ -43,11 +43,9 @@ class DoipTcpConnection final : public uds_transport::Connection {
    *              The reference to io context
    */
   DoipTcpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view tcp_ip_address,
-                    std::uint16_t port_num, IoContext::Context &io_context)
+                    std::uint16_t port_num)
       : uds_transport::Connection{1u, conversation_handler},
-        doip_tcp_channel_{
-            sockets::TcpSocketHandler{sockets::TcpSocketHandler::TcpSocket{tcp_ip_address, port_num, io_context}},
-            *this} {}
+        doip_tcp_channel_{sockets::TcpSocketHandler{TcpClient{tcp_ip_address, port_num}}, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipTcpConnection
@@ -167,11 +165,6 @@ class DoipUdpConnection final : public uds_transport::Connection {
   using InitializationResult = uds_transport::Connection::InitializationResult;
 
   /**
-   * @brief  Type alias for boost context
-   */
-  using IoContext = ConnectionManager::IoContext;
-
-  /**
    * @brief       Constructor to create a new udp connection
    * @param[in]   conversation_handler
    *              The reference to conversation handler
@@ -181,7 +174,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
    *              The local port number
    */
   DoipUdpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view udp_ip_address,
-                    std::uint16_t port_num, IoContext::Context &io_context)
+                    std::uint16_t port_num)
       : uds_transport::Connection(1, conversation_handler),
         doip_udp_channel_{udp_ip_address, port_num, *this} {}
 
@@ -297,12 +290,12 @@ ConnectionManager::ConnectionManager() noexcept : io_context_{} {}
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num, io_context_.GetContext()));
+  return (std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num);
 }
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateUdpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num, io_context_.GetContext()));
+  return (std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num);
 }
 
 }  // namespace connection

@@ -12,7 +12,6 @@
 #include <string_view>
 #include <utility>
 
-#include "boost-support/socket/io_context.h"
 #include "uds_transport/connection.h"
 
 namespace doip_client {
@@ -26,7 +25,7 @@ class ConnectionManager final {
   /**
    * @brief  Type alias for boost context
    */
-  using IoContext = boost_support::socket::IoContext;
+  struct IoContext {};
 
  public:
   /**
