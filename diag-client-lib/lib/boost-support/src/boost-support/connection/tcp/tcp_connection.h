@@ -16,6 +16,7 @@
 #include <thread>
 #include <utility>
 
+#include "boost-support/error_domain/boost_support_error_domain.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -179,7 +180,13 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    *                The tcp message to be transmitted
    * @return        Empty result on success otherwise error code
    */
-  auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
+  core_type::Result<void> Transmit(TcpMessageConstPtr message) noexcept {
+    return socket_.Transmit(std::move(message))
+        .AndThen([]() { return core_type::Result<void>::FromValue(); })
+        .MapError([](typename Socket::SocketError const &error) {
+          return error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError);
+        });
+  }
 
  private:
   /**
@@ -346,7 +353,13 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    *                The tcp message to be transmitted
    * @return        Empty result on success otherwise error code
    */
-  auto Transmit(TcpMessageConstPtr message) noexcept -> bool { return socket_.Transmit(std::move(message)).HasValue(); }
+  core_type::Result<void> Transmit(TcpMessageConstPtr message) noexcept {
+    return socket_.Transmit(std::move(message))
+        .AndThen([]() { return core_type::Result<void>::FromValue(); })
+        .MapError([](typename Socket::SocketError const &error) {
+          return error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError);
+        });
+  }
 
  private:
   /**

@@ -70,7 +70,7 @@ class TcpClient::TcpClientImpl final {
 
  public:
   /**
-   * @brief         Constructs an instance of TcpClient
+   * @brief         Constructs an instance of TcpClientImpl
    * @param[in]     local_ip_address
    *                The local ip address of client
    * @param[in]     local_port_num
@@ -125,7 +125,7 @@ class TcpClient::TcpClientImpl final {
   TcpClientImpl &operator=(TcpClientImpl &&other) noexcept = delete;
 
   /**
-   * @brief         Destruct an instance of TcpClient
+   * @brief         Destruct an instance of TcpClientImpl
    */
   ~TcpClientImpl() noexcept = default;
 
@@ -287,6 +287,7 @@ TcpClient::TcpClient(TlsVersion13, std::string_view local_ip_address, std::uint1
           std::make_unique<TcpClientImpl>(TlsVersion13{}, local_ip_address, local_port_num, ca_certification_path)} {}
 
 TcpClient::TcpClient(TcpClient &&other) noexcept = default;
+
 TcpClient &TcpClient::operator=(TcpClient &&other) noexcept = default;
 
 TcpClient::~TcpClient() noexcept = default;
