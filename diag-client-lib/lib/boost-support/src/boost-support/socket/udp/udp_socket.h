@@ -26,7 +26,7 @@ class UdpSocket final {
   /**
    * @brief   Socket error code
    */
-  enum class SocketError : std::uint8_t { kOpenFailed, kBindingFailed, kRemoteDisconnected, kGenericError };
+  enum class SocketError : std::uint8_t { kOpenFailed, kBindingFailed, kGenericError };
 
   /**
    * @brief   Type alias for Tcp message
@@ -87,6 +87,14 @@ class UdpSocket final {
    * @brief         Destruct an instance of TcpSocket
    */
   ~UdpSocket() noexcept;
+
+  /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(UdpHandlerRead read_handler);
 
   /**
    * @brief         Function to open and bind the socket to provided ip address & port
