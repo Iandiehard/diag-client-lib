@@ -71,13 +71,13 @@ class UdpClient final {
   ~UdpClient() noexcept;
 
   /**
-  * @brief         Initialize the client
-  */
+   * @brief         Initialize the client
+   */
   void Initialize() noexcept;
 
   /**
-  * @brief         De-initialize the client
-  */
+   * @brief         De-initialize the client
+   */
   void DeInitialize() noexcept;
 
   /**

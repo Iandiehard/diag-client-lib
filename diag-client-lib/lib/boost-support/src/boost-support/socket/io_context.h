@@ -9,6 +9,7 @@
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_IO_CONTEXT_H_
 
 #include <boost/asio.hpp>
+#include <thread>
 
 namespace boost_support {
 namespace socket {
@@ -47,6 +48,16 @@ class IoContext final {
   ~IoContext() noexcept;
 
   /**
+   * @brief         Initialize the context
+   */
+  void Initialize() noexcept;
+
+  /**
+   * @brief         De-initialize the context
+   */
+  void DeInitialize() noexcept;
+
+  /**
   * @brief         Function to get the io context reference
   * @return        The reference to io context
   */
@@ -57,6 +68,31 @@ class IoContext final {
   * @brief  boost io context
   */
   Context io_context_;
+
+  /**
+   * @brief  Flag to terminate the thread
+   */
+  std::atomic_bool exit_request_;
+
+  /**
+   * @brief  Flag to start the thread
+   */
+  std::atomic_bool running_;
+
+  /**
+   * @brief  Conditional variable to block the thread
+   */
+  std::condition_variable cond_var_;
+
+  /**
+   * @brief  The thread itself
+   */
+  std::thread thread_;
+
+  /**
+   * @brief  mutex to lock critical section
+   */
+  std::mutex mutex_;
 };
 }  // namespace socket
 }  // namespace boost_support

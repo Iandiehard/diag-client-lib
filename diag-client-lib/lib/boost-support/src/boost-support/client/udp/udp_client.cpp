@@ -52,12 +52,18 @@ class UdpClient::UdpClientImpl final {
   /**
    * @brief         Initialize the client
    */
-  void Initialize() noexcept { udp_connection_.Initialize(); }
+  void Initialize() noexcept {
+    io_context_.Initialize();
+    udp_connection_.Initialize();
+  }
 
   /**
    * @brief         De-initialize the client
    */
-  void DeInitialize() noexcept { udp_connection_.DeInitialize(); }
+  void DeInitialize() noexcept {
+    udp_connection_.DeInitialize();
+    io_context_.DeInitialize();
+  }
 
   /**
    * @brief         Function to set the read handler that is invoked when message is received
@@ -79,7 +85,7 @@ class UdpClient::UdpClientImpl final {
 
  private:
   /**
-   * @brief     Type alias for unsecured tcp connection
+   * @brief     Type alias for Udp connection
    */
   using UdpConnection = connection::udp::UdpConnection<socket::udp::UdpSocket>;
 
