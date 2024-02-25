@@ -37,10 +37,8 @@ class DoipTcpChannel final {
 
   /**
    * @brief         Constructs an instance of TcpChannel
-   * @param[in]     tcp_ip_address
-   *                The local ip address
-   * @param[in]     port_num
-   *                The reference to tcp transport handler
+   * @param[in]     tcp_socket_handler
+   *                The tcp socket handler
    * @param[in]     connection
    *                The reference to tcp transport handler
    */

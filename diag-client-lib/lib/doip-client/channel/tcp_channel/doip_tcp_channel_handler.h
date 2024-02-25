@@ -32,7 +32,7 @@ class DoipTcpChannelHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of DoipTcpChannelHandler

@@ -165,6 +165,11 @@ class DoipUdpConnection final : public uds_transport::Connection {
   using InitializationResult = uds_transport::Connection::InitializationResult;
 
   /**
+   * @brief   Type alias for Tcp client used by socket handler
+   */
+  using UdpClient = sockets::UdpSocketHandler::Client;
+
+  /**
    * @brief       Constructor to create a new udp connection
    * @param[in]   conversation_handler
    *              The reference to conversation handler
@@ -176,7 +181,8 @@ class DoipUdpConnection final : public uds_transport::Connection {
   DoipUdpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view udp_ip_address,
                     std::uint16_t port_num)
       : uds_transport::Connection(1, conversation_handler),
-        doip_udp_channel_{udp_ip_address, port_num, *this} {}
+        doip_udp_channel_{sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}},
+                          sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}}, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipUdpConnection
@@ -290,12 +296,12 @@ ConnectionManager::ConnectionManager() noexcept : io_context_{} {}
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num);
+  return std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num);
 }
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateUdpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num);
+  return std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num);
 }
 
 }  // namespace connection

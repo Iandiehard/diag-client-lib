@@ -4,7 +4,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ */
 
 #include "channel/udp_channel/doip_udp_channel.h"
 
@@ -12,21 +12,26 @@ namespace doip_client {
 namespace channel {
 namespace udp_channel {
 
-udp_channel::DoipUdpChannel::DoipUdpChannel(std::string_view udp_ip_address, std::uint16_t port_num,
+udp_channel::DoipUdpChannel::DoipUdpChannel(UdpSocketHandler udp_socket_handler_broadcast,
+                                            UdpSocketHandler udp_socket_handler_unicast,
                                             uds_transport::Connection &connection)
-    : udp_socket_handler_broadcast_{udp_ip_address, port_num, UdpSocketHandler::PortType::kUdp_Broadcast, *this},
-      udp_socket_handler_unicast_{udp_ip_address, port_num, UdpSocketHandler::PortType::kUdp_Unicast, *this},
+    : udp_socket_handler_broadcast_{std::move(udp_socket_handler_broadcast)},
+      udp_socket_handler_unicast_{std::move(udp_socket_handler_unicast)},
       udp_channel_handler_{udp_socket_handler_broadcast_, udp_socket_handler_unicast_, *this},
       connection_{connection} {}
 
 void DoipUdpChannel::Start() {
-  udp_socket_handler_broadcast_.Start();
-  udp_socket_handler_unicast_.Start();
+  udp_socket_handler_broadcast_.SetReadHandler(
+      [this](UdpMessagePtr udp_message) noexcept { ProcessReceivedUdpBroadcast(std::move(udp_message)); });
+  udp_socket_handler_unicast_.SetReadHandler(
+      [this](UdpMessagePtr udp_message) noexcept { ProcessReceivedUdpUnicast(std::move(udp_message)); });
+  udp_socket_handler_broadcast_.Initialize();
+  udp_socket_handler_unicast_.Initialize();
 }
 
 void DoipUdpChannel::Stop() {
-  udp_socket_handler_broadcast_.Stop();
-  udp_socket_handler_unicast_.Stop();
+  udp_socket_handler_broadcast_.DeInitialize();
+  udp_socket_handler_unicast_.DeInitialize();
 }
 
 void DoipUdpChannel::ProcessReceivedUdpBroadcast(DoipUdpChannel::UdpMessagePtr udp_rx_message) {

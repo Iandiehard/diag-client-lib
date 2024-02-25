@@ -31,12 +31,12 @@ class DiagnosticMessageHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
    * @brief  Type alias for Tcp message
    */
-  using TcpMessage = sockets::TcpSocketHandler::TcpMessage;
+  using TcpMessage = sockets::TcpSocketHandler::Message;
 
  public:
   /**

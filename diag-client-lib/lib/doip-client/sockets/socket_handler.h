@@ -11,6 +11,7 @@
 #include <string_view>
 
 #include "boost-support/client/tcp/tcp_client.h"
+#include "boost-support/client/udp/udp_client.h"
 #include "core/include/result.h"
 
 namespace doip_client {
@@ -108,7 +109,7 @@ class SocketHandler final {
   core_type::Result<void> DisconnectFromHost() { return client_.DisconnectFromHost(); }
 
   /**
-   * @brief         Function to transmit the provided tcp message
+   * @brief         Function to transmit the provided message
    * @param[in]     message
    *                The message to be sent
    * @return        Empty void on success, otherwise error is returned
@@ -126,6 +127,11 @@ class SocketHandler final {
  * @brief  Type alias of Tcp socket handler
  */
 using TcpSocketHandler = SocketHandler<boost_support::client::tcp::TcpClient>;
+
+/**
+ * @brief  Type alias of Udp socket handler
+ */
+using UdpSocketHandler = SocketHandler<boost_support::client::udp::UdpClient>;
 
 }  // namespace sockets
 }  // namespace doip_client
