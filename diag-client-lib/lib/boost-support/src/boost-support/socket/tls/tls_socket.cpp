@@ -181,9 +181,9 @@ TlsSocket<TlsVersion>::Read() noexcept {
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
-  rx_buffer.resize(client::tcp::kDoipheadrSize);
+  rx_buffer.resize(message::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], client::tcp::kDoipheadrSize), ec);
+  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -196,8 +196,9 @@ TlsSocket<TlsVersion>::Read() noexcept {
 
     if (read_next_bytes != 0u) {
       // reserve the buffer
-      rx_buffer.resize(client::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[client::tcp::kDoipheadrSize], read_next_bytes), ec);
+      rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
+                        ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};

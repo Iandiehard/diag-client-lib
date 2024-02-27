@@ -220,7 +220,7 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Disconne
 }
 
 core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Transmit(
-    client::tcp::TcpMessageConstPtr tcp_message) {
+    message::tcp::TcpMessageConstPtr tcp_message) {
   core_type::Result<void, TlsErrorCode> result{TlsErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
@@ -254,10 +254,10 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Destroy(
 void TlsClientSocket::HandleMessage() {
   TcpErrorCodeType ec{};
   // create and reserve the buffer
-  client::tcp::TcpMessage::BufferType rx_buffer{};
-  rx_buffer.resize(client::tcp::kDoipheadrSize);
+  message::tcp::TcpMessage::BufferType rx_buffer{};
+  rx_buffer.resize(message::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], client::tcp::kDoipheadrSize), ec);
+  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -270,12 +270,13 @@ void TlsClientSocket::HandleMessage() {
 
     if (read_next_bytes != 0u) {
       // reserve the buffer
-      rx_buffer.resize(client::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[client::tcp::kDoipheadrSize], read_next_bytes), ec);
+      rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
+                        ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-      client::tcp::TcpMessagePtr tcp_rx_message{std::make_unique<client::tcp::TcpMessage>(
+      message::tcp::TcpMessagePtr tcp_rx_message{std::make_unique<message::tcp::TcpMessage>(
           endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {

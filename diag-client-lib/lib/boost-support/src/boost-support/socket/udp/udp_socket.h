@@ -11,7 +11,7 @@
 #include <boost/asio.hpp>
 #include <vector>
 
-#include "boost-support/client/udp/udp_message.h"
+#include "boost-support/message/udp/udp_message.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -31,17 +31,17 @@ class UdpSocket final {
   /**
    * @brief   Type alias for Tcp message
    */
-  using UdpMessage = boost_support::client::udp::UdpMessage;
+  using UdpMessage = boost_support::message::udp::UdpMessage;
 
   /**
    * @brief  Type alias for Udp message pointer
    */
-  using UdpMessagePtr = boost_support::client::udp::UdpMessagePtr;
+  using UdpMessagePtr = boost_support::message::udp::UdpMessagePtr;
 
   /**
    * @brief  Type alias for Udp message const pointer
    */
-  using UdpMessageConstPtr = boost_support::client::udp::UdpMessageConstPtr;
+  using UdpMessageConstPtr = boost_support::message::udp::UdpMessageConstPtr;
 
   /**
    * @brief  Type alias for Udp protocol

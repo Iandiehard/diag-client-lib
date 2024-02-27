@@ -10,7 +10,7 @@
 
 #include <boost/asio.hpp>
 
-#include "boost-support/client/tcp/tcp_message.h"
+#include "boost-support/message/tcp/tcp_message.h"
 #include "boost-support/socket/tls/tls_context.h"
 #include "core/include/result.h"
 
@@ -40,17 +40,17 @@ class TlsSocket final : public TlsContext<TlsVersion> {
   /**
    * @brief  Type alias for Tcp message
    */
-  using TcpMessage = boost_support::client::tcp::TcpMessage;
+  using TcpMessage = boost_support::message::tcp::TcpMessage;
 
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = boost_support::client::tcp::TcpMessagePtr;
+  using TcpMessagePtr = boost_support::message::tcp::TcpMessagePtr;
 
   /**
    * @brief  Type alias for Tcp message const pointer
    */
-  using TcpMessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
+  using TcpMessageConstPtr = boost_support::message::tcp::TcpMessageConstPtr;
 
  public:
   /**

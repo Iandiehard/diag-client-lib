@@ -11,7 +11,7 @@
 #include <functional>
 #include <string_view>
 
-#include "boost-support/client/udp/udp_message.h"
+#include "boost-support/message/udp/udp_message.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -26,17 +26,17 @@ class UdpClient final {
   /**
   * @brief  Type alias for Tcp message
   */
-  using Message = boost_support::client::udp::UdpMessage;
+  using Message = boost_support::message::udp::UdpMessage;
 
   /**
   * @brief  Type alias for Tcp message pointer
   */
-  using MessagePtr = boost_support::client::udp::UdpMessagePtr;
+  using MessagePtr = boost_support::message::udp::UdpMessagePtr;
 
   /**
   * @brief  Type alias for Tcp message const pointer
   */
-  using MessageConstPtr = boost_support::client::udp::UdpMessageConstPtr;
+  using MessageConstPtr = boost_support::message::udp::UdpMessageConstPtr;
 
   /**
   * @brief         Tcp function template used for reception

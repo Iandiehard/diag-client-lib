@@ -16,7 +16,7 @@
 #include "core/include/span.h"
 
 namespace boost_support {
-namespace client {
+namespace message {
 namespace tcp {
 
 /**
@@ -182,6 +182,6 @@ using TcpMessagePtr = std::unique_ptr<TcpMessage>;
 constexpr std::uint8_t kDoipheadrSize = 8U;
 
 }  // namespace tcp
-}  // namespace client
+}  // namespace message
 }  // namespace boost_support
 #endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_

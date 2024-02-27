@@ -17,7 +17,7 @@
 #include "core/include/span.h"
 
 namespace boost_support {
-namespace client {
+namespace message {
 namespace udp {
 
 /**
@@ -74,7 +74,7 @@ class UdpMessage final {
   /**
    * @brief         Destructs an instance of UdpMessage
    */
-  virtual ~UdpMessage() = default;
+  ~UdpMessage() = default;
 
   /**
    * @brief       Get the host ip address
@@ -139,6 +139,6 @@ using UdpMessageConstPtr = std::unique_ptr<UdpMessage const>;
 using UdpMessagePtr = std::unique_ptr<UdpMessage>;
 
 }  // namespace udp
-}  // namespace client
+}  // namespace message
 }  // namespace boost_support
 #endif  // DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_UDP_UDP_MESSAGE_H_

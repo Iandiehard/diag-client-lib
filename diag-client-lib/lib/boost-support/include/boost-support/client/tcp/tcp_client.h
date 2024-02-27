@@ -11,7 +11,7 @@
 #include <functional>
 #include <string_view>
 
-#include "boost-support/client/tcp/tcp_message.h"
+#include "boost-support/message/tcp/tcp_message.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -36,17 +36,17 @@ class TcpClient final {
   /**
    * @brief  Type alias for Tcp message
    */
-  using Message = boost_support::client::tcp::TcpMessage;
+  using Message = boost_support::message::tcp::TcpMessage;
 
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using MessagePtr = boost_support::client::tcp::TcpMessagePtr;
+  using MessagePtr = boost_support::message::tcp::TcpMessagePtr;
 
   /**
    * @brief  Type alias for Tcp message const pointer
    */
-  using MessageConstPtr = boost_support::client::tcp::TcpMessageConstPtr;
+  using MessageConstPtr = boost_support::message::tcp::TcpMessageConstPtr;
 
   /**
    * @brief         Tcp function template used for reception
