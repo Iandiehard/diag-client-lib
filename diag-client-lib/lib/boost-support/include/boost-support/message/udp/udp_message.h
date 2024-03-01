@@ -95,16 +95,18 @@ class UdpMessage final {
   core_type::Span<std::uint8_t> GetRxBuffer() { return core_type::Span<std::uint8_t>{rx_buffer_}; }
 
   /**
-   * @brief       Get the reference to tx buffer
-   * @return      The reference to buffer
+   * @brief       Get the writable view on tx buffer
+   * @return      The view on tx buffer
    */
-  BufferType &GetTxBuffer() { return tx_buffer_; }
+  core_type::Span<std::uint8_t> GetTxBuffer() { return core_type::Span<std::uint8_t>{tx_buffer_}; }
 
   /**
-   * @brief       Get the reference to tx buffer
-   * @return      The reference to buffer
+   * @brief       Get the readable view on tx buffer
+   * @return      The view on tx buffer
    */
-  BufferType const &GetTxBuffer() const { return tx_buffer_; }
+  core_type::Span<std::uint8_t const> const GetTxBuffer() const {
+    return core_type::Span<std::uint8_t const>{tx_buffer_};
+  }
 
  private:
   /**

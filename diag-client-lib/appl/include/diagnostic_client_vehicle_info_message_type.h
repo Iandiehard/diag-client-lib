@@ -23,6 +23,9 @@ namespace vehicle_info {
 struct VehicleAddrInfoResponse {
   /**
    * @brief       IP address of the vehicle
+   * @details     It is represented in ASCII-characters, using the common “dotted decimal notation” for
+   *              IPv4 or the common “colon separated 16-bit hexadecimal notation” (optionally suppressing leading
+   *              zeros) for IPv6 rsp
    */
   std::string ip_address{};
 
@@ -33,16 +36,21 @@ struct VehicleAddrInfoResponse {
 
   /**
    * @brief       VIN of the vehicle
+   * @details     It is represented in ASCII-characters
    */
   std::string vin{};
 
   /**
    * @brief       Entity Identification of the vehicle
+   * @details     It is encoded in HEX-ASCII. Each Byte is represented by its hexadecimal value.
+   *              Bytes are separated by a “:”-character
    */
   std::string eid{};
 
   /**
    * @brief       Group Identification of the vehicle
+   * @details     It is encoded in HEX-ASCII. Each Byte is represented by its hexadecimal value.
+   *              Bytes are separated by a “:”-character
    */
   std::string gid{};
 };

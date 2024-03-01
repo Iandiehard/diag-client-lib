@@ -90,8 +90,8 @@ class UdpClient final {
 
   /**
   * @brief         Function to transmit the provided tcp message
-  * @param[in]     tcp_message
-  *                The tcp message
+  * @param[in]     udp_message
+  *                The udp message
   * @return        Empty void on success, otherwise error is returned
   */
   core_type::Result<void> Transmit(MessageConstPtr udp_message);
