@@ -10,29 +10,29 @@
 namespace doip_client {
 namespace {
 
-auto GetDoIPPayloadType(core_type::Span<std::uint8_t> payload) noexcept -> std::uint16_t {
+auto GetDoIPPayloadType(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint16_t {
   return (static_cast<std::uint16_t>(((payload[2u] & 0xFF) << 8) | (payload[3u] & 0xFF)));
 }
 
-auto GetDoIPPayloadLength(core_type::Span<std::uint8_t> payload) noexcept -> std::uint32_t {
+auto GetDoIPPayloadLength(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint32_t {
   return ((static_cast<std::uint32_t>(payload[4u] << 24) & 0xFF000000) |
           (static_cast<std::uint32_t>(payload[5u] << 16) & 0x00FF0000) |
           (static_cast<std::uint32_t>(payload[6u] << 8) & 0x0000FF00) |
           (static_cast<std::uint32_t>(payload[7u] & 0x000000FF)));
 }
 
-auto GetServerAddr(core_type::Span<std::uint8_t> payload) noexcept -> std::uint16_t {
+auto GetServerAddr(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint16_t {
   return (static_cast<std::uint16_t>(((payload[0u] & 0xFF) << 8) | (payload[1u] & 0xFF)));
 }
 
-auto GetClientAddr(core_type::Span<std::uint8_t> payload) noexcept -> std::uint16_t {
+auto GetClientAddr(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint16_t {
   return (static_cast<std::uint16_t>(((payload[2u] & 0xFF) << 8) | (payload[3u] & 0xFF)));
 }
 
 }  // namespace
 
 DoipMessage::DoipMessage(MessageType message_type, DoipMessage::IpAddressType host_ip_address,
-                         std::uint16_t host_port_number, core_type::Span<std::uint8_t> payload)
+                         std::uint16_t host_port_number, core_type::Span<std::uint8_t const> payload)
     : message_type_{message_type},
       host_ip_address_{host_ip_address},
       host_port_number_{host_port_number},
@@ -47,9 +47,9 @@ DoipMessage::DoipMessage(MessageType message_type, DoipMessage::IpAddressType ho
 
   payload_ = (message_type_ == MessageType::kTcp)
                  ?  // header + server address(2 byte) + client address(2 byte)
-                 core_type::Span<std::uint8_t>{&payload[kDoipHeaderSize + kSourceAddressSize],
-                                               payload.size() - (kDoipHeaderSize + kSourceAddressSize)}
-                 : core_type::Span<std::uint8_t>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
+                 core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize + kSourceAddressSize],
+                                                     payload.size() - (kDoipHeaderSize + kSourceAddressSize)}
+                 : core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
   if (message_type == MessageType::kTcp) {
     server_address_ = GetServerAddr(payload);
     client_address_ = GetClientAddr(payload);

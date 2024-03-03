@@ -96,8 +96,7 @@ auto DoipTcpChannelHandler::SendDiagnosticRequest(uds_transport::UdsMessageConst
 auto DoipTcpChannelHandler::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void {
   std::uint8_t nack_code{};
   DoipMessage doip_rx_message{DoipMessage::MessageType::kTcp, tcp_rx_message->GetHostIpAddress(),
-                              tcp_rx_message->GetHostPortNumber(),
-                              core_type::Span<std::uint8_t>{tcp_rx_message->GetRxBuffer()}};
+                              tcp_rx_message->GetHostPortNumber(), tcp_rx_message->GetRxBuffer()};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     ProcessDoIPPayload(doip_rx_message);

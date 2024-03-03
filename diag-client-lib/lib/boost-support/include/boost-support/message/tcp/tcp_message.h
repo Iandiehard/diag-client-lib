@@ -108,7 +108,7 @@ class TcpMessage final {
    * @brief       Get the view to the rx buffer
    * @return      The rx buffer
    */
-  core_type::Span<std::uint8_t> GetRxBuffer() { return core_type::Span<std::uint8_t>{rx_buffer_}; }
+  core_type::Span<std::uint8_t const> GetRxBuffer() { return core_type::Span<std::uint8_t const>{rx_buffer_}; }
 
   /**
    * @brief       Get the reference to tx buffer

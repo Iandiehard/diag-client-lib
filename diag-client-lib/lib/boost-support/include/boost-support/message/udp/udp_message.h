@@ -42,15 +42,6 @@ class UdpMessage final {
 
  public:
   /**
-   * @brief         Default constructor of UdpMessage
-   */
-  UdpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number)
-      : rx_buffer_{},
-        tx_buffer_{},
-        host_ip_address_{host_ip_address},
-        host_port_number_{host_port_number} {}
-
-  /**
    * @brief         Constructs an instance of UdpMessage
    * @param[in]     host_ip_address
    *                The host ip address
@@ -60,8 +51,7 @@ class UdpMessage final {
    *                The received data payload
    */
   UdpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number, BufferType payload)
-      : rx_buffer_{std::move(payload)},
-        tx_buffer_{},
+      : payload_{std::move(payload)},
         host_ip_address_{host_ip_address},
         host_port_number_{host_port_number} {}
 
@@ -89,35 +79,16 @@ class UdpMessage final {
   std::uint16_t GetHostPortNumber() const { return host_port_number_; }
 
   /**
-   * @brief       Get the view to the rx buffer
-   * @return      The rx buffer
+   * @brief       Get the readable view on received paylosd
+   * @return      The view on payload
    */
-  core_type::Span<std::uint8_t> GetRxBuffer() { return core_type::Span<std::uint8_t>{rx_buffer_}; }
-
-  /**
-   * @brief       Get the writable view on tx buffer
-   * @return      The view on tx buffer
-   */
-  core_type::Span<std::uint8_t> GetTxBuffer() { return core_type::Span<std::uint8_t>{tx_buffer_}; }
-
-  /**
-   * @brief       Get the readable view on tx buffer
-   * @return      The view on tx buffer
-   */
-  core_type::Span<std::uint8_t const> const GetTxBuffer() const {
-    return core_type::Span<std::uint8_t const>{tx_buffer_};
-  }
+  core_type::Span<std::uint8_t const> const GetPayload() const { return core_type::Span<std::uint8_t const>{payload_}; }
 
  private:
   /**
    * @brief         The reception buffer
    */
-  BufferType rx_buffer_;
-
-  /**
-   * @brief         The transmission buffer
-   */
-  BufferType tx_buffer_;
+  BufferType payload_;
 
   /**
    * @brief    Store remote ip address

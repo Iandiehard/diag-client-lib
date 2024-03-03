@@ -57,7 +57,7 @@ auto DoipUdpChannelHandler::SendVehicleIdentificationRequest(
 auto DoipUdpChannelHandler::HandleMessageUnicast(UdpMessagePtr udp_rx_message) noexcept -> void {
   std::uint8_t nack_code{};
   DoipMessage doip_rx_message{DoipMessage::MessageType::kUdp, udp_rx_message->GetHostIpAddress(),
-                              udp_rx_message->GetHostPortNumber(), udp_rx_message->GetRxBuffer()};
+                              udp_rx_message->GetHostPortNumber(), udp_rx_message->GetPayload()};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     ProcessDoIPPayload(doip_rx_message);
@@ -70,7 +70,7 @@ auto DoipUdpChannelHandler::HandleMessageUnicast(UdpMessagePtr udp_rx_message) n
 auto DoipUdpChannelHandler::HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept -> void {
   uint8_t nack_code;
   DoipMessage doip_rx_message{DoipMessage::MessageType::kUdp, udp_rx_message->GetHostIpAddress(),
-                              udp_rx_message->GetHostPortNumber(), udp_rx_message->GetRxBuffer()};
+                              udp_rx_message->GetHostPortNumber(), udp_rx_message->GetPayload()};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     vehicle_discovery_handler_.ProcessVehicleAnnouncementResponse(doip_rx_message);

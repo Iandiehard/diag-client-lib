@@ -64,11 +64,11 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Transmit(
 
   // Transmit to remote endpoints
   std::size_t send_size{udp_socket_.send_to(
-      boost::asio::buffer(udp_message->GetTxBuffer(), std::size_t(udp_message->GetTxBuffer().size())),
+      boost::asio::buffer(udp_message->GetPayload().data(), udp_message->GetPayload().size()),
       Udp::endpoint{boost::asio::ip::make_address(udp_message->GetHostIpAddress()), udp_message->GetHostPortNumber()},
       {}, ec)};
   // Check for error
-  if (ec.value() == boost::system::errc::success && send_size == udp_message->GetTxBuffer().size()) {
+  if (ec.value() == boost::system::errc::success && send_size == udp_message->GetPayload().size()) {
     // successful
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this, &udp_message](std::stringstream &msg) {

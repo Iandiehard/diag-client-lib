@@ -118,7 +118,7 @@ class Connection {
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) = 0;
+      core_type::Span<std::uint8_t const> payload_info) = 0;
 
   /**
    * @brief       Function to transmit a valid Uds message

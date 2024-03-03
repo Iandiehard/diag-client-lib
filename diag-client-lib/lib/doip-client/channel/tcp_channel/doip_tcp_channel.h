@@ -108,7 +108,7 @@ class DoipTcpChannel final {
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info);
+      core_type::Span<std::uint8_t const> payload_info);
 
   /**
    * @brief       Function to transmit a valid Uds message
