@@ -1,0 +1,35 @@
+{
+  "UdpIpAddress": "172.16.25.127",
+  "UdpBroadcastAddress": "172.16.255.255",
+  "Conversation": {
+    "NumberOfConversation": 2,
+    "ConversationProperty": [
+      {
+        "P2ClientMax": 1000,
+        "P2StarClientMax": 5000,
+        "RxBufferSize": 4095,
+        "SourceAddress": 1,
+        "TargetAddressType": "Physical",
+        "Network": {
+          "ProtocolKind": "DoIP",
+          "TcpIpAddress": "172.16.25.127",
+          "TlsHandling": true
+        },
+        "ConversationName": "DiagTesterOne"
+      },
+      {
+        "P2ClientMax": 2000,
+        "P2StarClientMax": 5000,
+        "RxBufferSize": 4095,
+        "SourceAddress": 2,
+        "TargetAddressType": "Functional",
+        "Network": {
+          "ProtocolKind": "DoIP",
+          "TcpIpAddress": "172.16.25.127",
+          "TlsHandling": false
+        },
+        "ConversationName": "DiagTesterTwo"
+      }
+    ]
+  }
+}

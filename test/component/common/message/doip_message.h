@@ -5,9 +5,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+#ifndef TEST_COMPONENT_COMMON_MESSAGE_DOIP_MESSAGE_H_
+#define TEST_COMPONENT_COMMON_MESSAGE_DOIP_MESSAGE_H_
+
 #include <string_view>
 
-#include "boost-support/message/udp/udp_message.h"
 #include "core/include/span.h"
 
 namespace test {
@@ -29,7 +31,8 @@ class DoipMessage final {
    * @param[in]     payload
    *                The view over received data payload
    */
-  DoipMessage(std::string_view host_ip_address, std::uint16_t host_port_number, core_type::Span<std::uint8_t> payload);
+  DoipMessage(std::string_view host_ip_address, std::uint16_t host_port_number,
+              core_type::Span<std::uint8_t const> payload);
 
   /**
    * @brief         Default copy assignment, copy constructor, move assignment and move constructor
@@ -73,12 +76,6 @@ class DoipMessage final {
    * @return      The payload type
    */
   std::uint16_t GetPayloadType() const { return payload_type_; }
-
-  /**
-   * @brief       Get the payload length
-   * @return      The payload length
-   */
-  std::uint32_t GetPayloadLength() const { return payload_length_; }
 
   /**
    * @brief       Get the payload
@@ -127,3 +124,4 @@ class DoipMessage final {
 }  // namespace common
 }  // namespace component
 }  // namespace test
+#endif  // TEST_COMPONENT_COMMON_MESSAGE_DOIP_MESSAGE_H_

@@ -8,15 +8,46 @@
 
 #include <gtest/gtest.h>
 
+#include "common/handler/doip_udp_handler.h"
+#include "component_test.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
-#include "main.h"
 
 namespace test {
 namespace component {
 namespace test_cases {
+// Diag Test Server Udp Ip Address
+const std::string kDiagUdpIpAddress{"172.16.25.128"};
+// Port number
+constexpr std::uint16_t kDiagUdpPortNum{13400u};
+// Path to json file
+const std::string kDiagClientConfigPath{"etc/diag_client_config.json"};
 
-TEST_F(DoipClientFixture, VerifyPreselectionModeEmpty) {
+// Fixture to test Vehicle discovery functionality
+class VehicleDiscoveryFixture : public component::ComponentTest {
+ protected:
+  VehicleDiscoveryFixture()
+      : doip_udp_handler_{kDiagUdpIpAddress, kDiagUdpPortNum},
+        diag_client_{diag::client::CreateDiagnosticClient(kDiagClientConfigPath)} {}
+
+  void SetUp() override {
+    doip_udp_handler_.Initialize();
+    diag_client_->Initialize();
+  }
+
+  void TearDown() override {
+    diag_client_->DeInitialize();
+    doip_udp_handler_.DeInitialize();
+  }
+
+ private:
+  // doip udp handler
+  common::handler::DoipUdpHandler doip_udp_handler_;
+  // diag client library
+  std::unique_ptr<diag::client::DiagClient> diag_client_;
+};
+
+TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEmpty) {
   doip_handler::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U, "ABCDEFGH123456789", "00:02:36:31:00:1c",
                                                                       "0a:0b:0c:0d:0e:0f"};
   // Create an expected vehicle identification response

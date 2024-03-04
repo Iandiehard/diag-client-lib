@@ -16,11 +16,12 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+file(GLOB_RECURSE MAIN CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 file(GLOB_RECURSE COMMON CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/common/*.cpp")
 file(GLOB_RECURSE TEST_SRCS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/test_cases/*.cpp")
 
 add_executable(${PROJECT_NAME}
-        main.cpp
+        ${MAIN}
         ${COMMON}
         ${TEST_SRCS}
         )
@@ -28,7 +29,6 @@ add_executable(${PROJECT_NAME}
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
         )
 
 target_link_libraries(${PROJECT_NAME}

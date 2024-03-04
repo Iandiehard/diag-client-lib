@@ -5,6 +5,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
+#ifndef TEST_COMPONENT_COMMON_HANDLER_DOIP_UDP_HANDLER_H_
+#define TEST_COMPONENT_COMMON_HANDLER_DOIP_UDP_HANDLER_H_
 
 #include <gmock/gmock.h>
 
@@ -55,3 +57,4 @@ class DoipUdpHandler final {
 }  // namespace common
 }  // namespace component
 }  // namespace test
+#endif  // TEST_COMPONENT_COMMON_HANDLER_DOIP_UDP_HANDLER_H_

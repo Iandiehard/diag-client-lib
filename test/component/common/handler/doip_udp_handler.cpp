@@ -42,7 +42,6 @@ auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_l
 
 auto SerializeToByteVectorFromString(std::string_view input_string, std::uint8_t substring_range) noexcept
     -> std::vector<std::uint8_t> {
-
   std::vector<std::uint8_t> output_buffer{};
   std::uint8_t const string_length{static_cast<std::uint8_t>(input_string.length())};
   output_buffer.reserve(string_length);
@@ -83,7 +82,7 @@ void DoipUdpHandler::DeInitialize() { udp_server_.DeInitialize(); }
 
 void DoipUdpHandler::ProcessReceivedUdpMessage(DoipUdpHandler::UdpServer::MessagePtr udp_message) {
   message::DoipMessage doip_message{udp_message->GetHostIpAddress(), udp_message->GetHostPortNumber(),
-                                    udp_message->GetRxBuffer()};
+                                    udp_message->GetPayload()};
 
   switch (doip_message.GetPayloadType()) {
     case kDoip_VehicleIdentification_ReqType:
@@ -107,8 +106,6 @@ auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote
                                                          std::string_view gid, std::uint8_t action_byte,
                                                          std::optional<std::uint8_t> sync_status) noexcept
     -> UdpServer::MessagePtr {
-  UdpServer::MessagePtr vehicle_identification_response{
-      std::make_unique<UdpServer::Message>(remote_ip_address, remote_port_number)};
   // Create header
   constexpr std::uint8_t kHeaderSize{8u};
   UdpServer::Message::BufferType response_buffer{CreateDoipGenericHeader(kDoip_VehicleAnnouncement_ResType, 32)};
@@ -130,7 +127,9 @@ auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote
   response_buffer.emplace_back(action_byte);
   // Set sync status
   if (sync_status.has_value()) { response_buffer.emplace_back(sync_status.value()); }
-  return vehicle_identification_response;
+  UdpServer::MessagePtr response{
+      std::make_unique<UdpServer::Message>(remote_ip_address, remote_port_number, std::move(response_buffer))};
+  return response;
 }
 
 }  // namespace handler
