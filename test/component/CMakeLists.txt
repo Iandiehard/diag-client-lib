@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(diag-client-lib-component)
+project(diag-client-lib-component-test)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -42,3 +42,9 @@ target_link_libraries(${PROJECT_NAME}
 
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME})
+
+# Copy the config file
+set(DEFAULT_CONFIG "etc/diag_client_config.json")
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMENT "Copying file '${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CONFIG}' for '${PROJECT_BINARY_DIR}' to working directory..."
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CONFIG} ${PROJECT_BINARY_DIR}/)

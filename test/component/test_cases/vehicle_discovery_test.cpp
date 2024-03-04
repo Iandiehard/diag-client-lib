@@ -5,13 +5,15 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #include <gtest/gtest.h>
+
+#include <thread>
 
 #include "common/handler/doip_udp_handler.h"
 #include "component_test.h"
 #include "include/create_diagnostic_client.h"
 #include "include/diagnostic_client.h"
+#include "include/diagnostic_client_vehicle_info_message_type.h"
 
 namespace test {
 namespace component {
@@ -21,7 +23,7 @@ const std::string kDiagUdpIpAddress{"172.16.25.128"};
 // Port number
 constexpr std::uint16_t kDiagUdpPortNum{13400u};
 // Path to json file
-const std::string kDiagClientConfigPath{"etc/diag_client_config.json"};
+const std::string kDiagClientConfigPath{"diag_client_config.json"};
 
 // Fixture to test Vehicle discovery functionality
 class VehicleDiscoveryFixture : public component::ComponentTest {
@@ -32,7 +34,8 @@ class VehicleDiscoveryFixture : public component::ComponentTest {
 
   void SetUp() override {
     doip_udp_handler_.Initialize();
-    diag_client_->Initialize();
+    ASSERT_TRUE(diag_client_->Initialize().HasValue());
+    std::this_thread::sleep_for(std::chrono::seconds(1));
   }
 
   void TearDown() override {
@@ -40,40 +43,55 @@ class VehicleDiscoveryFixture : public component::ComponentTest {
     doip_udp_handler_.DeInitialize();
   }
 
- private:
+ protected:
   // doip udp handler
-  common::handler::DoipUdpHandler doip_udp_handler_;
+  testing::StrictMock<common::handler::DoipUdpHandler> doip_udp_handler_;
+
   // diag client library
   std::unique_ptr<diag::client::DiagClient> diag_client_;
 };
 
+/**
+ * @brief  Verify that sending of vehicle identification request without VIN/EID works correctly.
+ */
 TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEmpty) {
-  doip_handler::DoipUdpHandler::VehicleAddrInfo vehicle_addr_response{0xFA25U, "ABCDEFGH123456789", "00:02:36:31:00:1c",
-                                                                      "0a:0b:0c:0d:0e:0f"};
-  // Create an expected vehicle identification response
-  GetDoipTestUdpHandlerRef().SetExpectedVehicleIdentificationResponseToBeSent(vehicle_addr_response);
+  constexpr std::string_view kVin{"ABCDEFGH123456789"};
+  constexpr std::string_view kEid{"00:02:36:31:00:1c"};
+  constexpr std::string_view kGid{"0a:0b:0c:0d:0e:0f"};
+  std::uint16_t const kLogicalAddress{0xFA25u};
+
+  // Create an expectation of vehicle identification response
+  EXPECT_CALL(doip_udp_handler_,
+              ProcessVehicleIdentificationRequestMessage(testing::_, testing::_, testing::_, testing::_))
+      .WillOnce(::testing::Invoke([this, kVin, kEid, kGid](std::string_view client_ip_address,
+                                                           std::uint16_t client_port_number, std::string_view eid,
+                                                           std::string_view vin) {
+        EXPECT_TRUE(eid.empty());
+        EXPECT_TRUE(vin.empty());
+        // Send Vehicle Identification response
+        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehileIdentificationResponse(
+            client_ip_address, client_port_number, kVin, kLogicalAddress, kEid, kGid, 0, std::nullopt));
+      }));
 
   // Send Vehicle Identification request and expect response
   diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request{0u, ""};
-  auto response_result{GetDiagClientRef().SendVehicleIdentificationRequest(vehicle_info_request)};
-
-  // Verify Vehicle identification request with no payload
-  EXPECT_TRUE(GetDoipTestUdpHandlerRef().VerifyVehicleIdentificationRequestWithExpectedVIN(""));
-
+  diag::client::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                       diag::client::DiagClient::VehicleInfoResponseError>
+      response{diag_client_->SendVehicleIdentificationRequest(std::move(vehicle_info_request))};
   // Verify Vehicle identification responses received successfully
-  ASSERT_TRUE(response_result.HasValue());
-  ASSERT_TRUE(response_result.Value());
+  ASSERT_TRUE(response.HasValue());
 
   // Get the list of all vehicle available
-  diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType response_collection{
-      response_result.Value()->GetVehicleList()};
+  diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType const response_collection{
+      response.Value()->GetVehicleList()};
 
+  // Expect only one vehicle available
   EXPECT_EQ(response_collection.size(), 1U);
-  EXPECT_EQ(response_collection[0].ip_address, DiagUdpIpAddress);
-  EXPECT_EQ(response_collection[0].logical_address, vehicle_addr_response.logical_address);
-  EXPECT_EQ(response_collection[0].vin, vehicle_addr_response.vin);
-  EXPECT_EQ(response_collection[0].eid, vehicle_addr_response.eid);
-  EXPECT_EQ(response_collection[0].gid, vehicle_addr_response.gid);
+  EXPECT_EQ(response_collection[0].ip_address, kDiagUdpIpAddress);
+  EXPECT_EQ(response_collection[0].logical_address, kLogicalAddress);
+  EXPECT_EQ(response_collection[0].vin, kVin);
+  EXPECT_EQ(response_collection[0].eid, kEid);
+  EXPECT_EQ(response_collection[0].gid, kGid);
 }
 
 }  // namespace test_cases

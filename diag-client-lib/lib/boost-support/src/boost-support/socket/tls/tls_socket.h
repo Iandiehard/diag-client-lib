@@ -72,10 +72,14 @@ class TlsSocket final : public TlsContext<TlsVersion> {
   TlsSocket &operator=(const TlsSocket &other) noexcept = delete;
 
   /**
-   * @brief  Move assignment and Move constructor
+   * @brief  Deleted move assignment
+   */
+  TlsSocket &operator=(TlsSocket &&other) noexcept = delete;
+
+  /**
+   * @brief  Move constructor
    */
   TlsSocket(TlsSocket &&other) noexcept;
-  TlsSocket &operator=(TlsSocket &&other) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpSocket

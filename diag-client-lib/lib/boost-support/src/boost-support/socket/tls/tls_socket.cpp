@@ -32,15 +32,6 @@ TlsSocket<TlsVersion>::TlsSocket(TlsSocket &&other) noexcept
       tcp_socket_{std::move(other.tcp_socket_)} {}
 
 template<TlsVersionType TlsVersion>
-TlsSocket<TlsVersion> &TlsSocket<TlsVersion>::operator=(TlsSocket &&other) noexcept {
-  TlsContext<TlsVersion>::operator=(std::move(other));
-  local_ip_address_ = std::move(other.local_ip_address_);
-  local_port_num_ = std::move(other.local_port_num_);
-  tcp_socket_ = std::move(other.tcp_socket_);
-  return *this;
-}
-
-template<TlsVersionType TlsVersion>
 TlsSocket<TlsVersion>::~TlsSocket() noexcept = default;
 
 template<TlsVersionType TlsVersion>
@@ -232,6 +223,10 @@ template<TlsVersionType TlsVersion>
 TlsSocket<TlsVersion>::Socket::lowest_layer_type &TlsSocket<TlsVersion>::GetNativeTcpSocket() {
   return tcp_socket_.lowest_layer();
 }
+
+// Explicit instantiation of tls socket type
+template class TlsSocket<TlsVersionType::kTls12>;
+template class TlsSocket<TlsVersionType::kTls13>;
 
 }  // namespace tls
 }  // namespace socket

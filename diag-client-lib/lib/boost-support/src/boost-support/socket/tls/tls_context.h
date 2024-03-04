@@ -71,7 +71,7 @@ class TlsContext {
    * @brief         Function to get the ssl context reference
    * @return        The reference to ssl context
    */
-  Context const &GetContext() const noexcept { return context_; }
+  Context &GetContext() noexcept { return context_; }
 
  private:
   /**

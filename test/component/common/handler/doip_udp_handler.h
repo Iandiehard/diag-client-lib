@@ -19,7 +19,7 @@ namespace component {
 namespace common {
 namespace handler {
 
-class DoipUdpHandler final {
+class DoipUdpHandler {
  public:
   using UdpServer = boost_support::server::udp::UdpServer;
 

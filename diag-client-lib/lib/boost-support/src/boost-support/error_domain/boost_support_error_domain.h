@@ -72,13 +72,6 @@ class BoostSupportErrorDomain final : public core_type::ErrorDomain {
   std::string message_;
 };
 
-namespace internal {
-/**
- * @brief  Dm error domain
- */
-BoostSupportErrorDomain boost_support_error_domain{};
-}  // namespace internal
-
 /**
  * @brief       Create a new ErrorCode within DoipErrorDomain.
  * @details     This function is used internally by constructors of ErrorCode. It is usually not used directly by
@@ -90,10 +83,8 @@ BoostSupportErrorDomain boost_support_error_domain{};
  * @return      ErrorCode
  *              A new ErrorCode instance
  */
-inline auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
-    -> core_type::ErrorCode {
-  return {static_cast<core_type::ErrorDomain::CodeType>(code), internal::boost_support_error_domain, data};
-}
+auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
+    -> core_type::ErrorCode;
 
 /**
  * @brief       Create a new ErrorCode within DoipErrorDomain.
