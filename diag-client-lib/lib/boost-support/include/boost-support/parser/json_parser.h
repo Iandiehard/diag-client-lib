@@ -35,7 +35,7 @@ enum class ParsingErrorCode : std::uint8_t { kError = 0U };
  *                  The config tree or success or empty on failure
  * @return          The result of type void on success or error code
  */
-core_type::Result<void, ParsingErrorCode> Read(std::string_view config_path, boost_tree &json_tree);
+core_type::Result<boost_tree, ParsingErrorCode> Read(std::string_view config_path);
 
 }  // namespace parser
 }  // namespace boost_support

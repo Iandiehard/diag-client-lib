@@ -13,12 +13,13 @@
 namespace boost_support {
 namespace parser {
 
-core_type::Result<void, ParsingErrorCode> Read(std::string_view config_path, boost_tree &json_tree) {
-  core_type::Result<void, ParsingErrorCode> parse_result{};
+core_type::Result<boost_tree, ParsingErrorCode> Read(std::string_view config_path) {
+  core_type::Result<boost_tree, ParsingErrorCode> parse_result{ParsingErrorCode::kError};
   // Get the tree with configuration details
   try {
+    boost_tree json_tree{};
     boost::property_tree::read_json(std::string{config_path}, json_tree);
-    parse_result.EmplaceValue();
+    parse_result.EmplaceValue(json_tree);
   } catch (boost::property_tree::json_parser_error &error) {
     parse_result.EmplaceError(ParsingErrorCode::kError);
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(

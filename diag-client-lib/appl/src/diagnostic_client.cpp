@@ -68,21 +68,21 @@ class DiagClient::DiagClientImpl final {
         __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient Initialization started"; });
 
     // read configuration
-    boost_support::parser::boost_tree config{};
-    return boost_support::parser::Read(diag_client_config_path_, config)
+    return boost_support::parser::Read(diag_client_config_path_)
+        .AndThen([this](boost_support::parser::boost_tree config) {
+          // Create single dcm instance and pass the configuration
+          dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(config_parser::ReadDcmClientConfig(config));
+          // Start dcm client main thread
+          dcm_thread_ = std::thread([this]() noexcept { dcm_instance_->Main(); });
+          pthread_setname_np(dcm_thread_.native_handle(), "DcmClientMain");
+          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
+              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
+          return Result<void, boost_support::parser::ParsingErrorCode>::FromValue();
+        })
         .MapError([](boost_support::parser::ParsingErrorCode const &) noexcept {
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
               __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
           return error_domain::MakeErrorCode(error_domain::DmErrorErrc::kInitializationFailed);
-        })
-        .AndThen([this, &config]() {
-          // create single dcm instance and pass the configuration
-          dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(config_parser::ReadDcmClientConfig(config));
-          // start dcm client thread
-          dcm_thread_ = std::thread([this]() noexcept { this->dcm_instance_->Main(); });
-          pthread_setname_np(dcm_thread_.native_handle(), "dcm_client");
-          logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
         });
   }
 
