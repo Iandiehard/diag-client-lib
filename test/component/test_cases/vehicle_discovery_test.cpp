@@ -7,6 +7,7 @@
  */
 #include <gtest/gtest.h>
 
+#include <string_view>
 #include <thread>
 
 #include "common/handler/doip_udp_handler.h"
@@ -18,18 +19,20 @@
 namespace test {
 namespace component {
 namespace test_cases {
-// Diag Test Server Udp Ip Address
-const std::string kDiagUdpIpAddress{"172.16.25.128"};
+// Diag Test Server Unicast Udp Ip Address
+constexpr std::string_view kDiagUdpUnicastIpAddress{"172.16.25.128"};
+// Diag Test Server Broadcast Udp Ip Address
+constexpr std::string_view kDiagUdpBroadCastIpAddress{"172.16.255.255"};
 // Port number
 constexpr std::uint16_t kDiagUdpPortNum{13400u};
 // Path to json file
-const std::string kDiagClientConfigPath{"diag_client_config.json"};
+constexpr std::string_view kDiagClientConfigPath{"diag_client_config.json"};
 
 // Fixture to test Vehicle discovery functionality
 class VehicleDiscoveryFixture : public component::ComponentTest {
  protected:
   VehicleDiscoveryFixture()
-      : doip_udp_handler_{kDiagUdpIpAddress, kDiagUdpPortNum},
+      : doip_udp_handler_{kDiagUdpBroadCastIpAddress, kDiagUdpUnicastIpAddress, kDiagUdpPortNum},
         diag_client_{diag::client::CreateDiagnosticClient(kDiagClientConfigPath)} {}
 
   void SetUp() override {
@@ -87,7 +90,7 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEmpty) {
 
   // Expect only one vehicle available
   EXPECT_EQ(response_collection.size(), 1U);
-  EXPECT_EQ(response_collection[0].ip_address, kDiagUdpIpAddress);
+  EXPECT_EQ(response_collection[0].ip_address, kDiagUdpUnicastIpAddress);
   EXPECT_EQ(response_collection[0].logical_address, kLogicalAddress);
   EXPECT_EQ(response_collection[0].vin, kVin);
   EXPECT_EQ(response_collection[0].eid, kEid);

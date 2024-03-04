@@ -23,7 +23,8 @@ class DoipUdpHandler {
  public:
   using UdpServer = boost_support::server::udp::UdpServer;
 
-  DoipUdpHandler(std::string_view local_ip_address, std::uint16_t local_port_number);
+  DoipUdpHandler(std::string_view broadcast_ip_address, std::string_view unicast_ip_address,
+                 std::uint16_t local_port_number);
 
   void Initialize();
 
@@ -50,7 +51,9 @@ class DoipUdpHandler {
   void ProcessReceivedUdpMessage(UdpServer::MessagePtr udp_message);
 
  private:
-  UdpServer udp_server_;
+  UdpServer udp_broadcast_server_;
+
+  UdpServer udp_unicast_server_;
 };
 
 }  // namespace handler

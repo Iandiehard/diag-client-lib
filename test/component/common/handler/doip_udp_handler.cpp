@@ -69,16 +69,24 @@ void SerializeEIDGIDFromString(std::string& input_string, std::vector<uint8_t>& 
 
 }  // namespace
 
-DoipUdpHandler::DoipUdpHandler(std::string_view local_ip_address, std::uint16_t local_port_number)
-    : udp_server_{local_ip_address, local_port_number} {}
+DoipUdpHandler::DoipUdpHandler(std::string_view broadcast_ip_address, std::string_view unicast_ip_address,
+                               std::uint16_t local_port_number)
+    : udp_broadcast_server_{broadcast_ip_address, local_port_number},
+      udp_unicast_server_{unicast_ip_address, local_port_number} {}
 
 void DoipUdpHandler::Initialize() {
-  udp_server_.SetReadHandler(
+  udp_broadcast_server_.SetReadHandler(
       [this](UdpServer::MessagePtr udp_message) { ProcessReceivedUdpMessage(std::move(udp_message)); });
-  udp_server_.Initialize();
+  udp_unicast_server_.SetReadHandler(
+      [this](UdpServer::MessagePtr udp_message) { ProcessReceivedUdpMessage(std::move(udp_message)); });
+  udp_broadcast_server_.Initialize();
+  udp_unicast_server_.Initialize();
 }
 
-void DoipUdpHandler::DeInitialize() { udp_server_.DeInitialize(); }
+void DoipUdpHandler::DeInitialize() {
+  udp_broadcast_server_.DeInitialize();
+  udp_unicast_server_.DeInitialize();
+}
 
 void DoipUdpHandler::ProcessReceivedUdpMessage(DoipUdpHandler::UdpServer::MessagePtr udp_message) {
   message::DoipMessage doip_message{udp_message->GetHostIpAddress(), udp_message->GetHostPortNumber(),
@@ -97,7 +105,7 @@ void DoipUdpHandler::ProcessReceivedUdpMessage(DoipUdpHandler::UdpServer::Messag
 }
 
 void DoipUdpHandler::SendUdpMessage(DoipUdpHandler::UdpServer::MessageConstPtr udp_message) noexcept {
-  EXPECT_TRUE(udp_server_.Transmit(std::move(udp_message)).HasValue());
+  EXPECT_TRUE(udp_unicast_server_.Transmit(std::move(udp_message)).HasValue());
 }
 
 auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote_ip_address,

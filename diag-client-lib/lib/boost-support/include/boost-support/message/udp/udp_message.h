@@ -21,9 +21,9 @@ namespace message {
 namespace udp {
 
 /**
- * @brief    DoIP maximum response size
+ * @brief    Maximum response size
  */
-constexpr std::uint8_t kDoipUdpResSize{40u};
+constexpr std::uint8_t kMaxUdpResSize{40u};
 
 /**
  * @brief    Immutable class to store received udp message
@@ -35,11 +35,6 @@ class UdpMessage final {
    */
   using BufferType = std::vector<uint8_t>;
 
-  /**
-   * @brief    Type alias of IP address type
-   */
-  using IpAddressType = std::string_view;
-
  public:
   /**
    * @brief         Constructs an instance of UdpMessage
@@ -50,7 +45,7 @@ class UdpMessage final {
    * @param[in]     payload
    *                The received data payload
    */
-  UdpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number, BufferType payload)
+  UdpMessage(std::string_view host_ip_address, std::uint16_t host_port_number, BufferType payload)
       : payload_{std::move(payload)},
         host_ip_address_{host_ip_address},
         host_port_number_{host_port_number} {}
@@ -70,7 +65,7 @@ class UdpMessage final {
    * @brief       Get the host ip address
    * @return      The IP address
    */
-  IpAddressType GetHostIpAddress() const { return host_ip_address_; }
+  std::string_view GetHostIpAddress() const { return host_ip_address_; }
 
   /**
    * @brief       Get the host port number
@@ -93,7 +88,7 @@ class UdpMessage final {
   /**
    * @brief    Store remote ip address
    */
-  IpAddressType host_ip_address_;
+  std::string host_ip_address_;
 
   /**
    * @brief    Store remote port number

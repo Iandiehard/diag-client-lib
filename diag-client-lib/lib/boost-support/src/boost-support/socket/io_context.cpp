@@ -21,8 +21,10 @@ IoContext::IoContext() noexcept : io_context_{}, exit_request_{false}, running_{
       }
       if (!exit_request_) {
         if (running_) {
+          lck.unlock();
           io_context_.restart();
           io_context_.run();
+          lck.lock();
         }
       }
     }

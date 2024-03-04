@@ -20,7 +20,9 @@ namespace udp {
 UdpSocket::UdpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                      boost::asio::io_context &io_context) noexcept
     : udp_socket_{io_context},
-      local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {}
+      local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {
+  rx_buffer_.resize(message::udp::kMaxUdpResSize);
+}
 
 UdpSocket::~UdpSocket() noexcept = default;
 
@@ -104,6 +106,9 @@ core_type::Result<UdpSocket::UdpMessagePtr> UdpSocket::Read(std::size_t total_by
   if (local_endpoint_.address().to_string() != remote_endpoint_.address().to_string()) {
     UdpMessage::BufferType received_data{};
     received_data.reserve(total_bytes_received);
+
+    // Received message must be less than max udp message
+    assert(total_bytes_received <= message::udp::kMaxUdpResSize);
     // copy the received bytes into local buffer
     received_data.insert(received_data.begin(), rx_buffer_.begin(), rx_buffer_.begin() + total_bytes_received);
 
@@ -139,13 +144,11 @@ void UdpSocket::StartReceivingMessage() {
                                        return core_type::Result<void>::FromValue();
                                      }));
                                    } else {
-                                     {
-                                       if (error.value() != boost::asio::error::operation_aborted) {
-                                         common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-                                             __FILE__, __LINE__, __func__, [error](std::stringstream &msg) {
-                                               msg << "Remote Disconnected with undefined error: " << error.message();
-                                             });
-                                       }
+                                     if (error.value() != boost::asio::error::operation_aborted) {
+                                       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+                                           __FILE__, __LINE__, __func__, [error](std::stringstream &msg) {
+                                             msg << "Remote Disconnected with undefined error: " << error.message();
+                                           });
                                      }
                                    }
                                  });

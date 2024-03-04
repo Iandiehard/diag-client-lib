@@ -41,7 +41,9 @@ DoipMessage::DoipMessage(std::string_view host_ip_address, std::uint16_t host_po
   payload_type_ = GetDoIPPayloadType(payload);
   payload_length_ = GetDoIPPayloadLength(payload);
   // Extract Payload
-  payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
+  if (payload_length_ != 0u) {
+    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
+  }
 }
 
 }  // namespace message
