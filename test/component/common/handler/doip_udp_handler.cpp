@@ -40,7 +40,8 @@ auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_l
   return output_buffer;
 }
 
-auto SerializeToByteVectorFromString(std::string_view input_string, std::uint8_t substring_range) noexcept
+template<typename T>
+auto SerializeToByteVectorFromString(T input_string, std::uint8_t substring_range) noexcept
     -> std::vector<std::uint8_t> {
   std::vector<std::uint8_t> output_buffer{};
   std::uint8_t const string_length{static_cast<std::uint8_t>(input_string.length())};
@@ -55,16 +56,28 @@ auto SerializeToByteVectorFromString(std::string_view input_string, std::uint8_t
   return output_buffer;
 }
 
-void SerializeEIDGIDFromString(std::string& input_string, std::vector<uint8_t>& output_buffer, std::uint8_t total_size,
-                               std::uint8_t substring_range) {
+template<typename T>
+auto SerializeToHexVectorFromString(T input_string, std::uint8_t substring_range) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  std::uint8_t const string_length{static_cast<std::uint8_t>(input_string.length())};
+  output_buffer.reserve(string_length);
 
-  for (auto char_count = 0U; char_count < total_size; char_count += substring_range) {
-    std::string input_string_new{input_string.substr(char_count, static_cast<std::uint8_t>(substring_range))};
-    std::stringstream input_string_stream{input_string_new};
-    int get_byte;
-    input_string_stream >> std::hex >> get_byte;
-    output_buffer.emplace_back(static_cast<std::uint8_t>(get_byte));
+  for (std::uint8_t char_count{0u}; char_count < string_length; char_count += substring_range) {
+    std::string single_char{input_string.substr(char_count, substring_range)};
+    std::stringstream single_char_stream{single_char};
+    int single_byte{};
+    single_char_stream >> std::hex >> single_byte;
+    output_buffer.emplace_back(static_cast<std::uint8_t>(single_byte));
   }
+  return output_buffer;
+}
+
+template<typename T>
+auto RemoveTypeFromString(std::string_view input_string, T removal_type) noexcept -> std::string {
+  std::string result{input_string};
+  result.erase(std::remove(result.begin(), result.end(), removal_type), result.end());
+  return result;
 }
 
 }  // namespace
@@ -124,11 +137,11 @@ auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote
   response_buffer.emplace_back(logical_address >> 8U);
   response_buffer.emplace_back(logical_address & 0xFFU);
   // Add EID
-  UdpServer::Message::BufferType const eid_in_bytes{SerializeToByteVectorFromString(eid, 2u)};
+  UdpServer::Message::BufferType const eid_in_bytes{SerializeToHexVectorFromString(RemoveTypeFromString(eid, ':'), 2u)};
   constexpr std::uint8_t kEidOffset{kHeaderSize + 19u};
   response_buffer.insert(std::next(response_buffer.begin(), kEidOffset), eid_in_bytes.cbegin(), eid_in_bytes.cend());
   // Add GID
-  UdpServer::Message::BufferType const gid_in_bytes{SerializeToByteVectorFromString(gid, 2u)};
+  UdpServer::Message::BufferType const gid_in_bytes{SerializeToHexVectorFromString(RemoveTypeFromString(gid, ':'), 2u)};
   constexpr std::uint8_t kGidOffset{kHeaderSize + 25u};
   response_buffer.insert(std::next(response_buffer.begin(), kGidOffset), gid_in_bytes.cbegin(), gid_in_bytes.cend());
   // Set Further action byte

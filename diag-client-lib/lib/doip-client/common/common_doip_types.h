@@ -22,7 +22,7 @@ constexpr std::uint32_t kTcpChannelLength = 4096U;
 constexpr std::uint8_t kDoipheadrSize = 0x8;
 constexpr std::uint8_t kDoip_ProtocolVersion_2012 = 0x2;  // ISO 13400-2012
 constexpr std::uint8_t kDoip_ProtocolVersion_2019 = 0x3;  // ISO 13400-2019
-constexpr std::uint8_t kDoip_ProtocolVersion = kDoip_ProtocolVersion_2012;
+constexpr std::uint8_t kDoip_ProtocolVersion = kDoip_ProtocolVersion_2019;
 constexpr std::uint8_t kDoip_ProtocolVersion_Def = 0xFF;
 constexpr std::uint32_t kDoip_Protocol_MaxPayload = 0xFFFFFFFF;  // 4294967295 bytes
 /* Payload Types */
