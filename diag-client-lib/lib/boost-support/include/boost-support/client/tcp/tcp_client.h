@@ -94,7 +94,7 @@ class TcpClient final {
   TcpClient &operator=(const TcpClient &other) noexcept = delete;
 
   /**
-   * @brief         Defaulted move assignment and move constructor
+   * @brief         Move assignment and move constructor
    */
   TcpClient(TcpClient &&other) noexcept;
   TcpClient &operator=(TcpClient &&other) noexcept;

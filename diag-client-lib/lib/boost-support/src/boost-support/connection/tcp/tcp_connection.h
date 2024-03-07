@@ -231,9 +231,12 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    */
   auto ReadMessage() -> bool {
     // Try reading from socket
-    core_type::Result<TcpMessagePtr, typename Socket::SocketError> read_result{socket_.Read()};
-    if (read_result.HasValue() && handler_read_) { handler_read_(std::move(read_result).Value()); }
-    return read_result.HasValue();
+    return socket_.Read()
+        .AndThen([this](TcpMessagePtr tcp_message) {
+          if (handler_read_) { handler_read_(std::move(tcp_message)); }
+          return core_type::Result<void, typename Socket::SocketError>::FromValue();
+        })
+        .HasValue();
   }
 };
 
@@ -271,9 +274,9 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @param[in]     socket
    *                The socket used for read and writing messages
    */
-  explicit TcpConnection(Socket socket, HandlerRead read_handler) noexcept
+  explicit TcpConnection(Socket socket) noexcept
       : socket_{std::move(socket)},
-        handler_read_{std::move(read_handler)},
+        handler_read_{},
         exit_request_{false},
         running_{false},
         cond_var_{},
@@ -310,6 +313,14 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief         Destruct an instance of TcpConnection
    */
   ~TcpConnection() noexcept = default;
+
+  /**
+   * @brief         Function to set the read handler that is invoked when message is received
+   * @details       The ownership of provided read handler is moved
+   * @param[in]     read_handler
+   *                The handler to be set
+   */
+  void SetReadHandler(HandlerRead read_handler) { handler_read_ = std::move(read_handler); }
 
   /**
    * @brief         Initialize the Server
@@ -402,13 +413,12 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief         Function to send the received message to stored handler
    * @return        True if message is read successfully, otherwise False
    */
-  auto ReadMessage() -> bool {
+  auto ReadMessage() noexcept -> bool {
     // Try reading from socket
-    core_type::Result<TcpMessagePtr, typename Socket::SocketError> read_result{socket_.Read()};
-    if (read_result.HasValue() && handler_read_) { handler_read_(std::move(read_result).Value()); }
     return socket_.Read()
         .AndThen([this](TcpMessagePtr tcp_message) {
           if (handler_read_) { handler_read_(std::move(tcp_message)); }
+          return core_type::Result<void, typename Socket::SocketError>::FromValue();
         })
         .HasValue();
   }
