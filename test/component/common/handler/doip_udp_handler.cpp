@@ -11,6 +11,7 @@
 #include <gtest/gtest.h>
 
 #include <algorithm>
+#include <iomanip>
 
 #include "common/message/doip_message.h"
 
@@ -74,12 +75,47 @@ auto SerializeToHexVectorFromString(T input_string, std::uint8_t substring_range
 }
 
 template<typename T>
-auto RemoveTypeFromString(std::string_view input_string, T removal_type) noexcept -> std::string {
+auto RemoveCharFromString(std::string_view input_string, T removal_type) noexcept -> std::string {
   std::string result{input_string};
   result.erase(std::remove(result.begin(), result.end(), removal_type), result.end());
   return result;
 }
 
+template<typename T>
+auto AddCharToString(std::string_view input_string, T character, std::uint8_t substring_range) noexcept -> std::string {
+  std::string result{};
+  std::uint8_t const string_length{static_cast<std::uint8_t>(input_string.length())};
+  for (std::uint8_t char_count{0u}; char_count < string_length; char_count += substring_range) {
+    std::string single_substring{input_string.substr(char_count, substring_range)};
+    single_substring += character;
+    result += single_substring;
+  }
+  result.pop_back();  // remove last ":" appended before
+  return result;
+}
+
+template<typename Container>
+auto ConvertToAsciiString(Container container) noexcept -> std::string {
+  std::string ascii_string{};
+  for (std::uint8_t const byte: container) {
+    std::stringstream single_char_stream{};
+    single_char_stream << byte;
+    ascii_string += single_char_stream.str();
+  }
+  return ascii_string;
+}
+
+template<typename Container>
+auto ConvertToHexString(Container container) noexcept -> std::string {
+  std::string hex_string{};
+  for (std::uint8_t const byte: container) {
+    std::stringstream single_char_stream{};
+    int payload_byte{byte};
+    single_char_stream << std::setw(2) << std::setfill('0') << std::hex << payload_byte;
+    hex_string += single_char_stream.str();
+  }
+  return hex_string;
+}
 }  // namespace
 
 DoipUdpHandler::DoipUdpHandler(std::string_view broadcast_ip_address, std::string_view unicast_ip_address,
@@ -110,9 +146,14 @@ void DoipUdpHandler::ProcessReceivedUdpMessage(DoipUdpHandler::UdpServer::Messag
       ProcessVehicleIdentificationRequestMessage(doip_message.GetHostIpAddress(), doip_message.GetHostPortNumber(), {},
                                                  {});
       break;
-    case kDoip_VehicleIdentificationEID_ReqType:
-      break;
+    case kDoip_VehicleIdentificationEID_ReqType: {
+      std::string eid{AddCharToString(ConvertToHexString(doip_message.GetPayload()), ':', 2u)};
+      ProcessVehicleIdentificationRequestMessage(doip_message.GetHostIpAddress(), doip_message.GetHostPortNumber(), eid,
+                                                 {});
+    } break;
     case kDoip_VehicleIdentificationVIN_ReqType:
+      ProcessVehicleIdentificationRequestMessage(doip_message.GetHostIpAddress(), doip_message.GetHostPortNumber(), {},
+                                                 ConvertToAsciiString(doip_message.GetPayload()));
       break;
   }
 }
@@ -137,11 +178,11 @@ auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote
   response_buffer.emplace_back(logical_address >> 8U);
   response_buffer.emplace_back(logical_address & 0xFFU);
   // Add EID
-  UdpServer::Message::BufferType const eid_in_bytes{SerializeToHexVectorFromString(RemoveTypeFromString(eid, ':'), 2u)};
+  UdpServer::Message::BufferType const eid_in_bytes{SerializeToHexVectorFromString(RemoveCharFromString(eid, ':'), 2u)};
   constexpr std::uint8_t kEidOffset{kHeaderSize + 19u};
   response_buffer.insert(std::next(response_buffer.begin(), kEidOffset), eid_in_bytes.cbegin(), eid_in_bytes.cend());
   // Add GID
-  UdpServer::Message::BufferType const gid_in_bytes{SerializeToHexVectorFromString(RemoveTypeFromString(gid, ':'), 2u)};
+  UdpServer::Message::BufferType const gid_in_bytes{SerializeToHexVectorFromString(RemoveCharFromString(gid, ':'), 2u)};
   constexpr std::uint8_t kGidOffset{kHeaderSize + 25u};
   response_buffer.insert(std::next(response_buffer.begin(), kGidOffset), gid_in_bytes.cbegin(), gid_in_bytes.cend());
   // Set Further action byte

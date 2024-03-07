@@ -117,7 +117,7 @@ core_type::Result<UdpSocket::UdpMessagePtr> UdpSocket::Read(std::size_t total_by
 
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
-          msg << "Udp Message received: "
+          msg << "Udp Message received from: "
               << "<" << remote_endpoint_.address() << "," << remote_endpoint_.port() << ">";
         });
     result.EmplaceValue(std::move(udp_rx_message));
@@ -140,7 +140,7 @@ void UdpSocket::StartReceivingMessage() {
                                    if (error.value() == boost::system::errc::success) {
                                      static_cast<void>(Read(bytes_received).AndThen([this](UdpMessagePtr udp_message) {
                                        // send data to upper layer
-                                       if (udp_handler_read_) { udp_handler_read_(std::move(udp_message)); }
+                                       // if (udp_handler_read_) { udp_handler_read_(std::move(udp_message)); }
                                        return core_type::Result<void>::FromValue();
                                      }));
                                    } else {
