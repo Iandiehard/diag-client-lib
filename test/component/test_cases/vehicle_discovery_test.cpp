@@ -75,7 +75,7 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEmpty) {
         EXPECT_TRUE(eid.empty());
         EXPECT_TRUE(vin.empty());
         // Send Vehicle Identification response
-        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehileIdentificationResponse(
+        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehicleIdentificationResponse(
             client_ip_address, client_port_number, kVin, kLogicalAddress, kEid, kGid, 0, std::nullopt));
       }));
 
@@ -118,7 +118,7 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeVin) {
         EXPECT_TRUE(eid.empty());
         EXPECT_EQ(vin, kVin);
         // Send Vehicle Identification response
-        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehileIdentificationResponse(
+        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehicleIdentificationResponse(
             client_ip_address, client_port_number, kVin, kLogicalAddress, kEid, kGid, 0, std::nullopt));
       }));
 
@@ -161,7 +161,7 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEid) {
         EXPECT_TRUE(vin.empty());
         EXPECT_EQ(eid, kEid);
         // Send Vehicle Identification response
-        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehileIdentificationResponse(
+        doip_udp_handler_.SendUdpMessage(doip_udp_handler_.ComposeVehicleIdentificationResponse(
             client_ip_address, client_port_number, kVin, kLogicalAddress, kEid, kGid, 0, std::nullopt));
       }));
 
@@ -246,7 +246,7 @@ TEST_F(MultipleVehicleDiscoveryFixture, VerifyPreselectionModeVin) {
         EXPECT_TRUE(eid.empty());
         EXPECT_TRUE(vin.empty());
         // Send Vehicle Identification response
-        first_doip_udp_handler_.SendUdpMessage(first_doip_udp_handler_.ComposeVehileIdentificationResponse(
+        first_doip_udp_handler_.SendUdpMessage(first_doip_udp_handler_.ComposeVehicleIdentificationResponse(
             client_ip_address, client_port_number, kExpectedResponse.at(0u).vin,
             kExpectedResponse.at(0u).logical_address, kExpectedResponse.at(0u).eid, kExpectedResponse.at(0u).gid, 0,
             std::nullopt));
@@ -265,7 +265,7 @@ TEST_F(MultipleVehicleDiscoveryFixture, VerifyPreselectionModeVin) {
           // sending the response
           std::this_thread::sleep_for(std::chrono::seconds(1));
           // Send Vehicle Identification response
-          second_doip_udp_handler_.SendUdpMessage(second_doip_udp_handler_.ComposeVehileIdentificationResponse(
+          second_doip_udp_handler_.SendUdpMessage(second_doip_udp_handler_.ComposeVehicleIdentificationResponse(
               client_ip_address, client_port_number, kExpectedResponse.at(1u).vin,
               kExpectedResponse.at(1u).logical_address, kExpectedResponse.at(1u).eid, kExpectedResponse.at(1u).gid, 0,
               std::nullopt));

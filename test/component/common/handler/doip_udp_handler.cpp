@@ -162,11 +162,11 @@ void DoipUdpHandler::SendUdpMessage(DoipUdpHandler::UdpServer::MessageConstPtr u
   EXPECT_TRUE(udp_unicast_server_.Transmit(std::move(udp_message)).HasValue());
 }
 
-auto DoipUdpHandler::ComposeVehileIdentificationResponse(std::string_view remote_ip_address,
-                                                         std::uint16_t remote_port_number, std::string_view vin,
-                                                         std::uint16_t logical_address, std::string_view eid,
-                                                         std::string_view gid, std::uint8_t action_byte,
-                                                         std::optional<std::uint8_t> sync_status) noexcept
+auto DoipUdpHandler::ComposeVehicleIdentificationResponse(std::string_view remote_ip_address,
+                                                          std::uint16_t remote_port_number, std::string_view vin,
+                                                          std::uint16_t logical_address, std::string_view eid,
+                                                          std::string_view gid, std::uint8_t action_byte,
+                                                          std::optional<std::uint8_t> sync_status) noexcept
     -> UdpServer::MessagePtr {
   // Create header
   constexpr std::uint8_t kHeaderSize{8u};

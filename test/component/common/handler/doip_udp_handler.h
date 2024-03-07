@@ -40,10 +40,10 @@ class DoipUdpHandler {
                std::string_view vin),
               (noexcept));
 
-  auto ComposeVehileIdentificationResponse(std::string_view remote_ip_address, std::uint16_t remote_port_number,
-                                           std::string_view vin, std::uint16_t logical_address, std::string_view eid,
-                                           std::string_view gid, std::uint8_t action_byte,
-                                           std::optional<std::uint8_t> sync_status) noexcept -> UdpServer::MessagePtr;
+  auto ComposeVehicleIdentificationResponse(std::string_view remote_ip_address, std::uint16_t remote_port_number,
+                                            std::string_view vin, std::uint16_t logical_address, std::string_view eid,
+                                            std::string_view gid, std::uint8_t action_byte,
+                                            std::optional<std::uint8_t> sync_status) noexcept -> UdpServer::MessagePtr;
 
   void SendUdpMessage(UdpServer::MessageConstPtr udp_message) noexcept;
 
