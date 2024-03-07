@@ -7,6 +7,7 @@
  */
 #include <gtest/gtest.h>
 
+#include <future>
 #include <string_view>
 #include <thread>
 
@@ -99,6 +100,9 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEmpty) {
   EXPECT_EQ(response_collection[0].gid, kGid);
 }
 
+/**
+ * @brief  Verify that sending of vehicle identification request with VIN works correctly.
+ */
 TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeVin) {
   constexpr std::string_view kVin{"ABCDEFGH123456789"};
   constexpr std::string_view kEid{"00:02:36:31:00:1c"};
@@ -139,6 +143,9 @@ TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeVin) {
   EXPECT_EQ(response_collection[0].gid, kGid);
 }
 
+/**
+ * @brief  Verify that sending of vehicle identification request with EID works correctly.
+ */
 TEST_F(VehicleDiscoveryFixture, VerifyPreselectionModeEid) {
   constexpr std::string_view kVin{"ABCDEFGH123456789"};
   constexpr std::string_view kEid{"00:02:36:31:00:1c"};
@@ -211,36 +218,58 @@ class MultipleVehicleDiscoveryFixture : public component::ComponentTest {
   std::unique_ptr<diag::client::DiagClient> diag_client_;
 };
 
+/**
+ * @brief  Verify that sending of vehicle identification request to multiple vehicle works correctly.
+ */
 TEST_F(MultipleVehicleDiscoveryFixture, VerifyPreselectionModeVin) {
-  constexpr std::string_view kVin{"ABCDEFGH123456789"};
-  constexpr std::string_view kEid{"00:02:36:31:00:1c"};
-  constexpr std::string_view kGid{"0a:0b:0c:0d:0e:0f"};
-  std::uint16_t const kLogicalAddress_1{0xFA25u};
-  std::uint16_t const kLogicalAddress_2{0xFA26u};
+  struct VehicleIdentificationResponse {
+    std::string_view vin;
+    std::string_view eid;
+    std::string_view gid;
+    std::string_view ip_address;
+    std::uint16_t logical_address;
+  };
 
+  std::vector<VehicleIdentificationResponse> const kExpectedResponse{
+      {"ABCDEFGH123456789", "00:02:36:31:00:1c", "0a:0b:0c:0d:0e:0f", kDiagUdpUnicastIpAddress, 0xFA25u},
+      {"IJKLMNOP123456789", "00:02:36:32:00:1d", "0a:0b:0c:0d:0e:0f", kDiagUdpAnotherUnicastIpAddress, 0xFA26u}};
+
+  // This is needed so that first doip handler always sends the response first
+  std::promise<bool> is_response_sent_promise{};
+  std::future<bool> is_response_sent_future{is_response_sent_promise.get_future()};
   // Create an expectation of vehicle identification response
   EXPECT_CALL(first_doip_udp_handler_,
               ProcessVehicleIdentificationRequestMessage(testing::_, testing::_, testing::_, testing::_))
-      .WillOnce(::testing::Invoke([this, kVin, kEid, kGid](std::string_view client_ip_address,
-                                                           std::uint16_t client_port_number, std::string_view eid,
-                                                           std::string_view vin) {
+      .WillOnce(::testing::Invoke([this, &kExpectedResponse, &is_response_sent_promise](
+                                      std::string_view client_ip_address, std::uint16_t client_port_number,
+                                      std::string_view eid, std::string_view vin) {
         EXPECT_TRUE(eid.empty());
         EXPECT_TRUE(vin.empty());
         // Send Vehicle Identification response
         first_doip_udp_handler_.SendUdpMessage(first_doip_udp_handler_.ComposeVehileIdentificationResponse(
-            client_ip_address, client_port_number, kVin, kLogicalAddress_1, kEid, kGid, 0, std::nullopt));
+            client_ip_address, client_port_number, kExpectedResponse.at(0u).vin,
+            kExpectedResponse.at(0u).logical_address, kExpectedResponse.at(0u).eid, kExpectedResponse.at(0u).gid, 0,
+            std::nullopt));
+        is_response_sent_promise.set_value(true);
       }));
 
   EXPECT_CALL(second_doip_udp_handler_,
               ProcessVehicleIdentificationRequestMessage(testing::_, testing::_, testing::_, testing::_))
-      .WillOnce(::testing::Invoke([this, kVin, kEid, kGid](std::string_view client_ip_address,
-                                                           std::uint16_t client_port_number, std::string_view eid,
-                                                           std::string_view vin) {
+      .WillOnce(::testing::Invoke([this, &kExpectedResponse, &is_response_sent_future](
+                                      std::string_view client_ip_address, std::uint16_t client_port_number,
+                                      std::string_view eid, std::string_view vin) {
         EXPECT_TRUE(eid.empty());
         EXPECT_TRUE(vin.empty());
-        // Send Vehicle Identification response
-        second_doip_udp_handler_.SendUdpMessage(second_doip_udp_handler_.ComposeVehileIdentificationResponse(
-            client_ip_address, client_port_number, kVin, kLogicalAddress_2, kEid, kGid, 0, std::nullopt));
+        if (is_response_sent_future.get()) {
+          // Delay by 1 sec before sending second vehicle identification response, this is done to acheive consistency while
+          // sending the response
+          std::this_thread::sleep_for(std::chrono::seconds(1));
+          // Send Vehicle Identification response
+          second_doip_udp_handler_.SendUdpMessage(second_doip_udp_handler_.ComposeVehileIdentificationResponse(
+              client_ip_address, client_port_number, kExpectedResponse.at(1u).vin,
+              kExpectedResponse.at(1u).logical_address, kExpectedResponse.at(1u).eid, kExpectedResponse.at(1u).gid, 0,
+              std::nullopt));
+        }
       }));
 
   // Send Vehicle Identification request and expect response
@@ -255,13 +284,19 @@ TEST_F(MultipleVehicleDiscoveryFixture, VerifyPreselectionModeVin) {
   diag::client::vehicle_info::VehicleInfoMessage::VehicleInfoListResponseType const response_collection{
       response.Value()->GetVehicleList()};
 
-  // Expect only one vehicle available
-  EXPECT_EQ(response_collection.size(), 1U);
-  EXPECT_EQ(response_collection[0].ip_address, kDiagUdpUnicastIpAddress);
-  EXPECT_EQ(response_collection[0].logical_address, kLogicalAddress_1);
-  EXPECT_EQ(response_collection[0].vin, kVin);
-  EXPECT_EQ(response_collection[0].eid, kEid);
-  EXPECT_EQ(response_collection[0].gid, kGid);
+  // Expect two vehicle available
+  EXPECT_EQ(response_collection.size(), kExpectedResponse.size());
+  // Verify the payload from two vehicle
+  std::uint8_t vehicle_number{0u};
+  for (VehicleIdentificationResponse const &expected_response: kExpectedResponse) {
+
+    EXPECT_EQ(response_collection[vehicle_number].ip_address, expected_response.ip_address);
+    EXPECT_EQ(response_collection[vehicle_number].logical_address, expected_response.logical_address);
+    EXPECT_EQ(response_collection[vehicle_number].vin, expected_response.vin);
+    EXPECT_EQ(response_collection[vehicle_number].eid, expected_response.eid);
+    EXPECT_EQ(response_collection[vehicle_number].gid, expected_response.gid);
+    vehicle_number++;
+  }
 }
 
 }  // namespace test_cases

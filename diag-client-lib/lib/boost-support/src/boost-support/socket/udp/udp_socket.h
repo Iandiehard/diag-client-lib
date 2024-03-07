@@ -149,10 +149,16 @@ class UdpSocket final {
 
  private:
   /**
-   * @brief  Function to handle the reception of tcp message
+   * @brief         Function to handle the reception of tcp message
+   * @param[in]     bytes_received
+   *                The number of bytes to be read
+   * @return        Udp Message created from received data on success, otherwise error
    */
   core_type::Result<UdpMessagePtr> Read(std::size_t bytes_received);
 
+  /**
+   * @brief  Function to start reception of Udp dataframe
+   */
   void StartReceivingMessage();
 };
 

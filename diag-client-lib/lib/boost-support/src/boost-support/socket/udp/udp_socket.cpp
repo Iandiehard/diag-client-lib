@@ -31,16 +31,17 @@ void UdpSocket::SetReadHandler(UdpSocket::UdpHandlerRead read_handler) { udp_han
 core_type::Result<void, UdpSocket::SocketError> UdpSocket::Open() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kOpenFailed};
   UdpErrorCodeType ec{};
-
-  udp_socket_.open(local_endpoint_.protocol(), ec);
+  Udp::endpoint local_endpoint{local_endpoint_};
+  udp_socket_.open(local_endpoint.protocol(), ec);
   if (ec.value() == boost::system::errc::success) {
     // set broadcast option
     udp_socket_.set_option(boost::asio::socket_base::broadcast{true});
     // reuse address
     udp_socket_.set_option(boost::asio::socket_base::reuse_address{true});
-    udp_socket_.bind(local_endpoint_, ec);
+    udp_socket_.bind(local_endpoint, ec);
   }
   if (ec.value() == boost::system::errc::success) {
+    local_endpoint_ = udp_socket_.local_endpoint();
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Udp Socket opened and bound to "
@@ -65,7 +66,7 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Transmit(
   UdpErrorCodeType ec{};
 
   // Transmit to remote endpoints
-  std::size_t send_size{udp_socket_.send_to(
+  std::size_t const send_size{udp_socket_.send_to(
       boost::asio::buffer(udp_message->GetPayload().data(), udp_message->GetPayload().size()),
       Udp::endpoint{boost::asio::ip::make_address(udp_message->GetHostIpAddress()), udp_message->GetHostPortNumber()},
       {}, ec)};
@@ -80,6 +81,8 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Transmit(
               << "<" << udp_message->GetHostIpAddress() << "," << udp_message->GetHostPortNumber() << ">";
         });
     result.EmplaceValue();
+    // start async receive
+    StartReceivingMessage();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [&ec, &udp_message](std::stringstream &msg) {
@@ -130,6 +133,8 @@ core_type::Result<UdpSocket::UdpMessagePtr> UdpSocket::Read(std::size_t total_by
               << " <" << local_endpoint_.address() << "," << local_endpoint_.port() << ">";
         });
   }
+  // start async receive
+  StartReceivingMessage();
   return result;
 }
 
@@ -140,7 +145,7 @@ void UdpSocket::StartReceivingMessage() {
                                    if (error.value() == boost::system::errc::success) {
                                      static_cast<void>(Read(bytes_received).AndThen([this](UdpMessagePtr udp_message) {
                                        // send data to upper layer
-                                       // if (udp_handler_read_) { udp_handler_read_(std::move(udp_message)); }
+                                       if (udp_handler_read_) { udp_handler_read_(std::move(udp_message)); }
                                        return core_type::Result<void>::FromValue();
                                      }));
                                    } else {
