@@ -113,7 +113,8 @@ core_type::Result<UdpSocket::UdpMessagePtr> UdpSocket::Read(std::size_t total_by
     // Received message must be less than max udp message
     assert(total_bytes_received <= message::udp::kMaxUdpResSize);
     // copy the received bytes into local buffer
-    received_data.insert(received_data.begin(), rx_buffer_.begin(), rx_buffer_.begin() + total_bytes_received);
+    received_data.insert(received_data.begin(), rx_buffer_.begin(),
+                         std::next(rx_buffer_.begin() + static_cast<std::uint8_t>(total_bytes_received)));
 
     UdpMessagePtr udp_rx_message{std::make_unique<UdpMessage>(remote_endpoint_.address().to_string(),
                                                               remote_endpoint_.port(), std::move(received_data))};

@@ -261,7 +261,7 @@ TEST_F(MultipleVehicleDiscoveryFixture, VerifyPreselectionModeVin) {
         EXPECT_TRUE(eid.empty());
         EXPECT_TRUE(vin.empty());
         if (is_response_sent_future.get()) {
-          // Delay by 1 sec before sending second vehicle identification response, this is done to acheive consistency while
+          // Delay by 1 sec before sending second vehicle identification response, this is done to achieve consistency while
           // sending the response
           std::this_thread::sleep_for(std::chrono::seconds(1));
           // Send Vehicle Identification response
