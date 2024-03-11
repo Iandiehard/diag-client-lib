@@ -21,7 +21,7 @@ namespace common {
 namespace handler {
 namespace {
 
-constexpr std::uint8_t kDoip_ProtocolVersion{0x03};
+constexpr std::uint8_t kDoipProtocolVersion{0x03};
 constexpr std::uint16_t kDoip_VehicleIdentification_ReqType{0x0001};
 constexpr std::uint16_t kDoip_VehicleIdentificationEID_ReqType{0x0002};
 constexpr std::uint16_t kDoip_VehicleIdentificationVIN_ReqType{0x0003};
@@ -30,8 +30,8 @@ constexpr std::uint16_t kDoip_VehicleAnnouncement_ResType{0x0004};
 auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
     -> std::vector<std::uint8_t> {
   std::vector<std::uint8_t> output_buffer{};
-  output_buffer.emplace_back(kDoip_ProtocolVersion);
-  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(kDoipProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoipProtocolVersion)));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
   output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));

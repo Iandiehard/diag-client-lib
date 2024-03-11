@@ -10,6 +10,7 @@
 
 #include <gmock/gmock.h>
 
+#include <optional>
 #include <string_view>
 
 #include "boost-support/server/tcp/tcp_server.h"
@@ -20,35 +21,36 @@ namespace common {
 namespace handler {
 
 class DoipTcpHandler {
-public:
- using TcpServer = boost_support::server::tcp::TcpServer;
+ public:
+  using TcpServer = boost_support::server::tcp::TcpServer;
 
- DoipTcpHandler(TcpServer tcp_server);
+  explicit DoipTcpHandler(TcpServer tcp_server);
 
- void Initialize();
+  void Initialize();
 
- void DeInitialize();
+  void DeInitialize();
 
- ~DoipTcpHandler() = default;
+  ~DoipTcpHandler() = default;
 
- /*!
+  /*!
   * @brief           Function that gets invoked on reception of Routing activation request message
   */
- MOCK_METHOD(void, ProcessRoutingActivationRequestMessage,
-             (std::uint16_t client_source_address, std::uint8_t activation_type),
-             (noexcept));
+  MOCK_METHOD(void, ProcessRoutingActivationRequestMessage,
+              (std::uint16_t client_source_address, std::uint8_t activation_type,
+               std::optional<std::uint8_t> vm_specific),
+              (noexcept));
 
- auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
-                                       std::uint8_t activation_response_code, std::optional<std::uint32_t> vm_specific)
-     noexcept -> TcpServer::MessagePtr;
+  auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
+                                        std::uint8_t activation_response_code,
+                                        std::optional<std::uint32_t> vm_specific) noexcept -> TcpServer::MessagePtr;
 
- void SendTcpMessage(TcpServer::MessageConstPtr udp_message) noexcept;
+  void SendTcpMessage(TcpServer::MessageConstPtr tcp_message) noexcept;
 
-private:
- void ProcessReceivedTcpMessage(TcpServer::MessagePtr udp_message);
+ private:
+  void ProcessReceivedTcpMessage(TcpServer::MessagePtr tcp_message);
 
-private:
- TcpServer tcp_server_;
+ private:
+  TcpServer tcp_server_;
 };
 
 }  // namespace handler
