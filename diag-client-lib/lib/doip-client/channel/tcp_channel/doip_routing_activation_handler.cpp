@@ -45,10 +45,10 @@ constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired{0x11};
 /**
  * @brief  Routing Activation request lengths
  */
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationReqMinLen{7u};   // without OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationReqMaxLen{11u};  // with OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
 
 /**
  * @brief  Routing Activation response Type
@@ -163,8 +163,6 @@ class kRoutingActivationFailed final : public utility::state::State<RoutingActiv
   void Stop() override {}
 };
 
-}  // namespace
-
 /**
  * @brief  Type holding activation type
  */
@@ -208,6 +206,28 @@ std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
   msg << " (0x" << std::hex << static_cast<int>(act_type.act_type_) << ")";
   return msg;
 }
+
+/**
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
+ */
+auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  output_buffer.emplace_back(kDoip_ProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+  return output_buffer;
+}
+}  // namespace
 
 /**
  * @brief       Class implements routing activation handler
@@ -419,40 +439,30 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>()};
-  // reserve bytes in vector
-  doip_routing_act_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
-  // create header
-  CreateDoipGenericHeader(doip_routing_act_req->GetTxBuffer(), kDoip_RoutingActivation_ReqType,
-                          kDoip_RoutingActivation_ReqMinLen);
-  // Add source address
-  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
-  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
-  // Add activation type
-  doip_routing_act_req->GetTxBuffer().emplace_back(kDoip_RoutingActivation_ReqActType_Default);
-  // Add reservation byte , default zeroes
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
 
+  // Create header
+  TcpMessage::BufferType compose_routing_activation_req{
+      CreateDoipGenericHeader(kDoip_RoutingActivation_ReqType, kDoipRoutingActivationReqMinLen)};
+  compose_routing_activation_req.reserve(kDoipheadrSize + kDoipRoutingActivationReqMinLen);
+
+  // Add source address
+  compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
+  compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
+  // Add activation type
+  compose_routing_activation_req.emplace_back(kDoip_RoutingActivation_ReqActType_Default);
+  // Add reservation byte , default zeroes
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+
+  TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>(
+      message->GetHostIpAddress(), message->GetHostPortNumber(), std::move(compose_routing_activation_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_routing_act_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
   }
   return ret_val;
-}
-
-void RoutingActivationHandler::CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer,
-                                                       std::uint16_t payload_type, std::uint32_t payload_len) {
-  doip_header_buffer.emplace_back(kDoip_ProtocolVersion);
-  doip_header_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
 }
 
 }  // namespace tcp_channel

@@ -100,18 +100,6 @@ class RoutingActivationHandler final {
   auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
-  /**
-   * @brief            Function to create doip generic header
-   * @param[in,out]    doip_header
-   *                   The doip header
-   * @param[in]        payload_type
-   *                   The type of payload
-   * @param[in]        payload_len
-   *                   The length of payload
-   */
-  static void CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header, std::uint16_t payload_type,
-                                      std::uint32_t payload_len);
-
  private:
   /**
    * @brief  Forward declaration Handler implementation

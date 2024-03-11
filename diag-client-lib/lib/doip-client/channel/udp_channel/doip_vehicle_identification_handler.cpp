@@ -128,7 +128,11 @@ class kDoIPCtrlTimeout final : public utility::state::State<VehicleIdentificatio
 };
 
 /**
- * @brief         Create the doip generic header
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
  */
 auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
     -> std::vector<std::uint8_t> {

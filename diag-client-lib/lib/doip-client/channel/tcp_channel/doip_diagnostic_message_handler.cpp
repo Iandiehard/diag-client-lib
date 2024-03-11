@@ -213,8 +213,6 @@ class kWaitForDiagnosticResponse final : public utility::state::State<Diagnostic
   void Stop() override {}
 };
 
-}  // namespace
-
 /**
  * @brief  Type holding acknowledgement type
  */
@@ -254,6 +252,29 @@ std::ostream &operator<<(std::ostream &msg, DiagAckType diag_ack_type) {
   }
   return msg;
 }
+
+/**
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
+ */
+auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  output_buffer.emplace_back(kDoip_ProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+  return output_buffer;
+}
+
+}  // namespace
 
 /**
  * @brief       Class implements routing activation handler
@@ -514,43 +535,30 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  constexpr std::uint8_t kDoipheadrSize{8u};
   constexpr std::uint8_t kSourceAddressSize{4u};
-  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>()};
-  // reserve bytes in vector
-  doip_diag_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
-                                       diagnostic_request->GetPayload().size());
-  // create header
-  CreateDoipGenericHeader(
-      doip_diag_req->GetTxBuffer(), kDoip_DiagMessage_Type,
-      kDoip_DiagMessage_ReqResMinLen + static_cast<std::uint32_t>(diagnostic_request->GetPayload().size()));
-  // Add source address
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
-  // Add target address
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
-  // Copy data bytes
-  doip_diag_req->GetTxBuffer().insert(doip_diag_req->GetTxBuffer().begin() + kDoipheadrSize + kSourceAddressSize,
-                                      diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
+  // Create header
+  std::uint32_t total_diagnostic_response_length{kDoip_DiagMessage_ReqResMinLen +
+                                                 static_cast<std::uint32_t>(diagnostic_request->GetPayload().size())};
+  TcpMessage::BufferType compose_diag_req{
+      CreateDoipGenericHeader(kDoip_DiagMessage_Type, total_diagnostic_response_length)};
+  compose_diag_req.reserve(kDoipheadrSize + total_diagnostic_response_length);
 
+  // Add source address
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
+  // Add target address
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
+  // Copy data bytes
+  compose_diag_req.insert(std::next(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize),
+                          diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
+  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>(
+      diagnostic_request->GetHostIpAddress(), diagnostic_request->GetHostPortNumber(), std::move(compose_diag_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_diag_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
   }
   return ret_val;
-}
-
-void DiagnosticMessageHandler::CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer,
-                                                       std::uint16_t payload_type, std::uint32_t payload_len) {
-  doip_header_buffer.emplace_back(kDoip_ProtocolVersion);
-  doip_header_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
 }
 
 }  // namespace tcp_channel

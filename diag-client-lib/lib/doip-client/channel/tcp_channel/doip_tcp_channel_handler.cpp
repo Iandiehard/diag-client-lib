@@ -56,10 +56,10 @@ constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, 
 /**
  * @brief  Routing Activation request lengths
  */
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationResMinLen{9u};   // without OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationResMaxLen{13u};  //with OEM specific use byte
 
 }  // namespace
 
@@ -96,7 +96,7 @@ auto DoipTcpChannelHandler::SendDiagnosticRequest(uds_transport::UdsMessageConst
 auto DoipTcpChannelHandler::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> void {
   std::uint8_t nack_code{};
   DoipMessage doip_rx_message{DoipMessage::MessageType::kTcp, tcp_rx_message->GetHostIpAddress(),
-                              tcp_rx_message->GetHostPortNumber(), tcp_rx_message->GetRxBuffer()};
+                              tcp_rx_message->GetHostPortNumber(), tcp_rx_message->GetPayload()};
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     ProcessDoIPPayload(doip_rx_message);
@@ -158,7 +158,7 @@ auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_lengt
   bool ret_val{false};
   switch (payload_type) {
     case kDoip_RoutingActivation_ResType: {
-      if (payload_length <= kDoip_RoutingActivation_ResMaxLen) ret_val = true;
+      if (payload_length <= kDoipRoutingActivationResMaxLen) ret_val = true;
       break;
     }
     case kDoip_DiagMessagePosAck_Type:
@@ -172,7 +172,7 @@ auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_lengt
       break;
     }
     case kDoip_AliveCheck_ReqType: {
-      if (payload_length <= kDoip_RoutingActivation_ResMaxLen) ret_val = true;
+      if (payload_length <= kDoipRoutingActivationResMaxLen) ret_val = true;
       break;
     }
     default:

@@ -119,10 +119,6 @@ class DoipMessage final {
 
  private:
   /**
-   * @brief    Store the message type
-   */
-  MessageType message_type_;
-  /**
    * @brief    Store remote ip address
    */
   std::string host_ip_address_;
