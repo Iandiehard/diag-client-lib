@@ -9,7 +9,9 @@ apt-get install g++-11
 BOOST_MAJOR_VERSION="1"
 BOOST_MINOR_VERSION="79"
 
-wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_MAJOR_VERSION}.${BOOST_MINOR_VERSION}.0/source/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz"
+# Jfrog boost link is broken
+# wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_MAJOR_VERSION}.${BOOST_MINOR_VERSION}.0/source/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz"
+wget "https://sourceforge.net/projects/boost/files/boost/${BOOST_MAJOR_VERSION}.${BOOST_MINOR_VERSION}.0/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz"
 mkdir boost
 tar -zxvf boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz -C boost
 cd boost/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0 || exit
