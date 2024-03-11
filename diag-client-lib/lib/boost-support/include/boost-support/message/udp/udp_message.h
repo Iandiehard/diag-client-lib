@@ -74,7 +74,7 @@ class UdpMessage final {
   std::uint16_t GetHostPortNumber() const { return host_port_number_; }
 
   /**
-   * @brief       Get the readable view on received paylosd
+   * @brief       Get the readable view on received payload
    * @return      The view on payload
    */
   core_type::Span<std::uint8_t const> GetPayload() const { return core_type::Span<std::uint8_t const>{payload_}; }

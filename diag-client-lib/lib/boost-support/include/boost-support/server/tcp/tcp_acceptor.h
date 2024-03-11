@@ -33,6 +33,11 @@ class TcpAcceptor final {
               std::uint8_t maximum_connection) noexcept;
 
   /**
+   * @brief         Destruct an instance of TcpAcceptor
+   */
+  ~TcpAcceptor() noexcept;
+
+  /**
    * @brief         Get a tcp server ready to communicate
    * @details       This blocks until new server is created
    * @return        Tcp server object on success, else nothing

@@ -137,8 +137,8 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), tcp_message->GetTxBuffer().size()),
-                     ec);
+  boost::asio::write(tcp_socket_,
+                     boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(

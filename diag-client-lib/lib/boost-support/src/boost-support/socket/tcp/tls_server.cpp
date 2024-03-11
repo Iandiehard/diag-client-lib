@@ -73,7 +73,7 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
 
   boost::asio::write(
       tls_socket_,
-      boost::asio::buffer(tcp_tx_message->GetTxBuffer(), std::size_t(tcp_tx_message->GetTxBuffer().size())), ec);
+      boost::asio::buffer(tcp_tx_message->GetPayload().data(), std::size_t(tcp_tx_message->GetPayload().size())), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};

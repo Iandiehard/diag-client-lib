@@ -224,8 +224,8 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Transmit
   core_type::Result<void, TlsErrorCode> result{TlsErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tls_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), tcp_message->GetTxBuffer().size()),
-                     ec);
+  boost::asio::write(tls_socket_,
+                     boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(

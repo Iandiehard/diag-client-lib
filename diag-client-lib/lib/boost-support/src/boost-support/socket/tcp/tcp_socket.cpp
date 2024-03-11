@@ -113,8 +113,8 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Transmit(TcpMessageCo
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tcp_socket_, boost::asio::buffer(tcp_message->GetTxBuffer(), tcp_message->GetTxBuffer().size()),
-                     ec);
+  boost::asio::write(tcp_socket_,
+                     boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -164,14 +164,13 @@ core_type::Result<TcpSocket::TcpMessagePtr, TcpSocket::SocketError> TcpSocket::R
       boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
                         ec);
 
-      // all message received, transfer to upper layer
-      Tcp::endpoint const endpoint_{tcp_socket_.remote_endpoint()};
-      TcpMessagePtr tcp_rx_message{
-          std::make_unique<TcpMessage>(endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+      Tcp::endpoint const remote_endpoint{tcp_socket_.remote_endpoint()};
+      TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessage>(remote_endpoint.address().to_string(),
+                                                                remote_endpoint.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+          __FILE__, __LINE__, __func__, [&remote_endpoint](std::stringstream &msg) {
             msg << "Tcp Message received from "
-                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+                << "<" << remote_endpoint.address().to_string() << "," << remote_endpoint.port() << ">";
           });
       result.EmplaceValue(std::move(tcp_rx_message));
     } else {

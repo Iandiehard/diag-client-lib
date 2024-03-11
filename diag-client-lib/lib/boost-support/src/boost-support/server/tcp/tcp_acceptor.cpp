@@ -105,6 +105,8 @@ TcpAcceptor::TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_
                          std::uint8_t maximum_connection) noexcept
     : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(local_ip_address, local_port_num, maximum_connection)} {}
 
+TcpAcceptor::~TcpAcceptor() noexcept = default;
+
 std::optional<TcpServer> TcpAcceptor::GetTcpServer() noexcept { return tcp_acceptor_impl_->GetTcpServer(); }
 
 }  // namespace tcp

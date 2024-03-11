@@ -54,17 +54,6 @@ class TcpMessage final {
 
  public:
   /**
-   * @brief         Default constructor
-   */
-  TcpMessage()
-      : socket_state_{SocketState::kIdle},
-        socket_error_{SocketError::kNone},
-        rx_buffer_{},
-        tx_buffer_{},
-        host_ip_address_{},
-        host_port_number_{} {}
-
-  /**
    * @brief         Constructs an instance of TcpMessage
    * @param[in]     host_ip_address
    *                The host ip address
@@ -73,11 +62,10 @@ class TcpMessage final {
    * @param[in]     payload
    *                The received data payload
    */
-  TcpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number, BufferType &&payload)
+  TcpMessage(IpAddressType host_ip_address, std::uint16_t host_port_number, BufferType payload)
       : socket_state_{SocketState::kIdle},
         socket_error_{SocketError::kNone},
-        rx_buffer_{std::move(payload)},
-        tx_buffer_{},
+        payload_{std::move(payload)},
         host_ip_address_{host_ip_address},
         host_port_number_{host_port_number} {}
 
@@ -105,22 +93,10 @@ class TcpMessage final {
   std::uint16_t GetHostPortNumber() const { return host_port_number_; }
 
   /**
-   * @brief       Get the view to the rx buffer
-   * @return      The rx buffer
+   * @brief       Get the readable view on received payload
+   * @return      The view on payload
    */
-  core_type::Span<std::uint8_t const> GetRxBuffer() { return core_type::Span<std::uint8_t const>{rx_buffer_}; }
-
-  /**
-   * @brief       Get the reference to tx buffer
-   * @return      The reference to buffer
-   */
-  BufferType &GetTxBuffer() { return tx_buffer_; }
-
-  /**
-   * @brief       Get the reference to tx buffer
-   * @return      The reference to buffer
-   */
-  BufferType const &GetTxBuffer() const { return tx_buffer_; }
+  core_type::Span<std::uint8_t const> GetPayload() const { return core_type::Span<std::uint8_t const>{payload_}; }
 
   /**
    * @brief       Get the state of underlying socket
@@ -148,12 +124,7 @@ class TcpMessage final {
   /**
    * @brief         The reception buffer
    */
-  BufferType rx_buffer_;
-
-  /**
-   * @brief         The transmission buffer
-   */
-  BufferType tx_buffer_;
+  BufferType payload_;
 
   /**
    * @brief    Store remote ip address
