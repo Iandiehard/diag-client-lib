@@ -14,6 +14,7 @@
 #include <string_view>
 
 #include "boost-support/server/tcp/tcp_server.h"
+#include "core/include/span.h"
 
 namespace test {
 namespace component {
@@ -33,16 +34,34 @@ class DoipTcpHandler {
   ~DoipTcpHandler() = default;
 
   /*!
-  * @brief           Function that gets invoked on reception of Routing activation request message
-  */
+   * @brief           Function that gets invoked on reception of Routing activation request message
+   */
   MOCK_METHOD(void, ProcessRoutingActivationRequestMessage,
               (std::uint16_t client_source_address, std::uint8_t activation_type,
                std::optional<std::uint8_t> vm_specific),
               (noexcept));
 
+  /*!
+   * @brief           Function that gets invoked on reception of Diagnostic request message
+   */
+  MOCK_METHOD(void, ProcessDiagnosticRequestMessage,
+              (std::uint16_t client_source_address, std::uint16_t server_target_address,
+               core_type::Span<std::uint8_t const> diag_request),
+              (noexcept));
+
   auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
                                         std::uint8_t activation_response_code,
                                         std::optional<std::uint32_t> vm_specific) noexcept -> TcpServer::MessagePtr;
+
+  auto ComposeDiagnosticPositiveAcknowlegdementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                       std::uint8_t ack_code) noexcept -> TcpServer::MessagePtr;
+
+  auto ComposeDiagnosticNegativeAcknowlegdementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                       std::uint8_t ack_code) noexcept -> TcpServer::MessagePtr;
+
+  auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                        core_type::Span<std::uint8_t const> diag_response) noexcept
+      -> TcpServer::MessagePtr;
 
   void SendTcpMessage(TcpServer::MessageConstPtr tcp_message) noexcept;
 

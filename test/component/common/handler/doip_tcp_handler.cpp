@@ -22,6 +22,17 @@ constexpr std::uint8_t kDoipProtocolVersion{0x03};
 constexpr std::uint16_t kDoipRoutingActivationReqType{0x0005};
 constexpr std::uint16_t kDoipRoutingActivationResType{0x0006};
 constexpr std::uint32_t kDoipRoutingActivationResMinLen{9u};  // without OEM specific use byte
+/**
+ * @brief  Diagnostic message type
+ */
+constexpr std::uint16_t kDoipDiagMessage{0x8001};
+constexpr std::uint16_t kDoipDiagMessagePosAck{0x8002};
+constexpr std::uint16_t kDoipDiagMessageNegAck{0x8003};
+/**
+ * @brief  Diagnostic Message request/response lengths
+ */
+constexpr std::uint8_t kDoipDiagMessageReqResMinLen = 4U;  // considering SA and TA
+constexpr std::uint8_t kDoipDiagMessageAckResMinLen = 5U;  // considering SA, TA, Ack code
 
 auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
     -> std::vector<std::uint8_t> {
@@ -37,7 +48,7 @@ auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_l
   return output_buffer;
 }
 
-auto GetClientSourceAddress(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint16_t {
+auto ConvertToAddr(core_type::Span<std::uint8_t const> payload) noexcept -> std::uint16_t {
   return static_cast<std::uint16_t>(((payload[0u] << 8) & 0xFF00) | payload[1u]);
 }
 
@@ -86,6 +97,69 @@ auto DoipTcpHandler::ComposeRoutingActivationResponse(std::uint16_t client_logic
   return response;
 }
 
+auto DoipTcpHandler::ComposeDiagnosticPositiveAcknowlegdementMessage(std::uint16_t source_address,
+                                                                     std::uint16_t target_address,
+                                                                     std::uint8_t ack_code) noexcept
+    -> TcpServer::MessagePtr {
+  // Create header
+  TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Add ack
+  response_buffer.emplace_back(ack_code);
+
+  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
+auto DoipTcpHandler::ComposeDiagnosticNegativeAcknowlegdementMessage(std::uint16_t source_address,
+                                                                     std::uint16_t target_address,
+                                                                     std::uint8_t ack_code) noexcept
+    -> TcpServer::MessagePtr {
+  // Create header
+  TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Add ack
+  response_buffer.emplace_back(ack_code);
+
+  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
+auto DoipTcpHandler::ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                      core_type::Span<const std::uint8_t> diag_response) noexcept
+    -> TcpServer::MessagePtr {
+  EXPECT_TRUE(diag_response.size() > 1u);
+  constexpr std::uint8_t kDoipHeaderSize{8u};
+  constexpr std::uint8_t kSourceAddressSize{4u};
+  // Create header
+  TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessage, kDoipDiagMessageReqResMinLen + diag_response.size())};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Copy data bytes
+  response_buffer.insert(std::next(response_buffer.begin() + kDoipHeaderSize + kSourceAddressSize),
+                         diag_response.cbegin(), diag_response.cend());
+
+  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
 void DoipTcpHandler::SendTcpMessage(boost_support::server::tcp::TcpServer::MessageConstPtr tcp_message) noexcept {
   EXPECT_TRUE(tcp_server_.Transmit(std::move(tcp_message)).HasValue());
 }
@@ -95,8 +169,8 @@ void DoipTcpHandler::ProcessReceivedTcpMessage(boost_support::server::tcp::TcpSe
                                     tcp_message->GetPayload()};
   switch (doip_message.GetPayloadType()) {
     case kDoipRoutingActivationReqType: {
-      std::uint16_t client_source_address{GetClientSourceAddress(doip_message.GetPayload())};
-      std::uint8_t activation_type{doip_message.GetPayload()[2u]};
+      std::uint16_t const client_source_address{ConvertToAddr(doip_message.GetPayload())};
+      std::uint8_t const activation_type{doip_message.GetPayload()[2u]};
       std::optional<std::uint8_t> vm_specific{};
       // Reserved bytes must be zero
       EXPECT_EQ(doip_message.GetPayload()[3u], 0u);
@@ -110,8 +184,18 @@ void DoipTcpHandler::ProcessReceivedTcpMessage(boost_support::server::tcp::TcpSe
       }
       ProcessRoutingActivationRequestMessage(client_source_address, activation_type, vm_specific);
     } break;
+
+    case kDoipDiagMessage: {
+      constexpr std::uint8_t kSourceAddressSize{4u};
+      std::uint16_t const client_source_address{ConvertToAddr(tcp_message->GetPayload())};
+      std::uint16_t const server_target_address{ConvertToAddr({&tcp_message->GetPayload()[2u], 2u})};
+      core_type::Span<std::uint8_t const> diag_request{core_type::Span<std::uint8_t const>{
+          &tcp_message->GetPayload()[kSourceAddressSize], tcp_message->GetPayload().size() - kSourceAddressSize}};
+      ProcessDiagnosticRequestMessage(client_source_address, server_target_address, diag_request);
+    } break;
   }
 }
+
 }  // namespace handler
 }  // namespace common
 }  // namespace component
