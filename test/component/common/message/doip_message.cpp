@@ -42,7 +42,7 @@ DoipMessage::DoipMessage(std::string_view host_ip_address, std::uint16_t host_po
   payload_length_ = GetDoIPPayloadLength(payload);
   // Extract Payload
   if (payload_length_ != 0u) {
-    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
+    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload_length_};
   }
 }
 

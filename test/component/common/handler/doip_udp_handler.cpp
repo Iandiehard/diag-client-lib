@@ -147,14 +147,15 @@ void DoipUdpHandler::ProcessReceivedUdpMessage(DoipUdpHandler::UdpServer::Messag
                                                  {});
       break;
     case kDoip_VehicleIdentificationEID_ReqType: {
-      std::string eid{AddCharToString(ConvertToHexString(doip_message.GetPayload()), ':', 2u)};
+      std::string const eid{AddCharToString(ConvertToHexString(doip_message.GetPayload()), ':', 2u)};
       ProcessVehicleIdentificationRequestMessage(doip_message.GetHostIpAddress(), doip_message.GetHostPortNumber(), eid,
                                                  {});
     } break;
-    case kDoip_VehicleIdentificationVIN_ReqType:
+    case kDoip_VehicleIdentificationVIN_ReqType: {
+      std::string const vin{ConvertToAsciiString(doip_message.GetPayload())};
       ProcessVehicleIdentificationRequestMessage(doip_message.GetHostIpAddress(), doip_message.GetHostPortNumber(), {},
-                                                 ConvertToAsciiString(doip_message.GetPayload()));
-      break;
+                                                 vin);
+    } break;
   }
 }
 
