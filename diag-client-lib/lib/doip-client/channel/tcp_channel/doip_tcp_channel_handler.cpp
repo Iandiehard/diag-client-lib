@@ -28,9 +28,9 @@ constexpr std::uint16_t kDoip_RoutingActivation_ResType{0x0006};
 /**
  * @brief  Diagnostic message type
  */
-constexpr std::uint16_t kDoip_DiagMessage_Type{0x8001};
-constexpr std::uint16_t kDoip_DiagMessagePosAck_Type{0x8002};
-constexpr std::uint16_t kDoip_DiagMessageNegAck_Type{0x8003};
+constexpr std::uint16_t kDoipDiagMessage{0x8001};
+constexpr std::uint16_t kDoipDiagMessagePosAck{0x8002};
+constexpr std::uint16_t kDoipDiagMessageNegAck{0x8003};
 
 /**
  * @brief  Alive check type
@@ -50,8 +50,8 @@ constexpr std::uint8_t kDoip_GenericHeader_InvalidPayloadLen{0x04};
 /**
  * @brief  Diagnostic Message request/response lengths
  */
-constexpr std::uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
-constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
+constexpr std::uint8_t kDoipDiagMessageReqResMinLen = 4U;  // considering SA and TA
+constexpr std::uint8_t kDoipDiagMessageAckResMinLen = 5U;  // considering SA, TA, Ack code
 
 /**
  * @brief  Routing Activation request lengths
@@ -119,9 +119,9 @@ auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std:
        (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {
     /* Check the supported payload type */
     if ((doip_rx_message.GetPayloadType() == kDoip_RoutingActivation_ResType) ||
-        (doip_rx_message.GetPayloadType() == kDoip_DiagMessagePosAck_Type) ||
-        (doip_rx_message.GetPayloadType() == kDoip_DiagMessageNegAck_Type) ||
-        (doip_rx_message.GetPayloadType() == kDoip_DiagMessage_Type) ||
+        (doip_rx_message.GetPayloadType() == kDoipDiagMessagePosAck) ||
+        (doip_rx_message.GetPayloadType() == kDoipDiagMessageNegAck) ||
+        (doip_rx_message.GetPayloadType() == kDoipDiagMessage) ||
         (doip_rx_message.GetPayloadType() == kDoip_AliveCheck_ReqType)) {
       /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00017] */
       if (doip_rx_message.GetPayloadLength() <= kDoip_Protocol_MaxPayload) {
@@ -161,14 +161,14 @@ auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_lengt
       if (payload_length <= kDoipRoutingActivationResMaxLen) ret_val = true;
       break;
     }
-    case kDoip_DiagMessagePosAck_Type:
-    case kDoip_DiagMessageNegAck_Type: {
-      if (payload_length >= kDoip_DiagMessageAck_ResMinLen) ret_val = true;
+    case kDoipDiagMessagePosAck:
+    case kDoipDiagMessageNegAck: {
+      if (payload_length >= kDoipDiagMessageAckResMinLen) ret_val = true;
       break;
     }
-    case kDoip_DiagMessage_Type: {
+    case kDoipDiagMessage: {
       // Atleast 1 byte of data must be present
-      if (payload_length >= (kDoip_DiagMessage_ReqResMinLen + 1u)) ret_val = true;
+      if (payload_length >= (kDoipDiagMessageReqResMinLen + 1u)) ret_val = true;
       break;
     }
     case kDoip_AliveCheck_ReqType: {
@@ -189,12 +189,12 @@ void DoipTcpChannelHandler::ProcessDoIPPayload(DoipMessage &doip_payload) noexce
       // Process RoutingActivation response
       routing_activation_handler_.ProcessDoIPRoutingActivationResponse(doip_payload);
       break;
-    case kDoip_DiagMessage_Type:
+    case kDoipDiagMessage:
       // Process Diagnostic Message Response
       diagnostic_message_handler_.ProcessDoIPDiagnosticMessageResponse(doip_payload);
       break;
-    case kDoip_DiagMessagePosAck_Type:
-    case kDoip_DiagMessageNegAck_Type:
+    case kDoipDiagMessagePosAck:
+    case kDoipDiagMessageNegAck:
       // Process positive or negative diag ack message
       diagnostic_message_handler_.ProcessDoIPDiagnosticAckMessageResponse(doip_payload);
       break;
