@@ -549,7 +549,7 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
   compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
   compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
   // Copy data bytes
-  compose_diag_req.insert(std::next(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize),
+  compose_diag_req.insert(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize,
                           diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
   TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>(
       diagnostic_request->GetHostIpAddress(), diagnostic_request->GetHostPortNumber(), std::move(compose_diag_req))};

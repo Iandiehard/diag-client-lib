@@ -44,6 +44,7 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Open() noexcept {
     tcp_socket_.bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
 
     if (ec.value() == boost::system::errc::success) {
+      local_port_num_ = tcp_socket_.local_endpoint().port();
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
@@ -135,6 +136,7 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Transmit(TcpMessageCo
 core_type::Result<void, TcpSocket::SocketError> TcpSocket::Close() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   // destroy the socket
+  tcp_socket_.shutdown(boost::asio::socket_base::shutdown_receive);
   tcp_socket_.close();
   result.EmplaceValue();
   return result;

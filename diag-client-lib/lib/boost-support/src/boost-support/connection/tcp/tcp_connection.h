@@ -139,7 +139,9 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    thread_.join();
+    if(thread_.joinable()) {
+      thread_.join();
+    }
   }
 
   /**
@@ -332,6 +334,11 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief         Initialize the Server
    */
   void Initialize() noexcept {
+    {  // start reading
+      std::lock_guard<std::mutex> lock{mutex_};
+      running_ = true;
+      cond_var_.notify_all();
+    }
     // Start thread to receive messages
     thread_ = std::thread([this]() {
       std::unique_lock<std::mutex> lck(mutex_);
@@ -346,11 +353,6 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
         }
       }
     });
-    {  // start reading
-      std::lock_guard<std::mutex> lock{mutex_};
-      running_ = true;
-      cond_var_.notify_all();
-    }
   }
 
   /**
@@ -364,7 +366,9 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    thread_.join();
+    if(thread_.joinable()) {
+      thread_.join();
+    }
   }
 
   /**
