@@ -109,6 +109,12 @@ class SocketHandler final {
   core_type::Result<void> DisconnectFromHost() { return client_.DisconnectFromHost(); }
 
   /**
+   * @brief         Function to get the connection status
+   * @return        True if connected, False otherwise
+   */
+  auto IsConnectedToHost() const noexcept -> bool { return client_.IsConnectedToHost(); }
+
+  /**
    * @brief         Function to transmit the provided message
    * @param[in]     message
    *                The message to be sent

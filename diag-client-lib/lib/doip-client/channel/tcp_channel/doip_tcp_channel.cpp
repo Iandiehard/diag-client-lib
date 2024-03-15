@@ -35,9 +35,7 @@ void DoipTcpChannel::Stop() {
   tcp_channel_handler_.Stop();
 }
 
-bool DoipTcpChannel::IsConnectedToHost() {
-  // return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
-}
+bool DoipTcpChannel::IsConnectedToHost() { return tcp_socket_handler_.IsConnectedToHost(); }
 
 uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::ConnectToHost(
     uds_transport::UdsMessageConstPtr message) {

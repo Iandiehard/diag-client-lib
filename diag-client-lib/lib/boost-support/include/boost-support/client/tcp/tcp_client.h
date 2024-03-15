@@ -139,6 +139,12 @@ class TcpClient final {
   core_type::Result<void> DisconnectFromHost();
 
   /**
+   * @brief         Function to get the connection status
+   * @return        True if connected, False otherwise
+   */
+  auto IsConnectedToHost() const noexcept -> bool;
+
+  /**
    * @brief         Function to transmit the provided tcp message
    * @param[in]     tcp_message
    *                The tcp message

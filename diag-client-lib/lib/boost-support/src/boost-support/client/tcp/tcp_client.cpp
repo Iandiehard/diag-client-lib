@@ -227,6 +227,14 @@ class TcpClient::TcpClientImpl final {
   }
 
   /**
+   * @brief         Function to get the connection status
+   * @return        True if connected, False otherwise
+   */
+  auto IsConnectedToHost() const noexcept -> bool {
+    return (connection_state_.load(std::memory_order_seq_cst) == State::kConnected);
+  }
+
+  /**
    * @brief         Function to transmit the provided tcp message
    * @param[in]     tcp_message
    *                The tcp message
@@ -305,6 +313,8 @@ core_type::Result<void> TcpClient::ConnectToHost(std::string_view host_ip_addres
 }
 
 core_type::Result<void> TcpClient::DisconnectFromHost() { return tcp_client_impl_->DisconnectFromHost(); }
+
+auto TcpClient::IsConnectedToHost() const noexcept -> bool { return tcp_client_impl_->IsConnectedToHost(); }
 
 core_type::Result<void> TcpClient::Transmit(MessageConstPtr tcp_message) {
   return tcp_client_impl_->Transmit(std::move(tcp_message));
