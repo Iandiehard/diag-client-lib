@@ -13,8 +13,8 @@
 
 #include "doip_handler/doip_udp_handler.h"
 #include "doip_handler/logger.h"
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
+#include "include/diag-client/create_diagnostic_client.h"
+#include "include/diag-client/diagnostic_client.h"
 
 namespace doip_client {
 

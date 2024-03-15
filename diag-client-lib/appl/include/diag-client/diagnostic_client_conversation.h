@@ -10,8 +10,8 @@
 
 #include <cstdint>
 
-#include "diagnostic_client_uds_message_type.h"
-#include "include/diagnostic_client_result.h"
+#include "diag-client/diagnostic_client_result.h"
+#include "diag-client/diagnostic_client_uds_message_type.h"
 
 namespace diag {
 namespace client {

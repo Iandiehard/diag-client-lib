@@ -5,12 +5,12 @@
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
-#include "include/diagnostic_client_conversation.h"
+#include "diag-client/diagnostic_client_conversation.h"
 
 #include <memory>
 
-#include "src/dcm/conversation/conversation.h"
-#include "src/dcm/dcm_client.h"
+#include "diag-client/dcm/conversation/conversation.h"
+#include "diag-client/dcm/dcm_client.h"
 
 namespace diag {
 namespace client {

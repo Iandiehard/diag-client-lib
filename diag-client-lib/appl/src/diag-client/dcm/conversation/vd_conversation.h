@@ -13,15 +13,15 @@
 #include <mutex>
 #include <string_view>
 
+#include "diag-client/dcm/conversation/conversation.h"
 #include "core/include/result.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_uds_message_type.h"
-#include "include/diagnostic_client_vehicle_info_message_type.h"
-#include "src/dcm/conversation/conversation.h"
-#include "src/dcm/conversation/vd_conversation_type.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_uds_message_type.h"
+#include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 #include "uds_transport/connection.h"
 #include "uds_transport/conversation_handler.h"
 #include "uds_transport/protocol_types.h"
+#include "diag-client/dcm/conversation/vd_conversation_type.h"
 
 namespace diag {
 namespace client {

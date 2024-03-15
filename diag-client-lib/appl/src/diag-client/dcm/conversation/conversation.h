@@ -9,9 +9,9 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_CONVERSATION_H
 
 #include "core/include/result.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_conversation.h"
-#include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_conversation.h"
+#include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 #include "uds_transport/connection.h"
 
 namespace diag {

@@ -12,9 +12,9 @@
 #include <memory>
 #include <string_view>
 
-#include "include/diagnostic_client_conversation.h"
-#include "include/diagnostic_client_result.h"
-#include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "diag-client/diagnostic_client_conversation.h"
+#include "diag-client/diagnostic_client_result.h"
+#include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 
 namespace diag {
 namespace client {

@@ -16,8 +16,8 @@
 #include "boost-support/server/tcp/tcp_server.h"
 #include "common/handler/doip_tcp_handler.h"
 #include "component_test.h"
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
+#include "diag-client/create_diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
 
 namespace test {
 namespace component {

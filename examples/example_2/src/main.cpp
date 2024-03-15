@@ -11,11 +11,11 @@
 #include "uds_message.h"
 
 // includes from diag-client library
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_result.h"
-#include "include/diagnostic_client_uds_message_type.h"
-#include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "diag-client/create_diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_result.h"
+#include "diag-client/diagnostic_client_uds_message_type.h"
+#include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 
 /*
  * This is an example to find available ECU in a network through vehicle discovery and connecting to it.

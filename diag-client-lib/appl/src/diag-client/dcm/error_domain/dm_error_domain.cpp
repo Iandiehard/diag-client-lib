@@ -7,7 +7,7 @@
 */
 
 /* includes */
-#include "src/dcm/error_domain/dm_error_domain.h"
+#include "dm_error_domain.h"
 
 #include "core/include/error_domain.h"
 

@@ -10,10 +10,10 @@
 /* includes */
 #include <string_view>
 
-#include "include/diagnostic_client_conversation.h"
-#include "src/dcm/conversation/conversation.h"
-#include "src/dcm/conversation/dm_conversation_state_impl.h"
-#include "src/dcm/conversation/dm_conversation_type.h"
+#include "diag-client/dcm/conversation/conversation.h"
+#include "diag-client/dcm/conversation/dm_conversation_state_impl.h"
+#include "diag-client/dcm/conversation/dm_conversation_type.h"
+#include "diag-client/diagnostic_client_conversation.h"
 #include "uds_transport/connection.h"
 #include "uds_transport/protocol_types.h"
 #include "utility/sync_timer.h"

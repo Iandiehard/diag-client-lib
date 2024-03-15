@@ -6,14 +6,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "src/dcm/conversation/vd_conversation.h"
+#include "diag-client/dcm/conversation/vd_conversation.h"
 
 #include <sstream>
 #include <string>
 #include <utility>
 
-#include "src/common/logger.h"
-#include "src/dcm/service/vd_message.h"
+#include "diag-client/common/logger.h"
+#include "diag-client/dcm/service/vd_message.h"
 
 namespace diag {
 namespace client {

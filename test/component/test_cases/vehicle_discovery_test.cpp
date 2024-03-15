@@ -13,9 +13,9 @@
 
 #include "common/handler/doip_udp_handler.h"
 #include "component_test.h"
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_vehicle_info_message_type.h"
+#include "diag-client/create_diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 
 namespace test {
 namespace component {

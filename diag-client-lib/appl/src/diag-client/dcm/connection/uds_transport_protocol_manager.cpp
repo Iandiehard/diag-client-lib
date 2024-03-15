@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "src/dcm/connection/uds_transport_protocol_manager.h"
+#include "diag-client/dcm/connection/uds_transport_protocol_manager.h"
 
 #include "doip_transport_protocol_handler.h"
 

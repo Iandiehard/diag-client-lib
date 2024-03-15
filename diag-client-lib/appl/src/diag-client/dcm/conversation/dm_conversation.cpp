@@ -6,10 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-#include "src/dcm/conversation/dm_conversation.h"
+#include "diag-client/dcm/conversation/dm_conversation.h"
 
-#include "src/common/logger.h"
-#include "src/dcm/service/dm_uds_message.h"
+#include "diag-client/common/logger.h"
+#include "diag-client/dcm/service/dm_uds_message.h"
 #include "uds_transport/conversation_handler.h"
 
 namespace diag {

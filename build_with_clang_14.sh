@@ -13,3 +13,5 @@ cmake -B build/$BUILD_DIR -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DBUILD_WITH_DLT:BOOL=O
 
 echo "********************** Start Building **************************************"
 cmake --build build/$BUILD_DIR --config $BUILD_TYPE
+
+cmake --install build/$BUILD_DIR

@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-#include "include/diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
 
 #include <pthread.h>
 
@@ -15,10 +15,10 @@
 
 #include "boost-support/parser/json_parser.h"
 #include "core/include/result.h"
-#include "src/common/diagnostic_manager.h"
-#include "src/common/logger.h"
-#include "src/dcm/dcm_client.h"
-#include "src/dcm/error_domain/dm_error_domain.h"
+#include "diag-client/common/diagnostic_manager.h"
+#include "diag-client/common/logger.h"
+#include "diag-client/dcm/dcm_client.h"
+#include "diag-client/dcm/error_domain/dm_error_domain.h"
 
 namespace diag {
 namespace client {

@@ -11,10 +11,10 @@
 #include <string_view>
 
 #include "core/include/result.h"
-#include "src/common/diagnostic_manager.h"
-#include "src/dcm/config_parser/config_parser_type.h"
-#include "src/dcm/connection/uds_transport_protocol_manager.h"
-#include "src/dcm/conversation/conversation_manager.h"
+#include "diag-client/common/diagnostic_manager.h"
+#include "diag-client/dcm/config_parser/config_parser_type.h"
+#include "diag-client/dcm/connection/uds_transport_protocol_manager.h"
+#include "diag-client/dcm/conversation/conversation_manager.h"
 
 namespace diag {
 namespace client {

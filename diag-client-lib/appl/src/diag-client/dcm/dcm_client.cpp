@@ -6,11 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 /* includes */
-#include "src/dcm/dcm_client.h"
+#include "dcm_client.h"
 
 #include <optional>
 
-#include "src/common/logger.h"
+#include "diag-client/common/logger.h"
 
 namespace diag {
 namespace client {

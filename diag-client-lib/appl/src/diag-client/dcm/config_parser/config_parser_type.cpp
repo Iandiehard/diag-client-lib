@@ -6,7 +6,7 @@
 * file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 /* includes */
-#include "src/dcm/config_parser/config_parser_type.h"
+#include "diag-client/dcm/config_parser/config_parser_type.h"
 
 namespace diag {
 namespace client {

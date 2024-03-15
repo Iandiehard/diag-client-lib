@@ -14,38 +14,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # find needed packages
 find_package(Threads REQUIRED)
 
-# out headers
-file(GLOB OUT_HDRS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
-# main sources
-file(GLOB MAIN_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
-file(GLOB MAIN_COMMON_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/common/*.cpp")
-file(GLOB MAIN_DCM_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/*.cpp")
-file(GLOB MAIN_DCM_CONNECTION_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/connection/*.cpp")
-file(GLOB MAIN_DCM_CONVERSION_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/conversation/*.cpp")
-file(GLOB MAIN_DCM_ERROR_DOMAIN_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/error_domain/*.cpp")
-file(GLOB MAIN_DCM_CONFIGPARSER_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/config_parser/*.cpp")
-file(GLOB MAIN_DCM_SERVICE "${CMAKE_CURRENT_SOURCE_DIR}/src/dcm/service/*.cpp")
-
-set(LIB_MAIN_SRCS
-        ${MAIN_SRCS}
-        ${MAIN_COMMON_SRCS}
-        ${MAIN_DCM_SRCS}
-        ${MAIN_DCM_CONNECTION_SRCS}
-        ${MAIN_DCM_CONVERSION_SRCS}
-        ${MAIN_DCM_ERROR_DOMAIN_SRCS}
-        ${MAIN_DCM_TIMER_SRCS}
-        ${MAIN_DCM_CONFIGPARSER_SRCS}
-        ${MAIN_DCM_SERVICE}
-)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h")
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 add_library(${PROJECT_NAME}
-        ${LIB_MAIN_SRCS}
+        ${HEADERS}
+        ${SOURCES}
 )
 
-# include directories
-target_include_directories(${PROJECT_NAME} PUBLIC
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+#Link include directory
+target_include_directories(${PROJECT_NAME}
+        PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        PRIVATE "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>"
 )
 
 # link all static libraries
@@ -71,6 +51,6 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 # install include files
-install(FILES ${OUT_HDRS}
-        DESTINATION include/${PROJECT_NAME}
+install(FILES ${HEADERS}
+        DESTINATION ${PROJECT_NAME}/
 )
