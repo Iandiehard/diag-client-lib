@@ -100,7 +100,7 @@ class UdpConnection final {
   core_type::Result<void> Transmit(UdpMessageConstPtr message) noexcept {
     return socket_.Transmit(std::move(message))
         .AndThen([]() { return core_type::Result<void>::FromValue(); })
-        .MapError([](typename Socket::SocketError const &error) {
+        .MapError([](typename Socket::SocketError const &) {
           return error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError);
         });
   }

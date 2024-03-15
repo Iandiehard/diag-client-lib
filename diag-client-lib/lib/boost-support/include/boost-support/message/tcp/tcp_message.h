@@ -8,6 +8,7 @@
 #ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_TCP_TCP_MESSAGE_H_
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <string_view>

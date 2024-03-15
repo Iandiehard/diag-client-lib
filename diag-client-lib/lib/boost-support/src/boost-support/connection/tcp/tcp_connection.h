@@ -183,7 +183,7 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
   core_type::Result<void> Transmit(TcpMessageConstPtr message) noexcept {
     return socket_.Transmit(std::move(message))
         .AndThen([]() { return core_type::Result<void>::FromValue(); })
-        .MapError([](typename Socket::SocketError const &error) {
+        .MapError([](typename Socket::SocketError const &) {
           return error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError);
         });
   }
@@ -372,7 +372,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   core_type::Result<void> Transmit(TcpMessageConstPtr message) noexcept {
     return socket_.Transmit(std::move(message))
         .AndThen([]() { return core_type::Result<void>::FromValue(); })
-        .MapError([](typename Socket::SocketError const &error) {
+        .MapError([](typename Socket::SocketError const &) {
           return error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError);
         });
   }
