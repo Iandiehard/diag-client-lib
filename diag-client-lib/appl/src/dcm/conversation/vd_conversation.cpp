@@ -202,6 +202,12 @@ void VdConversation::Startup() noexcept {
   connection_ptr_->Start();
   // Change the state to Active
   activity_status_ = ActivityStatusType::kActive;
+  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
+                                                                      [&](std::stringstream &msg) {
+                                                                        msg << "'" << conversation_name_ << "'"
+                                                                            << "-> "
+                                                                            << "Startup completed";
+                                                                      });
 }
 
 void VdConversation::Shutdown() noexcept {
@@ -210,6 +216,12 @@ void VdConversation::Shutdown() noexcept {
     connection_ptr_->Stop();
     // Change the state to InActive
     activity_status_ = ActivityStatusType::kInactive;
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
+                                                                        [&](std::stringstream &msg) {
+                                                                          msg << "'" << conversation_name_ << "'"
+                                                                              << "-> "
+                                                                              << "Shutdown completed";
+                                                                        });
   }
 }
 

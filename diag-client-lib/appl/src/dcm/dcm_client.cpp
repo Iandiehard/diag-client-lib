@@ -22,10 +22,11 @@ namespace {
  */
 std::optional<std::reference_wrapper<conversation_manager::ConversationManager>> conversation_manager_ref{};
 
+/**
+ * @brief    String representing of vehicle discovery conversation name
+ */
+constexpr std::string_view VehicleDiscoveryConversation{"VdConversation"};
 }  // namespace
-
-// string representing of vehicle discovery conversation name
-constexpr std::string_view VehicleDiscoveryConversation{"VehicleDiscovery"};
 
 DCMClient::DCMClient(config_parser::DcmClientConfig dcm_client_config)
     : DiagnosticManager{},

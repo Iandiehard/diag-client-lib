@@ -25,7 +25,7 @@ constexpr std::uint16_t kRandomPortNumber{0u};
 /**
   * @brief        The conversation name for Vehicle discovery
   */
-std::string const kVdConversationName{"VehicleDiscovery"};
+constexpr std::string_view kVdConversationName{"VdConversation"};
 }  // namespace
 
 ConversationManager::ConversationManager(

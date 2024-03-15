@@ -120,7 +120,7 @@ DmConversation::~DmConversation() = default;
 
 void DmConversation::Startup() noexcept {
   // initialize the connection
-  connection_->Initialize();
+  static_cast<void>(connection_->Initialize());
   // start the connection
   connection_->Start();
   // Change the state to Active
