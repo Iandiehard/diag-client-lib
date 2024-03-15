@@ -546,8 +546,8 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
   compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
   compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
   // Add target address
-  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
-  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetTa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetTa() & 0x00FF));
   // Copy data bytes
   compose_diag_req.insert(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize,
                           diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());

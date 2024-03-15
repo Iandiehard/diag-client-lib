@@ -98,7 +98,7 @@ TEST_F(RoutingActivationFixture, VerifyRoutingActivationSuccessful) {
           EXPECT_EQ(activation_type, kDoipRoutingActivationReqActTypeDefault);
           EXPECT_FALSE(vm_specific.has_value());
           // Send Routing activation response
-          doip_tcp_handler_->SendTcpMessage(doip_tcp_handler_->ComposeRoutingActivationResponse(
+          doip_tcp_handler_->SendTcpMessage(common::handler::ComposeRoutingActivationResponse(
               client_source_address, kDiagServerLogicalAddress, kDoipRoutingActivationResCodeRoutingSuccessful,
               std::nullopt));
         }));

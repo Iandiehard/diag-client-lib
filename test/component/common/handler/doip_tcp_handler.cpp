@@ -71,95 +71,6 @@ void DoipTcpHandler::Initialize() {
 
 void DoipTcpHandler::DeInitialize() { tcp_server_.DeInitialize(); }
 
-auto DoipTcpHandler::ComposeRoutingActivationResponse(std::uint16_t client_logical_address,
-                                                      std::uint16_t server_logical_address,
-                                                      std::uint8_t activation_response_code,
-                                                      std::optional<std::uint32_t> vm_specific) noexcept
-    -> TcpServer::MessagePtr {
-  // Create header
-  TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipRoutingActivationResType, kDoipRoutingActivationResMinLen)};
-  // Add client LA
-  response_buffer.emplace_back(client_logical_address >> 8U);
-  response_buffer.emplace_back(client_logical_address & 0xFFU);
-  // Add server LA
-  response_buffer.emplace_back(server_logical_address >> 8U);
-  response_buffer.emplace_back(server_logical_address & 0xFFU);
-  // Add activation response code
-  response_buffer.emplace_back(activation_response_code);
-  // Add reserved byte
-  response_buffer.emplace_back(0x00);
-  response_buffer.emplace_back(0x00);
-  response_buffer.emplace_back(0x00);
-  response_buffer.emplace_back(0x00);
-
-  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
-  return response;
-}
-
-auto DoipTcpHandler::ComposeDiagnosticPositiveAcknowlegdementMessage(std::uint16_t source_address,
-                                                                     std::uint16_t target_address,
-                                                                     std::uint8_t ack_code) noexcept
-    -> TcpServer::MessagePtr {
-  // Create header
-  TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
-  // Add SA
-  response_buffer.emplace_back(source_address >> 8U);
-  response_buffer.emplace_back(source_address & 0xFFU);
-  // Add TA
-  response_buffer.emplace_back(target_address >> 8U);
-  response_buffer.emplace_back(target_address & 0xFFU);
-  // Add ack
-  response_buffer.emplace_back(ack_code);
-
-  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
-  return response;
-}
-
-auto DoipTcpHandler::ComposeDiagnosticNegativeAcknowlegdementMessage(std::uint16_t source_address,
-                                                                     std::uint16_t target_address,
-                                                                     std::uint8_t ack_code) noexcept
-    -> TcpServer::MessagePtr {
-  // Create header
-  TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
-  // Add SA
-  response_buffer.emplace_back(source_address >> 8U);
-  response_buffer.emplace_back(source_address & 0xFFU);
-  // Add TA
-  response_buffer.emplace_back(target_address >> 8U);
-  response_buffer.emplace_back(target_address & 0xFFU);
-  // Add ack
-  response_buffer.emplace_back(ack_code);
-
-  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
-  return response;
-}
-
-auto DoipTcpHandler::ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
-                                                      core_type::Span<const std::uint8_t> diag_response) noexcept
-    -> TcpServer::MessagePtr {
-  EXPECT_TRUE(diag_response.size() > 1u);
-  constexpr std::uint8_t kDoipHeaderSize{8u};
-  constexpr std::uint8_t kSourceAddressSize{4u};
-  // Create header
-  TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipDiagMessage, kDoipDiagMessageReqResMinLen + diag_response.size())};
-  // Add SA
-  response_buffer.emplace_back(source_address >> 8U);
-  response_buffer.emplace_back(source_address & 0xFFU);
-  // Add TA
-  response_buffer.emplace_back(target_address >> 8U);
-  response_buffer.emplace_back(target_address & 0xFFU);
-  // Copy data bytes
-  response_buffer.insert(std::next(response_buffer.begin() + kDoipHeaderSize + kSourceAddressSize),
-                         diag_response.cbegin(), diag_response.cend());
-
-  TcpServer::MessagePtr response{std::make_unique<TcpServer::Message>("", 0u, std::move(response_buffer))};
-  return response;
-}
-
 void DoipTcpHandler::SendTcpMessage(boost_support::server::tcp::TcpServer::MessageConstPtr tcp_message) noexcept {
   EXPECT_TRUE(tcp_server_.Transmit(std::move(tcp_message)).HasValue());
 }
@@ -187,13 +98,103 @@ void DoipTcpHandler::ProcessReceivedTcpMessage(boost_support::server::tcp::TcpSe
 
     case kDoipDiagMessage: {
       constexpr std::uint8_t kSourceAddressSize{4u};
-      std::uint16_t const client_source_address{ConvertToAddr(tcp_message->GetPayload())};
-      std::uint16_t const server_target_address{ConvertToAddr({&tcp_message->GetPayload()[2u], 2u})};
+      std::uint16_t const client_source_address{ConvertToAddr(doip_message.GetPayload())};
+      std::uint16_t const server_target_address{ConvertToAddr({&doip_message.GetPayload()[2u], 2u})};
       core_type::Span<std::uint8_t const> diag_request{core_type::Span<std::uint8_t const>{
-          &tcp_message->GetPayload()[kSourceAddressSize], tcp_message->GetPayload().size() - kSourceAddressSize}};
+          &doip_message.GetPayload()[kSourceAddressSize], doip_message.GetPayload().size() - kSourceAddressSize}};
       ProcessDiagnosticRequestMessage(client_source_address, server_target_address, diag_request);
     } break;
   }
+}
+
+auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
+                                      std::uint8_t activation_response_code,
+                                      std::optional<std::uint32_t> vm_specific) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr {
+  // Create header
+  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipRoutingActivationResType, kDoipRoutingActivationResMinLen)};
+  // Add client LA
+  response_buffer.emplace_back(client_logical_address >> 8U);
+  response_buffer.emplace_back(client_logical_address & 0xFFU);
+  // Add server LA
+  response_buffer.emplace_back(server_logical_address >> 8U);
+  response_buffer.emplace_back(server_logical_address & 0xFFU);
+  // Add activation response code
+  response_buffer.emplace_back(activation_response_code);
+  // Add reserved byte
+  response_buffer.emplace_back(0x00);
+  response_buffer.emplace_back(0x00);
+  response_buffer.emplace_back(0x00);
+  response_buffer.emplace_back(0x00);
+
+  DoipTcpHandler::TcpServer::MessagePtr response{
+      std::make_unique<DoipTcpHandler::TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
+auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                     std::uint8_t ack_code) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr {
+  // Create header
+  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Add ack
+  response_buffer.emplace_back(ack_code);
+
+  DoipTcpHandler::TcpServer::MessagePtr response{
+      std::make_unique<DoipTcpHandler::TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
+auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                     std::uint8_t ack_code) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr {
+  // Create header
+  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Add ack
+  response_buffer.emplace_back(ack_code);
+
+  DoipTcpHandler::TcpServer::MessagePtr response{
+      std::make_unique<DoipTcpHandler::TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
+}
+
+auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                      core_type::Span<const std::uint8_t> diag_response) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr {
+  EXPECT_TRUE(diag_response.size() > 1u);
+  constexpr std::uint8_t kDoipHeaderSize{8u};
+  constexpr std::uint8_t kSourceAddressSize{4u};
+  // Create header
+  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
+      CreateDoipGenericHeader(kDoipDiagMessage, kDoipDiagMessageReqResMinLen + diag_response.size())};
+  // Add SA
+  response_buffer.emplace_back(source_address >> 8U);
+  response_buffer.emplace_back(source_address & 0xFFU);
+  // Add TA
+  response_buffer.emplace_back(target_address >> 8U);
+  response_buffer.emplace_back(target_address & 0xFFU);
+  // Copy data bytes
+  response_buffer.insert(response_buffer.begin() + kDoipHeaderSize + kSourceAddressSize, diag_response.cbegin(),
+                         diag_response.cend());
+
+  DoipTcpHandler::TcpServer::MessagePtr response{
+      std::make_unique<DoipTcpHandler::TcpServer::Message>("", 0u, std::move(response_buffer))};
+  return response;
 }
 
 }  // namespace handler

@@ -31,7 +31,7 @@ class DoipTcpHandler {
 
   void DeInitialize();
 
-  ~DoipTcpHandler() = default;
+  virtual ~DoipTcpHandler() = default;
 
   /*!
    * @brief           Function that gets invoked on reception of Routing activation request message
@@ -49,20 +49,6 @@ class DoipTcpHandler {
                core_type::Span<std::uint8_t const> diag_request),
               (noexcept));
 
-  auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
-                                        std::uint8_t activation_response_code,
-                                        std::optional<std::uint32_t> vm_specific) noexcept -> TcpServer::MessagePtr;
-
-  auto ComposeDiagnosticPositiveAcknowlegdementMessage(std::uint16_t source_address, std::uint16_t target_address,
-                                                       std::uint8_t ack_code) noexcept -> TcpServer::MessagePtr;
-
-  auto ComposeDiagnosticNegativeAcknowlegdementMessage(std::uint16_t source_address, std::uint16_t target_address,
-                                                       std::uint8_t ack_code) noexcept -> TcpServer::MessagePtr;
-
-  auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
-                                        core_type::Span<std::uint8_t const> diag_response) noexcept
-      -> TcpServer::MessagePtr;
-
   void SendTcpMessage(TcpServer::MessageConstPtr tcp_message) noexcept;
 
  private:
@@ -71,6 +57,23 @@ class DoipTcpHandler {
  private:
   TcpServer tcp_server_;
 };
+
+auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
+                                      std::uint8_t activation_response_code,
+                                      std::optional<std::uint32_t> vm_specific) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr;
+
+auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                     std::uint8_t ack_code) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr;
+
+auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                                     std::uint8_t ack_code) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr;
+
+auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_t target_address,
+                                      core_type::Span<std::uint8_t const> diag_response) noexcept
+    -> DoipTcpHandler::TcpServer::MessagePtr;
 
 }  // namespace handler
 }  // namespace common
