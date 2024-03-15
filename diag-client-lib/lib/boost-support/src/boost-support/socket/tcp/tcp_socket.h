@@ -152,14 +152,9 @@ class TcpSocket final {
   Socket tcp_socket_;
 
   /**
-   * @brief  Store local ip address
+   * @brief  Store the local endpoints
    */
-  std::string local_ip_address_;
-
-  /**
-   * @brief  Store local port number
-   */
-  std::uint16_t local_port_num_;
+  Tcp::endpoint local_endpoint_;
 };
 }  // namespace tcp
 }  // namespace socket

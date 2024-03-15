@@ -31,14 +31,13 @@ void UdpSocket::SetReadHandler(UdpSocket::UdpHandlerRead read_handler) { udp_han
 core_type::Result<void, UdpSocket::SocketError> UdpSocket::Open() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kOpenFailed};
   UdpErrorCodeType ec{};
-  Udp::endpoint local_endpoint{local_endpoint_};
-  udp_socket_.open(local_endpoint.protocol(), ec);
+  udp_socket_.open(local_endpoint_.protocol(), ec);
   if (ec.value() == boost::system::errc::success) {
     // set broadcast option
     udp_socket_.set_option(boost::asio::socket_base::broadcast{true});
     // reuse address
     udp_socket_.set_option(boost::asio::socket_base::reuse_address{true});
-    udp_socket_.bind(local_endpoint, ec);
+    udp_socket_.bind(local_endpoint_, ec);
   }
   if (ec.value() == boost::system::errc::success) {
     local_endpoint_ = udp_socket_.local_endpoint();

@@ -139,9 +139,7 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    if(thread_.joinable()) {
-      thread_.join();
-    }
+    if (thread_.joinable()) { thread_.join(); }
   }
 
   /**
@@ -366,9 +364,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    if(thread_.joinable()) {
-      thread_.join();
-    }
+    if (thread_.joinable()) { thread_.join(); }
   }
 
   /**

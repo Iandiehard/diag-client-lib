@@ -19,13 +19,11 @@ namespace tcp {
 TcpSocket::TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
                      boost::asio::io_context &io_context) noexcept
     : tcp_socket_{io_context},
-      local_ip_address_{local_ip_address},
-      local_port_num_{local_port_num} {}
+      local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {}
 
 TcpSocket::TcpSocket(TcpSocket::Socket socket) noexcept
     : tcp_socket_{std::move(socket)},
-      local_ip_address_{tcp_socket_.local_endpoint().address().to_string()},
-      local_port_num_{tcp_socket_.local_endpoint().port()} {}
+      local_endpoint_{tcp_socket_.local_endpoint()} {}
 
 TcpSocket::~TcpSocket() noexcept = default;
 
@@ -41,10 +39,10 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Open() noexcept {
     // Set socket to non blocking
     tcp_socket_.non_blocking(false);
     // Bind to local ip address and random port
-    tcp_socket_.bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+    tcp_socket_.bind(local_endpoint_, ec);
 
     if (ec.value() == boost::system::errc::success) {
-      local_port_num_ = tcp_socket_.local_endpoint().port();
+      local_endpoint_ = tcp_socket_.local_endpoint();
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
