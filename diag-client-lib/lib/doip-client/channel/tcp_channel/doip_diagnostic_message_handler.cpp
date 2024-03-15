@@ -490,7 +490,7 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
                   msg << "Diagnostic Message Ack Request timed out, no "
                          "response received in: "
-                      << kDoIPDiagnosticAckTimeout << "seconds";
+                      << kDoIPDiagnosticAckTimeout << " seconds";
                 });
           },
           [this, &result]() {

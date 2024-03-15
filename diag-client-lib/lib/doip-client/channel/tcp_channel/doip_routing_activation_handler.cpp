@@ -31,16 +31,16 @@ constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_CentralSec{0xE0};
 /**
  * @brief  Routing Activation response code values
  */
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnknownSA{0x00};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AllSocktActive{0x01};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_DifferentSA{0x02};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ActiveSA{0x03};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AuthentnMissng{0x04};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRejectd{0x05};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnsupportdActType{0x06};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_TLSRequired{0x07};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_RoutingSuccessful{0x10};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired{0x11};
+constexpr std::uint8_t kDoipRoutingActivationResCodeUnknownSa{0x00};
+constexpr std::uint8_t kDoipRoutingActivationResCodeAllSocketActive{0x01};
+constexpr std::uint8_t kDoipRoutingActivationResCodeDifferentSa{0x02};
+constexpr std::uint8_t kDoipRoutingActivationResCodeActiveSa{0x03};
+constexpr std::uint8_t kDoipRoutingActivationResCodeAuthentnMissng{0x04};
+constexpr std::uint8_t kDoipRoutingActivationResCodeConfirmtnRejectd{0x05};
+constexpr std::uint8_t kDoipRoutingActivationResCodeUnsupportdActType{0x06};
+constexpr std::uint8_t kDoipRoutingActivationResCodeTlsRequired{0x07};
+constexpr std::uint8_t kDoipRoutingActivationResCodeRoutingSuccessful{0x10};
+constexpr std::uint8_t kDoipRoutingActivationResCodeConfirmtnRequired{0x11};
 
 /**
  * @brief  Routing Activation request lengths
@@ -175,28 +175,28 @@ struct RoutingActivationAckType {
  */
 std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
   switch (act_type.act_type_) {
-    case kDoip_RoutingActivation_ResCode_UnknownSA:
+    case kDoipRoutingActivationResCodeUnknownSa:
       msg << "unknown source address.";
       break;
-    case kDoip_RoutingActivation_ResCode_AllSocktActive:
-      msg << "all Socket active.";
+    case kDoipRoutingActivationResCodeAllSocketActive:
+      msg << "all socket active.";
       break;
-    case kDoip_RoutingActivation_ResCode_DifferentSA:
+    case kDoipRoutingActivationResCodeDifferentSa:
       msg << "SA different on already connected socket.";
       break;
-    case kDoip_RoutingActivation_ResCode_ActiveSA:
+    case kDoipRoutingActivationResCodeActiveSa:
       msg << "SA active on different socket.";
       break;
-    case kDoip_RoutingActivation_ResCode_AuthentnMissng:
+    case kDoipRoutingActivationResCodeAuthentnMissng:
       msg << "missing authentication.";
       break;
-    case kDoip_RoutingActivation_ResCode_ConfirmtnRejectd:
+    case kDoipRoutingActivationResCodeConfirmtnRejectd:
       msg << "rejected confirmation.";
       break;
-    case kDoip_RoutingActivation_ResCode_UnsupportdActType:
+    case kDoipRoutingActivationResCodeUnsupportdActType:
       msg << "unsupported routing activation type.";
       break;
-    case kDoip_RoutingActivation_ResCode_TLSRequired:
+    case kDoipRoutingActivationResCodeTlsRequired:
       msg << "required TLS socket.";
       break;
     default:
@@ -345,7 +345,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
     // get the ack code
     RoutingActivationAckType const rout_act_type{doip_payload.GetPayload()[0u]};
     switch (rout_act_type.act_type_) {
-      case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
+      case kDoipRoutingActivationResCodeRoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationState::kRoutingActivationSuccessful;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
@@ -355,7 +355,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } break;
-      case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
+      case kDoipRoutingActivationResCodeConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {

@@ -111,10 +111,7 @@ DmConversation::DmConversation(std::string_view conversion_name, DMConversationT
       source_address_{conversion_identifier.source_address},
       target_address_{},
       conversation_name_{conversion_name},
-      dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {
-  (void) (active_session_);
-  (void) (active_security_level_);
-}
+      dm_conversion_handler_{std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
 
 DmConversation::~DmConversation() = default;
 

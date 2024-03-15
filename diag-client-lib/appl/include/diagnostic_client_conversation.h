@@ -70,6 +70,18 @@ class DiagClientConversation final {
   explicit DiagClientConversation(std::string_view conversation_name) noexcept;
 
   /**
+   * @brief  Deleted copy assignment and copy constructor
+   */
+  DiagClientConversation(const DiagClientConversation &other) noexcept = delete;
+  DiagClientConversation &operator=(const DiagClientConversation &other) noexcept = delete;
+
+  /**
+   * @brief  Move assignment and move constructor
+   */
+  DiagClientConversation(DiagClientConversation &&other) noexcept = default;
+  DiagClientConversation &operator=(DiagClientConversation &&other) noexcept = default;
+
+  /**
    * @brief         Destructor an instance of DiagClientConversation
    * @implements    DiagClientLib-Conversation-Destruction
    */
