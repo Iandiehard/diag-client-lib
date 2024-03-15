@@ -103,7 +103,6 @@ class DmConversationHandler final : public ::uds_transport::ConversionHandler {
 
 DmConversation::DmConversation(std::string_view conversion_name, DMConversationType &conversion_identifier)
     : Conversation{},
-      activity_status_{ActivityStatusType::kInactive},
       active_session_{SessionControlType::kDefaultSession},
       active_security_level_{SecurityLevelType::kLocked},
       rx_buffer_size_{conversion_identifier.rx_buffer_size},
@@ -135,16 +134,18 @@ void DmConversation::Startup() noexcept {
 }
 
 void DmConversation::Shutdown() noexcept {
-  // shutdown connection
-  connection_->Stop();
-  // Change the state to InActive
-  activity_status_ = ActivityStatusType::kInactive;
-  logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
-                                                                      [&](std::stringstream &msg) {
-                                                                        msg << "'" << conversation_name_ << "'"
-                                                                            << "-> "
-                                                                            << "Shutdown completed";
-                                                                      });
+  if (GetActivityStatus() == ActivityStatusType::kActive) {
+    // shutdown connection
+    connection_->Stop();
+    // Change the state to InActive
+    activity_status_ = ActivityStatusType::kInactive;
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(__FILE__, __LINE__, __func__,
+                                                                        [&](std::stringstream &msg) {
+                                                                          msg << "'" << conversation_name_ << "'"
+                                                                              << "-> "
+                                                                              << "Shutdown completed";
+                                                                        });
+  }
 }
 
 DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(std::uint16_t const target_address,

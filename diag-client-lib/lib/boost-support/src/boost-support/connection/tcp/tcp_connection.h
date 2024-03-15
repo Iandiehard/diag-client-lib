@@ -297,9 +297,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
         handler_read_{std::move(other.handler_read_)},
         exit_request_{other.exit_request_.load()},
         running_{other.running_.load()},
-        cond_var_{std::move(other.cond_var_)},
-        thread_{std::move(other.thread_)},
-        mutex_{std::move(other.mutex_)} {}
+        thread_{std::move(other.thread_)} {}
 
   /**
    * @brief  Move constructor
@@ -309,9 +307,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
     handler_read_ = std::move(other.handler_read_);
     exit_request_.store(other.exit_request_.load());
     running_.store(other.running_.load());
-    cond_var_ = std::move(other.cond_var_);
     thread_ = std::move(other.thread_);
-    mutex_ = std::move(other.mutex_);
     return *this;
   }
 
@@ -332,11 +328,6 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief         Initialize the Server
    */
   void Initialize() noexcept {
-    {  // start reading
-      std::lock_guard<std::mutex> lock{mutex_};
-      running_ = true;
-      cond_var_.notify_all();
-    }
     // Start thread to receive messages
     thread_ = std::thread([this]() {
       std::unique_lock<std::mutex> lck(mutex_);
@@ -351,6 +342,11 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
         }
       }
     });
+    {  // start reading
+      std::lock_guard<std::mutex> lock{mutex_};
+      running_ = true;
+      cond_var_.notify_all();
+    }
   }
 
   /**

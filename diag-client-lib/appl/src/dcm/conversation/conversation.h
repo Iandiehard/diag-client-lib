@@ -44,6 +44,12 @@ class Conversation {
   using DiagError = DiagClientConversation::DiagError;
 
   /**
+   * @brief  Definitions of current activity status
+   */
+  enum class ActivityStatusType : uint8_t { kActive = 0x00, kInactive = 0x01 };
+
+ public:
+  /**
    * @brief         Constructs an instance of Conversation
    */
   Conversation() noexcept = default;
@@ -173,6 +179,18 @@ class Conversation {
         diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
         DiagClient::VehicleInfoResponseError>::FromError(DiagClient::VehicleInfoResponseError::kTransmitFailed);
   }
+
+  /**
+   * @brief       Get the current activity status of this conversation
+   * @return      The activity status
+   */
+  auto GetActivityStatus() const noexcept -> ActivityStatusType { return activity_status_; }
+
+ protected:
+  /**
+   * @brief       Store the conversation activity status
+   */
+  ActivityStatusType activity_status_{ActivityStatusType::kInactive};
 };
 
 }  // namespace conversation

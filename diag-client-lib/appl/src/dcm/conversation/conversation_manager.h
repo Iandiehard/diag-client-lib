@@ -85,6 +85,7 @@ class ConversationManager final {
 
   /**
    * @brief         Map to store conversation object(dm) along with conversation name
+   * @details       Pair of Conversation name and Conversation Object
    */
   std::unordered_map<std::string, ConversationStorage> conversation_map_;
 

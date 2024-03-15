@@ -36,6 +36,7 @@ class DmConversation final : public Conversation {
    */
   using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
 
+ public:
   /**
    * @brief         Constructs an instance of DmConversation
    * @param[in]     conversion_name
@@ -174,11 +175,6 @@ class DmConversation final : public Conversation {
     kUnLocked = 0x01,
   };
 
-  /**
-   * @brief  Definitions of current activity status
-   */
-  enum class ActivityStatusType : uint8_t { kActive = 0x00, kInactive = 0x01 };
-
  private:
   /**
    * @brief       Helper function to convert response type
@@ -189,11 +185,6 @@ class DmConversation final : public Conversation {
    */
   static DiagClientConversation::DiagError ConvertResponseType(
       ::uds_transport::UdsTransportProtocolMgr::TransmissionResult result_type);
-
-  /**
-   * @brief       Store the conversation activity status
-   */
-  ActivityStatusType activity_status_;
 
   /**
    * @brief       Store the active diagnostic session

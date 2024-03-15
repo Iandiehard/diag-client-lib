@@ -81,7 +81,7 @@ DCMClient::SendVehicleIdentificationRequest(
 }
 
 auto GetConversationManager() noexcept -> conversation_manager::ConversationManager & {
-  if (!conversation_manager_ref) {
+  if (!conversation_manager_ref.has_value()) {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
         __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
   }

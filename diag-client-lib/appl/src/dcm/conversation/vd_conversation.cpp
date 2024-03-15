@@ -200,11 +200,17 @@ void VdConversation::Startup() noexcept {
   static_cast<void>(connection_ptr_->Initialize());
   // start the connection
   connection_ptr_->Start();
+  // Change the state to Active
+  activity_status_ = ActivityStatusType::kActive;
 }
 
 void VdConversation::Shutdown() noexcept {
-  // shutdown connection
-  connection_ptr_->Stop();
+  if (GetActivityStatus() == ActivityStatusType::kActive) {
+    // shutdown connection
+    connection_ptr_->Stop();
+    // Change the state to InActive
+    activity_status_ = ActivityStatusType::kInactive;
+  }
 }
 
 void VdConversation::RegisterConnection(std::unique_ptr<uds_transport::Connection> connection) noexcept {

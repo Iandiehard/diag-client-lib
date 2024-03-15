@@ -32,7 +32,7 @@ struct VDConversationType {
   /**
    * @brief       The Port number of conversation
    */
-  uint16_t port_num{};
+  std::uint16_t port_num{};
 
   /**
    * @brief       The handle id of conversation

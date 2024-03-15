@@ -38,7 +38,24 @@ ConversationManager::ConversationManager(
 
 void ConversationManager::Startup() noexcept {}
 
-void ConversationManager::Shutdown() noexcept {}
+void ConversationManager::Shutdown() noexcept {
+  // Loop through available conversation and check if already in shutdown state
+  for (std::unordered_map<std::string, ConversationStorage>::value_type const &conversation: conversation_map_) {
+    if (conversation.second.conversation != nullptr) {
+      if (conversation.second.conversation->GetActivityStatus() !=
+          conversation::Conversation::ActivityStatusType::kInactive) {
+        // Shutdown is not called on the conversation by user, log warning and perform shutdown
+        logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
+            __FILE__, __LINE__, "", [&conversation](std::stringstream &msg) {
+              msg << "'" << conversation.first << "'"
+                  << "-> "
+                  << "Shutdown is not triggered by user, will be shutdown forcefully";
+            });
+        conversation.second.conversation->Shutdown();
+      }
+    }
+  }
+}
 
 diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClientConversation(
     std::string_view conversation_name) noexcept {

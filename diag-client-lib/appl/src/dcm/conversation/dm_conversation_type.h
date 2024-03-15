@@ -27,17 +27,17 @@ struct DMConversationType {
   /**
    * @brief       The maximum p2 client time
    */
-  uint16_t p2_client_max{};
+  std::uint16_t p2_client_max{};
 
   /**
    * @brief       The maximum p2 star client time
    */
-  uint16_t p2_star_client_max{};
+  std::uint16_t p2_star_client_max{};
 
   /**
    * @brief       The source address of conversation
    */
-  uint16_t source_address{};
+  std::uint16_t source_address{};
 
   /**
    * @brief       The Tcp IP address of conversation
@@ -47,7 +47,7 @@ struct DMConversationType {
   /**
    * @brief       The Port number of conversation
    */
-  uint16_t port_num{};
+  std::uint16_t port_num{};
 
   /**
    * @brief       The handle id of conversation
