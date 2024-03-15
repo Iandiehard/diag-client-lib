@@ -380,7 +380,7 @@ TEST_F(DiagMessageFixture, VerifyDiagResponseTimeout) {
 }
 
 /**
- * @brief  Verify that correct error is propagated in case of no diagnostic response received and timeout happens.
+ * @brief  Verify that correct error is propagated in case invalid parameter provided when sending diagnostic request.
  */
 TEST_F(DiagMessageFixture, VerifyInvalidParameterInRequest) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
@@ -421,7 +421,7 @@ TEST_F(DiagMessageFixture, VerifyInvalidParameterInRequest) {
 }
 
 /**
- * @brief  Verify that sending of diagnostic request works correctly and response is received.
+ * @brief  Verify that correct error is propagated in case of negative acknowledgement received.
  */
 TEST_P(DiagMessageFixtureValueParameter, VerifyDiagNegativeAcknowledgement) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
@@ -471,7 +471,7 @@ TEST_P(DiagMessageFixtureValueParameter, VerifyDiagNegativeAcknowledgement) {
 }
 
 /**
- * @brief  Verify that sending of diagnostic request works correctly and response is received.
+ * @brief  Verify that correct error is propagated in case of no diagnostic acknowledgement received and timeout happen.
  */
 TEST_F(DiagMessageFixture, VerifyDiagAcknowledgementTimeout) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
