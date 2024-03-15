@@ -158,7 +158,7 @@ auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_addres
     -> DoipTcpHandler::TcpServer::MessagePtr {
   // Create header
   DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipDiagMessagePosAck, kDoipDiagMessageAckResMinLen)};
+      CreateDoipGenericHeader(kDoipDiagMessageNegAck, kDoipDiagMessageAckResMinLen)};
   // Add SA
   response_buffer.emplace_back(source_address >> 8U);
   response_buffer.emplace_back(source_address & 0xFFU);
