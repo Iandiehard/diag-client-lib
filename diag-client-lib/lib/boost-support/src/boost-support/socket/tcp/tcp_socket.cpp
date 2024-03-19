@@ -32,7 +32,7 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Open() noexcept {
   TcpErrorCodeType ec{};
 
   // Open the socket
-  tcp_socket_.open(Tcp::v4(), ec);
+  tcp_socket_.open(local_endpoint_.protocol(), ec);
   if (ec.value() == boost::system::errc::success) {
     // reuse address
     tcp_socket_.set_option(boost::asio::socket_base::reuse_address{true});

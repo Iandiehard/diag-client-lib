@@ -54,7 +54,7 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
             Tcp::endpoint const endpoint_{GetNativeTcpSocket().local_endpoint()};
-            msg << "Tcp Socket opened and bound to "
+            msg << "Tls Socket opened and bound to "
                 << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
       result.EmplaceValue();
