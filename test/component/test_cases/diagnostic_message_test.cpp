@@ -334,9 +334,8 @@ TEST_F(DiagMessageFixture, VerifyDiagPendingResponse) {
  */
 TEST_F(DiagMessageFixture, VerifyDiagResponseTimeout) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
-  UdsMessage::ByteVector kDiagResponse{0x50, 0x01, 0x00, 0x32, 0x01, 0xF4};
 
-  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest, &kDiagResponse]() {
+  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest]() {
     // Create an expectation of routing activation response
     EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
         .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
@@ -351,9 +350,9 @@ TEST_F(DiagMessageFixture, VerifyDiagResponseTimeout) {
         }));
 
     EXPECT_CALL(*doip_tcp_handler_, ProcessDiagnosticRequestMessage(testing::_, testing::_, testing::_))
-        .WillOnce(::testing::Invoke([this, &kDiagRequest, &kDiagResponse](
-                                        std::uint16_t client_source_address, std::uint16_t server_target_address,
-                                        core_type::Span<std::uint8_t const> diag_request) {
+        .WillOnce(::testing::Invoke([this, &kDiagRequest](std::uint16_t client_source_address,
+                                                          std::uint16_t server_target_address,
+                                                          core_type::Span<std::uint8_t const> diag_request) {
           EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
           EXPECT_EQ(server_target_address, kDiagServerLogicalAddress);
           EXPECT_THAT(diag_request, testing::ElementsAreArray(kDiagRequest));
@@ -383,10 +382,7 @@ TEST_F(DiagMessageFixture, VerifyDiagResponseTimeout) {
  * @brief  Verify that correct error is propagated in case invalid parameter provided when sending diagnostic request.
  */
 TEST_F(DiagMessageFixture, VerifyInvalidParameterInRequest) {
-  UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
-  UdsMessage::ByteVector kDiagResponse{0x50, 0x01, 0x00, 0x32, 0x01, 0xF4};
-
-  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest, &kDiagResponse]() {
+  std::future<bool> is_server_created{CreateServerWithExpectation([this]() {
     // Create an expectation of routing activation response
     EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
         .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
@@ -425,9 +421,8 @@ TEST_F(DiagMessageFixture, VerifyInvalidParameterInRequest) {
  */
 TEST_P(DiagMessageFixtureValueParameter, VerifyDiagNegativeAcknowledgement) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
-  UdsMessage::ByteVector kDiagResponse{0x50, 0x01, 0x00, 0x32, 0x01, 0xF4};
 
-  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest, &kDiagResponse]() {
+  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest]() {
     // Create an expectation of routing activation response
     EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
         .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
@@ -442,9 +437,9 @@ TEST_P(DiagMessageFixtureValueParameter, VerifyDiagNegativeAcknowledgement) {
         }));
 
     EXPECT_CALL(*doip_tcp_handler_, ProcessDiagnosticRequestMessage(testing::_, testing::_, testing::_))
-        .WillOnce(::testing::Invoke([this, &kDiagRequest, &kDiagResponse](
-                                        std::uint16_t client_source_address, std::uint16_t server_target_address,
-                                        core_type::Span<std::uint8_t const> diag_request) {
+        .WillOnce(::testing::Invoke([this, &kDiagRequest](std::uint16_t client_source_address,
+                                                          std::uint16_t server_target_address,
+                                                          core_type::Span<std::uint8_t const> diag_request) {
           EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
           EXPECT_EQ(server_target_address, kDiagServerLogicalAddress);
           EXPECT_THAT(diag_request, testing::ElementsAreArray(kDiagRequest));
@@ -475,9 +470,8 @@ TEST_P(DiagMessageFixtureValueParameter, VerifyDiagNegativeAcknowledgement) {
  */
 TEST_F(DiagMessageFixture, VerifyDiagAcknowledgementTimeout) {
   UdsMessage::ByteVector kDiagRequest{0x10, 0x01};
-  UdsMessage::ByteVector kDiagResponse{0x50, 0x01, 0x00, 0x32, 0x01, 0xF4};
 
-  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest, &kDiagResponse]() {
+  std::future<bool> is_server_created{CreateServerWithExpectation([this, &kDiagRequest]() {
     // Create an expectation of routing activation response
     EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
         .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
@@ -492,13 +486,13 @@ TEST_F(DiagMessageFixture, VerifyDiagAcknowledgementTimeout) {
         }));
 
     EXPECT_CALL(*doip_tcp_handler_, ProcessDiagnosticRequestMessage(testing::_, testing::_, testing::_))
-        .WillOnce(::testing::Invoke([this, &kDiagRequest, &kDiagResponse](
-                                        std::uint16_t client_source_address, std::uint16_t server_target_address,
-                                        core_type::Span<std::uint8_t const> diag_request) {
-          EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
-          EXPECT_EQ(server_target_address, kDiagServerLogicalAddress);
-          EXPECT_THAT(diag_request, testing::ElementsAreArray(kDiagRequest));
-        }));
+        .WillOnce(
+            ::testing::Invoke([&kDiagRequest](std::uint16_t client_source_address, std::uint16_t server_target_address,
+                                              core_type::Span<std::uint8_t const> diag_request) {
+              EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
+              EXPECT_EQ(server_target_address, kDiagServerLogicalAddress);
+              EXPECT_THAT(diag_request, testing::ElementsAreArray(kDiagRequest));
+            }));
   })};
 
   DiagConnectedConversation diag_client_conversation{*diag_client_, "DiagTesterOne"};

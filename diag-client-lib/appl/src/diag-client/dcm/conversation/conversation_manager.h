@@ -12,10 +12,10 @@
 #include <string_view>
 #include <variant>
 
-#include "diag-client/dcm/conversation/conversation.h"
-#include "diag-client/dcm/conversation/dm_conversation_type.h"
 #include "diag-client/dcm/config_parser/config_parser_type.h"
 #include "diag-client/dcm/connection/uds_transport_protocol_manager.h"
+#include "diag-client/dcm/conversation/conversation.h"
+#include "diag-client/dcm/conversation/dm_conversation_type.h"
 #include "diag-client/dcm/conversation/vd_conversation.h"
 #include "diag-client/dcm/conversation/vd_conversation_type.h"
 

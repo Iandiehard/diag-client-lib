@@ -9,8 +9,8 @@
 #include "diag-client/dcm/conversation/conversation_manager.h"
 
 #include "core/include/variant_helper.h"
-#include "diag-client/dcm/conversation/dm_conversation.h"
 #include "diag-client/common/logger.h"
+#include "diag-client/dcm/conversation/dm_conversation.h"
 
 namespace diag {
 namespace client {
