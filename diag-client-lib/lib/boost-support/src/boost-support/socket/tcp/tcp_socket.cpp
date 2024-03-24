@@ -16,9 +16,8 @@ namespace boost_support {
 namespace socket {
 namespace tcp {
 
-TcpSocket::TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                     boost::asio::io_context &io_context) noexcept
-    : tcp_socket_{io_context},
+TcpSocket::TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num, IoContext &io_context) noexcept
+    : tcp_socket_{io_context.GetContext()},
       local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {}
 
 TcpSocket::TcpSocket(TcpSocket::Socket socket) noexcept

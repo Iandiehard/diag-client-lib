@@ -11,6 +11,7 @@
 #include <boost/asio.hpp>
 
 #include "boost-support/message/tcp/tcp_message.h"
+#include "boost-support/socket/io_context.h"
 #include "boost-support/socket/tls/tls_context.h"
 #include "core/include/result.h"
 
@@ -20,11 +21,8 @@ namespace tls {
 
 /**
  * @brief       Class used to create a tcp socket for handling transmission and reception of tcp message from driver
- * @tparam      TlsVersion
- *              The version of Tls to be used
  */
-template<TlsVersionType TlsVersion>
-class TlsSocket final : public TlsContext<TlsVersion> {
+class TlsSocket final {
  public:
   /**
    * @brief         Socket error code
@@ -62,8 +60,8 @@ class TlsSocket final : public TlsContext<TlsVersion> {
    * @param[in]     io_context
    *                The I/O context required to create socket
    */
-  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, std::string_view ca_certification_path,
-            boost::asio::io_context &io_context) noexcept;
+  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TlsContext &tls_context,
+            IoContext &io_context) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor
@@ -162,7 +160,7 @@ class TlsSocket final : public TlsContext<TlsVersion> {
   /**
    * @brief  Store the underlying tcp socket
    */
-  Socket tcp_socket_;
+  Socket tls_socket_;
 
  private:
   /**

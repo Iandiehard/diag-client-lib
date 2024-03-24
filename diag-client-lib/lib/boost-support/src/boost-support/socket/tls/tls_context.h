@@ -11,44 +11,50 @@
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
 
-#include "tls_version.h"
+#include "boost-support/client/tls/tls_version.h"
 
 namespace boost_support {
 namespace socket {
 namespace tls {
 
 /**
- * @brief       Class used to create a tcp socket for handling transmission and reception of tcp message from driver
+ * @brief       Tls context class responsible for setting cipher suite and loading certificates
  */
-template<TlsVersionType TlsVersion>
-class TlsContext {
+class TlsContext final {
  public:
+  /**
+   * @brief  Type alias for Tls client with version 1.2
+   */
+  using Tls12VersionClient = client::tls::TlsVersion12;
+
+  /**
+   * @brief  Type alias for Tls client with version 1.3
+   */
+  using Tls13VersionClient = client::tls::TlsVersion13;
+
   /**
    * @brief  Type alias for boost ssl context
    */
-  using Context = boost::asio::ssl::context;
+  using SslContext = boost::asio::ssl::context;
 
  public:
   /**
    * @brief         Constructs an instance of TlsContext
+   * @param[in]     client
+   *                The Tls 1.2 version client
    * @param[in]     ca_certification_path
    *                The path to root CA certificate
-   * @param[in]     io_context
-   *                The I/O context required to create socket
    */
-  template<TlsVersionType T = TlsVersion, std::enable_if_t<(T == TlsVersionType::kTls12), bool> = true>
-  TlsContext(std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept
-      : context_{boost::asio::ssl::context::tlsv12_client} {
-    // Load the root CA certificates
-    context_.load_verify_file(std::string{ca_certification_path});
-  }
+  TlsContext(Tls12VersionClient client, std::string_view ca_certification_path) noexcept;
 
-  template<TlsVersionType T = TlsVersion, std::enable_if_t<(T == TlsVersionType::kTls13), bool> = true>
-  TlsContext(std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept
-      : context_{boost::asio::ssl::context::tlsv13_client} {
-    // Load the root CA certificates
-    context_.load_verify_file(std::string{ca_certification_path});
-  }
+  /**
+   * @brief         Constructs an instance of TlsContext
+   * @param[in]     client
+   *                The Tls 1.2 version client
+   * @param[in]     ca_certification_path
+   *                The path to root CA certificate
+   */
+  TlsContext(Tls13VersionClient client, std::string_view ca_certification_path) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor
@@ -57,7 +63,7 @@ class TlsContext {
   TlsContext &operator=(const TlsContext &other) noexcept = delete;
 
   /**
-   * @brief  Deleted move assignment and move constructor
+   * @brief  Defaulted move assignment and move constructor
    */
   TlsContext(TlsContext &&other) noexcept = default;
   TlsContext &operator=(TlsContext &&other) noexcept = default;
@@ -71,13 +77,13 @@ class TlsContext {
    * @brief         Function to get the ssl context reference
    * @return        The reference to ssl context
    */
-  Context &GetContext() noexcept { return context_; }
+  SslContext &GetContext() noexcept { return ssl_context_; }
 
  private:
   /**
    * @brief  Store the boost ssl context
    */
-  Context context_;
+  SslContext ssl_context_;
 };
 }  // namespace tls
 }  // namespace socket

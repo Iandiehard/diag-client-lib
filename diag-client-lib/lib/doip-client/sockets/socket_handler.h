@@ -18,7 +18,7 @@ namespace doip_client {
 namespace sockets {
 
 /**
- * @brief  Class used to create a tcp socket for handling transmission and reception of tcp message from driver
+ * @brief  Handler class to manage different socket of various client (Udp / Tcp)
  */
 template<typename ClientType>
 class SocketHandler final {

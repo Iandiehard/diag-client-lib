@@ -11,6 +11,7 @@
 #include <boost/asio.hpp>
 
 #include "boost-support/message/tcp/tcp_message.h"
+#include "boost-support/socket/io_context.h"
 #include "core/include/result.h"
 
 namespace boost_support {
@@ -62,8 +63,7 @@ class TcpSocket final {
    * @param[in]     io_context
    *                The I/O context required to create socket
    */
-  TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-            boost::asio::io_context &io_context) noexcept;
+  TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num, IoContext &io_context) noexcept;
 
   /**
    * @brief         Constructs an instance of TcpSocket

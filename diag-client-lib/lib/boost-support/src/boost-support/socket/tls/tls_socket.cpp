@@ -16,26 +16,20 @@ namespace boost_support {
 namespace socket {
 namespace tls {
 
-template<TlsVersionType TlsVersion>
-TlsSocket<TlsVersion>::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                 std::string_view ca_certification_path, boost::asio::io_context &io_context) noexcept
-    : TlsContext<TlsVersion>{ca_certification_path, io_context},
-      local_ip_address_{local_ip_address},
+TlsSocket::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TlsContext &tls_context,
+                     IoContext &io_context) noexcept
+    : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
-      tcp_socket_{io_context, this->GetContext()} {}
+      tls_socket_{io_context.GetContext(), tls_context.GetContext()} {}
 
-template<TlsVersionType TlsVersion>
-TlsSocket<TlsVersion>::TlsSocket(TlsSocket &&other) noexcept
-    : TlsContext<TlsVersion>(std::move(other)),
-      local_ip_address_{std::move(other.local_ip_address_)},
-      local_port_num_{std::move(other.local_port_num_)},
-      tcp_socket_{std::move(other.tcp_socket_)} {}
+TlsSocket::TlsSocket(TlsSocket &&other) noexcept
+    : local_ip_address_{std::move(other.local_ip_address_)},
+      local_port_num_{other.local_port_num_},
+      tls_socket_{std::move(other.tls_socket_)} {}
 
-template<TlsVersionType TlsVersion>
-TlsSocket<TlsVersion>::~TlsSocket() noexcept = default;
+TlsSocket::~TlsSocket() noexcept = default;
 
-template<TlsVersionType TlsVersion>
-core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Open() noexcept {
+core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
@@ -74,9 +68,8 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Connect(
-    std::string_view host_ip_address, std::uint16_t host_port_num) noexcept {
+core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_view host_ip_address,
+                                                                   std::uint16_t host_port_num) noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
@@ -91,9 +84,9 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     // Perform TLS handshake
-    tcp_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
+    tls_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
     if (ec.value() == boost::system::errc::success) {
-      printf("Connected with %s encryption\n", SSL_get_cipher(tcp_socket_.native_handle()));
+      printf("Connected with %s encryption\n", SSL_get_cipher(tls_socket_.native_handle()));
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -110,12 +103,11 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Disconnect() noexcept {
+core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
   // Shutdown TLS connection
-  tcp_socket_.shutdown(ec);
+  tls_socket_.shutdown(ec);
   // Shutdown of TCP connection
   GetNativeTcpSocket().shutdown(Tcp::socket ::shutdown_both, ec);
 
@@ -131,13 +123,11 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Transmit(
-    TcpMessageConstPtr tcp_message) noexcept {
+core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(TcpMessageConstPtr tcp_message) noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tcp_socket_,
+  boost::asio::write(tls_socket_,
                      boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
@@ -156,8 +146,7 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<TlsVersion>::Close() noexcept {
+core_type::Result<void, TlsSocket::SocketError> TlsSocket::Close() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   // Destroy the socket
   GetNativeTcpSocket().close();
@@ -165,16 +154,14 @@ core_type::Result<void, typename TlsSocket<TlsVersion>::SocketError> TlsSocket<T
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-core_type::Result<typename TlsSocket<TlsVersion>::TcpMessagePtr, typename TlsSocket<TlsVersion>::SocketError>
-TlsSocket<TlsVersion>::Read() noexcept {
+core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::Read() noexcept {
   core_type::Result<TcpMessagePtr, SocketError> result{SocketError::kRemoteDisconnected};
   TcpErrorCodeType ec{};
   // create and reserve the buffer
   TcpMessage::BufferType rx_buffer{};
   rx_buffer.resize(message::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
+  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -188,7 +175,7 @@ TlsSocket<TlsVersion>::Read() noexcept {
     if (read_next_bytes != 0u) {
       // reserve the buffer
       rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tcp_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
+      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
                         ec);
 
       // all message received, transfer to upper layer
@@ -219,14 +206,7 @@ TlsSocket<TlsVersion>::Read() noexcept {
   return result;
 }
 
-template<TlsVersionType TlsVersion>
-TlsSocket<TlsVersion>::Socket::lowest_layer_type &TlsSocket<TlsVersion>::GetNativeTcpSocket() {
-  return tcp_socket_.lowest_layer();
-}
-
-// Explicit instantiation of tls socket type
-template class TlsSocket<TlsVersionType::kTls12>;
-template class TlsSocket<TlsVersionType::kTls13>;
+TlsSocket::Socket::lowest_layer_type &TlsSocket::GetNativeTcpSocket() { return tls_socket_.lowest_layer(); }
 
 }  // namespace tls
 }  // namespace socket
