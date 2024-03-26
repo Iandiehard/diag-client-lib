@@ -67,10 +67,6 @@ class TcpSocket final {
 
   /**
    * @brief         Constructs an instance of TcpSocket
-   * @param[in]     local_ip_address
-   *                The local ip address
-   * @param[in]     local_port_num
-   *                The local port number
    * @param[in]     socket
    *                The socket
    */

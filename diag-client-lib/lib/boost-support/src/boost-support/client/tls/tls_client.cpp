@@ -26,12 +26,12 @@ template<typename TlsVersion>
 class TlsClient<TlsVersion>::TlsClientImpl final {
  private:
   /**
-   * @brief     Type alias for secured socket with Tls version 1.3
+   * @brief     Type alias for secured socket
    */
   using TlsSocket = socket::tls::TlsSocket;
 
   /**
-   * @brief     Type alias for secured tcp connection with tls version 1.3
+   * @brief     Type alias for secured tcp connection
    */
   using TcpConnectionSecured = connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
 

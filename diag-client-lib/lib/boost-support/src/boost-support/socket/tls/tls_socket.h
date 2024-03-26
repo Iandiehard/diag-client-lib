@@ -50,6 +50,16 @@ class TlsSocket final {
    */
   using TcpMessageConstPtr = boost_support::message::tcp::TcpMessageConstPtr;
 
+  /**
+   * @brief  Type alias for tcp protocol
+   */
+  using Tcp = boost::asio::ip::tcp;
+
+  /**
+   * @brief  Type alias for tcp socket
+   */
+  using TcpSocket = Tcp::socket;
+
  public:
   /**
    * @brief         Constructs an instance of TcpSocket
@@ -62,6 +72,13 @@ class TlsSocket final {
    */
   TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TlsContext &tls_context,
             IoContext &io_context) noexcept;
+
+  /**
+   * @brief         Constructs an instance of TcpSocket
+   * @param[in]     socket
+   *                The socket
+   */
+  TlsSocket(TcpSocket tcp_socket, TlsContext &tls_context) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor
@@ -138,35 +155,25 @@ class TlsSocket final {
   using TcpErrorCodeType = boost::system::error_code;
 
   /**
-   * @brief  Type alias for tcp protocol
-   */
-  using Tcp = boost::asio::ip::tcp;
-
-  /**
    * @brief  Type alias for tcp socket
    */
-  using Socket = boost::asio::ssl::stream<Tcp::socket>;
-
-  /**
-   * @brief  Store local ip address
-   */
-  std::string local_ip_address_;
-
-  /**
-   * @brief  Store local port number
-   */
-  std::uint16_t local_port_num_;
+  using SslStream = boost::asio::ssl::stream<Tcp::socket>;
 
   /**
    * @brief  Store the underlying tcp socket
    */
-  Socket tls_socket_;
+  SslStream ssl_stream_;
+
+  /**
+   * @brief  Store the local endpoints
+   */
+  Tcp::endpoint local_endpoint_;
 
  private:
   /**
    * @brief  Function to get the native tcp socket under tls socket
    */
-  Socket ::lowest_layer_type &GetNativeTcpSocket();
+  SslStream::lowest_layer_type &GetNativeTcpSocket();
 };
 }  // namespace tls
 }  // namespace socket

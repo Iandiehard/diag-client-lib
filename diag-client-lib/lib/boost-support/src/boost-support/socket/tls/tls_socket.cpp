@@ -18,14 +18,15 @@ namespace tls {
 
 TlsSocket::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TlsContext &tls_context,
                      IoContext &io_context) noexcept
-    : local_ip_address_{local_ip_address},
-      local_port_num_{local_port_num},
-      tls_socket_{io_context.GetContext(), tls_context.GetContext()} {}
+    : ssl_stream_{io_context.GetContext(), tls_context.GetContext()},
+      local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {}
+
+TlsSocket::TlsSocket(TlsSocket::TcpSocket tcp_socket, TlsContext &tls_context) noexcept
+    : ssl_stream_{std::move(tcp_socket), tls_context.GetContext()} {}
 
 TlsSocket::TlsSocket(TlsSocket &&other) noexcept
-    : local_ip_address_{std::move(other.local_ip_address_)},
-      local_port_num_{other.local_port_num_},
-      tls_socket_{std::move(other.tls_socket_)} {}
+    : ssl_stream_{std::move(other.ssl_stream_)},
+      local_endpoint_{std::move(other.local_endpoint_)} {}
 
 TlsSocket::~TlsSocket() noexcept = default;
 
@@ -34,14 +35,14 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
   TcpErrorCodeType ec{};
 
   // Open the socket
-  GetNativeTcpSocket().open(Tcp::v4(), ec);
+  GetNativeTcpSocket().open(local_endpoint_.protocol(), ec);
   if (ec.value() == boost::system::errc::success) {
     // Reuse address
     GetNativeTcpSocket().set_option(boost::asio::socket_base::reuse_address{true});
     // Set socket to non blocking
     GetNativeTcpSocket().non_blocking(false);
     // Bind to local ip address and random port
-    GetNativeTcpSocket().bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+    GetNativeTcpSocket().bind(local_endpoint_, ec);
 
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
@@ -56,13 +57,13 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
+          [ec](std::stringstream &msg) { msg << "Tls Socket binding failed with message: " << ec.message(); });
       result.EmplaceError(SocketError::kBindingFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
+        [ec](std::stringstream &msg) { msg << "Tls Socket opening failed with error: " << ec.message(); });
     result.EmplaceError(SocketError::kOpenFailed);
   }
   return result;
@@ -84,9 +85,9 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_v
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     // Perform TLS handshake
-    tls_socket_.handshake(boost::asio::ssl::stream_base::client, ec);
+    ssl_stream_.handshake(boost::asio::ssl::stream_base::client, ec);
     if (ec.value() == boost::system::errc::success) {
-      printf("Connected with %s encryption\n", SSL_get_cipher(tls_socket_.native_handle()));
+      printf("Connected with %s encryption\n", SSL_get_cipher(ssl_stream_.native_handle()));
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -107,7 +108,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
   // Shutdown TLS connection
-  tls_socket_.shutdown(ec);
+  ssl_stream_.shutdown(ec);
   // Shutdown of TCP connection
   GetNativeTcpSocket().shutdown(Tcp::socket ::shutdown_both, ec);
 
@@ -127,7 +128,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(TcpMessageCo
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tls_socket_,
+  boost::asio::write(ssl_stream_,
                      boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
@@ -161,7 +162,7 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
   TcpMessage::BufferType rx_buffer{};
   rx_buffer.resize(message::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
+  boost::asio::read(ssl_stream_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
@@ -175,7 +176,7 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
     if (read_next_bytes != 0u) {
       // reserve the buffer
       rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
+      boost::asio::read(ssl_stream_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
                         ec);
 
       // all message received, transfer to upper layer
@@ -206,7 +207,7 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
   return result;
 }
 
-TlsSocket::Socket::lowest_layer_type &TlsSocket::GetNativeTcpSocket() { return tls_socket_.lowest_layer(); }
+TlsSocket::SslStream::lowest_layer_type &TlsSocket::GetNativeTcpSocket() { return ssl_stream_.lowest_layer(); }
 
 }  // namespace tls
 }  // namespace socket
