@@ -31,24 +31,24 @@ constexpr std::uint8_t kDoip_RoutingActivation_ReqActType_CentralSec{0xE0};
 /**
  * @brief  Routing Activation response code values
  */
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnknownSA{0x00};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AllSocktActive{0x01};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_DifferentSA{0x02};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ActiveSA{0x03};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_AuthentnMissng{0x04};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRejectd{0x05};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_UnsupportdActType{0x06};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_TLSRequired{0x07};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_RoutingSuccessful{0x10};
-constexpr std::uint8_t kDoip_RoutingActivation_ResCode_ConfirmtnRequired{0x11};
+constexpr std::uint8_t kDoipRoutingActivationResCodeUnknownSa{0x00};
+constexpr std::uint8_t kDoipRoutingActivationResCodeAllSocketActive{0x01};
+constexpr std::uint8_t kDoipRoutingActivationResCodeDifferentSa{0x02};
+constexpr std::uint8_t kDoipRoutingActivationResCodeActiveSa{0x03};
+constexpr std::uint8_t kDoipRoutingActivationResCodeAuthentnMissng{0x04};
+constexpr std::uint8_t kDoipRoutingActivationResCodeConfirmtnRejectd{0x05};
+constexpr std::uint8_t kDoipRoutingActivationResCodeUnsupportdActType{0x06};
+constexpr std::uint8_t kDoipRoutingActivationResCodeTlsRequired{0x07};
+constexpr std::uint8_t kDoipRoutingActivationResCodeRoutingSuccessful{0x10};
+constexpr std::uint8_t kDoipRoutingActivationResCodeConfirmtnRequired{0x11};
 
 /**
  * @brief  Routing Activation request lengths
  */
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMinLen{7u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ReqMaxLen{11u};  //with OEM specific use byte
-constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationReqMinLen{7u};   // without OEM specific use byte
+constexpr std::uint32_t kDoipRoutingActivationReqMaxLen{11u};  // with OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ResMinLen{9u};   //without OEM specific use byte
+// constexpr std::uint32_t kDoip_RoutingActivation_ResMaxLen{13u};  //with OEM specific use byte
 
 /**
  * @brief  Routing Activation response Type
@@ -163,8 +163,6 @@ class kRoutingActivationFailed final : public utility::state::State<RoutingActiv
   void Stop() override {}
 };
 
-}  // namespace
-
 /**
  * @brief  Type holding activation type
  */
@@ -177,28 +175,28 @@ struct RoutingActivationAckType {
  */
 std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
   switch (act_type.act_type_) {
-    case kDoip_RoutingActivation_ResCode_UnknownSA:
+    case kDoipRoutingActivationResCodeUnknownSa:
       msg << "unknown source address.";
       break;
-    case kDoip_RoutingActivation_ResCode_AllSocktActive:
-      msg << "all Socket active.";
+    case kDoipRoutingActivationResCodeAllSocketActive:
+      msg << "all socket active.";
       break;
-    case kDoip_RoutingActivation_ResCode_DifferentSA:
+    case kDoipRoutingActivationResCodeDifferentSa:
       msg << "SA different on already connected socket.";
       break;
-    case kDoip_RoutingActivation_ResCode_ActiveSA:
+    case kDoipRoutingActivationResCodeActiveSa:
       msg << "SA active on different socket.";
       break;
-    case kDoip_RoutingActivation_ResCode_AuthentnMissng:
+    case kDoipRoutingActivationResCodeAuthentnMissng:
       msg << "missing authentication.";
       break;
-    case kDoip_RoutingActivation_ResCode_ConfirmtnRejectd:
+    case kDoipRoutingActivationResCodeConfirmtnRejectd:
       msg << "rejected confirmation.";
       break;
-    case kDoip_RoutingActivation_ResCode_UnsupportdActType:
+    case kDoipRoutingActivationResCodeUnsupportdActType:
       msg << "unsupported routing activation type.";
       break;
-    case kDoip_RoutingActivation_ResCode_TLSRequired:
+    case kDoipRoutingActivationResCodeTlsRequired:
       msg << "required TLS socket.";
       break;
     default:
@@ -208,6 +206,28 @@ std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
   msg << " (0x" << std::hex << static_cast<int>(act_type.act_type_) << ")";
   return msg;
 }
+
+/**
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
+ */
+auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  output_buffer.emplace_back(kDoip_ProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+  return output_buffer;
+}
+}  // namespace
 
 /**
  * @brief       Class implements routing activation handler
@@ -325,20 +345,22 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
     // get the ack code
     RoutingActivationAckType const rout_act_type{doip_payload.GetPayload()[0u]};
     switch (rout_act_type.act_type_) {
-      case kDoip_RoutingActivation_ResCode_RoutingSuccessful: {
+      case kDoipRoutingActivationResCodeRoutingSuccessful: {
         // routing successful
         final_state = RoutingActivationState::kRoutingActivationSuccessful;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "RoutingActivation successfully activated in remote server with logical Address"
+              msg << "RoutingActivation successfully activated in remote "
+                     "server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } break;
-      case kDoip_RoutingActivation_ResCode_ConfirmtnRequired: {
+      case kDoipRoutingActivationResCodeConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "RoutingActivation is activated, confirmation required in remote server with logical Address"
+              msg << "RoutingActivation is activated, confirmation required in "
+                     "remote server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } break;
@@ -372,7 +394,8 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
             handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "RoutingActivation response timeout, no response received in: "
+                  msg << "RoutingActivation response timeout, no response "
+                         "received in: "
                       << kDoIPRoutingActivationTimeout << " milliseconds";
                 });
           },
@@ -416,40 +439,30 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>()};
-  // reserve bytes in vector
-  doip_routing_act_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_RoutingActivation_ReqMinLen);
-  // create header
-  CreateDoipGenericHeader(doip_routing_act_req->GetTxBuffer(), kDoip_RoutingActivation_ReqType,
-                          kDoip_RoutingActivation_ReqMinLen);
-  // Add source address
-  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
-  doip_routing_act_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
-  // Add activation type
-  doip_routing_act_req->GetTxBuffer().emplace_back(kDoip_RoutingActivation_ReqActType_Default);
-  // Add reservation byte , default zeroes
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
-  doip_routing_act_req->GetTxBuffer().emplace_back(0x00);
 
+  // Create header
+  TcpMessage::BufferType compose_routing_activation_req{
+      CreateDoipGenericHeader(kDoip_RoutingActivation_ReqType, kDoipRoutingActivationReqMinLen)};
+  compose_routing_activation_req.reserve(kDoipheadrSize + kDoipRoutingActivationReqMinLen);
+
+  // Add source address
+  compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
+  compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
+  // Add activation type
+  compose_routing_activation_req.emplace_back(kDoip_RoutingActivation_ReqActType_Default);
+  // Add reservation byte , default zeroes
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+  compose_routing_activation_req.emplace_back(0x00);
+
+  TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>(
+      message->GetHostIpAddress(), message->GetHostPortNumber(), std::move(compose_routing_activation_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_routing_act_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
   }
   return ret_val;
-}
-
-void RoutingActivationHandler::CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer,
-                                                       std::uint16_t payload_type, std::uint32_t payload_len) {
-  doip_header_buffer.emplace_back(kDoip_ProtocolVersion);
-  doip_header_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
 }
 
 }  // namespace tcp_channel

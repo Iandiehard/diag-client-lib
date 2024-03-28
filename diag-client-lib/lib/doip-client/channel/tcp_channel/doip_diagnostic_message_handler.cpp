@@ -25,31 +25,31 @@ namespace {
 /**
  * @brief  Diagnostic message type
  */
-constexpr std::uint16_t kDoip_DiagMessage_Type{0x8001};
-constexpr std::uint16_t kDoip_DiagMessagePosAck_Type{0x8002};
-constexpr std::uint16_t kDoip_DiagMessageNegAck_Type{0x8003};
+constexpr std::uint16_t kDoipDiagMessage{0x8001};
+constexpr std::uint16_t kDoipDiagMessagePosAck{0x8002};
+constexpr std::uint16_t kDoipDiagMessageNegAck{0x8003};
 
 /**
  * @brief  Diagnostic Message negative acknowledgement code
  */
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_InvalidSA{0x02};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownTA{0x03};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge{0x04};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_OutOfMemory{0x05};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable{0x06};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork{0x07};
-constexpr std::uint8_t kDoip_DiagnosticMessage_NegAckCode_TPError{0x08};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeInvalidSa{0x02};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeUnknownTa{0x03};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeMessageTooLarge{0x04};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeOutOfMemory{0x05};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeTargetUnreachable{0x06};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeUnknownNetwork{0x07};
+constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeTpError{0x08};
 
 /**
  * @brief  Diagnostic Message positive acknowledgement code
  */
-constexpr std::uint8_t kDoip_DiagnosticMessage_PosAckCode_Confirm{0x00};
+constexpr std::uint8_t kDoipDiagnosticMessagePosAckCodeConfirm{0x00};
 
 /**
  * @brief  Diagnostic Message request/response lengths
  */
-constexpr std::uint8_t kDoip_DiagMessage_ReqResMinLen = 4U;  // considering SA and TA
-constexpr std::uint8_t kDoip_DiagMessageAck_ResMinLen = 5U;  // considering SA, TA, Ack code
+constexpr std::uint8_t kDoipDiagMessageReqResMinLen = 4U;  // considering SA and TA
+constexpr std::uint8_t kDoipDiagMessageAckResMinLen = 5U;  // considering SA, TA, Ack code
 
 /* Description: This timeout specifies the maximum time that
                 the test equipment waits for a confirmation ACK or NACK
@@ -213,8 +213,6 @@ class kWaitForDiagnosticResponse final : public utility::state::State<Diagnostic
   void Stop() override {}
 };
 
-}  // namespace
-
 /**
  * @brief  Type holding acknowledgement type
  */
@@ -227,25 +225,25 @@ struct DiagAckType {
  */
 std::ostream &operator<<(std::ostream &msg, DiagAckType diag_ack_type) {
   switch (diag_ack_type.ack_type_) {
-    case kDoip_DiagnosticMessage_NegAckCode_InvalidSA:
+    case kDoipDiagnosticMessageNegAckCodeInvalidSa:
       msg << "invalid source address.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_UnknownTA:
+    case kDoipDiagnosticMessageNegAckCodeUnknownTa:
       msg << "unknown target address.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge:
+    case kDoipDiagnosticMessageNegAckCodeMessageTooLarge:
       msg << "diagnostic message too large.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_OutOfMemory:
+    case kDoipDiagnosticMessageNegAckCodeOutOfMemory:
       msg << "server out of memory.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable:
+    case kDoipDiagnosticMessageNegAckCodeTargetUnreachable:
       msg << "target unreachable.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork:
+    case kDoipDiagnosticMessageNegAckCodeUnknownNetwork:
       msg << "unknown network.";
       break;
-    case kDoip_DiagnosticMessage_NegAckCode_TPError:
+    case kDoipDiagnosticMessageNegAckCodeTpError:
       msg << "transport protocol error.";
       break;
     default:
@@ -254,6 +252,29 @@ std::ostream &operator<<(std::ostream &msg, DiagAckType diag_ack_type) {
   }
   return msg;
 }
+
+/**
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
+ */
+auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  output_buffer.emplace_back(kDoip_ProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+  return output_buffer;
+}
+
+}  // namespace
 
 /**
  * @brief       Class implements routing activation handler
@@ -391,18 +412,19 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
   if (handler_impl_->GetStateContext().GetActiveState().GetState() == DiagnosticMessageState::kWaitForDiagnosticAck) {
     // get the ack code
     DiagAckType const diag_ack_type{doip_payload.GetPayload()[0u]};
-    if (doip_payload.GetPayloadType() == kDoip_DiagMessagePosAck_Type) {
-      if (diag_ack_type.ack_type_ == kDoip_DiagnosticMessage_PosAckCode_Confirm) {
+    if (doip_payload.GetPayloadType() == kDoipDiagMessagePosAck) {
+      if (diag_ack_type.ack_type_ == kDoipDiagnosticMessagePosAckCodeConfirm) {
         final_state = DiagnosticMessageState::kDiagnosticPositiveAckRecvd;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
             __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
-              msg << "Diagnostic message positively acknowledged from remote server "
+              msg << "Diagnostic message positively acknowledged from remote "
+                     "server "
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
             });
       } else {
         // do nothing
       }
-    } else if (doip_payload.GetPayloadType() == kDoip_DiagMessageNegAck_Type) {
+    } else if (doip_payload.GetPayloadType() == kDoipDiagMessageNegAck) {
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
           __FILE__, __LINE__, __func__,
           [&diag_ack_type](std::stringstream &msg) { msg << "Diagnostic request denied due to " << diag_ack_type; });
@@ -466,8 +488,9 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
             handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
-                  msg << "Diagnostic Message Ack Request timed out, no response received in: "
-                      << kDoIPDiagnosticAckTimeout << "seconds";
+                  msg << "Diagnostic Message Ack Request timed out, no "
+                         "response received in: "
+                      << kDoIPDiagnosticAckTimeout << " seconds";
                 });
           },
           [this, &result]() {
@@ -484,8 +507,10 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
               result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
               handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "Diagnostic Message Transmission Failed Neg Ack Received"; });
+                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                    msg << "Diagnostic Message Transmission Failed Neg Ack "
+                           "Received";
+                  });
             }
           },
           std::chrono::milliseconds{kDoIPDiagnosticAckTimeout});
@@ -510,43 +535,29 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageCo
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  constexpr std::uint8_t kDoipheadrSize{8u};
   constexpr std::uint8_t kSourceAddressSize{4u};
-  TcpMessagePtr doip_diag_req = std::make_unique<TcpMessage>();
-  // reserve bytes in vector
-  doip_diag_req->GetTxBuffer().reserve(kDoipheadrSize + kDoip_DiagMessage_ReqResMinLen +
-                                       diagnostic_request->GetPayload().size());
-  // create header
-  CreateDoipGenericHeader(
-      doip_diag_req->GetTxBuffer(), kDoip_DiagMessage_Type,
-      kDoip_DiagMessage_ReqResMinLen + static_cast<std::uint32_t>(diagnostic_request->GetPayload().size()));
-  // Add source address
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
-  // Add target address
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
-  doip_diag_req->GetTxBuffer().emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
-  // Copy data bytes
-  doip_diag_req->GetTxBuffer().insert(doip_diag_req->GetTxBuffer().begin() + kDoipheadrSize + kSourceAddressSize,
-                                      diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
+  // Create header
+  std::uint32_t const total_diagnostic_response_length{
+      static_cast<uint32_t>(kDoipDiagMessageReqResMinLen + diagnostic_request->GetPayload().size())};
+  TcpMessage::BufferType compose_diag_req{CreateDoipGenericHeader(kDoipDiagMessage, total_diagnostic_response_length)};
+  compose_diag_req.reserve(kDoipheadrSize + total_diagnostic_response_length);
 
+  // Add source address
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
+  // Add target address
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetTa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetTa() & 0x00FF));
+  // Copy data bytes
+  compose_diag_req.insert(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize,
+                          diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
+  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>(
+      diagnostic_request->GetHostIpAddress(), diagnostic_request->GetHostPortNumber(), std::move(compose_diag_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_diag_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
   }
   return ret_val;
-}
-
-void DiagnosticMessageHandler::CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer,
-                                                       std::uint16_t payload_type, std::uint32_t payload_len) {
-  doip_header_buffer.emplace_back(kDoip_ProtocolVersion);
-  doip_header_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
 }
 
 }  // namespace tcp_channel

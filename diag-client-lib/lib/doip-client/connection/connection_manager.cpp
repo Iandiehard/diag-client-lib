@@ -10,6 +10,7 @@
 
 #include "channel/tcp_channel/doip_tcp_channel.h"
 #include "channel/udp_channel/doip_udp_channel.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/conversation_handler.h"
 
 namespace doip_client {
@@ -26,6 +27,11 @@ class DoipTcpConnection final : public uds_transport::Connection {
   using InitializationResult = uds_transport::Connection::InitializationResult;
 
   /**
+   * @brief   Type alias for Tcp client used by socket handler
+   */
+  using TcpClient = sockets::TcpSocketHandler::Client;
+
+  /**
    * @brief       Constructor to create a new tcp connection
    * @param[in]   conversation_handler
    *              The reference to conversation handler
@@ -33,11 +39,13 @@ class DoipTcpConnection final : public uds_transport::Connection {
    *              The local tcp ip address
    * @param[in]   port_num
    *              The local port number
+   * @param[in]   io_context
+   *              The reference to io context
    */
   DoipTcpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view tcp_ip_address,
                     std::uint16_t port_num)
-      : uds_transport::Connection{1, conversation_handler},
-        doip_tcp_channel_{tcp_ip_address, port_num, *this} {}
+      : uds_transport::Connection{1u, conversation_handler},
+        doip_tcp_channel_{sockets::TcpSocketHandler{TcpClient{tcp_ip_address, port_num}}, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipTcpConnection
@@ -62,9 +70,9 @@ class DoipTcpConnection final : public uds_transport::Connection {
 
   /**
    * @brief        Function to check if connected to host remote server
-   * @return       True if connection, False otherwise
+   * @return       True if connected, False otherwise
    */
-  bool IsConnectToHost() override { return (doip_tcp_channel_.IsConnectToHost()); }
+  bool IsConnectToHost() override { return (doip_tcp_channel_.IsConnectedToHost()); }
 
   /**
    * @brief       Function to establish connection to remote host server
@@ -114,8 +122,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) override {
-    // Send Indication to conversation
+      core_type::Span<std::uint8_t const> payload_info) override {
     return (conversation_handler_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
                                                   protocol_kind, payload_info));
   }
@@ -137,13 +144,12 @@ class DoipTcpConnection final : public uds_transport::Connection {
    *              back to the conversation here
    */
   void HandleMessage(uds_transport::UdsMessagePtr message) override {
-    // send full message to conversion
     conversation_handler_.HandleMessage(std::move(message));
   }
 
  private:
   /**
-   * @brief        Store the reference to doip tcp channel
+   * @brief        Store the doip tcp channel
    */
   channel::tcp_channel::DoipTcpChannel doip_tcp_channel_;
 };
@@ -159,6 +165,11 @@ class DoipUdpConnection final : public uds_transport::Connection {
   using InitializationResult = uds_transport::Connection::InitializationResult;
 
   /**
+   * @brief   Type alias for Tcp client used by socket handler
+   */
+  using UdpClient = sockets::UdpSocketHandler::Client;
+
+  /**
    * @brief       Constructor to create a new udp connection
    * @param[in]   conversation_handler
    *              The reference to conversation handler
@@ -170,7 +181,8 @@ class DoipUdpConnection final : public uds_transport::Connection {
   DoipUdpConnection(uds_transport::ConversionHandler const &conversation_handler, std::string_view udp_ip_address,
                     std::uint16_t port_num)
       : uds_transport::Connection(1, conversation_handler),
-        doip_udp_channel_{udp_ip_address, port_num, *this} {}
+        doip_udp_channel_{sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}},
+                          sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}}, *this} {}
 
   /**
    * @brief         Destruct an instance of DoipUdpConnection
@@ -246,7 +258,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) override {
+      core_type::Span<std::uint8_t const> payload_info) override {
     // Send Indication to conversion
     return (conversation_handler_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
                                                   protocol_kind, payload_info));
@@ -280,14 +292,17 @@ class DoipUdpConnection final : public uds_transport::Connection {
   channel::udp_channel::DoipUdpChannel doip_udp_channel_;
 };
 
-std::unique_ptr<uds_transport::Connection> DoipConnectionManager::FindOrCreateTcpConnection(
+ConnectionManager::ConnectionManager() noexcept : io_context_{} {}
+
+std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num));
+  return std::make_unique<DoipTcpConnection>(conversation, tcp_ip_address, port_num);
 }
 
-std::unique_ptr<uds_transport::Connection> DoipConnectionManager::FindOrCreateUdpConnection(
+std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateUdpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address, std::uint16_t port_num) {
-  return (std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num));
+  return std::make_unique<DoipUdpConnection>(conversation, udp_ip_address, port_num);
 }
+
 }  // namespace connection
 }  // namespace doip_client

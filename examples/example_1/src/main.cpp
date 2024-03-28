@@ -11,9 +11,9 @@
 #include "uds_message.h"
 
 // includes from diag-client library
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_uds_message_type.h"
+#include "diag-client/create_diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_uds_message_type.h"
 
 /*
  * Main Entry point of diag client example 

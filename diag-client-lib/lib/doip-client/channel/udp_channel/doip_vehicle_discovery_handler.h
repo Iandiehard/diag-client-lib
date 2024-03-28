@@ -9,7 +9,7 @@
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_VEHICLE_DISCOVERY_HANDLER_H_
 
 #include "common/doip_message.h"
-#include "sockets/udp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 

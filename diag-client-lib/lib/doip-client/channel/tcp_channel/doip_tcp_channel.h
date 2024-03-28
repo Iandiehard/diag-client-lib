@@ -13,7 +13,7 @@
 #include <utility>
 
 #include "channel/tcp_channel/doip_tcp_channel_handler.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/connection.h"
 
 namespace doip_client {
@@ -26,20 +26,23 @@ namespace tcp_channel {
 class DoipTcpChannel final {
  public:
   /**
+   * @brief  Type alias for Tcp socket handler
+   */
+  using TcpSocketHandler = sockets::TcpSocketHandler;
+
+  /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of TcpChannel
-   * @param[in]     tcp_ip_address
-   *                The local ip address
-   * @param[in]     port_num
-   *                The reference to tcp transport handler
+   * @param[in]     tcp_socket_handler
+   *                The tcp socket handler
    * @param[in]     connection
    *                The reference to tcp transport handler
    */
-  DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
+  DoipTcpChannel(TcpSocketHandler tcp_socket_handler, uds_transport::Connection &connection);
 
   /**
    * @brief         Destruct an instance of TcpChannel
@@ -60,7 +63,7 @@ class DoipTcpChannel final {
    * @brief        Function to check if connected to host remote server
    * @return       True if connection, False otherwise
    */
-  bool IsConnectToHost();
+  bool IsConnectedToHost();
 
   /**
    * @brief       Function to establish connection to remote host server
@@ -105,7 +108,7 @@ class DoipTcpChannel final {
       uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
       uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
       uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info);
+      core_type::Span<std::uint8_t const> payload_info);
 
   /**
    * @brief       Function to transmit a valid Uds message
@@ -131,11 +134,6 @@ class DoipTcpChannel final {
   void ProcessReceivedTcpMessage(TcpMessagePtr tcp_rx_message);
 
  private:
-  /**
-   * @brief  Type alias for Tcp socket handler
-   */
-  using TcpSocketHandler = sockets::TcpSocketHandler;
-
   /**
    * @brief  Store the tcp socket handler
    */

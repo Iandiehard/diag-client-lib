@@ -5,12 +5,12 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "/opt/boost/include/**",
-                "/usr/include/c++/9/**"
+                "/usr/include/c++/11/**"
             ],
             "defines": [],
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "linux-clang-arm64"
+            "intelliSenseMode": "linux-gcc-arm64"
         }
     ],
     "version": 4

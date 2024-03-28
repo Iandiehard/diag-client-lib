@@ -22,7 +22,7 @@ jobs:
 
     - name: Generate documentation
       run: |
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_DIAG_CLIENT:BOOL=OFF -DBUILD_DOXYGEN:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_9.cmake
+        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_DIAG_CLIENT:BOOL=OFF -DBUILD_DOXYGEN:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_11.cmake
         cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Publish

@@ -18,7 +18,7 @@ namespace {
 /**
  * @brief  Store the unique identifier of this domain
  */
-constexpr core_type::ErrorDomain::IdType unique_identifier{0x5000000000000001};
+constexpr core_type::ErrorDomain::IdType unique_identifier{0x5000000000000002};
 
 /**
  * @brief  Dm error domain

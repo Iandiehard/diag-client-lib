@@ -58,7 +58,7 @@ class Connection {
    * @brief        Function to get the connection id
    * @return       The connection id
    */
-  ConnectionId GetConnectionId() noexcept { return connection_id_; }
+  ConnectionId GetConnectionId() const noexcept { return connection_id_; }
 
   /**
    * @brief        Function to start the connection
@@ -118,7 +118,7 @@ class Connection {
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
       UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
       ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) = 0;
+      core_type::Span<std::uint8_t const> payload_info) = 0;
 
   /**
    * @brief       Function to transmit a valid Uds message
@@ -134,12 +134,6 @@ class Connection {
    *              back to the conversation here
    */
   virtual void HandleMessage(UdsMessagePtr message) = 0;
-
-  /**
-   * @brief       Function to get the connection id
-   * @return      The connection id
-   */
-  ConnectionId GetConnectionId() const { return connection_id_; }
 
  protected:
   /**

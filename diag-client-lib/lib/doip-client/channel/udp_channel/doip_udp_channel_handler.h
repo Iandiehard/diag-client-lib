@@ -8,10 +8,12 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_HANDLER_H_
 
+#include <mutex>
+
 #include "channel/udp_channel/doip_vehicle_discovery_handler.h"
 #include "channel/udp_channel/doip_vehicle_identification_handler.h"
 #include "common/doip_message.h"
-#include "sockets/udp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 
@@ -30,7 +32,7 @@ class DoipUdpChannelHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using UdpMessagePtr = sockets::UdpSocketHandler::UdpMessagePtr;
+  using UdpMessagePtr = sockets::UdpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of DoipUdpChannelHandler
