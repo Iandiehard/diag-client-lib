@@ -75,13 +75,12 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_v
   TcpErrorCodeType ec{};
 
   // Connect to provided Ip address
-  GetNativeTcpSocket().connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num),
-                               ec);
+  GetNativeTcpSocket().connect(Tcp::endpoint{boost::asio::ip::make_address(host_ip_address), host_port_num}, ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-          msg << "Tcp Socket connected to host "
+          msg << "Tls client socket connected to host "
               << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     // Perform TLS handshake
@@ -98,8 +97,9 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(std::string_v
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp Socket connect to host failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tls client socket connect to host failed with error: " << ec.message();
+        });
   }
   return result;
 }
@@ -118,7 +118,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
         __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
-          msg << "Tcp Socket disconnection from host failed with error: " << ec.message();
+          msg << "Tls client socket disconnection from host failed with error: " << ec.message();
         });
   }
   return result;

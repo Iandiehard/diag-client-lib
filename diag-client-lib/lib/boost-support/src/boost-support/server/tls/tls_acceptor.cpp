@@ -7,11 +7,13 @@
  */
 
 // includes
+#include "boost-support/server/tls/tls_acceptor.h"
+
 #include <boost/asio.hpp>
 
 #include "boost-support/common/logger.h"
-#include "boost-support/server/tcp/tcp_acceptor.h"
-#include "boost-support/socket/tcp/tcp_socket.h"
+#include "boost-support/socket/tls/tls_context.h"
+#include "boost-support/socket/tls/tls_socket.h"
 
 namespace boost_support {
 namespace server {
@@ -29,12 +31,18 @@ using TcpIpAddress = boost::asio::ip::address;
 
 }  // namespace
 
-class TcpAcceptor::TcpAcceptorImpl final {
+template<typename TlsVersion>
+class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
  public:
   /**
-   * @brief  Type alias for tcp unsecured socket
+   * @brief  Type alias for tcp secured socket
    */
-  using TcpSocket = socket::tcp::TcpSocket;
+  using TlsSocket = socket::tls::TlsSocket;
+
+  /**
+   * @brief  Type alias for tls context
+   */
+  using TlsContext = socket::tls::TlsContext;
 
  public:
   /**
@@ -47,32 +55,33 @@ class TcpAcceptor::TcpAcceptorImpl final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection
    */
-  TcpAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
-                  std::uint8_t maximum_connection) noexcept
+  TlsAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num, std::uint8_t maximum_connection,
+                  TlsVersion tls_version, std::string_view certificate_path, std::string_view private_key_path) noexcept
       : io_context_{},
+        tls_context_{std::forward<TlsVersion>(tls_version), certificate_path, private_key_path},
         acceptor_{io_context_,
                   Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()), local_port_num)} {
     acceptor_.listen(maximum_connection);
   }
 
   /**
-   * @brief         Get a tcp server ready to communicate
+   * @brief         Get a tls server ready to communicate
    * @details       This blocks until new server is created
    * @return        Tcp server object on success, else nothing
    */
-  std::optional<TcpServer> GetTcpServer() noexcept {
+  std::optional<TlsServer> GetTlsServer() noexcept {
     using TcpErrorCodeType = boost::system::error_code;
-    std::optional<TcpServer> tcp_server{};
+    std::optional<TlsServer> tls_server{};
     TcpErrorCodeType ec{};
     Tcp::endpoint endpoint{};
 
     // blocking accept
-    TcpSocket::Socket accepted_socket{acceptor_.accept(endpoint, ec)};
+    TlsSocket::TcpSocket accepted_socket{acceptor_.accept(endpoint, ec)};
     if (ec.value() == boost::system::errc::success) {
-      tcp_server.emplace(TcpSocket{std::move(accepted_socket)});
+      tls_server.emplace(TlsSocket{std::move(accepted_socket), tls_context_});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
-            msg << "Tcp socket connection received from client "
+            msg << "Tls socket connection received from client "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
     } else {
@@ -80,7 +89,7 @@ class TcpAcceptor::TcpAcceptorImpl final {
           __FILE__, __LINE__, __func__,
           [ec](std::stringstream &msg) { msg << "Tcp socket accept failed with error: " << ec.message(); });
     }
-    return tcp_server;
+    return tls_server;
   }
 
  private:
@@ -95,18 +104,31 @@ class TcpAcceptor::TcpAcceptorImpl final {
   boost::asio::io_context io_context_;
 
   /**
+   * @brief  Store the tls context
+   */
+  TlsContext tls_context_;
+
+  /**
    * @brief  Store the tcp acceptor
    */
   Acceptor acceptor_;
 };
 
-TcpAcceptor::TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-                         std::uint8_t maximum_connection) noexcept
-    : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(local_ip_address, local_port_num, maximum_connection)} {}
+template<typename TlsVersion>
+TlsAcceptor<TlsVersion>::TlsAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
+                                     std::uint8_t maximum_connection, TlsVersion tls_version,
+                                     std::string_view certificate_path, std::string_view private_key_path) noexcept
+    : tls_acceptor_impl_{std::make_unique<TlsAcceptorImpl>(local_ip_address, local_port_num, maximum_connection,
+                                                           std::move(tls_version), certificate_path,
+                                                           private_key_path)} {}
 
-TcpAcceptor::~TcpAcceptor() noexcept = default;
+template<typename TlsVersion>
+TlsAcceptor<TlsVersion>::~TlsAcceptor() noexcept = default;
 
-std::optional<TcpServer> TcpAcceptor::GetTcpServer() noexcept { return tcp_acceptor_impl_->GetTcpServer(); }
+template<typename TlsVersion>
+std::optional<TlsServer> TlsAcceptor<TlsVersion>::GetTlsServer() noexcept {
+  return tls_acceptor_impl_->GetTlsServer();
+}
 
 }  // namespace tls
 }  // namespace server

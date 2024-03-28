@@ -9,14 +9,32 @@
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_INCLUDE_BOOST_SUPPORT_SERVER_TLS_TLS_ACCEPTOR_H_
 
 #include "boost-support/server/tls/tls_server.h"
+#include "boost-support/server/tls/tls_version.h"
 
 namespace boost_support {
 namespace server {
 namespace tls {
 
+// Forward declaration
+template<typename TlsVersion>
+class TlsAcceptor;
+
+/**
+ * @brief    Acceptor that create Tls server that uses Tls version 1.2 for secured communication
+ */
+using TlsAcceptor12 = TlsAcceptor<TlsVersion12>;
+
+/**
+ * @brief    Acceptor that create Tls server that uses Tls version 1.3 for secured communication
+ */
+using TlsAcceptor13 = TlsAcceptor<TlsVersion13>;
+
 /**
  * @brief    The acceptor to create new tcp servers
+ * @tparam   TlsVersion
+ *           The tls version to be used by client for communication
  */
+template<typename TlsVersion>
 class TlsAcceptor final {
  public:
   /**
@@ -29,8 +47,8 @@ class TlsAcceptor final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection allowed
    */
-  TlsAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-              std::uint8_t maximum_connection) noexcept;
+  TlsAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num, std::uint8_t maximum_connection,
+              TlsVersion tls_version, std::string_view certificate_path, std::string_view private_key_path) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpAcceptor

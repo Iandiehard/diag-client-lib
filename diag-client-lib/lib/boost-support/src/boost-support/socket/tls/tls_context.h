@@ -12,6 +12,7 @@
 #include <boost/asio/ssl.hpp>
 
 #include "boost-support/client/tls/tls_version.h"
+#include "boost-support/server/tls/tls_version.h"
 
 namespace boost_support {
 namespace socket {
@@ -31,6 +32,16 @@ class TlsContext final {
    * @brief  Type alias for Tls client with version 1.3
    */
   using Tls13VersionClient = client::tls::TlsVersion13;
+
+  /**
+   * @brief  Type alias for Tls server with version 1.2
+   */
+  using Tls12VersionServer = server::tls::TlsVersion12;
+
+  /**
+   * @brief  Type alias for Tls server with version 1.3
+   */
+  using Tls13VersionServer = server::tls::TlsVersion13;
 
   /**
    * @brief  Type alias for boost ssl context
@@ -55,6 +66,28 @@ class TlsContext final {
    *                The path to root CA certificate
    */
   TlsContext(Tls13VersionClient client, std::string_view ca_certification_path) noexcept;
+
+  /**
+   * @brief         Constructs an instance of TlsContext
+   * @param[in]     server
+   *                The Tls 1.2 version server
+   * @param[in]     certificate_path
+   *                The path to root CA certificate
+   * @param[in]     private_key_path
+   *                The path to private key
+   */
+  TlsContext(Tls12VersionServer server, std::string_view certificate_path, std::string_view private_key_path) noexcept;
+
+  /**
+   * @brief         Constructs an instance of TlsContext
+   * @param[in]     server
+   *                The Tls 1.2 version server
+   * @param[in]     certificate_path
+   *                The path to root CA certificate
+   * @param[in]     private_key_path
+   *                The path to private key
+   */
+  TlsContext(Tls13VersionServer server, std::string_view certificate_path, std::string_view private_key_path) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor
