@@ -16,21 +16,27 @@
 namespace boost_support {
 namespace server {
 namespace tls {
-
+namespace detail {
+/**
+ * @brief    Template type for Tls version
+ * @tparam   CipherSuite
+ *           The supported cipher suites in corresponding tls version
+ */
 template<typename CipherSuite>
 struct TlsVersion {
   std::initializer_list<CipherSuite> cipher_suites{};
 };
+}  // namespace detail
 
 /**
  * @brief  Strong type for TLS version 1.2
  */
-using TlsVersion12 = TlsVersion<Tls12CipherSuites>;
+using TlsVersion12 = detail::TlsVersion<Tls12CipherSuites>;
 
 /**
  * @brief  Strong type for TLS version 1.3
  */
-using TlsVersion13 = TlsVersion<Tls13CipherSuites>;
+using TlsVersion13 = detail::TlsVersion<Tls13CipherSuites>;
 
 }  // namespace tls
 }  // namespace server

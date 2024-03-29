@@ -12,6 +12,7 @@
 #include <boost/asio.hpp>
 
 #include "boost-support/common/logger.h"
+#include "boost-support/server/tls/tls_version.h"
 #include "boost-support/socket/tls/tls_context.h"
 #include "boost-support/socket/tls/tls_socket.h"
 
@@ -81,8 +82,8 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
       tls_server.emplace(TlsSocket{std::move(accepted_socket), tls_context_});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
-            msg << "Tls socket connection received from client "
-                << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
+            msg << "Tls socket connection received from client " << "<" << endpoint.address().to_string() << ","
+                << endpoint.port() << ">";
           });
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
@@ -129,6 +130,9 @@ template<typename TlsVersion>
 std::optional<TlsServer> TlsAcceptor<TlsVersion>::GetTlsServer() noexcept {
   return tls_acceptor_impl_->GetTlsServer();
 }
+
+template class TlsAcceptor<TlsVersion13>;
+template class TlsAcceptor<TlsVersion12>;
 
 }  // namespace tls
 }  // namespace server

@@ -46,7 +46,7 @@ class TcpMessage final {
   /**
    * @brief    Type alias for underlying buffer
    */
-  using BufferType = std::vector<uint8_t>;
+  using BufferType = std::vector<std::uint8_t>;
 
   /**
    * @brief    Type alias of IP address type

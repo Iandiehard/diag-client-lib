@@ -247,6 +247,7 @@ core_type::Result<void> TlsClient<TlsVersion>::Transmit(MessageConstPtr tcp_mess
 
 template class TlsClient<TlsVersion13>;
 template class TlsClient<TlsVersion12>;
+
 }  // namespace tls
 }  // namespace client
 }  // namespace boost_support
