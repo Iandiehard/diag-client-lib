@@ -83,8 +83,8 @@ class BoostSupportErrorDomain final : public core_type::ErrorDomain {
  * @return      ErrorCode
  *              A new ErrorCode instance
  */
-auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
-    -> core_type::ErrorCode;
+auto MakeErrorCode(BoostSupportErrorDomain::Errc code,
+                   BoostSupportErrorDomain::SupportDataType data) noexcept -> core_type::ErrorCode;
 
 /**
  * @brief       Create a new ErrorCode within DoipErrorDomain.

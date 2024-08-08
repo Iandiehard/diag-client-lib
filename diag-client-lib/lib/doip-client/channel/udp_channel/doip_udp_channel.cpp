@@ -21,10 +21,12 @@ udp_channel::DoipUdpChannel::DoipUdpChannel(UdpSocketHandler udp_socket_handler_
       connection_{connection} {}
 
 void DoipUdpChannel::Start() {
-  udp_socket_handler_broadcast_.SetReadHandler(
-      [this](UdpMessagePtr udp_message) noexcept { ProcessReceivedUdpBroadcast(std::move(udp_message)); });
-  udp_socket_handler_unicast_.SetReadHandler(
-      [this](UdpMessagePtr udp_message) noexcept { ProcessReceivedUdpUnicast(std::move(udp_message)); });
+  udp_socket_handler_broadcast_.SetReadHandler([this](UdpMessagePtr udp_message) noexcept {
+    ProcessReceivedUdpBroadcast(std::move(udp_message));
+  });
+  udp_socket_handler_unicast_.SetReadHandler([this](UdpMessagePtr udp_message) noexcept {
+    ProcessReceivedUdpUnicast(std::move(udp_message));
+  });
   udp_socket_handler_broadcast_.Initialize();
   udp_socket_handler_unicast_.Initialize();
 }
@@ -50,12 +52,13 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipUdpChannel::Trans
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
 DoipUdpChannel::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::Address target_addr,
-                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
-                                std::size_t size, uds_transport::Priority priority,
+                                uds_transport::UdsMessage::TargetAddressType type,
+                                uds_transport::ChannelID channel_id, std::size_t size,
+                                uds_transport::Priority priority,
                                 uds_transport::ProtocolKind protocol_kind,
                                 core_type::Span<std::uint8_t const> payload_info) {
-  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                     payload_info);
+  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
+                                     protocol_kind, payload_info);
 }
 
 void DoipUdpChannel::HandleMessage(uds_transport::UdsMessagePtr message) {

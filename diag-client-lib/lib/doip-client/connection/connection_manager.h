@@ -48,9 +48,9 @@ class ConnectionManager final {
    *              The local port number
    * @return      The unique pointer to tcp connection created
    */
-  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(uds_transport::ConversionHandler const &conversation,
-                                                                 std::string_view tcp_ip_address,
-                                                                 std::uint16_t port_num);
+  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(
+      uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address,
+      std::uint16_t port_num);
 
   /**
    * @brief       Function to find or create a new Udp connection
@@ -62,9 +62,9 @@ class ConnectionManager final {
    *              The local port number
    * @return      The unique pointer to udp connection created
    */
-  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(uds_transport::ConversionHandler const &conversation,
-                                                                 std::string_view udp_ip_address,
-                                                                 std::uint16_t port_num);
+  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(
+      uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address,
+      std::uint16_t port_num);
 
  private:
   /**

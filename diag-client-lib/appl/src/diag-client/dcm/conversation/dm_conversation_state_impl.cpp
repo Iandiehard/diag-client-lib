@@ -14,10 +14,12 @@ ConversationStateImpl::ConversationStateImpl()
     : conversation_state_{std::make_unique<StateContext<ConversationState>>()} {
   // create and add state
   // kIdle
-  GetConversationStateContext().AddState(ConversationState::kIdle, std::make_unique<kIdle>(ConversationState::kIdle));
+  GetConversationStateContext().AddState(ConversationState::kIdle,
+                                         std::make_unique<kIdle>(ConversationState::kIdle));
   // kDiagWaitForRes
-  GetConversationStateContext().AddState(ConversationState::kDiagWaitForRes,
-                                         std::make_unique<kDiagWaitForRes>(ConversationState::kDiagWaitForRes));
+  GetConversationStateContext().AddState(
+      ConversationState::kDiagWaitForRes,
+      std::make_unique<kDiagWaitForRes>(ConversationState::kDiagWaitForRes));
   // kDiagStartP2StarTimer
   GetConversationStateContext().AddState(
       ConversationState::kDiagStartP2StarTimer,
@@ -27,16 +29,19 @@ ConversationStateImpl::ConversationStateImpl()
       ConversationState::kDiagRecvdPendingRes,
       std::make_unique<kDiagRecvdPendingRes>(ConversationState::kDiagRecvdPendingRes));
   // kDiagRecvdFinalRes
-  GetConversationStateContext().AddState(ConversationState::kDiagRecvdFinalRes,
-                                         std::make_unique<kDiagRecvdFinalRes>(ConversationState::kDiagRecvdFinalRes));
+  GetConversationStateContext().AddState(
+      ConversationState::kDiagRecvdFinalRes,
+      std::make_unique<kDiagRecvdFinalRes>(ConversationState::kDiagRecvdFinalRes));
   // kDiagSuccess
-  GetConversationStateContext().AddState(ConversationState::kDiagSuccess,
-                                         std::make_unique<kDiagSuccess>(ConversationState::kDiagSuccess));
+  GetConversationStateContext().AddState(
+      ConversationState::kDiagSuccess,
+      std::make_unique<kDiagSuccess>(ConversationState::kDiagSuccess));
   // transit to idle state
   GetConversationStateContext().TransitionTo(ConversationState::kIdle);
 }
 
-auto ConversationStateImpl::GetConversationStateContext() noexcept -> StateContext<ConversationState>& {
+auto ConversationStateImpl::GetConversationStateContext() noexcept
+    -> StateContext<ConversationState>& {
   return *conversation_state_;
 }
 
@@ -56,7 +61,8 @@ void kDiagWaitForRes::Stop() {}
 
 void kDiagWaitForRes::HandleMessage() {}
 
-kDiagStartP2StarTimer::kDiagStartP2StarTimer(ConversationState state) : State<ConversationState>(state) {}
+kDiagStartP2StarTimer::kDiagStartP2StarTimer(ConversationState state)
+    : State<ConversationState>(state) {}
 
 void kDiagStartP2StarTimer::Start() {}
 
@@ -64,7 +70,8 @@ void kDiagStartP2StarTimer::Stop() {}
 
 void kDiagStartP2StarTimer::HandleMessage() {}
 
-kDiagRecvdPendingRes::kDiagRecvdPendingRes(ConversationState state) : State<ConversationState>(state) {}
+kDiagRecvdPendingRes::kDiagRecvdPendingRes(ConversationState state)
+    : State<ConversationState>(state) {}
 
 void kDiagRecvdPendingRes::Start() {}
 

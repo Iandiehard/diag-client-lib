@@ -86,7 +86,8 @@ class Conversation {
    * @param[in]   connection
    *              The conversation connection object
    */
-  virtual void RegisterConnection(std::unique_ptr<::uds_transport::Connection> connection) noexcept = 0;
+  virtual void RegisterConnection(
+      std::unique_ptr<::uds_transport::Connection> connection) noexcept = 0;
 
   /**
    * @brief       Function to get the conversation handler from conversation object
@@ -104,14 +105,18 @@ class Conversation {
    * @return      ConnectResult
    *              Connection result returned
    */
-  virtual ConnectResult ConnectToDiagServer(std::uint16_t, IpAddress) noexcept { return ConnectResult::kConnectFailed; }
+  virtual ConnectResult ConnectToDiagServer(std::uint16_t, IpAddress) noexcept {
+    return ConnectResult::kConnectFailed;
+  }
 
   /**
    * @brief       Function to disconnect from Diagnostic Server
    * @return      DisconnectResult
    *              Disconnection result returned
    */
-  virtual DisconnectResult DisconnectFromDiagServer() noexcept { return DisconnectResult::kDisconnectFailed; }
+  virtual DisconnectResult DisconnectFromDiagServer() noexcept {
+    return DisconnectResult::kDisconnectFailed;
+  }
 
   /**
    * @brief       Function to indicate a start of reception of message
@@ -138,10 +143,13 @@ class Conversation {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  virtual std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr>
-  IndicateMessage(::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
-                  ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id,
-                  std::size_t size, ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+  virtual std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+                    ::uds_transport::UdsMessagePtr>
+  IndicateMessage(::uds_transport::UdsMessage::Address source_addr,
+                  ::uds_transport::UdsMessage::Address target_addr,
+                  ::uds_transport::UdsMessage::TargetAddressType type,
+                  ::uds_transport::ChannelID channel_id, std::size_t size,
+                  ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
                   core_type::Span<std::uint8_t const> payload_info) noexcept = 0;
 
   /**
@@ -163,7 +171,8 @@ class Conversation {
    */
   virtual Result<uds_message::UdsResponseMessagePtr, DiagError> SendDiagnosticRequest(
       uds_message::UdsRequestMessageConstPtr) noexcept {
-    return Result<uds_message::UdsResponseMessagePtr, DiagError>::FromError(DiagError::kDiagRequestSendFailed);
+    return Result<uds_message::UdsResponseMessagePtr, DiagError>::FromError(
+        DiagError::kDiagRequestSendFailed);
   }
 
   /**
@@ -175,9 +184,9 @@ class Conversation {
   virtual core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
                             DiagClient::VehicleInfoResponseError>
   SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType) noexcept {
-    return core_type::Result<
-        diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
-        DiagClient::VehicleInfoResponseError>::FromError(DiagClient::VehicleInfoResponseError::kTransmitFailed);
+    return core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
+                             DiagClient::VehicleInfoResponseError>::
+        FromError(DiagClient::VehicleInfoResponseError::kTransmitFailed);
   }
 
   /**

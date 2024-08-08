@@ -44,7 +44,8 @@ class DoipUdpChannel final {
    * @param[in]     connection
    *                The reference to tcp transport handler
    */
-  DoipUdpChannel(UdpSocketHandler udp_socket_handler_broadcast, UdpSocketHandler udp_socket_handler_unicast,
+  DoipUdpChannel(UdpSocketHandler udp_socket_handler_broadcast,
+                 UdpSocketHandler udp_socket_handler_unicast,
                  uds_transport::Connection &connection);
 
   /**
@@ -87,11 +88,13 @@ class DoipUdpChannel final {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
-      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
-      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t const> payload_info);
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+  IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                  uds_transport::UdsMessage::Address target_addr,
+                  uds_transport::UdsMessage::TargetAddressType type,
+                  uds_transport::ChannelID channel_id, std::size_t size,
+                  uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+                  core_type::Span<std::uint8_t const> payload_info);
 
   /**
    * @brief       Function to Hands over a valid received Uds message to upper layer
@@ -122,7 +125,8 @@ class DoipUdpChannel final {
    * @param[in]   message
    *              The vehicle identification message
    */
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      uds_transport::UdsMessageConstPtr message);
 
  private:
   /**

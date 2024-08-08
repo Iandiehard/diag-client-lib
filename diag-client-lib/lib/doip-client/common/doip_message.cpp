@@ -28,7 +28,8 @@ auto ConvertToAddr(core_type::Span<std::uint8_t const> payload) noexcept -> std:
 }  // namespace
 
 DoipMessage::DoipMessage(MessageType message_type, DoipMessage::IpAddressType host_ip_address,
-                         std::uint16_t host_port_number, core_type::Span<std::uint8_t const> payload)
+                         std::uint16_t host_port_number,
+                         core_type::Span<std::uint8_t const> payload)
     : host_ip_address_{host_ip_address},
       host_port_number_{host_port_number},
       protocol_version_{payload[0u]},
@@ -40,15 +41,19 @@ DoipMessage::DoipMessage(MessageType message_type, DoipMessage::IpAddressType ho
   constexpr std::uint8_t kDoipHeaderSize{8u};
   constexpr std::uint8_t kSourceAddressSize{4u};
   if (message_type == MessageType::kTcp) {
-    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize + kSourceAddressSize],
-                                                   payload.size() - (kDoipHeaderSize + kSourceAddressSize)};
+    payload_ = core_type::Span<std::uint8_t const>{
+        &payload[kDoipHeaderSize + kSourceAddressSize],
+        payload.size() - (kDoipHeaderSize + kSourceAddressSize)};
   } else {
-    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], payload.size() - kDoipHeaderSize};
+    payload_ = core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize],
+                                                   payload.size() - kDoipHeaderSize};
   }
 
   if (message_type == MessageType::kTcp) {
-    client_address_ = ConvertToAddr(core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], 2u});
-    server_address_ = ConvertToAddr(core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize + 2u], 2u});
+    client_address_ =
+        ConvertToAddr(core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize], 2u});
+    server_address_ =
+        ConvertToAddr(core_type::Span<std::uint8_t const>{&payload[kDoipHeaderSize + 2u], 2u});
   }  // no client
 }
 

@@ -43,7 +43,8 @@ class VehicleIdentificationHandler final {
    * @param[in]     channel
    *                The reference to doip udp channel
    */
-  VehicleIdentificationHandler(sockets::UdpSocketHandler &udp_socket_handler, DoipUdpChannel &channel);
+  VehicleIdentificationHandler(sockets::UdpSocketHandler &udp_socket_handler,
+                               DoipUdpChannel &channel);
 
   /**
    * @brief         Destruct an instance of VehicleIdentificationHandler
@@ -56,7 +57,8 @@ class VehicleIdentificationHandler final {
    *              The vehicle identification request
    * @return      Transmission result
    */
-  auto HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto HandleVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   /**
@@ -73,7 +75,8 @@ class VehicleIdentificationHandler final {
    *              The vehicle identification request
    * @return      Transmission result
    */
-  auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto SendVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
  private:

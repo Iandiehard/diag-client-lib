@@ -47,8 +47,8 @@ class DoipMessage final {
    * @param[in]     payload
    *                The received data payload
    */
-  DoipMessage(MessageType message_type, IpAddressType host_ip_address, std::uint16_t host_port_number,
-              core_type::Span<std::uint8_t const> payload);
+  DoipMessage(MessageType message_type, IpAddressType host_ip_address,
+              std::uint16_t host_port_number, core_type::Span<std::uint8_t const> payload);
 
   /**
    * @brief         Default copy assignment, copy constructor, move assignment and move constructor

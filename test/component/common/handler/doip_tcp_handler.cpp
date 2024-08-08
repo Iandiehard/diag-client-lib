@@ -61,23 +61,27 @@ auto GetVmSpecific(core_type::Span<std::uint8_t const> payload) noexcept -> std:
 
 }  // namespace
 
-DoipTcpHandler::DoipTcpHandler(boost_support::server::tcp::TcpServer tcp_server) : tcp_server_{std::move(tcp_server)} {}
+DoipTcpHandler::DoipTcpHandler(boost_support::server::tcp::TcpServer tcp_server)
+    : tcp_server_{std::move(tcp_server)} {}
 
 void DoipTcpHandler::Initialize() {
-  tcp_server_.SetReadHandler(
-      [this](TcpServer::MessagePtr tcp_message) { ProcessReceivedTcpMessage(std::move(tcp_message)); });
+  tcp_server_.SetReadHandler([this](TcpServer::MessagePtr tcp_message) {
+    ProcessReceivedTcpMessage(std::move(tcp_message));
+  });
   tcp_server_.Initialize();
 }
 
 void DoipTcpHandler::DeInitialize() { tcp_server_.DeInitialize(); }
 
-void DoipTcpHandler::SendTcpMessage(boost_support::server::tcp::TcpServer::MessageConstPtr tcp_message) noexcept {
+void DoipTcpHandler::SendTcpMessage(
+    boost_support::server::tcp::TcpServer::MessageConstPtr tcp_message) noexcept {
   EXPECT_TRUE(tcp_server_.Transmit(std::move(tcp_message)).HasValue());
 }
 
-void DoipTcpHandler::ProcessReceivedTcpMessage(boost_support::server::tcp::TcpServer::MessagePtr tcp_message) {
-  message::DoipMessage doip_message{tcp_message->GetHostIpAddress(), tcp_message->GetHostPortNumber(),
-                                    tcp_message->GetPayload()};
+void DoipTcpHandler::ProcessReceivedTcpMessage(
+    boost_support::server::tcp::TcpServer::MessagePtr tcp_message) {
+  message::DoipMessage doip_message{tcp_message->GetHostIpAddress(),
+                                    tcp_message->GetHostPortNumber(), tcp_message->GetPayload()};
   switch (doip_message.GetPayloadType()) {
     case kDoipRoutingActivationReqType: {
       std::uint16_t const client_source_address{ConvertToAddr(doip_message.GetPayload())};
@@ -99,15 +103,18 @@ void DoipTcpHandler::ProcessReceivedTcpMessage(boost_support::server::tcp::TcpSe
     case kDoipDiagMessage: {
       constexpr std::uint8_t kSourceAddressSize{4u};
       std::uint16_t const client_source_address{ConvertToAddr(doip_message.GetPayload())};
-      std::uint16_t const server_target_address{ConvertToAddr({&doip_message.GetPayload()[2u], 2u})};
+      std::uint16_t const server_target_address{
+          ConvertToAddr({&doip_message.GetPayload()[2u], 2u})};
       core_type::Span<std::uint8_t const> diag_request{core_type::Span<std::uint8_t const>{
-          &doip_message.GetPayload()[kSourceAddressSize], doip_message.GetPayload().size() - kSourceAddressSize}};
+          &doip_message.GetPayload()[kSourceAddressSize],
+          doip_message.GetPayload().size() - kSourceAddressSize}};
       ProcessDiagnosticRequestMessage(client_source_address, server_target_address, diag_request);
     } break;
   }
 }
 
-auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
+auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address,
+                                      std::uint16_t server_logical_address,
                                       std::uint8_t activation_response_code,
                                       std::optional<std::uint32_t> vm_specific) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr {
@@ -133,7 +140,8 @@ auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std:
   return response;
 }
 
-auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address,
+                                                     std::uint16_t target_address,
                                                      std::uint8_t ack_code) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr {
   // Create header
@@ -153,7 +161,8 @@ auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_addres
   return response;
 }
 
-auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address,
+                                                     std::uint16_t target_address,
                                                      std::uint8_t ack_code) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr {
   // Create header
@@ -180,8 +189,8 @@ auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_
   constexpr std::uint8_t kDoipHeaderSize{8u};
   constexpr std::uint8_t kSourceAddressSize{4u};
   // Create header
-  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{
-      CreateDoipGenericHeader(kDoipDiagMessage, kDoipDiagMessageReqResMinLen + diag_response.size())};
+  DoipTcpHandler::TcpServer::Message::BufferType response_buffer{CreateDoipGenericHeader(
+      kDoipDiagMessage, kDoipDiagMessageReqResMinLen + diag_response.size())};
   // Add SA
   response_buffer.emplace_back(source_address >> 8U);
   response_buffer.emplace_back(source_address & 0xFFU);
@@ -189,8 +198,8 @@ auto ComposeDiagnosticResponseMessage(std::uint16_t source_address, std::uint16_
   response_buffer.emplace_back(target_address >> 8U);
   response_buffer.emplace_back(target_address & 0xFFU);
   // Copy data bytes
-  response_buffer.insert(response_buffer.begin() + kDoipHeaderSize + kSourceAddressSize, diag_response.cbegin(),
-                         diag_response.cend());
+  response_buffer.insert(response_buffer.begin() + kDoipHeaderSize + kSourceAddressSize,
+                         diag_response.cbegin(), diag_response.cend());
 
   DoipTcpHandler::TcpServer::MessagePtr response{
       std::make_unique<DoipTcpHandler::TcpServer::Message>("", 0u, std::move(response_buffer))};

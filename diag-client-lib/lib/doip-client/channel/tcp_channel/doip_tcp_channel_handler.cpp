@@ -63,7 +63,8 @@ constexpr std::uint32_t kDoipRoutingActivationResMaxLen{13u};  //with OEM specif
 
 }  // namespace
 
-DoipTcpChannelHandler::DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
+DoipTcpChannelHandler::DoipTcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler,
+                                             DoipTcpChannel &channel)
     : routing_activation_handler_{tcp_socket_handler},
       diagnostic_message_handler_{tcp_socket_handler, channel} {}
 
@@ -85,10 +86,12 @@ void DoipTcpChannelHandler::Reset() {
 auto DoipTcpChannelHandler::SendRoutingActivationRequest(
     uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
     -> uds_transport::UdsTransportProtocolMgr::ConnectionResult {
-  return routing_activation_handler_.HandleRoutingActivationRequest(std::move(routing_activation_request));
+  return routing_activation_handler_.HandleRoutingActivationRequest(
+      std::move(routing_activation_request));
 }
 
-auto DoipTcpChannelHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
+auto DoipTcpChannelHandler::SendDiagnosticRequest(
+    uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   return diagnostic_message_handler_.HandleDiagnosticRequest(std::move(diagnostic_request));
 }
@@ -110,13 +113,16 @@ auto DoipTcpChannelHandler::IsRoutingActivated() noexcept -> bool {
   return routing_activation_handler_.IsRoutingActivated();
 }
 
-auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std::uint8_t &nack_code) noexcept -> bool {
+auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message,
+                                              std::uint8_t &nack_code) noexcept -> bool {
   bool ret_val = false;
   /* Check the header synchronisation pattern */
   if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion) &&
-       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion))) ||
+       (doip_rx_message.GetInverseProtocolVersion() ==
+        static_cast<std::uint8_t>(~kDoip_ProtocolVersion))) ||
       ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_Def) &&
-       (doip_rx_message.GetInverseProtocolVersion() == static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {
+       (doip_rx_message.GetInverseProtocolVersion() ==
+        static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {
     /* Check the supported payload type */
     if ((doip_rx_message.GetPayloadType() == kDoip_RoutingActivation_ResType) ||
         (doip_rx_message.GetPayloadType() == kDoipDiagMessagePosAck) ||
@@ -128,7 +134,8 @@ auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std:
         /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00018] */
         if (doip_rx_message.GetPayloadLength() <= kTcpChannelLength) {
           /* Req-[AUTOSAR_SWS_DiagnosticOverIP][SWS_DoIP_00019] */
-          if (ProcessDoIPPayloadLength(doip_rx_message.GetPayloadLength(), doip_rx_message.GetPayloadType())) {
+          if (ProcessDoIPPayloadLength(doip_rx_message.GetPayloadLength(),
+                                       doip_rx_message.GetPayloadType())) {
             ret_val = true;
           } else {
             // Send NACK code 0x04, close the socket
@@ -153,8 +160,8 @@ auto DoipTcpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message, std:
   return ret_val;
 }
 
-auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_length, std::uint16_t payload_type) noexcept
-    -> bool {
+auto DoipTcpChannelHandler::ProcessDoIPPayloadLength(std::uint32_t payload_length,
+                                                     std::uint16_t payload_type) noexcept -> bool {
   bool ret_val{false};
   switch (payload_type) {
     case kDoip_RoutingActivation_ResType: {

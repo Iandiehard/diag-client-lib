@@ -38,7 +38,8 @@ class UdsTransportProtocolHandler {
    * @param[in]     transport_protocol_mgr
    *                The reference to transport protocol manager
    */
-  UdsTransportProtocolHandler(UdsTransportProtocolHandlerId const handler_id, UdsTransportProtocolMgr const&)
+  UdsTransportProtocolHandler(UdsTransportProtocolHandlerId const handler_id,
+                              UdsTransportProtocolMgr const&)
       : handler_id_{handler_id} {}
 
   /**
@@ -79,7 +80,8 @@ class UdsTransportProtocolHandler {
    * @return      The unique pointer to Connection created
    */
   virtual std::unique_ptr<Connection> CreateTcpConnection(ConversionHandler& conversion_handler,
-                                                          std::string_view tcpIpaddress, uint16_t portNum) = 0;
+                                                          std::string_view tcpIpaddress,
+                                                          uint16_t portNum) = 0;
 
   /**
    * @brief       Function to create a new Udp connection
@@ -92,7 +94,8 @@ class UdsTransportProtocolHandler {
    * @return      The unique pointer to Connection created
    */
   virtual std::unique_ptr<Connection> CreateUdpConnection(ConversionHandler& conversion_handler,
-                                                          std::string_view udpIpaddress, uint16_t portNum) = 0;
+                                                          std::string_view udpIpaddress,
+                                                          uint16_t portNum) = 0;
 
  protected:
   /**

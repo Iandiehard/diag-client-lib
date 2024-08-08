@@ -52,7 +52,8 @@ class TcpAcceptor::TcpAcceptorImpl final {
                   std::uint8_t maximum_connection) noexcept
       : io_context_{},
         acceptor_{io_context_,
-                  Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()), local_port_num)} {
+                  Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()),
+                                local_port_num)} {
     acceptor_.listen(maximum_connection);
   }
 
@@ -78,8 +79,9 @@ class TcpAcceptor::TcpAcceptorImpl final {
           });
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tcp socket accept failed with error: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tcp socket accept failed with error: " << ec.message();
+          });
     }
     return tcp_server;
   }
@@ -103,11 +105,14 @@ class TcpAcceptor::TcpAcceptorImpl final {
 
 TcpAcceptor::TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
                          std::uint8_t maximum_connection) noexcept
-    : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(local_ip_address, local_port_num, maximum_connection)} {}
+    : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(local_ip_address, local_port_num,
+                                                           maximum_connection)} {}
 
 TcpAcceptor::~TcpAcceptor() noexcept = default;
 
-std::optional<TcpServer> TcpAcceptor::GetTcpServer() noexcept { return tcp_acceptor_impl_->GetTcpServer(); }
+std::optional<TcpServer> TcpAcceptor::GetTcpServer() noexcept {
+  return tcp_acceptor_impl_->GetTcpServer();
+}
 
 }  // namespace tcp
 }  // namespace server

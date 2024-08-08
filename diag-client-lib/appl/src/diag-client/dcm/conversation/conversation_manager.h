@@ -35,8 +35,9 @@ class ConversationManager final {
    * @param[in]     uds_transport_mgr
    *                The reference to Uds transport manger
    */
-  ConversationManager(diag::client::config_parser::DcmClientConfig config,
-                      diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr) noexcept;
+  ConversationManager(
+      diag::client::config_parser::DcmClientConfig config,
+      diag::client::uds_transport::UdsTransportProtocolManager &uds_transport_mgr) noexcept;
 
   /**
    * @brief         Destructs an instance of ConversationManager
@@ -70,7 +71,8 @@ class ConversationManager final {
     /**
      * @brief      Store conversation type
      */
-    std::variant<conversation::DMConversationType, conversation::VDConversationType> conversation_type{};
+    std::variant<conversation::DMConversationType, conversation::VDConversationType>
+        conversation_type{};
 
     /**
      * @brief      Store pointer to conversation object

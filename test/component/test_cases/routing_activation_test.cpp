@@ -71,16 +71,17 @@ class RoutingActivationFixture : public component::ComponentTest {
   // Function to create a Tcp server with test expectation
   template<typename Functor>
   auto CreateServerWithExpectation(Functor expectation_functor) noexcept -> std::future<bool> {
-    return std::async(std::launch::async, [this, expectation_functor = std::move(expectation_functor)]() {
-      std::optional<TcpServer> server{tcp_acceptor_.GetTcpServer()};
-      if (server.has_value()) {
-        doip_tcp_handler_.emplace(std::move(server).value());
-        doip_tcp_handler_->Initialize();
-        // Set Expectation
-        expectation_functor();
-      }
-      return doip_tcp_handler_.has_value();
-    });
+    return std::async(std::launch::async,
+                      [this, expectation_functor = std::move(expectation_functor)]() {
+                        std::optional<TcpServer> server{tcp_acceptor_.GetTcpServer()};
+                        if (server.has_value()) {
+                          doip_tcp_handler_.emplace(std::move(server).value());
+                          doip_tcp_handler_->Initialize();
+                          // Set Expectation
+                          expectation_functor();
+                        }
+                        return doip_tcp_handler_.has_value();
+                      });
   }
 
  protected:
@@ -100,16 +101,18 @@ class RoutingActivationFixture : public component::ComponentTest {
 TEST_F(RoutingActivationFixture, VerifyRoutingActivationSuccessful) {
   std::future<bool> is_server_created{CreateServerWithExpectation([this]() {
     // Create an expectation of routing activation response
-    EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
-        .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
+    EXPECT_CALL(*doip_tcp_handler_,
+                ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
+        .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address,
+                                           std::uint8_t activation_type,
                                            std::optional<std::uint8_t> vm_specific) {
           EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
           EXPECT_EQ(activation_type, kDoipRoutingActivationReqActTypeDefault);
           EXPECT_FALSE(vm_specific.has_value());
           // Send Routing activation response
           doip_tcp_handler_->SendTcpMessage(common::handler::ComposeRoutingActivationResponse(
-              client_source_address, kDiagServerLogicalAddress, kDoipRoutingActivationResCodeRoutingSuccessful,
-              std::nullopt));
+              client_source_address, kDiagServerLogicalAddress,
+              kDoipRoutingActivationResCodeRoutingSuccessful, std::nullopt));
         }));
   })};
 
@@ -123,27 +126,33 @@ TEST_F(RoutingActivationFixture, VerifyRoutingActivationSuccessful) {
       diag_client_conversation.ConnectToDiagServer(kDiagServerLogicalAddress, kDiagTcpIpAddress)};
 
   ASSERT_TRUE(is_server_created.get());
-  EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
+  EXPECT_EQ(connect_result,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectSuccess);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};
 
-  EXPECT_EQ(disconnect_result,
-            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+  EXPECT_EQ(
+      disconnect_result,
+      diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
 
   diag_client_conversation.Shutdown();
 }
 
 class RoutingActivationFixtureValueParameter : public RoutingActivationFixture,
-                                               public ::testing::WithParamInterface<std::uint8_t> {};
+                                               public ::testing::WithParamInterface<std::uint8_t> {
+};
 
-INSTANTIATE_TEST_SUITE_P(
-    RoutingActivation, RoutingActivationFixtureValueParameter,
-    testing::Values(kDoipRoutingActivationResCodeUnknownSa, kDoipRoutingActivationResCodeAllSocketActive,
-                    kDoipRoutingActivationResCodeDifferentSa, kDoipRoutingActivationResCodeActiveSa,
-                    kDoipRoutingActivationResCodeAuthentnMissng, kDoipRoutingActivationResCodeConfirmtnRejectd,
-                    kDoipRoutingActivationResCodeUnsupportdActType, kDoipRoutingActivationResCodeTlsRequired,
-                    kDoipRoutingActivationResCodeConfirmtnRequired));
+INSTANTIATE_TEST_SUITE_P(RoutingActivation, RoutingActivationFixtureValueParameter,
+                         testing::Values(kDoipRoutingActivationResCodeUnknownSa,
+                                         kDoipRoutingActivationResCodeAllSocketActive,
+                                         kDoipRoutingActivationResCodeDifferentSa,
+                                         kDoipRoutingActivationResCodeActiveSa,
+                                         kDoipRoutingActivationResCodeAuthentnMissng,
+                                         kDoipRoutingActivationResCodeConfirmtnRejectd,
+                                         kDoipRoutingActivationResCodeUnsupportdActType,
+                                         kDoipRoutingActivationResCodeTlsRequired,
+                                         kDoipRoutingActivationResCodeConfirmtnRequired));
 
 /**
  * @brief  Verify that sending of routing activation request fails on reception of negative activation code .
@@ -151,8 +160,10 @@ INSTANTIATE_TEST_SUITE_P(
 TEST_P(RoutingActivationFixtureValueParameter, VerifyRoutingActivationFailure) {
   std::future<bool> is_server_created{CreateServerWithExpectation([this]() {
     // Create an expectation of routing activation response
-    EXPECT_CALL(*doip_tcp_handler_, ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
-        .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address, std::uint8_t activation_type,
+    EXPECT_CALL(*doip_tcp_handler_,
+                ProcessRoutingActivationRequestMessage(testing::_, testing::_, testing::_))
+        .WillOnce(::testing::Invoke([this](std::uint16_t client_source_address,
+                                           std::uint8_t activation_type,
                                            std::optional<std::uint8_t> vm_specific) {
           EXPECT_EQ(client_source_address, kDiagClientLogicalAddress);
           EXPECT_EQ(activation_type, kDoipRoutingActivationReqActTypeDefault);
@@ -173,13 +184,15 @@ TEST_P(RoutingActivationFixtureValueParameter, VerifyRoutingActivationFailure) {
       diag_client_conversation.ConnectToDiagServer(kDiagServerLogicalAddress, kDiagTcpIpAddress)};
 
   ASSERT_TRUE(is_server_created.get());
-  EXPECT_EQ(connect_result, diag::client::conversation::DiagClientConversation::ConnectResult::kConnectFailed);
+  EXPECT_EQ(connect_result,
+            diag::client::conversation::DiagClientConversation::ConnectResult::kConnectFailed);
 
   diag::client::conversation::DiagClientConversation::DisconnectResult disconnect_result{
       diag_client_conversation.DisconnectFromDiagServer()};
 
-  EXPECT_EQ(disconnect_result,
-            diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
+  EXPECT_EQ(
+      disconnect_result,
+      diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectSuccess);
 
   diag_client_conversation.Shutdown();
 }

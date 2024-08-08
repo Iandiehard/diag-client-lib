@@ -45,8 +45,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to fatal
    */
   template<typename Func>
-  auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogFatal(const std::string_view file_name, int line_no, const std::string_view func_name,
+                Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -72,8 +72,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to error
    */
   template<typename Func>
-  auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogError(const std::string_view file_name, int line_no, const std::string_view func_name,
+                Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -98,8 +98,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to warning
    */
   template<typename Func>
-  auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogWarn(const std::string_view file_name, int line_no, const std::string_view func_name,
+               Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -124,8 +124,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to info
    */
   template<typename Func>
-  auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogInfo(const std::string_view file_name, int line_no, const std::string_view func_name,
+               Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -150,8 +150,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to debug
    */
   template<typename Func>
-  auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogDebug(const std::string_view file_name, int line_no, const std::string_view func_name,
+                Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -176,8 +176,8 @@ class Logger final {
    *              The functor which gets invoked on log level set to verbose
    */
   template<typename Func>
-  auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name, Func &&func) noexcept
-      -> void {
+  auto LogVerbose(const std::string_view file_name, int line_no, const std::string_view func_name,
+                  Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
 #else
@@ -225,7 +225,8 @@ class Logger final {
    *              The functor which gets invoked
    */
   template<typename Func>
-  auto CreateLoggingMessage(const std::string_view file_name, const std::string_view /* func_name */, int line_no,
+  auto CreateLoggingMessage(const std::string_view file_name,
+                            const std::string_view /* func_name */, int line_no,
                             Func &&func) noexcept -> std::stringstream {
     std::stringstream msg{};
     func(msg);
@@ -248,11 +249,14 @@ class Logger final {
    */
 #ifdef ENABLE_DLT_LOGGER
   template<typename Func>
-  void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name, const std::string_view func_name,
-                     int line_no, Func &&func) {
+  void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name,
+                     const std::string_view func_name, int line_no, Func &&func) {
 
-    DLT_LOG(contxt_, log_level,
-            DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func)).str().c_str()));
+    DLT_LOG(
+        contxt_, log_level,
+        DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func))
+                        .str()
+                        .c_str()));
   }
 #endif
 

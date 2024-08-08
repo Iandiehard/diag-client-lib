@@ -81,8 +81,8 @@ class DCMClient final : public diag::client::common::DiagnosticManager {
    */
   core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
                     DiagClient::VehicleInfoResponseError>
-  SendVehicleIdentificationRequest(
-      diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
+  SendVehicleIdentificationRequest(diag::client::vehicle_info::VehicleInfoListRequestType
+                                       vehicle_info_request) noexcept override;
 
  private:
   /**

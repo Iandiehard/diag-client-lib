@@ -58,16 +58,19 @@ class DoipTcpHandler {
   TcpServer tcp_server_;
 };
 
-auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address, std::uint16_t server_logical_address,
+auto ComposeRoutingActivationResponse(std::uint16_t client_logical_address,
+                                      std::uint16_t server_logical_address,
                                       std::uint8_t activation_response_code,
                                       std::optional<std::uint32_t> vm_specific) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr;
 
-auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+auto ComposeDiagnosticPositiveAcknowledgementMessage(std::uint16_t source_address,
+                                                     std::uint16_t target_address,
                                                      std::uint8_t ack_code) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr;
 
-auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address, std::uint16_t target_address,
+auto ComposeDiagnosticNegativeAcknowledgementMessage(std::uint16_t source_address,
+                                                     std::uint16_t target_address,
                                                      std::uint8_t ack_code) noexcept
     -> DoipTcpHandler::TcpServer::MessagePtr;
 

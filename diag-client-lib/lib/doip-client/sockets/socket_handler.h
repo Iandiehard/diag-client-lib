@@ -98,7 +98,8 @@ class SocketHandler final {
    *                The host port number
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
+  core_type::Result<void> ConnectToHost(std::string_view host_ip_address,
+                                        std::uint16_t host_port_num) {
     return client_.ConnectToHost(host_ip_address, host_port_num);
   }
 
@@ -120,7 +121,9 @@ class SocketHandler final {
    *                The message to be sent
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> Transmit(MessageConstPtr message) { return client_.Transmit(std::move(message)); }
+  core_type::Result<void> Transmit(MessageConstPtr message) {
+    return client_.Transmit(std::move(message));
+  }
 
  private:
   /**

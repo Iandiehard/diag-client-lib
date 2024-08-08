@@ -117,9 +117,10 @@ auto ToOpenSslString(server::tls::Tls13CipherSuites cipher) noexcept -> std::str
 
 template<typename CipherType>
 auto ConvertCipherListToString(std::initializer_list<CipherType> ciphers) noexcept -> std::string {
-  return std::accumulate(
-      ciphers.begin(), ciphers.end(), std::string{},
-      [](std::string const& result, CipherType const& cipher) { return result + ':' + ToOpenSslString(cipher); });
+  return std::accumulate(ciphers.begin(), ciphers.end(), std::string{},
+                         [](std::string const& result, CipherType const& cipher) {
+                           return result + ':' + ToOpenSslString(cipher);
+                         });
 }
 }  // namespace
 
@@ -128,8 +129,8 @@ TlsContext::TlsContext(Tls12VersionClient client, std::string_view ca_certificat
   // Load the root CA certificates
   ssl_context_.load_verify_file(std::string{ca_certification_path});
   // Load the cipher suites
-  if (SSL_CTX_set_cipher_list(ssl_context_.native_handle(), ConvertCipherListToString(client.cipher_suites).c_str()) ==
-      0) {
+  if (SSL_CTX_set_cipher_list(ssl_context_.native_handle(),
+                              ConvertCipherListToString(client.cipher_suites).c_str()) == 0) {
     // Failure
   }
 }
@@ -139,8 +140,8 @@ TlsContext::TlsContext(Tls13VersionClient client, std::string_view ca_certificat
   // Load the root CA certificates
   ssl_context_.load_verify_file(std::string{ca_certification_path});
   // Load the cipher suites
-  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(), ConvertCipherListToString(client.cipher_suites).c_str()) ==
-      0) {
+  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(),
+                               ConvertCipherListToString(client.cipher_suites).c_str()) == 0) {
     // Failure
   }
 }
@@ -152,8 +153,8 @@ TlsContext::TlsContext(Tls12VersionServer server, std::string_view certificate_p
   ssl_context_.use_certificate_chain_file(std::string{certificate_path});
   ssl_context_.use_private_key_file(std::string{private_key_path}, boost::asio::ssl::context::pem);
   // Load the cipher suites
-  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(), ConvertCipherListToString(server.cipher_suites).c_str()) ==
-      0) {
+  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(),
+                               ConvertCipherListToString(server.cipher_suites).c_str()) == 0) {
     // Failure
   }
 }
@@ -165,8 +166,8 @@ TlsContext::TlsContext(Tls13VersionServer server, std::string_view certificate_p
   ssl_context_.use_certificate_chain_file(std::string{certificate_path});
   ssl_context_.use_private_key_file(std::string{private_key_path}, boost::asio::ssl::context::pem);
   // Load the cipher suites
-  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(), ConvertCipherListToString(server.cipher_suites).c_str()) ==
-      0) {
+  if (SSL_CTX_set_ciphersuites(ssl_context_.native_handle(),
+                               ConvertCipherListToString(server.cipher_suites).c_str()) == 0) {
     // Failure
   }
 }

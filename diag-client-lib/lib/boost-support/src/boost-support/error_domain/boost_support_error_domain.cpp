@@ -48,7 +48,8 @@ auto ConvertErrorCodeToString(core_type::ErrorDomain::CodeType error_code) noexc
 
 }  // namespace
 
-BoostSupportErrorDomain::BoostSupportErrorDomain() noexcept : core_type::ErrorDomain(unique_identifier) {}
+BoostSupportErrorDomain::BoostSupportErrorDomain() noexcept
+    : core_type::ErrorDomain(unique_identifier) {}
 
 const char* BoostSupportErrorDomain::Name() const noexcept { return domain_name_.c_str(); }
 
@@ -58,8 +59,8 @@ const char* BoostSupportErrorDomain::Message(core_type::ErrorDomain::CodeType er
   return message_.c_str();
 }
 
-auto MakeErrorCode(BoostSupportErrorDomain::Errc code, BoostSupportErrorDomain::SupportDataType data) noexcept
-    -> core_type::ErrorCode {
+auto MakeErrorCode(BoostSupportErrorDomain::Errc code,
+                   BoostSupportErrorDomain::SupportDataType data) noexcept -> core_type::ErrorCode {
   return {static_cast<core_type::ErrorDomain::CodeType>(code), boost_support_error_domain, data};
 }
 

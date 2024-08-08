@@ -36,14 +36,16 @@ class DoipUdpHandler {
    * @brief           Function that gets invoked on reception of Vehicle identification request message
    */
   MOCK_METHOD(void, ProcessVehicleIdentificationRequestMessage,
-              (std::string_view client_ip_address, std::uint16_t client_port_number, std::string_view eid,
-               std::string_view vin),
+              (std::string_view client_ip_address, std::uint16_t client_port_number,
+               std::string_view eid, std::string_view vin),
               (noexcept));
 
-  auto ComposeVehicleIdentificationResponse(std::string_view remote_ip_address, std::uint16_t remote_port_number,
-                                            std::string_view vin, std::uint16_t logical_address, std::string_view eid,
+  auto ComposeVehicleIdentificationResponse(std::string_view remote_ip_address,
+                                            std::uint16_t remote_port_number, std::string_view vin,
+                                            std::uint16_t logical_address, std::string_view eid,
                                             std::string_view gid, std::uint8_t action_byte,
-                                            std::optional<std::uint8_t> sync_status) noexcept -> UdpServer::MessagePtr;
+                                            std::optional<std::uint8_t> sync_status) noexcept
+      -> UdpServer::MessagePtr;
 
   void SendUdpMessage(UdpServer::MessageConstPtr udp_message) noexcept;
 

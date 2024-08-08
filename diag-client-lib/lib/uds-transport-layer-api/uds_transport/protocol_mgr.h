@@ -34,7 +34,11 @@ class UdsTransportProtocolMgr {
     kBusyProcessing
   };
   // Result for connection to remote endpoint
-  enum class ConnectionResult : std::uint8_t { kConnectionOk = 0U, kConnectionFailed, kConnectionTimeout };
+  enum class ConnectionResult : std::uint8_t {
+    kConnectionOk = 0U,
+    kConnectionFailed,
+    kConnectionTimeout
+  };
   // Result for disconnection to remote endpoint
   enum class DisconnectionResult : std::uint8_t { kDisconnectionOk = 0U, kDisconnectionFailed };
 

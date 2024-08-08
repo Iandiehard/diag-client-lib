@@ -157,8 +157,8 @@ class Result final {
    * @param[in]   other
    *              The other instance
    */
-  Result(Result &&other) noexcept(
-      std::is_nothrow_move_constructible<T>::value &&std::is_nothrow_move_constructible<E>::value) = default;
+  Result(Result &&other) noexcept(std::is_nothrow_move_constructible<T>::value
+                                      &&std::is_nothrow_move_constructible<E>::value) = default;
 
   /**
    * @brief       Move-assign another Result to this instance
@@ -169,7 +169,8 @@ class Result final {
    */
   Result &operator=(Result &&other) noexcept(
       std::is_nothrow_move_constructible<T>::value &&std::is_nothrow_move_assignable<T>::value
-          &&std::is_nothrow_move_constructible<E>::value &&std::is_nothrow_move_assignable<E>::value) = default;
+          &&std::is_nothrow_move_constructible<E>::value
+              &&std::is_nothrow_move_assignable<E>::value) = default;
 
   /**
    * @brief      Destruct an instance of Result
@@ -326,7 +327,8 @@ class Result final {
    */
   template<typename F, typename R2 = typename std::invoke_result_t<F, value_type &&>>
   auto AndThen(F &&fn) &&noexcept -> R2 {
-    return HasValue() ? std::forward<F>(fn)(std::move(*this).Value()) : R2{std::move(*this).Error()};
+    return HasValue() ? std::forward<F>(fn)(std::move(*this).Value())
+                      : R2{std::move(*this).Error()};
   }
 
   /**
@@ -341,7 +343,8 @@ class Result final {
    */
   template<typename F, typename E2 = std::invoke_result_t<F, E>>
   Result<T, E2> MapError(F &&fn) {
-    return HasValue() ? Result<T, E2>{std::move(*this).Value()} : Result<T, E2>{fn(std::move(*this).Error())};
+    return HasValue() ? Result<T, E2>{std::move(*this).Value()}
+                      : Result<T, E2>{fn(std::move(*this).Error())};
   }
 
   /**
@@ -554,7 +557,8 @@ class Result<void, E> final {
    *              *this, containing the contents of other
    */
   Result &operator=(Result &&other) noexcept(
-      std::is_nothrow_move_constructible<E>::value &&std::is_nothrow_move_assignable<E>::value) = default;
+      std::is_nothrow_move_constructible<E>::value &&std::is_nothrow_move_assignable<E>::value) =
+      default;
 
   /**
    * @brief      Destruct an instance of Result

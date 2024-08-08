@@ -25,7 +25,8 @@ class TlsServer::TlsServerImpl final {
   /**
    * @brief     Type alias for secured tcp connection
    */
-  using TcpConnectionSecured = connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
+  using TcpConnectionSecured =
+      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
 
   /**
    * @brief         Constructs an instance of TcpServerImpl
@@ -67,7 +68,9 @@ class TlsServer::TlsServerImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) noexcept { tcp_connection_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    tcp_connection_.SetReadHandler(std::move(read_handler));
+  }
 
   /**
    * @brief         Function to transmit the provided tcp message

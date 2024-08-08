@@ -78,7 +78,9 @@ class UdpMessage final {
    * @brief       Get the readable view on received payload
    * @return      The view on payload
    */
-  core_type::Span<std::uint8_t const> GetPayload() const { return core_type::Span<std::uint8_t const>{payload_}; }
+  core_type::Span<std::uint8_t const> GetPayload() const {
+    return core_type::Span<std::uint8_t const>{payload_};
+  }
 
  private:
   /**

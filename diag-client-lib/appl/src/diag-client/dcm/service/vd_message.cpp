@@ -14,7 +14,8 @@ namespace diag {
 namespace client {
 namespace vd_message {
 
-auto SerializeVehicleInfoList(std::uint8_t preselection_mode, uds_transport::ByteVector& preselection_value) noexcept
+auto SerializeVehicleInfoList(std::uint8_t preselection_mode,
+                              uds_transport::ByteVector& preselection_value) noexcept
     -> uds_transport::ByteVector {
   constexpr std::uint8_t VehicleIdentificationHandler{0U};
 

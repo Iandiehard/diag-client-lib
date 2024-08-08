@@ -27,7 +27,8 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
   /**
    * @brief  Type alias for handler id
    */
-  using UdsTransportProtocolHandlerId = uds_transport::UdsTransportProtocolHandler::UdsTransportProtocolHandlerId;
+  using UdsTransportProtocolHandlerId =
+      uds_transport::UdsTransportProtocolHandler::UdsTransportProtocolHandlerId;
 
   /**
    * @brief  Type alias for Initialization result
@@ -41,8 +42,9 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
    * @param[in]     transport_protocol_mgr
    *                The reference to transport protocol manager
    */
-  DoipTransportProtocolHandler(UdsTransportProtocolHandlerId handler_id,
-                               uds_transport::UdsTransportProtocolMgr const &transport_protocol_mgr);
+  DoipTransportProtocolHandler(
+      UdsTransportProtocolHandlerId handler_id,
+      uds_transport::UdsTransportProtocolMgr const &transport_protocol_mgr);
 
   /**
    * @brief         Destruct an instance of DoipTransportProtocolHandler
@@ -75,9 +77,9 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
    *              The local port number
    * @return      The unique pointer to the connection created
    */
-  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(uds_transport::ConversionHandler &conversation,
-                                                                 std::string_view tcp_ip_address,
-                                                                 std::uint16_t port_num) override;
+  std::unique_ptr<uds_transport::Connection> CreateTcpConnection(
+      uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address,
+      std::uint16_t port_num) override;
 
   /**
    * @brief       Function to create a new Udp connection
@@ -89,9 +91,9 @@ class DoipTransportProtocolHandler final : public uds_transport::UdsTransportPro
    *              The local port number
    * @return      The unique pointer to the connection created
    */
-  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(uds_transport::ConversionHandler &conversation,
-                                                                 std::string_view udp_ip_address,
-                                                                 std::uint16_t port_num) override;
+  std::unique_ptr<uds_transport::Connection> CreateUdpConnection(
+      uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address,
+      std::uint16_t port_num) override;
 
  private:
   /**

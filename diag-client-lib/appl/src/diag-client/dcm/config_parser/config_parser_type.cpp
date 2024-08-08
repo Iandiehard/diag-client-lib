@@ -12,7 +12,8 @@ namespace diag {
 namespace client {
 namespace config_parser {
 
-diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(boost_support::parser::boost_tree &config_tree) {
+diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(
+    boost_support::parser::boost_tree &config_tree) {
   diag::client::config_parser::DcmClientConfig config{};
   // get the udp info for vehicle discovery
   config.udp_ip_address = config_tree.get<std::string>("UdpIpAddress");
@@ -28,7 +29,8 @@ diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(boost_support::
     conversation.p2_star_client_max = conversation_ptr.second.get<std::uint16_t>("P2StarClientMax");
     conversation.rx_buffer_size = conversation_ptr.second.get<std::uint16_t>("RxBufferSize");
     conversation.source_address = conversation_ptr.second.get<std::uint16_t>("SourceAddress");
-    conversation.network.tcp_ip_address = conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
+    conversation.network.tcp_ip_address =
+        conversation_ptr.second.get<std::string>("Network.TcpIpAddress");
     conversation.network.tls_handling = conversation_ptr.second.get<bool>("Network.TlsHandling");
     config.conversations.emplace_back(conversation);
   }

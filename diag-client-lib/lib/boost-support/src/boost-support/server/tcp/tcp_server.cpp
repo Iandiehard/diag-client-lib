@@ -20,7 +20,8 @@ class TcpServer::TcpServerImpl final {
   /**
    * @brief  Type alias for tcp server connection
    */
-  using TcpConnection = connection::tcp::TcpConnection<connection::tcp::ConnectionType::kServer, TcpSocket>;
+  using TcpConnection =
+      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kServer, TcpSocket>;
 
   /**
    * @brief         Constructs an instance of TcpServerImpl
@@ -62,7 +63,9 @@ class TcpServer::TcpServerImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) noexcept { tcp_connection_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    tcp_connection_.SetReadHandler(std::move(read_handler));
+  }
 
   /**
    * @brief         Function to transmit the provided tcp message

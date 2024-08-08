@@ -11,7 +11,12 @@
 namespace boost_support {
 namespace socket {
 
-IoContext::IoContext() noexcept : io_context_{}, exit_request_{false}, running_{false}, cond_var_{}, mutex_{} {
+IoContext::IoContext() noexcept
+    : io_context_{},
+      exit_request_{false},
+      running_{false},
+      cond_var_{},
+      mutex_{} {
   // start thread to execute async tasks
   thread_ = std::thread([this]() {
     std::unique_lock<std::mutex> lck(mutex_);

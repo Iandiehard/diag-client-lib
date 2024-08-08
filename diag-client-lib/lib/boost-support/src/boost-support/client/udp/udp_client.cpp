@@ -30,7 +30,8 @@ class UdpClient::UdpClientImpl final {
    */
   UdpClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept
       : io_context_{},
-        udp_connection_{socket::udp::UdpSocket{local_ip_address, local_port_num, io_context_.GetContext()}} {}
+        udp_connection_{
+            socket::udp::UdpSocket{local_ip_address, local_port_num, io_context_.GetContext()}} {}
 
   /**
    * @brief         Deleted copy assignment and copy constructor
@@ -71,7 +72,9 @@ class UdpClient::UdpClientImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) noexcept { udp_connection_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    udp_connection_.SetReadHandler(std::move(read_handler));
+  }
 
   /**
    * @brief         Function to transmit the provided udp message

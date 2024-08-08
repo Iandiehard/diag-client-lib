@@ -70,8 +70,8 @@ class TlsSocket final {
    * @param[in]     io_context
    *                The I/O context required to create socket
    */
-  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TlsContext &tls_context,
-            IoContext &io_context) noexcept;
+  TlsSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+            TlsContext &tls_context, IoContext &io_context) noexcept;
 
   /**
    * @brief         Constructs an instance of TcpSocket
@@ -115,7 +115,8 @@ class TlsSocket final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void, SocketError> Connect(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept;
+  core_type::Result<void, SocketError> Connect(std::string_view host_ip_address,
+                                               std::uint16_t host_port_num) noexcept;
 
   /**
    * @brief         Function to Disconnect from host

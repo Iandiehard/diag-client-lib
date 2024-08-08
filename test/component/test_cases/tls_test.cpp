@@ -65,14 +65,16 @@ class Tls12Fixture : public component::ComponentTest {
       : tls_acceptor_{kTlsServerIpAddress,
                       kTlsServerTcpPortNum,
                       1u,
-                      TlsServerVersion{{TlsServerCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
-                                        TlsServerCipherSuite ::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256}},
+                      TlsServerVersion{
+                          {TlsServerCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
+                           TlsServerCipherSuite ::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256}},
                       kCertificatePath,
                       kPrivateKeyPath},
         tls_server_{},
-        tls_client_{kTlsClientIpAddress, kTlsClientTcpPortNum, kCACertificatePath,
-                    TlsClientVersion{{TlsClientCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
-                                      TlsClientCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256}}} {}
+        tls_client_{
+            kTlsClientIpAddress, kTlsClientTcpPortNum, kCACertificatePath,
+            TlsClientVersion{{TlsClientCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,
+                              TlsClientCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256}}} {}
 
   void SetUp() override { tls_client_.Initialize(); }
 
@@ -83,16 +85,17 @@ class Tls12Fixture : public component::ComponentTest {
 
   template<typename Functor>
   auto CreateServerWithExpectation(Functor expectation_functor) noexcept -> std::future<bool> {
-    return std::async(std::launch::async, [this, expectation_functor = std::move(expectation_functor)]() {
-      std::optional<TlsServer> server{tls_acceptor_.GetTlsServer()};
-      if (server.has_value()) {
-        tls_server_.emplace(std::move(server).value());
-        tls_server_->Initialize();
-        // Set Expectation
-        expectation_functor();
-      }
-      return tls_server_.has_value();
-    });
+    return std::async(std::launch::async,
+                      [this, expectation_functor = std::move(expectation_functor)]() {
+                        std::optional<TlsServer> server{tls_acceptor_.GetTlsServer()};
+                        if (server.has_value()) {
+                          tls_server_.emplace(std::move(server).value());
+                          tls_server_->Initialize();
+                          // Set Expectation
+                          expectation_functor();
+                        }
+                        return tls_server_.has_value();
+                      });
   }
 
  protected:
@@ -122,9 +125,10 @@ TEST_F(Tls12Fixture, SendDataFromClientToServer) {
   EXPECT_TRUE(tls_client_.ConnectToHost(kTlsServerIpAddress, kTlsServerTcpPortNum).HasValue());
   EXPECT_TRUE(tls_client_.IsConnectedToHost());
   // Send test data to tls server
-  EXPECT_TRUE(
-      tls_client_.Transmit(std::make_unique<TlsClient::Message>(kTlsServerIpAddress, kTlsServerTcpPortNum, kTestData))
-          .HasValue());
+  EXPECT_TRUE(tls_client_
+                  .Transmit(std::make_unique<TlsClient::Message>(kTlsServerIpAddress,
+                                                                 kTlsServerTcpPortNum, kTestData))
+                  .HasValue());
 }
 
 TEST_F(Tls12Fixture, SendDataFromServerToClient) {}

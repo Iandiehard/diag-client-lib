@@ -96,7 +96,8 @@ class TcpClient final {
    *                The host port number
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
+  core_type::Result<void> ConnectToHost(std::string_view host_ip_address,
+                                        std::uint16_t host_port_num);
 
   /**
    * @brief         Function to disconnect from remote host if already connected

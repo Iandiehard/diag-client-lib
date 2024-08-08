@@ -81,7 +81,8 @@ class RoutingActivationHandler final {
    *              The routing activation request
    * @return      Transmission result
    */
-  auto HandleRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto HandleRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
@@ -97,7 +98,8 @@ class RoutingActivationHandler final {
    *              The routing activation request
    * @return      Transmission result
    */
-  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto SendRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
  private:

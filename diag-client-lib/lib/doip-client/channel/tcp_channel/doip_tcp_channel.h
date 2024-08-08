@@ -71,7 +71,8 @@ class DoipTcpChannel final {
    *              The connection message
    * @return      Connection result
    */
-  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::ConnectionResult ConnectToHost(
+      uds_transport::UdsMessageConstPtr message);
 
   /**
    * @brief       Function to disconnect from remote host server
@@ -104,18 +105,21 @@ class DoipTcpChannel final {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
-      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
-      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t const> payload_info);
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+  IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                  uds_transport::UdsMessage::Address target_addr,
+                  uds_transport::UdsMessage::TargetAddressType type,
+                  uds_transport::ChannelID channel_id, std::size_t size,
+                  uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+                  core_type::Span<std::uint8_t const> payload_info);
 
   /**
    * @brief       Function to transmit a valid Uds message
    * @param[in]   message
    *              The Uds message ptr (unique_ptr semantics) with the request.
    */
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      uds_transport::UdsMessageConstPtr message);
 
   /**
    * @brief       Function to Hands over a valid received Uds message to upper layer

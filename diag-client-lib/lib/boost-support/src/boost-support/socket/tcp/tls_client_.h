@@ -54,8 +54,8 @@ class TlsClientSocket final {
    * @param[in]     ca_certification_path
    *                The path to root ca certificate
    */
-  TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num, TcpHandlerRead tcp_handler_read,
-                  std::string_view ca_certification_path);
+  TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+                  TcpHandlerRead tcp_handler_read, std::string_view ca_certification_path);
 
   /**
    * @brief         Destruct an instance of TcpClientSocket
@@ -76,7 +76,8 @@ class TlsClientSocket final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void, TlsErrorCode> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num);
+  core_type::Result<void, TlsErrorCode> ConnectToHost(std::string_view host_ip_address,
+                                                      std::uint16_t host_port_num);
 
   /**
    * @brief         Function to Disconnect from host

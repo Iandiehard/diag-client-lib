@@ -26,7 +26,12 @@ class TcpSocket final {
   /**
    * @brief   Socket error code
    */
-  enum class SocketError : std::uint8_t { kOpenFailed, kBindingFailed, kRemoteDisconnected, kGenericError };
+  enum class SocketError : std::uint8_t {
+    kOpenFailed,
+    kBindingFailed,
+    kRemoteDisconnected,
+    kGenericError
+  };
 
   /**
    * @brief   Type alias for Tcp message
@@ -63,7 +68,8 @@ class TcpSocket final {
    * @param[in]     io_context
    *                The I/O context required to create socket
    */
-  TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num, IoContext &io_context) noexcept;
+  TcpSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
+            IoContext &io_context) noexcept;
 
   /**
    * @brief         Constructs an instance of TcpSocket
@@ -103,7 +109,8 @@ class TcpSocket final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  core_type::Result<void, SocketError> Connect(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept;
+  core_type::Result<void, SocketError> Connect(std::string_view host_ip_address,
+                                               std::uint16_t host_port_num) noexcept;
 
   /**
    * @brief         Function to Disconnect from host

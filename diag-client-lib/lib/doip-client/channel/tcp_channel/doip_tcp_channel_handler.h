@@ -67,7 +67,8 @@ class DoipTcpChannelHandler final {
    * @return        ConnectionResult
    *                The connection result
    */
-  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto SendRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
@@ -110,7 +111,8 @@ class DoipTcpChannelHandler final {
    * @param[in]     payload_type
    *                The type of payload
    */
-  auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept -> bool;
+  auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept
+      -> bool;
 
   /**
    * @brief         Function to process the doip payload

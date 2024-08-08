@@ -56,12 +56,14 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection
    */
-  TlsAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num, std::uint8_t maximum_connection,
-                  TlsVersion tls_version, std::string_view certificate_path, std::string_view private_key_path) noexcept
+  TlsAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
+                  std::uint8_t maximum_connection, TlsVersion tls_version,
+                  std::string_view certificate_path, std::string_view private_key_path) noexcept
       : io_context_{},
         tls_context_{std::forward<TlsVersion>(tls_version), certificate_path, private_key_path},
         acceptor_{io_context_,
-                  Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()), local_port_num)} {
+                  Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()),
+                                local_port_num)} {
     acceptor_.listen(maximum_connection);
   }
 
@@ -82,13 +84,14 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
       tls_server.emplace(TlsSocket{std::move(accepted_socket), tls_context_});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
-            msg << "Tls socket connection received from client " << "<" << endpoint.address().to_string() << ","
-                << endpoint.port() << ">";
+            msg << "Tls socket connection received from client "
+                << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tcp socket accept failed with error: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tcp socket accept failed with error: " << ec.message();
+          });
     }
     return tls_server;
   }
@@ -116,12 +119,13 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
 };
 
 template<typename TlsVersion>
-TlsAcceptor<TlsVersion>::TlsAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                     std::uint8_t maximum_connection, TlsVersion tls_version,
-                                     std::string_view certificate_path, std::string_view private_key_path) noexcept
-    : tls_acceptor_impl_{std::make_unique<TlsAcceptorImpl>(local_ip_address, local_port_num, maximum_connection,
-                                                           std::move(tls_version), certificate_path,
-                                                           private_key_path)} {}
+TlsAcceptor<TlsVersion>::TlsAcceptor(std::string_view local_ip_address,
+                                     std::uint16_t local_port_num, std::uint8_t maximum_connection,
+                                     TlsVersion tls_version, std::string_view certificate_path,
+                                     std::string_view private_key_path) noexcept
+    : tls_acceptor_impl_{std::make_unique<TlsAcceptorImpl>(
+          local_ip_address, local_port_num, maximum_connection, std::move(tls_version),
+          certificate_path, private_key_path)} {}
 
 template<typename TlsVersion>
 TlsAcceptor<TlsVersion>::~TlsAcceptor() noexcept = default;

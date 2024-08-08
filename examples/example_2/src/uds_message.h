@@ -16,7 +16,8 @@
 class UdsMessage final : public diag::client::uds_message::UdsMessage {
  public:
   // ctor
-  UdsMessage(std::string_view host_ip_address, diag::client::uds_message::UdsMessage::ByteVector payload)
+  UdsMessage(std::string_view host_ip_address,
+             diag::client::uds_message::UdsMessage::ByteVector payload)
       : host_ip_address_{host_ip_address},
         uds_payload_{std::move(payload)} {}
 
@@ -30,7 +31,9 @@ class UdsMessage final : public diag::client::uds_message::UdsMessage {
   // store only UDS payload to be sent
   diag::client::uds_message::UdsMessage::ByteVector uds_payload_;
 
-  const diag::client::uds_message::UdsMessage::ByteVector &GetPayload() const override { return uds_payload_; }
+  const diag::client::uds_message::UdsMessage::ByteVector &GetPayload() const override {
+    return uds_payload_;
+  }
 
   // return the underlying buffer for write access
   diag::client::uds_message::UdsMessage::ByteVector &GetPayload() override { return uds_payload_; }

@@ -10,7 +10,8 @@
 namespace diag {
 namespace client {
 namespace uds_message {
-DmUdsMessage::DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address, uds_transport::ByteVector &payload)
+DmUdsMessage::DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address,
+                           uds_transport::ByteVector &payload)
     : uds_transport::UdsMessage(),
       source_address_{sa},
       target_address_{ta},

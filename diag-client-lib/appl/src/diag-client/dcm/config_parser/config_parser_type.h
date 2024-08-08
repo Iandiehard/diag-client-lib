@@ -58,7 +58,8 @@ struct DcmClientConfig {
  *                The reference to config tree containing the configuration
  * @return        The Dcm client configuration
  */
-diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(boost_support::parser::boost_tree &config_tree);
+diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(
+    boost_support::parser::boost_tree &config_tree);
 
 }  // namespace config_parser
 }  // namespace client

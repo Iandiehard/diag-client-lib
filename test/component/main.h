@@ -56,7 +56,9 @@ class DoipClientFixture : public ::testing::Test {
   auto GetDiagClientRef() noexcept -> diag::client::DiagClient& { return *diag_client_; }
 
   // Function to get Doip Test Handler reference
-  auto GetDoipTestUdpHandlerRef() noexcept -> doip_handler::DoipUdpHandler& { return doip_udp_handler_; }
+  auto GetDoipTestUdpHandlerRef() noexcept -> doip_handler::DoipUdpHandler& {
+    return doip_udp_handler_;
+  }
 
  private:
   // diag client library

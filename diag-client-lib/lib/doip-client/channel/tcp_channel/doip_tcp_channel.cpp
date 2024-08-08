@@ -16,7 +16,8 @@ namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler, uds_transport::Connection &connection)
+DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler,
+                               uds_transport::Connection &connection)
     : tcp_socket_handler_{std::move(tcp_socket_handler)},
       tcp_channel_handler_{tcp_socket_handler_, *this},
       connection_{connection} {}
@@ -84,8 +85,9 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
     ret_val = tcp_channel_handler_.SendDiagnosticRequest(std::move(message));
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Routing Activation required, please connect to server first"; });
+        __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+          msg << "Routing Activation required, please connect to server first";
+        });
   }
   return ret_val;
 }
@@ -93,12 +95,13 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
 DoipTcpChannel::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::Address target_addr,
-                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
-                                std::size_t size, uds_transport::Priority priority,
+                                uds_transport::UdsMessage::TargetAddressType type,
+                                uds_transport::ChannelID channel_id, std::size_t size,
+                                uds_transport::Priority priority,
                                 uds_transport::ProtocolKind protocol_kind,
                                 core_type::Span<std::uint8_t const> payload_info) {
-  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                     payload_info);
+  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
+                                     protocol_kind, payload_info);
 }
 
 void DoipTcpChannel::HandleMessage(uds_transport::UdsMessagePtr message) {

@@ -24,7 +24,8 @@ class DiagClientConversation::DiagClientConversationImpl final {
    *                The name of conversation configured as json parameter under "ConversationName"
    */
   explicit DiagClientConversationImpl(std::string_view conversation_name) noexcept
-      : internal_conversation_{dcm::GetConversationManager().GetDiagnosticClientConversation(conversation_name)} {}
+      : internal_conversation_{
+            dcm::GetConversationManager().GetDiagnosticClientConversation(conversation_name)} {}
 
   /**
    * @brief         Destructor an instance of DiagClientConversationImpl
@@ -62,7 +63,9 @@ class DiagClientConversation::DiagClientConversationImpl final {
    * @return        DisconnectResult
    *                Disconnection result returned
    */
-  DisconnectResult DisconnectFromDiagServer() noexcept { return internal_conversation_.DisconnectFromDiagServer(); }
+  DisconnectResult DisconnectFromDiagServer() noexcept {
+    return internal_conversation_.DisconnectFromDiagServer();
+  }
 
   /**
    * @brief         Function to send Diagnostic Request and get Diagnostic Response
@@ -73,8 +76,8 @@ class DiagClientConversation::DiagClientConversationImpl final {
    * @return        uds_message::UdsResponseMessagePtr
    *                Diagnostic Response message received, null_ptr in case of error
    */
-  Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> SendDiagnosticRequest(
-      uds_message::UdsRequestMessageConstPtr message) noexcept {
+  Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError>
+  SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) noexcept {
     return internal_conversation_.SendDiagnosticRequest(std::move(message));
   }
 
@@ -86,7 +89,8 @@ class DiagClientConversation::DiagClientConversationImpl final {
 };
 
 DiagClientConversation::DiagClientConversation(std::string_view conversation_name) noexcept
-    : diag_client_conversation_impl_{std::make_unique<DiagClientConversationImpl>(conversation_name)} {}
+    : diag_client_conversation_impl_{
+          std::make_unique<DiagClientConversationImpl>(conversation_name)} {}
 
 DiagClientConversation::~DiagClientConversation() noexcept = default;
 
@@ -99,12 +103,14 @@ DiagClientConversation::ConnectResult DiagClientConversation::ConnectToDiagServe
   return diag_client_conversation_impl_->ConnectToDiagServer(target_address, host_ip_addr);
 }
 
-DiagClientConversation::DisconnectResult DiagClientConversation::DisconnectFromDiagServer() noexcept {
+DiagClientConversation::DisconnectResult
+DiagClientConversation::DisconnectFromDiagServer() noexcept {
   return diag_client_conversation_impl_->DisconnectFromDiagServer();
 }
 
 Result<uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError>
-DiagClientConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr message) noexcept {
+DiagClientConversation::SendDiagnosticRequest(
+    uds_message::UdsRequestMessageConstPtr message) noexcept {
   return diag_client_conversation_impl_->SendDiagnosticRequest(std::move(message));
 }
 

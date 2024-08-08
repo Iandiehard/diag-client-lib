@@ -43,7 +43,8 @@ namespace details {
  * @param[in]   message
  *              The message to output when violated
  */
-inline void CheckIfExpectedOrAbort(bool cond, const char *message, const std::string_view file_name, int line_no) {
+inline void CheckIfExpectedOrAbort(bool cond, const char *message, const std::string_view file_name,
+                                   int line_no) {
   if (!cond) {
     std::cerr << message << " [" << file_name << ":" << line_no << "]" << std::endl;
     std::abort();
@@ -102,8 +103,8 @@ struct is_data_size_valid : std::false_type {};
  *              The element type
  */
 template<typename T>
-struct is_data_size_valid<T,
-                          std::void_t<decltype(std::data(std::declval<T>())), decltype(std::size(std::declval<T>()))>>
+struct is_data_size_valid<
+    T, std::void_t<decltype(std::data(std::declval<T>())), decltype(std::size(std::declval<T>()))>>
     : std::true_type {};
 
 /**
@@ -139,8 +140,8 @@ struct is_container_element_type_convertible : std::false_type {};
 template<typename F, typename T>
 struct is_container_element_type_convertible<
     F, T,
-    typename std::enable_if<
-        std::is_convertible<std::remove_pointer_t<decltype(std::data(std::declval<F>()))> (*)[], T (*)[]>::value>::type>
+    typename std::enable_if<std::is_convertible<
+        std::remove_pointer_t<decltype(std::data(std::declval<F>()))> (*)[], T (*)[]>::value>::type>
     : std::true_type {};
 
 /**
@@ -188,7 +189,8 @@ struct span_storage<T, dynamic_extent> {
  */
 template<typename T, std::size_t Extent>
 class Span final {
-  static_assert(!std::is_abstract<T>::value, "A span's element type cannot be an abstract class type");
+  static_assert(!std::is_abstract<T>::value,
+                "A span's element type cannot be an abstract class type");
 
  public:
   /**
@@ -262,7 +264,8 @@ class Span final {
    * @brief       Default constructor
    * @details     This constructor shall not participate in overload resolution unless (Extent == dynamic_extent || Extent == 0) is true
    */
-  template<std::size_t E = Extent, typename std::enable_if<(E == dynamic_extent || E == 0), bool>::type = true>
+  template<std::size_t E = Extent,
+           typename std::enable_if<(E == dynamic_extent || E == 0), bool>::type = true>
   constexpr Span() noexcept {}
 
   /**
@@ -275,7 +278,8 @@ class Span final {
    *              The number of elements to take from ptr
    */
   constexpr Span(pointer ptr, size_type count) : storage_{ptr, count} {
-    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || count == Extent, "Invalid range", __FILE__, __LINE__);
+    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || count == Extent, "Invalid range",
+                                    __FILE__, __LINE__);
   }
 
   /**
@@ -287,9 +291,10 @@ class Span final {
    * @param[in]   last_elem
    *              The pointer to past the last element
    */
-  constexpr Span(pointer first_elem, pointer last_elem) : storage_{first_elem, last_elem - first_elem} {
-    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || (last_elem - first_elem) == Extent, "Invalid range",
-                                    __FILE__, __LINE__);
+  constexpr Span(pointer first_elem, pointer last_elem)
+      : storage_{first_elem, last_elem - first_elem} {
+    details::CheckIfExpectedOrAbort(Extent == dynamic_extent || (last_elem - first_elem) == Extent,
+                                    "Invalid range", __FILE__, __LINE__);
   }
 
   /**
@@ -302,9 +307,10 @@ class Span final {
    *              The raw array
    */
   template<std::size_t N, std::size_t E = Extent,
-           typename std::enable_if<(E == dynamic_extent || N == extent) &&
-                                       details::is_container_element_type_convertible<element_type (&)[N], T>::value,
-                                   bool>::type = true>
+           typename std::enable_if<
+               (E == dynamic_extent || N == extent) &&
+                   details::is_container_element_type_convertible<element_type (&)[N], T>::value,
+               bool>::type = true>
   constexpr explicit Span(element_type (&arr)[N]) noexcept : storage_{arr, N} {}
 
   /**
@@ -319,9 +325,10 @@ class Span final {
    *              The std::array
    */
   template<typename U, std::size_t N, std::size_t E = Extent,
-           typename std::enable_if<(E == dynamic_extent || N == extent) &&
-                                       details::is_container_element_type_convertible<std::array<U, N> &, T>::value,
-                                   bool>::type = true>
+           typename std::enable_if<
+               (E == dynamic_extent || N == extent) &&
+                   details::is_container_element_type_convertible<std::array<U, N> &, T>::value,
+               bool>::type = true>
   constexpr explicit Span(std::array<U, N> &arr) noexcept : storage_{arr.data(), N} {}
 
   /**
@@ -335,11 +342,11 @@ class Span final {
    * @param[in]   arr
    *              The std::array
    */
-  template<
-      typename U, std::size_t N, std::size_t E = Extent,
-      typename std::enable_if<(E == dynamic_extent || N == extent) &&
-                                  details::is_container_element_type_convertible<const std::array<U, N> &, T>::value,
-                              bool>::type = true>
+  template<typename U, std::size_t N, std::size_t E = Extent,
+           typename std::enable_if<(E == dynamic_extent || N == extent) &&
+                                       details::is_container_element_type_convertible<
+                                           const std::array<U, N> &, T>::value,
+                                   bool>::type = true>
   constexpr explicit Span(const std::array<U, N> &arr) noexcept : storage_{arr.data(), N} {}
 
   /**
@@ -355,9 +362,10 @@ class Span final {
    *              The container
    */
   template<typename Container, std::size_t E = Extent,
-           typename std::enable_if<(E == dynamic_extent) && details::is_container_type<Container>::value &&
-                                       details::is_container_element_type_convertible<Container &, T>::value,
-                                   bool>::type = true>
+           typename std::enable_if<
+               (E == dynamic_extent) && details::is_container_type<Container>::value &&
+                   details::is_container_element_type_convertible<Container &, T>::value,
+               bool>::type = true>
   constexpr explicit Span(Container &cont) noexcept : storage_{std::data(cont), std::size(cont)} {}
 
   /**
@@ -373,10 +381,12 @@ class Span final {
    *              The container
    */
   template<typename Container, std::size_t E = Extent,
-           typename std::enable_if<(E == dynamic_extent) && details::is_container_type<Container>::value &&
-                                       details::is_container_element_type_convertible<Container &, T>::value,
-                                   bool>::type = true>
-  constexpr explicit Span(const Container &cont) noexcept : storage_{std::data(cont), std::size(cont)} {}
+           typename std::enable_if<
+               (E == dynamic_extent) && details::is_container_type<Container>::value &&
+                   details::is_container_element_type_convertible<Container &, T>::value,
+               bool>::type = true>
+  constexpr explicit Span(const Container &cont) noexcept
+      : storage_{std::data(cont), std::size(cont)} {}
 
   /**
    * @brief       Copy construct a new Span from another instance
@@ -397,9 +407,11 @@ class Span final {
    */
   template<
       typename U, std::size_t N,
-      typename std::enable_if<(Extent == dynamic_extent || N == dynamic_extent || Extent == N) &&
-                              details::is_container_element_type_convertible<U (*)[], T (*)[]>::value>::type = true>
-  constexpr explicit Span(const Span<U, N> &other_span) noexcept : storage_{other_span.data(), other_span.size()} {}
+      typename std::enable_if<
+          (Extent == dynamic_extent || N == dynamic_extent || Extent == N) &&
+          details::is_container_element_type_convertible<U (*)[], T (*)[]>::value>::type = true>
+  constexpr explicit Span(const Span<U, N> &other_span) noexcept
+      : storage_{other_span.data(), other_span.size()} {}
 
   /**
    * @brief       Destructor
@@ -477,12 +489,14 @@ class Span final {
    */
   template<std::size_t Offset, std::size_t Count = dynamic_extent>
   constexpr auto subspan() const noexcept
-      -> Span<element_type,
-              Count != dynamic_extent ? Count : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)> {
-    details::CheckIfExpectedOrAbort((Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)),
-                                    "(Offset <= size() && (Count == dynamic_extent || Count <= size() - "
-                                    "Offset))",
-                                    __FILE__, __LINE__);
+      -> Span<element_type, Count != dynamic_extent
+                                ? Count
+                                : (Extent != dynamic_extent ? Extent - Offset : dynamic_extent)> {
+    details::CheckIfExpectedOrAbort(
+        (Offset <= size() && (Count == dynamic_extent || Count <= size() - Offset)),
+        "(Offset <= size() && (Count == dynamic_extent || Count <= size() - "
+        "Offset))",
+        __FILE__, __LINE__);
     return Span{data() + Offset, Count != dynamic_extent ? Count : size() - Offset};
   }
 
@@ -495,11 +509,13 @@ class Span final {
    *              The number of elements to take over
    * @return      The subspan
    */
-  constexpr Span<element_type, dynamic_extent> subspan(size_type offset, size_type count = dynamic_extent) const {
-    details::CheckIfExpectedOrAbort((offset <= size() && (count == dynamic_extent || count <= size() - offset)),
-                                    "(offset <= size() && (count == dynamic_extent || count <= size() - "
-                                    "offset))",
-                                    __FILE__, __LINE__);
+  constexpr Span<element_type, dynamic_extent> subspan(size_type offset,
+                                                       size_type count = dynamic_extent) const {
+    details::CheckIfExpectedOrAbort(
+        (offset <= size() && (count == dynamic_extent || count <= size() - offset)),
+        "(offset <= size() && (count == dynamic_extent || count <= size() - "
+        "offset))",
+        __FILE__, __LINE__);
     return {data() + offset, count == dynamic_extent ? size() - offset : count};
   }
 
@@ -598,13 +614,17 @@ class Span final {
    * @brief       Return a const_reverse_iterator pointing to the last element of this Span
    * @return      The const_reverse_iterator
    */
-  constexpr const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(end()); }
+  constexpr const_reverse_iterator crbegin() const noexcept {
+    return const_reverse_iterator(end());
+  }
 
   /**
    * @brief       Return a const_reverse_iterator pointing past the first element of this Span
    * @return      The const_reverse_iterator
    */
-  constexpr const_reverse_iterator crend() const noexcept { return const_reverse_iterator(begin()); }
+  constexpr const_reverse_iterator crend() const noexcept {
+    return const_reverse_iterator(begin());
+  }
 
  private:
   /**
@@ -623,7 +643,8 @@ template<class T, size_t N>
 Span(const std::array<T, N> &) -> Span<const T, N>;
 
 template<class Container>
-Span(Container &) -> Span<typename std::remove_reference<decltype(*std::data(std::declval<Container &>()))>::type>;
+Span(Container &) -> Span<
+    typename std::remove_reference<decltype(*std::data(std::declval<Container &>()))>::type>;
 
 template<class Container>
 Span(const Container &) -> Span<const typename Container::value_type>;

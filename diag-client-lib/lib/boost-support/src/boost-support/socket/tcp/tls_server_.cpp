@@ -31,11 +31,14 @@ TlsServerSocket::TlsServerSocket(std::string_view local_ip_address, std::uint16_
       });
   // Load certificate and private key from provided locations
   io_ssl_context_.use_certificate_chain_file("../../../openssl/DiagClientLib.crt");
-  io_ssl_context_.use_private_key_file("../../../openssl/DiagClientLib.key", boost::asio::ssl::context::pem);
-  SSL_CTX_set_ciphersuites(io_ssl_context_.native_handle(), "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256");
+  io_ssl_context_.use_private_key_file("../../../openssl/DiagClientLib.key",
+                                       boost::asio::ssl::context::pem);
+  SSL_CTX_set_ciphersuites(io_ssl_context_.native_handle(),
+                           "TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256");
 }
 
-std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHandlerRead tcp_handler_read) {
+std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(
+    TcpHandlerRead tcp_handler_read) {
   std::optional<TcpServerConnection> tcp_connection{std::nullopt};
   TcpErrorCodeType ec{};
   Tcp::endpoint endpoint{};
@@ -52,8 +55,9 @@ std::optional<TcpServerConnection> TlsServerSocket::GetTcpServerConnection(TcpHa
         });
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "TLS Socket Connect to client failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "TLS Socket Connect to client failed with error: " << ec.message();
+        });
   }
   return tcp_connection;
 }
@@ -71,9 +75,10 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
   TcpErrorCodeType ec{};
   core_type::Result<void, TcpErrorCode> result{TcpErrorCode::kGenericError};
 
-  boost::asio::write(
-      tls_socket_,
-      boost::asio::buffer(tcp_tx_message->GetPayload().data(), std::size_t(tcp_tx_message->GetPayload().size())), ec);
+  boost::asio::write(tls_socket_,
+                     boost::asio::buffer(tcp_tx_message->GetPayload().data(),
+                                         std::size_t(tcp_tx_message->GetPayload().size())),
+                     ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};
@@ -85,8 +90,9 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
     result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp message sending failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tcp message sending failed with error: " << ec.message();
+        });
   }
   return result;
 }
@@ -103,20 +109,23 @@ bool TcpServerConnection::TryReceivingMessage() {
     message::tcp::TcpMessage::BufferType rx_buffer{};
     rx_buffer.resize(message::tcp::kDoipheadrSize);
     // Start blocking read to read Header first
-    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], message::tcp::kDoipheadrSize), ec);
+    boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0], message::tcp::kDoipheadrSize),
+                      ec);
     // Check for error
     if (ec.value() == boost::system::errc::success) {
       // Read the next bytes to read
       std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
-        return static_cast<std::uint32_t>((static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
-                                          (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
-                                          (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
-                                          (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
+        return static_cast<std::uint32_t>(
+            (static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
+            (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
+            (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
+            (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
       }();
       // reserve the buffer
       rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
-                        ec);
+      boost::asio::read(
+          tls_socket_,
+          boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint endpoint_{GetNativeTcpSocket().remote_endpoint()};
@@ -136,14 +145,16 @@ bool TcpServerConnection::TryReceivingMessage() {
       connection_closed = true;
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Remote Disconnected with undefined error: " << ec.message();
+          });
       connection_closed = true;
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tls server handshake with host failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tls server handshake with host failed with error: " << ec.message();
+        });
     connection_closed = true;
   }
   return connection_closed;
@@ -164,8 +175,9 @@ core_type::Result<void, TcpServerConnection::TcpErrorCode> TcpServerConnection::
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tcp Socket Disconnection failed with error: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tcp Socket Disconnection failed with error: " << ec.message();
+          });
     }
     GetNativeTcpSocket().close();
   }

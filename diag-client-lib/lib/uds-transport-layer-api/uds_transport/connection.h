@@ -39,7 +39,8 @@ class Connection {
    * @param[in]   conversation_handler
    *              The reference to conversation handler
    */
-  Connection(ConnectionId connection_id, uds_transport::ConversionHandler const &conversation_handler) noexcept
+  Connection(ConnectionId connection_id,
+             uds_transport::ConversionHandler const &conversation_handler) noexcept
       : conversation_handler_{conversation_handler},
         connection_id_{connection_id} {}
 
@@ -116,9 +117,9 @@ class Connection {
    *              to the handler to get filled
    */
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
-      UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
-      ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t const> payload_info) = 0;
+      UdsMessage::Address source_addr, UdsMessage::Address target_addr,
+      UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority,
+      ProtocolKind protocol_kind, core_type::Span<std::uint8_t const> payload_info) = 0;
 
   /**
    * @brief       Function to transmit a valid Uds message

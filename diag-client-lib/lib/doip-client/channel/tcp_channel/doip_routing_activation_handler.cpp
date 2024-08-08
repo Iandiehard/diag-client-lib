@@ -104,7 +104,8 @@ class kWaitForRoutingActivationRes final : public utility::state::State<RoutingA
    * @param[in]     state
    *                The kIdle state
    */
-  explicit kWaitForRoutingActivationRes(RoutingActivationState state) : State<RoutingActivationState>(state) {}
+  explicit kWaitForRoutingActivationRes(RoutingActivationState state)
+      : State<RoutingActivationState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -127,7 +128,8 @@ class kRoutingActivationSuccessful final : public utility::state::State<RoutingA
    * @param[in]     state
    *                The kIdle state
    */
-  explicit kRoutingActivationSuccessful(RoutingActivationState state) : State<RoutingActivationState>(state) {}
+  explicit kRoutingActivationSuccessful(RoutingActivationState state)
+      : State<RoutingActivationState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -150,7 +152,8 @@ class kRoutingActivationFailed final : public utility::state::State<RoutingActiv
    * @param[in]     state
    *                The kIdle state
    */
-  explicit kRoutingActivationFailed(RoutingActivationState state) : State<RoutingActivationState>(state) {}
+  explicit kRoutingActivationFailed(RoutingActivationState state)
+      : State<RoutingActivationState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -255,19 +258,20 @@ class RoutingActivationHandler::RoutingActivationHandlerImpl final {
         sync_timer_{} {
     // create and add state for routing activation
     // kIdle
-    state_context_.AddState(RoutingActivationState::kIdle, std::make_unique<kIdle>(RoutingActivationState::kIdle));
+    state_context_.AddState(RoutingActivationState::kIdle,
+                            std::make_unique<kIdle>(RoutingActivationState::kIdle));
     // kWaitForRoutingActivationRes
-    state_context_.AddState(
-        RoutingActivationState::kWaitForRoutingActivationRes,
-        std::make_unique<kWaitForRoutingActivationRes>(RoutingActivationState::kWaitForRoutingActivationRes));
+    state_context_.AddState(RoutingActivationState::kWaitForRoutingActivationRes,
+                            std::make_unique<kWaitForRoutingActivationRes>(
+                                RoutingActivationState::kWaitForRoutingActivationRes));
     // kRoutingActivationSuccessful
-    state_context_.AddState(
-        RoutingActivationState::kRoutingActivationSuccessful,
-        std::make_unique<kRoutingActivationSuccessful>(RoutingActivationState::kRoutingActivationSuccessful));
+    state_context_.AddState(RoutingActivationState::kRoutingActivationSuccessful,
+                            std::make_unique<kRoutingActivationSuccessful>(
+                                RoutingActivationState::kRoutingActivationSuccessful));
     // kRoutingActivationFailed
-    state_context_.AddState(
-        RoutingActivationState::kRoutingActivationFailed,
-        std::make_unique<kRoutingActivationFailed>(RoutingActivationState::kRoutingActivationFailed));
+    state_context_.AddState(RoutingActivationState::kRoutingActivationFailed,
+                            std::make_unique<kRoutingActivationFailed>(
+                                RoutingActivationState::kRoutingActivationFailed));
     // Transit to idle state
     state_context_.TransitionTo(RoutingActivationState::kIdle);
   }
@@ -338,7 +342,8 @@ void RoutingActivationHandler::Stop() { handler_impl_->Stop(); }
 
 void RoutingActivationHandler::Reset() { handler_impl_->Reset(); }
 
-auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) noexcept -> void {
+auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
+    DoipMessage &doip_payload) noexcept -> void {
   RoutingActivationState final_state{RoutingActivationState::kRoutingActivationFailed};
   if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
       RoutingActivationState::kWaitForRoutingActivationRes) {
@@ -367,8 +372,9 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(DoipMessage 
       default:
         // failure, do nothing
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-            __FILE__, __LINE__, __func__,
-            [&rout_act_type](std::stringstream &msg) { msg << "Routing activation denied due to " << rout_act_type; });
+            __FILE__, __LINE__, __func__, [&rout_act_type](std::stringstream &msg) {
+              msg << "Routing activation denied due to " << rout_act_type;
+            });
         break;
     }
     handler_impl_->GetStateContext().TransitionTo(final_state);
@@ -383,11 +389,13 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
     -> uds_transport::UdsTransportProtocolMgr::ConnectionResult {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
-  if (handler_impl_->GetStateContext().GetActiveState().GetState() == RoutingActivationState::kIdle) {
+  if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
+      RoutingActivationState::kIdle) {
     if (SendRoutingActivationRequest(std::move(routing_activation_request)) ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Wait for routing activation response
-      handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kWaitForRoutingActivationRes);
+      handler_impl_->GetStateContext().TransitionTo(
+          RoutingActivationState::kWaitForRoutingActivationRes);
       handler_impl_->GetSyncTimer().WaitForTimeout(
           [this, &result]() {
             result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
@@ -405,13 +413,15 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
               // success
               result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "RoutingActivation successful with remote server"; });
+                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                    msg << "RoutingActivation successful with remote server";
+                  });
             } else {  // failed
               handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "RoutingActivation failed with remote server"; });
+                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                    msg << "RoutingActivation failed with remote server";
+                  });
             }
           },
           std::chrono::milliseconds{kDoIPRoutingActivationTimeout});
@@ -419,13 +429,15 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
       // failed, do nothing
       handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "",
-          [](std::stringstream &msg) { msg << "RoutingActivation Request send failed with remote server"; });
+          __FILE__, __LINE__, "", [](std::stringstream &msg) {
+            msg << "RoutingActivation Request send failed with remote server";
+          });
     }
   } else {
     // channel not free
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "RoutingActivation channel not free"; });
+        __FILE__, __LINE__, "",
+        [](std::stringstream &msg) { msg << "RoutingActivation channel not free"; });
   }
   return result;
 }
@@ -435,7 +447,8 @@ auto RoutingActivationHandler::IsRoutingActivated() noexcept -> bool {
           RoutingActivationState::kRoutingActivationSuccessful);
 }
 
-auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr message) noexcept
+auto RoutingActivationHandler::SendRoutingActivationRequest(
+    uds_transport::UdsMessageConstPtr message) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
@@ -446,7 +459,8 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
   compose_routing_activation_req.reserve(kDoipheadrSize + kDoipRoutingActivationReqMinLen);
 
   // Add source address
-  compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
+  compose_routing_activation_req.emplace_back(
+      static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
   compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));
   // Add activation type
   compose_routing_activation_req.emplace_back(kDoip_RoutingActivation_ReqActType_Default);
@@ -456,8 +470,9 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(uds_transport::UdsMe
   compose_routing_activation_req.emplace_back(0x00);
   compose_routing_activation_req.emplace_back(0x00);
 
-  TcpMessagePtr doip_routing_act_req{std::make_unique<TcpMessage>(
-      message->GetHostIpAddress(), message->GetHostPortNumber(), std::move(compose_routing_activation_req))};
+  TcpMessagePtr doip_routing_act_req{
+      std::make_unique<TcpMessage>(message->GetHostIpAddress(), message->GetHostPortNumber(),
+                                   std::move(compose_routing_activation_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_routing_act_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;

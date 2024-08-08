@@ -44,7 +44,8 @@ class DoipUdpChannelHandler final {
    *                The reference to tcp transport handler
    */
   DoipUdpChannelHandler(sockets::UdpSocketHandler &udp_socket_handler_broadcast,
-                        sockets::UdpSocketHandler &udp_socket_handler_unicast, DoipUdpChannel &channel);
+                        sockets::UdpSocketHandler &udp_socket_handler_unicast,
+                        DoipUdpChannel &channel);
 
   /**
    * @brief         Function to vehicle identification request to the connected network
@@ -53,7 +54,8 @@ class DoipUdpChannelHandler final {
    * @return        TransmissionResult
    *                The transmission result
    */
-  auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto SendVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   /**
@@ -87,15 +89,16 @@ class DoipUdpChannelHandler final {
    * @param[in]     payload_type
    *                The type of payload
    */
-  static auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept -> bool;
+  static auto ProcessDoIPPayloadLength(std::uint32_t payload_len,
+                                       std::uint16_t payload_type) noexcept -> bool;
 
   /**
    * @brief         Function to process the doip payload
    * @param[in]     doip_payload
    *                The reference to received payload
    */
-  void ProcessDoIPPayload(DoipMessage &doip_payload,
-                          DoipMessage::RxSocketType socket_type = DoipMessage::RxSocketType::kUnicast);
+  void ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::RxSocketType socket_type =
+                                                         DoipMessage::RxSocketType::kUnicast);
 
   /**
    * @brief         Handler to process vehicle discovery messages

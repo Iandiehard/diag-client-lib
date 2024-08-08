@@ -84,7 +84,8 @@ class DiagClient final {
    * @return      Result containing available vehicle information response on success, VehicleResponseErrorCode on error
    * @implements  DiagClientLib-VehicleDiscovery
    */
-  Result<vehicle_info::VehicleInfoMessageResponseUniquePtr, VehicleInfoResponseError> SendVehicleIdentificationRequest(
+  Result<vehicle_info::VehicleInfoMessageResponseUniquePtr, VehicleInfoResponseError>
+  SendVehicleIdentificationRequest(
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept;
 
   /**
@@ -94,7 +95,8 @@ class DiagClient final {
    * @return      Diag client conversation object
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept;
+  conversation::DiagClientConversation GetDiagnosticClientConversation(
+      std::string_view conversation_name) noexcept;
 
  private:
   /**

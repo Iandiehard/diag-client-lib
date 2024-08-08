@@ -94,7 +94,8 @@ class VdConversation final : public Conversation {
    * @param[in]   connection
    *              The conversation connection object
    */
-  void RegisterConnection(std::unique_ptr<::uds_transport::Connection> connection) noexcept override;
+  void RegisterConnection(
+      std::unique_ptr<::uds_transport::Connection> connection) noexcept override;
 
   /**
    * @brief       Function to get the conversation handler from conversation object
@@ -128,11 +129,14 @@ class VdConversation final : public Conversation {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult, ::uds_transport::UdsMessagePtr> IndicateMessage(
-      ::uds_transport::UdsMessage::Address source_addr, ::uds_transport::UdsMessage::Address target_addr,
-      ::uds_transport::UdsMessage::TargetAddressType type, ::uds_transport::ChannelID channel_id, std::size_t size,
-      ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t const> payloadInfo) noexcept override;
+  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult,
+            ::uds_transport::UdsMessagePtr>
+  IndicateMessage(::uds_transport::UdsMessage::Address source_addr,
+                  ::uds_transport::UdsMessage::Address target_addr,
+                  ::uds_transport::UdsMessage::TargetAddressType type,
+                  ::uds_transport::ChannelID channel_id, std::size_t size,
+                  ::uds_transport::Priority priority, ::uds_transport::ProtocolKind protocol_kind,
+                  core_type::Span<std::uint8_t const> payloadInfo) noexcept override;
 
   /**
    * @brief       Function to Hands over a valid received Uds message
@@ -150,7 +154,8 @@ class VdConversation final : public Conversation {
    */
   core_type::Result<diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr,
                     DiagClient::VehicleInfoResponseError>
-  SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
+  SendVehicleIdentificationRequest(
+      vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept override;
 
   /**
    * @brief       Function to get the list of available diagnostic server
@@ -167,7 +172,8 @@ class VdConversation final : public Conversation {
    *              The length of preselection value
    * @return      True on success, else false
    */
-  bool VerifyVehicleInfoRequest(PreselectionMode preselection_mode, std::uint8_t preselection_value_length);
+  bool VerifyVehicleInfoRequest(PreselectionMode preselection_mode,
+                                std::uint8_t preselection_value_length);
 
   /**
    * @brief       Function to deserialize the received Vehicle Identification Response/ Announcement

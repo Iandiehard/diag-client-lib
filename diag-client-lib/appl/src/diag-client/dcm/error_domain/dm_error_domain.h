@@ -82,8 +82,9 @@ class DmErrorDomain final : public core_type::ErrorDomain {
  * @return      ErrorCode
  *              A new ErrorCode instance
  */
-core_type::ErrorCode MakeErrorCode(DmErrorErrc code, core_type::ErrorDomain::SupportDataType data =
-                                                         core_type::ErrorDomain::SupportDataType{}) noexcept;
+core_type::ErrorCode MakeErrorCode(DmErrorErrc code,
+                                   core_type::ErrorDomain::SupportDataType data =
+                                       core_type::ErrorDomain::SupportDataType{}) noexcept;
 
 }  // namespace error_domain
 }  // namespace client

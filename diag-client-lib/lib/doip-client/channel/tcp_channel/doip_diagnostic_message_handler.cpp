@@ -108,7 +108,8 @@ class kSendDiagnosticReqFailed final : public utility::state::State<DiagnosticMe
    * @param[in]     state
    *                The kIdle state
    */
-  explicit kSendDiagnosticReqFailed(DiagnosticMessageState state) : State<DiagnosticMessageState>(state) {}
+  explicit kSendDiagnosticReqFailed(DiagnosticMessageState state)
+      : State<DiagnosticMessageState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -131,7 +132,8 @@ class kWaitForDiagnosticAck final : public utility::state::State<DiagnosticMessa
    * @param[in]     state
    *                The kIdle state
    */
-  explicit kWaitForDiagnosticAck(DiagnosticMessageState state) : State<DiagnosticMessageState>(state) {}
+  explicit kWaitForDiagnosticAck(DiagnosticMessageState state)
+      : State<DiagnosticMessageState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -154,7 +156,8 @@ class kDiagnosticPositiveAckRecvd final : public utility::state::State<Diagnosti
    * @param[in]     state
    *                The kDiagnosticPositiveAckRecvd state
    */
-  explicit kDiagnosticPositiveAckRecvd(DiagnosticMessageState state) : State<DiagnosticMessageState>(state) {}
+  explicit kDiagnosticPositiveAckRecvd(DiagnosticMessageState state)
+      : State<DiagnosticMessageState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -177,7 +180,8 @@ class kDiagnosticNegativeAckRecvd final : public utility::state::State<Diagnosti
    * @param[in]     state
    *                The kDiagnosticNegativeAckRecvd state
    */
-  explicit kDiagnosticNegativeAckRecvd(DiagnosticMessageState state) : State<DiagnosticMessageState>(state) {}
+  explicit kDiagnosticNegativeAckRecvd(DiagnosticMessageState state)
+      : State<DiagnosticMessageState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -200,7 +204,8 @@ class kWaitForDiagnosticResponse final : public utility::state::State<Diagnostic
    * @param[in]     state
    *                The kWaitForDiagnosticResponse state
    */
-  explicit kWaitForDiagnosticResponse(DiagnosticMessageState state) : State<DiagnosticMessageState>(state) {}
+  explicit kWaitForDiagnosticResponse(DiagnosticMessageState state)
+      : State<DiagnosticMessageState>(state) {}
 
   /**
    * @brief         Function to start the current state
@@ -298,33 +303,36 @@ class DiagnosticMessageHandler::DiagnosticMessageHandlerImpl {
    * @param[in]     channel
    *                The reference to doip channel
    */
-  DiagnosticMessageHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel)
+  DiagnosticMessageHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler,
+                               DoipTcpChannel &channel)
       : tcp_socket_handler_{tcp_socket_handler},
         channel_{channel},
         state_context_{},
         sync_timer_{} {
     // create and add state for Diagnostic State
     // kIdle
-    state_context_.AddState(DiagnosticMessageState::kIdle, std::make_unique<kIdle>(DiagnosticMessageState::kIdle));
+    state_context_.AddState(DiagnosticMessageState::kIdle,
+                            std::make_unique<kIdle>(DiagnosticMessageState::kIdle));
     // kSendDiagnosticReqFailed
-    state_context_.AddState(
-        DiagnosticMessageState::kSendDiagnosticReqFailed,
-        std::make_unique<kSendDiagnosticReqFailed>(DiagnosticMessageState::kSendDiagnosticReqFailed));
+    state_context_.AddState(DiagnosticMessageState::kSendDiagnosticReqFailed,
+                            std::make_unique<kSendDiagnosticReqFailed>(
+                                DiagnosticMessageState::kSendDiagnosticReqFailed));
     // kWaitForDiagnosticAck
-    state_context_.AddState(DiagnosticMessageState::kWaitForDiagnosticAck,
-                            std::make_unique<kWaitForDiagnosticAck>(DiagnosticMessageState::kWaitForDiagnosticAck));
+    state_context_.AddState(
+        DiagnosticMessageState::kWaitForDiagnosticAck,
+        std::make_unique<kWaitForDiagnosticAck>(DiagnosticMessageState::kWaitForDiagnosticAck));
     // kDiagnosticPositiveAckRecvd
-    state_context_.AddState(
-        DiagnosticMessageState::kDiagnosticPositiveAckRecvd,
-        std::make_unique<kDiagnosticPositiveAckRecvd>(DiagnosticMessageState::kDiagnosticPositiveAckRecvd));
+    state_context_.AddState(DiagnosticMessageState::kDiagnosticPositiveAckRecvd,
+                            std::make_unique<kDiagnosticPositiveAckRecvd>(
+                                DiagnosticMessageState::kDiagnosticPositiveAckRecvd));
     // kDiagnosticNegativeAckRecvd
-    state_context_.AddState(
-        DiagnosticMessageState::kDiagnosticNegativeAckRecvd,
-        std::make_unique<kDiagnosticNegativeAckRecvd>(DiagnosticMessageState::kDiagnosticNegativeAckRecvd));
+    state_context_.AddState(DiagnosticMessageState::kDiagnosticNegativeAckRecvd,
+                            std::make_unique<kDiagnosticNegativeAckRecvd>(
+                                DiagnosticMessageState::kDiagnosticNegativeAckRecvd));
     // kWaitForDiagnosticResponse
-    state_context_.AddState(
-        DiagnosticMessageState::kWaitForDiagnosticResponse,
-        std::make_unique<kWaitForDiagnosticResponse>(DiagnosticMessageState::kWaitForDiagnosticResponse));
+    state_context_.AddState(DiagnosticMessageState::kWaitForDiagnosticResponse,
+                            std::make_unique<kWaitForDiagnosticResponse>(
+                                DiagnosticMessageState::kWaitForDiagnosticResponse));
     // Transit to idle state
     state_context_.TransitionTo(DiagnosticMessageState::kIdle);
   }
@@ -407,9 +415,11 @@ void DiagnosticMessageHandler::Stop() { handler_impl_->Stop(); }
 
 void DiagnosticMessageHandler::Reset() { handler_impl_->Reset(); }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessage &doip_payload) noexcept -> void {
+auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
+    DoipMessage &doip_payload) noexcept -> void {
   DiagnosticMessageState final_state{DiagnosticMessageState::kDiagnosticNegativeAckRecvd};
-  if (handler_impl_->GetStateContext().GetActiveState().GetState() == DiagnosticMessageState::kWaitForDiagnosticAck) {
+  if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
+      DiagnosticMessageState::kWaitForDiagnosticAck) {
     // get the ack code
     DiagAckType const diag_ack_type{doip_payload.GetPayload()[0u]};
     if (doip_payload.GetPayloadType() == kDoipDiagMessagePosAck) {
@@ -426,8 +436,9 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
       }
     } else if (doip_payload.GetPayloadType() == kDoipDiagMessageNegAck) {
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-          __FILE__, __LINE__, __func__,
-          [&diag_ack_type](std::stringstream &msg) { msg << "Diagnostic request denied due to " << diag_ack_type; });
+          __FILE__, __LINE__, __func__, [&diag_ack_type](std::stringstream &msg) {
+            msg << "Diagnostic request denied due to " << diag_ack_type;
+          });
     } else {
       // do nothing
     }
@@ -438,20 +449,24 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(DoipMessa
   }
 }
 
-auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage &doip_payload) noexcept -> void {
+auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
+    DoipMessage &doip_payload) noexcept -> void {
   if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
       DiagnosticMessageState::kWaitForDiagnosticResponse) {
     // Indicate upper layer about incoming data
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
-        handler_impl_->GetDoipChannel().IndicateMessage(
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult,
+              uds_transport::UdsMessagePtr>
+        ret_val{handler_impl_->GetDoipChannel().IndicateMessage(
             doip_payload.GetServerAddress(), doip_payload.GetClientAddress(),
-            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U, doip_payload.GetPayload().size(), 0u,
-            "DoIPTcp", doip_payload.GetPayload())};
-    if (ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
+            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+            doip_payload.GetPayload().size(), 0u, "DoIPTcp", doip_payload.GetPayload())};
+    if (ret_val.first ==
+        uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationPending) {
       // keep channel alive since pending request received, do not change channel state
     } else {
       // Check result and udsMessagePtr
-      if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
+      if ((ret_val.first ==
+           uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
           (ret_val.second != nullptr)) {
         // copy to application buffer
         (void) std::copy(doip_payload.GetPayload().begin(), doip_payload.GetPayload().end(),
@@ -459,8 +474,9 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
         handler_impl_->GetDoipChannel().HandleMessage(std::move(ret_val.second));
       } else {
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-            __FILE__, __LINE__, __func__,
-            [](std::stringstream &msg) { msg << "Diagnostic message response ignored due to unknown error"; });
+            __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+              msg << "Diagnostic message response ignored due to unknown error";
+            });
       }
       handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
     }
@@ -474,17 +490,20 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(DoipMessage 
   }
 }
 
-auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
+auto DiagnosticMessageHandler::HandleDiagnosticRequest(
+    uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult result{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (handler_impl_->GetStateContext().GetActiveState().GetState() == DiagnosticMessageState::kIdle) {
+  if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
+      DiagnosticMessageState::kIdle) {
     if (SendDiagnosticRequest(std::move(diagnostic_request)) ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kWaitForDiagnosticAck);
       handler_impl_->GetSyncTimer().WaitForTimeout(
           [this, &result]() {
-            result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
+            result =
+                uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
             handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
                 __FILE__, __LINE__, "", [](std::stringstream &msg) {
@@ -496,15 +515,18 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
           [this, &result]() {
             if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
                 DiagnosticMessageState::kDiagnosticPositiveAckRecvd) {
-              handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kWaitForDiagnosticResponse);
+              handler_impl_->GetStateContext().TransitionTo(
+                  DiagnosticMessageState::kWaitForDiagnosticResponse);
               // success
               result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "",
-                  [](std::stringstream &msg) { msg << "Diagnostic Message Positive Ack received"; });
+                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                    msg << "Diagnostic Message Positive Ack received";
+                  });
             } else {
               // failed with neg acknowledgement from server
-              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNegTransmitAckReceived;
+              result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::
+                  kNegTransmitAckReceived;
               handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
                   __FILE__, __LINE__, "", [](std::stringstream &msg) {
@@ -525,34 +547,41 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(uds_transport::UdsMessage
     // channel not in idle state
     result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "",
-        [](std::stringstream &msg) { msg << "Diagnostic Message Transmission already in progress"; });
+        __FILE__, __LINE__, "", [](std::stringstream &msg) {
+          msg << "Diagnostic Message Transmission already in progress";
+        });
   }
   return result;
 }
 
-auto DiagnosticMessageHandler::SendDiagnosticRequest(uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
+auto DiagnosticMessageHandler::SendDiagnosticRequest(
+    uds_transport::UdsMessageConstPtr diagnostic_request) noexcept
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
   constexpr std::uint8_t kSourceAddressSize{4u};
   // Create header
-  std::uint32_t const total_diagnostic_response_length{
-      static_cast<uint32_t>(kDoipDiagMessageReqResMinLen + diagnostic_request->GetPayload().size())};
-  TcpMessage::BufferType compose_diag_req{CreateDoipGenericHeader(kDoipDiagMessage, total_diagnostic_response_length)};
+  std::uint32_t const total_diagnostic_response_length{static_cast<uint32_t>(
+      kDoipDiagMessageReqResMinLen + diagnostic_request->GetPayload().size())};
+  TcpMessage::BufferType compose_diag_req{
+      CreateDoipGenericHeader(kDoipDiagMessage, total_diagnostic_response_length)};
   compose_diag_req.reserve(kDoipheadrSize + total_diagnostic_response_length);
 
   // Add source address
-  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(
+      static_cast<std::uint8_t>((diagnostic_request->GetSa() & 0xFF00) >> 8u));
   compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetSa() & 0x00FF));
   // Add target address
-  compose_diag_req.emplace_back(static_cast<std::uint8_t>((diagnostic_request->GetTa() & 0xFF00) >> 8u));
+  compose_diag_req.emplace_back(
+      static_cast<std::uint8_t>((diagnostic_request->GetTa() & 0xFF00) >> 8u));
   compose_diag_req.emplace_back(static_cast<std::uint8_t>(diagnostic_request->GetTa() & 0x00FF));
   // Copy data bytes
   compose_diag_req.insert(compose_diag_req.begin() + kDoipheadrSize + kSourceAddressSize,
-                          diagnostic_request->GetPayload().begin(), diagnostic_request->GetPayload().end());
-  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>(
-      diagnostic_request->GetHostIpAddress(), diagnostic_request->GetHostPortNumber(), std::move(compose_diag_req))};
+                          diagnostic_request->GetPayload().begin(),
+                          diagnostic_request->GetPayload().end());
+  TcpMessagePtr doip_diag_req{std::make_unique<TcpMessage>(diagnostic_request->GetHostIpAddress(),
+                                                           diagnostic_request->GetHostPortNumber(),
+                                                           std::move(compose_diag_req))};
   // Initiate transmission
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_diag_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;

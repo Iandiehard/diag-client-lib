@@ -76,7 +76,8 @@ class TlsContext final {
    * @param[in]     private_key_path
    *                The path to private key
    */
-  TlsContext(Tls12VersionServer server, std::string_view certificate_path, std::string_view private_key_path) noexcept;
+  TlsContext(Tls12VersionServer server, std::string_view certificate_path,
+             std::string_view private_key_path) noexcept;
 
   /**
    * @brief         Constructs an instance of TlsContext
@@ -87,7 +88,8 @@ class TlsContext final {
    * @param[in]     private_key_path
    *                The path to private key
    */
-  TlsContext(Tls13VersionServer server, std::string_view certificate_path, std::string_view private_key_path) noexcept;
+  TlsContext(Tls13VersionServer server, std::string_view certificate_path,
+             std::string_view private_key_path) noexcept;
 
   /**
    * @brief  Deleted copy assignment and copy constructor

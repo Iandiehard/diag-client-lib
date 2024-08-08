@@ -30,8 +30,8 @@ class TcpClient::TcpClientImpl final {
   /**
    * @brief     Type alias for unsecured tcp connection
    */
-  using TcpConnection =
-      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, socket::tcp::TcpSocket>;
+  using TcpConnection = connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient,
+                                                       socket::tcp::TcpSocket>;
 
   /**
    * @brief  Definitions of different connection state
@@ -92,7 +92,9 @@ class TcpClient::TcpClientImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) noexcept { tcp_connection_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    tcp_connection_.SetReadHandler(std::move(read_handler));
+  }
 
   /**
    * @brief         Function to connect to remote ip address and port number
@@ -102,8 +104,10 @@ class TcpClient::TcpClientImpl final {
    *                The host port number
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+  core_type::Result<void> ConnectToHost(std::string_view host_ip_address,
+                                        std::uint16_t host_port_num) {
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
     if (connection_state_.load(std::memory_order_seq_cst) != State::kConnected) {
       if (tcp_connection_.ConnectToHost(host_ip_address, host_port_num)) {
         connection_state_.store(State::kConnected, std::memory_order_seq_cst);
@@ -113,7 +117,8 @@ class TcpClient::TcpClientImpl final {
       // already connected
       result.EmplaceValue();
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
     }
     return result;
   }
@@ -123,7 +128,8 @@ class TcpClient::TcpClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> DisconnectFromHost() {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
     if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
       tcp_connection_.DisconnectFromHost();
       connection_state_.store(State::kDisconnected, std::memory_order_seq_cst);
@@ -131,7 +137,8 @@ class TcpClient::TcpClientImpl final {
     } else {
       // Not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
     }
     return result;
   }
@@ -151,14 +158,16 @@ class TcpClient::TcpClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> Transmit(MessageConstPtr tcp_message) {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
     if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
       if (tcp_connection_.Transmit(std::move(tcp_message))) { result.EmplaceValue(); }
     } else {
       // not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [](std::stringstream &msg) { msg << "Tcp client is Offline, please connect to server first"; });
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+            msg << "Tcp client is Offline, please connect to server first";
+          });
     }
     return result;
   }
@@ -197,13 +206,18 @@ void TcpClient::SetReadHandler(TcpClient::HandlerRead read_handler) noexcept {
   tcp_client_impl_->SetReadHandler(std::move(read_handler));
 }
 
-core_type::Result<void> TcpClient::ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
+core_type::Result<void> TcpClient::ConnectToHost(std::string_view host_ip_address,
+                                                 std::uint16_t host_port_num) {
   return tcp_client_impl_->ConnectToHost(host_ip_address, host_port_num);
 }
 
-core_type::Result<void> TcpClient::DisconnectFromHost() { return tcp_client_impl_->DisconnectFromHost(); }
+core_type::Result<void> TcpClient::DisconnectFromHost() {
+  return tcp_client_impl_->DisconnectFromHost();
+}
 
-auto TcpClient::IsConnectedToHost() const noexcept -> bool { return tcp_client_impl_->IsConnectedToHost(); }
+auto TcpClient::IsConnectedToHost() const noexcept -> bool {
+  return tcp_client_impl_->IsConnectedToHost();
+}
 
 core_type::Result<void> TcpClient::Transmit(MessageConstPtr tcp_message) {
   return tcp_client_impl_->Transmit(std::move(tcp_message));

@@ -11,10 +11,12 @@
 namespace core_type {
 
 template<typename EnumT>
-ErrorCode::ErrorCode(EnumT e, ErrorDomain::SupportDataType data) noexcept : code_value_{e},
-                                                                            support_data_{data} {}
+ErrorCode::ErrorCode(EnumT e, ErrorDomain::SupportDataType data) noexcept
+    : code_value_{e},
+      support_data_{data} {}
 
-ErrorCode::ErrorCode(ErrorDomain::CodeType value, ErrorDomain &domain, ErrorDomain::SupportDataType data) noexcept
+ErrorCode::ErrorCode(ErrorDomain::CodeType value, ErrorDomain &domain,
+                     ErrorDomain::SupportDataType data) noexcept
     : code_value_{value},
       domain_{domain},
       support_data_{data} {}
@@ -23,8 +25,12 @@ constexpr ErrorDomain::CodeType ErrorCode::Value() const noexcept { return code_
 
 constexpr const ErrorDomain &ErrorCode::Domain() const noexcept { return domain_; }
 
-constexpr ErrorDomain::SupportDataType ErrorCode::SupportData() const noexcept { return support_data_; }
+constexpr ErrorDomain::SupportDataType ErrorCode::SupportData() const noexcept {
+  return support_data_;
+}
 
-std::string_view ErrorCode::Message() noexcept { return std::string_view{domain_.Message(code_value_)}; }
+std::string_view ErrorCode::Message() noexcept {
+  return std::string_view{domain_.Message(code_value_)};
+}
 
 }  // namespace core_type

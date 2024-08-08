@@ -49,7 +49,8 @@ void print_cn_name(const char *label, X509_NAME *const name) {
 }  // namespace
 
 TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                 TcpHandlerRead tcp_handler_read, std::string_view ca_certification_path)
+                                 TcpHandlerRead tcp_handler_read,
+                                 std::string_view ca_certification_path)
     : local_ip_address_{local_ip_address},
       local_port_num_{local_port_num},
       io_context_{},
@@ -64,21 +65,22 @@ TlsClientSocket::TlsClientSocket(std::string_view local_ip_address, std::uint16_
   // Set verification mode
   tls_socket_.set_verify_mode(boost::asio::ssl::verify_peer);
   // Set the verification callback
-  tls_socket_.set_verify_callback([](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool {
-    X509 *cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
-    int depth = X509_STORE_CTX_get_error_depth(ctx.native_handle());
+  tls_socket_.set_verify_callback(
+      [](bool pre_verified, boost::asio::ssl::verify_context &ctx) noexcept -> bool {
+        X509 *cert = X509_STORE_CTX_get_current_cert(ctx.native_handle());
+        int depth = X509_STORE_CTX_get_error_depth(ctx.native_handle());
 
-    fprintf(stdout, "verify_callback (depth=%d)(preverify=%d)\n", depth, pre_verified);
+        fprintf(stdout, "verify_callback (depth=%d)(preverify=%d)\n", depth, pre_verified);
 
-    X509_NAME *iname = cert ? X509_get_issuer_name(cert) : nullptr;
-    X509_NAME *sname = cert ? X509_get_subject_name(cert) : nullptr;
+        X509_NAME *iname = cert ? X509_get_issuer_name(cert) : nullptr;
+        X509_NAME *sname = cert ? X509_get_subject_name(cert) : nullptr;
 
-    /* Issuer is the authority we trust that warrants nothing useful */
-    print_cn_name("Issuer (cn)", iname);
-    /* Subject is who the certificate is issued to by the authority  */
-    print_cn_name("Subject (cn)", sname);
-    return true;
-  });
+        /* Issuer is the authority we trust that warrants nothing useful */
+        print_cn_name("Issuer (cn)", iname);
+        /* Subject is who the certificate is issued to by the authority  */
+        print_cn_name("Subject (cn)", sname);
+        return true;
+      });
   // Load the root CA certificates
   io_ssl_context_.load_verify_file(std::string{ca_certification_path});
 
@@ -126,7 +128,8 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Open() {
     // Set socket to non blocking
     GetNativeTcpSocket().non_blocking(false);
     // Bind to local ip address and random port
-    GetNativeTcpSocket().bind(Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+    GetNativeTcpSocket().bind(
+        Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
 
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
@@ -140,27 +143,29 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Open() {
     } else {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [ec](std::stringstream &msg) { msg << "Tcp Socket binding failed with message: " << ec.message(); });
+          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+            msg << "Tcp Socket binding failed with message: " << ec.message();
+          });
       result.EmplaceError(TlsErrorCode::kBindingFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp Socket opening failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tcp Socket opening failed with error: " << ec.message();
+        });
     result.EmplaceError(TlsErrorCode::kOpenFailed);
   }
   return result;
 }
 
-core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectToHost(std::string_view host_ip_address,
-                                                                                      std::uint16_t host_port_num) {
+core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectToHost(
+    std::string_view host_ip_address, std::uint16_t host_port_num) {
   core_type::Result<void, TlsErrorCode> result{TlsErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
   // Connect to provided Ip address
-  GetNativeTcpSocket().connect(Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num),
-                               ec);
+  GetNativeTcpSocket().connect(
+      Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
@@ -187,8 +192,9 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectT
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp Socket connect to host failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tcp Socket connect to host failed with error: " << ec.message();
+        });
     result.EmplaceError(TlsErrorCode::kConnectFailed);
   }
   return result;
@@ -224,8 +230,9 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Transmit
   core_type::Result<void, TlsErrorCode> result{TlsErrorCode::kGenericError};
   TcpErrorCodeType ec{};
 
-  boost::asio::write(tls_socket_,
-                     boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
+  boost::asio::write(
+      tls_socket_,
+      boost::asio::buffer(tcp_message->GetPayload().data(), tcp_message->GetPayload().size()), ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -237,8 +244,9 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Transmit
     result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Tcp message sending failed with error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tcp message sending failed with error: " << ec.message();
+        });
   }
   return result;
 }
@@ -257,22 +265,25 @@ void TlsClientSocket::HandleMessage() {
   message::tcp::TcpMessage::BufferType rx_buffer{};
   rx_buffer.resize(message::tcp::kDoipheadrSize);
   // start blocking read to read Header first
-  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize), ec);
+  boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[0u], message::tcp::kDoipheadrSize),
+                    ec);
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
     std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
-      return static_cast<std::uint32_t>((static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
-                                        (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
-                                        (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
-                                        (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
+      return static_cast<std::uint32_t>(
+          (static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
+          (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
+          (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
+          (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
     }();
 
     if (read_next_bytes != 0u) {
       // reserve the buffer
       rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
-      boost::asio::read(tls_socket_, boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes),
-                        ec);
+      boost::asio::read(
+          tls_socket_,
+          boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
       Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
@@ -298,8 +309,9 @@ void TlsClientSocket::HandleMessage() {
   } else {
     running_ = false;
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [ec](std::stringstream &msg) { msg << "Remote Disconnected with undefined error: " << ec.message(); });
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Remote Disconnected with undefined error: " << ec.message();
+        });
   }
 }
 

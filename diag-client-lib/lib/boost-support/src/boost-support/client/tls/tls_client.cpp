@@ -33,7 +33,8 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
   /**
    * @brief     Type alias for secured tcp connection
    */
-  using TcpConnectionSecured = connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
+  using TcpConnectionSecured =
+      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
 
   /**
    * @brief  Definitions of different connection state
@@ -61,8 +62,8 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    * @param[in]     local_port_num
    *                The local port number of client
    */
-  TlsClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num, std::string_view ca_certification_path,
-                TlsVersion tls_version) noexcept
+  TlsClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
+                std::string_view ca_certification_path, TlsVersion tls_version) noexcept
       : io_context_{},
         tls_context_{tls_version, ca_certification_path},
         connection_state_{State::kDisconnected},
@@ -101,7 +102,9 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    * @param[in]     read_handler
    *                The handler to be set
    */
-  void SetReadHandler(HandlerRead read_handler) noexcept { tcp_connection_.SetReadHandler(std::move(read_handler)); }
+  void SetReadHandler(HandlerRead read_handler) noexcept {
+    tcp_connection_.SetReadHandler(std::move(read_handler));
+  }
 
   /**
    * @brief         Function to connect to remote ip address and port number
@@ -111,8 +114,10 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    *                The host port number
    * @return        Empty void on success, otherwise error is returned
    */
-  core_type::Result<void> ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+  core_type::Result<void> ConnectToHost(std::string_view host_ip_address,
+                                        std::uint16_t host_port_num) {
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
     if (connection_state_.load(std::memory_order_seq_cst) != State::kConnected) {
       if (tcp_connection_.ConnectToHost(host_ip_address, host_port_num)) {
         connection_state_.store(State::kConnected, std::memory_order_seq_cst);
@@ -122,7 +127,8 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
       // already connected
       result.EmplaceValue();
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
     }
     return result;
   }
@@ -132,7 +138,8 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> DisconnectFromHost() {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kSocketError)};
     if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
       tcp_connection_.DisconnectFromHost();
       connection_state_.store(State::kDisconnected, std::memory_order_seq_cst);
@@ -140,7 +147,8 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
     } else {
       // Not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
+          __FILE__, __LINE__, __func__,
+          [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
     }
     return result;
   }
@@ -160,14 +168,16 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    * @return        Empty void on success, otherwise error is returned
    */
   core_type::Result<void> Transmit(MessageConstPtr tcp_message) {
-    core_type::Result<void> result{error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
+    core_type::Result<void> result{
+        error_domain::MakeErrorCode(error_domain::BoostSupportErrorErrc::kGenericError)};
     if (connection_state_.load(std::memory_order_seq_cst) == State::kConnected) {
       if (tcp_connection_.Transmit(std::move(tcp_message))) { result.EmplaceValue(); }
     } else {
       // not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__,
-          [](std::stringstream &msg) { msg << "Tcp client is Offline, please connect to server first"; });
+          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+            msg << "Tcp client is Offline, please connect to server first";
+          });
     }
     return result;
   }
@@ -196,9 +206,10 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
 
 template<typename TlsVersion>
 TlsClient<TlsVersion>::TlsClient(std::string_view local_ip_address, std::uint16_t local_port_num,
-                                 std::string_view ca_certification_path, TlsVersion tls_version) noexcept
-    : tls_client_impl_{std::make_unique<TlsClientImpl>(local_ip_address, local_port_num, ca_certification_path,
-                                                       std::move(tls_version))} {}
+                                 std::string_view ca_certification_path,
+                                 TlsVersion tls_version) noexcept
+    : tls_client_impl_{std::make_unique<TlsClientImpl>(
+          local_ip_address, local_port_num, ca_certification_path, std::move(tls_version))} {}
 
 template<typename TlsVersion>
 TlsClient<TlsVersion>::TlsClient(TlsClient &&other) noexcept = default;

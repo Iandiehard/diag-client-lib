@@ -150,7 +150,8 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  auto ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept -> bool {
+  auto ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept
+      -> bool {
     return socket_.Connect(host_ip_address, host_port_num)
         .AndThen([this]() noexcept {
           {  // start reading

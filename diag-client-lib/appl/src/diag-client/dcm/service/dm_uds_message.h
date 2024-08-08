@@ -19,7 +19,8 @@ namespace uds_message {
 class DmUdsMessage final : public uds_transport::UdsMessage {
  public:
   // ctor
-  DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address, uds_transport::ByteVector &payload);
+  DmUdsMessage(Address sa, Address ta, IpAddress host_ip_address,
+               uds_transport::ByteVector &payload);
 
   // dtor
   ~DmUdsMessage() noexcept override = default;

@@ -65,23 +65,27 @@ class DiagClient::DiagClientImpl final {
    */
   Result<void> Initialize() noexcept {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient Initialization started"; });
+        __FILE__, __LINE__, __func__,
+        [](std::stringstream &msg) { msg << "DiagClient Initialization started"; });
 
     // read configuration
     return boost_support::parser::Read(diag_client_config_path_)
         .AndThen([this](boost_support::parser::boost_tree config) {
           // Create single dcm instance and pass the configuration
-          dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(config_parser::ReadDcmClientConfig(config));
+          dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(
+              config_parser::ReadDcmClientConfig(config));
           // Start dcm client main thread
           dcm_thread_ = std::thread([this]() noexcept { dcm_instance_->Main(); });
           pthread_setname_np(dcm_thread_.native_handle(), "DcmClientMain");
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
+              __FILE__, __LINE__, "",
+              [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
           return Result<void, boost_support::parser::ParsingErrorCode>::FromValue();
         })
         .MapError([](boost_support::parser::ParsingErrorCode const &) noexcept {
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
+              __FILE__, __LINE__, "",
+              [](std::stringstream &msg) { msg << "DiagClient Initialization failed"; });
           return error_domain::MakeErrorCode(error_domain::DmErrorErrc::kInitializationFailed);
         });
   }
@@ -95,13 +99,15 @@ class DiagClient::DiagClientImpl final {
    */
   Result<void> DeInitialize() noexcept {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [](std::stringstream &msg) { msg << "DiagClient De-Initialization started"; });
+        __FILE__, __LINE__, __func__,
+        [](std::stringstream &msg) { msg << "DiagClient De-Initialization started"; });
     // shutdown DCM module here
     return dcm_instance_->SignalShutdown()
         .AndThen([this]() {
           if (dcm_thread_.joinable()) { dcm_thread_.join(); }
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-              __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient De-Initialization completed"; });
+              __FILE__, __LINE__, "",
+              [](std::stringstream &msg) { msg << "DiagClient De-Initialization completed"; });
         })
         .OrElse([](core_type::ErrorCode const &) {
           return error_domain::MakeErrorCode(error_domain::DmErrorErrc::kDeInitializationFailed);
@@ -115,10 +121,12 @@ class DiagClient::DiagClientImpl final {
    * @return      Diag client conversation object as per passed conversation name
    * @implements  DiagClientLib-MultipleTester-Connection, DiagClientLib-Conversation-Construction
    */
-  conversation::DiagClientConversation GetDiagnosticClientConversation(std::string_view conversation_name) noexcept {
+  conversation::DiagClientConversation GetDiagnosticClientConversation(
+      std::string_view conversation_name) noexcept {
     if (!dcm_instance_) {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
-          __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
+          __FILE__, __LINE__, "",
+          [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
     }
     return dcm_instance_->GetDiagnosticClientConversation(conversation_name);
   }
@@ -135,7 +143,8 @@ class DiagClient::DiagClientImpl final {
       diag::client::vehicle_info::VehicleInfoListRequestType vehicle_info_request) noexcept {
     if (!dcm_instance_) {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
-          __FILE__, __LINE__, "", [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
+          __FILE__, __LINE__, "",
+          [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
     }
     return dcm_instance_->SendVehicleIdentificationRequest(std::move(vehicle_info_request));
   }

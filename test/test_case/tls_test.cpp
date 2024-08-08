@@ -30,10 +30,11 @@ constexpr std::string_view RootCACertificatePath{"../../../openssl/rootCA.pem"};
 class TlsClient final {
  public:
   TlsClient(std::string_view local_ip_address, std::uint16_t local_port_num)
-      : tls_client_socket_{
-            local_ip_address, local_port_num,
-            [this](boost_support::socket::tcp::TcpMessagePtr message) { OnMessageReceived(std::move(message)); },
-            RootCACertificatePath} {
+      : tls_client_socket_{local_ip_address, local_port_num,
+                           [this](boost_support::socket::tcp::TcpMessagePtr message) {
+                             OnMessageReceived(std::move(message));
+                           },
+                           RootCACertificatePath} {
     // Open the socket
     tls_client_socket_.Open();
   }
@@ -201,7 +202,8 @@ TEST_F(TLSFixture, SendAndReceiveMessage) {
   tls_server_->StartAcceptingNewConnection();
   tls_client_->Connect(TlsServerIpAddress, TlsPort);
 
-  boost_support::socket::tcp::TcpMessagePtr tcp_message{std::make_unique<boost_support::socket::tcp::TcpMessage>()};
+  boost_support::socket::tcp::TcpMessagePtr tcp_message{
+      std::make_unique<boost_support::socket::tcp::TcpMessage>()};
 
   tcp_message->GetTxBuffer().reserve(2u);
   tcp_message->GetTxBuffer().emplace_back(1u);

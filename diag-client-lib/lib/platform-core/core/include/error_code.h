@@ -32,7 +32,8 @@ class ErrorCode final {
    *              Optional vendor-specific supplementary error context data
    */
   template<typename EnumT>
-  explicit ErrorCode(EnumT e, ErrorDomain::SupportDataType data = ErrorDomain::SupportDataType{}) noexcept;
+  explicit ErrorCode(EnumT e,
+                     ErrorDomain::SupportDataType data = ErrorDomain::SupportDataType{}) noexcept;
 
   /**
    * @brief       Construct a new ErrorCode instance with parameters
