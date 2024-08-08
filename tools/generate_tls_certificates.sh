@@ -9,16 +9,16 @@ DOMAIN=DiagClientLib
 
 mkdir openssl && cd openssl
 
-# Create root CA & Private key
+# Create root CA
 openssl req -x509 \
+            -newkey rsa:2048 \
             -sha256 -days 356 \
             -nodes \
-            -newkey rsa:2048 \
-            -subj "/CN=${DOMAIN}/C=DE/L=San Fransisco" \
-            -keyout rootCA.key -out rootCA.crt
+            -subj "/CN=${DOMAIN}/C=DE/L=Berlin " \
+            -keyout ${DOMAIN}RootCAKey.key -out ${DOMAIN}RootCA.crt
 
-# Create the Server Private Key
-openssl genrsa -out ${DOMAIN}.key 2048
+# Create server private key
+openssl genrsa -out ${DOMAIN}Server.key 2048
 
 # Create Certificate Signing Request Configuration
 cat > csr.conf <<EOF
@@ -49,7 +49,7 @@ IP.2 = 172.16.25.128
 EOF
 
 # Generate Certificate Signing Request (CSR) Using Server Private Key
-openssl req -new -key ${DOMAIN}.key -out ${DOMAIN}.csr -config csr.conf
+openssl req -new -key ${DOMAIN}Server.key -out ${DOMAIN}.csr -config csr.conf
 
 # Create a external config file for the certificate
 cat > cert.conf <<EOF
@@ -67,16 +67,16 @@ EOF
 # Generate SSL certificate With self signed CA
 openssl x509 -req \
     -in ${DOMAIN}.csr \
-    -CA rootCA.crt -CAkey rootCA.key \
-    -CAcreateserial -out ${DOMAIN}.crt \
+    -CA ${DOMAIN}RootCA.crt -CAkey ${DOMAIN}RootCAKey.key \
+    -CAcreateserial -out ${DOMAIN}Server.crt \
     -days 365 \
     -sha256 -extfile cert.conf
 
 
 # Convert from CRT to PEM format
-openssl x509 -in rootCA.crt -out rootCA.pem
-openssl x509 -in ${DOMAIN}.crt -out ${DOMAIN}.pem
+openssl x509 -in ${DOMAIN}RootCA.crt -out ${DOMAIN}RootCA.pem
+openssl x509 -in ${DOMAIN}Server.crt -out ${DOMAIN}Server.pem
 
 # Verify the certificates
-openssl verify -CAfile rootCA.pem DiagClientLib.crt
+openssl verify -CAfile ${DOMAIN}RootCA.pem ${DOMAIN}Server.pem
 

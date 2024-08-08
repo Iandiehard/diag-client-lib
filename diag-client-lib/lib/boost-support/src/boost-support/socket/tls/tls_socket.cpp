@@ -22,11 +22,32 @@ TlsSocket::TlsSocket(std::string_view local_ip_address, std::uint16_t local_port
       local_endpoint_{boost::asio::ip::make_address(local_ip_address), local_port_num} {}
 
 TlsSocket::TlsSocket(TlsSocket::TcpSocket tcp_socket, TlsContext &tls_context) noexcept
-    : ssl_stream_{std::move(tcp_socket), tls_context.GetContext()} {}
+    : ssl_stream_{std::move(tcp_socket), tls_context.GetContext()},
+      local_endpoint_{} {
+  TcpErrorCodeType ec{};
+
+  // Perform TLS handshake
+  ssl_stream_.handshake(boost::asio::ssl::stream_base::server, ec);
+
+  if (ec.value() == boost::system::errc::success) {
+    printf("Connected with %s encryption\n", SSL_get_cipher(ssl_stream_.native_handle()));
+  } else {
+    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
+        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          msg << "Tls client handshake with host failed with error: " << ec.message();
+        });
+  }
+}
 
 TlsSocket::TlsSocket(TlsSocket &&other) noexcept
     : ssl_stream_{std::move(other.ssl_stream_)},
       local_endpoint_{std::move(other.local_endpoint_)} {}
+
+TlsSocket &TlsSocket::operator=(TlsSocket &&other) noexcept {
+  ssl_stream_ = std::move(std::move(other.ssl_stream_));
+  local_endpoint_ = std::move(other.local_endpoint_);
+  return *this;
+}
 
 TlsSocket::~TlsSocket() noexcept = default;
 
@@ -49,8 +70,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
             Tcp::endpoint const endpoint_{GetNativeTcpSocket().local_endpoint()};
-            msg << "Tls Socket opened and bound to "
-                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+            msg << "Tls Socket opened and bound to " << "<" << endpoint_.address().to_string()
+                << "," << endpoint_.port() << ">";
           });
       result.EmplaceValue();
     } else {
@@ -83,8 +104,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-          msg << "Tls client socket connected to host "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          msg << "Tls socket connected to host " << "<" << endpoint_.address().to_string() << ","
+              << endpoint_.port() << ">";
         });
     // Perform TLS handshake
     ssl_stream_.handshake(boost::asio::ssl::stream_base::client, ec);
@@ -140,8 +161,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-          msg << "Tcp message sent to "
-              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+          msg << "Tcp message sent to " << "<" << endpoint_.address().to_string() << ","
+              << endpoint_.port() << ">";
         });
     result.EmplaceValue();
   } else {
@@ -194,8 +215,8 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
           endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-            msg << "Tcp Message received from "
-                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
+            msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
+                << endpoint_.port() << ">";
           });
       result.EmplaceValue(std::move(tcp_rx_message));
     } else {

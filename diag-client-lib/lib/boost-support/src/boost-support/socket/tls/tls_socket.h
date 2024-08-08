@@ -87,9 +87,9 @@ class TlsSocket final {
   TlsSocket &operator=(const TlsSocket &other) noexcept = delete;
 
   /**
-   * @brief  Deleted move assignment
+   * @brief  Move assignment
    */
-  TlsSocket &operator=(TlsSocket &&other) noexcept = delete;
+  TlsSocket &operator=(TlsSocket &&other) noexcept;
 
   /**
    * @brief  Move constructor

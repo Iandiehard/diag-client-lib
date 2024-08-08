@@ -34,11 +34,11 @@ constexpr std::string_view kTlsClientIpAddress{"172.16.25.127"};
 // Tls client port number
 constexpr std::uint16_t kTlsClientTcpPortNum{3496U};
 // Certificate path
-constexpr std::string_view kCertificatePath{};
+constexpr std::string_view kServerCertificatePath{"./cert/DiagClientLibServer.pem"};
 // Private key path
-constexpr std::string_view kPrivateKeyPath{};
+constexpr std::string_view kServerPrivateKeyPath{"./cert/DiagClientLibServer.key"};
 // CA certificate path
-constexpr std::string_view kCACertificatePath{};
+constexpr std::string_view kCACertificatePath{"./cert/DiagClientLibRootCA.pem"};
 
 /*!
  * @brief       Test fixture to test tls 1.2
@@ -66,10 +66,10 @@ class Tls12Fixture : public component::ComponentTest {
                       kTlsServerTcpPortNum,
                       1u,
                       TlsServerVersion{
-                          {TlsServerCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256,
-                           TlsServerCipherSuite ::TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256}},
-                      kCertificatePath,
-                      kPrivateKeyPath},
+                          {TlsServerCipherSuite::TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384,
+                           TlsServerCipherSuite ::TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256}},
+                      kServerCertificatePath,
+                      kServerPrivateKeyPath},
         tls_server_{},
         tls_client_{
             kTlsClientIpAddress, kTlsClientTcpPortNum, kCACertificatePath,
@@ -87,7 +87,74 @@ class Tls12Fixture : public component::ComponentTest {
   auto CreateServerWithExpectation(Functor expectation_functor) noexcept -> std::future<bool> {
     return std::async(std::launch::async,
                       [this, expectation_functor = std::move(expectation_functor)]() {
-                        std::optional<TlsServer> server{tls_acceptor_.GetTlsServer()};
+                        std::optional<TlsServer> server{
+                            tls_acceptor_.GetTlsServer()};  // blocks until client is connected
+                        if (server.has_value()) {
+                          tls_server_.emplace(std::move(server).value());
+                          tls_server_->Initialize();
+                          // Set Expectation
+                          expectation_functor();
+                        }
+                        return tls_server_.has_value();
+                      });
+  }
+
+ protected:
+  // Tls acceptor
+  TlsAcceptor tls_acceptor_;
+  // Tls Server
+  std::optional<TlsServer> tls_server_;
+  // Tls client with Tls version 1.2
+  TlsClient tls_client_;
+};
+
+/*!
+ * @brief       Test fixture to test tls 1.3
+ */
+class Tls13Fixture : public component::ComponentTest {
+ public:
+  // Type Alias of acceptor
+  using TlsAcceptor = boost_support::server::tls::TlsAcceptor13;
+  // Type Alias of server
+  using TlsServer = boost_support::server::tls::TlsServer;
+  // Type Alias of client
+  using TlsClient = boost_support::client::tls::TlsClient13;
+  // Type Alias of tls server cipher suites version 1.2
+  using TlsServerCipherSuite = boost_support::server::tls::Tls13CipherSuites;
+  // Type Alias of tls server version
+  using TlsServerVersion = boost_support::server::tls::TlsVersion13;
+  // Type Alias of tls client cipher suites version 1.2
+  using TlsClientCipherSuite = boost_support::client::tls::Tls13CipherSuites;
+  // Type Alias of tls client version
+  using TlsClientVersion = boost_support::client::tls::TlsVersion13;
+
+ protected:
+  Tls13Fixture()
+      : tls_acceptor_{kTlsServerIpAddress,
+                      kTlsServerTcpPortNum,
+                      1u,
+                      TlsServerVersion{{TlsServerCipherSuite::TLS_AES_128_GCM_SHA256,
+                                        TlsServerCipherSuite ::TLS_AES_256_GCM_SHA384}},
+                      kServerCertificatePath,
+                      kServerPrivateKeyPath},
+        tls_server_{},
+        tls_client_{kTlsClientIpAddress, kTlsClientTcpPortNum, kCACertificatePath,
+                    TlsClientVersion{{TlsClientCipherSuite::TLS_AES_128_GCM_SHA256,
+                                      TlsClientCipherSuite::TLS_AES_256_GCM_SHA384}}} {}
+
+  void SetUp() override { tls_client_.Initialize(); }
+
+  void TearDown() override {
+    if (tls_server_.has_value()) { tls_server_->DeInitialize(); }
+    tls_client_.DeInitialize();
+  }
+
+  template<typename Functor>
+  auto CreateServerWithExpectation(Functor expectation_functor) noexcept -> std::future<bool> {
+    return std::async(std::launch::async,
+                      [this, expectation_functor = std::move(expectation_functor)]() {
+                        std::optional<TlsServer> server{
+                            tls_acceptor_.GetTlsServer()};  // blocks until client is connected
                         if (server.has_value()) {
                           tls_server_.emplace(std::move(server).value());
                           tls_server_->Initialize();
@@ -110,20 +177,22 @@ class Tls12Fixture : public component::ComponentTest {
 /**
  * @brief  Verify that sending of data from tls client to server works.
  */
-TEST_F(Tls12Fixture, SendDataFromClientToServer) {
+TEST_F(Tls13Fixture, SendDataFromClientToServer) {
   std::vector<std::uint8_t> const kTestData{1u, 2u, 3u, 4u, 5u, 6u};
 
   std::future<bool> is_server_created{CreateServerWithExpectation([this, &kTestData]() {
+    ASSERT_TRUE(tls_server_.has_value());
     // Create expectation that Receive Handler is invoked with same data
     tls_server_->SetReadHandler([&kTestData](TlsServer::MessagePtr message) {
       EXPECT_THAT(kTestData, ::testing::ElementsAreArray(message->GetPayload()));
     });
   })};
 
-  ASSERT_TRUE(is_server_created.get());
   // Try connecting to server and verify
   EXPECT_TRUE(tls_client_.ConnectToHost(kTlsServerIpAddress, kTlsServerTcpPortNum).HasValue());
   EXPECT_TRUE(tls_client_.IsConnectedToHost());
+
+  ASSERT_TRUE(is_server_created.get());
   // Send test data to tls server
   EXPECT_TRUE(tls_client_
                   .Transmit(std::make_unique<TlsClient::Message>(kTlsServerIpAddress,

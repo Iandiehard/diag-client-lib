@@ -11,12 +11,12 @@ add_executable(${PROJECT_NAME}
         ${MAIN}
         ${COMMON}
         ${TEST_SRCS}
-        )
+)
 
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        )
+)
 
 target_link_libraries(${PROJECT_NAME}
         diag-client
@@ -25,12 +25,16 @@ target_link_libraries(${PROJECT_NAME}
         utility-support
         GTest::gtest_main
         GTest::gmock_main
-        )
+)
 
 gtest_discover_tests(${PROJECT_NAME})
 
-# Copy the default config file
-set(DEFAULT_CONFIG "etc/diag_client_config.json")
+# Copy etc directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        COMMENT "Copying file '${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CONFIG}' for '${PROJECT_BINARY_DIR}' to working directory..."
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_CURRENT_SOURCE_DIR}/${DEFAULT_CONFIG} ${PROJECT_BINARY_DIR}/)
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/etc $<TARGET_FILE_DIR:${PROJECT_NAME}>/etc)
+
+# Copy cert directory
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_CURRENT_SOURCE_DIR}/cert $<TARGET_FILE_DIR:${PROJECT_NAME}>/cert)

@@ -118,8 +118,16 @@ auto ToOpenSslString(server::tls::Tls13CipherSuites cipher) noexcept -> std::str
 template<typename CipherType>
 auto ConvertCipherListToString(std::initializer_list<CipherType> ciphers) noexcept -> std::string {
   return std::accumulate(ciphers.begin(), ciphers.end(), std::string{},
-                         [](std::string const& result, CipherType const& cipher) {
-                           return result + ':' + ToOpenSslString(cipher);
+                         [](std::string const& result, CipherType const& cipher) -> std::string {
+                           std::string calculated_ssl_string{};
+                           if (result.empty()) {
+                             calculated_ssl_string.append(ToOpenSslString(cipher));
+                           } else {
+                             calculated_ssl_string.append(result);
+                             calculated_ssl_string.append(":");
+                             calculated_ssl_string.append(ToOpenSslString(cipher));
+                           }
+                           return calculated_ssl_string;
                          });
 }
 }  // namespace

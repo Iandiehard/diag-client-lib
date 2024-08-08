@@ -29,7 +29,7 @@ constexpr std::string_view kDiagUdpAnotherUnicastIpAddress{"172.16.25.129"};
 // Port number
 constexpr std::uint16_t kDiagUdpPortNum{13400u};
 // Path to json file
-constexpr std::string_view kDiagClientConfigPath{"diag_client_config.json"};
+constexpr std::string_view kDiagClientConfigPath{"./etc/diag_client_config.json"};
 
 // Fixture to test Vehicle discovery functionality
 class VehicleDiscoveryFixture : public component::ComponentTest {

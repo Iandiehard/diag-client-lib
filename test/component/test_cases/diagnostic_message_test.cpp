@@ -31,7 +31,7 @@ const std::uint16_t kDiagClientLogicalAddress{0x0001U};
 // Diag Test Server logical address
 const std::uint16_t kDiagServerLogicalAddress{0xFA25U};
 // Path to json file
-constexpr std::string_view kDiagClientConfigPath{"diag_client_config.json"};
+constexpr std::string_view kDiagClientConfigPath{"./etc/diag_client_config.json"};
 // Default routing activation type
 constexpr std::uint8_t kDoipRoutingActivationReqActTypeDefault{0x00U};
 // Successful routing activation response code

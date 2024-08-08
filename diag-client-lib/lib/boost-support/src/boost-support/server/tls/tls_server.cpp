@@ -26,7 +26,7 @@ class TlsServer::TlsServerImpl final {
    * @brief     Type alias for secured tcp connection
    */
   using TcpConnectionSecured =
-      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kClient, TlsSocket>;
+      connection::tcp::TcpConnection<connection::tcp::ConnectionType::kServer, TlsSocket>;
 
   /**
    * @brief         Constructs an instance of TcpServerImpl
