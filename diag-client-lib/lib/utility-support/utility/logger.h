@@ -251,12 +251,14 @@ class Logger final {
   template<typename Func>
   void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name,
                      const std::string_view func_name, int line_no, Func &&func) {
-
+    /*
     DLT_LOG(
         contxt_, log_level,
         DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func))
                         .str()
-                        .c_str()));
+                        .c_str())); */
+    std::cout << CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func)).str()
+              << std::endl;
   }
 #endif
 

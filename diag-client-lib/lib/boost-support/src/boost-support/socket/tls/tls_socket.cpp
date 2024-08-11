@@ -131,10 +131,11 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(
 core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
   TcpErrorCodeType ec{};
+
   // Shutdown TLS connection
   ssl_stream_.shutdown(ec);
-  // Shutdown of TCP connection
-  GetNativeTcpSocket().shutdown(Tcp::socket ::shutdown_both, ec);
+
+  // ssl_stream_.
 
   if (ec.value() == boost::system::errc::success) {
     // Socket shutdown success
@@ -176,6 +177,11 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(
 
 core_type::Result<void, TlsSocket::SocketError> TlsSocket::Close() noexcept {
   core_type::Result<void, SocketError> result{SocketError::kGenericError};
+  // Shutdown of TCP connection
+  GetNativeTcpSocket().shutdown(Tcp::socket ::shutdown_both);
+
+  GetNativeTcpSocket().cancel();
+
   // Destroy the socket
   GetNativeTcpSocket().close();
   result.EmplaceValue();
@@ -194,7 +200,7 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
-    std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
+    std::uint32_t read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
       return static_cast<std::uint32_t>(
           (static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
           (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
@@ -203,14 +209,20 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
     }();
 
     if (read_next_bytes != 0u) {
+      Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
+      common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
+          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+            msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
+                << endpoint_.port() << ">";
+          });
+      read_next_bytes = 0;
       // reserve the buffer
-      rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t(read_next_bytes));
+      rx_buffer.resize(message::tcp::kDoipheadrSize + std::size_t{read_next_bytes});
       boost::asio::read(
           ssl_stream_,
           boost::asio::buffer(&rx_buffer[message::tcp::kDoipheadrSize], read_next_bytes), ec);
 
       // all message received, transfer to upper layer
-      Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
       TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessage>(
           endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
@@ -224,7 +236,6 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
           __FILE__, __LINE__, __func__,
           [](std::stringstream &msg) { msg << "Tcp Message read ignored as header size is zero"; });
     }
-
   } else if (ec.value() == boost::asio::error::eof) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         __FILE__, __LINE__, __func__,

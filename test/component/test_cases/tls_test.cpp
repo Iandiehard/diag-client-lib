@@ -11,6 +11,7 @@
 
 #include <future>
 #include <optional>
+#include <thread>
 
 #include "boost-support/client/tls/tls_cipher_list.h"
 #include "boost-support/client/tls/tls_client.h"
@@ -32,7 +33,7 @@ constexpr std::uint16_t kTlsServerTcpPortNum{3496U};
 // Tls client Tcp Ip Address
 constexpr std::string_view kTlsClientIpAddress{"172.16.25.127"};
 // Tls client port number
-constexpr std::uint16_t kTlsClientTcpPortNum{3496U};
+constexpr std::uint16_t kTlsClientTcpPortNum{0U};
 // Certificate path
 constexpr std::string_view kServerCertificatePath{"./cert/DiagClientLibServer.pem"};
 // Private key path
@@ -178,7 +179,7 @@ class Tls13Fixture : public component::ComponentTest {
  * @brief  Verify that sending of data from tls client to server works.
  */
 TEST_F(Tls13Fixture, SendDataFromClientToServer) {
-  std::vector<std::uint8_t> const kTestData{1u, 2u, 3u, 4u, 5u, 6u};
+  std::vector<std::uint8_t> const kTestData{1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u};
 
   std::future<bool> is_server_created{CreateServerWithExpectation([this, &kTestData]() {
     ASSERT_TRUE(tls_server_.has_value());
@@ -198,9 +199,34 @@ TEST_F(Tls13Fixture, SendDataFromClientToServer) {
                   .Transmit(std::make_unique<TlsClient::Message>(kTlsServerIpAddress,
                                                                  kTlsServerTcpPortNum, kTestData))
                   .HasValue());
+  tls_client_.DisconnectFromHost();
 }
 
-TEST_F(Tls12Fixture, SendDataFromServerToClient) {}
+TEST_F(Tls13Fixture, SendDataFromServerToClient) {
+  std::vector<std::uint8_t> const kTestData{1u, 2u, 3u, 4u, 5u, 6u, 7u, 8u};
+
+  std::future<bool> is_server_created{
+      CreateServerWithExpectation([this]() { ASSERT_TRUE(tls_server_.has_value()); })};
+
+  // Set expectation on receive handler of client
+  tls_client_.SetReadHandler([&kTestData](TlsClient::MessagePtr message) {
+    EXPECT_THAT(kTestData, ::testing::ElementsAreArray(message->GetPayload()));
+  });
+
+  // Try connecting to server and verify
+  EXPECT_TRUE(tls_client_.ConnectToHost(kTlsServerIpAddress, kTlsServerTcpPortNum).HasValue());
+  EXPECT_TRUE(tls_client_.IsConnectedToHost());
+
+  ASSERT_TRUE(is_server_created.get());
+  // Send test data to tls server
+  EXPECT_TRUE(tls_server_
+                  ->Transmit(std::make_unique<TlsServer::Message>(kTlsServerIpAddress,
+                                                                  kTlsServerTcpPortNum, kTestData))
+                  .HasValue());
+
+  std::this_thread::sleep_for(std::chrono::milliseconds{2000});
+  tls_client_.DisconnectFromHost();
+}
 
 }  // namespace test_cases
 }  // namespace component
