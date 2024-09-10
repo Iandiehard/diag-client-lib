@@ -51,7 +51,7 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::Connect
     ret_val = tcp_channel_handler_.SendRoutingActivationRequest(std::move(message));
   } else {  // failure
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [&kHostIpAddress, &kHostPortNumber](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&kHostIpAddress, &kHostPortNumber](std::stringstream &msg) {
           msg << "Doip Tcp socket connect failed for remote endpoints : "
               << "<Ip: " << kHostIpAddress << ", Port: " << kHostPortNumber << ">";
         });
@@ -85,7 +85,7 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
     ret_val = tcp_channel_handler_.SendDiagnosticRequest(std::move(message));
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {
           msg << "Routing Activation required, please connect to server first";
         });
   }

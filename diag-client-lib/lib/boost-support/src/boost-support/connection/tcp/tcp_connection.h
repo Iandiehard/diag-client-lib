@@ -18,6 +18,7 @@
 
 #include "boost-support/error_domain/boost_support_error_domain.h"
 #include "core/include/result.h"
+#include "utility/thread.h"
 
 namespace boost_support {
 namespace connection {
@@ -85,13 +86,13 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
 
   /**
    * @brief  Move assignment and move constructor
    */
   TcpConnection(TcpConnection &&other) noexcept = default;
-  TcpConnection &operator=(TcpConnection &&other) &noexcept = default;
+  TcpConnection &operator=(TcpConnection &&other) & noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpConnection
@@ -150,8 +151,8 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  auto ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept
-      -> bool {
+  auto ConnectToHost(std::string_view host_ip_address,
+                     std::uint16_t host_port_num) noexcept -> bool {
     return socket_.Connect(host_ip_address, host_port_num)
         .AndThen([this]() noexcept {
           {  // start reading
@@ -288,7 +289,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
 
   /**
    * @brief  Move assignment
@@ -303,7 +304,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   /**
    * @brief  Move constructor
    */
-  TcpConnection &operator=(TcpConnection &&other) &noexcept {
+  TcpConnection &operator=(TcpConnection &&other) & noexcept {
     socket_ = std::move(other.socket_);
     handler_read_ = std::move(other.handler_read_);
     exit_request_.store(other.exit_request_.load());

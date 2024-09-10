@@ -117,7 +117,7 @@ class TcpClient::TcpClientImpl final {
       // already connected
       result.EmplaceValue();
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
-          __FILE__, __LINE__, __func__,
+          FILE_NAME, __LINE__, __func__,
           [](std::stringstream &msg) { msg << "Tcp client is already connected"; });
     }
     return result;
@@ -137,7 +137,7 @@ class TcpClient::TcpClientImpl final {
     } else {
       // Not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__,
+          FILE_NAME, __LINE__, __func__,
           [](std::stringstream &msg) { msg << "Tcp client is in disconnected state"; });
     }
     return result;
@@ -165,7 +165,7 @@ class TcpClient::TcpClientImpl final {
     } else {
       // not connected
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {
             msg << "Tcp client is Offline, please connect to server first";
           });
     }

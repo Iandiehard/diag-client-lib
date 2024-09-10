@@ -312,7 +312,7 @@ auto VehicleIdentificationHandler::HandleVehicleIdentificationRequest(
       // failed, do nothing
       handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kIdle);
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "", [](std::stringstream &msg) {
+          FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
             msg << "Vehicle Identification request transmission Failed";
           });
     }

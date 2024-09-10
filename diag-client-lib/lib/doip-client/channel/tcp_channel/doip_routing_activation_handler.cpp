@@ -354,7 +354,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
         // routing successful
         final_state = RoutingActivationState::kRoutingActivationSuccessful;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
               msg << "RoutingActivation successfully activated in remote "
                      "server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
@@ -363,7 +363,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
       case kDoipRoutingActivationResCodeConfirmtnRequired: {
         // trigger routing activation after sometime, not implemented yet
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
               msg << "RoutingActivation is activated, confirmation required in "
                      "remote server with logical Address"
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
@@ -372,7 +372,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
       default:
         // failure, do nothing
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-            __FILE__, __LINE__, __func__, [&rout_act_type](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [&rout_act_type](std::stringstream &msg) {
               msg << "Routing activation denied due to " << rout_act_type;
             });
         break;
@@ -401,7 +401,7 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
             result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionTimeout;
             handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                   msg << "RoutingActivation response timeout, no response "
                          "received in: "
                       << kDoIPRoutingActivationTimeout << " milliseconds";
@@ -413,13 +413,13 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
               // success
               result = uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                  FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                     msg << "RoutingActivation successful with remote server";
                   });
             } else {  // failed
               handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                  FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                     msg << "RoutingActivation failed with remote server";
                   });
             }
@@ -429,14 +429,14 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
       // failed, do nothing
       handler_impl_->GetStateContext().TransitionTo(RoutingActivationState::kIdle);
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "", [](std::stringstream &msg) {
+          FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
             msg << "RoutingActivation Request send failed with remote server";
           });
     }
   } else {
     // channel not free
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "",
+        FILE_NAME, __LINE__, "",
         [](std::stringstream &msg) { msg << "RoutingActivation channel not free"; });
   }
   return result;

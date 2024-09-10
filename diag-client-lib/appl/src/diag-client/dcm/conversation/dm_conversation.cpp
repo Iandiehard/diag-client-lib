@@ -128,7 +128,7 @@ void DmConversation::Startup() noexcept {
   // Change the state to Active
   activity_status_ = ActivityStatusType::kActive;
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+      FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
         msg << "'" << conversation_name_ << "'"
             << "-> "
             << "Startup completed";
@@ -142,7 +142,7 @@ void DmConversation::Shutdown() noexcept {
     // Change the state to InActive
     activity_status_ = ActivityStatusType::kInactive;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Shutdown completed";
@@ -164,7 +164,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
   target_address_ = target_address;
   if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Successfully connected to Server with IP <" << remote_address_ << ">"
@@ -172,7 +172,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
         });
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Failed connecting to Server with IP <" << remote_address_ << ">"
@@ -192,7 +192,7 @@ DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServe
         static_cast<DiagClientConversation::DisconnectResult>(connection_->DisconnectFromHost());
     if (ret_val == DiagClientConversation::DisconnectResult::kDisconnectSuccess) {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-          __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
             msg << "'" << conversation_name_ << "'"
                 << "-> "
                 << "Successfully disconnected from Server with IP <" << remote_address_ << ">"
@@ -200,7 +200,7 @@ DiagClientConversation::DisconnectResult DmConversation::DisconnectFromDiagServe
           });
     } else {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-          __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
             msg << "'" << conversation_name_ << "'"
                 << "-> "
                 << "Failed to disconnect from Server with IP <" << remote_address_ << ">";
@@ -228,7 +228,7 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-          __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
             msg << "'" << conversation_name_ << "'"
                 << "-> "
                 << "Diagnostic Request Sent & Positive Ack received";
@@ -242,7 +242,7 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
             conversation_state_.GetConversationStateContext().TransitionTo(
                 ConversationState::kIdle);
             logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+                FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
                   msg << "'" << conversation_name_ << "'"
                       << "-> "
                       << "Diagnostic Response P2 Timeout happened after " << p2_client_max_
@@ -281,7 +281,7 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
             sync_timer_.WaitForTimeout(
                 [this, &result]() {
                   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                      __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+                      FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
                         msg << "'" << conversation_name_ << "'"
                             << "-> "
                             << "Diagnostic Response P2 Star Timeout "
@@ -327,7 +327,7 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
   } else {
     result.EmplaceError(DiagClientConversation::DiagError::kDiagInvalidParameter);
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-        __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+        FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Diagnostic Request message is empty";
@@ -362,7 +362,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
       // payload = 0x7F XX 0x78
       if (payload_info[0U] == 0x7F && payload_info[2U] == 0x78) {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+            FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "-> "
                   << "Diagnostic pending response received in Conversation";
@@ -373,7 +373,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
             ConversationState::kDiagRecvdPendingRes);
       } else {
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogDebug(
-            __FILE__, __LINE__, "", [this](std::stringstream &msg) {
+            FILE_NAME, __LINE__, "", [this](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "-> "
                   << "Diagnostic final response received in Conversation";
@@ -390,7 +390,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
       sync_timer_.CancelWait();
     } else {
       logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+          FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
             msg << "'" << conversation_name_ << "'"
                 << "-> "
                 << "Diagnostic Conversation Error Indication Overflow";
@@ -399,7 +399,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
     }
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, "", [&](std::stringstream &msg) {
+        FILE_NAME, __LINE__, "", [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Diagnostic Conversation Rx Payload size 0 received";

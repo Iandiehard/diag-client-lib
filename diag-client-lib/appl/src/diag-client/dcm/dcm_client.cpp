@@ -50,7 +50,7 @@ void DCMClient::Initialize() noexcept {
   vehicle_discovery_conversation_.Startup();
 
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__,
+      FILE_NAME, __LINE__, __func__,
       [](std::stringstream &msg) { msg << "Dcm Client Initialized"; });
 }
 
@@ -58,7 +58,7 @@ void DCMClient::Run() noexcept {
   // run udsTransportProtocol layer
   uds_transport_protocol_mgr_->Run();
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__,
+      FILE_NAME, __LINE__, __func__,
       [](std::stringstream &msg) { msg << "Dcm Client is ready to serve"; });
 }
 
@@ -71,7 +71,7 @@ void DCMClient::Shutdown() noexcept {
   conversation_mgr_.Shutdown();
 
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__,
+      FILE_NAME, __LINE__, __func__,
       [](std::stringstream &msg) { msg << "Dcm Client Shutdown completed"; });
 }
 
@@ -89,8 +89,8 @@ DCMClient::SendVehicleIdentificationRequest(
 
 auto GetConversationManager() noexcept -> conversation_manager::ConversationManager & {
   if (!conversation_manager_ref.has_value()) {
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
-        __FILE__, __LINE__, "",
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatalAndTerminate(
+        FILE_NAME, __LINE__, "",
         [](std::stringstream &msg) { msg << "DiagClient is not Initialized"; });
   }
   return conversation_manager_ref.value();

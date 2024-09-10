@@ -213,7 +213,7 @@ void VdConversation::Startup() noexcept {
   // Change the state to Active
   activity_status_ = ActivityStatusType::kActive;
   logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+      FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
         msg << "'" << conversation_name_ << "'"
             << "-> "
             << "Startup completed";
@@ -227,7 +227,7 @@ void VdConversation::Shutdown() noexcept {
     // Change the state to InActive
     activity_status_ = ActivityStatusType::kInactive;
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
           msg << "'" << conversation_name_ << "'"
               << "-> "
               << "Shutdown completed";
@@ -267,7 +267,7 @@ VdConversation::SendVehicleIdentificationRequest(
         // no response received
         result.EmplaceError(DiagClient::VehicleInfoResponseError::kNoResponseReceived);
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-            __FILE__, __LINE__, __func__, [&](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [&](std::stringstream &msg) {
               msg << "'" << conversation_name_ << "'"
                   << "-> "
                   << "No vehicle identification response received, timed out "

@@ -33,7 +33,7 @@ TlsSocket::TlsSocket(TlsSocket::TcpSocket tcp_socket, TlsContext &tls_context) n
     printf("Connected with %s encryption\n", SSL_get_cipher(ssl_stream_.native_handle()));
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tls client handshake with host failed with error: " << ec.message();
         });
   }
@@ -68,7 +68,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
             Tcp::endpoint const endpoint_{GetNativeTcpSocket().local_endpoint()};
             msg << "Tls Socket opened and bound to " << "<" << endpoint_.address().to_string()
                 << "," << endpoint_.port() << ">";
@@ -77,14 +77,14 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
     } else {
       // Socket binding failed
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
             msg << "Tls Socket binding failed with message: " << ec.message();
           });
       result.EmplaceError(SocketError::kBindingFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tls Socket opening failed with error: " << ec.message();
         });
     result.EmplaceError(SocketError::kOpenFailed);
@@ -102,7 +102,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(
       Tcp::endpoint{boost::asio::ip::make_address(host_ip_address), host_port_num}, ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
           msg << "Tls socket connected to host " << "<" << endpoint_.address().to_string() << ","
               << endpoint_.port() << ">";
@@ -114,14 +114,14 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(
       result.EmplaceValue();
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
             msg << "Tls client handshake with host failed with error: " << ec.message();
           });
       result.EmplaceError(SocketError::kTlsHandshakeFailed);
     }
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tls client socket connect to host failed with error: " << ec.message();
         });
   }
@@ -142,7 +142,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Disconnect() noexcept
     result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tls client socket disconnection from host failed with error: " << ec.message();
         });
   }
@@ -160,7 +160,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
           msg << "Tcp message sent to " << "<" << endpoint_.address().to_string() << ","
               << endpoint_.port() << ">";
@@ -168,7 +168,7 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(
     result.EmplaceValue();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Tcp message sending failed with error: " << ec.message();
         });
   }
@@ -211,7 +211,7 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
     if (read_next_bytes != 0u) {
       Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
             msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
                 << endpoint_.port() << ">";
           });
@@ -226,23 +226,23 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
       TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessage>(
           endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
             msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
                 << endpoint_.port() << ">";
           });
       result.EmplaceValue(std::move(tcp_rx_message));
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__,
+          FILE_NAME, __LINE__, __func__,
           [](std::stringstream &msg) { msg << "Tcp Message read ignored as header size is zero"; });
     }
   } else if (ec.value() == boost::asio::error::eof) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__,
+        FILE_NAME, __LINE__, __func__,
         [ec](std::stringstream &msg) { msg << "Remote Disconnected with: " << ec.message(); });
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Remote Disconnected with undefined error: " << ec.message();
         });
   }

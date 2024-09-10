@@ -83,13 +83,13 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
     if (ec.value() == boost::system::errc::success) {
       tls_server.emplace(TlsSocket{std::move(accepted_socket), tls_context_});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          __FILE__, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
             msg << "Tls socket connection received from client "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-          __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
             msg << "Tcp socket accept failed with error: " << ec.message();
           });
     }

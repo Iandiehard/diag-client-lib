@@ -426,7 +426,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
       if (diag_ack_type.ack_type_ == kDoipDiagnosticMessagePosAckCodeConfirm) {
         final_state = DiagnosticMessageState::kDiagnosticPositiveAckRecvd;
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-            __FILE__, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [&doip_payload](std::stringstream &msg) {
               msg << "Diagnostic message positively acknowledged from remote "
                      "server "
                   << " (0x" << std::hex << doip_payload.GetServerAddress() << ")";
@@ -436,7 +436,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse(
       }
     } else if (doip_payload.GetPayloadType() == kDoipDiagMessageNegAck) {
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-          __FILE__, __LINE__, __func__, [&diag_ack_type](std::stringstream &msg) {
+          FILE_NAME, __LINE__, __func__, [&diag_ack_type](std::stringstream &msg) {
             msg << "Diagnostic request denied due to " << diag_ack_type;
           });
     } else {
@@ -474,7 +474,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
         handler_impl_->GetDoipChannel().HandleMessage(std::move(ret_val.second));
       } else {
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-            __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+            FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {
               msg << "Diagnostic message response ignored due to unknown error";
             });
       }
@@ -483,7 +483,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
   } else {
     // ignore
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Diagnostic message response ignored due to channel in state: "
               << static_cast<int>(handler_impl_->GetStateContext().GetActiveState().GetState());
         });
@@ -506,7 +506,7 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(
                 uds_transport::UdsTransportProtocolMgr::TransmissionResult::kNoTransmitAckReceived;
             handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
             logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-                __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                   msg << "Diagnostic Message Ack Request timed out, no "
                          "response received in: "
                       << kDoIPDiagnosticAckTimeout << " seconds";
@@ -520,7 +520,7 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(
               // success
               result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                  FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                     msg << "Diagnostic Message Positive Ack received";
                   });
             } else {
@@ -529,7 +529,7 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(
                   kNegTransmitAckReceived;
               handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
               logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-                  __FILE__, __LINE__, "", [](std::stringstream &msg) {
+                  FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
                     msg << "Diagnostic Message Transmission Failed Neg Ack "
                            "Received";
                   });
@@ -540,14 +540,14 @@ auto DiagnosticMessageHandler::HandleDiagnosticRequest(
       // Failed, do nothing
       handler_impl_->GetStateContext().TransitionTo(DiagnosticMessageState::kIdle);
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "",
+          FILE_NAME, __LINE__, "",
           [](std::stringstream &msg) { msg << "Diagnostic Request Message Transmission Failed"; });
     }
   } else {
     // channel not in idle state
     result = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kBusyProcessing;
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, "", [](std::stringstream &msg) {
+        FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
           msg << "Diagnostic Message Transmission already in progress";
         });
   }

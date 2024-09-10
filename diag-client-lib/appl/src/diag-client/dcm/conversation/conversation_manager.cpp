@@ -47,9 +47,8 @@ void ConversationManager::Shutdown() noexcept {
           conversation::Conversation::ActivityStatusType::kInactive) {
         // Shutdown is not called on the conversation by user, log warning and perform shutdown
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-            __FILE__, __LINE__, "", [&conversation](std::stringstream &msg) {
-              msg << "'" << conversation.first << "'"
-                  << "-> "
+            FILE_NAME, __LINE__, "", [&conversation](std::stringstream &msg) {
+              msg << "'" << conversation.first << "'" << "-> "
                   << "Shutdown is not triggered by user, will be shutdown forcefully";
             });
         conversation.second.conversation->Shutdown();
@@ -94,8 +93,8 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
                        }},
                    it->second.conversation_type);
   } else {
-    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatal(
-        __FILE__, __LINE__, __func__, [conversation_name](std::stringstream &msg) {
+    logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatalAndTerminate(
+        FILE_NAME, __LINE__, __func__, [conversation_name](std::stringstream &msg) {
           msg << "Invalid conversation name: '" << conversation_name
               << "', provide correct name as per config file";
         });

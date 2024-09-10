@@ -165,7 +165,7 @@ void VehicleDiscoveryHandler::ProcessVehicleAnnouncementResponse(DoipMessage &) 
       VehicleDiscoveryState::kWaitForVehicleAnnouncement) {
     // Deserialize and Add to task executor
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
-        __FILE__, __LINE__, __func__, [](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {
           msg << "Processing of vehicle announcement is not implemented";
         });
   } else {

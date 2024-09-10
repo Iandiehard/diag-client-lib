@@ -23,7 +23,7 @@ core_type::Result<boost_tree, ParsingErrorCode> Read(std::string_view config_pat
   } catch (boost::property_tree::json_parser_error &error) {
     parse_result.EmplaceError(ParsingErrorCode::kError);
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [&error](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&error](std::stringstream &msg) {
           msg << "Reading of config failed with error: " << error.message();
         });
   }

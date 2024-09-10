@@ -18,8 +18,9 @@
 #include <string_view>
 #include <utility>
 
-#define UNUSED_PARAM(expr) \
-  do { (void) (expr); } while (0)
+#include "utility/file_path.h"
+
+#define UNUSED_PARAM(expr) static_cast<void>(expr)
 
 namespace utility {
 namespace logger {
@@ -32,7 +33,7 @@ namespace logger {
 class Logger final {
  public:
   /**
-   * @brief       Log fatal message and abort
+   * @brief       Log fatal message
    * @tparam      Func
    *              The functor type invoked on log level set to fatal
    * @param[in]   file_name
@@ -55,6 +56,28 @@ class Logger final {
     UNUSED_PARAM(func_name);
     UNUSED_PARAM(func);
 #endif
+  }
+
+  /**
+   * @brief       Log fatal message and abort
+   * @tparam      Func
+   *              The functor type invoked on log level set to fatal
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   func
+   *              The functor which gets invoked on log level set to fatal
+   */
+  template<typename Func>
+  auto LogFatalAndTerminate(const std::string_view file_name, int line_no,
+                            const std::string_view func_name, Func &&func) noexcept -> void {
+#ifdef ENABLE_DLT_LOGGER
+    LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
+#endif
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
     std::abort();  // abort in case of fatal issue
   }
 
@@ -251,16 +274,33 @@ class Logger final {
   template<typename Func>
   void LogDltMessage(DltLogLevelType log_level, const std::string_view file_name,
                      const std::string_view func_name, int line_no, Func &&func) {
-    /*
     DLT_LOG(
         contxt_, log_level,
         DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func))
                         .str()
-                        .c_str())); */
+                        .c_str()));
+  }
+#endif
+
+  /**
+   * @brief       Function to send the messages to standard output
+   * @tparam      Func
+   *              The logging functor to be executed
+   * @param[in]   file_name
+   *              The file name
+   * @param[in]   func_name
+   *              The function name
+   * @param[in]   line_no
+   *              The line number
+   * @param[in]   func
+   *              The functor which gets invoked
+   */
+  template<typename Func>
+  void LogMessageToStdOutput(const std::string_view file_name, const std::string_view func_name,
+                             int line_no, Func &&func) {
     std::cout << CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func)).str()
               << std::endl;
   }
-#endif
 
 #ifdef ENABLE_DLT_LOGGER
   // Declare the context
@@ -275,7 +315,7 @@ class Logger final {
   std::string context_id_;
 
   // store the information about registration with app id
-  bool registration_with_app_id_{};
+  bool registration_with_app_id_;
 };
 }  // namespace logger
 }  // namespace utility

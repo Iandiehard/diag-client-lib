@@ -44,7 +44,7 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Open() noexcept {
   if (ec.value() == boost::system::errc::success) {
     local_endpoint_ = udp_socket_.local_endpoint();
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Udp Socket opened and bound to "
               << "<" << local_endpoint_.address() << "," << local_endpoint_.port() << ">";
         });
@@ -55,7 +55,7 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Open() noexcept {
     // Socket binding failed
     result.EmplaceError(SocketError::kBindingFailed);
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [ec](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
           msg << "Udp Socket Bind failed with message: " << ec.message();
         });
   }
@@ -77,7 +77,7 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Transmit(
   if (ec.value() == boost::system::errc::success && send_size == udp_message->GetPayload().size()) {
     // successful
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-        __FILE__, __LINE__, __func__, [this, &udp_message](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this, &udp_message](std::stringstream &msg) {
           msg << "Udp message sent : "
               << "<" << local_endpoint_.address() << "," << local_endpoint_.port() << ">"
               << " -> "
@@ -89,7 +89,7 @@ core_type::Result<void, UdpSocket::SocketError> UdpSocket::Transmit(
     StartReceivingMessage();
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [&ec, &udp_message](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&ec, &udp_message](std::stringstream &msg) {
           msg << "Udp message sending to "
               << "<" << udp_message->GetHostIpAddress() << "> "
               << "failed with error: " << ec.message();
@@ -124,14 +124,14 @@ core_type::Result<UdpSocket::UdpMessagePtr> UdpSocket::Read(std::size_t total_by
         remote_endpoint_.address().to_string(), remote_endpoint_.port(), std::move(received_data))};
 
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogInfo(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Udp Message received from: "
               << "<" << remote_endpoint_.address() << "," << remote_endpoint_.port() << ">";
         });
     result.EmplaceValue(std::move(udp_rx_message));
   } else {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogVerbose(
-        __FILE__, __LINE__, __func__, [this](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           msg << "Udp Message received from "
               << "<" << remote_endpoint_.address() << "," << remote_endpoint_.port() << ">"
               << " ignored as received by self ip"
@@ -157,7 +157,7 @@ void UdpSocket::StartReceivingMessage() {
         } else {
           if (error.value() != boost::asio::error::operation_aborted) {
             common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
-                __FILE__, __LINE__, __func__, [error](std::stringstream &msg) {
+                FILE_NAME, __LINE__, __func__, [error](std::stringstream &msg) {
                   msg << "Remote Disconnected with undefined error: " << error.message();
                 });
           }
