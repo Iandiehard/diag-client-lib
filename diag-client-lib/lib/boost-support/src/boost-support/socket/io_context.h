@@ -9,7 +9,9 @@
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_SOCKET_IO_CONTEXT_H_
 
 #include <boost/asio.hpp>
-#include <thread>
+#include <string_view>
+
+#include "utility/thread.h"
 
 namespace boost_support {
 namespace socket {
@@ -26,9 +28,14 @@ class IoContext final {
 
  public:
   /**
-  * @brief         Constructs an instance of IoContext
+  * @brief         Default constructs an instance of IoContext
   */
   IoContext() noexcept;
+
+  /**
+  * @brief         Constructs an instance of IoContext
+  */
+  IoContext(std::string_view context_name) noexcept;
 
   /**
   * @brief  Deleted copy assignment and copy constructor
@@ -85,9 +92,14 @@ class IoContext final {
   std::condition_variable cond_var_;
 
   /**
+   * @brief  The name of context
+   */
+  std::string context_name_;
+
+  /**
    * @brief  The thread itself
    */
-  std::thread thread_;
+  utility::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section

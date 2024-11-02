@@ -30,6 +30,14 @@ using Tcp = boost::asio::ip::tcp;
  */
 using TcpIpAddress = boost::asio::ip::address;
 
+/**
+ * @brief  Function to create server name
+ */
+std::string CreateServerName(std::string_view server_name, std::uint16_t server_count) {
+  std::string final_server_name{server_name};
+  final_server_name.append(std::to_string(server_count));
+  return final_server_name;
+}
 }  // namespace
 
 template<typename TlsVersion>
@@ -56,11 +64,14 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection
    */
-  TlsAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
-                  std::uint8_t maximum_connection, TlsVersion tls_version,
-                  std::string_view certificate_path, std::string_view private_key_path) noexcept
+  TlsAcceptorImpl(std::string_view acceptor_name, std::string_view local_ip_address,
+                  std::uint16_t local_port_num, std::uint8_t maximum_connection,
+                  TlsVersion tls_version, std::string_view certificate_path,
+                  std::string_view private_key_path) noexcept
       : io_context_{},
         tls_context_{std::forward<TlsVersion>(tls_version), certificate_path, private_key_path},
+        server_count_{0u},
+        acceptor_name_{acceptor_name},
         acceptor_{io_context_,
                   Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()),
                                 local_port_num)} {
@@ -81,12 +92,15 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
     // blocking accept
     TlsSocket::TcpSocket accepted_socket{acceptor_.accept(endpoint, ec)};
     if (ec.value() == boost::system::errc::success) {
-      tls_server.emplace(TlsSocket{std::move(accepted_socket), tls_context_});
+      tls_server.emplace(CreateServerName(acceptor_name_, server_count_),
+                         TlsSocket{std::move(accepted_socket), tls_context_});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           FILE_NAME, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
             msg << "Tls socket connection received from client "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
+      // increment the server count
+      server_count_++;
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
@@ -113,19 +127,30 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
   TlsContext tls_context_;
 
   /**
+   * @brief  Keeps the count of server created
+   */
+  std::uint16_t server_count_;
+
+  /**
+   * @brief  Store the name of the acceptor
+   */
+  std::string acceptor_name_;
+
+  /**
    * @brief  Store the tcp acceptor
    */
   Acceptor acceptor_;
 };
 
 template<typename TlsVersion>
-TlsAcceptor<TlsVersion>::TlsAcceptor(std::string_view local_ip_address,
+TlsAcceptor<TlsVersion>::TlsAcceptor(std::string_view acceptor_name,
+                                     std::string_view local_ip_address,
                                      std::uint16_t local_port_num, std::uint8_t maximum_connection,
                                      TlsVersion tls_version, std::string_view certificate_path,
                                      std::string_view private_key_path) noexcept
     : tls_acceptor_impl_{std::make_unique<TlsAcceptorImpl>(
-          local_ip_address, local_port_num, maximum_connection, std::move(tls_version),
-          certificate_path, private_key_path)} {}
+          acceptor_name, local_ip_address, local_port_num, maximum_connection,
+          std::move(tls_version), certificate_path, private_key_path)} {}
 
 template<typename TlsVersion>
 TlsAcceptor<TlsVersion>::~TlsAcceptor() noexcept = default;

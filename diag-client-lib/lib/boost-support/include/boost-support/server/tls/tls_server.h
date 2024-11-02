@@ -60,7 +60,7 @@ class TlsServer final {
    * @param[in]     tls_socket
    *                The underlying tls socket required for communication
    */
-  explicit TlsServer(TlsSocket tls_socket) noexcept;
+  explicit TlsServer(std::string_view server_name, TlsSocket tls_socket) noexcept;
 
   /**
    * @brief         Deleted copy assignment and copy constructor

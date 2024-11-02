@@ -8,6 +8,8 @@
 
 #include "connection/connection_manager.h"
 
+#include <string_view>
+
 #include "channel/tcp_channel/doip_tcp_channel.h"
 #include "channel/udp_channel/doip_udp_channel.h"
 #include "sockets/socket_handler.h"
@@ -15,6 +17,20 @@
 
 namespace doip_client {
 namespace connection {
+namespace {
+using namespace std::literals;
+
+/**
+ * @brief   Tcp connection name
+ */
+constexpr std::string_view kDoipTcpConnectionName{"DTcpCntn_"sv};
+
+/**
+ * @brief   Udp connection name
+ */
+constexpr std::string_view kDoipUdpConnectionName{"DUdpCntn_"sv};
+
+}  // namespace
 
 /**
  * @brief    Doip Tcp Connection handle connection between two layers
@@ -44,8 +60,10 @@ class DoipTcpConnection final : public uds_transport::Connection {
    */
   DoipTcpConnection(uds_transport::ConversionHandler const &conversation_handler,
                     std::string_view tcp_ip_address, std::uint16_t port_num)
-      : uds_transport::Connection{1u, conversation_handler},
-        doip_tcp_channel_{sockets::TcpSocketHandler{TcpClient{tcp_ip_address, port_num}}, *this} {}
+      : uds_transport::Connection{kDoipTcpConnectionName, 1u, conversation_handler},
+        doip_tcp_channel_{
+            sockets::TcpSocketHandler{TcpClient{GetConnectionName(), tcp_ip_address, port_num}},
+            *this} {}
 
   /**
    * @brief         Destruct an instance of DoipTcpConnection
@@ -182,7 +200,7 @@ class DoipUdpConnection final : public uds_transport::Connection {
    */
   DoipUdpConnection(uds_transport::ConversionHandler const &conversation_handler,
                     std::string_view udp_ip_address, std::uint16_t port_num)
-      : uds_transport::Connection(1, conversation_handler),
+      : uds_transport::Connection{kDoipUdpConnectionName, 1, conversation_handler},
         doip_udp_channel_{sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}},
                           sockets::UdpSocketHandler{UdpClient{udp_ip_address, port_num}}, *this} {}
 

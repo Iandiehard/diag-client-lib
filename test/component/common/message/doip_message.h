@@ -8,6 +8,7 @@
 #ifndef TEST_COMPONENT_COMMON_MESSAGE_DOIP_MESSAGE_H_
 #define TEST_COMPONENT_COMMON_MESSAGE_DOIP_MESSAGE_H_
 
+#include <cstdint>
 #include <string_view>
 
 #include "core/include/span.h"

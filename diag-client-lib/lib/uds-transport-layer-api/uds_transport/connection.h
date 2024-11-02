@@ -7,8 +7,11 @@
  */
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UDS_TRANSPORT_LAYER_API_UDS_TRANSPORT_CONNECTION_H
+
 /* includes */
 #include <cstdint>
+#include <string>
+#include <string_view>
 
 #include "core/include/span.h"
 #include "uds_transport/protocol_handler.h"
@@ -16,6 +19,25 @@
 #include "uds_transport/protocol_types.h"
 
 namespace uds_transport {
+namespace {
+
+template<typename... T>
+std::string Append(T... args) {
+  std::string appended_name{};
+  (appended_name.append(args), ...);
+  return appended_name;
+}
+
+/**
+ * @brief  Function to append the connection id to the connection name
+ */
+inline std::string CreateConnectionName(std::string_view connection_name,
+                                        std::uint8_t connection_id) {
+  std::string final_connection_name{connection_name};
+  final_connection_name.append(std::to_string(connection_id));
+  return final_connection_name;
+}
+}  // namespace
 
 /**
  * @brief    Interface class to handle connection between two layers
@@ -34,15 +56,18 @@ class Connection {
 
   /**
    * @brief       Constructor to create a new connection
+   * @param[in]   connection_name
+   *              The name of the connection
    * @param[in]   connection_id
    *              The connection identification
    * @param[in]   conversation_handler
    *              The reference to conversation handler
    */
-  Connection(ConnectionId connection_id,
+  Connection(std::string_view connection_name, ConnectionId connection_id,
              uds_transport::ConversionHandler const &conversation_handler) noexcept
       : conversation_handler_{conversation_handler},
-        connection_id_{connection_id} {}
+        connection_id_{connection_id},
+        connection_name_{CreateConnectionName(connection_name, connection_id_)} {}
 
   /**
    * @brief         Destruct an instance of Connection
@@ -59,7 +84,13 @@ class Connection {
    * @brief        Function to get the connection id
    * @return       The connection id
    */
-  ConnectionId GetConnectionId() const noexcept { return connection_id_; }
+  [[nodiscard]] ConnectionId GetConnectionId() const noexcept { return connection_id_; }
+
+  /**
+   * @brief        Function to get the connection name
+   * @return       The connection name
+   */
+  [[nodiscard]] std::string_view GetConnectionName() const noexcept { return connection_name_; }
 
   /**
    * @brief        Function to start the connection
@@ -147,6 +178,11 @@ class Connection {
    * @brief        Store the connection id
    */
   ConnectionId connection_id_;
+
+  /**
+   * @brief        Store the connection name
+   */
+  std::string connection_name_;
 };
 
 }  // namespace uds_transport

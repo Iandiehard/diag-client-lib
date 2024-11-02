@@ -57,10 +57,12 @@ class TcpServer final {
  public:
   /**
    * @brief         Constructs an instance of TcpServer
+   * @param[in]     server_name
+   *                The name of the server
    * @param[in]     tcp_socket
    *                The underlying tcp socket required for communication
    */
-  explicit TcpServer(TcpSocket tcp_socket) noexcept;
+  explicit TcpServer(std::string_view server_name, TcpSocket tcp_socket) noexcept;
 
   /**
    * @brief         Deleted copy assignment and copy constructor

@@ -48,7 +48,8 @@ void ConversationManager::Shutdown() noexcept {
         // Shutdown is not called on the conversation by user, log warning and perform shutdown
         logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogWarn(
             FILE_NAME, __LINE__, "", [&conversation](std::stringstream &msg) {
-              msg << "'" << conversation.first << "'" << "-> "
+              msg << "'" << conversation.first << "'"
+                  << "-> "
                   << "Shutdown is not triggered by user, will be shutdown forcefully";
             });
         conversation.second.conversation->Shutdown();

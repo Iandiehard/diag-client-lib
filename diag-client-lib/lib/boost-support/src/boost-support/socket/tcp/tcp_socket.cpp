@@ -159,13 +159,13 @@ core_type::Result<TcpSocket::TcpMessagePtr, TcpSocket::SocketError> TcpSocket::R
   // Check for error
   if (ec.value() == boost::system::errc::success) {
     // read the next bytes to read
-    std::uint32_t const read_next_bytes = [&rx_buffer]() noexcept -> std::uint32_t {
+    std::uint32_t const read_next_bytes{[&rx_buffer]() noexcept -> std::uint32_t {
       return static_cast<std::uint32_t>(
           (static_cast<std::uint32_t>(rx_buffer[4u] << 24u) & 0xFF000000) |
           (static_cast<std::uint32_t>(rx_buffer[5u] << 16u) & 0x00FF0000) |
           (static_cast<std::uint32_t>(rx_buffer[6u] << 8u) & 0x0000FF00) |
           (static_cast<std::uint32_t>(rx_buffer[7u] & 0x000000FF)));
-    }();
+    }()};
 
     if (read_next_bytes != 0u) {
       // reserve the buffer

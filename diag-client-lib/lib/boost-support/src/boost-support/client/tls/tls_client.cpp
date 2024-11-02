@@ -18,6 +18,20 @@
 namespace boost_support {
 namespace client {
 namespace tls {
+namespace {
+/**
+ * @brief  Function to append the ip address and port number to the connection name
+ */
+std::string AppendIpAddressAndPort(std::string_view client_name, std::string_view ip_address,
+                                   std::uint16_t port_num) {
+  std::string connection_name{client_name};
+  connection_name.append("_");
+  connection_name.append(ip_address);
+  connection_name.append("_");
+  connection_name.append(std::to_string(port_num));
+  return connection_name;
+}
+}  // namespace
 
 /**
  * @brief    Class to provide implementation of tls client
@@ -62,12 +76,15 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
    * @param[in]     local_port_num
    *                The local port number of client
    */
-  TlsClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
-                std::string_view ca_certification_path, TlsVersion tls_version) noexcept
+  TlsClientImpl(std::string_view client_name, std::string_view local_ip_address,
+                std::uint16_t local_port_num, std::string_view ca_certification_path,
+                TlsVersion tls_version) noexcept
       : io_context_{},
         tls_context_{tls_version, ca_certification_path},
         connection_state_{State::kDisconnected},
-        tcp_connection_{TlsSocket{local_ip_address, local_port_num, tls_context_, io_context_}} {}
+        client_name_{AppendIpAddressAndPort(client_name, local_ip_address, local_port_num)},
+        tcp_connection_{client_name,
+                        TlsSocket{local_ip_address, local_port_num, tls_context_, io_context_}} {}
 
   /**
    * @brief         Deleted copy assignment and copy constructor
@@ -199,17 +216,24 @@ class TlsClient<TlsVersion>::TlsClientImpl final {
   std::atomic<State> connection_state_;
 
   /**
+   * @brief  The client name
+   */
+  std::string client_name_;
+
+  /**
    * @brief      Store the tcp connection
    */
   TcpConnectionSecured tcp_connection_;
 };
 
 template<typename TlsVersion>
-TlsClient<TlsVersion>::TlsClient(std::string_view local_ip_address, std::uint16_t local_port_num,
+TlsClient<TlsVersion>::TlsClient(std::string_view client_name, std::string_view local_ip_address,
+                                 std::uint16_t local_port_num,
                                  std::string_view ca_certification_path,
                                  TlsVersion tls_version) noexcept
-    : tls_client_impl_{std::make_unique<TlsClientImpl>(
-          local_ip_address, local_port_num, ca_certification_path, std::move(tls_version))} {}
+    : tls_client_impl_{std::make_unique<TlsClientImpl>(client_name, local_ip_address,
+                                                       local_port_num, ca_certification_path,
+                                                       std::move(tls_version))} {}
 
 template<typename TlsVersion>
 TlsClient<TlsVersion>::TlsClient(TlsClient &&other) noexcept = default;

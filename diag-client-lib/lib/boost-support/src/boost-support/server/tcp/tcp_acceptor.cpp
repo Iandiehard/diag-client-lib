@@ -28,6 +28,14 @@ using Tcp = boost::asio::ip::tcp;
  */
 using TcpIpAddress = boost::asio::ip::address;
 
+/**
+ * @brief  Function to create server name
+ */
+std::string CreateServerName(std::string_view server_name, std::uint16_t server_count) {
+  std::string final_server_name{server_name};
+  final_server_name.append(std::to_string(server_count));
+  return final_server_name;
+}
 }  // namespace
 
 class TcpAcceptor::TcpAcceptorImpl final {
@@ -48,9 +56,11 @@ class TcpAcceptor::TcpAcceptorImpl final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection
    */
-  TcpAcceptorImpl(std::string_view local_ip_address, std::uint16_t local_port_num,
-                  std::uint8_t maximum_connection) noexcept
+  TcpAcceptorImpl(std::string_view acceptor_name, std::string_view local_ip_address,
+                  std::uint16_t local_port_num, std::uint8_t maximum_connection) noexcept
       : io_context_{},
+        server_count_{0u},
+        acceptor_name_{acceptor_name},
         acceptor_{io_context_,
                   Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()),
                                 local_port_num)} {
@@ -71,12 +81,15 @@ class TcpAcceptor::TcpAcceptorImpl final {
     // blocking accept
     TcpSocket::Socket accepted_socket{acceptor_.accept(endpoint, ec)};
     if (ec.value() == boost::system::errc::success) {
-      tcp_server.emplace(TcpSocket{std::move(accepted_socket)});
+      tcp_server.emplace(CreateServerName(acceptor_name_, server_count_),
+                         TcpSocket{std::move(accepted_socket)});
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           FILE_NAME, __LINE__, __func__, [&endpoint](std::stringstream &msg) {
             msg << "Tcp socket connection received from client "
                 << "<" << endpoint.address().to_string() << "," << endpoint.port() << ">";
           });
+      // increment the server count
+      server_count_++;
     } else {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(
           FILE_NAME, __LINE__, __func__, [ec](std::stringstream &msg) {
@@ -98,15 +111,25 @@ class TcpAcceptor::TcpAcceptorImpl final {
   boost::asio::io_context io_context_;
 
   /**
+   * @brief  Keeps the count of server created
+   */
+  std::uint16_t server_count_;
+
+  /**
+   * @brief  Store the name of the acceptor
+   */
+  std::string acceptor_name_;
+
+  /**
    * @brief  Store the tcp acceptor
    */
   Acceptor acceptor_;
 };
 
-TcpAcceptor::TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-                         std::uint8_t maximum_connection) noexcept
-    : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(local_ip_address, local_port_num,
-                                                           maximum_connection)} {}
+TcpAcceptor::TcpAcceptor(std::string_view acceptor_name, std::string_view local_ip_address,
+                         std::uint16_t local_port_num, std::uint8_t maximum_connection) noexcept
+    : tcp_acceptor_impl_{std::make_unique<TcpAcceptorImpl>(acceptor_name, local_ip_address,
+                                                           local_port_num, maximum_connection)} {}
 
 TcpAcceptor::~TcpAcceptor() noexcept = default;
 

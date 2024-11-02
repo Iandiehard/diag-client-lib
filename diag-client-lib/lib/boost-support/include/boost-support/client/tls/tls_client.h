@@ -71,8 +71,9 @@ class TlsClient final {
    * @param[in]     ca_certification_path
    *                The path to root ca certificate
    */
-  TlsClient(std::string_view local_ip_address, std::uint16_t local_port_num,
-            std::string_view ca_certification_path, TlsVersion tls_version) noexcept;
+  TlsClient(std::string_view client_name, std::string_view local_ip_address,
+            std::uint16_t local_port_num, std::string_view ca_certification_path,
+            TlsVersion tls_version) noexcept;
 
   /**
    * @brief         Deleted copy assignment and copy constructor

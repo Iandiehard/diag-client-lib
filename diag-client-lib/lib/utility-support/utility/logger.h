@@ -51,10 +51,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 
@@ -76,8 +73,9 @@ class Logger final {
                             const std::string_view func_name, Func &&func) noexcept -> void {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_FATAL, file_name, func_name, line_no, std::forward<Func>(func));
-#endif
+#else
     LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
+#endif
     std::abort();  // abort in case of fatal issue
   }
 
@@ -100,10 +98,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_ERROR, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 
@@ -126,10 +121,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_WARN, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 
@@ -152,10 +144,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_INFO, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 
@@ -178,10 +167,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_DEBUG, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 
@@ -204,10 +190,7 @@ class Logger final {
 #ifdef ENABLE_DLT_LOGGER
     LogDltMessage(DLT_LOG_VERBOSE, file_name, func_name, line_no, std::forward<Func>(func));
 #else
-    UNUSED_PARAM(file_name);
-    UNUSED_PARAM(line_no);
-    UNUSED_PARAM(func_name);
-    UNUSED_PARAM(func);
+    LogMessageToStdOutput(file_name, func_name, line_no, std::forward<Func>(func));
 #endif
   }
 

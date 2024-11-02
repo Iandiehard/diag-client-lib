@@ -51,14 +51,20 @@ class Thread final {
   Thread(Thread &&other) noexcept = default;
   Thread &operator=(Thread &&other) noexcept = default;
 
+  /**
+   * @brief         Destructor
+   */
   ~Thread() noexcept { Join(); }
 
+  /**
+   * @brief         Function to join the running thread
+   */
   void Join() noexcept {
     if (thread_.joinable()) { thread_.join(); }
   }
 
  private:
-  std::thread thread_;
+  std::thread thread_{};
 };
 
 }  // namespace thread

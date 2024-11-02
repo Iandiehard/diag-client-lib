@@ -70,8 +70,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Open() noexcept {
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
           FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
             Tcp::endpoint const endpoint_{GetNativeTcpSocket().local_endpoint()};
-            msg << "Tls Socket opened and bound to " << "<" << endpoint_.address().to_string()
-                << "," << endpoint_.port() << ">";
+            msg << "Tls Socket opened and bound to "
+                << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
           });
       result.EmplaceValue();
     } else {
@@ -104,8 +104,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Connect(
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-          msg << "Tls socket connected to host " << "<" << endpoint_.address().to_string() << ","
-              << endpoint_.port() << ">";
+          msg << "Tls socket connected to host "
+              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     // Perform TLS handshake
     ssl_stream_.handshake(boost::asio::ssl::stream_base::client, ec);
@@ -162,8 +162,8 @@ core_type::Result<void, TlsSocket::SocketError> TlsSocket::Transmit(
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {
           Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
-          msg << "Tcp message sent to " << "<" << endpoint_.address().to_string() << ","
-              << endpoint_.port() << ">";
+          msg << "Tcp message sent to "
+              << "<" << endpoint_.address().to_string() << "," << endpoint_.port() << ">";
         });
     result.EmplaceValue();
   } else {
@@ -209,11 +209,13 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
     }();
 
     if (read_next_bytes != 0u) {
-      Tcp::endpoint const endpoint_{GetNativeTcpSocket().remote_endpoint()};
+      Tcp::endpoint const remote_endpoint{GetNativeTcpSocket().remote_endpoint()};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          FILE_NAME, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-            msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
-                << endpoint_.port() << ">";
+          FILE_NAME, __LINE__, __func__,
+          [&remote_endpoint, read_next_bytes](std::stringstream &msg) {
+            msg << "Tcp Message with length= " << read_next_bytes << " received from "
+                << "<" << remote_endpoint.address().to_string() << "," << remote_endpoint.port()
+                << ">";
           });
       read_next_bytes = 0;
       // reserve the buffer
@@ -224,11 +226,13 @@ core_type::Result<TlsSocket::TcpMessagePtr, TlsSocket::SocketError> TlsSocket::R
 
       // all message received, transfer to upper layer
       TcpMessagePtr tcp_rx_message{std::make_unique<TcpMessage>(
-          endpoint_.address().to_string(), endpoint_.port(), std::move(rx_buffer))};
+          remote_endpoint.address().to_string(), remote_endpoint.port(), std::move(rx_buffer))};
       common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
-          FILE_NAME, __LINE__, __func__, [endpoint_](std::stringstream &msg) {
-            msg << "Tcp Message received from " << "<" << endpoint_.address().to_string() << ","
-                << endpoint_.port() << ">";
+          FILE_NAME, __LINE__, __func__,
+          [&remote_endpoint, read_next_bytes](std::stringstream &msg) {
+            msg << "Tcp Message with length= " << read_next_bytes << " received from "
+                << "<" << remote_endpoint.address().to_string() << "," << remote_endpoint.port()
+                << ">";
           });
       result.EmplaceValue(std::move(tcp_rx_message));
     } else {

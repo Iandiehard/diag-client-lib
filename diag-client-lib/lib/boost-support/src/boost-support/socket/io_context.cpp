@@ -16,9 +16,18 @@ IoContext::IoContext() noexcept
       exit_request_{false},
       running_{false},
       cond_var_{},
+      mutex_{} {}
+
+IoContext::IoContext(std::string_view context_name) noexcept
+    : io_context_{},
+      exit_request_{false},
+      running_{false},
+      cond_var_{},
+      context_name_{context_name},
+      thread_{},
       mutex_{} {
   // start thread to execute async tasks
-  thread_ = std::thread([this]() {
+  thread_ = utility::thread::Thread(context_name_, [this]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {
@@ -40,7 +49,7 @@ IoContext::~IoContext() noexcept {
   exit_request_ = true;
   running_ = false;
   cond_var_.notify_all();
-  thread_.join();
+  thread_.Join();
 }
 
 void IoContext::Initialize() noexcept {

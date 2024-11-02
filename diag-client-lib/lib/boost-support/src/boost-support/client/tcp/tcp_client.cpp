@@ -21,6 +21,20 @@
 namespace boost_support {
 namespace client {
 namespace tcp {
+namespace {
+/**
+ * @brief  Function to append the ip address and port number to the connection name
+ */
+std::string AppendIpAddressAndPort(std::string_view client_name, std::string_view ip_address,
+                                   std::uint16_t port_num) {
+  std::string connection_name{client_name};
+  connection_name.append("_");
+  connection_name.append(ip_address);
+  connection_name.append("_");
+  connection_name.append(std::to_string(port_num));
+  return connection_name;
+}
+}  // namespace
 
 /**
  * @brief    Class to provide implementation of tcp client
@@ -54,10 +68,13 @@ class TcpClient::TcpClientImpl final {
    * @param[in]     local_port_num
    *                The local port number of client
    */
-  TcpClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept
+  TcpClientImpl(std::string_view client_name, std::string_view local_ip_address,
+                std::uint16_t local_port_num) noexcept
       : io_context_{},
         connection_state_{State::kDisconnected},
-        tcp_connection_{socket::tcp::TcpSocket{local_ip_address, local_port_num, io_context_}} {}
+        client_name_{AppendIpAddressAndPort(client_name, local_ip_address, local_port_num)},
+        tcp_connection_{client_name,
+                        socket::tcp::TcpSocket{local_ip_address, local_port_num, io_context_}} {}
 
   /**
    * @brief         Deleted copy assignment and copy constructor
@@ -184,13 +201,20 @@ class TcpClient::TcpClientImpl final {
   std::atomic<State> connection_state_;
 
   /**
+   * @brief  The client name
+   */
+  std::string client_name_;
+
+  /**
    * @brief      Store the tcp connection
    */
   TcpConnection tcp_connection_;
 };
 
-TcpClient::TcpClient(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept
-    : tcp_client_impl_{std::make_unique<TcpClientImpl>(local_ip_address, local_port_num)} {}
+TcpClient::TcpClient(std::string_view client_name, std::string_view local_ip_address,
+                     std::uint16_t local_port_num) noexcept
+    : tcp_client_impl_{
+          std::make_unique<TcpClientImpl>(client_name, local_ip_address, local_port_num)} {}
 
 TcpClient::TcpClient(TcpClient &&other) noexcept = default;
 

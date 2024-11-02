@@ -47,12 +47,12 @@ class TlsAcceptor final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection allowed
    */
-  TlsAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-              std::uint8_t maximum_connection, TlsVersion tls_version,
+  TlsAcceptor(std::string_view acceptor_name, std::string_view local_ip_address,
+              std::uint16_t local_port_num, std::uint8_t maximum_connection, TlsVersion tls_version,
               std::string_view certificate_path, std::string_view private_key_path) noexcept;
 
   /**
-   * @brief         Destruct an instance of TcpAcceptor
+   * @brief         Destruct an instance of TlsAcceptor
    */
   ~TlsAcceptor() noexcept;
 

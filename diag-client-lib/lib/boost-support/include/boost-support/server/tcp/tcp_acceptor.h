@@ -29,8 +29,8 @@ class TcpAcceptor final {
    * @param[in]     maximum_connection
    *                The maximum number of accepted connection allowed
    */
-  TcpAcceptor(std::string_view local_ip_address, std::uint16_t local_port_num,
-              std::uint8_t maximum_connection) noexcept;
+  TcpAcceptor(std::string_view acceptor_name, std::string_view local_ip_address,
+              std::uint16_t local_port_num, std::uint8_t maximum_connection) noexcept;
 
   /**
    * @brief         Destruct an instance of TcpAcceptor

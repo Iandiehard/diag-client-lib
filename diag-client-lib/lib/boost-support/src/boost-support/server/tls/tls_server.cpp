@@ -33,7 +33,8 @@ class TlsServer::TlsServerImpl final {
    * @param[in]     tcp_socket
    *                The underlying tcp socket required for communication
    */
-  explicit TlsServerImpl(TlsSocket tcp_socket) noexcept : tcp_connection_{std::move(tcp_socket)} {}
+  explicit TlsServerImpl(std::string_view server_name, TlsSocket tcp_socket) noexcept
+      : tcp_connection_{server_name, std::move(tcp_socket)} {}
 
   /**
    * @brief         Deleted copy assignment and copy constructor
@@ -89,8 +90,8 @@ class TlsServer::TlsServerImpl final {
   TcpConnectionSecured tcp_connection_;
 };
 
-TlsServer::TlsServer(TlsServer::TlsSocket tls_socket) noexcept
-    : tls_server_impl_{std::make_unique<TlsServerImpl>(std::move(tls_socket))} {}
+TlsServer::TlsServer(std::string_view server_name, TlsServer::TlsSocket tls_socket) noexcept
+    : tls_server_impl_{std::make_unique<TlsServerImpl>(server_name, std::move(tls_socket))} {}
 
 TlsServer::TlsServer(TlsServer &&other) noexcept = default;
 

@@ -22,6 +22,8 @@
 namespace test {
 namespace component {
 namespace test_cases {
+// Tls Server name
+constexpr std::string_view kDiagServerName{"DiagServer"};
 // Diag Test Server Tcp Ip Address
 constexpr std::string_view kDiagTcpIpAddress{"172.16.25.128"};
 // Diag Test Server port number
@@ -54,7 +56,7 @@ class RoutingActivationFixture : public component::ComponentTest {
 
  protected:
   RoutingActivationFixture()
-      : tcp_acceptor_{kDiagTcpIpAddress, kDiagTcpPortNum, 1u},
+      : tcp_acceptor_{kDiagServerName, kDiagTcpIpAddress, kDiagTcpPortNum, 1u},
         doip_tcp_handler_{},
         diag_client_{diag::client::CreateDiagnosticClient(kDiagClientConfigPath)} {}
 

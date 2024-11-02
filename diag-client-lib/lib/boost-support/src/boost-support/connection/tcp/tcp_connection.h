@@ -13,7 +13,8 @@
 #include <functional>
 #include <memory>
 #include <mutex>
-#include <thread>
+#include <string>
+#include <string_view>
 #include <utility>
 
 #include "boost-support/error_domain/boost_support_error_domain.h"
@@ -73,12 +74,13 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    * @param[in]     socket
    *                The socket used for read and writing messages
    */
-  explicit TcpConnection(Socket socket) noexcept
+  explicit TcpConnection(std::string_view connection_name, Socket socket) noexcept
       : socket_{std::move(socket)},
         handler_read_{},
         exit_request_{false},
         running_{false},
         cond_var_{},
+        connection_name_{connection_name},
         thread_{},
         mutex_{} {}
 
@@ -86,13 +88,13 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
 
   /**
    * @brief  Move assignment and move constructor
    */
   TcpConnection(TcpConnection &&other) noexcept = default;
-  TcpConnection &operator=(TcpConnection &&other) & noexcept = default;
+  TcpConnection &operator=(TcpConnection &&other) &noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpConnection
@@ -114,19 +116,20 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
     // Open socket
     socket_.Open();
     // Start thread to receive messages
-    thread_ = std::thread([this]() {
-      std::unique_lock<std::mutex> lck(mutex_);
-      while (!exit_request_) {
-        if (!running_) {
-          cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
-        }
-        if (!exit_request_.load() && running_) {
-          lck.unlock();
-          running_ = ReadMessage();
-          lck.lock();
-        }
-      }
-    });
+    thread_ = utility::thread::Thread{
+        connection_name_, [this]() {
+          std::unique_lock<std::mutex> lck(mutex_);
+          while (!exit_request_) {
+            if (!running_) {
+              cond_var_.wait(lck, [this]() { return exit_request_ || running_; });
+            }
+            if (!exit_request_.load() && running_) {
+              lck.unlock();
+              running_ = ReadMessage();
+              lck.lock();
+            }
+          }
+        }};
   }
 
   /**
@@ -140,7 +143,7 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    if (thread_.joinable()) { thread_.join(); }
+    thread_.Join();
   }
 
   /**
@@ -151,8 +154,8 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    *                The host port number
    * @return        Empty result on success otherwise error code
    */
-  auto ConnectToHost(std::string_view host_ip_address,
-                     std::uint16_t host_port_num) noexcept -> bool {
+  auto ConnectToHost(std::string_view host_ip_address, std::uint16_t host_port_num) noexcept
+      -> bool {
     return socket_.Connect(host_ip_address, host_port_num)
         .AndThen([this]() noexcept {
           {  // start reading
@@ -217,9 +220,14 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
   std::condition_variable cond_var_;
 
   /**
+   * @brief  Store the connection name
+   */
+  std::string connection_name_;
+
+  /**
    * @brief  Store the thread
    */
-  std::thread thread_;
+  utility::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section
@@ -276,12 +284,13 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @param[in]     socket
    *                The socket used for read and writing messages
    */
-  explicit TcpConnection(Socket socket) noexcept
+  explicit TcpConnection(std::string_view connection_name, Socket socket) noexcept
       : socket_{std::move(socket)},
         handler_read_{},
         exit_request_{false},
         running_{false},
         cond_var_{},
+        connection_name_{connection_name},
         thread_{},
         mutex_{} {}
 
@@ -289,7 +298,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
 
   /**
    * @brief  Move assignment
@@ -304,7 +313,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   /**
    * @brief  Move constructor
    */
-  TcpConnection &operator=(TcpConnection &&other) & noexcept {
+  TcpConnection &operator=(TcpConnection &&other) &noexcept {
     socket_ = std::move(other.socket_);
     handler_read_ = std::move(other.handler_read_);
     exit_request_.store(other.exit_request_.load());
@@ -331,7 +340,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    */
   void Initialize() noexcept {
     // Start thread to receive messages
-    thread_ = std::thread([this]() {
+    thread_ = utility::thread::Thread(connection_name_, [this]() {
       std::unique_lock<std::mutex> lck(mutex_);
       while (!exit_request_) {
         if (!running_) {
@@ -362,7 +371,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
       running_ = false;
     }
     cond_var_.notify_all();
-    if (thread_.joinable()) { thread_.join(); }
+    thread_.Join();
   }
 
   /**
@@ -406,9 +415,14 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   std::condition_variable cond_var_;
 
   /**
+   * @brief  Store the connection name
+   */
+  std::string connection_name_;
+
+  /**
    * @brief  Store the thread
    */
-  std::thread thread_;
+  utility::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section

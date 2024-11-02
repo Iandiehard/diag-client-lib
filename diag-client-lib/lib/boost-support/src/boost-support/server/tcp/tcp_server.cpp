@@ -28,7 +28,8 @@ class TcpServer::TcpServerImpl final {
    * @param[in]     tcp_socket
    *                The underlying tcp socket required for communication
    */
-  explicit TcpServerImpl(TcpSocket tcp_socket) noexcept : tcp_connection_{std::move(tcp_socket)} {}
+  explicit TcpServerImpl(std::string_view server_name, TcpSocket tcp_socket) noexcept
+      : tcp_connection_{server_name, std::move(tcp_socket)} {}
 
   /**
    * @brief         Deleted copy assignment and copy constructor
@@ -84,8 +85,8 @@ class TcpServer::TcpServerImpl final {
   TcpConnection tcp_connection_;
 };
 
-TcpServer::TcpServer(TcpServer::TcpSocket tcp_socket) noexcept
-    : tcp_server_impl_{std::make_unique<TcpServerImpl>(std::move(tcp_socket))} {}
+TcpServer::TcpServer(std::string_view server_name, TcpServer::TcpSocket tcp_socket) noexcept
+    : tcp_server_impl_{std::make_unique<TcpServerImpl>(server_name, std::move(tcp_socket))} {}
 
 TcpServer::TcpServer(TcpServer &&other) noexcept = default;
 

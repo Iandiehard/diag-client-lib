@@ -14,21 +14,21 @@ jobs:
   Doxygen:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install Doxygen
-      run: | 
-        sudo apt-get install doxygen
-        sudo apt install graphviz
+      - uses: actions/checkout@v2
+      - name: Install Doxygen
+        run: |
+          sudo apt-get install doxygen
+          sudo apt install graphviz
 
-    - name: Generate documentation
-      run: |
-        cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_DIAG_CLIENT:BOOL=OFF -DBUILD_DOXYGEN:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_11.cmake
-        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      - name: Generate documentation
+        run: |
+          cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_DIAG_CLIENT:BOOL=OFF -DBUILD_DOXYGEN:BOOL=ON -DBUILD_WITH_TEST:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_11.cmake
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Publish
-      uses: peaceiris/actions-gh-pages@v3
-      if: github.ref == 'refs/heads/main'
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ${{github.workspace}}/build/docs/html
+      - name: Publish
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{github.workspace}}/build/docs/html
         

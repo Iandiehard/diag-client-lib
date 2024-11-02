@@ -29,7 +29,7 @@ class UdpClient::UdpClientImpl final {
    *                The local port number of client
    */
   UdpClientImpl(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept
-      : io_context_{},
+      : io_context_{"UdpClient"},
         udp_connection_{
             socket::udp::UdpSocket{local_ip_address, local_port_num, io_context_.GetContext()}} {}
 

@@ -46,12 +46,15 @@ class TcpClient final {
  public:
   /**
    * @brief         Constructs an instance of TcpClient
+   * @param[in]     client_name
+   *                The name of the client
    * @param[in]     local_ip_address
    *                The local ip address
    * @param[in]     local_port_num
    *                The local port number
    */
-  TcpClient(std::string_view local_ip_address, std::uint16_t local_port_num) noexcept;
+  TcpClient(std::string_view client_name, std::string_view local_ip_address,
+            std::uint16_t local_port_num) noexcept;
 
   /**
    * @brief         Deleted copy assignment and copy constructor

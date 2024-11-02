@@ -8,6 +8,8 @@
 
 #include "common/message/doip_message.h"
 
+#include <cstdint>
+
 namespace test {
 namespace component {
 namespace common {
