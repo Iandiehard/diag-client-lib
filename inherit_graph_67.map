@@ -1,9 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classutility_1_1state_1_1State.html" title=" " alt="" coords="5,291,219,333"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message86d9e5b3919582a0bf3cbd1b95028767.html" title="Class implements reception of diagnostic negative acknowledgement response." alt="" coords="303,5,566,91"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messagea931fcc3cfe2b8932ef7c03afd8d3137.html" title="Class implements reception of diagnostic positive acknowledgement response." alt="" coords="303,115,566,200"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_1_1kIdle.html" title="Class implements idle state." alt="" coords="325,225,544,295"/>
-<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messageadf84d236d298604ad1463dd2edf5e41.html" title="Class implements sending of diagnostic request failed." alt="" coords="287,320,582,405"/>
-<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messagee6c6db385e2b1eac1c25cf6e33b39f67.html" title="Class implements wait for diagnostic acknowledgement response." alt="" coords="267,430,603,501"/>
-<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message1df0e26462d4f2a4b4dc9c68023c7bd7.html" title="Class implements wait for diagnostic message positive/negative response." alt="" coords="279,525,591,611"/>
+<area shape="rect" id="node1" href="$structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoResponse.html" title="Structure containing available Vehicle Address Information." alt="" coords="5,5,232,47"/>
 </map>

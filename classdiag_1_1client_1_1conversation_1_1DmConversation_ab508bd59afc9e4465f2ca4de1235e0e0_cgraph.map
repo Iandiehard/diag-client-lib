@@ -1,4 +1,5 @@
 <map id="diag::client::conversation::DmConversation::Shutdown" name="diag::client::conversation::DmConversation::Shutdown">
-<area shape="rect" id="node1" title="Function to shutdown the DmConversation." alt="" coords="5,13,216,54"/>
-<area shape="rect" id="node2" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="264,5,467,61"/>
+<area shape="rect" id="node1" title="Function to shutdown the DmConversation." alt="" coords="5,43,216,84"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html#a5e9a6e449263a5f92cccc9478f19be6b" title="Get the current activity status of this conversation." alt="" coords="264,5,503,47"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="282,71,485,127"/>
 </map>

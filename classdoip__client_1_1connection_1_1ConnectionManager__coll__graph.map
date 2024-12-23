@@ -1,0 +1,4 @@
+<map id="doip_client::connection::ConnectionManager" name="doip_client::connection::ConnectionManager">
+<area shape="rect" id="node1" title="Manages Doip tcp and udp connections." alt="" coords="35,109,207,151"/>
+<area shape="rect" id="node2" href="$structdoip__client_1_1connection_1_1ConnectionManager_1_1IoContext.html" title="Type alias for boost context." alt="" coords="5,5,236,47"/>
+</map>

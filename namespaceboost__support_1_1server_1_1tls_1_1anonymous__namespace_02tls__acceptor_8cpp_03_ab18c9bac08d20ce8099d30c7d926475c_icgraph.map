@@ -1,0 +1,4 @@
+<map id="boost_support::server::tls::anonymous_namespace{tls_acceptor::cpp}::CreateServerName" name="boost_support::server::tls::anonymous_namespace{tls_acceptor::cpp}::CreateServerName">
+<area shape="rect" id="node1" title="Function to create server name." alt="" coords="268,5,548,61"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1server_1_1tls_1_1TlsAcceptor_1_1TlsAcceptorImpl.html#aa05365244fdff8419976210028e2c771" title="Get a tls server ready to communicate." alt="" coords="5,5,220,61"/>
+</map>

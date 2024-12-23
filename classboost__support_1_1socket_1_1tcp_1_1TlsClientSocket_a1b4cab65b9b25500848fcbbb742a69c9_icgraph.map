@@ -1,0 +1,10 @@
+<map id="boost_support::socket::tcp::TlsClientSocket::GetNativeTcpSocket" name="boost_support::socket::tcp::TlsClientSocket::GetNativeTcpSocket">
+<area shape="rect" id="node1" title="Function to get the native tcp socket under tls socket." alt="" coords="465,205,629,261"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a56bd490763f436751ce6d5033a4133ef" title="Function to connect to remote ip address and port number." alt="" coords="235,5,399,61"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a77cd84d58a15a02cdfecabaa39015dd9" title="Function to destroy the socket." alt="" coords="235,85,399,141"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a1c8fd01e6443e30e65aa2d82a0901b7c" title="Function to Disconnect from host." alt="" coords="235,165,400,221"/>
+<area shape="rect" id="node5" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#ab3b0a272a3131c55485d3ac2865edc2c" title="Function to handle the reception of tcp message." alt="" coords="235,245,399,301"/>
+<area shape="rect" id="node7" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a62edf5d7488a25eeda34b057017fe588" title="Function to Open the socket." alt="" coords="217,326,417,367"/>
+<area shape="rect" id="node8" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a75c5c990c5882213783996d0c3ed6c98" title="Function to trigger transmission." alt="" coords="235,392,399,448"/>
+<area shape="rect" id="node6" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a32449c01b6eaa67f77818b7d755f7ba9" title="Constructs an instance of TlsClientSocket." alt="" coords="5,245,169,301"/>
+</map>

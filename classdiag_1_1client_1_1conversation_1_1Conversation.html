@@ -68,6 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classdiag_1_1client_1_1conversation_1_1Conversation-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">diag::client::conversation::Conversation Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -91,6 +92,11 @@ Inheritance diagram for diag::client::conversation::Conversation:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:ac3bcb5f8ff51e664305f3ac5eea34c64"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">ActivityStatusType</a> : uint8_t { <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64a9791a40615dbcc7316e7b890a13fb241">kActive</a> = 0x00
+, <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">kInactive</a> = 0x01
+ }</td></tr>
+<tr class="memdesc:ac3bcb5f8ff51e664305f3ac5eea34c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of current activity status.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">More...</a><br /></td></tr>
+<tr class="separator:ac3bcb5f8ff51e664305f3ac5eea34c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0226883a078b2532328f12e622b44961"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a0226883a078b2532328f12e622b44961">IpAddress</a> = <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a4194164eb0676805203dc34696288695">DiagClientConversation::IpAddress</a></td></tr>
 <tr class="memdesc:a0226883a078b2532328f12e622b44961"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Ip address.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a0226883a078b2532328f12e622b44961">More...</a><br /></td></tr>
 <tr class="separator:a0226883a078b2532328f12e622b44961"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,9 +146,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ab346d39eba31aa80aed28ae466cf0de4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1">DisconnectResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab346d39eba31aa80aed28ae466cf0de4">DisconnectFromDiagServer</a> () noexcept</td></tr>
 <tr class="memdesc:ab346d39eba31aa80aed28ae466cf0de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to disconnect from Diagnostic Server.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab346d39eba31aa80aed28ae466cf0de4">More...</a><br /></td></tr>
 <tr class="separator:ab346d39eba31aa80aed28ae466cf0de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab95c203c22d46b27481ea3b89adfd9f4"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt;::<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, ::<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab95c203c22d46b27481ea3b89adfd9f4">IndicateMessage</a> (::<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> source_addr, ::<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> target_addr, ::<a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> type, ::<a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a> channel_id, std::size_t size, ::<a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a> priority, ::<a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info) noexcept=0</td></tr>
-<tr class="memdesc:ab95c203c22d46b27481ea3b89adfd9f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab95c203c22d46b27481ea3b89adfd9f4">More...</a><br /></td></tr>
-<tr class="separator:ab95c203c22d46b27481ea3b89adfd9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0a36c609002d4951920d37b6382e2a4"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt;::<a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, ::<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab0a36c609002d4951920d37b6382e2a4">IndicateMessage</a> (::<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> source_addr, ::<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> target_addr, ::<a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> type, ::<a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a> channel_id, std::size_t size, ::<a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a> priority, ::<a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt; payload_info) noexcept=0</td></tr>
+<tr class="memdesc:ab0a36c609002d4951920d37b6382e2a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab0a36c609002d4951920d37b6382e2a4">More...</a><br /></td></tr>
+<tr class="separator:ab0a36c609002d4951920d37b6382e2a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04103d2a352903cb168b693e0bcb2b62"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a04103d2a352903cb168b693e0bcb2b62">HandleMessage</a> (::<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> message) noexcept=0</td></tr>
 <tr class="memdesc:a04103d2a352903cb168b693e0bcb2b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Hands over a valid received Uds message.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a04103d2a352903cb168b693e0bcb2b62">More...</a><br /></td></tr>
 <tr class="separator:a04103d2a352903cb168b693e0bcb2b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,6 +158,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:addda0140e6ae162084c2f2e6993cc523"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; <a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>, <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">SendVehicleIdentificationRequest</a> (<a class="el" href="namespacediag_1_1client_1_1vehicle__info.html#a4f76f1f5c8ff2137fd56fb6a74bf0ae5">vehicle_info::VehicleInfoListRequestType</a>) noexcept</td></tr>
 <tr class="memdesc:addda0140e6ae162084c2f2e6993cc523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to send vehicle identification request and get the Diagnostic Server list.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">More...</a><br /></td></tr>
 <tr class="separator:addda0140e6ae162084c2f2e6993cc523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e9a6e449263a5f92cccc9478f19be6b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a5e9a6e449263a5f92cccc9478f19be6b">GetActivityStatus</a> () const noexcept -&gt; <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">ActivityStatusType</a></td></tr>
+<tr class="memdesc:a5e9a6e449263a5f92cccc9478f19be6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the current activity status of this conversation.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a5e9a6e449263a5f92cccc9478f19be6b">More...</a><br /></td></tr>
+<tr class="separator:a5e9a6e449263a5f92cccc9478f19be6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a7df33d21293258076b0cd52f58a5888b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">ActivityStatusType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a7df33d21293258076b0cd52f58a5888b">activity_status_</a> {<a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">ActivityStatusType::kInactive</a>}</td></tr>
+<tr class="memdesc:a7df33d21293258076b0cd52f58a5888b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the conversation activity status.  <a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a7df33d21293258076b0cd52f58a5888b">More...</a><br /></td></tr>
+<tr class="separator:a7df33d21293258076b0cd52f58a5888b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for diag client conversation. </p>
@@ -228,6 +243,38 @@ Public Member Functions</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00029">29</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
 
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ac3bcb5f8ff51e664305f3ac5eea34c64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3bcb5f8ff51e664305f3ac5eea34c64">&#9670;&nbsp;</a></span>ActivityStatusType</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">diag::client::conversation::Conversation::ActivityStatusType</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definitions of current activity status. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac3bcb5f8ff51e664305f3ac5eea34c64a9791a40615dbcc7316e7b890a13fb241"></a>kActive&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16"></a>kInactive&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00049">49</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;: uint8_t { kActive = 0x00, kInactive = 0x01 };</div>
+</div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -388,13 +435,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a6099c6e16d61015089a61a1114714687">diag::client::conversation::DmConversation</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00101">101</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">ConnectResult::kConnectFailed</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00108">108</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                                                             {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">ConnectResult::kConnectFailed</a>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html_a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">diag::client::conversation::DiagClientConversation::ConnectResult::kConnectFailed</a></div><div class="ttdeci">@ kConnectFailed</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">diag::client::conversation::DiagClientConversation::kConnectFailed</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00056">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::ConnectToDiagServer()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00057">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::ConnectToDiagServer()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -435,13 +484,15 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a3439dc982dba1cfff4dc0803b4431c82">diag::client::conversation::DmConversation</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00108">108</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">DisconnectResult::kDisconnectFailed</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00117">117</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                                                               {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">DisconnectResult::kDisconnectFailed</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  }</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html_a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">diag::client::conversation::DiagClientConversation::DisconnectResult::kDisconnectFailed</a></div><div class="ttdeci">@ kDisconnectFailed</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">diag::client::conversation::DiagClientConversation::kDisconnectFailed</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00065">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::DisconnectFromDiagServer()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00066">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::DisconnectFromDiagServer()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -449,6 +500,52 @@ Here is the caller graph for this function:</div>
 <map name="aclassdiag_1_1client_1_1conversation_1_1Conversation_ab346d39eba31aa80aed28ae466cf0de4_icgraph" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_ab346d39eba31aa80aed28ae466cf0de4_icgraph">
 <area shape="rect" title="Function to disconnect from Diagnostic Server." alt="" coords="267,13,525,69"/>
 <area shape="rect" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation_1_1DiagClientConversationImpl.html#a1654ddae12ed2f1f095fda3323920e9c" title="Function to disconnect from Diagnostic Server." alt="" coords="5,5,219,76"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="a5e9a6e449263a5f92cccc9478f19be6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e9a6e449263a5f92cccc9478f19be6b">&#9670;&nbsp;</a></span>GetActivityStatus()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto diag::client::conversation::Conversation::GetActivityStatus </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const -&gt; <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">ActivityStatusType</a> </td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the current activity status of this conversation. </p>
+<dl class="section return"><dt>Returns</dt><dd>The activity status </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00196">196</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a7df33d21293258076b0cd52f58a5888b">activity_status_</a>; }</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_a7df33d21293258076b0cd52f58a5888b"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a7df33d21293258076b0cd52f58a5888b">diag::client::conversation::Conversation::activity_status_</a></div><div class="ttdeci">ActivityStatusType activity_status_</div><div class="ttdoc">Store the conversation activity status.</div><div class="ttdef"><b>Definition:</b> <a href="conversation_8h_source.html#l00202">conversation.h:202</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="conversation_8h_source.html#l00202">activity_status_</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dm__conversation_8cpp_source.html#l00138">diag::client::conversation::DmConversation::Shutdown()</a>, and <a class="el" href="vd__conversation_8cpp_source.html#l00223">diag::client::conversation::VdConversation::Shutdown()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1conversation_1_1Conversation_a5e9a6e449263a5f92cccc9478f19be6b_icgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1conversation_1_1Conversation_a5e9a6e449263a5f92cccc9478f19be6b_icgraph" alt=""/></div>
+<map name="aclassdiag_1_1client_1_1conversation_1_1Conversation_a5e9a6e449263a5f92cccc9478f19be6b_icgraph" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_a5e9a6e449263a5f92cccc9478f19be6b_icgraph">
+<area shape="rect" title="Get the current activity status of this conversation." alt="" coords="264,39,503,80"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#ab508bd59afc9e4465f2ca4de1235e0e0" title="Function to shutdown the DmConversation." alt="" coords="5,5,216,47"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#a603b1e2a34e8e25d67efc00e5bd55795" title="Function to shutdown the DmConversation." alt="" coords="8,71,213,112"/>
 </map>
 </div>
 
@@ -520,8 +617,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="ab95c203c22d46b27481ea3b89adfd9f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab95c203c22d46b27481ea3b89adfd9f4">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
+<a id="ab0a36c609002d4951920d37b6382e2a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0a36c609002d4951920d37b6382e2a4">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -574,7 +671,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt;&#160;</td>
           <td class="paramname"><em>payload_info</em>&#160;</td>
         </tr>
         <tr>
@@ -606,7 +703,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt; IndicationResult, UdsMessagePtr &gt; The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned to the handler to get filled </dd></dl>
 
-<p>Implemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#a44d1fc157499dc4f1d9ec6ef185c4910">diag::client::conversation::VdConversation</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a003ef136362563dcb4357bc24e9c8b54">diag::client::conversation::DmConversation</a>.</p>
+<p>Implemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#a290a807245e3b9b423ed397b8226d914">diag::client::conversation::VdConversation</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a2ef31fa58e1e45769bacd32157305610">diag::client::conversation::DmConversation</a>.</p>
 
 </div>
 </div>
@@ -735,16 +832,17 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a9951cd6a198e638ffd77943c2d4e0fbf">diag::client::conversation::DmConversation</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00158">158</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;                                                     {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#a7946df58d8b8943580f3ae780593af0d">Result&lt;uds_message::UdsResponseMessagePtr, DiagError&gt;::FromError</a>(<a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3749183e363cc8fa5cea12729c8f34bcaade238b92ab85f1a62ce859f99d7518b">DiagError::kDiagRequestSendFailed</a>);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00172">172</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                                                     {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#a7946df58d8b8943580f3ae780593af0d">Result&lt;uds_message::UdsResponseMessagePtr, DiagError&gt;::FromError</a>(</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3749183e363cc8fa5cea12729c8f34bcaade238b92ab85f1a62ce859f99d7518b">DiagError::kDiagRequestSendFailed</a>);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  }</div>
 <div class="ttc" id="aclasscore__type_1_1Result_html_a7946df58d8b8943580f3ae780593af0d"><div class="ttname"><a href="classcore__type_1_1Result.html#a7946df58d8b8943580f3ae780593af0d">core_type::Result::FromError</a></div><div class="ttdeci">static Result FromError(const E &amp;e) noexcept</div><div class="ttdoc">Build a new Result from the specified error (given as lvalue)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00083">result.h:83</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html_a3749183e363cc8fa5cea12729c8f34bcaade238b92ab85f1a62ce859f99d7518b"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3749183e363cc8fa5cea12729c8f34bcaade238b92ab85f1a62ce859f99d7518b">diag::client::conversation::DiagClientConversation::DiagError::kDiagRequestSendFailed</a></div><div class="ttdeci">@ kDiagRequestSendFailed</div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="result_8h_source.html#l00083">core_type::Result&lt; T, E &gt;::FromError()</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3749183e363cc8fa5cea12729c8f34bcaade238b92ab85f1a62ce859f99d7518b">diag::client::conversation::DiagClientConversation::kDiagRequestSendFailed</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00076">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::SendDiagnosticRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00080">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::SendDiagnosticRequest()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -801,16 +899,16 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#ac35a435b92fdb11e14498d74ce8e77f0">diag::client::conversation::VdConversation</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00171">171</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                                                                    {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html">core_type::Result</a>&lt;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        <a class="code" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>,</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <a class="code" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a>&gt;::FromError(<a class="code" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18">DiagClient::VehicleInfoResponseError::kTransmitFailed</a>);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00186">186</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                                                                                    {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html">core_type::Result</a>&lt;<a class="code" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>,</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                             <a class="code" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">DiagClient::VehicleInfoResponseError</a>&gt;::</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        FromError(<a class="code" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18">DiagClient::VehicleInfoResponseError::kTransmitFailed</a>);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  }</div>
 <div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00029">result.h:29</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_html_a0c8616e98d9c476446749a84f83a7db5"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">diag::client::DiagClient::VehicleInfoResponseError</a></div><div class="ttdeci">VehicleInfoResponseError</div><div class="ttdoc">Definitions of Vehicle Identification response error code.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8h_source.html#l00030">diagnostic_client.h:30</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_html_a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18">diag::client::DiagClient::VehicleInfoResponseError::kTransmitFailed</a></div><div class="ttdeci">@ kTransmitFailed</div></div>
-<div class="ttc" id="anamespacediag_1_1client_1_1vehicle__info_html_a703d0b79cc8bd761b81b93b682925648"><div class="ttname"><a href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a></div><div class="ttdeci">std::unique_ptr&lt; VehicleInfoMessage &gt; VehicleInfoMessageResponseUniquePtr</div><div class="ttdoc">The unique_ptr for Vehicle Identification Response Message.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__vehicle__info__message__type_8h_source.html#l00108">diagnostic_client_vehicle_info_message_type.h:108</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1vehicle__info_html_a703d0b79cc8bd761b81b93b682925648"><div class="ttname"><a href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a></div><div class="ttdeci">std::unique_ptr&lt; VehicleInfoMessage &gt; VehicleInfoMessageResponseUniquePtr</div><div class="ttdoc">The unique_ptr for Vehicle Identification Response Message.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__vehicle__info__message__type_8h_source.html#l00116">diagnostic_client_vehicle_info_message_type.h:116</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5a0225bac412583ee007d235b8f8301f18">diag::client::DiagClient::kTransmitFailed</a>.</p>
 
@@ -843,7 +941,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#a603b1e2a34e8e25d67efc00e5bd55795">diag::client::conversation::VdConversation</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#ab508bd59afc9e4465f2ca4de1235e0e0">diag::client::conversation::DmConversation</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00045">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Shutdown()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00060">diag::client::dcm::DCMClient::Shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00046">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Shutdown()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00065">diag::client::dcm::DCMClient::Shutdown()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -884,7 +982,7 @@ Here is the caller graph for this function:</div>
 
 <p>Implemented in <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#aaacf2fa8d890bf7cb5b4a6ca89e8995d">diag::client::conversation::VdConversation</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#a086228579f40afb55176639829f0b386">diag::client::conversation::DmConversation</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00038">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Startup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00039">diag::client::conversation::DiagClientConversation::DiagClientConversationImpl::Startup()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -897,8 +995,37 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7df33d21293258076b0cd52f58a5888b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7df33d21293258076b0cd52f58a5888b">&#9670;&nbsp;</a></span>activity_status_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64">ActivityStatusType</a> diag::client::conversation::Conversation::activity_status_ {<a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">ActivityStatusType::kInactive</a>}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Store the conversation activity status. </p>
+
+<p class="definition">Definition at line <a class="el" href="conversation_8h_source.html#l00202">202</a> of file <a class="el" href="conversation_8h_source.html">conversation.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="conversation_8h_source.html#l00196">GetActivityStatus()</a>, <a class="el" href="dm__conversation_8cpp_source.html#l00138">diag::client::conversation::DmConversation::Shutdown()</a>, <a class="el" href="vd__conversation_8cpp_source.html#l00223">diag::client::conversation::VdConversation::Shutdown()</a>, <a class="el" href="dm__conversation_8cpp_source.html#l00123">diag::client::conversation::DmConversation::Startup()</a>, and <a class="el" href="vd__conversation_8cpp_source.html#l00208">diag::client::conversation::VdConversation::Startup()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/conversation/<a class="el" href="conversation_8h_source.html">conversation.h</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/conversation/<a class="el" href="conversation_8h_source.html">conversation.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,6 +1,0 @@
-<map id="doip_client::channel::udp_channel::anonymous_namespace{doip_vehicle_identification_handler::cpp}::CreateDoipGenericHeader" name="doip_client::channel::udp_channel::anonymous_namespace{doip_vehicle_identification_handler::cpp}::CreateDoipGenericHeader">
-<area shape="rect" id="node1" title="Create the doip generic header." alt="" coords="352,71,583,156"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#aadf47abd481ac2759adc926e7965e7a8" title="Function to send diagnostic request." alt="" coords="33,5,276,61"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a5f1457021cf25855f04603a4f5ce09e2" title="Function to send routing activation request." alt="" coords="13,85,296,141"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#a2f295b8a9b9a517e02069d06254a1d0d" title="Function to send vehicle identification request." alt="" coords="5,165,304,221"/>
-</map>

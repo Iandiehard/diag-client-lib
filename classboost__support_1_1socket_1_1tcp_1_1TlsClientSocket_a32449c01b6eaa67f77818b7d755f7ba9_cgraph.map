@@ -1,0 +1,7 @@
+<map id="boost_support::socket::tcp::TlsClientSocket::TlsClientSocket" name="boost_support::socket::tcp::TlsClientSocket::TlsClientSocket">
+<area shape="rect" id="node1" title="Constructs an instance of TlsClientSocket." alt="" coords="5,89,169,145"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#ab3b0a272a3131c55485d3ac2865edc2c" title="Function to handle the reception of tcp message." alt="" coords="243,45,407,101"/>
+<area shape="rect" id="node5" href="$namespaceboost__support_1_1socket_1_1tcp_1_1anonymous__namespace_02tls__client___8cpp_03.html#a79ed9e0ecd87ffc8c942d6a1efa4a230" title=" " alt="" coords="217,126,433,197"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="481,5,660,61"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a1b4cab65b9b25500848fcbbb742a69c9" title="Function to get the native tcp socket under tls socket." alt="" coords="489,85,653,141"/>
+</map>

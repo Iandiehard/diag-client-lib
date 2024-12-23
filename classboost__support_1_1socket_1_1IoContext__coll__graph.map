@@ -1,0 +1,4 @@
+<map id="boost_support::socket::IoContext" name="boost_support::socket::IoContext">
+<area shape="rect" id="node1" title="Wrapper class to hold boost io context required for io object( sockets)" alt="" coords="5,95,169,136"/>
+<area shape="rect" id="node2" href="$classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="6,5,169,32"/>
+</map>

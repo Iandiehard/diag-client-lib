@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classutility_1_1state_1_1State.html" title=" " alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node1" href="$classdiag_1_1client_1_1vehicle__info_1_1VehicleInfoMessage.html" title="Class provide storage of list of all available vehicle entity." alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1VehicleInfoMessageImpl.html" title=" " alt="" coords="245,5,435,47"/>
 </map>

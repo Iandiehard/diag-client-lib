@@ -1,0 +1,4 @@
+<map id="diag::client::conversation::VdConversationHandler::IndicateMessage" name="diag::client::conversation::VdConversationHandler::IndicateMessage">
+<area shape="rect" id="node1" title="Function to indicate a start of reception of message." alt="" coords="5,5,192,61"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1VdConversation.html#a290a807245e3b9b423ed397b8226d914" title="Function to indicate a start of reception of message." alt="" coords="240,13,491,54"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="diag::client::conversation::Conversation::GetActivityStatus" name="diag::client::conversation::Conversation::GetActivityStatus">
+<area shape="rect" id="node1" title="Get the current activity status of this conversation." alt="" coords="264,39,503,80"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#ab508bd59afc9e4465f2ca4de1235e0e0" title="Function to shutdown the DmConversation." alt="" coords="5,5,216,47"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation_1_1VdConversation.html#a603b1e2a34e8e25d67efc00e5bd55795" title="Function to shutdown the DmConversation." alt="" coords="8,71,213,112"/>
+</map>

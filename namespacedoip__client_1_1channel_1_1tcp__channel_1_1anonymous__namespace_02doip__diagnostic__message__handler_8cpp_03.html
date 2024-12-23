@@ -68,6 +68,7 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp} Namespace Reference</div>  </div>
@@ -94,6 +95,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message1df0e26462d4f2a4b4dc9c68023c7bd7.html">kWaitForDiagnosticResponse</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class implements wait for diagnostic message positive/negative response.  <a href="classdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message1df0e26462d4f2a4b4dc9c68023c7bd7.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messag90b318278f265a8cdc00d22ee6b98199.html">DiagAckType</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type holding acknowledgement type.  <a href="structdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messag90b318278f265a8cdc00d22ee6b98199.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -111,38 +115,47 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:af8811b33bc14f471fe2033eb680036ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Different diagnostic message state.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#af8811b33bc14f471fe2033eb680036ae">More...</a><br /></td></tr>
 <tr class="separator:af8811b33bc14f471fe2033eb680036ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a690c175115c0d4a43853b02b234521ee"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a690c175115c0d4a43853b02b234521ee">operator&lt;&lt;</a> (std::ostream &amp;msg, <a class="el" href="structdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messag90b318278f265a8cdc00d22ee6b98199.html">DiagAckType</a> diag_ack_type)</td></tr>
+<tr class="memdesc:a690c175115c0d4a43853b02b234521ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stream the diagnostic acknowledgement type.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a690c175115c0d4a43853b02b234521ee">More...</a><br /></td></tr>
+<tr class="separator:a690c175115c0d4a43853b02b234521ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80d127e3a18a343d8498a87f86c52861"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a80d127e3a18a343d8498a87f86c52861">CreateDoipGenericHeader</a> (std::uint16_t payload_type, std::uint32_t payload_len) noexcept -&gt; std::vector&lt; std::uint8_t &gt;</td></tr>
+<tr class="memdesc:a80d127e3a18a343d8498a87f86c52861"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to create doip generic header.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a80d127e3a18a343d8498a87f86c52861">More...</a><br /></td></tr>
+<tr class="separator:a80d127e3a18a343d8498a87f86c52861"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5c243744f2ce8ea5bc6021ae98d3a0e8"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5c243744f2ce8ea5bc6021ae98d3a0e8">kDoip_DiagMessage_Type</a> {0x8001}</td></tr>
-<tr class="memdesc:a5c243744f2ce8ea5bc6021ae98d3a0e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic message type.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5c243744f2ce8ea5bc6021ae98d3a0e8">More...</a><br /></td></tr>
-<tr class="separator:a5c243744f2ce8ea5bc6021ae98d3a0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afabb70cb565dfb75eb08e04272032e2d"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#afabb70cb565dfb75eb08e04272032e2d">kDoip_DiagMessagePosAck_Type</a> {0x8002}</td></tr>
-<tr class="separator:afabb70cb565dfb75eb08e04272032e2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c4bd010d573a9ee080b70f07d30e03e"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a4c4bd010d573a9ee080b70f07d30e03e">kDoip_DiagMessageNegAck_Type</a> {0x8003}</td></tr>
-<tr class="separator:a4c4bd010d573a9ee080b70f07d30e03e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2014d244cf56552742e8c40f72173e03"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a2014d244cf56552742e8c40f72173e03">kDoip_DiagnosticMessage_NegAckCode_InvalidSA</a> {0x02}</td></tr>
-<tr class="memdesc:a2014d244cf56552742e8c40f72173e03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message negative acknowledgement code.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a2014d244cf56552742e8c40f72173e03">More...</a><br /></td></tr>
-<tr class="separator:a2014d244cf56552742e8c40f72173e03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84dae19a332a23721922d7f10e12761e"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a84dae19a332a23721922d7f10e12761e">kDoip_DiagnosticMessage_NegAckCode_UnknownTA</a> {0x03}</td></tr>
-<tr class="separator:a84dae19a332a23721922d7f10e12761e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3981a0ebf5267480d00eabbe26f19987"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a3981a0ebf5267480d00eabbe26f19987">kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge</a> {0x04}</td></tr>
-<tr class="separator:a3981a0ebf5267480d00eabbe26f19987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eaa17b5deda3385c19d1d5476199952"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a0eaa17b5deda3385c19d1d5476199952">kDoip_DiagnosticMessage_NegAckCode_OutOfMemory</a> {0x05}</td></tr>
-<tr class="separator:a0eaa17b5deda3385c19d1d5476199952"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46c1538f677286225d09e84285f6677f"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a46c1538f677286225d09e84285f6677f">kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable</a> {0x06}</td></tr>
-<tr class="separator:a46c1538f677286225d09e84285f6677f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1179610dc5fbbd883efe02901f74d27e"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a1179610dc5fbbd883efe02901f74d27e">kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork</a> {0x07}</td></tr>
-<tr class="separator:a1179610dc5fbbd883efe02901f74d27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fc4439d19f87a8c4f5bf236c000e3fc"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a1fc4439d19f87a8c4f5bf236c000e3fc">kDoip_DiagnosticMessage_NegAckCode_TPError</a> {0x08}</td></tr>
-<tr class="separator:a1fc4439d19f87a8c4f5bf236c000e3fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f4c1bd45e33a8e42175c7108167006e"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5f4c1bd45e33a8e42175c7108167006e">kDoip_DiagnosticMessage_PosAckCode_Confirm</a> {0x00}</td></tr>
-<tr class="memdesc:a5f4c1bd45e33a8e42175c7108167006e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message positive acknowledgement code.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5f4c1bd45e33a8e42175c7108167006e">More...</a><br /></td></tr>
-<tr class="separator:a5f4c1bd45e33a8e42175c7108167006e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a116cd54d06582b615ecf3ca4e5e42599"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a116cd54d06582b615ecf3ca4e5e42599">kDoip_DiagMessage_ReqResMinLen</a> = 4U</td></tr>
-<tr class="memdesc:a116cd54d06582b615ecf3ca4e5e42599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message request/response lengths.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a116cd54d06582b615ecf3ca4e5e42599">More...</a><br /></td></tr>
-<tr class="separator:a116cd54d06582b615ecf3ca4e5e42599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd72ef8da99d66f247a50285d174a1b2"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#abd72ef8da99d66f247a50285d174a1b2">kDoip_DiagMessageAck_ResMinLen</a> = 5U</td></tr>
-<tr class="separator:abd72ef8da99d66f247a50285d174a1b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d11d37088872c7b7ab76cab227dd627"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a9d11d37088872c7b7ab76cab227dd627">kDoipDiagMessage</a> {0x8001}</td></tr>
+<tr class="memdesc:a9d11d37088872c7b7ab76cab227dd627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic message type.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a9d11d37088872c7b7ab76cab227dd627">More...</a><br /></td></tr>
+<tr class="separator:a9d11d37088872c7b7ab76cab227dd627"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e28bad506171c06427e937d1589f2fe"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a6e28bad506171c06427e937d1589f2fe">kDoipDiagMessagePosAck</a> {0x8002}</td></tr>
+<tr class="separator:a6e28bad506171c06427e937d1589f2fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3264c8f2b72eaf6794e57a19519b77e9"><td class="memItemLeft" align="right" valign="top">constexpr std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a3264c8f2b72eaf6794e57a19519b77e9">kDoipDiagMessageNegAck</a> {0x8003}</td></tr>
+<tr class="separator:a3264c8f2b72eaf6794e57a19519b77e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6590650e6c7e285ef140d3e71552fb6"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ae6590650e6c7e285ef140d3e71552fb6">kDoipDiagnosticMessageNegAckCodeInvalidSa</a> {0x02}</td></tr>
+<tr class="memdesc:ae6590650e6c7e285ef140d3e71552fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message negative acknowledgement code.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ae6590650e6c7e285ef140d3e71552fb6">More...</a><br /></td></tr>
+<tr class="separator:ae6590650e6c7e285ef140d3e71552fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea966efae0e2e8671c04dae7bccdec8f"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#aea966efae0e2e8671c04dae7bccdec8f">kDoipDiagnosticMessageNegAckCodeUnknownTa</a> {0x03}</td></tr>
+<tr class="separator:aea966efae0e2e8671c04dae7bccdec8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f02c2cd908e0d88560b532a374fe6f"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a84f02c2cd908e0d88560b532a374fe6f">kDoipDiagnosticMessageNegAckCodeMessageTooLarge</a> {0x04}</td></tr>
+<tr class="separator:a84f02c2cd908e0d88560b532a374fe6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14cf931ff036524f7b1a7804ddb3c677"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a14cf931ff036524f7b1a7804ddb3c677">kDoipDiagnosticMessageNegAckCodeOutOfMemory</a> {0x05}</td></tr>
+<tr class="separator:a14cf931ff036524f7b1a7804ddb3c677"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e5dea33ddfb2b73a3ff47c1b1d237ad"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a4e5dea33ddfb2b73a3ff47c1b1d237ad">kDoipDiagnosticMessageNegAckCodeTargetUnreachable</a> {0x06}</td></tr>
+<tr class="separator:a4e5dea33ddfb2b73a3ff47c1b1d237ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a8f916fa1dda87154f0790d069cfc05"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a7a8f916fa1dda87154f0790d069cfc05">kDoipDiagnosticMessageNegAckCodeUnknownNetwork</a> {0x07}</td></tr>
+<tr class="separator:a7a8f916fa1dda87154f0790d069cfc05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab58493ee3e79c5dbe142dee9bc5f5b79"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ab58493ee3e79c5dbe142dee9bc5f5b79">kDoipDiagnosticMessageNegAckCodeTpError</a> {0x08}</td></tr>
+<tr class="separator:ab58493ee3e79c5dbe142dee9bc5f5b79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d3e712bd3b94f050f9e3a010f5df305"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5d3e712bd3b94f050f9e3a010f5df305">kDoipDiagnosticMessagePosAckCodeConfirm</a> {0x00}</td></tr>
+<tr class="memdesc:a5d3e712bd3b94f050f9e3a010f5df305"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message positive acknowledgement code.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a5d3e712bd3b94f050f9e3a010f5df305">More...</a><br /></td></tr>
+<tr class="separator:a5d3e712bd3b94f050f9e3a010f5df305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a684b206ef87f2eafb7d26496ca0bdbda"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a684b206ef87f2eafb7d26496ca0bdbda">kDoipDiagMessageReqResMinLen</a> = 4U</td></tr>
+<tr class="memdesc:a684b206ef87f2eafb7d26496ca0bdbda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Diagnostic Message request/response lengths.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a684b206ef87f2eafb7d26496ca0bdbda">More...</a><br /></td></tr>
+<tr class="separator:a684b206ef87f2eafb7d26496ca0bdbda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fabb07db9611d462809385d02a0a3f7"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a9fabb07db9611d462809385d02a0a3f7">kDoipDiagMessageAckResMinLen</a> = 5U</td></tr>
+<tr class="separator:a9fabb07db9611d462809385d02a0a3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aade6259e0f1697ea28e0974e458179d1"><td class="memItemLeft" align="right" valign="top">constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#aade6259e0f1697ea28e0974e458179d1">kDoIPDiagnosticAckTimeout</a> {2000u}</td></tr>
 <tr class="memdesc:aade6259e0f1697ea28e0974e458179d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The timeout specifies the maximum time that the test equipment waits for a confirmation ACK or NACK from the DoIP entity after the last byte of a DoIP Diagnostic request message has been sent.  <a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#aade6259e0f1697ea28e0974e458179d1">More...</a><br /></td></tr>
 <tr class="separator:aade6259e0f1697ea28e0974e458179d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -199,9 +212,9 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a116cd54d06582b615ecf3ca4e5e42599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a116cd54d06582b615ecf3ca4e5e42599">&#9670;&nbsp;</a></span>kDoip_DiagMessage_ReqResMinLen</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a80d127e3a18a343d8498a87f86c52861"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80d127e3a18a343d8498a87f86c52861">&#9670;&nbsp;</a></span>CreateDoipGenericHeader()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,26 +223,142 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagMessage_ReqResMinLen = 4U</td>
+          <td class="memname">auto doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::CreateDoipGenericHeader </td>
+          <td>(</td>
+          <td class="paramtype">std::uint16_t&#160;</td>
+          <td class="paramname"><em>payload_type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t&#160;</td>
+          <td class="paramname"><em>payload_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> -&gt; std::vector&lt;std::uint8_t&gt; </td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Diagnostic Message request/response lengths. </p>
+<p>Function to create doip generic header. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">payload_type</td><td>The type of payload </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">payload_len</td><td>The length of payload </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00051">51</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00268">268</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                             {</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  std::vector&lt;std::uint8_t&gt; output_buffer{};</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  output_buffer.emplace_back(<a class="code" href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">kDoip_ProtocolVersion</a>);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  output_buffer.emplace_back(~(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">kDoip_ProtocolVersion</a>)));</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_type &amp; 0xFF00) &gt;&gt; 8));</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(payload_type &amp; 0x00FF));</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0xFF000000) &gt;&gt; 24));</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0x00FF0000) &gt;&gt; 16));</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>((payload_len &amp; 0x0000FF00) &gt;&gt; 8));</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  output_buffer.emplace_back(<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(payload_len &amp; 0x000000FF));</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  <span class="keywordflow">return</span> output_buffer;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}</div>
+<div class="ttc" id="anamespacedoip__client_html_a71eef2a6c930342c07446395c83cb741"><div class="ttname"><a href="namespacedoip__client.html#a71eef2a6c930342c07446395c83cb741">doip_client::kDoip_ProtocolVersion</a></div><div class="ttdeci">constexpr std::uint8_t kDoip_ProtocolVersion</div><div class="ttdef"><b>Definition:</b> <a href="common__doip__types_8h_source.html#l00025">common_doip_types.h:25</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="common__doip__types_8h_source.html#l00025">doip_client::kDoip_ProtocolVersion</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00509">doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00557">doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_a80d127e3a18a343d8498a87f86c52861_icgraph.png" border="0" usemap="#anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_a80d127e3a18a343d8498a87f86c52861_icgraph" alt=""/></div>
+<map name="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_a80d127e3a18a343d8498a87f86c52861_icgraph" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_a80d127e3a18a343d8498a87f86c52861_icgraph">
+<area shape="rect" title="Function to create doip generic header." alt="" coords="296,5,560,91"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#aadf47abd481ac2759adc926e7965e7a8" title="Function to send diagnostic request." alt="" coords="5,20,248,76"/>
+</map>
+</div>
 
 </div>
 </div>
-<a id="a5c243744f2ce8ea5bc6021ae98d3a0e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c243744f2ce8ea5bc6021ae98d3a0e8">&#9670;&nbsp;</a></span>kDoip_DiagMessage_Type</h2>
+<a id="a690c175115c0d4a43853b02b234521ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a690c175115c0d4a43853b02b234521ee">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>msg</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structdoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__messag90b318278f265a8cdc00d22ee6b98199.html">DiagAckType</a>&#160;</td>
+          <td class="paramname"><em>diag_ack_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to stream the diagnostic acknowledgement type. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">231</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;                                                                   {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <span class="keywordflow">switch</span> (diag_ack_type.ack_type_) {</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ae6590650e6c7e285ef140d3e71552fb6">kDoipDiagnosticMessageNegAckCodeInvalidSa</a>:</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;invalid source address.&quot;</span>;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#aea966efae0e2e8671c04dae7bccdec8f">kDoipDiagnosticMessageNegAckCodeUnknownTa</a>:</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;unknown target address.&quot;</span>;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a84f02c2cd908e0d88560b532a374fe6f">kDoipDiagnosticMessageNegAckCodeMessageTooLarge</a>:</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;diagnostic message too large.&quot;</span>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a14cf931ff036524f7b1a7804ddb3c677">kDoipDiagnosticMessageNegAckCodeOutOfMemory</a>:</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;server out of memory.&quot;</span>;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a4e5dea33ddfb2b73a3ff47c1b1d237ad">kDoipDiagnosticMessageNegAckCodeTargetUnreachable</a>:</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;target unreachable.&quot;</span>;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a7a8f916fa1dda87154f0790d069cfc05">kDoipDiagnosticMessageNegAckCodeUnknownNetwork</a>:</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;unknown network.&quot;</span>;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ab58493ee3e79c5dbe142dee9bc5f5b79">kDoipDiagnosticMessageNegAckCodeTpError</a>:</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;transport protocol error.&quot;</span>;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;      msg &lt;&lt; <span class="stringliteral">&quot;unknown reason.&quot;</span>;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  }</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="keywordflow">return</span> msg;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;}</div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_a14cf931ff036524f7b1a7804ddb3c677"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a14cf931ff036524f7b1a7804ddb3c677">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeOutOfMemory</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeOutOfMemory</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00038">doip_diagnostic_message_handler.cpp:38</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_a4e5dea33ddfb2b73a3ff47c1b1d237ad"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a4e5dea33ddfb2b73a3ff47c1b1d237ad">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeTargetUnreachable</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeTargetUnreachable</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00039">doip_diagnostic_message_handler.cpp:39</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_a7a8f916fa1dda87154f0790d069cfc05"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a7a8f916fa1dda87154f0790d069cfc05">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeUnknownNetwork</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeUnknownNetwork</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00040">doip_diagnostic_message_handler.cpp:40</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_a84f02c2cd908e0d88560b532a374fe6f"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a84f02c2cd908e0d88560b532a374fe6f">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeMessageTooLarge</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeMessageTooLarge</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00037">doip_diagnostic_message_handler.cpp:37</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_ab58493ee3e79c5dbe142dee9bc5f5b79"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ab58493ee3e79c5dbe142dee9bc5f5b79">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeTpError</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeTpError</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00041">doip_diagnostic_message_handler.cpp:41</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_ae6590650e6c7e285ef140d3e71552fb6"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#ae6590650e6c7e285ef140d3e71552fb6">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeInvalidSa</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeInvalidSa</div><div class="ttdoc">Diagnostic Message negative acknowledgement code.</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00035">doip_diagnostic_message_handler.cpp:35</a></div></div>
+<div class="ttc" id="anamespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03_html_aea966efae0e2e8671c04dae7bccdec8f"><div class="ttname"><a href="namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#aea966efae0e2e8671c04dae7bccdec8f">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeUnknownTa</a></div><div class="ttdeci">constexpr std::uint8_t kDoipDiagnosticMessageNegAckCodeUnknownTa</div><div class="ttdef"><b>Definition:</b> <a href="doip__diagnostic__message__handler_8cpp_source.html#l00036">doip_diagnostic_message_handler.cpp:36</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00225">doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::DiagAckType::ack_type_</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00035">kDoipDiagnosticMessageNegAckCodeInvalidSa</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00037">kDoipDiagnosticMessageNegAckCodeMessageTooLarge</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00038">kDoipDiagnosticMessageNegAckCodeOutOfMemory</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00039">kDoipDiagnosticMessageNegAckCodeTargetUnreachable</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00041">kDoipDiagnosticMessageNegAckCodeTpError</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00040">kDoipDiagnosticMessageNegAckCodeUnknownNetwork</a>, and <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00036">kDoipDiagnosticMessageNegAckCodeUnknownTa</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a9d11d37088872c7b7ab76cab227dd627"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d11d37088872c7b7ab76cab227dd627">&#9670;&nbsp;</a></span>kDoipDiagMessage</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +367,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagMessage_Type {0x8001}</td>
+          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagMessage {0x8001}</td>
         </tr>
       </table>
   </td>
@@ -252,12 +381,12 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00028">28</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00509">doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00557">doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest()</a>.</p>
 
 </div>
 </div>
-<a id="abd72ef8da99d66f247a50285d174a1b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd72ef8da99d66f247a50285d174a1b2">&#9670;&nbsp;</a></span>kDoip_DiagMessageAck_ResMinLen</h2>
+<a id="a9fabb07db9611d462809385d02a0a3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fabb07db9611d462809385d02a0a3f7">&#9670;&nbsp;</a></span>kDoipDiagMessageAckResMinLen</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -266,7 +395,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagMessageAck_ResMinLen = 5U</td>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagMessageAckResMinLen = 5U</td>
         </tr>
       </table>
   </td>
@@ -280,8 +409,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a4c4bd010d573a9ee080b70f07d30e03e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c4bd010d573a9ee080b70f07d30e03e">&#9670;&nbsp;</a></span>kDoip_DiagMessageNegAck_Type</h2>
+<a id="a3264c8f2b72eaf6794e57a19519b77e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3264c8f2b72eaf6794e57a19519b77e9">&#9670;&nbsp;</a></span>kDoipDiagMessageNegAck</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -290,7 +419,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagMessageNegAck_Type {0x8003}</td>
+          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagMessageNegAck {0x8003}</td>
         </tr>
       </table>
   </td>
@@ -302,12 +431,12 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00030">30</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00389">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00418">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
 
 </div>
 </div>
-<a id="afabb70cb565dfb75eb08e04272032e2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afabb70cb565dfb75eb08e04272032e2d">&#9670;&nbsp;</a></span>kDoip_DiagMessagePosAck_Type</h2>
+<a id="a6e28bad506171c06427e937d1589f2fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e28bad506171c06427e937d1589f2fe">&#9670;&nbsp;</a></span>kDoipDiagMessagePosAck</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -316,7 +445,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagMessagePosAck_Type {0x8002}</td>
+          <td class="memname">constexpr std::uint16_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagMessagePosAck {0x8002}</td>
         </tr>
       </table>
   </td>
@@ -328,12 +457,12 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00029">29</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00389">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00418">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
 
 </div>
 </div>
-<a id="a2014d244cf56552742e8c40f72173e03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2014d244cf56552742e8c40f72173e03">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_InvalidSA</h2>
+<a id="a684b206ef87f2eafb7d26496ca0bdbda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a684b206ef87f2eafb7d26496ca0bdbda">&#9670;&nbsp;</a></span>kDoipDiagMessageReqResMinLen</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -342,7 +471,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_InvalidSA {0x02}</td>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagMessageReqResMinLen = 4U</td>
         </tr>
       </table>
   </td>
@@ -352,195 +481,11 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Diagnostic Message negative acknowledgement code. </p>
+<p>Diagnostic Message request/response lengths. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00035">35</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00051">51</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a3981a0ebf5267480d00eabbe26f19987"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3981a0ebf5267480d00eabbe26f19987">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_MessageTooLarge {0x04}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00037">37</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a0eaa17b5deda3385c19d1d5476199952"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0eaa17b5deda3385c19d1d5476199952">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_OutOfMemory</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_OutOfMemory {0x05}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00038">38</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a46c1538f677286225d09e84285f6677f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46c1538f677286225d09e84285f6677f">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_TargetUnreachable {0x06}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00039">39</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a1fc4439d19f87a8c4f5bf236c000e3fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fc4439d19f87a8c4f5bf236c000e3fc">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_TPError</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_TPError {0x08}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00041">41</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a1179610dc5fbbd883efe02901f74d27e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1179610dc5fbbd883efe02901f74d27e">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_UnknownNetwork {0x07}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00040">40</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a84dae19a332a23721922d7f10e12761e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84dae19a332a23721922d7f10e12761e">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_NegAckCode_UnknownTA</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_NegAckCode_UnknownTA {0x03}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00036">36</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00228">doip_client::channel::tcp_channel::operator&lt;&lt;()</a>.</p>
-
-</div>
-</div>
-<a id="a5f4c1bd45e33a8e42175c7108167006e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f4c1bd45e33a8e42175c7108167006e">&#9670;&nbsp;</a></span>kDoip_DiagnosticMessage_PosAckCode_Confirm</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoip_DiagnosticMessage_PosAckCode_Confirm {0x00}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Diagnostic Message positive acknowledgement code. </p>
-
-<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00046">46</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00389">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00557">doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest()</a>.</p>
 
 </div>
 </div>
@@ -568,7 +513,219 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00063">63</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00455">doip_client::channel::tcp_channel::DiagnosticMessageHandler::HandleDiagnosticRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00493">doip_client::channel::tcp_channel::DiagnosticMessageHandler::HandleDiagnosticRequest()</a>.</p>
+
+</div>
+</div>
+<a id="ae6590650e6c7e285ef140d3e71552fb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6590650e6c7e285ef140d3e71552fb6">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeInvalidSa</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeInvalidSa {0x02}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Diagnostic Message negative acknowledgement code. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00035">35</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a84f02c2cd908e0d88560b532a374fe6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f02c2cd908e0d88560b532a374fe6f">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeMessageTooLarge</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeMessageTooLarge {0x04}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00037">37</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a14cf931ff036524f7b1a7804ddb3c677"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14cf931ff036524f7b1a7804ddb3c677">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeOutOfMemory</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeOutOfMemory {0x05}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00038">38</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a4e5dea33ddfb2b73a3ff47c1b1d237ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e5dea33ddfb2b73a3ff47c1b1d237ad">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeTargetUnreachable</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeTargetUnreachable {0x06}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00039">39</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="ab58493ee3e79c5dbe142dee9bc5f5b79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab58493ee3e79c5dbe142dee9bc5f5b79">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeTpError</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeTpError {0x08}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00041">41</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a7a8f916fa1dda87154f0790d069cfc05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a8f916fa1dda87154f0790d069cfc05">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeUnknownNetwork</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeUnknownNetwork {0x07}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00040">40</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="aea966efae0e2e8671c04dae7bccdec8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea966efae0e2e8671c04dae7bccdec8f">&#9670;&nbsp;</a></span>kDoipDiagnosticMessageNegAckCodeUnknownTa</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessageNegAckCodeUnknownTa {0x03}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00036">36</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00231">operator&lt;&lt;()</a>.</p>
+
+</div>
+</div>
+<a id="a5d3e712bd3b94f050f9e3a010f5df305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d3e712bd3b94f050f9e3a010f5df305">&#9670;&nbsp;</a></span>kDoipDiagnosticMessagePosAckCodeConfirm</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::uint8_t doip_client::channel::tcp_channel::anonymous_namespace{doip_diagnostic_message_handler.cpp}::kDoipDiagnosticMessagePosAckCodeConfirm {0x00}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Diagnostic Message positive acknowledgement code. </p>
+
+<p class="definition">Definition at line <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00046">46</a> of file <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html">doip_diagnostic_message_handler.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00418">doip_client::channel::tcp_channel::DiagnosticMessageHandler::ProcessDoIPDiagnosticAckMessageResponse()</a>.</p>
 
 </div>
 </div>

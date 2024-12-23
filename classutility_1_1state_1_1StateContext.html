@@ -144,8 +144,8 @@ template&lt;typename EnumState &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00052">52</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;: <a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>{<span class="keyword">nullptr</span>}, <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>{} {}</div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a481e6e1f67c3afe4551de83191f98441"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">utility::state::StateContext::state_map_</a></div><div class="ttdeci">std::map&lt; EnumState, std::unique_ptr&lt; State&lt; EnumState &gt; &gt; &gt; state_map_</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00109">state.h:109</a></div></div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a5ee4ad9b0a473eb3535d4b925db4aa07"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">utility::state::StateContext::current_state_</a></div><div class="ttdeci">State&lt; EnumState &gt; * current_state_</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00107">state.h:107</a></div></div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a481e6e1f67c3afe4551de83191f98441"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">utility::state::StateContext::state_map_</a></div><div class="ttdeci">std::map&lt; EnumState, std::unique_ptr&lt; State&lt; EnumState &gt; &gt; &gt; state_map_</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00110">state.h:110</a></div></div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a5ee4ad9b0a473eb3535d4b925db4aa07"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">utility::state::StateContext::current_state_</a></div><div class="ttdeci">State&lt; EnumState &gt; * current_state_</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00108">state.h:108</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -215,12 +215,14 @@ template&lt;typename EnumState &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00058">58</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                                                                            {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.insert(std::pair&lt;EnumState, std::unique_ptr&lt;State&lt;EnumState&gt;&gt;&gt;(state, std::move(state_ptr)));</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.insert(</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        std::pair&lt;EnumState, std::unique_ptr&lt;<a class="code" href="tls__client_8cpp.html#a0f8094c2c1ca89111fbaea3a14f7e6d5">State&lt;EnumState&gt;</a>&gt;&gt;(state, std::move(state_ptr)));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="ttc" id="atls__client_8cpp_html_a0f8094c2c1ca89111fbaea3a14f7e6d5"><div class="ttname"><a href="tls__client_8cpp.html#a0f8094c2c1ca89111fbaea3a14f7e6d5">State</a></div><div class="ttdeci">State</div><div class="ttdoc">Definitions of different connection state.</div><div class="ttdef"><b>Definition:</b> <a href="tls__client_8cpp_source.html#l00056">tls_client.cpp:56</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00109">utility::state::StateContext&lt; EnumState &gt;::state_map_</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00110">utility::state::StateContext&lt; EnumState &gt;::state_map_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00280">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::DiagnosticMessageHandlerImpl()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00232">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::RoutingActivationHandlerImpl()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00109">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::VehicleDiscoveryHandlerImpl()</a>, and <a class="el" href="doip__vehicle__identification__handler_8cpp_source.html#l00195">doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::VehicleIdentificationHandlerImpl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00306">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::DiagnosticMessageHandlerImpl()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00255">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::RoutingActivationHandlerImpl()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00114">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::VehicleDiscoveryHandlerImpl()</a>, and <a class="el" href="doip__vehicle__identification__handler_8cpp_source.html#l00207">doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::VehicleIdentificationHandlerImpl()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -261,14 +263,14 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00063">63</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                                       {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    std::lock_guard&lt;std::mutex&gt; <span class="keyword">const</span> lck{<a class="code" href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">state_lock</a>};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> *<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a0caade891de9777cd85aeac6b3dc21d8"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">utility::state::StateContext::state_lock</a></div><div class="ttdeci">std::mutex state_lock</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00104">state.h:104</a></div></div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00064">64</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                       {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::lock_guard&lt;std::mutex&gt; <span class="keyword">const</span> lck{<a class="code" href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">state_lock</a>};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> *<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  }</div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a0caade891de9777cd85aeac6b3dc21d8"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">utility::state::StateContext::state_lock</a></div><div class="ttdeci">std::mutex state_lock</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00105">state.h:105</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00107">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>, and <a class="el" href="state_8h_source.html#l00104">utility::state::StateContext&lt; EnumState &gt;::state_lock</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00108">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>, and <a class="el" href="state_8h_source.html#l00105">utility::state::StateContext&lt; EnumState &gt;::state_lock</a>.</p>
 
 </div>
 </div>
@@ -297,8 +299,8 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00079">79</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">this</span>; }</div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00080">80</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;{ <span class="keywordflow">return</span> <span class="keyword">this</span>; }</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -327,14 +329,14 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00083">83</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;               {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> != <span class="keyword">nullptr</span>) { this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>-&gt;Start(); }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00084">84</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;               {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> != <span class="keyword">nullptr</span>) { this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>-&gt;Start(); }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00107">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00108">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00069">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00070">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -380,14 +382,14 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00088">88</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;              {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> != <span class="keyword">nullptr</span>) { this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>-&gt;Stop(); }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00089">89</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;              {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> != <span class="keyword">nullptr</span>) { this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a>-&gt;Stop(); }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00107">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00108">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00069">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00070">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -434,22 +436,22 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00069">69</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                     {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// stop the current state</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a162a9dfbcf215570b9a96b65fef0f7dc">Stop</a>();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// Update to new state</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a89403d652127036ee0ef405dc86a78d2">Update</a>(state);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="comment">// Start new state</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a1331fd4e40109f8cfbc7605543885f06">Start</a>();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a1331fd4e40109f8cfbc7605543885f06"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a1331fd4e40109f8cfbc7605543885f06">utility::state::StateContext::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00083">state.h:83</a></div></div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a162a9dfbcf215570b9a96b65fef0f7dc"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a162a9dfbcf215570b9a96b65fef0f7dc">utility::state::StateContext::Stop</a></div><div class="ttdeci">void Stop()</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00088">state.h:88</a></div></div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a89403d652127036ee0ef405dc86a78d2"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a89403d652127036ee0ef405dc86a78d2">utility::state::StateContext::Update</a></div><div class="ttdeci">void Update(EnumState state)</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00093">state.h:93</a></div></div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00070">70</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                     {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// stop the current state</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a162a9dfbcf215570b9a96b65fef0f7dc">Stop</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="comment">// Update to new state</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a89403d652127036ee0ef405dc86a78d2">Update</a>(state);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// Start new state</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="classutility_1_1state_1_1StateContext.html#a1331fd4e40109f8cfbc7605543885f06">Start</a>();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  }</div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a1331fd4e40109f8cfbc7605543885f06"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a1331fd4e40109f8cfbc7605543885f06">utility::state::StateContext::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00084">state.h:84</a></div></div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a162a9dfbcf215570b9a96b65fef0f7dc"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a162a9dfbcf215570b9a96b65fef0f7dc">utility::state::StateContext::Stop</a></div><div class="ttdeci">void Stop()</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00089">state.h:89</a></div></div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_a89403d652127036ee0ef405dc86a78d2"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#a89403d652127036ee0ef405dc86a78d2">utility::state::StateContext::Update</a></div><div class="ttdeci">void Update(EnumState state)</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00094">state.h:94</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00083">utility::state::StateContext&lt; EnumState &gt;::Start()</a>, <a class="el" href="state_8h_source.html#l00088">utility::state::StateContext&lt; EnumState &gt;::Stop()</a>, and <a class="el" href="state_8h_source.html#l00093">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00084">utility::state::StateContext&lt; EnumState &gt;::Start()</a>, <a class="el" href="state_8h_source.html#l00089">utility::state::StateContext&lt; EnumState &gt;::Stop()</a>, and <a class="el" href="state_8h_source.html#l00094">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00280">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::DiagnosticMessageHandlerImpl()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00232">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::RoutingActivationHandlerImpl()</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00320">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::Stop()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00264">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::Stop()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00109">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::VehicleDiscoveryHandlerImpl()</a>, and <a class="el" href="doip__vehicle__identification__handler_8cpp_source.html#l00195">doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::VehicleIdentificationHandlerImpl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00306">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::DiagnosticMessageHandlerImpl()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00255">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::RoutingActivationHandlerImpl()</a>, <a class="el" href="doip__diagnostic__message__handler_8cpp_source.html#l00349">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::Stop()</a>, <a class="el" href="doip__routing__activation__handler_8cpp_source.html#l00288">doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::Stop()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00114">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::VehicleDiscoveryHandlerImpl()</a>, and <a class="el" href="doip__vehicle__identification__handler_8cpp_source.html#l00207">doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::VehicleIdentificationHandlerImpl()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -506,20 +508,20 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00093">93</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                               {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    std::lock_guard&lt;std::mutex&gt; <span class="keyword">const</span> lck{<a class="code" href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">state_lock</a>};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">auto</span> it = <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.find(state);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (it != <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.end()) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> = it-&gt;second.get();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;      <span class="comment">// failure condition</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00094">94</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                               {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    std::lock_guard&lt;std::mutex&gt; <span class="keyword">const</span> lck{<a class="code" href="classutility_1_1state_1_1StateContext.html#a0caade891de9777cd85aeac6b3dc21d8">state_lock</a>};</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">auto</span> it = <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.find(state);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (it != <a class="code" href="classutility_1_1state_1_1StateContext.html#a481e6e1f67c3afe4551de83191f98441">state_map_</a>.end()) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      this-&gt;<a class="code" href="classutility_1_1state_1_1StateContext.html#a5ee4ad9b0a473eb3535d4b925db4aa07">current_state_</a> = it-&gt;second.get();</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      <span class="comment">// failure condition</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00107">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>, <a class="el" href="state_8h_source.html#l00104">utility::state::StateContext&lt; EnumState &gt;::state_lock</a>, and <a class="el" href="state_8h_source.html#l00109">utility::state::StateContext&lt; EnumState &gt;::state_map_</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00108">utility::state::StateContext&lt; EnumState &gt;::current_state_</a>, <a class="el" href="state_8h_source.html#l00105">utility::state::StateContext&lt; EnumState &gt;::state_lock</a>, and <a class="el" href="state_8h_source.html#l00110">utility::state::StateContext&lt; EnumState &gt;::state_map_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00069">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00070">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -563,9 +565,9 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00107">107</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00108">108</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00063">utility::state::StateContext&lt; EnumState &gt;::GetActiveState()</a>, <a class="el" href="state_8h_source.html#l00083">utility::state::StateContext&lt; EnumState &gt;::Start()</a>, <a class="el" href="state_8h_source.html#l00088">utility::state::StateContext&lt; EnumState &gt;::Stop()</a>, and <a class="el" href="state_8h_source.html#l00093">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00064">utility::state::StateContext&lt; EnumState &gt;::GetActiveState()</a>, <a class="el" href="state_8h_source.html#l00084">utility::state::StateContext&lt; EnumState &gt;::Start()</a>, <a class="el" href="state_8h_source.html#l00089">utility::state::StateContext&lt; EnumState &gt;::Stop()</a>, and <a class="el" href="state_8h_source.html#l00094">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
 
 </div>
 </div>
@@ -591,9 +593,9 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00104">104</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00105">105</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00063">utility::state::StateContext&lt; EnumState &gt;::GetActiveState()</a>, and <a class="el" href="state_8h_source.html#l00093">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00064">utility::state::StateContext&lt; EnumState &gt;::GetActiveState()</a>, and <a class="el" href="state_8h_source.html#l00094">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
 
 </div>
 </div>
@@ -619,9 +621,9 @@ template&lt;typename EnumState &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00109">109</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="state_8h_source.html#l00110">110</a> of file <a class="el" href="state_8h_source.html">state.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00058">utility::state::StateContext&lt; EnumState &gt;::AddState()</a>, and <a class="el" href="state_8h_source.html#l00093">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="state_8h_source.html#l00058">utility::state::StateContext&lt; EnumState &gt;::AddState()</a>, and <a class="el" href="state_8h_source.html#l00094">utility::state::StateContext&lt; EnumState &gt;::Update()</a>.</p>
 
 </div>
 </div>

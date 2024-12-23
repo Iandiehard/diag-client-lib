@@ -76,6 +76,15 @@ $(function() {
 
 <p>Class to provide implementation of diag client.  
  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#details">More...</a></p>
+<div class="dynheader">
+Collaboration diagram for diag::client::DiagClient::DiagClientImpl:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl__coll__graph.png" border="0" usemap="#adiag_1_1client_1_1DiagClient_1_1DiagClientImpl_coll__map" alt="Collaboration graph"/></div>
+<map name="adiag_1_1client_1_1DiagClient_1_1DiagClientImpl_coll__map" id="adiag_1_1client_1_1DiagClient_1_1DiagClientImpl_coll__map">
+<area shape="rect" title="Class to provide implementation of diag client." alt="" coords="5,95,176,136"/>
+<area shape="rect" href="classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="9,5,172,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -113,9 +122,9 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ad3807e5910ff89aeb4df162b18b977ef"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html">diag::client::common::DiagnosticManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a></td></tr>
 <tr class="memdesc:ad3807e5910ff89aeb4df162b18b977ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unique pointer to dcm client instance.  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">More...</a><br /></td></tr>
 <tr class="separator:ad3807e5910ff89aeb4df162b18b977ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75f3036fbd5611efa71712cf073ffaec"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">dcm_thread_</a></td></tr>
-<tr class="memdesc:a75f3036fbd5611efa71712cf073ffaec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread to handle dcm client lifecycle.  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">More...</a><br /></td></tr>
-<tr class="separator:a75f3036fbd5611efa71712cf073ffaec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5608f42192da793e824e358f1bad0e80"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classutility_1_1thread_1_1Thread.html">utility::thread::Thread</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">dcm_thread_</a></td></tr>
+<tr class="memdesc:a5608f42192da793e824e358f1bad0e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Thread to handle dcm client lifecycle.  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">More...</a><br /></td></tr>
+<tr class="separator:a5608f42192da793e824e358f1bad0e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af199079240ed37e7e070cb24e4b0b9cd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag_client_config_path_</a></td></tr>
 <tr class="memdesc:af199079240ed37e7e070cb24e4b0b9cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Store the diag client config path.  <a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">More...</a><br /></td></tr>
 <tr class="separator:af199079240ed37e7e070cb24e4b0b9cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,11 +168,11 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00037">37</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;      : <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>{},</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">dcm_thread_</a>{},</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">dcm_thread_</a>{},</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag_client_config_path_</a>{diag_client_config_path} {}</div>
-<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_a75f3036fbd5611efa71712cf073ffaec"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">diag::client::DiagClient::DiagClientImpl::dcm_thread_</a></div><div class="ttdeci">std::thread dcm_thread_</div><div class="ttdoc">Thread to handle dcm client lifecycle.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00152">diagnostic_client.cpp:152</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_ad3807e5910ff89aeb4df162b18b977ef"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">diag::client::DiagClient::DiagClientImpl::dcm_instance_</a></div><div class="ttdeci">std::unique_ptr&lt; diag::client::common::DiagnosticManager &gt; dcm_instance_</div><div class="ttdoc">Unique pointer to dcm client instance.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00147">diagnostic_client.cpp:147</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_af199079240ed37e7e070cb24e4b0b9cd"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag::client::DiagClient::DiagClientImpl::diag_client_config_path_</a></div><div class="ttdeci">std::string diag_client_config_path_</div><div class="ttdoc">Store the diag client config path.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00157">diagnostic_client.cpp:157</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_a5608f42192da793e824e358f1bad0e80"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">diag::client::DiagClient::DiagClientImpl::dcm_thread_</a></div><div class="ttdeci">utility::thread::Thread dcm_thread_</div><div class="ttdoc">Thread to handle dcm client lifecycle.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00161">diagnostic_client.cpp:161</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_ad3807e5910ff89aeb4df162b18b977ef"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">diag::client::DiagClient::DiagClientImpl::dcm_instance_</a></div><div class="ttdeci">std::unique_ptr&lt; diag::client::common::DiagnosticManager &gt; dcm_instance_</div><div class="ttdoc">Unique pointer to dcm client instance.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00156">diagnostic_client.cpp:156</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_html_af199079240ed37e7e070cb24e4b0b9cd"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag::client::DiagClient::DiagClientImpl::diag_client_config_path_</a></div><div class="ttdeci">std::string diag_client_config_path_</div><div class="ttdoc">Store the diag client config path.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00166">diagnostic_client.cpp:166</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -277,35 +286,40 @@ Private Attributes</h2></td></tr>
 <p>Function to de-initialize the already initialized instance of <a class="el" href="classdiag_1_1client_1_1DiagClient.html" title="Class to manage Diagnostic Client.">DiagClient</a>. </p>
 <p>Must be called during shutdown phase, no further processing of any function will be allowed after this call </p><dl class="section return"><dt>Returns</dt><dd>Result with void in case of success, otherwise error is returned -DeInitialization </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00096">96</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                       {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient De-Initialization started&quot;</span>; });</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// shutdown DCM module here</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;SignalShutdown()</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        .AndThen([<span class="keyword">this</span>]() {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;          <span class="keywordflow">if</span> (<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">dcm_thread_</a>.joinable()) { dcm_thread_.join(); }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;              __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient De-Initialization completed&quot;</span>; });</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        })</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        .OrElse([](<a class="code" href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a> <span class="keyword">const</span> &amp;) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">error_domain::MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c">error_domain::DmErrorErrc::kDeInitializationFailed</a>);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        });</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00100">100</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;                                       {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient De-Initialization started&quot;</span>; });</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// shutdown DCM module here</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;SignalShutdown()</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        .AndThen([<span class="keyword">this</span>]() {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;          <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">dcm_thread_</a>.<a class="code" href="classutility_1_1thread_1_1Thread.html#ace89acc2bbe542acfe2ffa06aa132a08">Join</a>();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;              <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;              [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient De-Initialization completed&quot;</span>; });</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        })</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        .OrElse([](<a class="code" href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a> <span class="keyword">const</span> &amp;) {</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">error_domain::MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c">error_domain::DmErrorErrc::kDeInitializationFailed</a>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        });</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
 <div class="ttc" id="aclasscore__type_1_1ErrorCode_html"><div class="ttname"><a href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a></div><div class="ttdoc">Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....</div><div class="ttdef"><b>Definition:</b> <a href="error__code_8h_source.html#l00022">error_code.h:22</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="aclassutility_1_1thread_1_1Thread_html_ace89acc2bbe542acfe2ffa06aa132a08"><div class="ttname"><a href="classutility_1_1thread_1_1Thread.html#ace89acc2bbe542acfe2ffa06aa132a08">utility::thread::Thread::Join</a></div><div class="ttdeci">void Join() noexcept</div><div class="ttdoc">Function to join the running thread.</div><div class="ttdef"><b>Definition:</b> <a href="thread_8h_source.html#l00062">thread.h:62</a></div></div>
+<div class="ttc" id="afile__path_8h_html_ab117546549783a058d0321a287699579"><div class="ttname"><a href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a></div><div class="ttdeci">#define FILE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="file__path_8h_source.html#l00014">file_path.h:14</a></div></div>
 <div class="ttc" id="anamespacediag_1_1client_1_1error__domain_html_ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c"><div class="ttname"><a href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c">diag::client::error_domain::DmErrorErrc::kDeInitializationFailed</a></div><div class="ttdeci">@ kDeInitializationFailed</div></div>
 <div class="ttc" id="anamespacediag_1_1client_1_1error__domain_html_ac6073fee2d36b049164fabbf5c83a15b"><div class="ttname"><a href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">diag::client::error_domain::MakeErrorCode</a></div><div class="ttdeci">core_type::ErrorCode MakeErrorCode(DmErrorErrc, core_type::ErrorDomain::SupportDataType data) noexcept</div><div class="ttdoc">Create a new ErrorCode within DmErrorDomain.</div><div class="ttdef"><b>Definition:</b> <a href="dm__error__domain_8cpp_source.html#l00056">dm_error_domain.cpp:56</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00147">dcm_instance_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00152">dcm_thread_</a>, <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c">diag::client::error_domain::kDeInitializationFailed</a>, and <a class="el" href="dm__error__domain_8cpp_source.html#l00056">diag::client::error_domain::MakeErrorCode()</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00156">dcm_instance_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00161">dcm_thread_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="thread_8h_source.html#l00062">utility::thread::Thread::Join()</a>, <a class="el" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aad5a9f3d895a45ade6862d8c45bd5c37c">diag::client::error_domain::kDeInitializationFailed</a>, and <a class="el" href="dm__error__domain_8cpp_source.html#l00056">diag::client::error_domain::MakeErrorCode()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a34cba10a67b7d502cb4e8f84cfa9c5b5_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a34cba10a67b7d502cb4e8f84cfa9c5b5_cgraph" alt=""/></div>
 <map name="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a34cba10a67b7d502cb4e8f84cfa9c5b5_cgraph" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a34cba10a67b7d502cb4e8f84cfa9c5b5_cgraph">
-<area shape="rect" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="5,50,215,91"/>
+<area shape="rect" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="5,86,215,127"/>
 <area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="263,5,465,61"/>
-<area shape="rect" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="271,86,457,127"/>
+<area shape="rect" href="classutility_1_1thread_1_1Thread.html#ace89acc2bbe542acfe2ffa06aa132a08" title="Function to join the running thread." alt="" coords="283,86,445,127"/>
+<area shape="rect" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="271,151,457,193"/>
 </map>
 </div>
 
@@ -344,16 +358,17 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Diag client conversation object as per passed conversation name -MultipleTester-Connection, DiagClientLib-Conversation-Construction </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00118">118</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                                                                                                                {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatal(</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;          __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient is not Initialized&quot;</span>; });</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;GetDiagnosticClientConversation(conversation_name);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00124">124</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                                                 {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatalAndTerminate(</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;          <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;          [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient is not Initialized&quot;</span>; });</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;GetDiagnosticClientConversation(conversation_name);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00147">dcm_instance_</a>, and <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00156">dcm_instance_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, and <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -395,45 +410,51 @@ Here is the call graph for this function:</div>
 <p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00066">66</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                     {</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization started&quot;</span>; });</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="comment">// read configuration</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a> config{};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">boost_support::parser::Read</a>(<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag_client_config_path_</a>, config)</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        .MapError([](<a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">boost_support::parser::ParsingErrorCode</a> <span class="keyword">const</span> &amp;) noexcept {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;              __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization failed&quot;</span>; });</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">error_domain::MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce">error_domain::DmErrorErrc::kInitializationFailed</a>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        })</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        .AndThen([<span class="keyword">this</span>, &amp;config]() {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;          <span class="comment">// create single dcm instance and pass the configuration</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;          <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a> = std::make_unique&lt;diag::client::dcm::DCMClient&gt;(<a class="code" href="namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27">config_parser::ReadDcmClientConfig</a>(config));</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          <span class="comment">// start dcm client thread</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">dcm_thread_</a> = std::thread([<span class="keyword">this</span>]() noexcept { this-&gt;<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;Main(); });</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          pthread_setname_np(<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a75f3036fbd5611efa71712cf073ffaec">dcm_thread_</a>.native_handle(), <span class="stringliteral">&quot;dcm_client&quot;</span>);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;              __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization completed&quot;</span>; });</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        });</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization started&quot;</span>; });</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// read configuration</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">boost_support::parser::Read</a>(<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#af199079240ed37e7e070cb24e4b0b9cd">diag_client_config_path_</a>)</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        .AndThen([<span class="keyword">this</span>](<a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a> config) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;          <span class="comment">// Create single dcm instance and pass the configuration</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;          <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a> = std::make_unique&lt;diag::client::dcm::DCMClient&gt;(</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;              <a class="code" href="namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27">config_parser::ReadDcmClientConfig</a>(config));</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          <span class="comment">// Start dcm client main thread</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;          <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a5608f42192da793e824e358f1bad0e80">dcm_thread_</a> = <a class="code" href="classutility_1_1thread_1_1Thread.html">utility::thread::Thread</a>{<span class="stringliteral">&quot;DcmClientMain&quot;</span>,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                                [<span class="keyword">this</span>]() noexcept { <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;Main(); }};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;              <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;              [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization completed&quot;</span>; });</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#afa16b078a53d3ce9573487bc77ff2ea5">Result&lt;void, boost_support::parser::ParsingErrorCode&gt;::FromValue</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        })</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        .MapError([](<a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">boost_support::parser::ParsingErrorCode</a> <span class="keyword">const</span> &amp;) noexcept {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogError(</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;              <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;              [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient Initialization failed&quot;</span>; });</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;          <span class="keywordflow">return</span> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">error_domain::MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce">error_domain::DmErrorErrc::kInitializationFailed</a>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        });</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
+<div class="ttc" id="aclasscore__type_1_1Result_html_afa16b078a53d3ce9573487bc77ff2ea5"><div class="ttname"><a href="classcore__type_1_1Result.html#afa16b078a53d3ce9573487bc77ff2ea5">core_type::Result::FromValue</a></div><div class="ttdeci">static Result FromValue(T &amp;t) noexcept</div><div class="ttdoc">Build a new Result from the specified value (given as lvalue)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00048">result.h:48</a></div></div>
+<div class="ttc" id="aclassutility_1_1thread_1_1Thread_html"><div class="ttname"><a href="classutility_1_1thread_1_1Thread.html">utility::thread::Thread</a></div><div class="ttdef"><b>Definition:</b> <a href="thread_8h_source.html#l00020">thread.h:20</a></div></div>
 <div class="ttc" id="anamespaceboost__support_1_1parser_html_a0a0d7b238a0e28c154468d7c6bdac016"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">boost_support::parser::ParsingErrorCode</a></div><div class="ttdeci">ParsingErrorCode</div><div class="ttdoc">Definitions of Parsing failure error codes.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00028">json_parser.h:28</a></div></div>
-<div class="ttc" id="anamespaceboost__support_1_1parser_html_a7e533fae6e596304315e8624faec856b"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">boost_support::parser::Read</a></div><div class="ttdeci">core_type::Result&lt; void, ParsingErrorCode &gt; Read(std::string_view config_path, boost_tree &amp;json_tree)</div><div class="ttdoc">Parser to get the configuration from json file.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8cpp_source.html#l00016">json_parser.cpp:16</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_a555e6fff2f5fdd05fd120244b904d6d2"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">boost_support::parser::Read</a></div><div class="ttdeci">core_type::Result&lt; boost_tree, ParsingErrorCode &gt; Read(std::string_view config_path)</div><div class="ttdoc">Parser to get the configuration from json file.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8cpp_source.html#l00016">json_parser.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceboost__support_1_1parser_html_af348e830747440589cd07863d5b8e3ae"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a></div><div class="ttdeci">boost::property_tree::ptree boost_tree</div><div class="ttdoc">Type alias for boost property tree.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00023">json_parser.h:23</a></div></div>
 <div class="ttc" id="anamespacediag_1_1client_1_1config__parser_html_a9504c3cca477183500bab90fcb0f7c27"><div class="ttname"><a href="namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27">diag::client::config_parser::ReadDcmClientConfig</a></div><div class="ttdeci">diag::client::config_parser::DcmClientConfig ReadDcmClientConfig(boost_support::parser::boost_tree &amp;config_tree)</div><div class="ttdoc">Function to read from config tree and get the DcmClient configuration.</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8cpp_source.html#l00015">config_parser_type.cpp:15</a></div></div>
 <div class="ttc" id="anamespacediag_1_1client_1_1error__domain_html_ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce"><div class="ttname"><a href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce">diag::client::error_domain::DmErrorErrc::kInitializationFailed</a></div><div class="ttdeci">@ kInitializationFailed</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00147">dcm_instance_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00152">dcm_thread_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00157">diag_client_config_path_</a>, <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce">diag::client::error_domain::kInitializationFailed</a>, <a class="el" href="dm__error__domain_8cpp_source.html#l00056">diag::client::error_domain::MakeErrorCode()</a>, <a class="el" href="json__parser_8cpp_source.html#l00016">boost_support::parser::Read()</a>, and <a class="el" href="config__parser__type_8cpp_source.html#l00015">diag::client::config_parser::ReadDcmClientConfig()</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00156">dcm_instance_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00161">dcm_thread_</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00166">diag_client_config_path_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="result_8h_source.html#l00048">core_type::Result&lt; T, E &gt;::FromValue()</a>, <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751aaccffe4accf5272c3eb5f1b8d8210abce">diag::client::error_domain::kInitializationFailed</a>, <a class="el" href="dm__error__domain_8cpp_source.html#l00056">diag::client::error_domain::MakeErrorCode()</a>, <a class="el" href="json__parser_8cpp_source.html#l00016">boost_support::parser::Read()</a>, and <a class="el" href="config__parser__type_8cpp_source.html#l00015">diag::client::config_parser::ReadDcmClientConfig()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a465d27b05c2d166ac3a0361125c671b2_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a465d27b05c2d166ac3a0361125c671b2_cgraph" alt=""/></div>
 <map name="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a465d27b05c2d166ac3a0361125c671b2_cgraph" id="aclassdiag_1_1client_1_1DiagClient_1_1DiagClientImpl_a465d27b05c2d166ac3a0361125c671b2_cgraph">
-<area shape="rect" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,119,196,161"/>
-<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="253,5,455,61"/>
-<area shape="rect" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="261,86,447,127"/>
-<area shape="rect" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b" title="Parser to get the configuration from json file." alt="" coords="273,151,435,193"/>
-<area shape="rect" href="namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27" title="Function to read from config tree and get the DcmClient configuration." alt="" coords="244,217,464,258"/>
-<area shape="rect" href="classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="530,114,673,155"/>
-<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="512,180,691,236"/>
+<area shape="rect" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,152,196,193"/>
+<area shape="rect" href="classcore__type_1_1Result.html#afa16b078a53d3ce9573487bc77ff2ea5" title="Build a new Result from the specified value (given as lvalue)" alt="" coords="283,5,425,47"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="253,71,455,127"/>
+<area shape="rect" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b" title="Create a new ErrorCode within DmErrorDomain." alt="" coords="261,152,447,193"/>
+<area shape="rect" href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2" title="Parser to get the configuration from json file." alt="" coords="273,217,435,259"/>
+<area shape="rect" href="namespacediag_1_1client_1_1config__parser.html#a9504c3cca477183500bab90fcb0f7c27" title="Function to read from config tree and get the DcmClient configuration." alt="" coords="244,283,464,324"/>
+<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="512,210,691,266"/>
 </map>
 </div>
 
@@ -524,16 +545,17 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result containing available vehicle information response on success, VehicleResponseErrorCode on error -VehicleDiscovery </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00134">134</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;                                                                                      {</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatal(</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;          __FILE__, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient is not Initialized&quot;</span>; });</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;SendVehicleIdentificationRequest(std::move(vehicle_info_request));</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00142">142</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                                                                      {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatalAndTerminate(</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;          <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>,</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;          [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;DiagClient is not Initialized&quot;</span>; });</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#ad3807e5910ff89aeb4df162b18b977ef">dcm_instance_</a>-&gt;SendVehicleIdentificationRequest(std::move(vehicle_info_request));</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00147">dcm_instance_</a>, and <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client_8cpp_source.html#l00156">dcm_instance_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, and <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -569,14 +591,14 @@ Here is the call graph for this function:</div>
 
 <p>Unique pointer to dcm client instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00147">147</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00156">156</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00096">DeInitialize()</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00118">GetDiagnosticClientConversation()</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00066">Initialize()</a>, and <a class="el" href="diagnostic__client_8cpp_source.html#l00134">SendVehicleIdentificationRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00100">DeInitialize()</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00124">GetDiagnosticClientConversation()</a>, <a class="el" href="diagnostic__client_8cpp_source.html#l00066">Initialize()</a>, and <a class="el" href="diagnostic__client_8cpp_source.html#l00142">SendVehicleIdentificationRequest()</a>.</p>
 
 </div>
 </div>
-<a id="a75f3036fbd5611efa71712cf073ffaec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75f3036fbd5611efa71712cf073ffaec">&#9670;&nbsp;</a></span>dcm_thread_</h2>
+<a id="a5608f42192da793e824e358f1bad0e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5608f42192da793e824e358f1bad0e80">&#9670;&nbsp;</a></span>dcm_thread_</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -585,7 +607,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::thread diag::client::DiagClient::DiagClientImpl::dcm_thread_</td>
+          <td class="memname"><a class="el" href="classutility_1_1thread_1_1Thread.html">utility::thread::Thread</a> diag::client::DiagClient::DiagClientImpl::dcm_thread_</td>
         </tr>
       </table>
   </td>
@@ -597,9 +619,9 @@ Here is the call graph for this function:</div>
 
 <p>Thread to handle dcm client lifecycle. </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00152">152</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00161">161</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00096">DeInitialize()</a>, and <a class="el" href="diagnostic__client_8cpp_source.html#l00066">Initialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00100">DeInitialize()</a>, and <a class="el" href="diagnostic__client_8cpp_source.html#l00066">Initialize()</a>.</p>
 
 </div>
 </div>
@@ -625,14 +647,14 @@ Here is the call graph for this function:</div>
 
 <p>Store the diag client config path. </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00157">157</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00166">166</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00066">Initialize()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/<a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/<a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -107,9 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a324083b33b687ff78183897f7747c3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1ConversionHandler.html#a4a324083b33b687ff78183897f7747c3">~ConversionHandler</a> () noexcept=default</td></tr>
 <tr class="memdesc:a4a324083b33b687ff78183897f7747c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructs an instance of <a class="el" href="classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler.">ConversionHandler</a>.  <a href="classuds__transport_1_1ConversionHandler.html#a4a324083b33b687ff78183897f7747c3">More...</a><br /></td></tr>
 <tr class="separator:a4a324083b33b687ff78183897f7747c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd0caa550375891ef1ab9fa1424c2c8e"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1ConversionHandler.html#afd0caa550375891ef1ab9fa1424c2c8e">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info) const noexcept=0</td></tr>
-<tr class="memdesc:afd0caa550375891ef1ab9fa1424c2c8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classuds__transport_1_1ConversionHandler.html#afd0caa550375891ef1ab9fa1424c2c8e">More...</a><br /></td></tr>
-<tr class="separator:afd0caa550375891ef1ab9fa1424c2c8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aec9f920c23c4d6980d9c11930eb193"><td class="memItemLeft" align="right" valign="top">virtual std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1ConversionHandler.html#a1aec9f920c23c4d6980d9c11930eb193">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt; payload_info) const noexcept=0</td></tr>
+<tr class="memdesc:a1aec9f920c23c4d6980d9c11930eb193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classuds__transport_1_1ConversionHandler.html#a1aec9f920c23c4d6980d9c11930eb193">More...</a><br /></td></tr>
+<tr class="separator:a1aec9f920c23c4d6980d9c11930eb193"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9eb9a84797a2b003127a882385306d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classuds__transport_1_1ConversionHandler.html#aa9eb9a84797a2b003127a882385306d0">HandleMessage</a> (<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">UdsMessagePtr</a> message) const noexcept=0</td></tr>
 <tr class="memdesc:aa9eb9a84797a2b003127a882385306d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Hands over a valid received Uds message.  <a href="classuds__transport_1_1ConversionHandler.html#aa9eb9a84797a2b003127a882385306d0">More...</a><br /></td></tr>
 <tr class="separator:aa9eb9a84797a2b003127a882385306d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,8 +158,8 @@ Protected Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="conversation__handler_8h_source.html#l00026">26</a> of file <a class="el" href="conversation__handler_8h_source.html">conversation_handler.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: <a class="code" href="classuds__transport_1_1ConversionHandler.html#a9942bfb217e7d257a4352f97dc16ccef">handler_id_</a>{handler_id} {}</div>
-<div class="ttc" id="aclassuds__transport_1_1ConversionHandler_html_a9942bfb217e7d257a4352f97dc16ccef"><div class="ttname"><a href="classuds__transport_1_1ConversionHandler.html#a9942bfb217e7d257a4352f97dc16ccef">uds_transport::ConversionHandler::handler_id_</a></div><div class="ttdeci">conversion_manager::ConversionHandlerID handler_id_</div><div class="ttdoc">Store the conversation handle id.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__handler_8h_source.html#l00087">conversation_handler.h:87</a></div></div>
+<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      : <a class="code" href="classuds__transport_1_1ConversionHandler.html#a9942bfb217e7d257a4352f97dc16ccef">handler_id_</a>{handler_id} {}</div>
+<div class="ttc" id="aclassuds__transport_1_1ConversionHandler_html_a9942bfb217e7d257a4352f97dc16ccef"><div class="ttname"><a href="classuds__transport_1_1ConversionHandler.html#a9942bfb217e7d257a4352f97dc16ccef">uds_transport::ConversionHandler::handler_id_</a></div><div class="ttdeci">conversion_manager::ConversionHandlerID handler_id_</div><div class="ttdoc">Store the conversation handle id.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__handler_8h_source.html#l00089">conversation_handler.h:89</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -279,7 +279,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00139">doip_client::connection::DoipTcpConnection::HandleMessage()</a>, and <a class="el" href="connection__manager_8cpp_source.html#l00271">doip_client::connection::DoipUdpConnection::HandleMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00166">doip_client::connection::DoipTcpConnection::HandleMessage()</a>, and <a class="el" href="connection__manager_8cpp_source.html#l00306">doip_client::connection::DoipUdpConnection::HandleMessage()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -293,8 +293,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="afd0caa550375891ef1ab9fa1424c2c8e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd0caa550375891ef1ab9fa1424c2c8e">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
+<a id="a1aec9f920c23c4d6980d9c11930eb193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aec9f920c23c4d6980d9c11930eb193">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -347,7 +347,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt;&#160;</td>
           <td class="paramname"><em>payload_info</em>&#160;</td>
         </tr>
         <tr>
@@ -379,15 +379,15 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt; IndicationResult, UdsMessagePtr &gt; The pair of IndicationResult and a pointer to <a class="el" href="classuds__transport_1_1UdsMessage.html">UdsMessage</a> owned/created by DM core and returned to the handler to get filled </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00113">doip_client::connection::DoipTcpConnection::IndicateMessage()</a>, and <a class="el" href="connection__manager_8cpp_source.html#l00245">doip_client::connection::DoipUdpConnection::IndicateMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00140">doip_client::connection::DoipTcpConnection::IndicateMessage()</a>, and <a class="el" href="connection__manager_8cpp_source.html#l00279">doip_client::connection::DoipUdpConnection::IndicateMessage()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classuds__transport_1_1ConversionHandler_afd0caa550375891ef1ab9fa1424c2c8e_icgraph.png" border="0" usemap="#aclassuds__transport_1_1ConversionHandler_afd0caa550375891ef1ab9fa1424c2c8e_icgraph" alt=""/></div>
-<map name="aclassuds__transport_1_1ConversionHandler_afd0caa550375891ef1ab9fa1424c2c8e_icgraph" id="aclassuds__transport_1_1ConversionHandler_afd0caa550375891ef1ab9fa1424c2c8e_icgraph">
+<div class="center"><img src="classuds__transport_1_1ConversionHandler_a1aec9f920c23c4d6980d9c11930eb193_icgraph.png" border="0" usemap="#aclassuds__transport_1_1ConversionHandler_a1aec9f920c23c4d6980d9c11930eb193_icgraph" alt=""/></div>
+<map name="aclassuds__transport_1_1ConversionHandler_a1aec9f920c23c4d6980d9c11930eb193_icgraph" id="aclassuds__transport_1_1ConversionHandler_a1aec9f920c23c4d6980d9c11930eb193_icgraph">
 <area shape="rect" title="Function to indicate a start of reception of message." alt="" coords="272,53,464,94"/>
-<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#ad36336c1c314ef3c1304d2ddc5d8b620" title="Function to indicate a start of reception of message." alt="" coords="7,5,222,61"/>
-<area shape="rect" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a45a557b60912603c53832a815679efb0" title="Function to indicate a start of reception of message." alt="" coords="5,85,224,141"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#a5797074bfe56905fa0891cb4d4bf0a7f" title="Function to indicate a start of reception of message." alt="" coords="7,5,222,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a01efd02c52ae62f2ad6bba3d06f3e95d" title="Function to indicate a start of reception of message." alt="" coords="5,85,224,141"/>
 </map>
 </div>
 
@@ -468,7 +468,7 @@ Here is the caller graph for this function:</div>
 
 <p>Store the conversation handle id. </p>
 
-<p class="definition">Definition at line <a class="el" href="conversation__handler_8h_source.html#l00087">87</a> of file <a class="el" href="conversation__handler_8h_source.html">conversation_handler.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="conversation__handler_8h_source.html#l00089">89</a> of file <a class="el" href="conversation__handler_8h_source.html">conversation_handler.h</a>.</p>
 
 </div>
 </div>

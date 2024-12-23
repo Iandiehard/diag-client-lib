@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/socket/udp/udp_client.cpp File Reference</title>
+<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/src/boost-support/client/udp/udp_client.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,57 +61,72 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_4974d0b8e5241bf7125a7dd543532268.html">socket</a></li><li class="navelem"><a class="el" href="dir_12805709fdb7a5814b4f383ea6a898be.html">udp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_167c3a1a4ae569efa0e5bf11f4619966.html">src</a></li><li class="navelem"><a class="el" href="dir_0869f51d1b2bde5e43603c72962e628e.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_9b0898b4d0afaed71fc0f34be0a0f686.html">client</a></li><li class="navelem"><a class="el" href="dir_a3882b6286aff77c8fb2fb801c0a3b88.html">udp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
 <div class="title">udp_client.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="udp__client_8h_source.html">socket/udp/udp_client.h</a>&quot;</code><br />
-<code>#include &quot;common/logger.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="udp__client_8h_source.html">boost-support/client/udp/udp_client.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="udp__connection_8h_source.html">boost-support/connection/udp/udp_connection.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="io__context_8h_source.html">boost-support/socket/io_context.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="udp__socket_8h_source.html">boost-support/socket/udp/udp_socket.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for udp_client.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="udp__client_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2udp_2udp__client_8cpp" alt=""/></div>
-<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2udp_2udp__client_8cpp" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2udp_2udp__client_8cpp">
-<area shape="rect" title=" " alt="" coords="655,5,846,91"/>
-<area shape="rect" href="udp__client_8h.html" title=" " alt="" coords="574,139,749,165"/>
-<area shape="rect" title=" " alt="" coords="773,139,907,165"/>
-<area shape="rect" title=" " alt="" coords="5,213,123,240"/>
-<area shape="rect" title=" " alt="" coords="651,295,709,322"/>
-<area shape="rect" title=" " alt="" coords="287,385,385,411"/>
-<area shape="rect" title=" " alt="" coords="971,213,1035,240"/>
-<area shape="rect" title=" " alt="" coords="1110,295,1173,322"/>
-<area shape="rect" href="result_8h.html" title=" " alt="" coords="440,213,595,240"/>
-<area shape="rect" href="udp__message_8h.html" title=" " alt="" coords="698,213,897,240"/>
-<area shape="rect" title=" " alt="" coords="451,295,525,322"/>
-<area shape="rect" title=" " alt="" coords="553,385,645,411"/>
-<area shape="rect" title=" " alt="" coords="735,385,795,411"/>
-<area shape="rect" title=" " alt="" coords="358,295,426,322"/>
-<area shape="rect" href="error__code_8h.html" title=" " alt="" coords="197,288,333,329"/>
-<area shape="rect" href="error__domain_8h.html" title=" " alt="" coords="127,377,263,419"/>
-<area shape="rect" title=" " alt="" coords="161,467,228,493"/>
-<area shape="rect" title=" " alt="" coords="1008,295,1085,322"/>
-<area shape="rect" href="span_8h.html" title=" " alt="" coords="835,295,983,322"/>
-<area shape="rect" title=" " alt="" coords="820,385,876,411"/>
-<area shape="rect" title=" " alt="" coords="900,385,980,411"/>
-<area shape="rect" title=" " alt="" coords="1004,385,1063,411"/>
+<div class="center"><img src="udp__client_8cpp__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2src_2boost-support_2client_2udp_2udp__client_8cpp" alt=""/></div>
+<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2src_2boost-support_2client_2udp_2udp__client_8cpp" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2src_2boost-support_2client_2udp_2udp__client_8cpp">
+<area shape="rect" title=" " alt="" coords="474,5,717,91"/>
+<area shape="rect" href="udp__client_8h.html" title=" " alt="" coords="367,139,519,180"/>
+<area shape="rect" href="udp__connection_8h.html" title=" " alt="" coords="155,139,342,180"/>
+<area shape="rect" href="io__context_8h.html" title=" " alt="" coords="908,139,1067,180"/>
+<area shape="rect" href="udp__socket_8h.html" title=" " alt="" coords="707,139,865,180"/>
+<area shape="rect" title=" " alt="" coords="204,243,291,269"/>
+<area shape="rect" title=" " alt="" coords="385,429,483,455"/>
+<area shape="rect" href="udp__message_8h.html" title=" " alt="" coords="699,235,873,277"/>
+<area shape="rect" href="result_8h.html" title=" " alt="" coords="366,243,521,269"/>
+<area shape="rect" title=" " alt="" coords="643,511,710,537"/>
+<area shape="rect" title=" " alt="" coords="786,339,863,366"/>
+<area shape="rect" title=" " alt="" coords="1061,339,1119,366"/>
+<area shape="rect" title=" " alt="" coords="719,429,779,455"/>
+<area shape="rect" title=" " alt="" coords="1195,339,1257,366"/>
+<area shape="rect" href="span_8h.html" title=" " alt="" coords="888,339,1036,366"/>
+<area shape="rect" title=" " alt="" coords="1015,429,1071,455"/>
+<area shape="rect" title=" " alt="" coords="829,429,909,455"/>
+<area shape="rect" title=" " alt="" coords="933,429,991,455"/>
+<area shape="rect" title=" " alt="" coords="576,429,668,455"/>
+<area shape="rect" title=" " alt="" coords="341,339,415,366"/>
+<area shape="rect" title=" " alt="" coords="440,339,508,366"/>
+<area shape="rect" href="error__code_8h.html" title=" " alt="" coords="130,332,266,373"/>
+<area shape="rect" href="error__domain_8h.html" title=" " alt="" coords="130,421,266,463"/>
+<area shape="rect" href="boost__support__error__domain_8h.html" title=" " alt="" coords="5,228,180,284"/>
+<area shape="rect" title=" " alt="" coords="949,243,1066,269"/>
+<area shape="rect" href="thread_8h.html" title=" " alt="" coords="1195,243,1313,269"/>
+<area shape="rect" title=" " alt="" coords="1281,339,1365,366"/>
+<area shape="rect" title=" " alt="" coords="1390,339,1454,366"/>
 </map>
 </div>
 </div>
 <p><a href="udp__client_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html">boost_support::client::udp::UdpClient::UdpClientImpl</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class to provide implementation of udp client.  <a href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceboost__support"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support.html">boost_support</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceboost__support_1_1socket"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket.html">boost_support::socket</a></td></tr>
+<tr class="memitem:namespaceboost__support_1_1client"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1client.html">boost_support::client</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceboost__support_1_1socket_1_1udp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket_1_1udp.html">boost_support::socket::udp</a></td></tr>
+<tr class="memitem:namespaceboost__support_1_1client_1_1udp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1client_1_1udp.html">boost_support::client::udp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -1,4 +1,0 @@
-<map id="doip_client::channel::tcp_channel::DoipTcpChannel::IsConnectToHost" name="doip_client::channel::tcp_channel::DoipTcpChannel::IsConnectToHost">
-<area shape="rect" id="node1" title="Function to check if connected to host remote server." alt="" coords="280,5,500,61"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a0ae4b0490d4e34ad83b1762c6117d7a7" title="Function to check if connected to host remote server." alt="" coords="5,5,232,61"/>
-</map>

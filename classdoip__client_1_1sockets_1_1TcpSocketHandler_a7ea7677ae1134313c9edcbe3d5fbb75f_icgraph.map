@@ -1,5 +1,0 @@
-<map id="doip_client::sockets::TcpSocketHandler::Stop" name="doip_client::sockets::TcpSocketHandler::Stop">
-<area shape="rect" id="node1" title="Function to stop the socket handler." alt="" coords="549,5,732,47"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140" title="Function to stop the channel." alt="" coords="244,5,501,47"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a7118670417286ee60f84ad4b3cc21eff" title="Function to stop the connection." alt="" coords="5,5,196,47"/>
-</map>

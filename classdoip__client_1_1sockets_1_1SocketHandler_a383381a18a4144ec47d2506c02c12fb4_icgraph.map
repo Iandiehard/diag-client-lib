@@ -1,0 +1,7 @@
+<map id="doip_client::sockets::SocketHandler::SetReadHandler" name="doip_client::sockets::SocketHandler::SetReadHandler">
+<area shape="rect" id="node1" title="Function to set the read handler that is invoked when message is received." alt="" coords="529,53,767,94"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a547ad0334aa9d4524c38dc452a0b0a89" title="Function to start the channel." alt="" coords="257,5,477,61"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,85,481,141"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a3236801a8cf87a5d2b0f1e2afd1aa1da" title="Function to start the connection." alt="" coords="8,13,201,54"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1connection_1_1DoipUdpConnection.html#a93c33dc3b8b3a3120eef54ea2822c525" title="Function to start the connection." alt="" coords="5,93,204,134"/>
+</map>

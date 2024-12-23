@@ -1,0 +1,5 @@
+<map id="boost_support::socket::tls::TlsSocket::Read" name="boost_support::socket::tls::TlsSocket::Read">
+<area shape="rect" id="node1" title="Function to read message from socket." alt="" coords="5,53,169,94"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="223,5,402,61"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a4685cd0c0d38bc6df21de0125eaaf00f" title="Function to get the native tcp socket under tls socket." alt="" coords="217,85,408,141"/>
+</map>

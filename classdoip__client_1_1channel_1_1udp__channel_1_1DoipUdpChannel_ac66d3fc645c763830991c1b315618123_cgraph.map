@@ -1,4 +1,4 @@
 <map id="doip_client::channel::udp_channel::DoipUdpChannel::Stop" name="doip_client::channel::udp_channel::DoipUdpChannel::Stop">
 <area shape="rect" id="node1" title="Function to stop the channel." alt="" coords="5,5,272,47"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1UdpSocketHandler.html#ae10f4828a3c8b63c743f0a87aa139a9b" title="Function to stop the socket handler." alt="" coords="320,5,507,47"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1SocketHandler.html#ae81b770e77c6061d52ab07db42e9e552" title="Function to stop the socket handler." alt="" coords="320,5,527,47"/>
 </map>

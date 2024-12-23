@@ -1,0 +1,6 @@
+<map id="boost_support::client::tcp::TcpClient::TcpClientImpl" name="boost_support::client::tcp::TcpClient::TcpClientImpl">
+<area shape="rect" id="node1" title="Class to provide implementation of tcp client." alt="" coords="665,63,879,104"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1IoContext.html" title="Wrapper class to hold boost io context required for io object( sockets)" alt="" coords="307,5,471,47"/>
+<area shape="rect" id="node3" href="$classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="5,13,168,39"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection.html" title=" " alt="" coords="269,71,508,141"/>
+</map>

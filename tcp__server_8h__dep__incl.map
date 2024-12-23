@@ -1,4 +1,6 @@
-<map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/boost&#45;support/socket/tcp/tcp_server.h" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/boost&#45;support/socket/tcp/tcp_server.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,192,91"/>
-<area shape="rect" id="node2" href="$tcp__server_8cpp.html" title=" " alt="" coords="5,139,192,224"/>
+<map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/boost&#45;support/include/boost&#45;support/server/tcp/tcp_server.h" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/boost&#45;support/include/boost&#45;support/server/tcp/tcp_server.h">
+<area shape="rect" id="node1" title=" " alt="" coords="154,5,382,91"/>
+<area shape="rect" id="node2" href="$tcp__acceptor_8h.html" title=" " alt="" coords="13,139,256,224"/>
+<area shape="rect" id="node4" href="$tcp__server_8cpp.html" title=" " alt="" coords="280,139,523,224"/>
+<area shape="rect" id="node3" href="$tcp__acceptor_8cpp.html" title=" " alt="" coords="5,272,264,357"/>
 </map>

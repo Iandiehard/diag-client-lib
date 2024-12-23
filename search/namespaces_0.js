@@ -1,10 +1,25 @@
 var searchData=
 [
-  ['boost_5fsupport_1003',['boost_support',['../namespaceboost__support.html',1,'']]],
-  ['common_1004',['common',['../namespaceboost__support_1_1common.html',1,'boost_support']]],
-  ['logger_1005',['logger',['../namespaceboost__support_1_1common_1_1logger.html',1,'boost_support::common']]],
-  ['parser_1006',['parser',['../namespaceboost__support_1_1parser.html',1,'boost_support']]],
-  ['socket_1007',['socket',['../namespaceboost__support_1_1socket.html',1,'boost_support']]],
-  ['tcp_1008',['tcp',['../namespaceboost__support_1_1socket_1_1tcp.html',1,'boost_support::socket']]],
-  ['udp_1009',['udp',['../namespaceboost__support_1_1socket_1_1udp.html',1,'boost_support::socket']]]
+  ['anonymous_5fnamespace_7bboost_5fsupport_5ferror_5fdomain_2ecpp_7d_1208',['anonymous_namespace{boost_support_error_domain.cpp}',['../namespaceboost__support_1_1error__domain_1_1anonymous__namespace_02boost__support__error__domain_8cpp_03.html',1,'boost_support::error_domain']]],
+  ['anonymous_5fnamespace_7btcp_5facceptor_2ecpp_7d_1209',['anonymous_namespace{tcp_acceptor.cpp}',['../namespaceboost__support_1_1server_1_1tcp_1_1anonymous__namespace_02tcp__acceptor_8cpp_03.html',1,'boost_support::server::tcp']]],
+  ['anonymous_5fnamespace_7btcp_5fclient_2ecpp_7d_1210',['anonymous_namespace{tcp_client.cpp}',['../namespaceboost__support_1_1client_1_1tcp_1_1anonymous__namespace_02tcp__client_8cpp_03.html',1,'boost_support::client::tcp']]],
+  ['anonymous_5fnamespace_7btls_5facceptor_2ecpp_7d_1211',['anonymous_namespace{tls_acceptor.cpp}',['../namespaceboost__support_1_1server_1_1tls_1_1anonymous__namespace_02tls__acceptor_8cpp_03.html',1,'boost_support::server::tls']]],
+  ['anonymous_5fnamespace_7btls_5fclient_2ecpp_7d_1212',['anonymous_namespace{tls_client.cpp}',['../namespaceboost__support_1_1client_1_1tls_1_1anonymous__namespace_02tls__client_8cpp_03.html',1,'boost_support::client::tls']]],
+  ['anonymous_5fnamespace_7btls_5fclient_5f_2ecpp_7d_1213',['anonymous_namespace{tls_client_.cpp}',['../namespaceboost__support_1_1socket_1_1tcp_1_1anonymous__namespace_02tls__client___8cpp_03.html',1,'boost_support::socket::tcp']]],
+  ['anonymous_5fnamespace_7btls_5fcontext_2ecpp_7d_1214',['anonymous_namespace{tls_context.cpp}',['../namespaceboost__support_1_1socket_1_1tls_1_1anonymous__namespace_02tls__context_8cpp_03.html',1,'boost_support::socket::tls']]],
+  ['anonymous_5fnamespace_7btls_5fserver_5f_2ecpp_7d_1215',['anonymous_namespace{tls_server_.cpp}',['../namespaceboost__support_1_1socket_1_1tcp_1_1anonymous__namespace_02tls__server___8cpp_03.html',1,'boost_support::socket::tcp']]],
+  ['boost_5fsupport_1216',['boost_support',['../namespaceboost__support.html',1,'']]],
+  ['client_1217',['client',['../namespaceboost__support_1_1client.html',1,'boost_support']]],
+  ['common_1218',['common',['../namespaceboost__support_1_1common.html',1,'boost_support']]],
+  ['connection_1219',['connection',['../namespaceboost__support_1_1connection.html',1,'boost_support']]],
+  ['detail_1220',['detail',['../namespaceboost__support_1_1server_1_1tls_1_1detail.html',1,'boost_support::server::tls']]],
+  ['error_5fdomain_1221',['error_domain',['../namespaceboost__support_1_1error__domain.html',1,'boost_support']]],
+  ['logger_1222',['logger',['../namespaceboost__support_1_1common_1_1logger.html',1,'boost_support::common']]],
+  ['message_1223',['message',['../namespaceboost__support_1_1message.html',1,'boost_support']]],
+  ['parser_1224',['parser',['../namespaceboost__support_1_1parser.html',1,'boost_support']]],
+  ['server_1225',['server',['../namespaceboost__support_1_1server.html',1,'boost_support']]],
+  ['socket_1226',['socket',['../namespaceboost__support_1_1socket.html',1,'boost_support']]],
+  ['tcp_1227',['tcp',['../namespaceboost__support_1_1client_1_1tcp.html',1,'boost_support::client::tcp'],['../namespaceboost__support_1_1connection_1_1tcp.html',1,'boost_support::connection::tcp'],['../namespaceboost__support_1_1message_1_1tcp.html',1,'boost_support::message::tcp'],['../namespaceboost__support_1_1server_1_1tcp.html',1,'boost_support::server::tcp'],['../namespaceboost__support_1_1socket_1_1tcp.html',1,'boost_support::socket::tcp']]],
+  ['tls_1228',['tls',['../namespaceboost__support_1_1client_1_1tls.html',1,'boost_support::client::tls'],['../namespaceboost__support_1_1server_1_1tls.html',1,'boost_support::server::tls'],['../namespaceboost__support_1_1socket_1_1tls.html',1,'boost_support::socket::tls']]],
+  ['udp_1229',['udp',['../namespaceboost__support_1_1client_1_1udp.html',1,'boost_support::client::udp'],['../namespaceboost__support_1_1connection_1_1udp.html',1,'boost_support::connection::udp'],['../namespaceboost__support_1_1message_1_1udp.html',1,'boost_support::message::udp'],['../namespaceboost__support_1_1server_1_1udp.html',1,'boost_support::server::udp'],['../namespaceboost__support_1_1socket_1_1udp.html',1,'boost_support::socket::udp']]]
 ];

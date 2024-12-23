@@ -1,0 +1,10 @@
+<map id="core_type::Result::FromValue" name="core_type::Result::FromValue">
+<area shape="rect" id="node1" title="Build a new Result from the specified value (given as lvalue)" alt="" coords="575,199,717,240"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="294,5,485,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#af7c4a3490c02c9a06001656f49c33c85" title="Function to send the received message to stored handler." alt="" coords="254,71,525,127"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a049ad30e3d11a6c0964a9ea5d85ed4c3" title="Function to send the received message to stored handler." alt="" coords="252,151,527,207"/>
+<area shape="rect" id="node5" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a6834df7013018558737ad5ead0acbed8" title="Function to trigger transmission." alt="" coords="269,231,509,287"/>
+<area shape="rect" id="node6" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a457133ae526842b3e2664e36130fa9d3" title="Function to trigger transmission." alt="" coords="269,311,509,367"/>
+<area shape="rect" id="node7" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a165af7248752cd64de4a56d303242a76" title="Function to trigger transmission." alt="" coords="277,392,502,433"/>
+<area shape="rect" id="node8" href="$classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#af4845ee01211faa44981f43237b8c29b" title="Function to transmit the provided udp message." alt="" coords="5,385,204,441"/>
+</map>

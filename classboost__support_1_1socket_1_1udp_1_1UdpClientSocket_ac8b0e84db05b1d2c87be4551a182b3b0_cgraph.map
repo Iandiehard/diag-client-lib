@@ -1,5 +1,0 @@
-<map id="boost_support::socket::udp::UdpClientSocket::Open" name="boost_support::socket::udp::UdpClientSocket::Open">
-<area shape="rect" id="node1" title="Function to Open the socket." alt="" coords="5,13,216,54"/>
-<area shape="rect" id="node2" href="$classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="481,5,660,61"/>
-<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a243ca158e614c0450edc46be043fc1e1" title="Function to handle the reception of tcp message." alt="" coords="264,37,433,93"/>
-</map>

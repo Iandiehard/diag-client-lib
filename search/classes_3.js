@@ -1,12 +1,7 @@
 var searchData=
 [
-  ['is_5fcontainer_5felement_5ftype_5fconvertible_927',['is_container_element_type_convertible',['../structcore__type_1_1details_1_1is__container__element__type__convertible.html',1,'core_type::details']]],
-  ['is_5fcontainer_5felement_5ftype_5fconvertible_3c_20f_2c_20t_2c_20typename_20std_3a_3aenable_5fif_3c_20std_3a_3ais_5fconvertible_3c_20std_3a_3aremove_5fpointer_5ft_3c_20decltype_28std_3a_3adata_28std_3a_3adeclval_3c_20f_20_3e_28_29_29_29_3e_28_2a_29_5b_5d_2c_20t_28_2a_29_5b_5d_3e_3a_3avalue_20_3e_3a_3atype_20_3e_928',['is_container_element_type_convertible&lt; F, T, typename std::enable_if&lt; std::is_convertible&lt; std::remove_pointer_t&lt; decltype(std::data(std::declval&lt; F &gt;()))&gt;(*)[], T(*)[]&gt;::value &gt;::type &gt;',['../structcore__type_1_1details_1_1is__container__element__type__convertible_3_01F_00_01T_00_01typend8e342f7f5d49ec87813ec7b40520d32.html',1,'core_type::details']]],
-  ['is_5fcontainer_5ftype_929',['is_container_type',['../structcore__type_1_1details_1_1is__container__type.html',1,'core_type::details']]],
-  ['is_5fdata_5fsize_5fvalid_930',['is_data_size_valid',['../structcore__type_1_1details_1_1is__data__size__valid.html',1,'core_type::details']]],
-  ['is_5fdata_5fsize_5fvalid_3c_20t_2c_20std_3a_3avoid_5ft_3c_20decltype_28std_3a_3adata_28std_3a_3adeclval_3c_20t_20_3e_28_29_29_29_2c_20decltype_28std_3a_3asize_28std_3a_3adeclval_3c_20t_20_3e_28_29_29_29_3e_20_3e_931',['is_data_size_valid&lt; T, std::void_t&lt; decltype(std::data(std::declval&lt; T &gt;())), decltype(std::size(std::declval&lt; T &gt;()))&gt; &gt;',['../structcore__type_1_1details_1_1is__data__size__valid_3_01T_00_01std_1_1void__t_3_01decltype_07st0128843b8fbacf73d512eb825bbf4687.html',1,'core_type::details']]],
-  ['is_5fspan_932',['is_span',['../structcore__type_1_1details_1_1is__span.html',1,'core_type::details']]],
-  ['is_5fspan_3c_20span_3c_20t_2c_20extent_20_3e_20_3e_933',['is_span&lt; Span&lt; T, Extent &gt; &gt;',['../structcore__type_1_1details_1_1is__span_3_01Span_3_01T_00_01Extent_01_4_01_4.html',1,'core_type::details']]],
-  ['is_5fstd_5farray_934',['is_std_array',['../structcore__type_1_1details_1_1is__std__array.html',1,'core_type::details']]],
-  ['is_5fstd_5farray_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e_935',['is_std_array&lt; std::array&lt; T, N &gt; &gt;',['../structcore__type_1_1details_1_1is__std__array_3_01std_1_1array_3_01T_00_01N_01_4_01_4.html',1,'core_type::details']]]
+  ['empty_5fvalue_1099',['empty_value',['../structcore__type_1_1Result_3_01void_00_01E_01_4_1_1empty__value.html',1,'core_type::Result&lt; void, E &gt;']]],
+  ['errorcode_1100',['ErrorCode',['../classcore__type_1_1ErrorCode.html',1,'core_type']]],
+  ['errordomain_1101',['ErrorDomain',['../classcore__type_1_1ErrorDomain.html',1,'core_type']]],
+  ['executor_1102',['Executor',['../classutility_1_1executor_1_1Executor.html',1,'utility::executor']]]
 ];

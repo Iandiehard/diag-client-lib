@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/error_domain/dm_error_domain.h Source File</title>
+<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/error_domain/dm_error_domain.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_22dc0b0a371919ab8884beef7eb3b581.html">appl</a></li><li class="navelem"><a class="el" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html">src</a></li><li class="navelem"><a class="el" href="dir_2b33627df342c10e5339b77f40e742f4.html">dcm</a></li><li class="navelem"><a class="el" href="dir_495412a3338de09c7fec737825999c27.html">error_domain</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_22dc0b0a371919ab8884beef7eb3b581.html">appl</a></li><li class="navelem"><a class="el" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html">src</a></li><li class="navelem"><a class="el" href="dir_66b1ef7d82bfe43262b67ae2b8661a62.html">diag-client</a></li><li class="navelem"><a class="el" href="dir_bb974c84bd34a60383190044f4056fd4.html">dcm</a></li><li class="navelem"><a class="el" href="dir_95ed49af13871daf4dbdf7ce6dc83984.html">error_domain</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -111,13 +111,14 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#a0d7c6cf4e0e82a783e7ffbf163f7336c">   71</a></span>&#160;  std::string <a class="code" href="classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#a0d7c6cf4e0e82a783e7ffbf163f7336c">message_</a>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;};</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<a class="code" href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751a">DmErrorErrc</a> code, <a class="code" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">core_type::ErrorDomain::SupportDataType</a> data =</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                         <a class="code" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">core_type::ErrorDomain::SupportDataType</a>{}) noexcept;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}  <span class="comment">// namespace error_domain</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}  <span class="comment">// namespace client</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}  <span class="comment">// namespace diag</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_ERROR_DOMAIN_DM_ERROR_DOMAIN_H</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<a class="code" href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a> <a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac6073fee2d36b049164fabbf5c83a15b">MakeErrorCode</a>(<a class="code" href="namespacediag_1_1client_1_1error__domain.html#ac2c01995149f8ee05613b0286d61751a">DmErrorErrc</a> code,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                   <a class="code" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">core_type::ErrorDomain::SupportDataType</a> data =</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                       <a class="code" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">core_type::ErrorDomain::SupportDataType</a>{}) noexcept;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}  <span class="comment">// namespace error_domain</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}  <span class="comment">// namespace client</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}  <span class="comment">// namespace diag</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_ERROR_DOMAIN_DM_ERROR_DOMAIN_H</span></div>
 <div class="ttc" id="aclasscore__type_1_1ErrorCode_html"><div class="ttname"><a href="classcore__type_1_1ErrorCode.html">core_type::ErrorCode</a></div><div class="ttdoc">Encapsulation of an error code. An ErrorCode contains a raw error code value and an error domain....</div><div class="ttdef"><b>Definition:</b> <a href="error__code_8h_source.html#l00022">error_code.h:22</a></div></div>
 <div class="ttc" id="aclasscore__type_1_1ErrorDomain_html"><div class="ttname"><a href="classcore__type_1_1ErrorDomain.html">core_type::ErrorDomain</a></div><div class="ttdoc">Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod...</div><div class="ttdef"><b>Definition:</b> <a href="error__domain_8h_source.html#l00020">error_domain.h:20</a></div></div>
 <div class="ttc" id="aclasscore__type_1_1ErrorDomain_html_a05eba1837de5d8494f95044309de6cc0"><div class="ttname"><a href="classcore__type_1_1ErrorDomain.html#a05eba1837de5d8494f95044309de6cc0">core_type::ErrorDomain::CodeType</a></div><div class="ttdeci">std::int32_t CodeType</div><div class="ttdoc">Type alias for a domain-specific error code value.</div><div class="ttdef"><b>Definition:</b> <a href="error__domain_8h_source.html#l00030">error_domain.h:30</a></div></div>

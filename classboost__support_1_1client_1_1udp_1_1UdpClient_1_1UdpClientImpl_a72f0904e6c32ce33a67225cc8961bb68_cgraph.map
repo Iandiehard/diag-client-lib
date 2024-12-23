@@ -1,0 +1,5 @@
+<map id="boost_support::client::udp::UdpClient::UdpClientImpl::DeInitialize" name="boost_support::client::udp::UdpClient::UdpClientImpl::DeInitialize">
+<area shape="rect" id="node1" title="De&#45;initialize the client." alt="" coords="5,31,204,87"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#ac0586a76bbb1260bf22dccada005477a" title="De&#45;initialize the client." alt="" coords="252,5,495,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1IoContext.html#a0f33e99557ceed607d5a9e322f590cce" title="De&#45;initialize the context." alt="" coords="286,71,461,112"/>
+</map>

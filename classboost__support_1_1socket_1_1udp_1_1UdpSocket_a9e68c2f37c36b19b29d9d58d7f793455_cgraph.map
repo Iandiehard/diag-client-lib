@@ -1,0 +1,6 @@
+<map id="boost_support::socket::udp::UdpSocket::Read" name="boost_support::socket::udp::UdpSocket::Read">
+<area shape="rect" id="node1" title="Function to handle the reception of tcp message." alt="" coords="5,29,177,70"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="508,29,687,85"/>
+<area shape="rect" id="node3" href="$namespaceboost__support_1_1error__domain.html#a6a542b5a43c8af4d69ecb279b6e1c2e0" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="250,29,435,70"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a355c2f2584e55390e3ecfeeced262d8d" title="Function to start reception of Udp dataframe." alt="" coords="225,95,460,151"/>
+</map>

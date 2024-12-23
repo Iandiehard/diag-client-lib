@@ -72,7 +72,7 @@ $(function() {
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">diag::client::conversation_manager::ConversationManager Class Reference</div>  </div>
+<div class="title">diag::client::conversation_manager::ConversationManager Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -178,13 +178,13 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00019">19</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>{uds_transport_mgr} {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="comment">// store the conversation config (vd &amp; dm) out of passed config</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a33819b3eabec98d6fd09621d2488d07f">StoreConversationConfig</a>(config);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a33819b3eabec98d6fd09621d2488d07f"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a33819b3eabec98d6fd09621d2488d07f">diag::client::conversation_manager::ConversationManager::StoreConversationConfig</a></div><div class="ttdeci">void StoreConversationConfig(diag::client::config_parser::DcmClientConfig &amp;config) noexcept</div><div class="ttdoc">Function to store the dcm client configuration internally.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00069">conversation_manager.cpp:69</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_ae3298a4e4d33e662d3ec2dc14c91616a"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">diag::client::conversation_manager::ConversationManager::uds_transport_mgr_</a></div><div class="ttdeci">uds_transport::UdsTransportProtocolManager &amp; uds_transport_mgr_</div><div class="ttdoc">Store the reference to uds transport manager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8h_source.html#l00084">conversation_manager.h:84</a></div></div>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00031">31</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>{uds_transport_mgr} {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// store the conversation config (vd &amp; dm) out of passed config</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a33819b3eabec98d6fd09621d2488d07f">StoreConversationConfig</a>(config);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a33819b3eabec98d6fd09621d2488d07f"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a33819b3eabec98d6fd09621d2488d07f">diag::client::conversation_manager::ConversationManager::StoreConversationConfig</a></div><div class="ttdeci">void StoreConversationConfig(diag::client::config_parser::DcmClientConfig &amp;config) noexcept</div><div class="ttdoc">Function to store the dcm client configuration internally.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00106">conversation_manager.cpp:106</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_ae3298a4e4d33e662d3ec2dc14c91616a"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">diag::client::conversation_manager::ConversationManager::uds_transport_mgr_</a></div><div class="ttdeci">uds_transport::UdsTransportProtocolManager &amp; uds_transport_mgr_</div><div class="ttdoc">Store the reference to uds transport manager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8h_source.html#l00086">conversation_manager.h:86</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -243,57 +243,65 @@ Private Attributes</h2></td></tr>
 <p>Function to get DM conversation object based on conversation name. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">conversation_name</td><td>The passed conversation name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">conversation_name</td><td>The conversation name </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The reference to diag client conversation as per passed conversation name </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The reference to diag client conversation as per provided conversation name </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00031">31</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                               {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="comment">// find the conversation from config stored</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keyword">auto</span> it = <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.find(std::string{conversation_name});</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordflow">if</span> (it != <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.end()) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::string <span class="keyword">const</span> conversation_name_in_map{it-&gt;first};</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    it-&gt;second.conversation = std::visit(</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="structcore__type_1_1visit_1_1overloaded.html">core_type::visit::overloaded</a>{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            [<span class="keyword">this</span>, &amp;conversation_name_in_map](conversation::DMConversationType conversation_type) noexcept {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;              <span class="comment">// Create the conversation</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;              std::unique_ptr&lt;diag::client::conversation::Conversation&gt; conversation{</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                  std::make_unique&lt;diag::client::conversation::DmConversation&gt;(conversation_name_in_map,</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                                               conversation_type)};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;              <span class="comment">// Register the connection</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;              conversation-&gt;RegisterConnection(<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">GetTransportProtocolHandler</a>().<a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2fce2cd14105f2ad1e873df95af14cdc">CreateTcpConnection</a>(</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                  conversation-&gt;GetConversationHandler(), conversation_type.tcp_address, conversation_type.port_num));</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;              <span class="keywordflow">return</span> conversation;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            },</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            [<span class="keyword">this</span>, &amp;conversation_name_in_map](conversation::VDConversationType conversation_type) noexcept {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;              <span class="comment">// Create the conversation</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;              std::unique_ptr&lt;diag::client::conversation::Conversation&gt; conversation{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                  std::make_unique&lt;diag::client::conversation::VdConversation&gt;(conversation_name_in_map,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                                                               conversation_type)};</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;              <span class="comment">// Register the connection</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;              conversation-&gt;RegisterConnection(<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">GetTransportProtocolHandler</a>().<a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a1a78aa7b209bed59e5f7e9e826b1e139">CreateUdpConnection</a>(</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                  conversation-&gt;GetConversationHandler(), conversation_type.udp_address, conversation_type.port_num));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;              <span class="keywordflow">return</span> conversation;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            }},</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        it-&gt;second.conversation_type);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatal(</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        __FILE__, __LINE__, __func__, [conversation_name](std::stringstream &amp;msg) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Invalid conversation name: &#39;&quot;</span> &lt;&lt; conversation_name &lt;&lt; <span class="stringliteral">&quot;&#39;, provide correct name as per config file&quot;</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        });</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="keywordflow">return</span> *(it-&gt;second.conversation);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_adb15a3cea19800bc5c5c979d7a5906bb"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">diag::client::conversation_manager::ConversationManager::conversation_map_</a></div><div class="ttdeci">std::unordered_map&lt; std::string, ConversationStorage &gt; conversation_map_</div><div class="ttdoc">Map to store conversation object(dm) along with conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8h_source.html#l00089">conversation_manager.h:89</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager_html_a158de53fef6da86eb48b7692f26a85e2"><div class="ttname"><a href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">diag::client::uds_transport::UdsTransportProtocolManager::GetTransportProtocolHandler</a></div><div class="ttdeci">::uds_transport::UdsTransportProtocolHandler &amp; GetTransportProtocolHandler()</div><div class="ttdef"><b>Definition:</b> <a href="uds__transport__protocol__manager_8cpp_source.html#l00039">uds_transport_protocol_manager.cpp:39</a></div></div>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00061">61</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                               {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// find the conversation from config stored</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">auto</span> it = <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.find(std::string{conversation_name});</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordflow">if</span> (it != <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.end()) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    std::string <span class="keyword">const</span> conversation_name_in_map{it-&gt;first};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    it-&gt;second.conversation =</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        std::visit(<a class="code" href="structcore__type_1_1visit_1_1overloaded.html">core_type::visit::overloaded</a>{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                       [<span class="keyword">this</span>, &amp;conversation_name_in_map](</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                           conversation::DMConversationType conversation_type) noexcept {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                         <span class="comment">// Create the conversation</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                         std::unique_ptr&lt;diag::client::conversation::Conversation&gt; conversation{</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                             std::make_unique&lt;diag::client::conversation::DmConversation&gt;(</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                 conversation_name_in_map, conversation_type)};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                         <span class="comment">// Register the connection</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                         conversation-&gt;RegisterConnection(</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                             <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">GetTransportProtocolHandler</a>().<a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2fce2cd14105f2ad1e873df95af14cdc">CreateTcpConnection</a>(</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                 conversation-&gt;GetConversationHandler(),</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                 conversation_type.tcp_address, conversation_type.port_num));</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                         <span class="keywordflow">return</span> conversation;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                       },</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                       [<span class="keyword">this</span>, &amp;conversation_name_in_map](</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                           conversation::VDConversationType conversation_type) noexcept {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                         <span class="comment">// Create the conversation</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                         std::unique_ptr&lt;diag::client::conversation::Conversation&gt; conversation{</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                             std::make_unique&lt;diag::client::conversation::VdConversation&gt;(</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                 conversation_name_in_map, conversation_type)};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                         <span class="comment">// Register the connection</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                         conversation-&gt;RegisterConnection(</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                             <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#ae3298a4e4d33e662d3ec2dc14c91616a">uds_transport_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">GetTransportProtocolHandler</a>().<a class="code" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a1a78aa7b209bed59e5f7e9e826b1e139">CreateUdpConnection</a>(</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                 conversation-&gt;GetConversationHandler(),</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                 conversation_type.udp_address, conversation_type.port_num));</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                         <span class="keywordflow">return</span> conversation;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                       }},</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                   it-&gt;second.conversation_type);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogFatalAndTerminate(</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__, [conversation_name](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Invalid conversation name: &#39;&quot;</span> &lt;&lt; conversation_name</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;              &lt;&lt; <span class="stringliteral">&quot;&#39;, provide correct name as per config file&quot;</span>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        });</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">return</span> *(it-&gt;second.conversation);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_adb15a3cea19800bc5c5c979d7a5906bb"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">diag::client::conversation_manager::ConversationManager::conversation_map_</a></div><div class="ttdeci">std::unordered_map&lt; std::string, ConversationStorage &gt; conversation_map_</div><div class="ttdoc">Map to store conversation object(dm) along with conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8h_source.html#l00092">conversation_manager.h:92</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager_html_a158de53fef6da86eb48b7692f26a85e2"><div class="ttname"><a href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">diag::client::uds_transport::UdsTransportProtocolManager::GetTransportProtocolHandler</a></div><div class="ttdeci">::uds_transport::UdsTransportProtocolHandler &amp; GetTransportProtocolHandler()</div><div class="ttdef"><b>Definition:</b> <a href="uds__transport__protocol__manager_8cpp_source.html#l00042">uds_transport_protocol_manager.cpp:42</a></div></div>
 <div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolHandler_html_a1a78aa7b209bed59e5f7e9e826b1e139"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a1a78aa7b209bed59e5f7e9e826b1e139">uds_transport::UdsTransportProtocolHandler::CreateUdpConnection</a></div><div class="ttdeci">virtual std::unique_ptr&lt; Connection &gt; CreateUdpConnection(ConversionHandler &amp;conversion_handler, std::string_view udpIpaddress, uint16_t portNum)=0</div><div class="ttdoc">Function to create a new Udp connection.</div></div>
 <div class="ttc" id="aclassuds__transport_1_1UdsTransportProtocolHandler_html_a2fce2cd14105f2ad1e873df95af14cdc"><div class="ttname"><a href="classuds__transport_1_1UdsTransportProtocolHandler.html#a2fce2cd14105f2ad1e873df95af14cdc">uds_transport::UdsTransportProtocolHandler::CreateTcpConnection</a></div><div class="ttdeci">virtual std::unique_ptr&lt; Connection &gt; CreateTcpConnection(ConversionHandler &amp;conversion_handler, std::string_view tcpIpaddress, uint16_t portNum)=0</div><div class="ttdoc">Function to create a new Tcp connection.</div></div>
+<div class="ttc" id="afile__path_8h_html_ab117546549783a058d0321a287699579"><div class="ttname"><a href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a></div><div class="ttdeci">#define FILE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="file__path_8h_source.html#l00014">file_path.h:14</a></div></div>
 <div class="ttc" id="astructcore__type_1_1visit_1_1overloaded_html"><div class="ttname"><a href="structcore__type_1_1visit_1_1overloaded.html">core_type::visit::overloaded</a></div><div class="ttdef"><b>Definition:</b> <a href="variant__helper_8h_source.html#l00016">variant_helper.h:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
+<p class="reference">References <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, and <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -331,10 +339,40 @@ Here is the call graph for this function:</div>
 
 <p>Function to shutdown the <a class="el" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html" title="Class to manage all the conversation created from usr request.">ConversationManager</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00029">29</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{}</div>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00041">41</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                            {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// Loop through available conversation and check if already in shutdown state</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordflow">for</span> (std::unordered_map&lt;std::string, ConversationStorage&gt;::value_type <span class="keyword">const</span> &amp;conversation:</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;       <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (conversation.second.conversation != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;      <span class="keywordflow">if</span> (conversation.second.conversation-&gt;GetActivityStatus() !=</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;          <a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">conversation::Conversation::ActivityStatusType::kInactive</a>) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">// Shutdown is not called on the conversation by user, log warning and perform shutdown</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogWarn(</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, <span class="stringliteral">&quot;&quot;</span>, [&amp;conversation](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;              msg &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span> &lt;&lt; conversation.first &lt;&lt; <span class="stringliteral">&quot;&#39;&quot;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;-&gt; &quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot;Shutdown is not triggered by user, will be shutdown forcefully&quot;</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            });</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        conversation.second.conversation-&gt;Shutdown();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">diag::client::conversation::Conversation::ActivityStatusType::kInactive</a></div><div class="ttdeci">@ kInactive</div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00060">diag::client::dcm::DCMClient::Shutdown()</a>.</p>
+<p class="reference">References <a class="el" href="conversation__manager_8h_source.html#l00092">conversation_map_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, and <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ac3bcb5f8ff51e664305f3ac5eea34c64ad7cd20f3a390a0843aa6f98d51918b16">diag::client::conversation::Conversation::kInactive</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00065">diag::client::dcm::DCMClient::Shutdown()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager_a53073a865efdabd0281f0ae0351b70fa_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_a53073a865efdabd0281f0ae0351b70fa_cgraph" alt=""/></div>
+<map name="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_a53073a865efdabd0281f0ae0351b70fa_cgraph" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_a53073a865efdabd0281f0ae0351b70fa_cgraph">
+<area shape="rect" title="Function to shutdown the ConversationManager." alt="" coords="5,5,244,61"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="292,5,495,61"/>
+</map>
+</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -372,8 +410,8 @@ Here is the caller graph for this function:</div>
 
 <p>Function to start the <a class="el" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html" title="Class to manage all the conversation created from usr request.">ConversationManager</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00027">27</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;{}</div>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00039">39</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -409,37 +447,40 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00069">69</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                                                                                         {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  {  <span class="comment">// Create Vehicle discovery config</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    conversation::VDConversationType conversion_identifier{};</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    conversion_identifier.udp_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a5b8558fc1c45f35b102d1a95e825c13d">udp_ip_address</a>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    conversion_identifier.udp_broadcast_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a9ee9983d0aa4f5f020fba6763c6280b5">udp_broadcast_address</a>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    conversion_identifier.port_num = 0U;  <span class="comment">// random selection of port number</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    (void) <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.emplace(<span class="stringliteral">&quot;VehicleDiscovery&quot;</span>, ConversationStorage{conversion_identifier, <span class="keyword">nullptr</span>});</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  {  <span class="comment">// Create Conversation config</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">for</span> (std::uint8_t conv_count{0U}; conv_count &lt; config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#aad3161c877fd182c93b6228424f30cd2">num_of_conversation</a>; conv_count++) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      conversation::DMConversationType conversion_identifier{};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;      conversion_identifier.rx_buffer_size = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].rx_buffer_size;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      conversion_identifier.p2_client_max = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].p2_client_max;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;      conversion_identifier.p2_star_client_max = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].p2_star_client_max;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;      conversion_identifier.source_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].source_address;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      conversion_identifier.tcp_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].network.tcp_ip_address;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;      conversion_identifier.port_num = 0U;  <span class="comment">// random selection of port number</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      <span class="comment">// push to config map</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;      (void) <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.emplace(config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].conversation_name,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                       ConversationStorage{conversion_identifier, <span class="keyword">nullptr</span>});</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_a5b8558fc1c45f35b102d1a95e825c13d"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a5b8558fc1c45f35b102d1a95e825c13d">diag::client::config_parser::DcmClientConfig::udp_ip_address</a></div><div class="ttdeci">std::string udp_ip_address</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00044">config_parser_type.h:44</a></div></div>
-<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_a9ee9983d0aa4f5f020fba6763c6280b5"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a9ee9983d0aa4f5f020fba6763c6280b5">diag::client::config_parser::DcmClientConfig::udp_broadcast_address</a></div><div class="ttdeci">std::string udp_broadcast_address</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00046">config_parser_type.h:46</a></div></div>
-<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_aad3161c877fd182c93b6228424f30cd2"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#aad3161c877fd182c93b6228424f30cd2">diag::client::config_parser::DcmClientConfig::num_of_conversation</a></div><div class="ttdeci">std::uint8_t num_of_conversation</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00048">config_parser_type.h:48</a></div></div>
-<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_ab47aeeaaf1ea5a5e967620bf9759ed29"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">diag::client::config_parser::DcmClientConfig::conversations</a></div><div class="ttdeci">std::vector&lt; ConversationType &gt; conversations</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00050">config_parser_type.h:50</a></div></div>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8cpp_source.html#l00106">106</a> of file <a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                             {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  {  <span class="comment">// Create Vehicle discovery config</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    conversation::VDConversationType conversion_identifier{};</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    conversion_identifier.udp_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a5b8558fc1c45f35b102d1a95e825c13d">udp_ip_address</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    conversion_identifier.udp_broadcast_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a9ee9983d0aa4f5f020fba6763c6280b5">udp_broadcast_address</a>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    conversion_identifier.port_num = <a class="code" href="namespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03.html#a94c1d5d47dbc94fa554d3f70bb52dfc1">kRandomPortNumber</a>;  <span class="comment">// random selection of port number</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.emplace(<a class="code" href="namespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03.html#a26bbd5c104611e8de0559f4d5a9a86d2">kVdConversationName</a>,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                              ConversationStorage{conversion_identifier, <span class="keyword">nullptr</span>});</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  {  <span class="comment">// Create Conversation config</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">for</span> (std::uint8_t conv_count{0U}; conv_count &lt; config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#aad3161c877fd182c93b6228424f30cd2">num_of_conversation</a>; conv_count++) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      conversation::DMConversationType conversion_identifier{};</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      conversion_identifier.rx_buffer_size = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].rx_buffer_size;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;      conversion_identifier.p2_client_max = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].p2_client_max;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      conversion_identifier.p2_star_client_max =</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;          config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].p2_star_client_max;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      conversion_identifier.source_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].source_address;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      conversion_identifier.tcp_address = config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].network.tcp_ip_address;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      conversion_identifier.port_num = <a class="code" href="namespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03.html#a94c1d5d47dbc94fa554d3f70bb52dfc1">kRandomPortNumber</a>;  <span class="comment">// random selection of port number</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#adb15a3cea19800bc5c5c979d7a5906bb">conversation_map_</a>.emplace(config.<a class="code" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">conversations</a>[conv_count].conversation_name,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                                ConversationStorage{conversion_identifier, nullptr});</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
+<div class="ttc" id="anamespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03_html_a26bbd5c104611e8de0559f4d5a9a86d2"><div class="ttname"><a href="namespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03.html#a26bbd5c104611e8de0559f4d5a9a86d2">diag::client::conversation_manager::anonymous_namespace{conversation_manager.cpp}::kVdConversationName</a></div><div class="ttdeci">constexpr std::string_view kVdConversationName</div><div class="ttdoc">The conversation name for Vehicle discovery.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00028">conversation_manager.cpp:28</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03_html_a94c1d5d47dbc94fa554d3f70bb52dfc1"><div class="ttname"><a href="namespacediag_1_1client_1_1conversation__manager_1_1anonymous__namespace_02conversation__manager_8cpp_03.html#a94c1d5d47dbc94fa554d3f70bb52dfc1">diag::client::conversation_manager::anonymous_namespace{conversation_manager.cpp}::kRandomPortNumber</a></div><div class="ttdeci">constexpr std::uint16_t kRandomPortNumber</div><div class="ttdoc">Needed to create random port number from client side.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00023">conversation_manager.cpp:23</a></div></div>
+<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_a5b8558fc1c45f35b102d1a95e825c13d"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a5b8558fc1c45f35b102d1a95e825c13d">diag::client::config_parser::DcmClientConfig::udp_ip_address</a></div><div class="ttdeci">std::string udp_ip_address</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00046">config_parser_type.h:46</a></div></div>
+<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_a9ee9983d0aa4f5f020fba6763c6280b5"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a9ee9983d0aa4f5f020fba6763c6280b5">diag::client::config_parser::DcmClientConfig::udp_broadcast_address</a></div><div class="ttdeci">std::string udp_broadcast_address</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00048">config_parser_type.h:48</a></div></div>
+<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_aad3161c877fd182c93b6228424f30cd2"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#aad3161c877fd182c93b6228424f30cd2">diag::client::config_parser::DcmClientConfig::num_of_conversation</a></div><div class="ttdeci">std::uint8_t num_of_conversation</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00050">config_parser_type.h:50</a></div></div>
+<div class="ttc" id="astructdiag_1_1client_1_1config__parser_1_1DcmClientConfig_html_ab47aeeaaf1ea5a5e967620bf9759ed29"><div class="ttname"><a href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#ab47aeeaaf1ea5a5e967620bf9759ed29">diag::client::config_parser::DcmClientConfig::conversations</a></div><div class="ttdeci">std::vector&lt; ConversationType &gt; conversations</div><div class="ttdef"><b>Definition:</b> <a href="config__parser__type_8h_source.html#l00052">config_parser_type.h:52</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="vd__conversation__type_8h_source.html#l00025">diag::client::conversation::VDConversationType::udp_address</a>.</p>
+<p class="reference">References <a class="el" href="conversation__manager_8cpp_source.html#l00023">diag::client::conversation_manager::anonymous_namespace{conversation_manager.cpp}::kRandomPortNumber</a>, <a class="el" href="conversation__manager_8cpp_source.html#l00028">diag::client::conversation_manager::anonymous_namespace{conversation_manager.cpp}::kVdConversationName</a>, <a class="el" href="dm__conversation__type_8h_source.html#l00025">diag::client::conversation::DMConversationType::rx_buffer_size</a>, and <a class="el" href="vd__conversation__type_8h_source.html#l00025">diag::client::conversation::VDConversationType::udp_address</a>.</p>
 
 </div>
 </div>
@@ -465,8 +506,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Map to store conversation object(dm) along with conversation name. </p>
+<p>Pair of Conversation name and Conversation Object </p>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8h_source.html#l00089">89</a> of file <a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8h_source.html#l00092">92</a> of file <a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="conversation__manager_8cpp_source.html#l00041">Shutdown()</a>.</p>
 
 </div>
 </div>
@@ -492,13 +536,13 @@ Here is the caller graph for this function:</div>
 
 <p>Store the reference to uds transport manager. </p>
 
-<p class="definition">Definition at line <a class="el" href="conversation__manager_8h_source.html#l00084">84</a> of file <a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="conversation__manager_8h_source.html#l00086">86</a> of file <a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/conversation/<a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/conversation/<a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/conversation/<a class="el" href="conversation__manager_8h_source.html">conversation_manager.h</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/conversation/<a class="el" href="conversation__manager_8cpp_source.html">conversation_manager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

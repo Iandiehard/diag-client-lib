@@ -117,8 +117,8 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a853dba625cddf0a23aefe9ec7da74ce4"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdiag_1_1client_1_1DiagClient.html">diag::client::DiagClient</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">CreateDiagnosticClient</a> (std::string_view diag_client_config_path)</td></tr>
-<tr class="memdesc:a853dba625cddf0a23aefe9ec7da74ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the instance of Diagnostic Client Object. This instance to be further used for all the functionalities.  <a href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">More...</a><br /></td></tr>
+<tr class="memitem:a853dba625cddf0a23aefe9ec7da74ce4"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classdiag_1_1client_1_1DiagClient.html">DiagClient</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">CreateDiagnosticClient</a> (std::string_view diag_client_config_path)</td></tr>
+<tr class="memdesc:a853dba625cddf0a23aefe9ec7da74ce4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a diagnostic client to communicate with diagnostic server.  <a href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">More...</a><br /></td></tr>
 <tr class="separator:a853dba625cddf0a23aefe9ec7da74ce4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
@@ -166,19 +166,19 @@ template&lt;typename T , typename E  = core_type::ErrorCode&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Function to get the instance of Diagnostic Client Object. This instance to be further used for all the functionalities. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Creates a diagnostic client to communicate with diagnostic server. </p>
+<p>This creates an instance of Diagnostic Client Object. The created instance is further used for all the functionalities. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">diag_client_config_path</td><td>path to diag client config file </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>std::unique_ptr&lt;diag::client::DiagClient&gt; Unique pointer to diag client object -Library-Support, DiagClientLib-ComParam-Settings </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Unique pointer to diag client object -Library-Support, DiagClientLib-ComParam-Settings </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00180">180</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                                                                                         {</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="keywordflow">return</span> (std::make_unique&lt;DiagClient&gt;(diag_client_config_path));</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client_8cpp_source.html#l00189">189</a> of file <a class="el" href="diagnostic__client_8cpp_source.html">diagnostic_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                                                                                         {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">return</span> (std::make_unique&lt;DiagClient&gt;(diag_client_config_path));</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>

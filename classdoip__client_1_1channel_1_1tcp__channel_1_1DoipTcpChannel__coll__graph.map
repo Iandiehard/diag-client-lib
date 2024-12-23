@@ -1,9 +1,9 @@
 <map id="doip_client::channel::tcp_channel::DoipTcpChannel" name="doip_client::channel::tcp_channel::DoipTcpChannel">
-<area shape="rect" id="node1" title="Class to manage a tcp channel as per DoIP protocol." alt="" coords="861,130,1081,171"/>
-<area shape="rect" id="node7" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html" title="Class used to create a tcp socket for handling transmission and reception of tcp message from driver." alt="" coords="1267,130,1417,171"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html" title="Class to handle tcp received messages from lower layer." alt="" coords="448,85,668,141"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="5,5,248,61"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="11,85,243,141"/>
-<area shape="rect" id="node5" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="462,169,654,196"/>
-<area shape="rect" id="node6" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="31,166,223,207"/>
+<area shape="rect" id="node1" title="Class to manage a tcp channel as per DoIP protocol." alt="" coords="864,93,1084,134"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1SocketHandler.html" title="Handler class to manage different socket of various client (Udp / Tcp)" alt="" coords="448,19,671,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html" title="Class to handle tcp received messages from lower layer." alt="" coords="449,85,669,141"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="5,5,248,61"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html" title="Class used as a handler to process routing activation messages." alt="" coords="11,85,243,141"/>
+<area shape="rect" id="node6" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="463,169,655,196"/>
+<area shape="rect" id="node7" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="31,166,223,207"/>
 </map>

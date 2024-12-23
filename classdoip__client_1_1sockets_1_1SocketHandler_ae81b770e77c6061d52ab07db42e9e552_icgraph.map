@@ -1,0 +1,7 @@
+<map id="doip_client::sockets::SocketHandler::DeInitialize" name="doip_client::sockets::SocketHandler::DeInitialize">
+<area shape="rect" id="node1" title="Function to stop the socket handler." alt="" coords="564,39,771,80"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a08eabfe82f510561e23c35dbe23bc140" title="Function to stop the channel." alt="" coords="254,5,511,47"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ac66d3fc645c763830991c1b315618123" title="Function to stop the channel." alt="" coords="249,71,516,112"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a7118670417286ee60f84ad4b3cc21eff" title="Function to stop the connection." alt="" coords="8,5,199,47"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1connection_1_1DoipUdpConnection.html#a43119b0d3db214490829ff062a1dbbe8" title="Function to stop the connection." alt="" coords="5,71,201,112"/>
+</map>

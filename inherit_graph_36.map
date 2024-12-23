@@ -1,4 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classdiag_1_1client_1_1uds__message_1_1UdsMessage.html" title="Class represents an UDS message exchanged between User of diag&#45;client&#45;lib and implementation of diag&#45;..." alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node2" href="$classdiag_1_1client_1_1uds__message_1_1DmUdsResponse.html" title=" " alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,247,117,274"/>
+<area shape="rect" id="node2" href="$structcore__type_1_1details_1_1is__container__element__type__convertible_3_01F_00_01T_00_01typend8e342f7f5d49ec87813ec7b40520d32.html" title="Checks if std::remove_pointer_t&lt;decltype(std::data(arr))&gt;(*)[] is convertible to T(*)[]." alt="" coords="165,5,416,135"/>
+<area shape="rect" id="node3" href="$structcore__type_1_1details_1_1is__data__size__valid_3_01T_00_01std_1_1void__t_3_01decltype_07st0128843b8fbacf73d512eb825bbf4687.html" title="Type trait to check if std::data(cont) and std::size(cont) are both well&#45;formed." alt="" coords="195,159,387,259"/>
+<area shape="rect" id="node4" href="$structcore__type_1_1details_1_1is__span_3_01Span_3_01T_00_01Extent_01_4_01_4.html" title="Type trait to check if passed element is Span or not." alt="" coords="214,283,367,339"/>
+<area shape="rect" id="node5" href="$structcore__type_1_1details_1_1is__std__array_3_01std_1_1array_3_01T_00_01N_01_4_01_4.html" title="Type trait to check if passed element is std::array or not." alt="" coords="219,363,363,419"/>
 </map>

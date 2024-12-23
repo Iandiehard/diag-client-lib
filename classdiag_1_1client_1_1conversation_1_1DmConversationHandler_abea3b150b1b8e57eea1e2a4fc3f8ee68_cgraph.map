@@ -1,5 +1,0 @@
-<map id="diag::client::conversation::DmConversationHandler::IndicateMessage" name="diag::client::conversation::DmConversationHandler::IndicateMessage">
-<area shape="rect" id="node1" title="Function to indicate a start of reception of message." alt="" coords="5,5,196,61"/>
-<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html#a003ef136362563dcb4357bc24e9c8b54" title="Function to indicate a start of reception of message." alt="" coords="244,13,501,54"/>
-<area shape="rect" id="node3" href="$classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="549,5,752,61"/>
-</map>

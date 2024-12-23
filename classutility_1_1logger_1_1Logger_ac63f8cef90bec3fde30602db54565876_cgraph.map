@@ -1,0 +1,4 @@
+<map id="utility::logger::Logger::LogFatal" name="utility::logger::Logger::LogFatal">
+<area shape="rect" id="node1" title="Log fatal message." alt="" coords="5,5,165,47"/>
+<area shape="rect" id="node2" href="$classutility_1_1logger_1_1Logger.html#a0752454a4a8c1bf3bd45ff16ac3f5633" title="Function to send the messages to dlt infrastructure." alt="" coords="213,5,404,47"/>
+</map>

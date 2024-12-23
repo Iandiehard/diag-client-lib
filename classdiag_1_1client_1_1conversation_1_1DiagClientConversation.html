@@ -89,13 +89,14 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a85067ba739351655ecd77df8b2b5d85b"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85b">ConnectResult</a> : std::uint8_t { <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85bac2cf1053b0382a69ce0bf620c1fb8a86">kConnectSuccess</a> = 0U
-, <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">kConnectFailed</a> = 1U
+, <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e">kConnectFailed</a>
 , <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba8b42cb9bc83a5defe9ad6fac0f71390f">kConnectTimeout</a> = 2U
+, <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85ba40a07980ee9eba5ad6276125b9a12c99">kTlsRequired</a>
  }</td></tr>
 <tr class="memdesc:a85067ba739351655ecd77df8b2b5d85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of Connection results.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a85067ba739351655ecd77df8b2b5d85b">More...</a><br /></td></tr>
 <tr class="separator:a85067ba739351655ecd77df8b2b5d85b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e3c8c7874365f976a695181975f98b1"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1">DisconnectResult</a> : std::uint8_t { <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a102c0c9c58675b61b35d4aaaa89aedb2">kDisconnectSuccess</a> = 0U
-, <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">kDisconnectFailed</a> = 1U
+, <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a3860d714a303ea2ff2fdcc03d5450c97">kDisconnectFailed</a>
 , <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1a185de23a1f216757c0cee1afe18edf61">kAlreadyDisconnected</a> = 2U
  }</td></tr>
 <tr class="memdesc:a3e3c8c7874365f976a695181975f98b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Definitions of Disconnection results.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a3e3c8c7874365f976a695181975f98b1">More...</a><br /></td></tr>
@@ -122,6 +123,16 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a12bc6d2899149115ccbd7dddb6a3cae1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a12bc6d2899149115ccbd7dddb6a3cae1">DiagClientConversation</a> (std::string_view conversation_name) noexcept</td></tr>
 <tr class="memdesc:a12bc6d2899149115ccbd7dddb6a3cae1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor an instance of <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html" title="Conversation class to establish connection with a Diagnostic Server.">DiagClientConversation</a>.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a12bc6d2899149115ccbd7dddb6a3cae1">More...</a><br /></td></tr>
 <tr class="separator:a12bc6d2899149115ccbd7dddb6a3cae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66472246eb74078227691c4575538eca"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a66472246eb74078227691c4575538eca">DiagClientConversation</a> (const <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;other) noexcept=delete</td></tr>
+<tr class="memdesc:a66472246eb74078227691c4575538eca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleted copy assignment and copy constructor.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a66472246eb74078227691c4575538eca">More...</a><br /></td></tr>
+<tr class="separator:a66472246eb74078227691c4575538eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0315a2d50efacb4aa4c3c2d2e152fe2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#aa0315a2d50efacb4aa4c3c2d2e152fe2">operator=</a> (const <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;other) noexcept=delete</td></tr>
+<tr class="separator:aa0315a2d50efacb4aa4c3c2d2e152fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e75b4351d7ed59f0d08db2166b3d823"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a5e75b4351d7ed59f0d08db2166b3d823">DiagClientConversation</a> (<a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="memdesc:a5e75b4351d7ed59f0d08db2166b3d823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment and move constructor.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a5e75b4351d7ed59f0d08db2166b3d823">More...</a><br /></td></tr>
+<tr class="separator:a5e75b4351d7ed59f0d08db2166b3d823"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60731872eadc0179582880ca75e68b5d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a60731872eadc0179582880ca75e68b5d">operator=</a> (<a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&amp;other) noexcept=default</td></tr>
+<tr class="separator:a60731872eadc0179582880ca75e68b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d99767e407156e67c2bb1a36f699561"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a9d99767e407156e67c2bb1a36f699561">~DiagClientConversation</a> () noexcept</td></tr>
 <tr class="memdesc:a9d99767e407156e67c2bb1a36f699561"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor an instance of <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html" title="Conversation class to establish connection with a Diagnostic Server.">DiagClientConversation</a> -Conversation-Destruction.  <a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a9d99767e407156e67c2bb1a36f699561">More...</a><br /></td></tr>
 <tr class="separator:a9d99767e407156e67c2bb1a36f699561"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -194,20 +205,25 @@ Private Attributes</h2></td></tr>
 
 <p>Definitions of Connection results. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85bac2cf1053b0382a69ce0bf620c1fb8a86"></a>kConnectSuccess&#160;</td><td class="fielddoc"><p>Successfully connected to Diagnostic Server </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85bac2cf1053b0382a69ce0bf620c1fb8a86"></a>kConnectSuccess&#160;</td><td class="fielddoc"><p>Successfully connected to the Diagnostic Server </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e"></a>kConnectFailed&#160;</td><td class="fielddoc"><p>Connection failure to Diagnostic Server, check logs for more failure information </p>
+<tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85ba124b691b9797a51c46f9f2a38875c75e"></a>kConnectFailed&#160;</td><td class="fielddoc"><p>Connection failure to the Diagnostic Server, check logs for more failure information </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85ba8b42cb9bc83a5defe9ad6fac0f71390f"></a>kConnectTimeout&#160;</td><td class="fielddoc"><p>No Connection response received from Diagnostic Server </p>
+<tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85ba8b42cb9bc83a5defe9ad6fac0f71390f"></a>kConnectTimeout&#160;</td><td class="fielddoc"><p>No Connection response received from the Diagnostic Server </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a85067ba739351655ecd77df8b2b5d85ba40a07980ee9eba5ad6276125b9a12c99"></a>kTlsRequired&#160;</td><td class="fielddoc"><p>The Diagnostic Server only accepts secured connections, open TLS connection </p>
 </td></tr>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00035">35</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                           : std::uint8_t {</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    kConnectSuccess = 0U, </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    kConnectFailed = 1U,  </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    kConnectTimeout = 2U  </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  };</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    kConnectFailed =</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        1U, </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    kConnectTimeout = 2U, </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    kTlsRequired =</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        3U </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -249,16 +265,16 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00053">53</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                       : std::uint8_t {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    kDiagGenericFailure = 1U,    </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    kDiagRequestSendFailed = 2U, </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    kDiagAckTimeout = 3U,        </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    kDiagNegAckReceived = 4U,    </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    kDiagResponseTimeout = 5U,   </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    kDiagInvalidParameter = 6U,  </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    kDiagBusyProcessing = 7U     </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  };</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00057">57</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                       : std::uint8_t {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    kDiagGenericFailure = 1U,    </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    kDiagRequestSendFailed = 2U, </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    kDiagAckTimeout = 3U, </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    kDiagNegAckReceived = 4U,  </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    kDiagResponseTimeout = 5U, </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    kDiagInvalidParameter = 6U, </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    kDiagBusyProcessing = 7U    </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  };</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -292,18 +308,19 @@ Private Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00044">44</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                              : std::uint8_t {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    kDisconnectSuccess = 0U,  </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    kDisconnectFailed = 1U,   </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    kAlreadyDisconnected = 2U </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  };</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00047">47</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                              : std::uint8_t {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    kDisconnectSuccess = 0U, </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    kDisconnectFailed =</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        1U, </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    kAlreadyDisconnected = 2U </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  };</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a12bc6d2899149115ccbd7dddb6a3cae1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12bc6d2899149115ccbd7dddb6a3cae1">&#9670;&nbsp;</a></span>DiagClientConversation()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a12bc6d2899149115ccbd7dddb6a3cae1">&#9670;&nbsp;</a></span>DiagClientConversation() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -334,10 +351,67 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00088">88</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>{std::make_unique&lt;DiagClientConversationImpl&gt;(conversation_name)} {}</div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html_afc275612ebfb780481671c31799aebbc"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag::client::conversation::DiagClientConversation::diag_client_conversation_impl_</a></div><div class="ttdeci">std::unique_ptr&lt; DiagClientConversationImpl &gt; diag_client_conversation_impl_</div><div class="ttdoc">Unique pointer to diag client conversation implementation.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__conversation_8h_source.html#l00138">diagnostic_client_conversation.h:133</a></div></div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00091">91</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>{</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;          std::make_unique&lt;DiagClientConversationImpl&gt;(conversation_name)} {}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html_afc275612ebfb780481671c31799aebbc"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag::client::conversation::DiagClientConversation::diag_client_conversation_impl_</a></div><div class="ttdeci">std::unique_ptr&lt; DiagClientConversationImpl &gt; diag_client_conversation_impl_</div><div class="ttdoc">Unique pointer to diag client conversation implementation.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__conversation_8h_source.html#l00153">diagnostic_client_conversation.h:148</a></div></div>
 </div><!-- fragment -->
+</div>
+</div>
+<a id="a66472246eb74078227691c4575538eca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66472246eb74078227691c4575538eca">&#9670;&nbsp;</a></span>DiagClientConversation() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">diag::client::conversation::DiagClientConversation::DiagClientConversation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Deleted copy assignment and copy constructor. </p>
+
+</div>
+</div>
+<a id="a5e75b4351d7ed59f0d08db2166b3d823"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e75b4351d7ed59f0d08db2166b3d823">&#9670;&nbsp;</a></span>DiagClientConversation() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">diag::client::conversation::DiagClientConversation::DiagClientConversation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Move assignment and move constructor. </p>
+
 </div>
 </div>
 <a id="a9d99767e407156e67c2bb1a36f699561"></a>
@@ -403,19 +477,19 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Function to connect to Diagnostic Server using Target address and IP address of the server. </p>
-<p>This will try to initiate a TCP connection with Server and then send DoIP Routing Activation request </p><dl class="params"><dt>Parameters</dt><dd>
+<p>This shall initiate a TCP connection with server and then send DoIP Routing Activation request </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">target_address</td><td>Logical address of the Remote server </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">host_ip_addr</td><td>IP address of the Remote server </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>ConnectResult Connection result returned -Conversation-Connect </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ConnectResult The connection result -Conversation-Connect </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00097">97</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;ConnectToDiagServer(target_address, host_ip_addr);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00101">101</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;ConnectToDiagServer(target_address, host_ip_addr);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -445,12 +519,64 @@ Private Attributes</h2></td></tr>
 <p>Function to disconnect from Diagnostic Server. </p>
 <p>This will close the existing TCP connection with Server and reset Routing Activation state </p><dl class="section return"><dt>Returns</dt><dd>DisconnectResult Disconnection result returned -Conversation-Disconnect </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00102">102</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                                                                                                 {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;DisconnectFromDiagServer();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00107">107</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                          {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;DisconnectFromDiagServer();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client__conversation_8h_source.html#l00133">diag_client_conversation_impl_</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client__conversation_8h_source.html#l00148">diag_client_conversation_impl_</a>.</p>
+
+</div>
+</div>
+<a id="aa0315a2d50efacb4aa4c3c2d2e152fe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0315a2d50efacb4aa4c3c2d2e152fe2">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a>&amp; diag::client::conversation::DiagClientConversation::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a60731872eadc0179582880ca75e68b5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60731872eadc0179582880ca75e68b5d">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a>&amp; diag::client::conversation::DiagClientConversation::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">DiagClientConversation</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -485,14 +611,13 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>DiagResult The result returned </dd>
-<dd>
-<a class="el" href="namespacediag_1_1client_1_1uds__message.html#a9f8ba7100898594514bcc7702900f868" title="Type alias of unique_ptr for Response Message.">uds_message::UdsResponseMessagePtr</a> Diagnostic Response message received, DiagError in case of error -Conversation-DiagRequestResponse </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>Must be connected to diagnostic server </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespacediag_1_1client_1_1uds__message.html#a9f8ba7100898594514bcc7702900f868" title="Type alias of unique_ptr for Response Message.">uds_message::UdsResponseMessagePtr</a> Diagnostic Response message received, DiagError in case of error -Conversation-DiagRequestResponse </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00107">107</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                                                                                   {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;SendDiagnosticRequest(std::move(message));</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00112">112</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                                           {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;SendDiagnosticRequest(std::move(message));</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -522,10 +647,10 @@ Private Attributes</h2></td></tr>
 <p>Function to shutdown the Diagnostic Client <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation.">Conversation</a>. </p>
 <p>Must be called during shutdown phase, no further processing of any function will be allowed after this call -Conversation-Shutdown </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00095">95</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{ <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;Shutdown(); }</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00099">99</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{ <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;Shutdown(); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client__conversation_8h_source.html#l00133">diag_client_conversation_impl_</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client__conversation_8h_source.html#l00148">diag_client_conversation_impl_</a>.</p>
 
 </div>
 </div>
@@ -555,12 +680,12 @@ Private Attributes</h2></td></tr>
 <p>Function to startup the Diagnostic Client <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation.">Conversation</a>. </p>
 <p>Must be called once and before using any other functions of <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html" title="Conversation class to establish connection with a Diagnostic Server.">DiagClientConversation</a> -Conversation-StartUp </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00093">93</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{ <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;Startup(); }</div>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00097">97</a> of file <a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{ <a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#afc275612ebfb780481671c31799aebbc">diag_client_conversation_impl_</a>-&gt;Startup(); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00093">Startup()</a>.</p>
+<p class="reference">References <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00097">Startup()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00093">Startup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00097">Startup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -603,15 +728,15 @@ Here is the caller graph for this function:</div>
 
 <p>Unique pointer to diag client conversation implementation. </p>
 
-<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00138">138</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="diagnostic__client__conversation_8h_source.html#l00153">153</a> of file <a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00102">DisconnectFromDiagServer()</a>, and <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00095">Shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00107">DisconnectFromDiagServer()</a>, and <a class="el" href="diagnostic__client__conversation_8cpp_source.html#l00099">Shutdown()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/include/<a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/<a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/include/diag-client/<a class="el" href="diagnostic__client__conversation_8h_source.html">diagnostic_client_conversation.h</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/<a class="el" href="diagnostic__client__conversation_8cpp_source.html">diagnostic_client_conversation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

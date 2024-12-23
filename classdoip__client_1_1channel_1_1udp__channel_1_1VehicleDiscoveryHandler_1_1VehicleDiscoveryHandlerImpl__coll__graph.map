@@ -1,11 +1,5 @@
 <map id="doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl" name="doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl">
-<area shape="rect" id="node1" title="Class implements vehicle discovery handler." alt="" coords="917,21,1191,77"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1UdpSocketHandler.html" title="Class used to create a udp socket for handling transmission and reception of udp message from driver." alt="" coords="530,140,681,181"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="939,208,1169,249"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,214,720,270"/>
-<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,134,247,190"/>
-<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,214,257,270"/>
-<area shape="rect" id="node7" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="509,298,701,325"/>
-<area shape="rect" id="node8" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="35,295,227,336"/>
-<area shape="rect" id="node9" href="$classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="506,5,705,47"/>
+<area shape="rect" id="node1" title="Class implements vehicle discovery handler." alt="" coords="417,31,691,87"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1SocketHandler.html" title="Handler class to manage different socket of various client (Udp / Tcp)" alt="" coords="5,5,228,47"/>
+<area shape="rect" id="node3" href="$classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="17,71,216,112"/>
 </map>

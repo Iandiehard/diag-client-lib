@@ -1,0 +1,6 @@
+<map id="boost_support::client::udp::UdpClient::UdpClientImpl" name="boost_support::client::udp::UdpClient::UdpClientImpl">
+<area shape="rect" id="node1" title="Class to provide implementation of udp client." alt="" coords="649,49,876,90"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html" title=" " alt="" coords="269,5,488,61"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1IoContext.html" title="Wrapper class to hold boost io context required for io object( sockets)" alt="" coords="297,86,461,127"/>
+<area shape="rect" id="node4" href="$classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="5,93,168,120"/>
+</map>

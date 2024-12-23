@@ -64,6 +64,10 @@ $(function() {
 &#160;
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>Acceptor
+: <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpAcceptor_1_1TcpAcceptorImpl.html#ac56cc1b6e2745d0372a8c72aad1c2d78">boost_support::server::tcp::TcpAcceptor::TcpAcceptorImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsAcceptor_1_1TlsAcceptorImpl.html#ab34d2e608680a2f1d9fd17c562c0e8c8">boost_support::server::tls::TlsAcceptor&lt; TlsVersion &gt;::TlsAcceptorImpl</a>
+</li>
 <li>Address
 : <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage</a>
 </li>
@@ -72,8 +76,8 @@ $(function() {
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>BufferType
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aabb34553c72bb98efa565aff178ffaf5">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#a0aa6af3827873cb1deb68a418f759163">boost_support::socket::udp::UdpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#a64094d657d0e34d513f07181efcb8a2f">boost_support::message::tcp::TcpMessage</a>
+, <a class="el" href="classboost__support_1_1message_1_1udp_1_1UdpMessage.html#a004767638456cfbb42ac398be7ded292">boost_support::message::udp::UdpMessage</a>
 </li>
 <li>ByteVector
 : <a class="el" href="classdiag_1_1client_1_1uds__message_1_1UdsMessage.html#a3e48140a0dab0decec73655f71fe25bb">diag::client::uds_message::UdsMessage</a>
@@ -82,6 +86,9 @@ $(function() {
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>Client
+: <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#af59252e0ed93d43538de65d85173dc79">doip_client::sockets::SocketHandler&lt; ClientType &gt;</a>
+</li>
 <li>Clock
 : <a class="el" href="classutility_1_1sync__timer_1_1SyncTimer.html#a98afcbe7d4a9d75af11778836e05b0e9">utility::sync_timer::SyncTimer&lt; ClockType &gt;</a>
 </li>
@@ -106,6 +113,9 @@ $(function() {
 <li>const_reverse_iterator
 : <a class="el" href="classcore__type_1_1Span.html#afd09ac6fdadfc5cdc05c1a64a2739a5a">core_type::Span&lt; T, Extent &gt;</a>
 </li>
+<li>Context
+: <a class="el" href="classboost__support_1_1socket_1_1IoContext.html#a125c67e5223cb3f0817d346c8822f2f3">boost_support::socket::IoContext</a>
+</li>
 <li>ConversationState
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1DmConversation.html#aed91f280b8edc0b429db49335a3caf0f">diag::client::conversation::DmConversation</a>
 </li>
@@ -125,9 +135,6 @@ $(function() {
 <li>DisconnectResult
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ab988d626c9c88386c2dce710467a8a7a">diag::client::conversation::Conversation</a>
 </li>
-<li>DoipUdpChannel
-: <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a2c8127a0d4ac168eabee7eee6e366d3b">doip_client::sockets::UdpSocketHandler</a>
-</li>
 </ul>
 
 
@@ -136,12 +143,28 @@ $(function() {
 : <a class="el" href="classcore__type_1_1Span.html#a56d78268fcecfcad1517ee07b8225c2a">core_type::Span&lt; T, Extent &gt;</a>
 </li>
 <li>Errc
-: <a class="el" href="classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#a7b702be6cc3f31eef97b8c04a7518866">diag::client::error_domain::DmErrorDomain</a>
+: <a class="el" href="classboost__support_1_1error__domain_1_1BoostSupportErrorDomain.html#a4ae8a908d5726cbcd936e20f7630e5ee">boost_support::error_domain::BoostSupportErrorDomain</a>
+, <a class="el" href="classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html#a7b702be6cc3f31eef97b8c04a7518866">diag::client::error_domain::DmErrorDomain</a>
 , <a class="el" href="classdoip__client_1_1error__domain_1_1DoipErrorDomain.html#a00d63d631ad64ddba4a2e14274b3ec81">doip_client::error_domain::DoipErrorDomain</a>
 </li>
 <li>error_type
 : <a class="el" href="classcore__type_1_1Result.html#adc81d6a9cea3beb873332db0aab6cb77">core_type::Result&lt; T, E &gt;</a>
 , <a class="el" href="classcore__type_1_1Result_3_01void_00_01E_01_4.html#a31b6904cf7ae900f8cc681d238d71eca">core_type::Result&lt; void, E &gt;</a>
+</li>
+</ul>
+
+
+<h3><a id="index_h"></a>- h -</h3><ul>
+<li>HandlerRead
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html#af7e5e5233ec96a93a119740b6e14dde8">boost_support::client::tcp::TcpClient</a>
+, <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient.html#a95e2a759d7f58b77eb9577107e229e34">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;</a>
+, <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#ac255f2ea17ab90e4a6e8008180c6464e">boost_support::client::udp::UdpClient</a>
+, <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a828da329c748a566a89d30f8f82945e5">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a8ed0943afd87519f105926f2ad40acc8">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#aea2fa940c6e4cb374a377ff59dcc726e">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer.html#a23e52101d7d67353cf2ac229ffb54ecf">boost_support::server::tcp::TcpServer</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer.html#a03122381eeee23da1df24ac64f802a8c">boost_support::server::tls::TlsServer</a>
+, <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a029ee85b3721214a8c390871c7747f23">doip_client::sockets::SocketHandler&lt; ClientType &gt;</a>
 </li>
 </ul>
 
@@ -156,6 +179,11 @@ $(function() {
 , <a class="el" href="classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#a01b81588207a0e7dcf0980b58ca80485">doip_client::transport_protocol_handler::DoipTransportProtocolHandler</a>
 , <a class="el" href="classuds__transport_1_1Connection.html#a0e71935827263d952d8957634c855e7a">uds_transport::Connection</a>
 </li>
+<li>IoContext
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient_1_1TcpClientImpl.html#abda4536a1bef3ca28244856c748e831e">boost_support::client::tcp::TcpClient::TcpClientImpl</a>
+, <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#aabd5511539788f5cf8b235c2e31df7f6">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl</a>
+, <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#a8997c4b39c703aaa1eafcb2f8e6aac97">boost_support::client::udp::UdpClient::UdpClientImpl</a>
+</li>
 <li>IpAddress
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a0226883a078b2532328f12e622b44961">diag::client::conversation::Conversation</a>
 , <a class="el" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html#a4194164eb0676805203dc34696288695">diag::client::conversation::DiagClientConversation</a>
@@ -163,8 +191,7 @@ $(function() {
 , <a class="el" href="classuds__transport_1_1UdsMessage.html#a0c536b0fac254e0f8d62caff5caa132f">uds_transport::UdsMessage</a>
 </li>
 <li>IpAddressType
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#aa8e1bf6facddd0d798e19e2d498501ed">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#a9b2a2ab716b60654305197f471b419e6">boost_support::socket::udp::UdpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#adf7f67c349f0d770e54ad06356c16172">boost_support::message::tcp::TcpMessage</a>
 , <a class="el" href="classdoip__client_1_1DoipMessage.html#afb8b92edfb6e3b1d44db74f4cb159813">doip_client::DoipMessage</a>
 </li>
 <li>iterator
@@ -184,6 +211,30 @@ $(function() {
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
+<li>Message
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html#adae8b93f5b748b7f0495c080af240405">boost_support::client::tcp::TcpClient</a>
+, <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient.html#affbc343f67a0ee222488e89f76c0e0f1">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;</a>
+, <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#a26e91c690ecfac6e20ad7afb262ea9e9">boost_support::client::udp::UdpClient</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer.html#a3976eb71576c4771085bb4d743ede0b5">boost_support::server::tcp::TcpServer</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer.html#a913d9230c8392e38880c207af781b2b8">boost_support::server::tls::TlsServer</a>
+, <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#aeb9d4d9808718c8f78983c3118df242d">doip_client::sockets::SocketHandler&lt; ClientType &gt;</a>
+</li>
+<li>MessageConstPtr
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html#a9ad5b45087f9a4f44d8eb4a4a56274f7">boost_support::client::tcp::TcpClient</a>
+, <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient.html#a429e22be9629fb67c0ae055bbe4e563b">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;</a>
+, <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#a3da887fb7da16030d1ed81d5f9a35dd4">boost_support::client::udp::UdpClient</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer.html#ae43a0b2e05ac14080cb87f7ed94d1121">boost_support::server::tcp::TcpServer</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer.html#a10feee24852260fb1556eb7bbda18560">boost_support::server::tls::TlsServer</a>
+, <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#ad0076a9ed95f78fbf024809fdb308607">doip_client::sockets::SocketHandler&lt; ClientType &gt;</a>
+</li>
+<li>MessagePtr
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html#ace0a4f80ac55a0eb26d83e8e6074a957">boost_support::client::tcp::TcpClient</a>
+, <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient.html#a4d58632d311c0a6304ddd486f71d4817">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;</a>
+, <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#ac8df214ad618158371bb04806e207e86">boost_support::client::udp::UdpClient</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer.html#ad1008e9d1e76be0e57b0513715a1b638">boost_support::server::tcp::TcpServer</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer.html#a051eb8c55cef51703bff39e4be9b94f5">boost_support::server::tls::TlsServer</a>
+, <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a05ca4f39131e0ec2a1bbad48d73b51fd">doip_client::sockets::SocketHandler&lt; ClientType &gt;</a>
+</li>
 <li>MetaInfoMap
 : <a class="el" href="classuds__transport_1_1UdsMessage.html#a99a91626162be9133f3a4e9e86fd8ab7">uds_transport::UdsMessage</a>
 </li>
@@ -196,9 +247,6 @@ $(function() {
 </li>
 <li>PortNumber
 : <a class="el" href="classuds__transport_1_1UdsMessage.html#aa240b7cbb3c1ea224e77fa3a4136b3f9">uds_transport::UdsMessage</a>
-</li>
-<li>PortType
-: <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a3240b729a64cdb184686ac4428670138">doip_client::sockets::UdpSocketHandler</a>
 </li>
 <li>PreselectionMode
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1VdConversation.html#ae0b5d406af0e6095a2d519d9bc8fa990">diag::client::conversation::VdConversation</a>
@@ -226,6 +274,16 @@ $(function() {
 <li>size_type
 : <a class="el" href="classcore__type_1_1Span.html#a5ebd591de7a7c1cf8ab7405c8b8529b3">core_type::Span&lt; T, Extent &gt;</a>
 </li>
+<li>Socket
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a7117b3a9fe2c10fbb8b8e0e193f1e607">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a98077b85a44748eb101ac10fa4705f13">boost_support::socket::udp::UdpSocket</a>
+</li>
+<li>SslContext
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a3ccd171855f0ab1f0078b7464801324d">boost_support::socket::tls::TlsContext</a>
+</li>
+<li>SslStream
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a2f55b113b482c46aa547913d88c9cd1b">boost_support::socket::tls::TlsSocket</a>
+</li>
 <li>SupportDataType
 : <a class="el" href="classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426">core_type::ErrorDomain</a>
 </li>
@@ -240,42 +298,71 @@ $(function() {
 
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>Tcp
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#abfe647bb3f962d8e64f432c1c4c5d4e2">boost_support::socket::tcp::TcpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#a6a7d82736a5537ceddd88b72e411f8fd">boost_support::socket::tcp::TcpServerConnection</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a791592d403ad136517b94ec340861ad3">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a6f02d5a564917e2eba5ea181b6c36a8f">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsServerSocket.html#a6f5e18596ef279148c0d04bdca06ac06">boost_support::socket::tcp::TlsServerSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a5c7b890f3d610d0134cd994997621712">boost_support::socket::tls::TlsSocket</a>
 </li>
-<li>TcpAccepter
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#a31ed41e623f7473c2ed0e8f937e5b0b8">boost_support::socket::tcp::CreateTcpServerSocket</a>
+<li>TcpAcceptor
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsServerSocket.html#a5c551cdf790443e76d158572f77551af">boost_support::socket::tcp::TlsServerSocket</a>
 </li>
-<li>TcpChannel
-: <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a23e53b144ca795983b4d38aa17de4b77">doip_client::sockets::TcpSocketHandler</a>
+<li>TcpClient
+: <a class="el" href="classdoip__client_1_1connection_1_1DoipTcpConnection.html#abb5b72c21e72eaf6b2f7bbe7164e1b81">doip_client::connection::DoipTcpConnection</a>
+</li>
+<li>TcpConnection
+: <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient_1_1TcpClientImpl.html#a8beb8184ef9dbd1b7bc1ba3004dc0460">boost_support::client::tcp::TcpClient::TcpClientImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer_1_1TcpServerImpl.html#a41501132dafc48e20686b82ceb557975">boost_support::server::tcp::TcpServer::TcpServerImpl</a>
+</li>
+<li>TcpConnectionSecured
+: <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#ac82990008442a94f98aee50f252574af">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer_1_1TlsServerImpl.html#a62b9c5898d3837bbc081c15ebcdfaeaf">boost_support::server::tls::TlsServer::TlsServerImpl</a>
 </li>
 <li>TcpErrorCodeType
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#a016ef4040f298f238f0a221c45aba8af">boost_support::socket::tcp::TcpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#ae885f24d1135335a7844eeb4d572735a">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a8df3ebff1437067dece778680511347a">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a0620a97ada49c3d841ddbaacf28a21bc">boost_support::socket::tls::TlsSocket</a>
 </li>
 <li>TcpHandlerRead
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#acee754dc2f43575065120f7776d230d3">boost_support::socket::tcp::CreateTcpServerSocket</a>
-, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#a16e548cf4666726bb183a12244c1d133">boost_support::socket::tcp::TcpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#a85f226e3e349304bc75256c1e51d9ce7">boost_support::socket::tcp::TcpServerConnection</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a6c3875ee1194e40c1de7483ca0cdde35">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsServerSocket.html#ade94314448168ad639bcf684669d4a37">boost_support::socket::tcp::TlsServerSocket</a>
 </li>
 <li>TcpIpAddress
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#afc2cce5db094f87c401249613ed26057">boost_support::socket::tcp::TcpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a954b68d44f130dfbb23a0fa1015aec18">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a226e003f7f6b7185cd9ab101d7283973">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a73c26af1a05663b91674b07e45cb3694">boost_support::socket::tls::TlsSocket</a>
 </li>
 <li>TcpMessage
-: <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#aac94a57d5e616312305a4c6d5ac4c3f4">doip_client::channel::tcp_channel::DiagnosticMessageHandler</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#ac7fa5eb8dd7d614b9cf077df7de922a9">doip_client::channel::tcp_channel::RoutingActivationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#af7ae707e09a2af885ed2c1dc86a49141">doip_client::sockets::TcpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a035c0897e9240ab266735a40fbb5cb85">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#aa544bf860dbf737a13c38fa43aae5413">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a5a3e2f58338d146b9cebc407463d30ee">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a76e5603afec97dc9906dc2a37cae3ba1">boost_support::socket::tls::TlsSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#ac4e1045cb6fc524f13f7b0c6c5c1f2ca">doip_client::channel::tcp_channel::DiagnosticMessageHandler</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aa881932cf314d7366c37809994778e6e">doip_client::channel::tcp_channel::RoutingActivationHandler</a>
 </li>
 <li>TcpMessageConstPtr
-: <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a3fb387109e624f3d5a954277bbabd50a">doip_client::sockets::TcpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a373b992b17099635e9cc821ce3cbf43d">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#ae413ecdbc2effb141758e258bb23f560">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a705bed21907483d077216a1515012390">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a670a3684efee391fcb23323f387bb403">boost_support::socket::tls::TlsSocket</a>
 </li>
 <li>TcpMessagePtr
-: <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a4b551dfb6ee21329cb3ce00061d02cd9">doip_client::channel::tcp_channel::DiagnosticMessageHandler</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#ab92a194b0032ef51d1264238b6def72a">doip_client::channel::tcp_channel::DoipTcpChannel</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#aa522bdce737b11ce51f938a17e521e47">doip_client::channel::tcp_channel::DoipTcpChannelHandler</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a0a97b35e41a234b1d6b776515eb9dd9d">doip_client::channel::tcp_channel::RoutingActivationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a30fdbc599655d50f046f50fbc54cee04">doip_client::sockets::TcpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a07c85b47e68fe1818f945d85ee532b34">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#ae4725f26298c3e194f30198c7b9c134b">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpSocket.html#a37b5418c499650766828b1782c6ab341">boost_support::socket::tcp::TcpSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a387423c206baf78c9d6621dc2c437fe9">boost_support::socket::tls::TlsSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#ad1453067aad4264a937223ba333be1fe">doip_client::channel::tcp_channel::DiagnosticMessageHandler</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a9db726b4457293f98b8132dc3e45e396">doip_client::channel::tcp_channel::DoipTcpChannel</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a4c6c7bd53436fc900b874fe87d372744">doip_client::channel::tcp_channel::DoipTcpChannelHandler</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#a005f9b71b3b39e9ed7d578ba02b66ae3">doip_client::channel::tcp_channel::RoutingActivationHandler</a>
 </li>
 <li>TcpSocket
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpClientSocket.html#a5718a09fdc44b2f5880c58d686ffeb6d">boost_support::socket::tcp::TcpClientSocket</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#aa290c3fc1341bd6240676d4c2267dab8">doip_client::sockets::TcpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpAcceptor_1_1TcpAcceptorImpl.html#a6f539bbab00f1afff982ef5cb6b43698">boost_support::server::tcp::TcpAcceptor::TcpAcceptorImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpServer.html#a215edb4f846fd03fe69c5f77782a3f04">boost_support::server::tcp::TcpServer</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#aa66bbd6e840b68c62045894c733b1e5d">boost_support::socket::tcp::TcpServerConnection</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a42c14699a82943e291d7e778d852d0d5">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#ac5cd28b16bd91a983ce8bbb429660a76">boost_support::socket::tls::TlsSocket</a>
 </li>
 <li>TcpSocketHandler
 : <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#a7ad7bcc50326107a4b94ecfc89cb1809">doip_client::channel::tcp_channel::DoipTcpChannel</a>
@@ -283,38 +370,66 @@ $(function() {
 <li>TimePoint
 : <a class="el" href="classutility_1_1sync__timer_1_1SyncTimer.html#a88679f4c8209a3c2e8f033f3fe675b88">utility::sync_timer::SyncTimer&lt; ClockType &gt;</a>
 </li>
+<li>Tls12VersionClient
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a5fe7f5975fad92548fba138d361df4a5">boost_support::socket::tls::TlsContext</a>
+</li>
+<li>Tls12VersionServer
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a085533419ffaff1ac214543779dacc69">boost_support::socket::tls::TlsContext</a>
+</li>
+<li>Tls13VersionClient
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a013f500e3c628ee5dea06a4b1a81d1a1">boost_support::socket::tls::TlsContext</a>
+</li>
+<li>Tls13VersionServer
+: <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a226cb331fe0ea37bb5240d4e7fb2ce8c">boost_support::socket::tls::TlsContext</a>
+</li>
+<li>TlsContext
+: <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#af4598ed41ec3930c4f317ccc70e9657c">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsAcceptor_1_1TlsAcceptorImpl.html#a59309e5092d83585cac9fcdbd82d7417">boost_support::server::tls::TlsAcceptor&lt; TlsVersion &gt;::TlsAcceptorImpl</a>
+</li>
+<li>TlsSocket
+: <a class="el" href="classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#a81e2775bd11965d9ca2c9ea74c463c65">boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsAcceptor_1_1TlsAcceptorImpl.html#a453e85d98678ac927a46d3b6b247b663">boost_support::server::tls::TlsAcceptor&lt; TlsVersion &gt;::TlsAcceptorImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer_1_1TlsServerImpl.html#aa789e650d56c775690fc778f31a83560">boost_support::server::tls::TlsServer::TlsServerImpl</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsServer.html#a9e0ae19d641cd013ad69d5e4130bd4a7">boost_support::server::tls::TlsServer</a>
+</li>
+<li>TlsStream
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#a67dbef1fd21c323970f2fa8e53239aba">boost_support::socket::tcp::TcpServerConnection</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a2c38a05bc1a2b74f5f31e6084e028601">boost_support::socket::tcp::TlsClientSocket</a>
+</li>
 </ul>
 
 
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>Udp
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a80feb305988b47fbdb915d6fcfff350e">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a868064e37bca1a2d9af7df7a80e1a972">boost_support::socket::udp::UdpSocket</a>
+</li>
+<li>UdpClient
+: <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a84149332a20c743c2a7caf3bee754bde">doip_client::connection::DoipUdpConnection</a>
+</li>
+<li>UdpConnection
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#a5ffa1da7b2dcda8f3776b3330f7d9c95">boost_support::client::udp::UdpClient::UdpClientImpl</a>
 </li>
 <li>UdpErrorCodeType
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a7ea5e7f0be54accb734a520aeb4a07a1">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9fe5f6cf0f597295844b0ba2dc6d529f">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpHandlerRead
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a436b5582d7beb6322851a004cde5a44d">boost_support::socket::udp::UdpClientSocket</a>
-</li>
-<li>UdpIpAddress
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a5d3967fbac8e36c5ab87e3ffcbf427a0">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9561399269b25b8bfd60ed8a72e291a4">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpMessage
-: <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#ababdf4f62886e288881c52f50612332f">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#aba21a9e250c90bff9daa7e9199ca5e28">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a6e76df205905886f117ef6d7d89c1361">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a098371a28406b33650e13dd85491cbe9">boost_support::socket::udp::UdpSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#af2beee12667b613f92908378b678c653">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
 </li>
 <li>UdpMessageConstPtr
-: <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a4265024693016119c1feb6329854ab45">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a4829f27f6c2cb2cb6cfd843e631caab1">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a2b5c69035100d9dcfdf72c7d2d355d82">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpMessagePtr
-: <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">doip_client::channel::udp_channel::DoipUdpChannel</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a10a9e3db26abec30750f0bfeb231452d">doip_client::channel::udp_channel::DoipUdpChannelHandler</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#ad3f9ceace98690f545a2a5a9a9301c4f">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a090373bc660559af0d0f8723bfce51e9">doip_client::sockets::UdpSocketHandler</a>
-</li>
-<li>UdpSocket
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#adae8cd73adbce8ba62ff81108f93722e">boost_support::socket::udp::UdpClientSocket</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a6b61afce82d2bac4b7b8e637b68c953e">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#ac1b6ffa8dbb623fadaa44594bfb81bc7">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#ae85ca9edac629ccc462cbdb5da36cc28">boost_support::socket::udp::UdpSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">doip_client::channel::udp_channel::DoipUdpChannel</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a3c9e722117211811f215a76b45989d85">doip_client::channel::udp_channel::DoipUdpChannelHandler</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#a98ccb16cecb88e4893785b4212f7af5e">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
 </li>
 <li>UdpSocketHandler
 : <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">doip_client::channel::udp_channel::DoipUdpChannel</a>

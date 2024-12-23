@@ -1,13 +1,13 @@
-<map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src/dcm/conversation/conversation.h" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src/dcm/conversation/conversation.h">
-<area shape="rect" id="node1" title=" " alt="" coords="334,5,599,76"/>
-<area shape="rect" id="node2" href="$conversation__manager_8h.html" title=" " alt="" coords="249,243,503,328"/>
-<area shape="rect" id="node7" href="$diagnostic__client__conversation_8cpp.html" title=" " alt="" coords="5,509,283,580"/>
-<area shape="rect" id="node8" href="$dm__conversation_8h.html" title=" " alt="" coords="861,124,1155,195"/>
-<area shape="rect" id="node10" href="$vd__conversation_8h.html" title=" " alt="" coords="413,124,701,195"/>
-<area shape="rect" id="node3" href="$conversation__manager_8cpp.html" title=" " alt="" coords="793,376,1047,461"/>
-<area shape="rect" id="node4" href="$dcm__client_8h.html" title=" " alt="" coords="299,383,477,454"/>
-<area shape="rect" id="node5" href="$dcm__client_8cpp.html" title=" " alt="" coords="517,509,696,580"/>
-<area shape="rect" id="node6" href="$diagnostic__client_8cpp.html" title=" " alt="" coords="307,509,493,580"/>
-<area shape="rect" id="node9" href="$dm__conversation_8cpp.html" title=" " alt="" coords="854,250,1162,321"/>
-<area shape="rect" id="node11" href="$vd__conversation_8cpp.html" title=" " alt="" coords="527,250,830,321"/>
+<map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src/diag&#45;client/dcm/conversation/conversation.h" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src/diag&#45;client/dcm/conversation/conversation.h">
+<area shape="rect" id="node1" title=" " alt="" coords="258,5,497,91"/>
+<area shape="rect" id="node2" href="$conversation__manager_8h.html" title=" " alt="" coords="179,272,418,357"/>
+<area shape="rect" id="node7" href="$diagnostic__client__conversation_8cpp.html" title=" " alt="" coords="5,539,195,624"/>
+<area shape="rect" id="node8" href="$dm__conversation_8h.html" title=" " alt="" coords="705,139,943,224"/>
+<area shape="rect" id="node10" href="$vd__conversation_8h.html" title=" " alt="" coords="337,139,575,224"/>
+<area shape="rect" id="node3" href="$conversation__manager_8cpp.html" title=" " alt="" coords="658,405,897,491"/>
+<area shape="rect" id="node4" href="$dcm__client_8h.html" title=" " alt="" coords="187,413,424,483"/>
+<area shape="rect" id="node5" href="$dcm__client_8cpp.html" title=" " alt="" coords="433,546,685,617"/>
+<area shape="rect" id="node6" href="$diagnostic__client_8cpp.html" title=" " alt="" coords="219,539,408,624"/>
+<area shape="rect" id="node9" href="$dm__conversation_8cpp.html" title=" " alt="" coords="705,272,943,357"/>
+<area shape="rect" id="node11" href="$vd__conversation_8cpp.html" title=" " alt="" coords="442,272,681,357"/>
 </map>

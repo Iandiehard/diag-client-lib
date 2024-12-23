@@ -1,4 +1,0 @@
-<map id="doip_client::channel::tcp_channel::DoipTcpChannel::IndicateMessage" name="doip_client::channel::tcp_channel::DoipTcpChannel::IndicateMessage">
-<area shape="rect" id="node1" title="Function to indicate a start of reception of message." alt="" coords="5,5,225,61"/>
-<area shape="rect" id="node2" href="$classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7" title="Function to indicate a start of reception of message." alt="" coords="273,13,465,54"/>
-</map>

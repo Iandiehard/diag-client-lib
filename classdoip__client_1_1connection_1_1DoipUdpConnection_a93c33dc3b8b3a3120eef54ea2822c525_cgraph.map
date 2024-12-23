@@ -1,5 +1,10 @@
 <map id="doip_client::connection::DoipUdpConnection::Start" name="doip_client::connection::DoipUdpConnection::Start">
-<area shape="rect" id="node1" title="Function to start the connection." alt="" coords="5,13,204,54"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,5,481,61"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1UdpSocketHandler.html#af7af0f9f9c5e8a94e3e37be3885e92a8" title="Function to start the socket handler." alt="" coords="529,13,719,54"/>
+<area shape="rect" id="node1" title="Function to start the connection." alt="" coords="5,119,204,160"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,111,481,167"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79" title="Function to start the socket handler." alt="" coords="554,5,742,47"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d" title="Function to process the received Udp broadcast message from socket layer." alt="" coords="533,71,763,127"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c" title="Function to process the received Udp unicast message from socket layer." alt="" coords="533,151,763,207"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4" title="Function to set the read handler that is invoked when message is received." alt="" coords="529,232,767,273"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8" title="Function to process the received broadcast udp message." alt="" coords="815,71,1065,127"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a6f8f4b104ff9b37c8ca54a78bab14e5d" title="Function to process the received unicast udp message." alt="" coords="823,151,1057,207"/>
 </map>

@@ -1,14 +1,10 @@
 <map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/appl/src">
-<area shape="rect" id="node1" href="dir_e7c0437401b580227f527230afee2552.html" title="include" alt="" coords="27,255,99,303"/>
-<area shape="rect" id="node5" href="dir_41385f50689e0c067ff92ca27d4b8a56.html" title="lib" alt="" coords="100,351,172,399"/>
-<area shape="rect" id="edge1-headlabel" href="dir_000008_000002.html" title="2" alt="" coords="109,324,118,338"/>
-<area shape="rect" id="node3" href="dir_810caf69b1139ceffe58d40787b99e2e.html" title="common" alt="" coords="70,159,149,207"/>
-<area shape="rect" id="edge6-headlabel" href="dir_000010_000008.html" title="3" alt="" coords="85,235,94,249"/>
-<area shape="rect" id="edge5-headlabel" href="dir_000010_000002.html" title="2" alt="" coords="134,324,143,339"/>
-<area shape="rect" id="node4" href="dir_2b33627df342c10e5339b77f40e742f4.html" title="dcm" alt="" coords="37,63,109,111"/>
-<area shape="rect" id="edge4-headlabel" href="dir_000014_000008.html" title="11" alt="" coords="58,228,76,243"/>
-<area shape="rect" id="edge3-headlabel" href="dir_000014_000010.html" title="5" alt="" coords="97,131,107,146"/>
-<area shape="rect" id="edge2-headlabel" href="dir_000014_000002.html" title="22" alt="" coords="152,329,170,344"/>
-<area shape="rect" id="clust2" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html" alt="" coords="27,52,216,217"/>
-<area shape="rect" id="clust1" href="dir_22dc0b0a371919ab8884beef7eb3b581.html" title="appl" alt="" coords="16,16,227,313"/>
+<area shape="rect" id="node1" href="dir_e7c0437401b580227f527230afee2552.html" title="include" alt="" coords="36,159,108,207"/>
+<area shape="rect" id="node4" href="dir_41385f50689e0c067ff92ca27d4b8a56.html" title="lib" alt="" coords="72,255,144,303"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000008_000002.html" title="2" alt="" coords="96,227,105,242"/>
+<area shape="rect" id="node3" href="dir_66b1ef7d82bfe43262b67ae2b8661a62.html" title="diag&#45;client" alt="" coords="37,63,128,111"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000011_000008.html" title="16" alt="" coords="76,134,94,149"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000011_000002.html" title="27" alt="" coords="122,232,140,247"/>
+<area shape="rect" id="clust2" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html" alt="" coords="27,52,235,121"/>
+<area shape="rect" id="clust1" href="dir_22dc0b0a371919ab8884beef7eb3b581.html" title="appl" alt="" coords="16,16,245,217"/>
 </map>

@@ -1,0 +1,4 @@
+<map id="boost_support::socket::tcp::TlsClientSocket::Destroy" name="boost_support::socket::tcp::TlsClientSocket::Destroy">
+<area shape="rect" id="node1" title="Function to destroy the socket." alt="" coords="5,5,169,61"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a1b4cab65b9b25500848fcbbb742a69c9" title="Function to get the native tcp socket under tls socket." alt="" coords="217,5,381,61"/>
+</map>

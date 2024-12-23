@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['overloaded_956',['overloaded',['../structcore__type_1_1visit_1_1overloaded.html',1,'core_type::visit']]]
+  ['libboostlogger_1131',['LibBoostLogger',['../classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html',1,'boost_support::common::logger']]],
+  ['logger_1132',['Logger',['../classutility_1_1logger_1_1Logger.html',1,'utility::logger']]]
 ];

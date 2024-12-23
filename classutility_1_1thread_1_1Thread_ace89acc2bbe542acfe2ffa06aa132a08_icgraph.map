@@ -1,0 +1,6 @@
+<map id="utility::thread::Thread::Join" name="utility::thread::Thread::Join">
+<area shape="rect" id="node1" title="Function to join the running thread." alt="" coords="263,71,425,112"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a34cba10a67b7d502cb4e8f84cfa9c5b5" title="Function to de&#45;initialize the already initialized instance of DiagClient." alt="" coords="5,5,215,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1IoContext.html#a59e23c1bb2cde6141e6b91c7c66d3e00" title="Destruct an instance of IoContext." alt="" coords="23,71,197,112"/>
+<area shape="rect" id="node4" href="$classutility_1_1thread_1_1Thread.html#a54b2335cf4fc08d1315335cb47758caa" title="Destructor." alt="" coords="29,136,191,177"/>
+</map>

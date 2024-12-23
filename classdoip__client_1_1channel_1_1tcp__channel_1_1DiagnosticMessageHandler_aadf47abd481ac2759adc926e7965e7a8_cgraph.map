@@ -1,4 +1,4 @@
 <map id="doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest" name="doip_client::channel::tcp_channel::DiagnosticMessageHandler::SendDiagnosticRequest">
 <area shape="rect" id="node1" title="Function to send diagnostic request." alt="" coords="5,20,248,76"/>
-<area shape="rect" id="node2" href="$namespacedoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identification__handler_8cpp_03.html#adf23eda2a90f7f6ab0550338a0ae1594" title="Create the doip generic header." alt="" coords="296,5,527,91"/>
+<area shape="rect" id="node2" href="$namespacedoip__client_1_1channel_1_1tcp__channel_1_1anonymous__namespace_02doip__diagnostic__message__handler_8cpp_03.html#a80d127e3a18a343d8498a87f86c52861" title="Function to create doip generic header." alt="" coords="296,5,560,91"/>
 </map>

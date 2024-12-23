@@ -1,0 +1,5 @@
+<map id="boost_support::socket::tls::TlsSocket::GetNativeTcpSocket" name="boost_support::socket::tls::TlsSocket::GetNativeTcpSocket">
+<area shape="rect" id="node1" title="Function to get the native tcp socket under tls socket." alt="" coords="217,31,408,87"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a54c502b62183750ea050d135f85df733" title="Function to destroy the socket." alt="" coords="5,5,169,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a1228eb326574404ed66e17477c8afb61" title="Function to read message from socket." alt="" coords="5,71,169,112"/>
+</map>

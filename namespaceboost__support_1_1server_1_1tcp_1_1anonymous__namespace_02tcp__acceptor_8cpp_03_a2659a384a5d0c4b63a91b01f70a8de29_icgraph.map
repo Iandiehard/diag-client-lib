@@ -1,0 +1,4 @@
+<map id="boost_support::server::tcp::anonymous_namespace{tcp_acceptor::cpp}::CreateServerName" name="boost_support::server::tcp::anonymous_namespace{tcp_acceptor::cpp}::CreateServerName">
+<area shape="rect" id="node1" title="Function to create server name." alt="" coords="276,5,560,61"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1server_1_1tcp_1_1TcpAcceptor_1_1TcpAcceptorImpl.html#a8769bd1f2f675eaac1538fa2c6205f3b" title="Get a tcp server ready to communicate." alt="" coords="5,5,228,61"/>
+</map>

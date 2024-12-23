@@ -89,9 +89,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7e533fae6e596304315e8624faec856b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; void, <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">Read</a> (std::string_view config_path, <a class="el" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> &amp;json_tree)</td></tr>
-<tr class="memdesc:a7e533fae6e596304315e8624faec856b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parser to get the configuration from json file.  <a href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">More...</a><br /></td></tr>
-<tr class="separator:a7e533fae6e596304315e8624faec856b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555e6fff2f5fdd05fd120244b904d6d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; <a class="el" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a>, <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">Read</a> (std::string_view config_path)</td></tr>
+<tr class="memdesc:a555e6fff2f5fdd05fd120244b904d6d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parser to get the configuration from json file.  <a href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">More...</a><br /></td></tr>
+<tr class="separator:a555e6fff2f5fdd05fd120244b904d6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a id="af348e830747440589cd07863d5b8e3ae"></a>
@@ -145,28 +145,18 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7e533fae6e596304315e8624faec856b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e533fae6e596304315e8624faec856b">&#9670;&nbsp;</a></span>Read()</h2>
+<a id="a555e6fff2f5fdd05fd120244b904d6d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a555e6fff2f5fdd05fd120244b904d6d2">&#9670;&nbsp;</a></span>Read()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; void, <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> &gt; boost_support::parser::Read </td>
+          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; <a class="el" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a>, <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> &gt; boost_support::parser::Read </td>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>config_path</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>config_path</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> &amp;&#160;</td>
-          <td class="paramname"><em>json_tree</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -182,41 +172,43 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>The result of type void on success or error code </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="json__parser_8cpp_source.html#l00016">16</a> of file <a class="el" href="json__parser_8cpp_source.html">json_parser.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                                                                {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;void, ParsingErrorCode&gt;</a> parse_result{};</div>
+<div class="fragment"><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                                               {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;boost_tree, ParsingErrorCode&gt;</a> parse_result{ParsingErrorCode::kError};</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="comment">// Get the tree with configuration details</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keywordflow">try</span> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    boost::property_tree::read_json(std::string{config_path}, json_tree);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    parse_result.<a class="code" href="classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71">EmplaceValue</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  } <span class="keywordflow">catch</span> (boost::property_tree::json_parser_error &amp;error) {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    parse_result.EmplaceError(ParsingErrorCode::kError);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        __FILE__, __LINE__, __func__,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        [&amp;error](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Reading of config failed with error: &quot;</span> &lt;&lt; error.message(); });</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordflow">return</span> parse_result;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> json_tree{};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    boost::property_tree::read_json(std::string{config_path}, json_tree);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    parse_result.EmplaceValue(json_tree);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  } <span class="keywordflow">catch</span> (boost::property_tree::json_parser_error &amp;error) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    parse_result.EmplaceError(ParsingErrorCode::kError);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogError(</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__, [&amp;error](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Reading of config failed with error: &quot;</span> &lt;&lt; error.message();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        });</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">return</span> parse_result;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
 <div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00029">result.h:29</a></div></div>
-<div class="ttc" id="aclasscore__type_1_1Result_html_af2e3cfbd02cd97a0874c4d159fb82d71"><div class="ttname"><a href="classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71">core_type::Result::EmplaceValue</a></div><div class="ttdeci">void EmplaceValue(Args &amp;&amp;...args) noexcept</div><div class="ttdoc">Put a new value into this instance, constructed in-place from the given arguments.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00187">result.h:187</a></div></div>
+<div class="ttc" id="afile__path_8h_html_ab117546549783a058d0321a287699579"><div class="ttname"><a href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a></div><div class="ttdeci">#define FILE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="file__path_8h_source.html#l00014">file_path.h:14</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_af348e830747440589cd07863d5b8e3ae"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a></div><div class="ttdeci">boost::property_tree::ptree boost_tree</div><div class="ttdoc">Type alias for boost property tree.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00023">json_parser.h:23</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00187">core_type::Result&lt; T, E &gt;::EmplaceValue()</a>, <a class="el" href="lib_2boost-support_2common_2logger_8h_source.html#l00020">boost_support::common::logger::LibBoostLogger::GetLibBoostLogger()</a>, and <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">kError</a>.</p>
+<p class="reference">References <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="lib_2boost-support_2src_2boost-support_2common_2logger_8h_source.html#l00020">boost_support::common::logger::LibBoostLogger::GetLibBoostLogger()</a>, and <a class="el" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">kError</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00066">diag::client::DiagClient::DiagClientImpl::Initialize()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_cgraph.png" border="0" usemap="#anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_cgraph" alt=""/></div>
-<map name="anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_cgraph" id="anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_cgraph">
-<area shape="rect" title="Parser to get the configuration from json file." alt="" coords="5,43,168,84"/>
-<area shape="rect" href="classcore__type_1_1Result.html#af2e3cfbd02cd97a0874c4d159fb82d71" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="234,5,377,47"/>
-<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="216,71,395,127"/>
+<div class="center"><img src="namespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_cgraph.png" border="0" usemap="#anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_cgraph" alt=""/></div>
+<map name="anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_cgraph" id="anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_cgraph">
+<area shape="rect" title="Parser to get the configuration from json file." alt="" coords="5,13,168,54"/>
+<area shape="rect" href="classboost__support_1_1common_1_1logger_1_1LibBoostLogger.html#a1bd0463c401680be926b1f2209090a03" title=" " alt="" coords="216,5,395,61"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="namespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_icgraph.png" border="0" usemap="#anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_icgraph" alt=""/></div>
-<map name="anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_icgraph" id="anamespaceboost__support_1_1parser_a7e533fae6e596304315e8624faec856b_icgraph">
+<div class="center"><img src="namespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_icgraph.png" border="0" usemap="#anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_icgraph" alt=""/></div>
+<map name="anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_icgraph" id="anamespaceboost__support_1_1parser_a555e6fff2f5fdd05fd120244b904d6d2_icgraph">
 <area shape="rect" title="Parser to get the configuration from json file." alt="" coords="244,5,407,47"/>
 <area shape="rect" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,5,196,47"/>
 </map>

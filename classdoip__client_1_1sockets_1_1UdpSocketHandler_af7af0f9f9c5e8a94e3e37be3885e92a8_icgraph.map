@@ -1,5 +1,0 @@
-<map id="doip_client::sockets::UdpSocketHandler::Start" name="doip_client::sockets::UdpSocketHandler::Start">
-<area shape="rect" id="node1" title="Function to start the socket handler." alt="" coords="529,13,719,54"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,5,481,61"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipUdpConnection.html#a93c33dc3b8b3a3120eef54ea2822c525" title="Function to start the connection." alt="" coords="5,13,204,54"/>
-</map>

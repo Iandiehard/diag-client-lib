@@ -1,6 +1,0 @@
-<map id="doip_client::sockets::TcpSocketHandler::Stop" name="doip_client::sockets::TcpSocketHandler::Stop">
-<area shape="rect" id="node1" title="Function to stop the socket handler." alt="" coords="5,50,188,91"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a517a7c1eaef2f61aeffed3c1948f89a6" title="Function to disconnect from remote host if already connected." alt="" coords="236,43,461,99"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="523,5,681,61"/>
-<area shape="rect" id="node4" href="$namespacedoip__client_1_1error__domain.html#a146fe3acf37e3f7d653c8f6cb9db272d" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="509,86,695,127"/>
-</map>

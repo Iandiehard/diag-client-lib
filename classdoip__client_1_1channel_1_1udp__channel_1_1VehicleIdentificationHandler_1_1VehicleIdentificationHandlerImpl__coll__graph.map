@@ -1,12 +1,12 @@
 <map id="doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl" name="doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl">
-<area shape="rect" id="node1" title="Class implements vehicle identification handler." alt="" coords="1296,74,1589,130"/>
-<area shape="rect" id="node2" href="$classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="923,5,1141,47"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1sockets_1_1UdpSocketHandler.html" title="Class used to create a udp socket for handling transmission and reception of udp message from driver." alt="" coords="530,144,681,185"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="917,173,1147,215"/>
-<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,218,720,274"/>
-<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,138,247,194"/>
-<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,218,257,274"/>
-<area shape="rect" id="node8" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="509,302,701,329"/>
-<area shape="rect" id="node9" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="35,299,227,340"/>
-<area shape="rect" id="node10" href="$classutility_1_1sync__timer_1_1SyncTimer.html" title=" " alt="" coords="939,239,1125,295"/>
+<area shape="rect" id="node1" title="Class implements vehicle identification handler." alt="" coords="1296,111,1589,167"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1SocketHandler.html" title="Handler class to manage different socket of various client (Udp / Tcp)" alt="" coords="494,5,717,47"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="917,85,1147,127"/>
+<area shape="rect" id="node3" href="$classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="923,151,1141,192"/>
+<area shape="rect" id="node4" href="$classutility_1_1sync__timer_1_1SyncTimer.html" title=" " alt="" coords="939,217,1125,273"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,91,720,147"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,11,247,67"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,91,257,147"/>
+<area shape="rect" id="node9" href="$classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="509,175,701,202"/>
+<area shape="rect" id="node10" href="$classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="35,172,227,213"/>
 </map>

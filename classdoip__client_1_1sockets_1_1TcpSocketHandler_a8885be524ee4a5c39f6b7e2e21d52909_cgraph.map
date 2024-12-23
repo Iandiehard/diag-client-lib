@@ -1,5 +1,0 @@
-<map id="doip_client::sockets::TcpSocketHandler::Start" name="doip_client::sockets::TcpSocketHandler::Start">
-<area shape="rect" id="node1" title="Function to start the socket handler." alt="" coords="5,13,189,54"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34" title="Function to process the received Tcp message from socket layer." alt="" coords="237,5,457,61"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b" title="Function to process the received message." alt="" coords="505,5,725,61"/>
-</map>

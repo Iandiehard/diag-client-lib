@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['size_5ftype_1727',['size_type',['../classcore__type_1_1Span.html#a5ebd591de7a7c1cf8ab7405c8b8529b3',1,'core_type::Span']]],
-  ['supportdatatype_1728',['SupportDataType',['../classcore__type_1_1ErrorDomain.html#ab600e8230dea42636d9c168872f41426',1,'core_type::ErrorDomain']]],
-  ['synctimer_1729',['SyncTimer',['../classdiag_1_1client_1_1conversation_1_1DmConversation.html#a04530f4a4711f85cb31a5800d7ec7a10',1,'diag::client::conversation::DmConversation::SyncTimer()'],['../classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#a1ac5d8caaa4d6d0059df06dd5ac05079',1,'doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl::SyncTimer()'],['../classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#a6e4fe330a050b2f799e3b17aa0106bf0',1,'doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl::SyncTimer()'],['../classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html#aae6422f839242bf42226e791e7879206',1,'doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl::SyncTimer()']]]
+  ['reference_2065',['reference',['../classcore__type_1_1Span.html#a3f24d853b257d539125535b3b7c3b269',1,'core_type::Span']]],
+  ['remove_5fcv_5fref_5ft_2066',['remove_cv_ref_t',['../namespacecore__type_1_1details.html#aaa1663ee41d4c559dbc3330790c03eae',1,'core_type::details']]],
+  ['result_2067',['Result',['../namespacediag_1_1client.html#ab95b0ec764f960ab3086b02813932c7f',1,'diag::client']]],
+  ['reverse_5fiterator_2068',['reverse_iterator',['../classcore__type_1_1Span.html#af625114156a0b31aa0f039e447171348',1,'core_type::Span']]],
+  ['routingactivationstatecontext_2069',['RoutingActivationStateContext',['../classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler_1_1RoutingActivationHandlerImpl.html#a1ed0211c6a15e36d2fb8b3c36618e2b8',1,'doip_client::channel::tcp_channel::RoutingActivationHandler::RoutingActivationHandlerImpl']]]
 ];

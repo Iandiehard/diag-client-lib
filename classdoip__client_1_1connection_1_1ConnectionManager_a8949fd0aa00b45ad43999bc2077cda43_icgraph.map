@@ -1,0 +1,4 @@
+<map id="doip_client::connection::ConnectionManager::CreateTcpConnection" name="doip_client::connection::ConnectionManager::CreateTcpConnection">
+<area shape="rect" id="node1" title="Function to find or create a new Tcp connection." alt="" coords="324,5,556,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#a7ec76a06e356aeeca466b67573ff5e55" title="Function to create a new Tcp connection." alt="" coords="5,5,276,61"/>
+</map>

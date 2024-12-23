@@ -1,0 +1,4 @@
+<map id="boost_support::connection::udp::UdpConnection::Transmit" name="boost_support::connection::udp::UdpConnection::Transmit">
+<area shape="rect" id="node1" title="Function to trigger transmission." alt="" coords="252,13,477,54"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#af4845ee01211faa44981f43237b8c29b" title="Function to transmit the provided udp message." alt="" coords="5,5,204,61"/>
+</map>

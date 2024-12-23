@@ -1,0 +1,7 @@
+<map id="boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl" name="boost_support::client::tls::TlsClient&lt; TlsVersion &gt;::TlsClientImpl">
+<area shape="rect" id="node1" title="Class to provide implementation of tls client." alt="" coords="665,78,859,134"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tls_1_1TlsContext.html" title="Tls context class responsible for setting cipher suite and loading certificates." alt="" coords="307,5,471,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection.html" title=" " alt="" coords="269,71,508,141"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1socket_1_1IoContext.html" title="Wrapper class to hold boost io context required for io object( sockets)" alt="" coords="307,165,471,207"/>
+<area shape="rect" id="node5" href="$classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="5,173,168,199"/>
+</map>

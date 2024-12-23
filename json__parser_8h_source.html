@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/parser/json_parser.h Source File</title>
+<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/include/boost-support/parser/json_parser.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_7ddef548bfb1828f74a8be405cab634a.html">parser</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_2f40fc3ba57e62a0da4048229f15a7d8.html">include</a></li><li class="navelem"><a class="el" href="dir_164d6fe832411f2bf1d6605830083854.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_61c12f596020b6c1d94495cd69e120c5.html">parser</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -86,13 +86,13 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="result_8h.html">core/include/result.h</a>&quot;</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceboost__support.html">boost_support</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>parser {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="namespaceboost__support_1_1parser.html">   18</a></span>&#160;<span class="keyword">namespace </span>parser {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> = boost::property_tree::ptree;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">   28</a></span>&#160;<span class="keyword">enum class</span> <a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">ParsingErrorCode</a> : std::uint8_t { <a class="code" href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">kError</a> = 0U };</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;void, ParsingErrorCode&gt;</a> <a class="code" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">Read</a>(std::string_view config_path, <a class="code" href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_tree</a> &amp;json_tree);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<a class="code" href="classcore__type_1_1Result.html">core_type::Result&lt;boost_tree, ParsingErrorCode&gt;</a> <a class="code" href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">Read</a>(std::string_view config_path);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}  <span class="comment">// namespace parser</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}  <span class="comment">// namespace boost_support</span></div>
@@ -101,9 +101,9 @@ $(function() {
 <div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00029">result.h:29</a></div></div>
 <div class="ttc" id="anamespaceboost__support_1_1parser_html_a0a0d7b238a0e28c154468d7c6bdac016"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016">boost_support::parser::ParsingErrorCode</a></div><div class="ttdeci">ParsingErrorCode</div><div class="ttdoc">Definitions of Parsing failure error codes.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00028">json_parser.h:28</a></div></div>
 <div class="ttc" id="anamespaceboost__support_1_1parser_html_a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a0a0d7b238a0e28c154468d7c6bdac016ae3587c730cc1aa530fa4ddc9c4204e97">boost_support::parser::ParsingErrorCode::kError</a></div><div class="ttdeci">@ kError</div></div>
-<div class="ttc" id="anamespaceboost__support_1_1parser_html_a7e533fae6e596304315e8624faec856b"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b">boost_support::parser::Read</a></div><div class="ttdeci">core_type::Result&lt; void, ParsingErrorCode &gt; Read(std::string_view config_path, boost_tree &amp;json_tree)</div><div class="ttdoc">Parser to get the configuration from json file.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8cpp_source.html#l00016">json_parser.cpp:16</a></div></div>
+<div class="ttc" id="anamespaceboost__support_1_1parser_html_a555e6fff2f5fdd05fd120244b904d6d2"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#a555e6fff2f5fdd05fd120244b904d6d2">boost_support::parser::Read</a></div><div class="ttdeci">core_type::Result&lt; boost_tree, ParsingErrorCode &gt; Read(std::string_view config_path)</div><div class="ttdoc">Parser to get the configuration from json file.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8cpp_source.html#l00016">json_parser.cpp:16</a></div></div>
 <div class="ttc" id="anamespaceboost__support_1_1parser_html_af348e830747440589cd07863d5b8e3ae"><div class="ttname"><a href="namespaceboost__support_1_1parser.html#af348e830747440589cd07863d5b8e3ae">boost_support::parser::boost_tree</a></div><div class="ttdeci">boost::property_tree::ptree boost_tree</div><div class="ttdoc">Type alias for boost property tree.</div><div class="ttdef"><b>Definition:</b> <a href="json__parser_8h_source.html#l00023">json_parser.h:23</a></div></div>
-<div class="ttc" id="anamespaceboost__support_html"><div class="ttname"><a href="namespaceboost__support.html">boost_support</a></div><div class="ttdef"><b>Definition:</b> <a href="lib_2boost-support_2common_2logger_8h_source.html#l00013">logger.h:13</a></div></div>
+<div class="ttc" id="anamespaceboost__support_html"><div class="ttname"><a href="namespaceboost__support.html">boost_support</a></div><div class="ttdef"><b>Definition:</b> <a href="tcp__client_8h_source.html#l00017">tcp_client.h:17</a></div></div>
 <div class="ttc" id="aresult_8h_html"><div class="ttname"><a href="result_8h.html">result.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

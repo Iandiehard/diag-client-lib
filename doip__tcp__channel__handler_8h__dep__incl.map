@@ -1,10 +1,9 @@
 <map id="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/doip&#45;client/channel/tcp_channel/doip_tcp_channel_handler.h" name="/home/runner/work/diag&#45;client&#45;lib/diag&#45;client&#45;lib/diag&#45;client&#45;lib/lib/doip&#45;client/channel/tcp_channel/doip_tcp_channel_handler.h">
-<area shape="rect" id="node1" title=" " alt="" coords="886,5,1083,105"/>
-<area shape="rect" id="node2" href="$doip__tcp__channel_8h.html" title=" " alt="" coords="809,153,1019,239"/>
-<area shape="rect" id="node6" href="$doip__tcp__channel__handler_8cpp.html" title=" " alt="" coords="1263,287,1461,387"/>
+<area shape="rect" id="node1" title=" " alt="" coords="757,5,954,105"/>
+<area shape="rect" id="node2" href="$doip__tcp__channel_8h.html" title=" " alt="" coords="680,153,889,239"/>
+<area shape="rect" id="node6" href="$doip__tcp__channel__handler_8cpp.html" title=" " alt="" coords="1061,287,1258,387"/>
 <area shape="rect" id="node3" href="$doip__diagnostic__message__handler_8cpp.html" title=" " alt="" coords="5,287,257,387"/>
 <area shape="rect" id="node4" href="$doip__routing__activation__handler_8cpp.html" title=" " alt="" coords="282,287,519,387"/>
 <area shape="rect" id="node5" href="$doip__tcp__channel_8cpp.html" title=" " alt="" coords="543,294,767,379"/>
 <area shape="rect" id="node7" href="$connection__manager_8cpp.html" title=" " alt="" coords="791,294,1037,379"/>
-<area shape="rect" id="node8" href="$tcp__socket__handler_8cpp.html" title=" " alt="" coords="1061,294,1239,379"/>
 </map>

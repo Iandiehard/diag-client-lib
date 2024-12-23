@@ -82,15 +82,9 @@ Collaboration diagram for doip_client::channel::udp_channel::VehicleDiscoveryHan
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl__coll__graph.png" border="0" usemap="#adoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_coll__map" alt="Collaboration graph"/></div>
 <map name="adoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_coll__map" id="adoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_coll__map">
-<area shape="rect" title="Class implements vehicle discovery handler." alt="" coords="917,21,1191,77"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html" title="Class used to create a udp socket for handling transmission and reception of udp message from driver." alt="" coords="530,140,681,181"/>
-<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="939,208,1169,249"/>
-<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,214,720,270"/>
-<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,134,247,190"/>
-<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,214,257,270"/>
-<area shape="rect" href="classuds__transport_1_1Connection.html" title="Interface class to handle connection between two layers." alt="" coords="509,298,701,325"/>
-<area shape="rect" href="classuds__transport_1_1ConversionHandler.html" title="Class to manage reception from transport protocol handler to connection handler." alt="" coords="35,295,227,336"/>
-<area shape="rect" href="classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="506,5,705,47"/>
+<area shape="rect" title="Class implements vehicle discovery handler." alt="" coords="417,31,691,87"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1SocketHandler.html" title="Handler class to manage different socket of various client (Udp / Tcp)" alt="" coords="5,5,228,47"/>
+<area shape="rect" href="classutility_1_1state_1_1StateContext.html" title=" " alt="" coords="17,71,216,112"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -102,19 +96,19 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1fdd3ad687b979e1b48935dd1f04794e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a1fdd3ad687b979e1b48935dd1f04794e">VehicleDiscoveryHandlerImpl</a> (<a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;udp_socket_handler)</td></tr>
+<tr class="memitem:a1fdd3ad687b979e1b48935dd1f04794e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a1fdd3ad687b979e1b48935dd1f04794e">VehicleDiscoveryHandlerImpl</a> (<a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;udp_socket_handler)</td></tr>
 <tr class="memdesc:a1fdd3ad687b979e1b48935dd1f04794e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html" title="Class implements vehicle discovery handler.">VehicleDiscoveryHandlerImpl</a>.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a1fdd3ad687b979e1b48935dd1f04794e">More...</a><br /></td></tr>
 <tr class="separator:a1fdd3ad687b979e1b48935dd1f04794e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59a44c64bebae9a1a65f08be8c53953b"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a59a44c64bebae9a1a65f08be8c53953b">GetStateContext</a> () noexcept -&gt; <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aaa87fe5014de4c54d8df2f483b4a63ff">VehicleDiscoveryStateContext</a> &amp;</td></tr>
 <tr class="memdesc:a59a44c64bebae9a1a65f08be8c53953b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the Vehicle Discovery State context.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a59a44c64bebae9a1a65f08be8c53953b">More...</a><br /></td></tr>
 <tr class="separator:a59a44c64bebae9a1a65f08be8c53953b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a224f76bd3d3e5e18acb222d9e9dfb4f5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a224f76bd3d3e5e18acb222d9e9dfb4f5">GetSocketHandler</a> () noexcept -&gt; <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;</td></tr>
+<tr class="memitem:a224f76bd3d3e5e18acb222d9e9dfb4f5"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a224f76bd3d3e5e18acb222d9e9dfb4f5">GetSocketHandler</a> () noexcept -&gt; <a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;</td></tr>
 <tr class="memdesc:a224f76bd3d3e5e18acb222d9e9dfb4f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the socket handler.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a224f76bd3d3e5e18acb222d9e9dfb4f5">More...</a><br /></td></tr>
 <tr class="separator:a224f76bd3d3e5e18acb222d9e9dfb4f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ac51d57f3a3b1705888e1079287195d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a></td></tr>
+<tr class="memitem:ac51d57f3a3b1705888e1079287195d86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a></td></tr>
 <tr class="memdesc:ac51d57f3a3b1705888e1079287195d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">The reference to socket handler.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">More...</a><br /></td></tr>
 <tr class="separator:ac51d57f3a3b1705888e1079287195d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa068ea50c932dc84dfa34d46fe61efed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aaa87fe5014de4c54d8df2f483b4a63ff">VehicleDiscoveryStateContext</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a></td></tr>
@@ -124,7 +118,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class implements vehicle discovery handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00097">97</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00102">102</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="aaa87fe5014de4c54d8df2f483b4a63ff"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaa87fe5014de4c54d8df2f483b4a63ff">&#9670;&nbsp;</a></span>VehicleDiscoveryStateContext</h2>
@@ -140,7 +134,7 @@ Private Attributes</h2></td></tr>
 
 <p>Type alias for state context. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00102">102</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00107">107</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
 
 </div>
 </div>
@@ -157,7 +151,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::VehicleDiscoveryHandlerImpl </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;&#160;</td>
           <td class="paramname"><em>udp_socket_handler</em></td><td>)</td>
           <td></td>
         </tr>
@@ -177,28 +171,30 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00109">109</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a>{udp_socket_handler},</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>{} {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// create and add state for vehicle discovery</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// kIdle</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(VehicleDiscoveryState::kIdle, std::make_unique&lt;kIdle&gt;(VehicleDiscoveryState::kIdle));</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// kWaitForVehicleAnnouncement</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        VehicleDiscoveryState::kWaitForVehicleAnnouncement,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        std::make_unique&lt;kWaitForVehicleAnnouncement&gt;(VehicleDiscoveryState::kWaitForVehicleAnnouncement));</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// kDoIPCtrlTimeout</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(VehicleDiscoveryState::kDoIPCtrlTimeout,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                            std::make_unique&lt;kDoIPCtrlTimeout&gt;(VehicleDiscoveryState::kDoIPCtrlTimeout));</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="comment">// Transit to wait for vehicle announcement</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#adf851a3d2da4dc6cc7746326823b6666">TransitionTo</a>(VehicleDiscoveryState::kWaitForVehicleAnnouncement);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  }</div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_html_aa068ea50c932dc84dfa34d46fe61efed"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::state_context_</a></div><div class="ttdeci">VehicleDiscoveryStateContext state_context_</div><div class="ttdoc">Stores the vehicle discovery states.</div><div class="ttdef"><b>Definition:</b> <a href="doip__vehicle__discovery__handler_8cpp_source.html#l00147">doip_vehicle_discovery_handler.cpp:147</a></div></div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_html_ac51d57f3a3b1705888e1079287195d86"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::udp_socket_handler_</a></div><div class="ttdeci">sockets::UdpSocketHandler &amp; udp_socket_handler_</div><div class="ttdoc">The reference to socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__vehicle__discovery__handler_8cpp_source.html#l00142">doip_vehicle_discovery_handler.cpp:142</a></div></div>
-<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_adf851a3d2da4dc6cc7746326823b6666"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#adf851a3d2da4dc6cc7746326823b6666">utility::state::StateContext::TransitionTo</a></div><div class="ttdeci">void TransitionTo(EnumState state)</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00069">state.h:69</a></div></div>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00114">114</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a>{udp_socket_handler},</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>{} {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// create and add state for vehicle discovery</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// kIdle</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(VehicleDiscoveryState::kIdle,</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                            std::make_unique&lt;kIdle&gt;(VehicleDiscoveryState::kIdle));</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="comment">// kWaitForVehicleAnnouncement</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(VehicleDiscoveryState::kWaitForVehicleAnnouncement,</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                            std::make_unique&lt;kWaitForVehicleAnnouncement&gt;(</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                                VehicleDiscoveryState::kWaitForVehicleAnnouncement));</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">// kDoIPCtrlTimeout</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">AddState</a>(</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        VehicleDiscoveryState::kDoIPCtrlTimeout,</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        std::make_unique&lt;kDoIPCtrlTimeout&gt;(VehicleDiscoveryState::kDoIPCtrlTimeout));</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">// Transit to wait for vehicle announcement</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>.<a class="code" href="classutility_1_1state_1_1StateContext.html#adf851a3d2da4dc6cc7746326823b6666">TransitionTo</a>(VehicleDiscoveryState::kWaitForVehicleAnnouncement);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  }</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_html_aa068ea50c932dc84dfa34d46fe61efed"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::state_context_</a></div><div class="ttdeci">VehicleDiscoveryStateContext state_context_</div><div class="ttdoc">Stores the vehicle discovery states.</div><div class="ttdef"><b>Definition:</b> <a href="doip__vehicle__discovery__handler_8cpp_source.html#l00154">doip_vehicle_discovery_handler.cpp:154</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl_html_ac51d57f3a3b1705888e1079287195d86"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::udp_socket_handler_</a></div><div class="ttdeci">sockets::UdpSocketHandler &amp; udp_socket_handler_</div><div class="ttdoc">The reference to socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__vehicle__discovery__handler_8cpp_source.html#l00149">doip_vehicle_discovery_handler.cpp:149</a></div></div>
+<div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_adf851a3d2da4dc6cc7746326823b6666"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#adf851a3d2da4dc6cc7746326823b6666">utility::state::StateContext::TransitionTo</a></div><div class="ttdeci">void TransitionTo(EnumState state)</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00070">state.h:70</a></div></div>
 <div class="ttc" id="aclassutility_1_1state_1_1StateContext_html_ae5dcd9caa6a93cd47d59bd39a27d78ae"><div class="ttname"><a href="classutility_1_1state_1_1StateContext.html#ae5dcd9caa6a93cd47d59bd39a27d78ae">utility::state::StateContext::AddState</a></div><div class="ttdeci">void AddState(EnumState state, std::unique_ptr&lt; State&lt; EnumState &gt;&gt; state_ptr)</div><div class="ttdef"><b>Definition:</b> <a href="state_8h_source.html#l00058">state.h:58</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="state_8h_source.html#l00058">utility::state::StateContext&lt; EnumState &gt;::AddState()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00147">state_context_</a>, and <a class="el" href="state_8h_source.html#l00069">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
+<p class="reference">References <a class="el" href="state_8h_source.html#l00058">utility::state::StateContext&lt; EnumState &gt;::AddState()</a>, <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00154">state_context_</a>, and <a class="el" href="state_8h_source.html#l00070">utility::state::StateContext&lt; EnumState &gt;::TransitionTo()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -229,7 +225,7 @@ Here is the call graph for this function:</div>
           <td class="memname">auto doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::GetSocketHandler </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> -&gt; <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp; </td>
+          <td> -&gt; <a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp; </td>
         </tr>
       </table>
   </td>
@@ -242,10 +238,10 @@ Here is the call graph for this function:</div>
 <p>Function to get the socket handler. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reference to socket handler </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00136">136</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00143">143</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">udp_socket_handler_</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00142">udp_socket_handler_</a>.</p>
+<p class="reference">References <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00149">udp_socket_handler_</a>.</p>
 
 </div>
 </div>
@@ -275,10 +271,10 @@ Here is the call graph for this function:</div>
 <p>Function to get the Vehicle Discovery State context. </p>
 <dl class="section return"><dt>Returns</dt><dd>The reference to state context </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00130">130</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00137">137</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#aa068ea50c932dc84dfa34d46fe61efed">state_context_</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00147">state_context_</a>.</p>
+<p class="reference">References <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00154">state_context_</a>.</p>
 
 </div>
 </div>
@@ -305,9 +301,9 @@ Here is the call graph for this function:</div>
 
 <p>Stores the vehicle discovery states. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00147">147</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00154">154</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00130">GetStateContext()</a>, and <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00109">VehicleDiscoveryHandlerImpl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00137">GetStateContext()</a>, and <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00114">VehicleDiscoveryHandlerImpl()</a>.</p>
 
 </div>
 </div>
@@ -321,7 +317,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a>&amp; doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::udp_socket_handler_</td>
+          <td class="memname"><a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a>&amp; doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl::udp_socket_handler_</td>
         </tr>
       </table>
   </td>
@@ -333,9 +329,9 @@ Here is the call graph for this function:</div>
 
 <p>The reference to socket handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00142">142</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00149">149</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00136">GetSocketHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00143">GetSocketHandler()</a>.</p>
 
 </div>
 </div>

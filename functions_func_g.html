@@ -67,14 +67,22 @@ $(function() {
 <li>GetActiveState()
 : <a class="el" href="classutility_1_1state_1_1StateContext.html#a19c173f0b0078ae36600fc583dc3df78">utility::state::StateContext&lt; EnumState &gt;</a>
 </li>
+<li>GetActivityStatus()
+: <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#a5e9a6e449263a5f92cccc9478f19be6b">diag::client::conversation::Conversation</a>
+</li>
 <li>GetClientAddress()
 : <a class="el" href="classdoip__client_1_1DoipMessage.html#a94b395904319087935efea45c1ee3806">doip_client::DoipMessage</a>
 </li>
 <li>GetConnectionId()
-: <a class="el" href="classuds__transport_1_1Connection.html#ae7eccca9f2421c94b1c380fe719d6364">uds_transport::Connection</a>
+: <a class="el" href="classuds__transport_1_1Connection.html#a24aa6c7346b803531e5eca6d28bc78ad">uds_transport::Connection</a>
+</li>
+<li>GetConnectionName()
+: <a class="el" href="classuds__transport_1_1Connection.html#afa8cb1cf2bc45b06da64926df3c58987">uds_transport::Connection</a>
 </li>
 <li>GetContext()
-: <a class="el" href="classutility_1_1state_1_1StateContext.html#a48688009ed8bc40f0ada4324741badbb">utility::state::StateContext&lt; EnumState &gt;</a>
+: <a class="el" href="classboost__support_1_1socket_1_1IoContext.html#a6be33d753bca0a43c6e9db78303df51f">boost_support::socket::IoContext</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsContext.html#a9d23b59756c3f2e983e59d2bee6d8a7c">boost_support::socket::tls::TlsContext</a>
+, <a class="el" href="classutility_1_1state_1_1StateContext.html#a48688009ed8bc40f0ada4324741badbb">utility::state::StateContext&lt; EnumState &gt;</a>
 </li>
 <li>GetConversationHandler()
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#ae65d090d919493a0889aa93fa5cac5e7">diag::client::conversation::Conversation</a>
@@ -106,8 +114,8 @@ $(function() {
 : <a class="el" href="classuds__transport_1_1UdsTransportProtocolHandler.html#a353beda8b9a254769424e78c5f6fbf76">uds_transport::UdsTransportProtocolHandler</a>
 </li>
 <li>GetHostIpAddress()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a3422f78c49a0338c9bbf3f225495f48c">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#a3d4fd7d1b7a382fb36c15e6c4c4edf1b">boost_support::socket::udp::UdpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#a089c5c1b103db356cc36c0f3753d9432">boost_support::message::tcp::TcpMessage</a>
+, <a class="el" href="classboost__support_1_1message_1_1udp_1_1UdpMessage.html#a1347ad654d419e1b534909abe3265e12">boost_support::message::udp::UdpMessage</a>
 , <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a6045a37b86d9d5d34186b385b508018c">diag::client::uds_message::DmUdsMessage</a>
 , <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsResponse.html#aec1c0dc7079286dbc43a62ab8ed933f6">diag::client::uds_message::DmUdsResponse</a>
 , <a class="el" href="classdiag_1_1client_1_1uds__message_1_1UdsMessage.html#ab864121d48fa657b19665a1529305dad">diag::client::uds_message::UdsMessage</a>
@@ -116,8 +124,8 @@ $(function() {
 , <a class="el" href="classuds__transport_1_1UdsMessage.html#a01e417469b880726733252770250ff41">uds_transport::UdsMessage</a>
 </li>
 <li>GetHostPortNumber()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ab2c5e85e19d18463abc02dc78fcd1793">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#a33899ba9ba65dc25e536a372c7fe5a79">boost_support::socket::udp::UdpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#a61c0dc033da8345e16a484669c044313">boost_support::message::tcp::TcpMessage</a>
+, <a class="el" href="classboost__support_1_1message_1_1udp_1_1UdpMessage.html#ad773c4c0bba584f548c467cde81067d1">boost_support::message::udp::UdpMessage</a>
 , <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#ab8dc10611585f54dbfba042dd67ed9a2">diag::client::uds_message::DmUdsMessage</a>
 , <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#acd2f4fe1f1def5ba8090f3247797e4dd">diag::client::vd_message::VdMessage</a>
 , <a class="el" href="classdoip__client_1_1DoipMessage.html#abfc0499167743a13d372b63f5777fa1f">doip_client::DoipMessage</a>
@@ -134,12 +142,19 @@ $(function() {
 , <a class="el" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#ace9b8933166d99389a39fb51c48e762f">diag::client::logger::DiagClientLogger</a>
 , <a class="el" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#a34941aa539f331cd9e9344d42937cb6b">doip_client::logger::DoipClientLogger</a>
 </li>
+<li>GetNativeTcpSocket()
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#aa6a83a19729d3d53ab86f51eae7167b9">boost_support::socket::tcp::TcpServerConnection</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsClientSocket.html#a1b4cab65b9b25500848fcbbb742a69c9">boost_support::socket::tcp::TlsClientSocket</a>
+, <a class="el" href="classboost__support_1_1socket_1_1tls_1_1TlsSocket.html#a4685cd0c0d38bc6df21de0125eaaf00f">boost_support::socket::tls::TlsSocket</a>
+</li>
 <li>GetPayload()
-: <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a4ca51b8eaed33c3a64553e477175b8f1">diag::client::uds_message::DmUdsMessage</a>
-, <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsResponse.html#a318af19eba2c1c7ff7caecbd2c8a5786">diag::client::uds_message::DmUdsResponse</a>
-, <a class="el" href="classdiag_1_1client_1_1uds__message_1_1UdsMessage.html#a99bc82f0995dad320171523ca478d6fe">diag::client::uds_message::UdsMessage</a>
-, <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a881183c0aa4593c37a4f3becc3b03158">diag::client::vd_message::VdMessage</a>
-, <a class="el" href="classdoip__client_1_1DoipMessage.html#a6dd3d4b679b7cbcdc4e747964d5e8132">doip_client::DoipMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#aa406a01d9ad7d53ab4c5219266887f29">boost_support::message::tcp::TcpMessage</a>
+, <a class="el" href="classboost__support_1_1message_1_1udp_1_1UdpMessage.html#ab5f870668ce1db9dd323839d5dabbae4">boost_support::message::udp::UdpMessage</a>
+, <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a4ca51b8eaed33c3a64553e477175b8f1">diag::client::uds_message::DmUdsMessage</a>
+, <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsResponse.html#a2c9ed1792adb54af5022a1506ed589d2">diag::client::uds_message::DmUdsResponse</a>
+, <a class="el" href="classdiag_1_1client_1_1uds__message_1_1UdsMessage.html#ab3727d5a9306639d0a9e5eee6c2bd902">diag::client::uds_message::UdsMessage</a>
+, <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#abbe7f9ac49858ddb6243236428ff8f28">diag::client::vd_message::VdMessage</a>
+, <a class="el" href="classdoip__client_1_1DoipMessage.html#a51746a61b549037789ba8fefbf31cebe">doip_client::DoipMessage</a>
 , <a class="el" href="classuds__transport_1_1UdsMessage.html#a68732d11033175f33100bfedadcf9b45">uds_transport::UdsMessage</a>
 </li>
 <li>GetPayloadLength()
@@ -151,10 +166,6 @@ $(function() {
 <li>GetProtocolVersion()
 : <a class="el" href="classdoip__client_1_1DoipMessage.html#aee3647f5001a09d46d749875420aafb0">doip_client::DoipMessage</a>
 </li>
-<li>GetRxBuffer()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a3acdde6ffe2cf81fc0a8866cb8d4557f">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#a69b713e5f86060f53a43b06af91ef916">boost_support::socket::udp::UdpMessage</a>
-</li>
 <li>GetSa()
 : <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#a0710760b921546820026e312a29310db">diag::client::uds_message::DmUdsMessage</a>
 , <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a630076e3dda34b5d194e5c82feceab35">diag::client::vd_message::VdMessage</a>
@@ -163,11 +174,8 @@ $(function() {
 <li>GetServerAddress()
 : <a class="el" href="classdoip__client_1_1DoipMessage.html#a26bf129362ffbc243e933905ddf83712">doip_client::DoipMessage</a>
 </li>
-<li>GetSocket()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket_1_1TcpServerConnection.html#a0afccd26e0b64181a96dfdd791650e9c">boost_support::socket::tcp::CreateTcpServerSocket::TcpServerConnection</a>
-</li>
 <li>GetSocketError()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#a52047b1a9d6357567e8b5f5562d786c3">boost_support::socket::tcp::TcpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#a7d1c9e6c5bad6490ba92990d88bfd723">boost_support::message::tcp::TcpMessage</a>
 </li>
 <li>GetSocketHandler()
 : <a class="el" href="classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler_1_1DiagnosticMessageHandlerImpl.html#aed28dd4d960167805d73636c477afbf5">doip_client::channel::tcp_channel::DiagnosticMessageHandler::DiagnosticMessageHandlerImpl</a>
@@ -175,11 +183,8 @@ $(function() {
 , <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#a224f76bd3d3e5e18acb222d9e9dfb4f5">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl</a>
 , <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler_1_1VehicleIdentificationHandlerImpl.html#ab42885d52370c1ae6ec12ba50cec3672">doip_client::channel::udp_channel::VehicleIdentificationHandler::VehicleIdentificationHandlerImpl</a>
 </li>
-<li>GetSocketHandlerState()
-: <a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a80adf1a3a9f90c44a445dba5e5c17ade">doip_client::sockets::TcpSocketHandler</a>
-</li>
 <li>GetSocketState()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ae83c410cfd619db3e3a878e119024863">boost_support::socket::tcp::TcpMessage</a>
+: <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#abaca9db5ce366257a1f40825c00801e4">boost_support::message::tcp::TcpMessage</a>
 </li>
 <li>GetState()
 : <a class="el" href="classutility_1_1state_1_1State.html#a09f6fefb67ab797c1db667062d7569b8">utility::state::State&lt; EnumState &gt;</a>
@@ -205,15 +210,19 @@ $(function() {
 , <a class="el" href="classdiag_1_1client_1_1vd__message_1_1VdMessage.html#a31443b353bbc823f24619f06182bfc10">diag::client::vd_message::VdMessage</a>
 , <a class="el" href="classuds__transport_1_1UdsMessage.html#af187ea3720ea2ed097864dd983c39913">uds_transport::UdsMessage</a>
 </li>
+<li>GetTcpServer()
+: <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpAcceptor.html#aa55caa39892e0a19125ea9d98d288a65">boost_support::server::tcp::TcpAcceptor</a>
+, <a class="el" href="classboost__support_1_1server_1_1tcp_1_1TcpAcceptor_1_1TcpAcceptorImpl.html#a8769bd1f2f675eaac1538fa2c6205f3b">boost_support::server::tcp::TcpAcceptor::TcpAcceptorImpl</a>
+</li>
 <li>GetTcpServerConnection()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1CreateTcpServerSocket.html#afa8a9e85edf0f2c1b4ec5afbccec6d6e">boost_support::socket::tcp::CreateTcpServerSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TlsServerSocket.html#aa8d9b89753820ad3bccd2c3b3e823ef6">boost_support::socket::tcp::TlsServerSocket</a>
+</li>
+<li>GetTlsServer()
+: <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsAcceptor.html#a376ad8a81cbaf990a110a916491a30cd">boost_support::server::tls::TlsAcceptor&lt; TlsVersion &gt;</a>
+, <a class="el" href="classboost__support_1_1server_1_1tls_1_1TlsAcceptor_1_1TlsAcceptorImpl.html#aa05365244fdff8419976210028e2c771">boost_support::server::tls::TlsAcceptor&lt; TlsVersion &gt;::TlsAcceptorImpl</a>
 </li>
 <li>GetTransportProtocolHandler()
 : <a class="el" href="classdiag_1_1client_1_1uds__transport_1_1UdsTransportProtocolManager.html#a158de53fef6da86eb48b7692f26a85e2">diag::client::uds_transport::UdsTransportProtocolManager</a>
-</li>
-<li>GetTxBuffer()
-: <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#ad043d769978ffa1025aefceb77e584a5">boost_support::socket::tcp::TcpMessage</a>
-, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#ab6e9eb26a749b409342609e9aaad4d61">boost_support::socket::udp::UdpMessage</a>
 </li>
 <li>GetVehicleList()
 : <a class="el" href="classdiag_1_1client_1_1conversation_1_1VehicleInfoMessageImpl.html#abdc6cdd943cea5e12856ea48c166bcaf">diag::client::conversation::VehicleInfoMessageImpl</a>

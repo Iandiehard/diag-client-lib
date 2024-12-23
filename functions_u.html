@@ -65,7 +65,7 @@ $(function() {
 
 <h3><a id="index_u"></a>- u -</h3><ul>
 <li>Udp
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a80feb305988b47fbdb915d6fcfff350e">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a868064e37bca1a2d9af7df7a80e1a972">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>udp_address
 : <a class="el" href="structdiag_1_1client_1_1conversation_1_1VDConversationType.html#a3a2e4fbe1df6b1ce152cbbf25a904501">diag::client::conversation::VDConversationType</a>
@@ -77,15 +77,20 @@ $(function() {
 <li>udp_channel_handler_
 : <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">doip_client::channel::udp_channel::DoipUdpChannel</a>
 </li>
+<li>udp_client_impl_
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#a3021e1985b2f26901286e3a275d2f603">boost_support::client::udp::UdpClient</a>
+</li>
+<li>udp_connection_
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#afbdf60a5ded4ceb2606a8d384647ea97">boost_support::client::udp::UdpClient::UdpClientImpl</a>
+</li>
 <li>udp_handler_read_
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#afcf2815be181defad4c3c2123154db2a">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9869345f9f5d5309a7b7de81095308e6">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>udp_ip_address
 : <a class="el" href="structdiag_1_1client_1_1config__parser_1_1DcmClientConfig.html#a5b8558fc1c45f35b102d1a95e825c13d">diag::client::config_parser::DcmClientConfig</a>
 </li>
 <li>udp_socket_
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a89eb65035fbb0a4f0b4d40f96a938f2f">boost_support::socket::udp::UdpClientSocket</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#adab9acfcc25245cf77ffc06fb47a56b5">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#ad53815b7ea6754d0db1832b19ab2c3d8">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>udp_socket_handler_
 : <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_1_1VehicleDiscoveryHandlerImpl.html#ac51d57f3a3b1705888e1079287195d86">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandlerImpl</a>
@@ -97,42 +102,45 @@ $(function() {
 <li>udp_socket_handler_unicast_
 : <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">doip_client::channel::udp_channel::DoipUdpChannel</a>
 </li>
-<li>UdpClientSocket()
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#aece6b8cdaeee7ac0a5b776cc68424aa0">boost_support::socket::udp::UdpClientSocket</a>
+<li>UdpClient()
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html#adbb64c25802e2ede1bf4a6b5d66f2fa8">boost_support::client::udp::UdpClient</a>
+, <a class="el" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a84149332a20c743c2a7caf3bee754bde">doip_client::connection::DoipUdpConnection</a>
 </li>
-<li>UdpErrorCode
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#aad8af35393d5d685f3449a661fadb271">boost_support::socket::udp::UdpClientSocket</a>
+<li>UdpClientImpl()
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#a9e5e3791cf5d27cec143e360f8379d67">boost_support::client::udp::UdpClient::UdpClientImpl</a>
+</li>
+<li>UdpConnection
+: <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#a5ffa1da7b2dcda8f3776b3330f7d9c95">boost_support::client::udp::UdpClient::UdpClientImpl</a>
+, <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a15b6a8bede158be140e62cfced10c48c">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
 </li>
 <li>UdpErrorCodeType
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a7ea5e7f0be54accb734a520aeb4a07a1">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9fe5f6cf0f597295844b0ba2dc6d529f">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpHandlerRead
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a436b5582d7beb6322851a004cde5a44d">boost_support::socket::udp::UdpClientSocket</a>
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9561399269b25b8bfd60ed8a72e291a4">boost_support::socket::udp::UdpSocket</a>
 </li>
-<li>UdpIpAddress
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a5d3967fbac8e36c5ab87e3ffcbf427a0">boost_support::socket::udp::UdpClientSocket</a>
-</li>
-<li>UdpMessage()
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpMessage.html#afc87e8396b0547fdbc7b160d780aff40">boost_support::socket::udp::UdpMessage</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#ababdf4f62886e288881c52f50612332f">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#aba21a9e250c90bff9daa7e9199ca5e28">doip_client::sockets::UdpSocketHandler</a>
+<li>UdpMessage
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a6e76df205905886f117ef6d7d89c1361">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1message_1_1udp_1_1UdpMessage.html#a6c3c0b573a77d8ff21172a2aa123a81d">boost_support::message::udp::UdpMessage</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a098371a28406b33650e13dd85491cbe9">boost_support::socket::udp::UdpSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#af2beee12667b613f92908378b678c653">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
 </li>
 <li>UdpMessageConstPtr
-: <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a4265024693016119c1feb6329854ab45">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a4829f27f6c2cb2cb6cfd843e631caab1">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a2b5c69035100d9dcfdf72c7d2d355d82">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpMessagePtr
-: <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">doip_client::channel::udp_channel::DoipUdpChannel</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a10a9e3db26abec30750f0bfeb231452d">doip_client::channel::udp_channel::DoipUdpChannelHandler</a>
-, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#ad3f9ceace98690f545a2a5a9a9301c4f">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a090373bc660559af0d0f8723bfce51e9">doip_client::sockets::UdpSocketHandler</a>
+: <a class="el" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#ac1b6ffa8dbb623fadaa44594bfb81bc7">boost_support::connection::udp::UdpConnection&lt; Socket &gt;</a>
+, <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#ae85ca9edac629ccc462cbdb5da36cc28">boost_support::socket::udp::UdpSocket</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">doip_client::channel::udp_channel::DoipUdpChannel</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a3c9e722117211811f215a76b45989d85">doip_client::channel::udp_channel::DoipUdpChannelHandler</a>
+, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html#a98ccb16cecb88e4893785b4212f7af5e">doip_client::channel::udp_channel::VehicleIdentificationHandler</a>
 </li>
-<li>UdpSocket
-: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#adae8cd73adbce8ba62ff81108f93722e">boost_support::socket::udp::UdpClientSocket</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a6b61afce82d2bac4b7b8e637b68c953e">doip_client::sockets::UdpSocketHandler</a>
+<li>UdpSocket()
+: <a class="el" href="classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#ae2e310a69a306ba9d97d90c5daad0129">boost_support::socket::udp::UdpSocket</a>
 </li>
 <li>UdpSocketHandler
 : <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">doip_client::channel::udp_channel::DoipUdpChannel</a>
-, <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a01a6190881af0a42404974ba48d0def4">doip_client::sockets::UdpSocketHandler</a>
 </li>
 <li>uds_payload_
 : <a class="el" href="classdiag_1_1client_1_1uds__message_1_1DmUdsMessage.html#af89ffa7aa5d1e5f2bdda46c58d338ae0">diag::client::uds_message::DmUdsMessage</a>

@@ -1,4 +1,0 @@
-<map id="doip_client::channel::tcp_channel::DoipTcpChannel::IsConnectToHost" name="doip_client::channel::tcp_channel::DoipTcpChannel::IsConnectToHost">
-<area shape="rect" id="node1" title="Function to check if connected to host remote server." alt="" coords="5,5,225,61"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a80adf1a3a9f90c44a445dba5e5c17ade" title="Function to get the current state of socket handler." alt="" coords="273,5,492,61"/>
-</map>

@@ -66,7 +66,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">doip_client::sockets Namespace Reference</div>  </div>
 </div><!--header-->
@@ -74,13 +75,56 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html">TcpSocketHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class used to create a tcp socket for handling transmission and reception of tcp message from driver.  <a href="classdoip__client_1_1sockets_1_1TcpSocketHandler.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html">SocketHandler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler class to manage different socket of various client (Udp / Tcp)  <a href="classdoip__client_1_1sockets_1_1SocketHandler.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">UdpSocketHandler</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class used to create a udp socket for handling transmission and reception of udp message from driver.  <a href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a4a2f688858af3c15b549901d56bd50af"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1sockets.html#a4a2f688858af3c15b549901d56bd50af">TcpSocketHandler</a> = <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html">SocketHandler</a>&lt; <a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html">boost_support::client::tcp::TcpClient</a> &gt;</td></tr>
+<tr class="memdesc:a4a2f688858af3c15b549901d56bd50af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of Tcp socket handler.  <a href="namespacedoip__client_1_1sockets.html#a4a2f688858af3c15b549901d56bd50af">More...</a><br /></td></tr>
+<tr class="separator:a4a2f688858af3c15b549901d56bd50af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72ecc26e2dde9bd4128fc73f129ed616"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">UdpSocketHandler</a> = <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html">SocketHandler</a>&lt; <a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html">boost_support::client::udp::UdpClient</a> &gt;</td></tr>
+<tr class="memdesc:a72ecc26e2dde9bd4128fc73f129ed616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias of Udp socket handler.  <a href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">More...</a><br /></td></tr>
+<tr class="separator:a72ecc26e2dde9bd4128fc73f129ed616"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a4a2f688858af3c15b549901d56bd50af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a2f688858af3c15b549901d56bd50af">&#9670;&nbsp;</a></span>TcpSocketHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacedoip__client_1_1sockets.html#a4a2f688858af3c15b549901d56bd50af">doip_client::sockets::TcpSocketHandler</a> = typedef <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html">SocketHandler</a>&lt;<a class="el" href="classboost__support_1_1client_1_1tcp_1_1TcpClient.html">boost_support::client::tcp::TcpClient</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias of Tcp socket handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="socket__handler_8h_source.html#l00138">138</a> of file <a class="el" href="socket__handler_8h_source.html">socket_handler.h</a>.</p>
+
+</div>
+</div>
+<a id="a72ecc26e2dde9bd4128fc73f129ed616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72ecc26e2dde9bd4128fc73f129ed616">&#9670;&nbsp;</a></span>UdpSocketHandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">doip_client::sockets::UdpSocketHandler</a> = typedef <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html">SocketHandler</a>&lt;<a class="el" href="classboost__support_1_1client_1_1udp_1_1UdpClient.html">boost_support::client::udp::UdpClient</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Type alias of Udp socket handler. </p>
+
+<p class="definition">Definition at line <a class="el" href="socket__handler_8h_source.html#l00143">143</a> of file <a class="el" href="socket__handler_8h_source.html">socket_handler.h</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -1,0 +1,4 @@
+<map id="boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;::ReadMessage" name="boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;::ReadMessage">
+<area shape="rect" id="node1" title="Function to send the received message to stored handler." alt="" coords="5,5,276,61"/>
+<area shape="rect" id="node2" href="$classcore__type_1_1Result.html#afa16b078a53d3ce9573487bc77ff2ea5" title="Build a new Result from the specified value (given as lvalue)" alt="" coords="324,13,467,54"/>
+</map>

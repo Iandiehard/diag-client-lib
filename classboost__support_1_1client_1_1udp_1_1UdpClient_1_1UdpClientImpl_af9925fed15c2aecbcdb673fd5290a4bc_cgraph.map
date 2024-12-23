@@ -1,0 +1,5 @@
+<map id="boost_support::client::udp::UdpClient::UdpClientImpl::Initialize" name="boost_support::client::udp::UdpClient::UdpClientImpl::Initialize">
+<area shape="rect" id="node1" title="Initialize the client." alt="" coords="5,31,204,87"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#ad5777493817f65793ee07e674719f718" title="Initialize the client." alt="" coords="252,5,477,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1IoContext.html#a325922277dd126eab5682dc5bf9c1aa7" title="Initialize the context." alt="" coords="283,71,447,112"/>
+</map>

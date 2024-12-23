@@ -1,0 +1,4 @@
+<map id="doip_client::connection::ConnectionManager::CreateUdpConnection" name="doip_client::connection::ConnectionManager::CreateUdpConnection">
+<area shape="rect" id="node1" title="Function to find or create a new Udp connection." alt="" coords="329,5,567,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1transport__protocol__handler_1_1DoipTransportProtocolHandler.html#a4ffdeb129a85e8837139d2851ccf13e6" title="Function to create a new Udp connection." alt="" coords="5,5,281,61"/>
+</map>

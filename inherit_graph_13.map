@@ -1,5 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classcore__type_1_1ErrorDomain.html" title="Encapsulation of an error domain. An error domain is the controlling entity for ErrorCode’s error cod..." alt="" coords="5,46,181,73"/>
-<area shape="rect" id="node2" href="$classdiag_1_1client_1_1error__domain_1_1DmErrorDomain.html" title="Definition of Dcm Client Error domain." alt="" coords="233,5,424,47"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1error__domain_1_1DoipErrorDomain.html" title="Definition of Doip Client Error domain." alt="" coords="229,71,428,112"/>
+<area shape="rect" id="node1" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html" title="Client connection class used to handle transmission and reception of tcp message from socket." alt="" coords="5,5,245,61"/>
 </map>

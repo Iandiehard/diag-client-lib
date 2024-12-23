@@ -88,7 +88,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac8540e84375585989edd8f1f7e2e902a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#ac8540e84375585989edd8f1f7e2e902a">VehicleDiscoveryHandler</a> (<a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;udp_socket_handler, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html">DoipUdpChannel</a> &amp;channel)</td></tr>
+<tr class="memitem:ac8540e84375585989edd8f1f7e2e902a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#ac8540e84375585989edd8f1f7e2e902a">VehicleDiscoveryHandler</a> (<a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;udp_socket_handler, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html">DoipUdpChannel</a> &amp;channel)</td></tr>
 <tr class="memdesc:ac8540e84375585989edd8f1f7e2e902a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages.">VehicleDiscoveryHandler</a>.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#ac8540e84375585989edd8f1f7e2e902a">More...</a><br /></td></tr>
 <tr class="separator:ac8540e84375585989edd8f1f7e2e902a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0530e2bd8c5db6c75c42000a759b9929"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#a0530e2bd8c5db6c75c42000a759b9929">~VehicleDiscoveryHandler</a> ()</td></tr>
@@ -118,7 +118,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">doip_client::channel::udp_channel::VehicleDiscoveryHandler::VehicleDiscoveryHandler </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a> &amp;&#160;</td>
           <td class="paramname"><em>udp_socket_handler</em>, </td>
         </tr>
         <tr>
@@ -144,8 +144,8 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00150">150</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#afe56c3dabbbdef3080778134dea2a2af">handler_impl_</a>{std::make_unique&lt;VehicleDiscoveryHandlerImpl&gt;(udp_socket_handler)} {}</div>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00157">157</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#afe56c3dabbbdef3080778134dea2a2af">handler_impl_</a>{std::make_unique&lt;VehicleDiscoveryHandlerImpl&gt;(udp_socket_handler)} {}</div>
 <div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler_html_afe56c3dabbbdef3080778134dea2a2af"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#afe56c3dabbbdef3080778134dea2a2af">doip_client::channel::udp_channel::VehicleDiscoveryHandler::handler_impl_</a></div><div class="ttdeci">std::unique_ptr&lt; VehicleDiscoveryHandlerImpl &gt; handler_impl_</div><div class="ttdoc">Stores the Handler implementation.</div><div class="ttdef"><b>Definition:</b> <a href="doip__vehicle__discovery__handler_8h_source.html#l00058">doip_vehicle_discovery_handler.h:53</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -210,21 +210,23 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00156">156</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;                                                                                       {</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#afe56c3dabbbdef3080778134dea2a2af">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() ==</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;      VehicleDiscoveryState::kWaitForVehicleAnnouncement) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="comment">// Deserialize and Add to task executor</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogWarn(</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        __FILE__, __LINE__, __func__,</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Processing of vehicle announcement is not implemented&quot;</span>; });</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment">// ignore</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html#l00163">163</a> of file <a class="el" href="doip__vehicle__discovery__handler_8cpp_source.html">doip_vehicle_discovery_handler.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                                                                       {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html#afe56c3dabbbdef3080778134dea2a2af">handler_impl_</a>-&gt;GetStateContext().GetActiveState().GetState() ==</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;      VehicleDiscoveryState::kWaitForVehicleAnnouncement) {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">// Deserialize and Add to task executor</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">logger::DoipClientLogger::GetDiagClientLogger</a>().GetLogger().LogWarn(</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__, [](std::stringstream &amp;msg) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;          msg &lt;&lt; <span class="stringliteral">&quot;Processing of vehicle announcement is not implemented&quot;</span>;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        });</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// ignore</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;}</div>
 <div class="ttc" id="aclassdoip__client_1_1logger_1_1DoipClientLogger_html_aa441830cb20a19d78d76067b769c67b2"><div class="ttname"><a href="classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2">doip_client::logger::DoipClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DoipClientLogger &amp;</div><div class="ttdef"><b>Definition:</b> <a href="lib_2doip-client_2common_2logger_8h_source.html#l00020">logger.h:20</a></div></div>
+<div class="ttc" id="afile__path_8h_html_ab117546549783a058d0321a287699579"><div class="ttname"><a href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a></div><div class="ttdeci">#define FILE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="file__path_8h_source.html#l00014">file_path.h:14</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>.</p>
+<p class="reference">References <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, and <a class="el" href="lib_2doip-client_2common_2logger_8h_source.html#l00020">doip_client::logger::DoipClientLogger::GetDiagClientLogger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

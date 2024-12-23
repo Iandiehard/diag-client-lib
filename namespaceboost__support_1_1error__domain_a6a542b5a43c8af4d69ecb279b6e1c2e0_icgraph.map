@@ -1,0 +1,15 @@
+<map id="boost_support::error_domain::MakeErrorCode" name="boost_support::error_domain::MakeErrorCode">
+<area shape="rect" id="node1" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="540,391,725,433"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1client_1_1tcp_1_1TcpClient_1_1TcpClientImpl.html#a8cebb78975d38cfbafda315e7c9137cc" title="Function to connect to remote ip address and port number." alt="" coords="280,5,464,61"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#a4b802e421b4b3e5381bce82e71297689" title="Function to connect to remote ip address and port number." alt="" coords="284,85,460,141"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1client_1_1tcp_1_1TcpClient_1_1TcpClientImpl.html#acf966e4841ac49cc9bb6c865fd6b4794" title="Function to disconnect from remote host if already connected." alt="" coords="275,165,469,221"/>
+<area shape="rect" id="node5" href="$classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#a79910a5050238307154c93b1930c655d" title="Function to disconnect from remote host if already connected." alt="" coords="275,245,469,301"/>
+<area shape="rect" id="node6" href="$namespaceboost__support_1_1error__domain.html#a67660cc99119ff75a2b67b785d2cafae" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="279,326,465,367"/>
+<area shape="rect" id="node7" href="$classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9e68c2f37c36b19b29d9d58d7f793455" title="Function to handle the reception of tcp message." alt="" coords="286,391,458,433"/>
+<area shape="rect" id="node8" href="$classboost__support_1_1client_1_1tcp_1_1TcpClient_1_1TcpClientImpl.html#af3d34a928883c6fcb9638d200a331f6d" title="Function to transmit the provided tcp message." alt="" coords="280,457,464,513"/>
+<area shape="rect" id="node9" href="$classboost__support_1_1client_1_1tls_1_1TlsClient_1_1TlsClientImpl.html#a7258befe9bab8d7f4dc1b39b4be776ca" title="Function to transmit the provided tcp message." alt="" coords="284,537,460,593"/>
+<area shape="rect" id="node10" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a6834df7013018558737ad5ead0acbed8" title="Function to trigger transmission." alt="" coords="252,617,492,673"/>
+<area shape="rect" id="node11" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a457133ae526842b3e2664e36130fa9d3" title="Function to trigger transmission." alt="" coords="252,697,492,753"/>
+<area shape="rect" id="node12" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a165af7248752cd64de4a56d303242a76" title="Function to trigger transmission." alt="" coords="259,778,485,819"/>
+<area shape="rect" id="node13" href="$classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#af4845ee01211faa44981f43237b8c29b" title="Function to transmit the provided udp message." alt="" coords="5,771,204,827"/>
+</map>

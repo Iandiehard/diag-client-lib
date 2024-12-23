@@ -1,0 +1,4 @@
+<map id="doip_client::connection::DoipUdpConnection::IndicateMessage" name="doip_client::connection::DoipUdpConnection::IndicateMessage">
+<area shape="rect" id="node1" title="Function to indicate a start of reception of message." alt="" coords="5,5,224,61"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1ConversionHandler.html#a1aec9f920c23c4d6980d9c11930eb193" title="Function to indicate a start of reception of message." alt="" coords="272,13,464,54"/>
+</map>

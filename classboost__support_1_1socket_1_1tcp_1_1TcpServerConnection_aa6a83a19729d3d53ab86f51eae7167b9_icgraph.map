@@ -1,0 +1,6 @@
+<map id="boost_support::socket::tcp::TcpServerConnection::GetNativeTcpSocket" name="boost_support::socket::tcp::TcpServerConnection::GetNativeTcpSocket">
+<area shape="rect" id="node1" title="Function to get the native tcp socket under tls socket." alt="" coords="248,85,443,141"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#a766be896917ef7c6b2545c9b70b0d9df" title="Function to shutdown the socket." alt="" coords="5,5,200,61"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#ad95cdd8dcf149f933ee28cd54d551adb" title="Function to trigger transmission." alt="" coords="5,85,200,141"/>
+<area shape="rect" id="node4" href="$classboost__support_1_1socket_1_1tcp_1_1TcpServerConnection.html#afff4781f9571099318a065b42d5b835c" title="Function to initiate reception of tcp message." alt="" coords="5,165,200,221"/>
+</map>

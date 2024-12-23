@@ -1,7 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,153,124,179"/>
-<area shape="rect" id="node2" href="$structcore__type_1_1details_1_1is__container__element__type__convertible.html" title="Checks if std::remove_pointer_t&lt;decltype(std::data(arr))&gt;(*)[] is convertible to T(*)[]." alt="" coords="172,5,395,76"/>
-<area shape="rect" id="node3" href="$structcore__type_1_1details_1_1is__data__size__valid.html" title="Primary template handles std::size, std::data that have no nested ::type member." alt="" coords="209,101,358,157"/>
-<area shape="rect" id="node4" href="$structcore__type_1_1details_1_1is__span.html" title="Primary template handles Span types that have no nested ::type member." alt="" coords="196,181,371,223"/>
-<area shape="rect" id="node5" href="$structcore__type_1_1details_1_1is__std__array.html" title="Primary template handles std::array types that have no nested ::type member." alt="" coords="181,247,386,288"/>
+<area shape="rect" id="node1" href="$classboost__support_1_1connection_1_1tcp_1_1TcpConnection.html" title="Primary connection template to handle transmission and reception of tcp message from socket." alt="" coords="5,5,249,61"/>
 </map>

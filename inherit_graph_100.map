@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$classutility_1_1state_1_1State.html" title=" " alt="" coords="5,182,224,223"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identificab81821772b81f7a563b6d097b48d0faf.html" title="Class implements Ctrl timeout state." alt="" coords="292,5,496,91"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identification__handler_8cpp_03_1_1kIdle.html" title="Class implements idle state." alt="" coords="272,115,516,186"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identifica0d91ca4cc7cb9b4538cd4dba115dd284.html" title="Class implements sending of vehicle identification request state." alt="" coords="281,211,507,296"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1channel_1_1udp__channel_1_1anonymous__namespace_02doip__vehicle__identifica465ef2fd37ffc952337363beae18f5f1.html" title="Class implements wait for vehicle identification response state." alt="" coords="273,320,515,405"/>
+</map>

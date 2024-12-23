@@ -1,0 +1,4 @@
+<map id="boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;" name="boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;">
+<area shape="rect" id="node1" title="Server connection class used to handle transmission and reception of tcp message from socket." alt="" coords="5,95,245,151"/>
+<area shape="rect" id="node2" href="$classutility_1_1thread_1_1Thread.html" title=" " alt="" coords="44,5,207,32"/>
+</map>

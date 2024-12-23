@@ -1,5 +1,5 @@
 <map id="doip_client::transport_protocol_handler::DoipTransportProtocolHandler::CreateTcpConnection" name="doip_client::transport_protocol_handler::DoipTransportProtocolHandler::CreateTcpConnection">
 <area shape="rect" id="node1" title="Function to create a new Tcp connection." alt="" coords="5,45,276,101"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1connection_1_1DoipConnectionManager.html#a73b3c32a93e496268cae7a3273721365" title="Function to find or create a new Tcp connection." alt="" coords="324,5,533,61"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="350,85,507,141"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1connection_1_1ConnectionManager.html#a8949fd0aa00b45ad43999bc2077cda43" title="Function to find or create a new Tcp connection." alt="" coords="324,5,556,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1logger_1_1DoipClientLogger.html#aa441830cb20a19d78d76067b769c67b2" title=" " alt="" coords="361,85,519,141"/>
 </map>

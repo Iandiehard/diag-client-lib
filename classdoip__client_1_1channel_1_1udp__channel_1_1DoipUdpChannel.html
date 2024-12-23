@@ -68,7 +68,6 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-types">Private Types</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -85,8 +84,8 @@ Collaboration diagram for doip_client::channel::udp_channel::DoipUdpChannel:</di
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel__coll__graph.png" border="0" usemap="#adoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_coll__map" alt="Collaboration graph"/></div>
 <map name="adoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_coll__map" id="adoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_coll__map">
-<area shape="rect" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="917,130,1147,171"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html" title="Class used to create a udp socket for handling transmission and reception of udp message from driver." alt="" coords="1328,130,1479,171"/>
+<area shape="rect" title="Class to manage a udp channel as per DoIP protocol." alt="" coords="917,93,1147,134"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1SocketHandler.html" title="Handler class to manage different socket of various client (Udp / Tcp)" alt="" coords="494,19,717,61"/>
 <area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html" title="Class to handle udp received messages from lower layer." alt="" coords="491,85,720,141"/>
 <area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleDiscoveryHandler.html" title="Class used as a handler to process vehicle announcement messages." alt="" coords="15,5,247,61"/>
 <area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1VehicleIdentificationHandler.html" title="Class used as a handler to process vehicle identification req/ res messages." alt="" coords="5,85,257,141"/>
@@ -97,15 +96,18 @@ Collaboration diagram for doip_client::channel::udp_channel::DoipUdpChannel:</di
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a899689b0c61087cf166961e91c2b059b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">UdpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a090373bc660559af0d0f8723bfce51e9">sockets::UdpSocketHandler::UdpMessagePtr</a></td></tr>
-<tr class="memdesc:a899689b0c61087cf166961e91c2b059b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Udp message pointer.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">More...</a><br /></td></tr>
-<tr class="separator:a899689b0c61087cf166961e91c2b059b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a> = <a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a></td></tr>
+<tr class="memdesc:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Tcp socket handler.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">More...</a><br /></td></tr>
+<tr class="separator:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f50016cad11836b4840e51901190e52"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">UdpMessagePtr</a> = <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a05ca4f39131e0ec2a1bbad48d73b51fd">sockets::UdpSocketHandler::MessagePtr</a></td></tr>
+<tr class="memdesc:a6f50016cad11836b4840e51901190e52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Udp message pointer.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">More...</a><br /></td></tr>
+<tr class="separator:a6f50016cad11836b4840e51901190e52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a97f20a63a49002bb33594f9213c251e9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a97f20a63a49002bb33594f9213c251e9">DoipUdpChannel</a> (std::string_view udp_ip_address, std::uint16_t port_num, <a class="el" href="classuds__transport_1_1Connection.html">uds_transport::Connection</a> &amp;connection)</td></tr>
-<tr class="memdesc:a97f20a63a49002bb33594f9213c251e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of UdpChannel.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a97f20a63a49002bb33594f9213c251e9">More...</a><br /></td></tr>
-<tr class="separator:a97f20a63a49002bb33594f9213c251e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa479716a3ce9f19f67f10aa5ac254782"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa479716a3ce9f19f67f10aa5ac254782">DoipUdpChannel</a> (<a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a> udp_socket_handler_broadcast, <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a> udp_socket_handler_unicast, <a class="el" href="classuds__transport_1_1Connection.html">uds_transport::Connection</a> &amp;connection)</td></tr>
+<tr class="memdesc:aa479716a3ce9f19f67f10aa5ac254782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs an instance of UdpChannel.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa479716a3ce9f19f67f10aa5ac254782">More...</a><br /></td></tr>
+<tr class="separator:aa479716a3ce9f19f67f10aa5ac254782"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4963bf0cc2756457ab46a2cf4e976379"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4963bf0cc2756457ab46a2cf4e976379">~DoipUdpChannel</a> ()=default</td></tr>
 <tr class="memdesc:a4963bf0cc2756457ab46a2cf4e976379"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destruct an instance of UdpChannel.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4963bf0cc2756457ab46a2cf4e976379">More...</a><br /></td></tr>
 <tr class="separator:a4963bf0cc2756457ab46a2cf4e976379"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,27 +117,21 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac66d3fc645c763830991c1b315618123"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ac66d3fc645c763830991c1b315618123">Stop</a> ()</td></tr>
 <tr class="memdesc:ac66d3fc645c763830991c1b315618123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to stop the channel.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ac66d3fc645c763830991c1b315618123">More...</a><br /></td></tr>
 <tr class="separator:ac66d3fc645c763830991c1b315618123"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf3dba763a51a6eb1d8f951bd69ee523"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aaf3dba763a51a6eb1d8f951bd69ee523">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt; payload_info)</td></tr>
-<tr class="memdesc:aaf3dba763a51a6eb1d8f951bd69ee523"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aaf3dba763a51a6eb1d8f951bd69ee523">More...</a><br /></td></tr>
-<tr class="separator:aaf3dba763a51a6eb1d8f951bd69ee523"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff9935e32b3d49c57f539bd2e5b47cc"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#af00157597b8d587f27088b31ee43bdbe">uds_transport::UdsTransportProtocolMgr::IndicationResult</a>, <a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aaff9935e32b3d49c57f539bd2e5b47cc">IndicateMessage</a> (<a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> source_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ac6d537dda1e75682145c879e70891cab">uds_transport::UdsMessage::Address</a> target_addr, <a class="el" href="classuds__transport_1_1UdsMessage.html#ab9378ed73cf8182d0bcf6c741f5e09fb">uds_transport::UdsMessage::TargetAddressType</a> type, <a class="el" href="namespaceuds__transport.html#a7a77d1331818af472529d681db6cb193">uds_transport::ChannelID</a> channel_id, std::size_t size, <a class="el" href="namespaceuds__transport.html#a86d8138fd6d4dba83908f4903c75e19a">uds_transport::Priority</a> priority, <a class="el" href="namespaceuds__transport.html#a2789e8a34a25f04f0a61d5d5b866425e">uds_transport::ProtocolKind</a> protocol_kind, <a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt; payload_info)</td></tr>
+<tr class="memdesc:aaff9935e32b3d49c57f539bd2e5b47cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to indicate a start of reception of message.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aaff9935e32b3d49c57f539bd2e5b47cc">More...</a><br /></td></tr>
+<tr class="separator:aaff9935e32b3d49c57f539bd2e5b47cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40fa79e63bf99be1f3d4beb4e0e6b076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a40fa79e63bf99be1f3d4beb4e0e6b076">HandleMessage</a> (<a class="el" href="namespaceuds__transport.html#a5945fa6d1c34119826ec5db1e8c2c32d">uds_transport::UdsMessagePtr</a> message)</td></tr>
 <tr class="memdesc:a40fa79e63bf99be1f3d4beb4e0e6b076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to Hands over a valid received Uds message to upper layer.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a40fa79e63bf99be1f3d4beb4e0e6b076">More...</a><br /></td></tr>
 <tr class="separator:a40fa79e63bf99be1f3d4beb4e0e6b076"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2a5de751d6b786ffb1ad36e226d6e1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d">ProcessReceivedUdpBroadcast</a> (<a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">UdpMessagePtr</a> udp_rx_message)</td></tr>
+<tr class="memitem:ae2a5de751d6b786ffb1ad36e226d6e1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d">ProcessReceivedUdpBroadcast</a> (<a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">UdpMessagePtr</a> udp_rx_message)</td></tr>
 <tr class="memdesc:ae2a5de751d6b786ffb1ad36e226d6e1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to process the received Udp broadcast message from socket layer.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d">More...</a><br /></td></tr>
 <tr class="separator:ae2a5de751d6b786ffb1ad36e226d6e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5db4da9cc50fb65fc445813d310d51c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c">ProcessReceivedUdpUnicast</a> (<a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">UdpMessagePtr</a> udp_rx_message)</td></tr>
+<tr class="memitem:aa5db4da9cc50fb65fc445813d310d51c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c">ProcessReceivedUdpUnicast</a> (<a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">UdpMessagePtr</a> udp_rx_message)</td></tr>
 <tr class="memdesc:aa5db4da9cc50fb65fc445813d310d51c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to process the received Udp unicast message from socket layer.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c">More...</a><br /></td></tr>
 <tr class="separator:aa5db4da9cc50fb65fc445813d310d51c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27e67b4b0c8424a9830eb222c9fdd21e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classuds__transport_1_1UdsTransportProtocolMgr.html#a675a5d498c842cca407d2ce2a0399158">uds_transport::UdsTransportProtocolMgr::TransmissionResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a27e67b4b0c8424a9830eb222c9fdd21e">Transmit</a> (<a class="el" href="namespaceuds__transport.html#a3ef555cee4d21c243a21c441fc62239d">uds_transport::UdsMessageConstPtr</a> message)</td></tr>
 <tr class="memdesc:a27e67b4b0c8424a9830eb222c9fdd21e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to transmit a Vehicle Identification request.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a27e67b4b0c8424a9830eb222c9fdd21e">More...</a><br /></td></tr>
 <tr class="separator:a27e67b4b0c8424a9830eb222c9fdd21e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-types"></a>
-Private Types</h2></td></tr>
-<tr class="memitem:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a> = <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a></td></tr>
-<tr class="memdesc:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type alias for Udp socket handler.  <a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">More...</a><br /></td></tr>
-<tr class="separator:a9c57e7801943a1ca31382c5f5d16e4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -157,21 +153,21 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00026">26</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a899689b0c61087cf166961e91c2b059b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a899689b0c61087cf166961e91c2b059b">&#9670;&nbsp;</a></span>UdpMessagePtr</h2>
+<a id="a6f50016cad11836b4840e51901190e52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f50016cad11836b4840e51901190e52">&#9670;&nbsp;</a></span>UdpMessagePtr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">doip_client::channel::udp_channel::DoipUdpChannel::UdpMessagePtr</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a090373bc660559af0d0f8723bfce51e9">sockets::UdpSocketHandler::UdpMessagePtr</a></td>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">doip_client::channel::udp_channel::DoipUdpChannel::UdpMessagePtr</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a05ca4f39131e0ec2a1bbad48d73b51fd">sockets::UdpSocketHandler::MessagePtr</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p>Type alias for Udp message pointer. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00031">31</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00036">36</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
 </div>
 </div>
@@ -180,30 +176,22 @@ Private Attributes</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">doip_client::channel::udp_channel::DoipUdpChannel::UdpSocketHandler</a> =  <a class="el" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html">sockets::UdpSocketHandler</a></td>
+          <td class="memname">using <a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">doip_client::channel::udp_channel::DoipUdpChannel::UdpSocketHandler</a> =  <a class="el" href="namespacedoip__client_1_1sockets.html#a72ecc26e2dde9bd4128fc73f129ed616">sockets::UdpSocketHandler</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Type alias for Udp socket handler. </p>
+<p>Type alias for Tcp socket handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00125">125</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00031">31</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a97f20a63a49002bb33594f9213c251e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97f20a63a49002bb33594f9213c251e9">&#9670;&nbsp;</a></span>DoipUdpChannel()</h2>
+<a id="aa479716a3ce9f19f67f10aa5ac254782"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa479716a3ce9f19f67f10aa5ac254782">&#9670;&nbsp;</a></span>DoipUdpChannel()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -211,14 +199,14 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">doip_client::channel::udp_channel::DoipUdpChannel::DoipUdpChannel </td>
           <td>(</td>
-          <td class="paramtype">std::string_view&#160;</td>
-          <td class="paramname"><em>udp_ip_address</em>, </td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a>&#160;</td>
+          <td class="paramname"><em>udp_socket_handler_broadcast</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint16_t&#160;</td>
-          <td class="paramname"><em>port_num</em>, </td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a9c57e7801943a1ca31382c5f5d16e4ca">UdpSocketHandler</a>&#160;</td>
+          <td class="paramname"><em>udp_socket_handler_unicast</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -245,16 +233,14 @@ Private Attributes</h2></td></tr>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00015">15</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>{udp_ip_address, port_num, <a class="code" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a514649340efa1129a6b2a28609f8a5b8a0920556c4ccae5b44091173f063f5ae2">UdpSocketHandler::PortType::kUdp_Broadcast</a>, *<span class="keyword">this</span>},</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>{udp_ip_address, port_num, <a class="code" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a514649340efa1129a6b2a28609f8a5b8ae387802e0a99e49a66058bf0cbdc348b">UdpSocketHandler::PortType::kUdp_Unicast</a>, *<span class="keyword">this</span>},</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>{<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>, <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>, *<span class="keyword">this</span>},</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>{connection} {}</div>
-<div class="ttc" id="aclassboost__support_1_1socket_1_1udp_1_1UdpClientSocket_html_a514649340efa1129a6b2a28609f8a5b8a0920556c4ccae5b44091173f063f5ae2"><div class="ttname"><a href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a514649340efa1129a6b2a28609f8a5b8a0920556c4ccae5b44091173f063f5ae2">boost_support::socket::udp::UdpClientSocket::PortType::kUdp_Broadcast</a></div><div class="ttdeci">@ kUdp_Broadcast</div></div>
-<div class="ttc" id="aclassboost__support_1_1socket_1_1udp_1_1UdpClientSocket_html_a514649340efa1129a6b2a28609f8a5b8ae387802e0a99e49a66058bf0cbdc348b"><div class="ttname"><a href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a514649340efa1129a6b2a28609f8a5b8ae387802e0a99e49a66058bf0cbdc348b">boost_support::socket::udp::UdpClientSocket::PortType::kUdp_Unicast</a></div><div class="ttdeci">@ kUdp_Unicast</div></div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_a4ca0d4e1d309c3111626c2d6ae46dc0e"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">doip_client::channel::udp_channel::DoipUdpChannel::udp_socket_handler_broadcast_</a></div><div class="ttdeci">UdpSocketHandler udp_socket_handler_broadcast_</div><div class="ttdoc">Store the udp socket handler for broadcast messages.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00130">doip_udp_channel.h:130</a></div></div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_a66592d8d662f0e0faa2628404dcd655f"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">doip_client::channel::udp_channel::DoipUdpChannel::udp_socket_handler_unicast_</a></div><div class="ttdeci">UdpSocketHandler udp_socket_handler_unicast_</div><div class="ttdoc">Store the udp socket handler for unicast messages.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00135">doip_udp_channel.h:135</a></div></div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_ae7d14cea72f8039d2066f5bc8bc1841b"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">doip_client::channel::udp_channel::DoipUdpChannel::connection_</a></div><div class="ttdeci">uds_transport::Connection &amp; connection_</div><div class="ttdoc">Store the reference to doip connection.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00145">doip_udp_channel.h:145</a></div></div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_af75aeaa41e68ee6af71be610bde3cdf3"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">doip_client::channel::udp_channel::DoipUdpChannel::udp_channel_handler_</a></div><div class="ttdeci">DoipUdpChannelHandler udp_channel_handler_</div><div class="ttdoc">Store the doip channel handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00140">doip_udp_channel.h:140</a></div></div>
+<div class="fragment"><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    : <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>{std::move(udp_socket_handler_broadcast)},</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>{std::move(udp_socket_handler_unicast)},</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>{<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>, <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>, *<span class="keyword">this</span>},</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;      <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>{connection} {}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_a4ca0d4e1d309c3111626c2d6ae46dc0e"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">doip_client::channel::udp_channel::DoipUdpChannel::udp_socket_handler_broadcast_</a></div><div class="ttdeci">UdpSocketHandler udp_socket_handler_broadcast_</div><div class="ttdoc">Store the udp socket handler for broadcast messages.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00135">doip_udp_channel.h:135</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_a66592d8d662f0e0faa2628404dcd655f"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">doip_client::channel::udp_channel::DoipUdpChannel::udp_socket_handler_unicast_</a></div><div class="ttdeci">UdpSocketHandler udp_socket_handler_unicast_</div><div class="ttdoc">Store the udp socket handler for unicast messages.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00140">doip_udp_channel.h:140</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_ae7d14cea72f8039d2066f5bc8bc1841b"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">doip_client::channel::udp_channel::DoipUdpChannel::connection_</a></div><div class="ttdeci">uds_transport::Connection &amp; connection_</div><div class="ttdoc">Store the reference to doip connection.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00150">doip_udp_channel.h:150</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_af75aeaa41e68ee6af71be610bde3cdf3"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">doip_client::channel::udp_channel::DoipUdpChannel::udp_channel_handler_</a></div><div class="ttdeci">DoipUdpChannelHandler udp_channel_handler_</div><div class="ttdoc">Store the doip channel handler.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00145">doip_udp_channel.h:145</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -310,13 +296,13 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00055">55</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                                                                     {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">HandleMessage</a>(std::move(message));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00064">64</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                                                                     {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">HandleMessage</a>(std::move(message));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="ttc" id="aclassuds__transport_1_1Connection_html_acc0661d13a5f96f405feb0086db8c87d"><div class="ttname"><a href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">uds_transport::Connection::HandleMessage</a></div><div class="ttdeci">virtual void HandleMessage(UdsMessagePtr message)=0</div><div class="ttdoc">Function to Hands over a valid received Uds message.</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__udp__channel_8h_source.html#l00145">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">uds_transport::Connection::HandleMessage()</a>.</p>
+<p class="reference">References <a class="el" href="doip__udp__channel_8h_source.html#l00150">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#acc0661d13a5f96f405feb0086db8c87d">uds_transport::Connection::HandleMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -329,8 +315,8 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="aaf3dba763a51a6eb1d8f951bd69ee523"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf3dba763a51a6eb1d8f951bd69ee523">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
+<a id="aaff9935e32b3d49c57f539bd2e5b47cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaff9935e32b3d49c57f539bd2e5b47cc">&#9670;&nbsp;</a></span>IndicateMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -380,7 +366,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="classcore__type_1_1Span.html">core_type::Span</a>&lt; std::uint8_t const &gt;&#160;</td>
           <td class="paramname"><em>payload_info</em>&#160;</td>
         </tr>
         <tr>
@@ -407,21 +393,21 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt; IndicationResult, UdsMessagePtr &gt; The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned to the handler to get filled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00046">46</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                                                                                                                 {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">IndicateMessage</a>(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                     payload_info);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
-<div class="ttc" id="aclassuds__transport_1_1Connection_html_a6bfd6f133fc13ccba97b4dd3fbfb61a7"><div class="ttname"><a href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">uds_transport::Connection::IndicateMessage</a></div><div class="ttdeci">virtual std::pair&lt; UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr &gt; IndicateMessage(UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind, core_type::Span&lt; std::uint8_t &gt; payload_info)=0</div><div class="ttdoc">Function to indicate a start of reception of message.</div></div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00053">53</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                                                                              {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae7d14cea72f8039d2066f5bc8bc1841b">connection_</a>.<a class="code" href="classuds__transport_1_1Connection.html#a5f96865f46e3b230de5aba5f025e370e">IndicateMessage</a>(source_addr, target_addr, type, channel_id, size, priority,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                                     protocol_kind, payload_info);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="ttc" id="aclassuds__transport_1_1Connection_html_a5f96865f46e3b230de5aba5f025e370e"><div class="ttname"><a href="classuds__transport_1_1Connection.html#a5f96865f46e3b230de5aba5f025e370e">uds_transport::Connection::IndicateMessage</a></div><div class="ttdeci">virtual std::pair&lt; UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr &gt; IndicateMessage(UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind, core_type::Span&lt; std::uint8_t const &gt; payload_info)=0</div><div class="ttdoc">Function to indicate a start of reception of message.</div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__udp__channel_8h_source.html#l00145">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7">uds_transport::Connection::IndicateMessage()</a>.</p>
+<p class="reference">References <a class="el" href="doip__udp__channel_8h_source.html#l00150">connection_</a>, and <a class="el" href="classuds__transport_1_1Connection.html#a5f96865f46e3b230de5aba5f025e370e">uds_transport::Connection::IndicateMessage()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaf3dba763a51a6eb1d8f951bd69ee523_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaf3dba763a51a6eb1d8f951bd69ee523_cgraph" alt=""/></div>
-<map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaf3dba763a51a6eb1d8f951bd69ee523_cgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaf3dba763a51a6eb1d8f951bd69ee523_cgraph">
+<div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaff9935e32b3d49c57f539bd2e5b47cc_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaff9935e32b3d49c57f539bd2e5b47cc_cgraph" alt=""/></div>
+<map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaff9935e32b3d49c57f539bd2e5b47cc_cgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aaff9935e32b3d49c57f539bd2e5b47cc_cgraph">
 <area shape="rect" title="Function to indicate a start of reception of message." alt="" coords="5,5,235,61"/>
-<area shape="rect" href="classuds__transport_1_1Connection.html#a6bfd6f133fc13ccba97b4dd3fbfb61a7" title="Function to indicate a start of reception of message." alt="" coords="283,13,475,54"/>
+<area shape="rect" href="classuds__transport_1_1Connection.html#a5f96865f46e3b230de5aba5f025e370e" title="Function to indicate a start of reception of message." alt="" coords="283,13,475,54"/>
 </map>
 </div>
 
@@ -436,7 +422,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="memname">void doip_client::channel::udp_channel::DoipUdpChannel::ProcessReceivedUdpBroadcast </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">DoipUdpChannel::UdpMessagePtr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">DoipUdpChannel::UdpMessagePtr</a>&#160;</td>
           <td class="paramname"><em>udp_rx_message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -451,15 +437,15 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00032">32</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                                                                           {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8">HandleMessageBroadcast</a>(std::move(udp_rx_message));</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler_html_afd004600067094d8537d2600c66e55c8"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageBroadcast</a></div><div class="ttdeci">void HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept</div><div class="ttdoc">Function to process the received broadcast udp message.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel__handler_8cpp_source.html#l00071">doip_udp_channel_handler.cpp:71</a></div></div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00039">39</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                                                                           {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8">HandleMessageBroadcast</a>(std::move(udp_rx_message));</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler_html_afd004600067094d8537d2600c66e55c8"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageBroadcast</a></div><div class="ttdeci">void HandleMessageBroadcast(UdpMessagePtr udp_rx_message) noexcept</div><div class="ttdoc">Function to process the received broadcast udp message.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel__handler_8cpp_source.html#l00070">doip_udp_channel_handler.cpp:70</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00071">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageBroadcast()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00140">udp_channel_handler_</a>.</p>
+<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00070">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageBroadcast()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00145">udp_channel_handler_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="udp__socket__handler_8cpp_source.html#l00015">doip_client::sockets::UdpSocketHandler::UdpSocketHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00023">Start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -474,8 +460,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ae2a5de751d6b786ffb1ad36e226d6e1d_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ae2a5de751d6b786ffb1ad36e226d6e1d_icgraph" alt=""/></div>
 <map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ae2a5de751d6b786ffb1ad36e226d6e1d_icgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ae2a5de751d6b786ffb1ad36e226d6e1d_icgraph">
-<area shape="rect" title="Function to process the received Udp broadcast message from socket layer." alt="" coords="280,5,511,61"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a01a6190881af0a42404974ba48d0def4" title="Constructs an instance of UdpSocketHandler." alt="" coords="5,5,232,61"/>
+<area shape="rect" title="Function to process the received Udp broadcast message from socket layer." alt="" coords="529,5,760,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,5,481,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a93c33dc3b8b3a3120eef54ea2822c525" title="Function to start the connection." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 
@@ -490,7 +477,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void doip_client::channel::udp_channel::DoipUdpChannel::ProcessReceivedUdpUnicast </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a899689b0c61087cf166961e91c2b059b">DoipUdpChannel::UdpMessagePtr</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">DoipUdpChannel::UdpMessagePtr</a>&#160;</td>
           <td class="paramname"><em>udp_rx_message</em></td><td>)</td>
           <td></td>
         </tr>
@@ -505,15 +492,15 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00036">36</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                                                                                         {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a6f8f4b104ff9b37c8ca54a78bab14e5d">HandleMessageUnicast</a>(std::move(udp_rx_message));</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00043">43</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                                                                                         {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a6f8f4b104ff9b37c8ca54a78bab14e5d">HandleMessageUnicast</a>(std::move(udp_rx_message));</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler_html_a6f8f4b104ff9b37c8ca54a78bab14e5d"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a6f8f4b104ff9b37c8ca54a78bab14e5d">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageUnicast</a></div><div class="ttdeci">void HandleMessageUnicast(UdpMessagePtr udp_rx_message) noexcept</div><div class="ttdoc">Function to process the received unicast udp message.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel__handler_8cpp_source.html#l00057">doip_udp_channel_handler.cpp:57</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00057">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageUnicast()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00140">udp_channel_handler_</a>.</p>
+<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00057">doip_client::channel::udp_channel::DoipUdpChannelHandler::HandleMessageUnicast()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00145">udp_channel_handler_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="udp__socket__handler_8cpp_source.html#l00015">doip_client::sockets::UdpSocketHandler::UdpSocketHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00023">Start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -528,8 +515,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aa5db4da9cc50fb65fc445813d310d51c_icgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aa5db4da9cc50fb65fc445813d310d51c_icgraph" alt=""/></div>
 <map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aa5db4da9cc50fb65fc445813d310d51c_icgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_aa5db4da9cc50fb65fc445813d310d51c_icgraph">
-<area shape="rect" title="Function to process the received Udp unicast message from socket layer." alt="" coords="280,5,509,61"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#a01a6190881af0a42404974ba48d0def4" title="Constructs an instance of UdpSocketHandler." alt="" coords="5,5,232,61"/>
+<area shape="rect" title="Function to process the received Udp unicast message from socket layer." alt="" coords="529,5,759,61"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4214a340e85ca3eeeb496bdba5625156" title="Function to start the channel." alt="" coords="252,5,481,61"/>
+<area shape="rect" href="classdoip__client_1_1connection_1_1DoipUdpConnection.html#a93c33dc3b8b3a3120eef54ea2822c525" title="Function to start the connection." alt="" coords="5,13,204,54"/>
 </map>
 </div>
 
@@ -552,23 +540,38 @@ Here is the caller graph for this function:</div>
 
 <p>Function to start the channel. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00022">22</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                           {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#af7af0f9f9c5e8a94e3e37be3885e92a8">Start</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#af7af0f9f9c5e8a94e3e37be3885e92a8">Start</a>();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="ttc" id="aclassdoip__client_1_1sockets_1_1UdpSocketHandler_html_af7af0f9f9c5e8a94e3e37be3885e92a8"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#af7af0f9f9c5e8a94e3e37be3885e92a8">doip_client::sockets::UdpSocketHandler::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdoc">Function to start the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="udp__socket__handler_8cpp_source.html#l00033">udp_socket_handler.cpp:33</a></div></div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00023">23</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                           {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4">SetReadHandler</a>([<span class="keyword">this</span>](<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">UdpMessagePtr</a> udp_message) noexcept {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d">ProcessReceivedUdpBroadcast</a>(std::move(udp_message));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  });</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4">SetReadHandler</a>([<span class="keyword">this</span>](<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">UdpMessagePtr</a> udp_message) noexcept {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c">ProcessReceivedUdpUnicast</a>(std::move(udp_message));</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  });</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79">Initialize</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79">Initialize</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_a6f50016cad11836b4840e51901190e52"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a6f50016cad11836b4840e51901190e52">doip_client::channel::udp_channel::DoipUdpChannel::UdpMessagePtr</a></div><div class="ttdeci">sockets::UdpSocketHandler::MessagePtr UdpMessagePtr</div><div class="ttdoc">Type alias for Udp message pointer.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8h_source.html#l00036">doip_udp_channel.h:36</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_aa5db4da9cc50fb65fc445813d310d51c"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c">doip_client::channel::udp_channel::DoipUdpChannel::ProcessReceivedUdpUnicast</a></div><div class="ttdeci">void ProcessReceivedUdpUnicast(UdpMessagePtr udp_rx_message)</div><div class="ttdoc">Function to process the received Udp unicast message from socket layer.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8cpp_source.html#l00043">doip_udp_channel.cpp:43</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_html_ae2a5de751d6b786ffb1ad36e226d6e1d"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d">doip_client::channel::udp_channel::DoipUdpChannel::ProcessReceivedUdpBroadcast</a></div><div class="ttdeci">void ProcessReceivedUdpBroadcast(UdpMessagePtr udp_rx_message)</div><div class="ttdoc">Function to process the received Udp broadcast message from socket layer.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel_8cpp_source.html#l00039">doip_udp_channel.cpp:39</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1SocketHandler_html_a383381a18a4144ec47d2506c02c12fb4"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4">doip_client::sockets::SocketHandler::SetReadHandler</a></div><div class="ttdeci">void SetReadHandler(HandlerRead read_handler)</div><div class="ttdoc">Function to set the read handler that is invoked when message is received.</div><div class="ttdef"><b>Definition:</b> <a href="socket__handler_8h_source.html#l00091">socket_handler.h:91</a></div></div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1SocketHandler_html_af629681c46001b2256fd3e20fd0a1c79"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79">doip_client::sockets::SocketHandler::Initialize</a></div><div class="ttdeci">void Initialize() noexcept</div><div class="ttdoc">Function to start the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="socket__handler_8h_source.html#l00078">socket_handler.h:78</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="udp__socket__handler_8cpp_source.html#l00033">doip_client::sockets::UdpSocketHandler::Start()</a>, <a class="el" href="doip__udp__channel_8h_source.html#l00130">udp_socket_handler_broadcast_</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00135">udp_socket_handler_unicast_</a>.</p>
+<p class="reference">References <a class="el" href="socket__handler_8h_source.html#l00078">doip_client::sockets::SocketHandler&lt; ClientType &gt;::Initialize()</a>, <a class="el" href="doip__udp__channel_8cpp_source.html#l00039">ProcessReceivedUdpBroadcast()</a>, <a class="el" href="doip__udp__channel_8cpp_source.html#l00043">ProcessReceivedUdpUnicast()</a>, <a class="el" href="socket__handler_8h_source.html#l00091">doip_client::sockets::SocketHandler&lt; ClientType &gt;::SetReadHandler()</a>, <a class="el" href="doip__udp__channel_8h_source.html#l00135">udp_socket_handler_broadcast_</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00140">udp_socket_handler_unicast_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00189">doip_client::connection::DoipUdpConnection::Start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00221">doip_client::connection::DoipUdpConnection::Start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_a4214a340e85ca3eeeb496bdba5625156_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_a4214a340e85ca3eeeb496bdba5625156_cgraph" alt=""/></div>
 <map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_a4214a340e85ca3eeeb496bdba5625156_cgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_a4214a340e85ca3eeeb496bdba5625156_cgraph">
-<area shape="rect" title="Function to start the channel." alt="" coords="5,5,235,61"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#af7af0f9f9c5e8a94e3e37be3885e92a8" title="Function to start the socket handler." alt="" coords="283,13,472,54"/>
+<area shape="rect" title="Function to start the channel." alt="" coords="5,111,235,167"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79" title="Function to start the socket handler." alt="" coords="307,5,495,47"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#ae2a5de751d6b786ffb1ad36e226d6e1d" title="Function to process the received Udp broadcast message from socket layer." alt="" coords="286,71,517,127"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#aa5db4da9cc50fb65fc445813d310d51c" title="Function to process the received Udp unicast message from socket layer." alt="" coords="287,151,516,207"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4" title="Function to set the read handler that is invoked when message is received." alt="" coords="283,232,520,273"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#afd004600067094d8537d2600c66e55c8" title="Function to process the received broadcast udp message." alt="" coords="568,71,819,127"/>
+<area shape="rect" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a6f8f4b104ff9b37c8ca54a78bab14e5d" title="Function to process the received unicast udp message." alt="" coords="576,151,811,207"/>
 </map>
 </div>
 <div class="dynheader">
@@ -600,23 +603,23 @@ Here is the caller graph for this function:</div>
 
 <p>Function to stop the channel. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00027">27</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                          {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#ae10f4828a3c8b63c743f0a87aa139a9b">Stop</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#ae10f4828a3c8b63c743f0a87aa139a9b">Stop</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
-<div class="ttc" id="aclassdoip__client_1_1sockets_1_1UdpSocketHandler_html_ae10f4828a3c8b63c743f0a87aa139a9b"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#ae10f4828a3c8b63c743f0a87aa139a9b">doip_client::sockets::UdpSocketHandler::Stop</a></div><div class="ttdeci">void Stop()</div><div class="ttdoc">Function to stop the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="udp__socket__handler_8cpp_source.html#l00035">udp_socket_handler.cpp:35</a></div></div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00034">34</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                          {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a4ca0d4e1d309c3111626c2d6ae46dc0e">udp_socket_handler_broadcast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#ae81b770e77c6061d52ab07db42e9e552">DeInitialize</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#a66592d8d662f0e0faa2628404dcd655f">udp_socket_handler_unicast_</a>.<a class="code" href="classdoip__client_1_1sockets_1_1SocketHandler.html#ae81b770e77c6061d52ab07db42e9e552">DeInitialize</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="ttc" id="aclassdoip__client_1_1sockets_1_1SocketHandler_html_ae81b770e77c6061d52ab07db42e9e552"><div class="ttname"><a href="classdoip__client_1_1sockets_1_1SocketHandler.html#ae81b770e77c6061d52ab07db42e9e552">doip_client::sockets::SocketHandler::DeInitialize</a></div><div class="ttdeci">void DeInitialize() noexcept</div><div class="ttdoc">Function to stop the socket handler.</div><div class="ttdef"><b>Definition:</b> <a href="socket__handler_8h_source.html#l00083">socket_handler.h:83</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="udp__socket__handler_8cpp_source.html#l00035">doip_client::sockets::UdpSocketHandler::Stop()</a>, <a class="el" href="doip__udp__channel_8h_source.html#l00130">udp_socket_handler_broadcast_</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00135">udp_socket_handler_unicast_</a>.</p>
+<p class="reference">References <a class="el" href="socket__handler_8h_source.html#l00083">doip_client::sockets::SocketHandler&lt; ClientType &gt;::DeInitialize()</a>, <a class="el" href="doip__udp__channel_8h_source.html#l00135">udp_socket_handler_broadcast_</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00140">udp_socket_handler_unicast_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00194">doip_client::connection::DoipUdpConnection::Stop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00226">doip_client::connection::DoipUdpConnection::Stop()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ac66d3fc645c763830991c1b315618123_cgraph.png" border="0" usemap="#aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ac66d3fc645c763830991c1b315618123_cgraph" alt=""/></div>
 <map name="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ac66d3fc645c763830991c1b315618123_cgraph" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel_ac66d3fc645c763830991c1b315618123_cgraph">
 <area shape="rect" title="Function to stop the channel." alt="" coords="5,5,272,47"/>
-<area shape="rect" href="classdoip__client_1_1sockets_1_1UdpSocketHandler.html#ae10f4828a3c8b63c743f0a87aa139a9b" title="Function to stop the socket handler." alt="" coords="320,5,507,47"/>
+<area shape="rect" href="classdoip__client_1_1sockets_1_1SocketHandler.html#ae81b770e77c6061d52ab07db42e9e552" title="Function to stop the socket handler." alt="" coords="320,5,527,47"/>
 </map>
 </div>
 <div class="dynheader">
@@ -655,15 +658,15 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00040">40</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                             {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a44b6597f01d47683ee43772b765eb26b">SendVehicleIdentificationRequest</a>(std::move(message));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8cpp_source.html#l00047">47</a> of file <a class="el" href="doip__udp__channel_8cpp_source.html">doip_udp_channel.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                                             {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannel.html#af75aeaa41e68ee6af71be610bde3cdf3">udp_channel_handler_</a>.<a class="code" href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a44b6597f01d47683ee43772b765eb26b">SendVehicleIdentificationRequest</a>(std::move(message));</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="ttc" id="aclassdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler_html_a44b6597f01d47683ee43772b765eb26b"><div class="ttname"><a href="classdoip__client_1_1channel_1_1udp__channel_1_1DoipUdpChannelHandler.html#a44b6597f01d47683ee43772b765eb26b">doip_client::channel::udp_channel::DoipUdpChannelHandler::SendVehicleIdentificationRequest</a></div><div class="ttdeci">auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept -&gt; uds_transport::UdsTransportProtocolMgr::TransmissionResult</div><div class="ttdoc">Function to vehicle identification request to the connected network.</div><div class="ttdef"><b>Definition:</b> <a href="doip__udp__channel__handler_8cpp_source.html#l00036">doip_udp_channel_handler.cpp:36</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00036">doip_client::channel::udp_channel::DoipUdpChannelHandler::SendVehicleIdentificationRequest()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00140">udp_channel_handler_</a>.</p>
+<p class="reference">References <a class="el" href="doip__udp__channel__handler_8cpp_source.html#l00036">doip_client::channel::udp_channel::DoipUdpChannelHandler::SendVehicleIdentificationRequest()</a>, and <a class="el" href="doip__udp__channel_8h_source.html#l00145">udp_channel_handler_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00260">doip_client::connection::DoipUdpConnection::Transmit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__manager_8cpp_source.html#l00295">doip_client::connection::DoipUdpConnection::Transmit()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -708,9 +711,9 @@ Here is the caller graph for this function:</div>
 
 <p>Store the reference to doip connection. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00145">145</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00150">150</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00055">HandleMessage()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00046">IndicateMessage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00064">HandleMessage()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00053">IndicateMessage()</a>.</p>
 
 </div>
 </div>
@@ -736,9 +739,9 @@ Here is the caller graph for this function:</div>
 
 <p>Store the doip channel handler. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00140">140</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00145">145</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00032">ProcessReceivedUdpBroadcast()</a>, <a class="el" href="doip__udp__channel_8cpp_source.html#l00036">ProcessReceivedUdpUnicast()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00040">Transmit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00039">ProcessReceivedUdpBroadcast()</a>, <a class="el" href="doip__udp__channel_8cpp_source.html#l00043">ProcessReceivedUdpUnicast()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00047">Transmit()</a>.</p>
 
 </div>
 </div>
@@ -764,9 +767,9 @@ Here is the caller graph for this function:</div>
 
 <p>Store the udp socket handler for broadcast messages. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00130">130</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00135">135</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00022">Start()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00027">Stop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00023">Start()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00034">Stop()</a>.</p>
 
 </div>
 </div>
@@ -792,9 +795,9 @@ Here is the caller graph for this function:</div>
 
 <p>Store the udp socket handler for unicast messages. </p>
 
-<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00135">135</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="doip__udp__channel_8h_source.html#l00140">140</a> of file <a class="el" href="doip__udp__channel_8h_source.html">doip_udp_channel.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00022">Start()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00027">Stop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="doip__udp__channel_8cpp_source.html#l00023">Start()</a>, and <a class="el" href="doip__udp__channel_8cpp_source.html#l00034">Stop()</a>.</p>
 
 </div>
 </div>

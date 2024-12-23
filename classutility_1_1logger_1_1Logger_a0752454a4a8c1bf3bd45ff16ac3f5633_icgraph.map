@@ -1,0 +1,10 @@
+<map id="utility::logger::Logger::LogMessageToStdOutput" name="utility::logger::Logger::LogMessageToStdOutput">
+<area shape="rect" id="node1" title="Function to send the messages to dlt infrastructure." alt="" coords="228,201,419,243"/>
+<area shape="rect" id="node2" href="$classutility_1_1logger_1_1Logger.html#a1cbfd090ba8675a49887f8522a48a661" title="Log debug message." alt="" coords="13,5,173,47"/>
+<area shape="rect" id="node3" href="$classutility_1_1logger_1_1Logger.html#a890d141d0864572ee093064d126abbba" title="Log error message." alt="" coords="13,71,173,112"/>
+<area shape="rect" id="node4" href="$classutility_1_1logger_1_1Logger.html#ac63f8cef90bec3fde30602db54565876" title="Log fatal message." alt="" coords="13,136,173,177"/>
+<area shape="rect" id="node5" href="$classutility_1_1logger_1_1Logger.html#a93d7fb56f5ad5e6d9c778d73b4609283" title="Log fatal message and abort." alt="" coords="5,201,180,243"/>
+<area shape="rect" id="node6" href="$classutility_1_1logger_1_1Logger.html#a9e1e857264793a7a9d5f3c3a7ee0f598" title="Log info message." alt="" coords="13,267,173,308"/>
+<area shape="rect" id="node7" href="$classutility_1_1logger_1_1Logger.html#a7d8032ed105c5d43b68d78c1397b1b1b" title="Log verbose message." alt="" coords="13,332,173,373"/>
+<area shape="rect" id="node8" href="$classutility_1_1logger_1_1Logger.html#ae88ab5e157f47752d254098f88f87a8f" title="Log warning message." alt="" coords="13,397,173,439"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="boost_support::socket::udp::UdpSocket::StartReceivingMessage" name="boost_support::socket::udp::UdpSocket::StartReceivingMessage">
+<area shape="rect" id="node1" title="Function to start reception of Udp dataframe." alt="" coords="227,31,461,87"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#ae3fe57c5a57740db4a54d11212683dd4" title="Function to open and bind the socket to provided ip address &amp; port." alt="" coords="5,5,179,47"/>
+<area shape="rect" id="node3" href="$classboost__support_1_1socket_1_1udp_1_1UdpSocket.html#a9e68c2f37c36b19b29d9d58d7f793455" title="Function to handle the reception of tcp message." alt="" coords="6,71,178,112"/>
+</map>

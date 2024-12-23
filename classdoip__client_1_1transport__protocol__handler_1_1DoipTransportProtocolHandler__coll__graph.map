@@ -1,5 +1,6 @@
 <map id="doip_client::transport_protocol_handler::DoipTransportProtocolHandler" name="doip_client::transport_protocol_handler::DoipTransportProtocolHandler">
-<area shape="rect" id="node1" title="Protocol handler class to manage the whole Doip protocol communication." alt="" coords="408,31,644,87"/>
-<area shape="rect" id="node2" href="$classuds__transport_1_1UdsTransportProtocolHandler.html" title=" " alt="" coords="5,5,209,47"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipConnectionManager.html" title="Manages Doip tcp and udp connections." alt="" coords="12,71,203,112"/>
+<area shape="rect" id="node1" title="Protocol handler class to manage the whole Doip protocol communication." alt="" coords="732,30,968,86"/>
+<area shape="rect" id="node2" href="$classuds__transport_1_1UdsTransportProtocolHandler.html" title=" " alt="" coords="364,5,568,47"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1ConnectionManager.html" title="Manages Doip tcp and udp connections." alt="" coords="380,71,552,112"/>
+<area shape="rect" id="node4" href="$structdoip__client_1_1connection_1_1ConnectionManager_1_1IoContext.html" title="Type alias for boost context." alt="" coords="5,71,236,112"/>
 </map>

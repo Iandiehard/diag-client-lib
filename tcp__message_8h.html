@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/socket/tcp/tcp_message.h File Reference</title>
+<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/lib/boost-support/include/boost-support/message/tcp/tcp_message.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_4974d0b8e5241bf7125a7dd543532268.html">socket</a></li><li class="navelem"><a class="el" href="dir_bc77139304b82b6e1d2c5a29bc45d77e.html">tcp</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_41385f50689e0c067ff92ca27d4b8a56.html">lib</a></li><li class="navelem"><a class="el" href="dir_fdc072294ed8503a7113a1592b94643d.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_2f40fc3ba57e62a0da4048229f15a7d8.html">include</a></li><li class="navelem"><a class="el" href="dir_164d6fe832411f2bf1d6605830083854.html">boost-support</a></li><li class="navelem"><a class="el" href="dir_ee42a05eb891aa73d72a2570cbe40eae.html">message</a></li><li class="navelem"><a class="el" href="dir_4ac9d1d7ce6e0de210515e9507ab6a89.html">tcp</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,8 @@ $(function() {
 <div class="title">tcp_message.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -82,42 +83,66 @@ $(function() {
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for tcp_message.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="tcp__message_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8h" alt=""/></div>
-<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8h" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8h">
-<area shape="rect" title=" " alt="" coords="145,5,332,91"/>
-<area shape="rect" title=" " alt="" coords="5,139,83,165"/>
-<area shape="rect" title=" " alt="" coords="107,139,165,165"/>
-<area shape="rect" title=" " alt="" coords="190,139,287,165"/>
-<area shape="rect" title=" " alt="" coords="311,139,374,165"/>
-<area shape="rect" href="span_8h.html" title=" " alt="" coords="398,139,546,165"/>
-<area shape="rect" title=" " alt="" coords="259,213,315,240"/>
-<area shape="rect" title=" " alt="" coords="339,213,419,240"/>
-<area shape="rect" title=" " alt="" coords="443,213,501,240"/>
-<area shape="rect" title=" " alt="" coords="526,213,618,240"/>
-<area shape="rect" title=" " alt="" coords="642,213,702,240"/>
+<div class="center"><img src="tcp__message_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8h" alt=""/></div>
+<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8h" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8h">
+<area shape="rect" title=" " alt="" coords="145,5,410,91"/>
+<area shape="rect" title=" " alt="" coords="5,139,72,165"/>
+<area shape="rect" title=" " alt="" coords="96,139,173,165"/>
+<area shape="rect" title=" " alt="" coords="197,139,256,165"/>
+<area shape="rect" title=" " alt="" coords="281,139,378,165"/>
+<area shape="rect" title=" " alt="" coords="402,139,465,165"/>
+<area shape="rect" href="span_8h.html" title=" " alt="" coords="489,139,637,165"/>
+<area shape="rect" title=" " alt="" coords="349,213,405,240"/>
+<area shape="rect" title=" " alt="" coords="429,213,509,240"/>
+<area shape="rect" title=" " alt="" coords="533,213,592,240"/>
+<area shape="rect" title=" " alt="" coords="617,213,709,240"/>
+<area shape="rect" title=" " alt="" coords="733,213,793,240"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="tcp__message_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8hdep" alt=""/></div>
-<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8hdep" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2socket_2tcp_2tcp__message_8hdep">
-<area shape="rect" title=" " alt="" coords="1031,5,1218,91"/>
-<area shape="rect" href="tcp__client_8h.html" title=" " alt="" coords="926,139,1113,224"/>
-<area shape="rect" href="tcp__server_8h.html" title=" " alt="" coords="1137,139,1323,224"/>
-<area shape="rect" href="tcp__client_8cpp.html" title=" " alt="" coords="926,272,1113,357"/>
-<area shape="rect" href="tcp__socket__handler_8h.html" title=" " alt="" coords="724,272,901,357"/>
-<area shape="rect" href="doip__diagnostic__message__handler_8h.html" title=" " alt="" coords="395,405,647,505"/>
-<area shape="rect" href="doip__tcp__channel__handler_8h.html" title=" " alt="" coords="501,553,698,653"/>
-<area shape="rect" href="doip__tcp__channel_8h.html" title=" " alt="" coords="576,701,785,787"/>
-<area shape="rect" href="doip__tcp__channel_8cpp.html" title=" " alt="" coords="1034,842,1258,927"/>
-<area shape="rect" href="tcp__socket__handler_8cpp.html" title=" " alt="" coords="1283,842,1460,927"/>
-<area shape="rect" href="doip__routing__activation__handler_8h.html" title=" " alt="" coords="773,405,1010,505"/>
-<area shape="rect" href="doip__diagnostic__message__handler_8cpp.html" title=" " alt="" coords="5,835,257,935"/>
-<area shape="rect" href="doip__tcp__channel__handler_8cpp.html" title=" " alt="" coords="282,835,479,935"/>
-<area shape="rect" href="doip__routing__activation__handler_8cpp.html" title=" " alt="" coords="773,835,1010,935"/>
-<area shape="rect" href="connection__manager_8cpp.html" title=" " alt="" coords="503,842,749,927"/>
-<area shape="rect" href="tcp__server_8cpp.html" title=" " alt="" coords="1137,272,1323,357"/>
+<div class="center"><img src="tcp__message_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8hdep" alt=""/></div>
+<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8hdep" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2lib_2boost-support_2include_2boost-support_2message_2tcp_2tcp__message_8hdep">
+<area shape="rect" title=" " alt="" coords="1519,5,1785,91"/>
+<area shape="rect" href="tcp__client_8h.html" title=" " alt="" coords="1107,139,1325,224"/>
+<area shape="rect" href="tls__client_8h.html" title=" " alt="" coords="1667,139,1877,224"/>
+<area shape="rect" href="tcp__server_8h.html" title=" " alt="" coords="279,139,507,224"/>
+<area shape="rect" href="tls__server_8h.html" title=" " alt="" coords="1910,139,2130,224"/>
+<area shape="rect" href="tcp__socket_8h.html" title=" " alt="" coords="707,139,938,224"/>
+<area shape="rect" href="tls__client___8h.html" title=" " alt="" coords="2290,139,2518,224"/>
+<area shape="rect" href="tls__server___8h.html" title=" " alt="" coords="2618,139,2851,224"/>
+<area shape="rect" href="tls__socket_8h.html" title=" " alt="" coords="1421,139,1643,224"/>
+<area shape="rect" href="tcp__client_8cpp.html" title=" " alt="" coords="860,272,1095,357"/>
+<area shape="rect" href="socket__handler_8h.html" title=" " alt="" coords="1119,272,1313,357"/>
+<area shape="rect" href="doip__diagnostic__message__handler_8h.html" title=" " alt="" coords="875,405,1127,505"/>
+<area shape="rect" href="doip__tcp__channel__handler_8h.html" title=" " alt="" coords="689,553,887,653"/>
+<area shape="rect" href="doip__tcp__channel_8h.html" title=" " alt="" coords="683,709,893,794"/>
+<area shape="rect" href="connection__manager_8cpp.html" title=" " alt="" coords="1152,857,1397,942"/>
+<area shape="rect" href="doip__routing__activation__handler_8h.html" title=" " alt="" coords="563,405,800,505"/>
+<area shape="rect" href="doip__udp__channel_8h.html" title=" " alt="" coords="1325,709,1539,794"/>
+<area shape="rect" href="doip__udp__channel__handler_8h.html" title=" " alt="" coords="1563,553,1765,653"/>
+<area shape="rect" href="doip__vehicle__discovery__handler_8h.html" title=" " alt="" coords="1303,405,1539,505"/>
+<area shape="rect" href="doip__vehicle__identification__handler_8h.html" title=" " alt="" coords="1613,405,1872,505"/>
+<area shape="rect" href="doip__diagnostic__message__handler_8cpp.html" title=" " alt="" coords="875,849,1127,949"/>
+<area shape="rect" href="doip__tcp__channel__handler_8cpp.html" title=" " alt="" coords="405,849,603,949"/>
+<area shape="rect" href="doip__routing__activation__handler_8cpp.html" title=" " alt="" coords="144,849,381,949"/>
+<area shape="rect" href="doip__tcp__channel_8cpp.html" title=" " alt="" coords="627,857,851,942"/>
+<area shape="rect" href="doip__udp__channel_8cpp.html" title=" " alt="" coords="1422,857,1650,942"/>
+<area shape="rect" href="doip__vehicle__identification__handler_8cpp.html" title=" " alt="" coords="1675,849,1933,949"/>
+<area shape="rect" href="doip__udp__channel__handler_8cpp.html" title=" " alt="" coords="1563,701,1765,801"/>
+<area shape="rect" href="doip__vehicle__discovery__handler_8cpp.html" title=" " alt="" coords="1303,553,1539,653"/>
+<area shape="rect" href="tls__client_8cpp.html" title=" " alt="" coords="1652,272,1879,357"/>
+<area shape="rect" href="tcp__acceptor_8h.html" title=" " alt="" coords="5,272,248,357"/>
+<area shape="rect" href="tcp__server_8cpp.html" title=" " alt="" coords="272,272,515,357"/>
+<area shape="rect" href="tcp__acceptor_8cpp.html" title=" " alt="" coords="139,413,397,498"/>
+<area shape="rect" href="tls__acceptor_8h.html" title=" " alt="" coords="2161,272,2396,357"/>
+<area shape="rect" href="tls__server_8cpp.html" title=" " alt="" coords="1903,272,2137,357"/>
+<area shape="rect" href="tls__acceptor_8cpp.html" title=" " alt="" coords="2024,413,2275,498"/>
+<area shape="rect" href="tcp__socket_8cpp.html" title=" " alt="" coords="539,272,786,357"/>
+<area shape="rect" href="tls__client___8cpp.html" title=" " alt="" coords="2420,272,2663,357"/>
+<area shape="rect" href="tls__server___8cpp.html" title=" " alt="" coords="2687,272,2935,357"/>
+<area shape="rect" href="tls__socket_8cpp.html" title=" " alt="" coords="1338,272,1577,357"/>
 </map>
 </div>
 </div>
@@ -125,33 +150,33 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html">boost_support::socket::tcp::TcpMessage</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immutable class to store received tcp message.  <a href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html">boost_support::message::tcp::TcpMessage</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immutable class to store received tcp message.  <a href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceboost__support"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support.html">boost_support</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceboost__support_1_1socket"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket.html">boost_support::socket</a></td></tr>
+<tr class="memitem:namespaceboost__support_1_1message"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1message.html">boost_support::message</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceboost__support_1_1socket_1_1tcp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html">boost_support::socket::tcp</a></td></tr>
+<tr class="memitem:namespaceboost__support_1_1message_1_1tcp"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1message_1_1tcp.html">boost_support::message::tcp</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a12d6a4ed4a294b1a73e512faabb6a067"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html#a12d6a4ed4a294b1a73e512faabb6a067">boost_support::socket::tcp::TcpMessageConstPtr</a> = std::unique_ptr&lt; const TcpMessage &gt;</td></tr>
-<tr class="memdesc:a12d6a4ed4a294b1a73e512faabb6a067"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique pointer to const <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="namespaceboost__support_1_1socket_1_1tcp.html#a12d6a4ed4a294b1a73e512faabb6a067">More...</a><br /></td></tr>
-<tr class="separator:a12d6a4ed4a294b1a73e512faabb6a067"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb9906d07b254e104e4d631c30f2bc9c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html#aeb9906d07b254e104e4d631c30f2bc9c">boost_support::socket::tcp::TcpMessagePtr</a> = std::unique_ptr&lt; TcpMessage &gt;</td></tr>
-<tr class="memdesc:aeb9906d07b254e104e4d631c30f2bc9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique pointer to <a class="el" href="classboost__support_1_1socket_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="namespaceboost__support_1_1socket_1_1tcp.html#aeb9906d07b254e104e4d631c30f2bc9c">More...</a><br /></td></tr>
-<tr class="separator:aeb9906d07b254e104e4d631c30f2bc9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b9d342e2785f5d9cc9d1840737faa00"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1message_1_1tcp.html#a9b9d342e2785f5d9cc9d1840737faa00">boost_support::message::tcp::TcpMessageConstPtr</a> = std::unique_ptr&lt; TcpMessage const  &gt;</td></tr>
+<tr class="memdesc:a9b9d342e2785f5d9cc9d1840737faa00"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique pointer to const <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="namespaceboost__support_1_1message_1_1tcp.html#a9b9d342e2785f5d9cc9d1840737faa00">More...</a><br /></td></tr>
+<tr class="separator:a9b9d342e2785f5d9cc9d1840737faa00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a560c23270818ee9f2f423590392de3a0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1message_1_1tcp.html#a560c23270818ee9f2f423590392de3a0">boost_support::message::tcp::TcpMessagePtr</a> = std::unique_ptr&lt; TcpMessage &gt;</td></tr>
+<tr class="memdesc:a560c23270818ee9f2f423590392de3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unique pointer to <a class="el" href="classboost__support_1_1message_1_1tcp_1_1TcpMessage.html" title="Immutable class to store received tcp message.">TcpMessage</a>.  <a href="namespaceboost__support_1_1message_1_1tcp.html#a560c23270818ee9f2f423590392de3a0">More...</a><br /></td></tr>
+<tr class="separator:a560c23270818ee9f2f423590392de3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ab38a3b1150e206116321025eb04a13fe"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1socket_1_1tcp.html#ab38a3b1150e206116321025eb04a13fe">boost_support::socket::tcp::kDoipheadrSize</a> = 8U</td></tr>
-<tr class="memdesc:ab38a3b1150e206116321025eb04a13fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doip HeaderSize.  <a href="namespaceboost__support_1_1socket_1_1tcp.html#ab38a3b1150e206116321025eb04a13fe">More...</a><br /></td></tr>
-<tr class="separator:ab38a3b1150e206116321025eb04a13fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9e896d06bc1261ead6b85611f8946a6"><td class="memItemLeft" align="right" valign="top">constexpr std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceboost__support_1_1message_1_1tcp.html#af9e896d06bc1261ead6b85611f8946a6">boost_support::message::tcp::kDoipheadrSize</a> = 8U</td></tr>
+<tr class="memdesc:af9e896d06bc1261ead6b85611f8946a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Doip HeaderSize.  <a href="namespaceboost__support_1_1message_1_1tcp.html#af9e896d06bc1261ead6b85611f8946a6">More...</a><br /></td></tr>
+<tr class="separator:af9e896d06bc1261ead6b85611f8946a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

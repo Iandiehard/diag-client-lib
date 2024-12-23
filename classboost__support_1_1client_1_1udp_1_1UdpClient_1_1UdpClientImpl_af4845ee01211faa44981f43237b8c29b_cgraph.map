@@ -1,0 +1,6 @@
+<map id="boost_support::client::udp::UdpClient::UdpClientImpl::Transmit" name="boost_support::client::udp::UdpClient::UdpClientImpl::Transmit">
+<area shape="rect" id="node1" title="Function to transmit the provided udp message." alt="" coords="5,31,204,87"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a165af7248752cd64de4a56d303242a76" title="Function to trigger transmission." alt="" coords="252,39,477,80"/>
+<area shape="rect" id="node3" href="$classcore__type_1_1Result.html#afa16b078a53d3ce9573487bc77ff2ea5" title="Build a new Result from the specified value (given as lvalue)" alt="" coords="547,5,689,47"/>
+<area shape="rect" id="node4" href="$namespaceboost__support_1_1error__domain.html#a6a542b5a43c8af4d69ecb279b6e1c2e0" title="Create a new ErrorCode within DoipErrorDomain." alt="" coords="525,71,711,112"/>
+</map>

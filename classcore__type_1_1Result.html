@@ -166,10 +166,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afc483f098d96a398fd38ee9482d2829b"><td class="memItemLeft" align="right" valign="top">std::optional&lt; E &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcore__type_1_1Result.html#afc483f098d96a398fd38ee9482d2829b">Err</a> () &amp;&amp;noexcept</td></tr>
 <tr class="memdesc:afc483f098d96a398fd38ee9482d2829b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the contained error as an Optional.  <a href="classcore__type_1_1Result.html#afc483f098d96a398fd38ee9482d2829b">More...</a><br /></td></tr>
 <tr class="separator:afc483f098d96a398fd38ee9482d2829b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdd842373ded3c629f52aeb8eb4c6d86"><td class="memTemplParams" colspan="2">template&lt;typename F , typename T2  = typename std::invoke_result_t&lt;F, T&gt;&gt; </td></tr>
-<tr class="memitem:abdd842373ded3c629f52aeb8eb4c6d86"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; T2, E &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore__type_1_1Result.html#abdd842373ded3c629f52aeb8eb4c6d86">AndThen</a> (F &amp;&amp;fn) &amp;&amp;noexcept</td></tr>
-<tr class="memdesc:abdd842373ded3c629f52aeb8eb4c6d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given function on the contained value if it exists; otherwise, returns the result itself.  <a href="classcore__type_1_1Result.html#abdd842373ded3c629f52aeb8eb4c6d86">More...</a><br /></td></tr>
-<tr class="separator:abdd842373ded3c629f52aeb8eb4c6d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7db2507ac77ca5dd7bdebf7e3794f28e"><td class="memTemplParams" colspan="2">template&lt;typename F , typename R2  = typename std::invoke_result_t&lt;F, value_type &amp;&amp;&gt;&gt; </td></tr>
+<tr class="memitem:a7db2507ac77ca5dd7bdebf7e3794f28e"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore__type_1_1Result.html#a7db2507ac77ca5dd7bdebf7e3794f28e">AndThen</a> (F &amp;&amp;fn) &amp;&amp;noexcept -&gt; R2</td></tr>
+<tr class="memdesc:a7db2507ac77ca5dd7bdebf7e3794f28e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given function on the contained value if it exists; otherwise, returns the result itself.  <a href="classcore__type_1_1Result.html#a7db2507ac77ca5dd7bdebf7e3794f28e">More...</a><br /></td></tr>
+<tr class="separator:a7db2507ac77ca5dd7bdebf7e3794f28e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37282503c28519fb3494afec2aff4471"><td class="memTemplParams" colspan="2">template&lt;typename F , typename E2  = std::invoke_result_t&lt;F, E&gt;&gt; </td></tr>
 <tr class="memitem:a37282503c28519fb3494afec2aff4471"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt; T, E2 &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classcore__type_1_1Result.html#a37282503c28519fb3494afec2aff4471">MapError</a> (F &amp;&amp;fn)</td></tr>
 <tr class="memdesc:a37282503c28519fb3494afec2aff4471"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the result of the given function on the contained value if it exists; otherwise, returns the result itself.  <a href="classcore__type_1_1Result.html#a37282503c28519fb3494afec2aff4471">More...</a><br /></td></tr>
@@ -320,7 +320,7 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00116">116</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;: <a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>{t} {}</div>
-<div class="ttc" id="aclasscore__type_1_1Result_html_a4d8c557b70451804ef5e0b80ec2e5f47"><div class="ttname"><a href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">core_type::Result::storage_</a></div><div class="ttdeci">std::variant&lt; T, E &gt; storage_</div><div class="ttdoc">Storage to contain value of type T or error of type E.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00443">result.h:443</a></div></div>
+<div class="ttc" id="aclasscore__type_1_1Result_html_a4d8c557b70451804ef5e0b80ec2e5f47"><div class="ttname"><a href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">core_type::Result::storage_</a></div><div class="ttdeci">std::variant&lt; T, E &gt; storage_</div><div class="ttdoc">Storage to contain value of type T or error of type E.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00446">result.h:446</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -543,25 +543,25 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="abdd842373ded3c629f52aeb8eb4c6d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abdd842373ded3c629f52aeb8eb4c6d86">&#9670;&nbsp;</a></span>AndThen()</h2>
+<a id="a7db2507ac77ca5dd7bdebf7e3794f28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7db2507ac77ca5dd7bdebf7e3794f28e">&#9670;&nbsp;</a></span>AndThen()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <div class="memtemplate">
-template&lt;typename F , typename T2  = typename std::invoke_result_t&lt;F, T&gt;&gt; </div>
+template&lt;typename F , typename R2  = typename std::invoke_result_t&lt;F, value_type &amp;&amp;&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classcore__type_1_1Result.html">Result</a>&lt;T2, E&gt; <a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; T, E &gt;::AndThen </td>
+          <td class="memname">auto <a class="el" href="classcore__type_1_1Result.html">core_type::Result</a>&lt; T, E &gt;::AndThen </td>
           <td>(</td>
           <td class="paramtype">F &amp;&amp;&#160;</td>
           <td class="paramname"><em>fn</em></td><td>)</td>
-          <td> &amp;&amp;</td>
+          <td> &amp;&amp; -&gt; R2 </td>
         </tr>
       </table>
   </td>
@@ -586,18 +586,19 @@ template&lt;typename F , typename T2  = typename std::invoke_result_t&lt;F, T&gt
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> An <a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00328">328</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                                           {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? Result&lt;T2, E&gt;{fn(std::move(*this).Value())} : Result&lt;T2, E&gt;{*<span class="keyword">this</span>};</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  }</div>
-<div class="ttc" id="aclasscore__type_1_1Result_html_aba38d402ce97832efd3f7aadc9b048d7"><div class="ttname"><a href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">core_type::Result::HasValue</a></div><div class="ttdeci">bool HasValue() const noexcept</div><div class="ttdoc">Check whether *this contains a value.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00208">result.h:208</a></div></div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00329">329</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                                        {</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? std::forward&lt;F&gt;(fn)(std::move(*this).Value())</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                      : R2{std::move(*this).Error()};</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;  }</div>
+<div class="ttc" id="aclasscore__type_1_1Result_html_aba38d402ce97832efd3f7aadc9b048d7"><div class="ttname"><a href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">core_type::Result::HasValue</a></div><div class="ttdeci">bool HasValue() const noexcept</div><div class="ttdoc">Check whether *this contains a value.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00209">result.h:209</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classcore__type_1_1Result_abdd842373ded3c629f52aeb8eb4c6d86_cgraph.png" border="0" usemap="#aclasscore__type_1_1Result_abdd842373ded3c629f52aeb8eb4c6d86_cgraph" alt=""/></div>
-<map name="aclasscore__type_1_1Result_abdd842373ded3c629f52aeb8eb4c6d86_cgraph" id="aclasscore__type_1_1Result_abdd842373ded3c629f52aeb8eb4c6d86_cgraph">
+<div class="center"><img src="classcore__type_1_1Result_a7db2507ac77ca5dd7bdebf7e3794f28e_cgraph.png" border="0" usemap="#aclasscore__type_1_1Result_a7db2507ac77ca5dd7bdebf7e3794f28e_cgraph" alt=""/></div>
+<map name="aclasscore__type_1_1Result_a7db2507ac77ca5dd7bdebf7e3794f28e_cgraph" id="aclasscore__type_1_1Result_a7db2507ac77ca5dd7bdebf7e3794f28e_cgraph">
 <area shape="rect" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="5,5,148,47"/>
 <area shape="rect" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7" title="Check whether *this contains a value." alt="" coords="196,5,339,47"/>
 </map>
@@ -647,12 +648,12 @@ template&lt;typename... Args&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00199">199</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                                             {</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>.template emplace&lt;error_type&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00200">200</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                                             {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>.template emplace&lt;error_type&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -698,25 +699,12 @@ template&lt;typename... Args&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00187">187</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                                             {</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>.template emplace&lt;value_type&gt;(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00188">188</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                                             {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>.template emplace&lt;value_type&gt;(std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="udp__client_8cpp_source.html#l00147">boost_support::socket::udp::UdpClientSocket::Destroy()</a>, and <a class="el" href="json__parser_8cpp_source.html#l00016">boost_support::parser::Read()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classcore__type_1_1Result_af2e3cfbd02cd97a0874c4d159fb82d71_icgraph.png" border="0" usemap="#aclasscore__type_1_1Result_af2e3cfbd02cd97a0874c4d159fb82d71_icgraph" alt=""/></div>
-<map name="aclasscore__type_1_1Result_af2e3cfbd02cd97a0874c4d159fb82d71_icgraph" id="aclasscore__type_1_1Result_af2e3cfbd02cd97a0874c4d159fb82d71_icgraph">
-<area shape="rect" title="Put a new value into this instance, constructed in&#45;place from the given arguments." alt="" coords="461,50,604,91"/>
-<area shape="rect" href="classboost__support_1_1socket_1_1udp_1_1UdpClientSocket.html#a4f89332d20e50adaf07bbb3e8f2b01cf" title="Function to destroy the socket." alt="" coords="244,5,413,61"/>
-<area shape="rect" href="namespaceboost__support_1_1parser.html#a7e533fae6e596304315e8624faec856b" title="Parser to get the configuration from json file." alt="" coords="247,86,410,127"/>
-<area shape="rect" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="5,86,196,127"/>
-</map>
-</div>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -748,15 +736,15 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Return the contained error as an Optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;E&gt; An Optional with the error, if present </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00311">311</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                                  {</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    std::optional&lt;E&gt; opt_err{};</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_err.emplace(std::move(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>())); }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">return</span> opt_err;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  }</div>
-<div class="ttc" id="aclasscore__type_1_1Result_html_a90f67e01b22f66c649a65cab99741707"><div class="ttname"><a href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">core_type::Result::Error</a></div><div class="ttdeci">const E &amp; Error() const &amp;noexcept</div><div class="ttdoc">Access the contained error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00263">result.h:263</a></div></div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00312">312</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                                  {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    std::optional&lt;E&gt; opt_err{};</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_err.emplace(std::move(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>())); }</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    <span class="keywordflow">return</span> opt_err;</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  }</div>
+<div class="ttc" id="aclasscore__type_1_1Result_html_a90f67e01b22f66c649a65cab99741707"><div class="ttname"><a href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">core_type::Result::Error</a></div><div class="ttdeci">const E &amp; Error() const &amp;noexcept</div><div class="ttdoc">Access the contained error.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00264">result.h:264</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00263">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00264">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -798,14 +786,14 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Return the contained error as an Optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;E&gt; An Optional with the error, if present </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00300">300</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                                       {</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    std::optional&lt;E&gt; opt_err{};</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_err.emplace(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>()); }</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">return</span> opt_err;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00301">301</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                                       {</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    std::optional&lt;E&gt; opt_err{};</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_err.emplace(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>()); }</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">return</span> opt_err;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00263">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00264">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -847,10 +835,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained error. </p>
 <p>This function’s behavior is undefined if *this does not contain an error </p><dl class="section return"><dt>Returns</dt><dd>E &amp;&amp; An rvalue reference to the contained error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00271">271</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;error_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00272">272</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;error_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -882,12 +870,12 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained error. </p>
 <p>This function’s behavior is undefined if *this does not contain an error </p><dl class="section return"><dt>Returns</dt><dd>const E &amp; A const reference to the contained error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00263">263</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;error_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00264">264</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;error_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00659">core_type::Result&lt; void, E &gt;::CheckError()</a>, <a class="el" href="result_8h_source.html#l00300">core_type::Result&lt; T, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00616">core_type::Result&lt; void, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00644">core_type::Result&lt; void, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00690">core_type::Result&lt; void, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00435">core_type::Result&lt; T, E &gt;::Resolve()</a>, and <a class="el" href="result_8h_source.html#l00736">core_type::Result&lt; void, E &gt;::Resolve()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00663">core_type::Result&lt; void, E &gt;::CheckError()</a>, <a class="el" href="result_8h_source.html#l00301">core_type::Result&lt; T, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00620">core_type::Result&lt; void, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00648">core_type::Result&lt; void, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00694">core_type::Result&lt; void, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00438">core_type::Result&lt; T, E &gt;::Resolve()</a>, and <a class="el" href="result_8h_source.html#l00740">core_type::Result&lt; void, E &gt;::Resolve()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -949,13 +937,13 @@ template&lt;typename G &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>E The error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00418">418</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                                         {</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">return</span> !<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <span class="keyword">static_cast&lt;</span>E<span class="keyword">&gt;</span>(defaultError);</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00421">421</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                                         {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="keywordflow">return</span> !<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <span class="keyword">static_cast&lt;</span>E<span class="keyword">&gt;</span>(defaultError);</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  }</div>
 <div class="ttc" id="aclasscore__type_1_1Result_html_a03c0f7743440bf58b9d766b2893bbd45"><div class="ttname"><a href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">core_type::Result::Result</a></div><div class="ttdeci">constexpr Result(const T &amp;t) noexcept</div><div class="ttdoc">Construct a new Result from the specified value (given as lvalue)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00116">result.h:116</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1011,12 +999,12 @@ template&lt;typename G &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>E The error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00403">403</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                                              {</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <span class="keywordflow">return</span> !<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : <span class="keyword">static_cast&lt;</span>E<span class="keyword">&gt;</span>(defaultError);</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00406">406</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                                              {</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">return</span> !<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : <span class="keyword">static_cast&lt;</span>E<span class="keyword">&gt;</span>(defaultError);</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1117,7 +1105,7 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00083">83</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{e}; }</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="dm__conversation_8cpp_source.html#l00210">diag::client::conversation::DmConversation::SendDiagnosticRequest()</a>, and <a class="el" href="conversation_8h_source.html#l00158">diag::client::conversation::Conversation::SendDiagnosticRequest()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dm__conversation_8cpp_source.html#l00216">diag::client::conversation::DmConversation::SendDiagnosticRequest()</a>, and <a class="el" href="conversation_8h_source.html#l00172">diag::client::conversation::Conversation::SendDiagnosticRequest()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1300,6 +1288,23 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00048">48</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
 <div class="fragment"><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{t}; }</div>
 </div><!-- fragment -->
+<p class="reference">Referenced by <a class="el" href="diagnostic__client_8cpp_source.html#l00066">diag::client::DiagClient::DiagClientImpl::Initialize()</a>, <a class="el" href="tcp__connection_8h_source.html#l00242">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;::ReadMessage()</a>, <a class="el" href="tcp__connection_8h_source.html#l00437">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;::ReadMessage()</a>, <a class="el" href="tcp__connection_8h_source.html#l00188">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kClient, Socket &gt;::Transmit()</a>, <a class="el" href="tcp__connection_8h_source.html#l00383">boost_support::connection::tcp::TcpConnection&lt; ConnectionType::kServer, Socket &gt;::Transmit()</a>, and <a class="el" href="udp__connection_8h_source.html#l00100">boost_support::connection::udp::UdpConnection&lt; Socket &gt;::Transmit()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcore__type_1_1Result_afa16b078a53d3ce9573487bc77ff2ea5_icgraph.png" border="0" usemap="#aclasscore__type_1_1Result_afa16b078a53d3ce9573487bc77ff2ea5_icgraph" alt=""/></div>
+<map name="aclasscore__type_1_1Result_afa16b078a53d3ce9573487bc77ff2ea5_icgraph" id="aclasscore__type_1_1Result_afa16b078a53d3ce9573487bc77ff2ea5_icgraph">
+<area shape="rect" title="Build a new Result from the specified value (given as lvalue)" alt="" coords="575,199,717,240"/>
+<area shape="rect" href="classdiag_1_1client_1_1DiagClient_1_1DiagClientImpl.html#a465d27b05c2d166ac3a0361125c671b2" title="Function to initialize the already created instance of DiagClient." alt="" coords="294,5,485,47"/>
+<area shape="rect" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#af7c4a3490c02c9a06001656f49c33c85" title="Function to send the received message to stored handler." alt="" coords="254,71,525,127"/>
+<area shape="rect" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a049ad30e3d11a6c0964a9ea5d85ed4c3" title="Function to send the received message to stored handler." alt="" coords="252,151,527,207"/>
+<area shape="rect" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kClient_00_01Socket_01_4.html#a6834df7013018558737ad5ead0acbed8" title="Function to trigger transmission." alt="" coords="269,231,509,287"/>
+<area shape="rect" href="classboost__support_1_1connection_1_1tcp_1_1TcpConnection_3_01ConnectionType_1_1kServer_00_01Socket_01_4.html#a457133ae526842b3e2664e36130fa9d3" title="Function to trigger transmission." alt="" coords="269,311,509,367"/>
+<area shape="rect" href="classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a165af7248752cd64de4a56d303242a76" title="Function to trigger transmission." alt="" coords="277,392,502,433"/>
+<area shape="rect" href="classboost__support_1_1client_1_1udp_1_1UdpClient_1_1UdpClientImpl.html#af4845ee01211faa44981f43237b8c29b" title="Function to transmit the provided udp message." alt="" coords="5,385,204,441"/>
+</map>
+</div>
+
 </div>
 </div>
 <a id="aba38d402ce97832efd3f7aadc9b048d7"></a>
@@ -1330,20 +1335,20 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Check whether *this contains a value. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if *this contains a value, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00208">208</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;{ <span class="keywordflow">return</span> std::holds_alternative&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00209">209</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{ <span class="keywordflow">return</span> std::holds_alternative&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00328">core_type::Result&lt; T, E &gt;::AndThen()</a>, <a class="el" href="result_8h_source.html#l00674">core_type::Result&lt; void, E &gt;::AndThen()</a>, <a class="el" href="result_8h_source.html#l00659">core_type::Result&lt; void, E &gt;::CheckError()</a>, <a class="el" href="result_8h_source.html#l00300">core_type::Result&lt; T, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00616">core_type::Result&lt; void, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00403">core_type::Result&lt; T, E &gt;::ErrorOr()</a>, <a class="el" href="result_8h_source.html#l00705">core_type::Result&lt; void, E &gt;::ErrorOr()</a>, <a class="el" href="result_8h_source.html#l00343">core_type::Result&lt; T, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00644">core_type::Result&lt; void, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00278">core_type::Result&lt; T, E &gt;::Ok()</a>, <a class="el" href="result_8h_source.html#l00215">core_type::Result&lt; T, E &gt;::operator bool()</a>, <a class="el" href="result_8h_source.html#l00593">core_type::Result&lt; void, E &gt;::operator bool()</a>, <a class="el" href="result_8h_source.html#l00358">core_type::Result&lt; T, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00690">core_type::Result&lt; void, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00435">core_type::Result&lt; T, E &gt;::Resolve()</a>, and <a class="el" href="result_8h_source.html#l00373">core_type::Result&lt; T, E &gt;::ValueOr()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00678">core_type::Result&lt; void, E &gt;::AndThen()</a>, <a class="el" href="result_8h_source.html#l00329">core_type::Result&lt; T, E &gt;::AndThen()</a>, <a class="el" href="result_8h_source.html#l00663">core_type::Result&lt; void, E &gt;::CheckError()</a>, <a class="el" href="result_8h_source.html#l00301">core_type::Result&lt; T, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00620">core_type::Result&lt; void, E &gt;::Err()</a>, <a class="el" href="result_8h_source.html#l00406">core_type::Result&lt; T, E &gt;::ErrorOr()</a>, <a class="el" href="result_8h_source.html#l00709">core_type::Result&lt; void, E &gt;::ErrorOr()</a>, <a class="el" href="result_8h_source.html#l00345">core_type::Result&lt; T, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00648">core_type::Result&lt; void, E &gt;::MapError()</a>, <a class="el" href="result_8h_source.html#l00279">core_type::Result&lt; T, E &gt;::Ok()</a>, <a class="el" href="result_8h_source.html#l00216">core_type::Result&lt; T, E &gt;::operator bool()</a>, <a class="el" href="result_8h_source.html#l00597">core_type::Result&lt; void, E &gt;::operator bool()</a>, <a class="el" href="result_8h_source.html#l00361">core_type::Result&lt; T, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00694">core_type::Result&lt; void, E &gt;::OrElse()</a>, <a class="el" href="result_8h_source.html#l00438">core_type::Result&lt; T, E &gt;::Resolve()</a>, and <a class="el" href="result_8h_source.html#l00376">core_type::Result&lt; T, E &gt;::ValueOr()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcore__type_1_1Result_aba38d402ce97832efd3f7aadc9b048d7_icgraph.png" border="0" usemap="#aclasscore__type_1_1Result_aba38d402ce97832efd3f7aadc9b048d7_icgraph" alt=""/></div>
 <map name="aclasscore__type_1_1Result_aba38d402ce97832efd3f7aadc9b048d7_icgraph" id="aclasscore__type_1_1Result_aba38d402ce97832efd3f7aadc9b048d7_icgraph">
 <area shape="rect" title="Check whether *this contains a value." alt="" coords="233,483,376,524"/>
-<area shape="rect" href="classcore__type_1_1Result.html#abdd842373ded3c629f52aeb8eb4c6d86" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="24,5,167,47"/>
-<area shape="rect" href="classcore__type_1_1Result_3_01void_00_01E_01_4.html#a49a453267fc1c24d6e561bc0eb867775" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="20,71,171,112"/>
+<area shape="rect" href="classcore__type_1_1Result_3_01void_00_01E_01_4.html#a49a453267fc1c24d6e561bc0eb867775" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="20,5,171,47"/>
+<area shape="rect" href="classcore__type_1_1Result.html#a7db2507ac77ca5dd7bdebf7e3794f28e" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="24,71,167,112"/>
 <area shape="rect" href="classcore__type_1_1Result_3_01void_00_01E_01_4.html#a26c68639afe1eb890ea885de5558f7cc" title="Returns the result of the given function on the contained value if it exists; otherwise,..." alt="" coords="13,136,177,177"/>
 <area shape="rect" href="classcore__type_1_1Result.html#a209be5546dbec57f944cebda4a591dcd" title="Return the contained error as an Optional." alt="" coords="15,202,176,229"/>
 <area shape="rect" href="classcore__type_1_1Result_3_01void_00_01E_01_4.html#ad7150853e90b7b2de1a3335130a596b9" title="Return the contained error as an Optional." alt="" coords="22,253,169,295"/>
@@ -1406,12 +1411,13 @@ template&lt;typename F , typename E2  = std::invoke_result_t&lt;F, E&gt;&gt; </d
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> An <a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00343">343</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                                 {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? Result&lt;T, E2&gt;{std::move(*this).Value()} : Result&lt;T, E2&gt;{fn(std::move(*this).Error())};</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00345">345</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                                 {</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? Result&lt;T, E2&gt;{std::move(*this).Value()}</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                      : Result&lt;T, E2&gt;{fn(std::move(*this).Error())};</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00247">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00248">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1453,15 +1459,15 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Return the contained value as an Optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;T&gt; An Optional with the value, if present </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00289">289</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;                                 {</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    std::optional&lt;T&gt; opt_val{};</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_val.emplace(std::move(<a class="code" href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">Value</a>())); }</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">return</span> opt_val;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  }</div>
-<div class="ttc" id="aclasscore__type_1_1Result_html_a65cc0d54cfdf2356b5ddf3324761e964"><div class="ttname"><a href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">core_type::Result::Value</a></div><div class="ttdeci">const T &amp; Value() const &amp;noexcept</div><div class="ttdoc">Access the contained value.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00247">result.h:247</a></div></div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00290">290</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;                                 {</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    std::optional&lt;T&gt; opt_val{};</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_val.emplace(std::move(<a class="code" href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">Value</a>())); }</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordflow">return</span> opt_val;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  }</div>
+<div class="ttc" id="aclasscore__type_1_1Result_html_a65cc0d54cfdf2356b5ddf3324761e964"><div class="ttname"><a href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">core_type::Result::Value</a></div><div class="ttdeci">const T &amp; Value() const &amp;noexcept</div><div class="ttdoc">Access the contained value.</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00248">result.h:248</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00247">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00248">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1503,14 +1509,14 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Return the contained value as an Optional. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::optional&lt;T&gt; An Optional with the value, if present </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00278">278</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;                                      {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    std::optional&lt;T&gt; opt_val{};</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_val.emplace(<a class="code" href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">Value</a>()); }</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">return</span> opt_val;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00279">279</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;                                      {</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    std::optional&lt;T&gt; opt_val{};</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>()) { opt_val.emplace(<a class="code" href="classcore__type_1_1Result.html#a65cc0d54cfdf2356b5ddf3324761e964">Value</a>()); }</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">return</span> opt_val;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00247">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>, and <a class="el" href="result_8h_source.html#l00248">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1552,10 +1558,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Check whether *this contains a value. </p>
 <dl class="section return"><dt>Returns</dt><dd>bool True if *this contains a value, false otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00215">215</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>(); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00216">216</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>(); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1596,10 +1602,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained value. </p>
 <p>This function’s behavior is undefined if *this does not contain a value </p><dl class="section return"><dt>Returns</dt><dd>T &amp;&amp; An rvalue reference to the contained value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00231">231</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00232">232</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -1631,10 +1637,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained value. </p>
 <p>This function’s behavior is undefined if *this does not contain a value </p><dl class="section return"><dt>Returns</dt><dd>const T &amp; A const_reference to the contained value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00223">223</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00224">224</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -1666,10 +1672,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained value. </p>
 <p>This function’s behavior is undefined if *this does not contain a value </p><dl class="section return"><dt>Returns</dt><dd>const T * A pointer to the contained value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00239">239</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;{ <span class="keywordflow">return</span> std::get_if&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00240">240</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{ <span class="keywordflow">return</span> std::get_if&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -1790,12 +1796,12 @@ template&lt;typename F &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> An <a class="el" href="classcore__type_1_1Result.html" title="Class type to contains a value (of type ValueType), or an error (of type ErrorType)">Result</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00358">358</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                                   {</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{fn(std::move(*this).Error())};</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00361">361</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                                   {</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{fn(std::move(*this).Error())};</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1851,12 +1857,12 @@ template&lt;typename F &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T The value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00435">435</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;                         {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : f(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>());</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00438">438</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                         {</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : f(<a class="code" href="classcore__type_1_1Result.html#a90f67e01b22f66c649a65cab99741707">Error</a>());</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00263">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00264">core_type::Result&lt; T, E &gt;::Error()</a>, and <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1898,10 +1904,10 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained value. </p>
 <p>This function’s behavior is undefined if *this does not contain a value </p><dl class="section return"><dt>Returns</dt><dd>T &amp;&amp; An rvalue reference to the contained value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00255">255</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00256">256</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;{ <span class="keywordflow">return</span> std::move(std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>)); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
 </div>
 </div>
@@ -1933,12 +1939,12 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 <p>Access the contained value. </p>
 <p>This function’s behavior is undefined if *this does not contain a value </p><dl class="section return"><dt>Returns</dt><dd>const T &amp; A const reference to the contained value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00247">247</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00248">248</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;{ <span class="keywordflow">return</span> std::get&lt;value_type&gt;(<a class="code" href="classcore__type_1_1Result.html#a4d8c557b70451804ef5e0b80ec2e5f47">storage_</a>); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00443">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00446">core_type::Result&lt; T, E &gt;::storage_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00343">core_type::Result&lt; T, E &gt;::MapError()</a>, and <a class="el" href="result_8h_source.html#l00278">core_type::Result&lt; T, E &gt;::Ok()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00345">core_type::Result&lt; T, E &gt;::MapError()</a>, and <a class="el" href="result_8h_source.html#l00279">core_type::Result&lt; T, E &gt;::Ok()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1995,12 +2001,12 @@ template&lt;typename U &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T The value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00388">388</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                                         {</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(defaultValue);</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00391">391</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;                                         {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{std::move(*<span class="keyword">this</span>)} : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(defaultValue);</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2056,12 +2062,12 @@ template&lt;typename U &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>T The value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00373">373</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                                              {</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(defaultValue);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;  }</div>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00376">376</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                                              {</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classcore__type_1_1Result.html#aba38d402ce97832efd3f7aadc9b048d7">HasValue</a>() ? <a class="code" href="classcore__type_1_1Result.html#a03c0f7743440bf58b9d766b2893bbd45">Result</a>{*<span class="keyword">this</span>} : <span class="keyword">static_cast&lt;</span>T<span class="keyword">&gt;</span>(defaultValue);</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
+<p class="reference">References <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -2099,9 +2105,9 @@ template&lt;typename T , typename E  = ErrorCode&gt; </div>
 
 <p>Storage to contain value of type T or error of type E. </p>
 
-<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00443">443</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="result_8h_source.html#l00446">446</a> of file <a class="el" href="result_8h_source.html">result.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00199">core_type::Result&lt; T, E &gt;::EmplaceError()</a>, <a class="el" href="result_8h_source.html#l00577">core_type::Result&lt; void, E &gt;::EmplaceError()</a>, <a class="el" href="result_8h_source.html#l00567">core_type::Result&lt; void, E &gt;::EmplaceValue()</a>, <a class="el" href="result_8h_source.html#l00187">core_type::Result&lt; T, E &gt;::EmplaceValue()</a>, <a class="el" href="result_8h_source.html#l00263">core_type::Result&lt; T, E &gt;::Error()</a>, <a class="el" href="result_8h_source.html#l00601">core_type::Result&lt; void, E &gt;::Error()</a>, <a class="el" href="result_8h_source.html#l00208">core_type::Result&lt; T, E &gt;::HasValue()</a>, <a class="el" href="result_8h_source.html#l00586">core_type::Result&lt; void, E &gt;::HasValue()</a>, <a class="el" href="result_8h_source.html#l00223">core_type::Result&lt; T, E &gt;::operator*()</a>, <a class="el" href="result_8h_source.html#l00239">core_type::Result&lt; T, E &gt;::operator-&gt;()</a>, and <a class="el" href="result_8h_source.html#l00247">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="result_8h_source.html#l00200">core_type::Result&lt; T, E &gt;::EmplaceError()</a>, <a class="el" href="result_8h_source.html#l00581">core_type::Result&lt; void, E &gt;::EmplaceError()</a>, <a class="el" href="result_8h_source.html#l00571">core_type::Result&lt; void, E &gt;::EmplaceValue()</a>, <a class="el" href="result_8h_source.html#l00188">core_type::Result&lt; T, E &gt;::EmplaceValue()</a>, <a class="el" href="result_8h_source.html#l00264">core_type::Result&lt; T, E &gt;::Error()</a>, <a class="el" href="result_8h_source.html#l00605">core_type::Result&lt; void, E &gt;::Error()</a>, <a class="el" href="result_8h_source.html#l00209">core_type::Result&lt; T, E &gt;::HasValue()</a>, <a class="el" href="result_8h_source.html#l00590">core_type::Result&lt; void, E &gt;::HasValue()</a>, <a class="el" href="result_8h_source.html#l00224">core_type::Result&lt; T, E &gt;::operator*()</a>, <a class="el" href="result_8h_source.html#l00240">core_type::Result&lt; T, E &gt;::operator-&gt;()</a>, and <a class="el" href="result_8h_source.html#l00248">core_type::Result&lt; T, E &gt;::Value()</a>.</p>
 
 </div>
 </div>

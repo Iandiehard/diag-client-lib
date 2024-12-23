@@ -1,0 +1,4 @@
+<map id="boost_support::client::udp::UdpClient::UdpClientImpl::SetReadHandler" name="boost_support::client::udp::UdpClient::UdpClientImpl::SetReadHandler">
+<area shape="rect" id="node1" title="Function to set the read handler that is invoked when message is received." alt="" coords="5,5,204,61"/>
+<area shape="rect" id="node2" href="$classboost__support_1_1connection_1_1udp_1_1UdpConnection.html#a7bf11764bf1d54407bbe5aeeb1f74dce" title="Function to set the read handler that is invoked when message is received." alt="" coords="252,13,527,54"/>
+</map>

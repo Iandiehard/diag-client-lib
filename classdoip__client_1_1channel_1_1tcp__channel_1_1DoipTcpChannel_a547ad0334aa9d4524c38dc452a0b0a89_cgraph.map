@@ -1,9 +1,10 @@
 <map id="doip_client::channel::tcp_channel::DoipTcpChannel::Start" name="doip_client::channel::tcp_channel::DoipTcpChannel::Start">
-<area shape="rect" id="node1" title="Function to start the channel." alt="" coords="5,125,225,181"/>
-<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e" title="Function to start the handler." alt="" coords="273,85,493,141"/>
-<area shape="rect" id="node5" href="$classdoip__client_1_1sockets_1_1TcpSocketHandler.html#a8885be524ee4a5c39f6b7e2e21d52909" title="Function to start the socket handler." alt="" coords="291,169,475,210"/>
-<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a2ee41a5ed5f26d24929702470913af76" title="Function to start the handler." alt="" coords="541,5,784,61"/>
-<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21" title="Function to start the handler." alt="" coords="547,85,779,141"/>
-<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34" title="Function to process the received Tcp message from socket layer." alt="" coords="553,165,773,221"/>
-<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b" title="Function to process the received message." alt="" coords="832,165,1052,221"/>
+<area shape="rect" id="node1" title="Function to start the channel." alt="" coords="5,109,225,165"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1sockets_1_1SocketHandler.html#af629681c46001b2256fd3e20fd0a1c79" title="Function to start the socket handler." alt="" coords="298,5,486,47"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#aec985c52f185dde5267face4349eab34" title="Function to process the received Tcp message from socket layer." alt="" coords="282,71,502,127"/>
+<area shape="rect" id="node5" href="$classdoip__client_1_1sockets_1_1SocketHandler.html#a383381a18a4144ec47d2506c02c12fb4" title="Function to set the read handler that is invoked when message is received." alt="" coords="273,152,511,193"/>
+<area shape="rect" id="node6" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#a614c3191cc6a1884f6983abae9e5a63e" title="Function to start the handler." alt="" coords="282,218,502,274"/>
+<area shape="rect" id="node4" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannelHandler.html#afe1f391981b260a3ce0cba1eccb2e74b" title="Function to process the received message." alt="" coords="570,71,790,127"/>
+<area shape="rect" id="node7" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DiagnosticMessageHandler.html#a2ee41a5ed5f26d24929702470913af76" title="Function to start the handler." alt="" coords="559,185,801,241"/>
+<area shape="rect" id="node8" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1RoutingActivationHandler.html#aeea909063355e6ad6172d1a1146cdf21" title="Function to start the handler." alt="" coords="564,265,796,321"/>
 </map>

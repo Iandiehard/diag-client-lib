@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/dcm_client.h File Reference</title>
+<title>Diag-Client-Lib: /home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/dcm_client.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_22dc0b0a371919ab8884beef7eb3b581.html">appl</a></li><li class="navelem"><a class="el" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html">src</a></li><li class="navelem"><a class="el" href="dir_2b33627df342c10e5339b77f40e742f4.html">dcm</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_0f65bbf1d5bde858e879d5c75bd20139.html">diag-client-lib</a></li><li class="navelem"><a class="el" href="dir_22dc0b0a371919ab8884beef7eb3b581.html">appl</a></li><li class="navelem"><a class="el" href="dir_602fe1a0e42b5f0eba0dbfd3b69dcb4c.html">src</a></li><li class="navelem"><a class="el" href="dir_66b1ef7d82bfe43262b67ae2b8661a62.html">diag-client</a></li><li class="navelem"><a class="el" href="dir_bb974c84bd34a60383190044f4056fd4.html">dcm</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,70 +75,70 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;string_view&gt;</code><br />
 <code>#include &quot;<a class="el" href="result_8h_source.html">core/include/result.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="diagnostic__manager_8h_source.html">src/common/diagnostic_manager.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="config__parser__type_8h_source.html">src/dcm/config_parser/config_parser_type.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="uds__transport__protocol__manager_8h_source.html">src/dcm/connection/uds_transport_protocol_manager.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="conversation__manager_8h_source.html">src/dcm/conversation/conversation_manager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="diagnostic__manager_8h_source.html">diag-client/common/diagnostic_manager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config__parser__type_8h_source.html">diag-client/dcm/config_parser/config_parser_type.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="uds__transport__protocol__manager_8h_source.html">diag-client/dcm/connection/uds_transport_protocol_manager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="conversation__manager_8h_source.html">diag-client/dcm/conversation/conversation_manager.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for dcm_client.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="dcm__client_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8h" alt=""/></div>
-<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8h" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8h">
-<area shape="rect" title=" " alt="" coords="1203,5,1380,76"/>
-<area shape="rect" title=" " alt="" coords="701,875,799,902"/>
-<area shape="rect" href="result_8h.html" title=" " alt="" coords="791,697,946,723"/>
-<area shape="rect" href="diagnostic__manager_8h.html" title=" " alt="" coords="2266,317,2439,359"/>
-<area shape="rect" href="config__parser__type_8h.html" title=" " alt="" coords="539,221,703,262"/>
-<area shape="rect" href="uds__transport__protocol__manager_8h.html" title=" " alt="" coords="1813,213,1988,269"/>
-<area shape="rect" href="conversation__manager_8h.html" title=" " alt="" coords="1297,124,1483,165"/>
-<area shape="rect" title=" " alt="" coords="639,786,714,813"/>
-<area shape="rect" title=" " alt="" coords="992,786,1084,813"/>
-<area shape="rect" title=" " alt="" coords="1108,786,1168,813"/>
-<area shape="rect" title=" " alt="" coords="739,786,807,813"/>
-<area shape="rect" href="error__code_8h.html" title=" " alt="" coords="831,779,967,820"/>
-<area shape="rect" href="error__domain_8h.html" title=" " alt="" coords="1142,868,1278,909"/>
-<area shape="rect" title=" " alt="" coords="1959,957,2026,984"/>
-<area shape="rect" title=" " alt="" coords="2317,414,2460,441"/>
-<area shape="rect" title=" " alt="" coords="2535,414,2599,441"/>
-<area shape="rect" href="diagnostic__client_8h.html" title=" " alt="" coords="1729,407,1869,448"/>
-<area shape="rect" href="diagnostic__client__uds__message__type_8h.html" title=" " alt="" coords="2131,779,2294,820"/>
-<area shape="rect" href="diagnostic__client__vehicle__info__message__type_8h.html" title=" " alt="" coords="2215,496,2365,552"/>
-<area shape="rect" title=" " alt="" coords="1663,875,1749,902"/>
-<area shape="rect" title=" " alt="" coords="2187,875,2265,902"/>
-<area shape="rect" href="diagnostic__client__conversation_8h.html" title=" " alt="" coords="1830,503,1998,545"/>
-<area shape="rect" href="diagnostic__client__result_8h.html" title=" " alt="" coords="1056,600,1196,641"/>
-<area shape="rect" title=" " alt="" coords="2538,875,2597,902"/>
-<area shape="rect" title=" " alt="" coords="2049,875,2112,902"/>
-<area shape="rect" href="json__parser_8h.html" title=" " alt="" coords="259,607,412,634"/>
-<area shape="rect" title=" " alt="" coords="36,689,187,731"/>
-<area shape="rect" title=" " alt="" coords="211,689,361,731"/>
-<area shape="rect" href="protocol__handler_8h.html" title=" " alt="" coords="2022,503,2190,545"/>
-<area shape="rect" href="protocol__mgr_8h.html" title=" " alt="" coords="1645,600,1813,641"/>
-<area shape="rect" href="uds__message_8h.html" title=" " alt="" coords="1537,697,1753,723"/>
-<area shape="rect" title=" " alt="" coords="1662,786,1713,813"/>
-<area shape="rect" href="protocol__types_8h.html" title=" " alt="" coords="1787,779,1955,820"/>
-<area shape="rect" href="conversation_8h.html" title=" " alt="" coords="1780,317,1941,359"/>
-<area shape="rect" href="dm__conversation__type_8h.html" title=" " alt="" coords="2725,779,2911,820"/>
-<area shape="rect" href="vd__conversation_8h.html" title=" " alt="" coords="1576,221,1737,262"/>
-<area shape="rect" href="vd__conversation__type_8h.html" title=" " alt="" coords="2565,317,2746,359"/>
-<area shape="rect" href="connection_8h.html" title=" " alt="" coords="1451,414,1649,441"/>
-<area shape="rect" href="span_8h.html" title=" " alt="" coords="1224,697,1372,723"/>
-<area shape="rect" title=" " alt="" coords="1275,786,1331,813"/>
-<area shape="rect" title=" " alt="" coords="1355,786,1435,813"/>
-<area shape="rect" title=" " alt="" coords="1193,786,1251,813"/>
-<area shape="rect" title=" " alt="" coords="1587,325,1654,351"/>
-<area shape="rect" href="conversation__handler_8h.html" title=" " alt="" coords="1271,600,1469,641"/>
+<div class="center"><img src="dcm__client_8h__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8h" alt=""/></div>
+<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8h" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8h">
+<area shape="rect" title=" " alt="" coords="2463,5,2700,76"/>
+<area shape="rect" title=" " alt="" coords="2135,875,2233,902"/>
+<area shape="rect" href="result_8h.html" title=" " alt="" coords="2231,697,2385,723"/>
+<area shape="rect" href="diagnostic__manager_8h.html" title=" " alt="" coords="1994,317,2163,359"/>
+<area shape="rect" href="config__parser__type_8h.html" title=" " alt="" coords="2370,213,2537,269"/>
+<area shape="rect" href="uds__transport__protocol__manager_8h.html" title=" " alt="" coords="413,213,611,269"/>
+<area shape="rect" href="conversation__manager_8h.html" title=" " alt="" coords="1481,124,1692,165"/>
+<area shape="rect" title=" " alt="" coords="1640,786,1715,813"/>
+<area shape="rect" title=" " alt="" coords="2141,786,2233,813"/>
+<area shape="rect" title=" " alt="" coords="2057,786,2117,813"/>
+<area shape="rect" title=" " alt="" coords="2418,786,2486,813"/>
+<area shape="rect" href="error__code_8h.html" title=" " alt="" coords="2257,779,2393,820"/>
+<area shape="rect" href="error__domain_8h.html" title=" " alt="" coords="2257,868,2393,909"/>
+<area shape="rect" title=" " alt="" coords="409,957,476,984"/>
+<area shape="rect" title=" " alt="" coords="2158,414,2301,441"/>
+<area shape="rect" title=" " alt="" coords="1943,414,2007,441"/>
+<area shape="rect" href="diagnostic__client_8h.html" title=" " alt="" coords="1427,407,1589,448"/>
+<area shape="rect" href="diagnostic__client__uds__message__type_8h.html" title=" " alt="" coords="1062,779,1271,820"/>
+<area shape="rect" href="diagnostic__client__vehicle__info__message__type_8h.html" title=" " alt="" coords="481,496,698,552"/>
+<area shape="rect" title=" " alt="" coords="1393,875,1479,902"/>
+<area shape="rect" title=" " alt="" coords="984,875,1061,902"/>
+<area shape="rect" href="diagnostic__client__conversation_8h.html" title=" " alt="" coords="1168,503,1336,545"/>
+<area shape="rect" href="diagnostic__client__result_8h.html" title=" " alt="" coords="1987,600,2149,641"/>
+<area shape="rect" title=" " alt="" coords="565,875,624,902"/>
+<area shape="rect" title=" " alt="" coords="1137,875,1199,902"/>
+<area shape="rect" href="json__parser_8h.html" title=" " alt="" coords="2663,600,2820,641"/>
+<area shape="rect" title=" " alt="" coords="2714,689,2865,731"/>
+<area shape="rect" title=" " alt="" coords="2889,689,3039,731"/>
+<area shape="rect" href="protocol__handler_8h.html" title=" " alt="" coords="723,503,891,545"/>
+<area shape="rect" href="protocol__mgr_8h.html" title=" " alt="" coords="773,600,941,641"/>
+<area shape="rect" href="uds__message_8h.html" title=" " alt="" coords="908,697,1124,723"/>
+<area shape="rect" title=" " alt="" coords="936,786,987,813"/>
+<area shape="rect" href="protocol__types_8h.html" title=" " alt="" coords="1296,779,1464,820"/>
+<area shape="rect" href="conversation_8h.html" title=" " alt="" coords="1141,317,1352,359"/>
+<area shape="rect" href="dm__conversation__type_8h.html" title=" " alt="" coords="93,779,304,820"/>
+<area shape="rect" href="vd__conversation_8h.html" title=" " alt="" coords="1385,221,1596,262"/>
+<area shape="rect" href="vd__conversation__type_8h.html" title=" " alt="" coords="409,317,620,359"/>
+<area shape="rect" href="connection_8h.html" title=" " alt="" coords="930,414,1129,441"/>
+<area shape="rect" href="span_8h.html" title=" " alt="" coords="1798,697,1946,723"/>
+<area shape="rect" title=" " alt="" coords="1925,786,1981,813"/>
+<area shape="rect" title=" " alt="" coords="1739,786,1819,813"/>
+<area shape="rect" title=" " alt="" coords="1843,786,1901,813"/>
+<area shape="rect" title=" " alt="" coords="1528,325,1595,351"/>
+<area shape="rect" href="conversation__handler_8h.html" title=" " alt="" coords="1714,600,1913,641"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="dcm__client_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8hdep" alt=""/></div>
-<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8hdep" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2dcm_2dcm__client_8hdep">
-<area shape="rect" title=" " alt="" coords="213,5,390,76"/>
-<area shape="rect" href="dcm__client_8cpp.html" title=" " alt="" coords="5,124,184,195"/>
-<area shape="rect" href="diagnostic__client_8cpp.html" title=" " alt="" coords="208,124,395,195"/>
-<area shape="rect" href="diagnostic__client__conversation_8cpp.html" title=" " alt="" coords="419,124,696,195"/>
+<div class="center"><img src="dcm__client_8h__dep__incl.png" border="0" usemap="#a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8hdep" alt=""/></div>
+<map name="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8hdep" id="a_2home_2runner_2work_2diag-client-lib_2diag-client-lib_2diag-client-lib_2appl_2src_2diag-client_2dcm_2dcm__client_8hdep">
+<area shape="rect" title=" " alt="" coords="258,5,495,76"/>
+<area shape="rect" href="dcm__client_8cpp.html" title=" " alt="" coords="5,131,257,202"/>
+<area shape="rect" href="diagnostic__client_8cpp.html" title=" " alt="" coords="282,124,471,209"/>
+<area shape="rect" href="diagnostic__client__conversation_8cpp.html" title=" " alt="" coords="495,124,685,209"/>
 </map>
 </div>
 </div>

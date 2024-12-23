@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classdoip__client_1_1connection_1_1DoipConnectionManager.html" title="Manages Doip tcp and udp connections." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node1" href="$classdiag_1_1client_1_1conversation_1_1Conversation.html" title="Interface for diag client conversation." alt="" coords="5,39,192,80"/>
+<area shape="rect" id="node2" href="$classdiag_1_1client_1_1conversation_1_1DmConversation.html" title="Class to establish connection with Diagnostic Server." alt="" coords="240,5,427,47"/>
+<area shape="rect" id="node3" href="$classdiag_1_1client_1_1conversation_1_1VdConversation.html" title="Class to search for available diagnostic server over a network." alt="" coords="240,71,427,112"/>
 </map>

@@ -1,0 +1,5 @@
+<map id="doip_client::sockets::SocketHandler::DisconnectFromHost" name="doip_client::sockets::SocketHandler::DisconnectFromHost">
+<area shape="rect" id="node1" title="Function to disconnect from remote host if already connected." alt="" coords="556,5,760,61"/>
+<area shape="rect" id="node2" href="$classdoip__client_1_1channel_1_1tcp__channel_1_1DoipTcpChannel.html#af5cf7d6fb310eb5fb195de82e5df4ce9" title="Function to disconnect from remote host server." alt="" coords="288,5,508,61"/>
+<area shape="rect" id="node3" href="$classdoip__client_1_1connection_1_1DoipTcpConnection.html#a4afa2125a691cc1ab061bead58065856" title="Function to disconnect from remote host server." alt="" coords="5,5,240,61"/>
+</map>

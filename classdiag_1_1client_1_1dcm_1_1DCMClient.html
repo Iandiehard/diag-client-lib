@@ -207,23 +207,24 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00030">30</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">DiagnosticManager</a>{},</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>{std::make_unique&lt;uds_transport::UdsTransportProtocolManager&gt;()},</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>{std::move(dcm_client_config), *<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>},</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>{<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">GetDiagnosticClientConversation</a>(<a class="code" href="namespacediag_1_1client_1_1dcm.html#ae4765e55a64b9cd99e73e243e8c8fff8">VehicleDiscoveryConversation</a>)} {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// make the conversation manager reference available externally</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">conversation_manager_ref</a>.emplace(<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00032">32</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    : <a class="code" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">DiagnosticManager</a>{},</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>{std::make_unique&lt;uds_transport::UdsTransportProtocolManager&gt;()},</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>{std::move(dcm_client_config), *<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>},</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;      <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>{</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;          <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">GetDiagnosticClientConversation</a>(<a class="code" href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a783ba63e75271bc3aaab3971b661db99">VehicleDiscoveryConversation</a>)} {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">// make the conversation manager reference available externally</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">conversation_manager_ref</a>.emplace(<a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1common_1_1DiagnosticManager_html_a5344d9e5ea9b98bbf8e18dbc15728bc2"><div class="ttname"><a href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a5344d9e5ea9b98bbf8e18dbc15728bc2">diag::client::common::DiagnosticManager::DiagnosticManager</a></div><div class="ttdeci">DiagnosticManager() noexcept</div><div class="ttdoc">Constructs an instance of DiagnosticManager.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__manager_8cpp_source.html#l00014">diagnostic_manager.cpp:14</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a415c577ed5f384c075b54d5aecc88dd9"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">diag::client::conversation_manager::ConversationManager::GetDiagnosticClientConversation</a></div><div class="ttdeci">diag::client::conversation::Conversation &amp; GetDiagnosticClientConversation(std::string_view conversation_name) noexcept</div><div class="ttdoc">Function to get DM conversation object based on conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00031">conversation_manager.cpp:31</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a415c577ed5f384c075b54d5aecc88dd9"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a415c577ed5f384c075b54d5aecc88dd9">diag::client::conversation_manager::ConversationManager::GetDiagnosticClientConversation</a></div><div class="ttdeci">diag::client::conversation::Conversation &amp; GetDiagnosticClientConversation(std::string_view conversation_name) noexcept</div><div class="ttdoc">Function to get DM conversation object based on conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00061">conversation_manager.cpp:61</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_a01e2af645494ee4935afbf9335459b0d"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">diag::client::dcm::DCMClient::uds_transport_protocol_mgr_</a></div><div class="ttdeci">std::unique_ptr&lt; uds_transport::UdsTransportProtocolManager &gt; uds_transport_protocol_mgr_</div><div class="ttdoc">Stores the uds transport protocol manager.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00091">dcm_client.h:91</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_a4b2a6981d2568d1805e44398da0c3e47"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">diag::client::dcm::DCMClient::conversation_mgr_</a></div><div class="ttdeci">conversation_manager::ConversationManager conversation_mgr_</div><div class="ttdoc">Stores the conversation manager instance.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00096">dcm_client.h:96</a></div></div>
 <div class="ttc" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_html_ae9ac4dbcc13d23e4d49fdc13b6ac3da3"><div class="ttname"><a href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">diag::client::dcm::DCMClient::vehicle_discovery_conversation_</a></div><div class="ttdeci">conversation::Conversation &amp; vehicle_discovery_conversation_</div><div class="ttdoc">Store the conversation for vehicle discovery.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8h_source.html#l00101">dcm_client.h:101</a></div></div>
-<div class="ttc" id="anamespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03_html_a1cf9bf2db025472d9405d40f11945e88"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a></div><div class="ttdeci">std::optional&lt; std::reference_wrapper&lt; conversation_manager::ConversationManager &gt; &gt; conversation_manager_ref</div><div class="ttdoc">Store the conversation manager reference optionally.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00023">dcm_client.cpp:23</a></div></div>
-<div class="ttc" id="anamespacediag_1_1client_1_1dcm_html_ae4765e55a64b9cd99e73e243e8c8fff8"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm.html#ae4765e55a64b9cd99e73e243e8c8fff8">diag::client::dcm::VehicleDiscoveryConversation</a></div><div class="ttdeci">constexpr std::string_view VehicleDiscoveryConversation</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00028">dcm_client.cpp:28</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03_html_a1cf9bf2db025472d9405d40f11945e88"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a1cf9bf2db025472d9405d40f11945e88">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a></div><div class="ttdeci">std::optional&lt; std::reference_wrapper&lt; conversation_manager::ConversationManager &gt; &gt; conversation_manager_ref</div><div class="ttdoc">Store the conversation manager reference optionally.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00024">dcm_client.cpp:24</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03_html_a783ba63e75271bc3aaab3971b661db99"><div class="ttname"><a href="namespacediag_1_1client_1_1dcm_1_1anonymous__namespace_02dcm__client_8cpp_03.html#a783ba63e75271bc3aaab3971b661db99">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::VehicleDiscoveryConversation</a></div><div class="ttdeci">constexpr std::string_view VehicleDiscoveryConversation</div><div class="ttdoc">String representing of vehicle discovery conversation name.</div><div class="ttdef"><b>Definition:</b> <a href="dcm__client_8cpp_source.html#l00029">dcm_client.cpp:29</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="dcm__client_8cpp_source.html#l00023">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a>, and <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>.</p>
+<p class="reference">References <a class="el" href="dcm__client_8cpp_source.html#l00024">diag::client::dcm::anonymous_namespace{dcm_client.cpp}::conversation_manager_ref</a>, and <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>.</p>
 
 </div>
 </div>
@@ -346,10 +347,10 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a62ca123acedfcdd29fe12b5bc823d46c">diag::client::common::DiagnosticManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00072">72</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                               {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordflow">return</span> conversation::DiagClientConversation{conversation_name};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00078">78</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                               {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">return</span> conversation::DiagClientConversation{conversation_name};</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -380,23 +381,25 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a0de2245e8af7252d0135618057ddf3f0">diag::client::common::DiagnosticManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00041">41</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                    {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// start Conversation Manager</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">Startup</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// start all the udsTransportProtocol Layer</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Startup();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// start Vehicle Discovery</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#afe961bd20874b18460b84082e56ac2d8">Startup</a>();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Initialized&quot;</span>; });</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00044">44</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                    {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="comment">// start Conversation Manager</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">Startup</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// start all the udsTransportProtocol Layer</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Startup();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="comment">// start Vehicle Discovery</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#afe961bd20874b18460b84082e56ac2d8">Startup</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Initialized&quot;</span>; });</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_afe961bd20874b18460b84082e56ac2d8"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#afe961bd20874b18460b84082e56ac2d8">diag::client::conversation::Conversation::Startup</a></div><div class="ttdeci">virtual void Startup() noexcept=0</div><div class="ttdoc">Function to start the Conversation.</div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a7147941ae5c6c31e4b539f421ff8d3a2"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">diag::client::conversation_manager::ConversationManager::Startup</a></div><div class="ttdeci">void Startup() noexcept</div><div class="ttdoc">Function to start the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00027">conversation_manager.cpp:27</a></div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a7147941ae5c6c31e4b539f421ff8d3a2"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a7147941ae5c6c31e4b539f421ff8d3a2">diag::client::conversation_manager::ConversationManager::Startup</a></div><div class="ttdeci">void Startup() noexcept</div><div class="ttdoc">Function to start the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00039">conversation_manager.cpp:39</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1logger_1_1DiagClientLogger_html_a8937ab804b61fec374d0a30efb584aaf"><div class="ttname"><a href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">diag::client::logger::DiagClientLogger::GetDiagClientLogger</a></div><div class="ttdeci">static auto GetDiagClientLogger() noexcept -&gt; DiagClientLogger &amp;</div><div class="ttdoc">Get the diag client logger instance.</div><div class="ttdef"><b>Definition:</b> <a href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">logger.h:32</a></div></div>
+<div class="ttc" id="afile__path_8h_html_ab117546549783a058d0321a287699579"><div class="ttname"><a href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a></div><div class="ttdeci">#define FILE_NAME</div><div class="ttdef"><b>Definition:</b> <a href="file__path_8h_source.html#l00014">file_path.h:14</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
+<p class="reference">References <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, and <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -488,15 +491,16 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a316d7898714ecadd10106252f97a787c">diag::client::common::DiagnosticManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00053">53</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                             {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// run udsTransportProtocol layer</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Run();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client is ready to serve&quot;</span>; });</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00057">57</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                             {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// run udsTransportProtocol layer</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Run();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client is ready to serve&quot;</span>; });</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, and <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>.</p>
+<p class="reference">References <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, and <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -544,11 +548,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a8c991fa3f15f65f4d6b0ac0c2ddde926">diag::client::common::DiagnosticManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00078">78</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                                                                                    {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">SendVehicleIdentificationRequest</a>(vehicle_info_request);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_addda0140e6ae162084c2f2e6993cc523"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">diag::client::conversation::Conversation::SendVehicleIdentificationRequest</a></div><div class="ttdeci">virtual core_type::Result&lt; diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, DiagClient::VehicleInfoResponseError &gt; SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType) noexcept</div><div class="ttdoc">Function to send vehicle identification request and get the Diagnostic Server list.</div><div class="ttdef"><b>Definition:</b> <a href="conversation_8h_source.html#l00171">conversation.h:171</a></div></div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00085">85</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                                                    {</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">SendVehicleIdentificationRequest</a>(vehicle_info_request);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_addda0140e6ae162084c2f2e6993cc523"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#addda0140e6ae162084c2f2e6993cc523">diag::client::conversation::Conversation::SendVehicleIdentificationRequest</a></div><div class="ttdeci">virtual core_type::Result&lt; diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr, DiagClient::VehicleInfoResponseError &gt; SendVehicleIdentificationRequest(vehicle_info::VehicleInfoListRequestType) noexcept</div><div class="ttdoc">Function to send vehicle identification request and get the Diagnostic Server list.</div><div class="ttdef"><b>Definition:</b> <a href="conversation_8h_source.html#l00186">conversation.h:186</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -579,31 +583,32 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="classdiag_1_1client_1_1common_1_1DiagnosticManager.html#a44b040548411c43a585b9e14e96a596f">diag::client::common::DiagnosticManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00060">60</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                  {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">// shutdown Vehicle Discovery</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">Shutdown</a>();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// shutdown udsTransportProtocol layer</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Shutdown();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// shutdown Conversation Manager</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">Shutdown</a>();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      __FILE__, __LINE__, __func__, [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Shutdown completed&quot;</span>; });</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="dcm__client_8cpp_source.html#l00065">65</a> of file <a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                  {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// shutdown Vehicle Discovery</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#ae9ac4dbcc13d23e4d49fdc13b6ac3da3">vehicle_discovery_conversation_</a>.<a class="code" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">Shutdown</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <span class="comment">// shutdown udsTransportProtocol layer</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a01e2af645494ee4935afbf9335459b0d">uds_transport_protocol_mgr_</a>-&gt;Shutdown();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="comment">// shutdown Conversation Manager</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="classdiag_1_1client_1_1dcm_1_1DCMClient.html#a4b2a6981d2568d1805e44398da0c3e47">conversation_mgr_</a>.<a class="code" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">Shutdown</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf">logger::DiagClientLogger::GetDiagClientLogger</a>().GetLogger().LogInfo(</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;      <a class="code" href="file__path_8h.html#ab117546549783a058d0321a287699579">FILE_NAME</a>, __LINE__, __func__,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;      [](std::stringstream &amp;msg) { msg &lt;&lt; <span class="stringliteral">&quot;Dcm Client Shutdown completed&quot;</span>; });</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1Conversation_html_aa6c42460745768edc4517fd74e692a47"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">diag::client::conversation::Conversation::Shutdown</a></div><div class="ttdeci">virtual void Shutdown() noexcept=0</div><div class="ttdoc">Function to shutdown the Conversation.</div></div>
-<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a53073a865efdabd0281f0ae0351b70fa"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">diag::client::conversation_manager::ConversationManager::Shutdown</a></div><div class="ttdeci">void Shutdown() noexcept</div><div class="ttdoc">Function to shutdown the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00029">conversation_manager.cpp:29</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1conversation__manager_1_1ConversationManager_html_a53073a865efdabd0281f0ae0351b70fa"><div class="ttname"><a href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa">diag::client::conversation_manager::ConversationManager::Shutdown</a></div><div class="ttdeci">void Shutdown() noexcept</div><div class="ttdoc">Function to shutdown the ConversationManager.</div><div class="ttdef"><b>Definition:</b> <a href="conversation__manager_8cpp_source.html#l00041">conversation_manager.cpp:41</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>, <a class="el" href="appl_2src_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="conversation__manager_8cpp_source.html#l00029">diag::client::conversation_manager::ConversationManager::Shutdown()</a>, <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">diag::client::conversation::Conversation::Shutdown()</a>, <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>, and <a class="el" href="dcm__client_8h_source.html#l00101">vehicle_discovery_conversation_</a>.</p>
+<p class="reference">References <a class="el" href="dcm__client_8h_source.html#l00096">conversation_mgr_</a>, <a class="el" href="file__path_8h_source.html#l00014">FILE_NAME</a>, <a class="el" href="appl_2src_2diag-client_2common_2logger_8h_source.html#l00032">diag::client::logger::DiagClientLogger::GetDiagClientLogger()</a>, <a class="el" href="conversation__manager_8cpp_source.html#l00041">diag::client::conversation_manager::ConversationManager::Shutdown()</a>, <a class="el" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47">diag::client::conversation::Conversation::Shutdown()</a>, <a class="el" href="dcm__client_8h_source.html#l00091">uds_transport_protocol_mgr_</a>, and <a class="el" href="dcm__client_8h_source.html#l00101">vehicle_discovery_conversation_</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph.png" border="0" usemap="#aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph" alt=""/></div>
 <map name="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph" id="aclassdiag_1_1client_1_1dcm_1_1DCMClient_a1d30bd8fe3c5c9a2294118174ebd19cd_cgraph">
-<area shape="rect" title="Function to shutdown the DCMClient." alt="" coords="5,93,168,134"/>
-<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="234,5,437,61"/>
-<area shape="rect" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa" title="Function to shutdown the ConversationManager." alt="" coords="216,85,455,141"/>
-<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47" title="Function to shutdown the Conversation." alt="" coords="241,166,429,207"/>
+<area shape="rect" title="Function to shutdown the DCMClient." alt="" coords="5,45,168,86"/>
+<area shape="rect" href="classdiag_1_1client_1_1logger_1_1DiagClientLogger.html#a8937ab804b61fec374d0a30efb584aaf" title="Get the diag client logger instance." alt="" coords="503,5,705,61"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation__manager_1_1ConversationManager.html#a53073a865efdabd0281f0ae0351b70fa" title="Function to shutdown the ConversationManager." alt="" coords="216,37,455,93"/>
+<area shape="rect" href="classdiag_1_1client_1_1conversation_1_1Conversation.html#aa6c42460745768edc4517fd74e692a47" title="Function to shutdown the Conversation." alt="" coords="241,118,429,159"/>
 </map>
 </div>
 
@@ -634,7 +639,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00096">96</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00030">DCMClient()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00032">DCMClient()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00065">Shutdown()</a>.</p>
 
 </div>
 </div>
@@ -662,7 +667,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00091">91</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00053">Run()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00057">Run()</a>, and <a class="el" href="dcm__client_8cpp_source.html#l00065">Shutdown()</a>.</p>
 
 </div>
 </div>
@@ -690,13 +695,13 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="dcm__client_8h_source.html#l00101">101</a> of file <a class="el" href="dcm__client_8h_source.html">dcm_client.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00060">Shutdown()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dcm__client_8cpp_source.html#l00065">Shutdown()</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/<a class="el" href="dcm__client_8h_source.html">dcm_client.h</a></li>
-<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/dcm/<a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/<a class="el" href="dcm__client_8h_source.html">dcm_client.h</a></li>
+<li>/home/runner/work/diag-client-lib/diag-client-lib/diag-client-lib/appl/src/diag-client/dcm/<a class="el" href="dcm__client_8cpp_source.html">dcm_client.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
