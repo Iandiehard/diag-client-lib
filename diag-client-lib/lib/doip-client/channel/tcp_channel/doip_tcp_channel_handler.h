@@ -8,10 +8,12 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_TCP_CHANNEL_DOIP_TCP_CHANNEL_HANDLER_H_
 
+#include <mutex>
+
 #include "channel/tcp_channel/doip_diagnostic_message_handler.h"
 #include "channel/tcp_channel/doip_routing_activation_handler.h"
 #include "common/doip_message.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 
@@ -30,7 +32,7 @@ class DoipTcpChannelHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of DoipTcpChannelHandler
@@ -65,7 +67,8 @@ class DoipTcpChannelHandler final {
    * @return        ConnectionResult
    *                The connection result
    */
-  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto SendRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
@@ -108,7 +111,8 @@ class DoipTcpChannelHandler final {
    * @param[in]     payload_type
    *                The type of payload
    */
-  auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept -> bool;
+  auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept
+      -> bool;
 
   /**
    * @brief         Function to process the doip payload

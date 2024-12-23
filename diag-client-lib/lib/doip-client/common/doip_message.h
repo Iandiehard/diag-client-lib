@@ -47,8 +47,8 @@ class DoipMessage final {
    * @param[in]     payload
    *                The received data payload
    */
-  DoipMessage(MessageType message_type, IpAddressType host_ip_address, std::uint16_t host_port_number,
-              core_type::Span<std::uint8_t> payload);
+  DoipMessage(MessageType message_type, IpAddressType host_ip_address,
+              std::uint16_t host_port_number, core_type::Span<std::uint8_t const> payload);
 
   /**
    * @brief         Default copy assignment, copy constructor, move assignment and move constructor
@@ -115,13 +115,9 @@ class DoipMessage final {
    * @brief       Get the payload
    * @return      The payload
    */
-  core_type::Span<std::uint8_t> GetPayload() const { return payload_; }
+  core_type::Span<std::uint8_t const> GetPayload() const { return payload_; }
 
  private:
-  /**
-   * @brief    Store the message type
-   */
-  MessageType message_type_;
   /**
    * @brief    Store remote ip address
    */
@@ -165,7 +161,7 @@ class DoipMessage final {
   /**
    * @brief    Store payload
    */
-  core_type::Span<std::uint8_t> payload_;
+  core_type::Span<std::uint8_t const> payload_;
 };
 }  // namespace doip_client
 

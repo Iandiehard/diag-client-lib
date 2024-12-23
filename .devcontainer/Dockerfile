@@ -2,7 +2,7 @@ ARG VARIANT=22.04
 FROM ubuntu:${VARIANT}
 
 # Install necessary dependencies
-RUN apt-get update &&\
+RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential \
         autoconf \
@@ -15,7 +15,7 @@ RUN apt-get update &&\
         wget \
         git \
         gcc \
-        g++-9 \
+        g++-11 \
         clang-14 \ 
         curl \
         gnupg \
@@ -33,6 +33,7 @@ RUN apt-get update &&\
         graphviz \
         net-tools \
         iproute2 \
+        libssl-dev \
         locales-all &&\
     apt-get clean
 
@@ -66,3 +67,8 @@ RUN wget "https://github.com/COVESA/dlt-daemon/archive/refs/tags/v${DLT_MAJOR_VE
 # Add Dlt environment variable to bashrc for google test
  RUN echo 'export DLT_INITIAL_LOG_LEVEL="::6"' >> ~/.bashrc && \
      echo 'export DLT_LOCAL_PRINT_MODE=FORCE_ON' >> ~/.bashrc
+
+# Install openssl 1.1.1w
+RUN wget https://www.openssl.org/source/openssl-1.1.1w.tar.gz -O - | tar -xz
+WORKDIR /openssl-1.1.1w
+RUN ./config --prefix=/usr/local/openssl --openssldir=/usr/local/openssl && make && make install

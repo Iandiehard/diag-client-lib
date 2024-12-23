@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "common/doip_message.h"
-#include "sockets/tcp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 
@@ -31,12 +31,12 @@ class RoutingActivationHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using TcpMessagePtr = sockets::TcpSocketHandler::TcpMessagePtr;
+  using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
    * @brief  Type alias for Tcp message
    */
-  using TcpMessage = sockets::TcpSocketHandler::TcpMessage;
+  using TcpMessage = sockets::TcpSocketHandler::Message;
 
  public:
   /**
@@ -81,7 +81,8 @@ class RoutingActivationHandler final {
    *              The routing activation request
    * @return      Transmission result
    */
-  auto HandleRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto HandleRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
@@ -97,20 +98,9 @@ class RoutingActivationHandler final {
    *              The routing activation request
    * @return      Transmission result
    */
-  auto SendRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+  auto SendRoutingActivationRequest(
+      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
-
-  /**
-   * @brief            Function to create doip generic header
-   * @param[in,out]    doip_header
-   *                   The doip header
-   * @param[in]        payload_type
-   *                   The type of payload
-   * @param[in]        payload_len
-   *                   The length of payload
-   */
-  static void CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header, std::uint16_t payload_type,
-                                      std::uint32_t payload_len);
 
  private:
   /**

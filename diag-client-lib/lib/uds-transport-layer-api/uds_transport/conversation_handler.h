@@ -23,7 +23,8 @@ class ConversionHandler {
    * @param[in]     handler_id
    *                The handle id of conversation
    */
-  explicit ConversionHandler(conversion_manager::ConversionHandlerID handler_id) : handler_id_{handler_id} {}
+  explicit ConversionHandler(conversion_manager::ConversionHandlerID handler_id)
+      : handler_id_{handler_id} {}
 
   /**
    * @brief         Default copy assignment and copy constructor
@@ -68,9 +69,10 @@ class ConversionHandler {
    *              to the handler to get filled
    */
   virtual std::pair<UdsTransportProtocolMgr::IndicationResult, UdsMessagePtr> IndicateMessage(
-      UdsMessage::Address source_addr, UdsMessage::Address target_addr, UdsMessage::TargetAddressType type,
-      ChannelID channel_id, std::size_t size, Priority priority, ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info) const noexcept = 0;
+      UdsMessage::Address source_addr, UdsMessage::Address target_addr,
+      UdsMessage::TargetAddressType type, ChannelID channel_id, std::size_t size, Priority priority,
+      ProtocolKind protocol_kind,
+      core_type::Span<std::uint8_t const> payload_info) const noexcept = 0;
 
   /**
    * @brief       Function to Hands over a valid received Uds message

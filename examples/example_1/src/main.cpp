@@ -11,9 +11,9 @@
 #include "uds_message.h"
 
 // includes from diag-client library
-#include "include/create_diagnostic_client.h"
-#include "include/diagnostic_client.h"
-#include "include/diagnostic_client_uds_message_type.h"
+#include "diag-client/create_diagnostic_client.h"
+#include "diag-client/diagnostic_client.h"
+#include "diag-client/diagnostic_client_uds_message_type.h"
 
 /*
  * Main Entry point of diag client example 
@@ -32,14 +32,16 @@ int main() {
 
   // Get conversation for tester one by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  DiagClientConversation diag_client_conversation1{diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
+  DiagClientConversation diag_client_conversation1{
+      diag_client->GetDiagnosticClientConversation("DiagTesterOne")};
 
   // Start the conversation for tester one
   diag_client_conversation1.Startup();
 
   // Get conversation for tester two by providing the conversation name configured
   // in diag_client_config file passed while creating the diag client
-  DiagClientConversation diag_client_conversation2{diag_client->GetDiagnosticClientConversation("DiagTesterTwo")};
+  DiagClientConversation diag_client_conversation2{
+      diag_client->GetDiagnosticClientConversation("DiagTesterTwo")};
 
   // Start the conversation for tester two
   diag_client_conversation2.Startup();
@@ -66,31 +68,37 @@ int main() {
     diag_client_conversation2.ConnectToDiagServer(0x1235, uds_message_1->GetHostIpAddress());
 
     // Use Tester One to send the diagnostic message to ECU1
-    diag::client::Result<diag::client::uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> const
-        ret_val_1{diag_client_conversation1.SendDiagnosticRequest(std::move(uds_message_1))};
+    diag::client::Result<diag::client::uds_message::UdsResponseMessagePtr,
+                         DiagClientConversation::DiagError> const ret_val_1{
+        diag_client_conversation1.SendDiagnosticRequest(std::move(uds_message_1))};
 
     if (ret_val_1.HasValue()) {
       // Use Value() to get the pointer to UdsMessage and then use different method to get payload or host ip address etc.
-      std::cout << "diag_client_conversation1 Total size: " << ret_val_1.Value()->GetPayload().size() << std::endl;
+      std::cout << "diag_client_conversation1 Total size: "
+                << ret_val_1.Value()->GetPayload().size() << std::endl;
       // Print the payload
       for (auto const byte: ret_val_1.Value()->GetPayload()) {
-        std::cout << "diag_client_conversation1 byte: " << std::hex << static_cast<int>(byte) << std::endl;
+        std::cout << "diag_client_conversation1 byte: " << std::hex << static_cast<int>(byte)
+                  << std::endl;
       }
     } else {
       // Use Error() to get the error type that occured when sending the request
-      std::cout << "diag_client_conversation1 error code: " << static_cast<std::uint8_t>(ret_val_1.Error())
-                << std::endl;
+      std::cout << "diag_client_conversation1 error code: "
+                << static_cast<std::uint8_t>(ret_val_1.Error()) << std::endl;
     }
 
     // Use Tester Two to send the diagnostic message to ECU2
-    diag::client::Result<diag::client::uds_message::UdsResponseMessagePtr, DiagClientConversation::DiagError> const
-        ret_val_2{diag_client_conversation2.SendDiagnosticRequest(std::move(uds_message_2))};
+    diag::client::Result<diag::client::uds_message::UdsResponseMessagePtr,
+                         DiagClientConversation::DiagError> const ret_val_2{
+        diag_client_conversation2.SendDiagnosticRequest(std::move(uds_message_2))};
 
     if (ret_val_2.HasValue()) {
-      std::cout << "diag_client_conversation2 Total size: " << ret_val_2.Value()->GetPayload().size() << std::endl;
+      std::cout << "diag_client_conversation2 Total size: "
+                << ret_val_2.Value()->GetPayload().size() << std::endl;
       // Print the payload
       for (auto const byte: ret_val_2.Value()->GetPayload()) {
-        std::cout << "diag_client_conversation2 byte: " << std::hex << static_cast<int>(byte) << std::endl;
+        std::cout << "diag_client_conversation2 byte: " << std::hex << static_cast<int>(byte)
+                  << std::endl;
       }
     }
 

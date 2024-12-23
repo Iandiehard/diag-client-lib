@@ -13,7 +13,7 @@
 #include <utility>
 
 #include "channel/udp_channel/doip_udp_channel_handler.h"
-#include "sockets/udp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/connection.h"
 
 namespace doip_client {
@@ -26,9 +26,14 @@ namespace udp_channel {
 class DoipUdpChannel final {
  public:
   /**
+   * @brief  Type alias for Tcp socket handler
+   */
+  using UdpSocketHandler = sockets::UdpSocketHandler;
+
+  /**
    * @brief  Type alias for Udp message pointer
    */
-  using UdpMessagePtr = sockets::UdpSocketHandler::UdpMessagePtr;
+  using UdpMessagePtr = sockets::UdpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of UdpChannel
@@ -39,7 +44,9 @@ class DoipUdpChannel final {
    * @param[in]     connection
    *                The reference to tcp transport handler
    */
-  DoipUdpChannel(std::string_view udp_ip_address, std::uint16_t port_num, uds_transport::Connection &connection);
+  DoipUdpChannel(UdpSocketHandler udp_socket_handler_broadcast,
+                 UdpSocketHandler udp_socket_handler_unicast,
+                 uds_transport::Connection &connection);
 
   /**
    * @brief         Destruct an instance of UdpChannel
@@ -81,11 +88,13 @@ class DoipUdpChannel final {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> IndicateMessage(
-      uds_transport::UdsMessage::Address source_addr, uds_transport::UdsMessage::Address target_addr,
-      uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id, std::size_t size,
-      uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
-      core_type::Span<std::uint8_t> payload_info);
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
+  IndicateMessage(uds_transport::UdsMessage::Address source_addr,
+                  uds_transport::UdsMessage::Address target_addr,
+                  uds_transport::UdsMessage::TargetAddressType type,
+                  uds_transport::ChannelID channel_id, std::size_t size,
+                  uds_transport::Priority priority, uds_transport::ProtocolKind protocol_kind,
+                  core_type::Span<std::uint8_t const> payload_info);
 
   /**
    * @brief       Function to Hands over a valid received Uds message to upper layer
@@ -116,14 +125,10 @@ class DoipUdpChannel final {
    * @param[in]   message
    *              The vehicle identification message
    */
-  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(uds_transport::UdsMessageConstPtr message);
+  uds_transport::UdsTransportProtocolMgr::TransmissionResult Transmit(
+      uds_transport::UdsMessageConstPtr message);
 
  private:
-  /**
-   * @brief  Type alias for Udp socket handler
-   */
-  using UdpSocketHandler = sockets::UdpSocketHandler;
-
   /**
    * @brief  Store the udp socket handler for broadcast messages
    */

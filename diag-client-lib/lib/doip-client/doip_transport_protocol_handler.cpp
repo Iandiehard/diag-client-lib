@@ -16,13 +16,12 @@ namespace transport_protocol_handler {
 DoipTransportProtocolHandler::DoipTransportProtocolHandler(
     UdsTransportProtocolHandlerId const handler_id,
     uds_transport::UdsTransportProtocolMgr const &transport_protocol_mgr)
-    : uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr),
-      doip_connection_mgr_{} {}
+    : uds_transport::UdsTransportProtocolHandler(handler_id, transport_protocol_mgr) {}
 
 DoipTransportProtocolHandler::~DoipTransportProtocolHandler() = default;
 
 DoipTransportProtocolHandler::InitializationResult DoipTransportProtocolHandler::Initialize() {
-  return (InitializationResult::kInitializeOk);
+  return InitializationResult::kInitializeOk;
 }
 
 void DoipTransportProtocolHandler::Start() {}
@@ -30,23 +29,25 @@ void DoipTransportProtocolHandler::Start() {}
 void DoipTransportProtocolHandler::Stop() {}
 
 std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateTcpConnection(
-    uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address, std::uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address,
+    std::uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
-        msg << "Doip Tcp protocol requested with local endpoint : "
+      FILE_NAME, __LINE__, __func__, [tcp_ip_address](std::stringstream &msg) {
+        msg << "DoIP Tcp protocol requested with local endpoint : "
             << "<Tcp: " << tcp_ip_address << ">";
       });
-  return doip_connection_mgr_.FindOrCreateTcpConnection(conversation, tcp_ip_address, port_num);
+  return connection_mgr_.CreateTcpConnection(conversation, tcp_ip_address, port_num);
 }
 
 std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateUdpConnection(
-    uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address, std::uint16_t port_num) {
+    uds_transport::ConversionHandler &conversation, std::string_view udp_ip_address,
+    std::uint16_t port_num) {
   logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
-      __FILE__, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
-        msg << "Doip Udp protocol requested with local endpoint : "
+      FILE_NAME, __LINE__, __func__, [udp_ip_address](std::stringstream &msg) {
+        msg << "DoIP Udp protocol requested with local endpoint : "
             << "<Udp: " << udp_ip_address << ">";
       });
-  return doip_connection_mgr_.FindOrCreateUdpConnection(conversation, udp_ip_address, port_num);
+  return connection_mgr_.CreateUdpConnection(conversation, udp_ip_address, port_num);
 }
 }  // namespace transport_protocol_handler
 }  // namespace doip_client

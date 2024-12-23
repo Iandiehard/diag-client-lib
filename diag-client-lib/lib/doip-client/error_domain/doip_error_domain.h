@@ -83,8 +83,9 @@ class DoipErrorDomain final : public core_type::ErrorDomain {
  * @return      ErrorCode
  *              A new ErrorCode instance
  */
-core_type::ErrorCode MakeErrorCode(DoipErrorErrc code, core_type::ErrorDomain::SupportDataType data =
-                                                           core_type::ErrorDomain::SupportDataType{}) noexcept;
+core_type::ErrorCode MakeErrorCode(DoipErrorErrc code,
+                                   core_type::ErrorDomain::SupportDataType data =
+                                       core_type::ErrorDomain::SupportDataType{}) noexcept;
 
 }  // namespace error_domain
 }  // namespace doip_client

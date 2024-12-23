@@ -3,7 +3,7 @@ apt-get update -qq
 
 # Install compilers
 apt-get install clang-14
-apt-get install g++-9
+apt-get install g++-11
 
 # Install Boost library
 BOOST_MAJOR_VERSION="1"

@@ -11,30 +11,32 @@
 #include <utility>
 
 #include "common/logger.h"
-#include "sockets/tcp_socket_handler.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
 
-DoipTcpChannel::DoipTcpChannel(std::string_view tcp_ip_address, std::uint16_t, uds_transport::Connection &connection)
-    : tcp_socket_handler_{tcp_ip_address, *this},
+DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler,
+                               uds_transport::Connection &connection)
+    : tcp_socket_handler_{std::move(tcp_socket_handler)},
       tcp_channel_handler_{tcp_socket_handler_, *this},
       connection_{connection} {}
 
 void DoipTcpChannel::Start() {
-  tcp_socket_handler_.Start();
+  // Set the handler to receive data from socket handler
+  tcp_socket_handler_.SetReadHandler(
+      [this](TcpMessagePtr tcp_message) { ProcessReceivedTcpMessage(std::move(tcp_message)); });
+  // Start the socket and channel handler
+  tcp_socket_handler_.Initialize();
   tcp_channel_handler_.Start();
 }
 
 void DoipTcpChannel::Stop() {
-  tcp_socket_handler_.Stop();
+  tcp_socket_handler_.DeInitialize();
   tcp_channel_handler_.Stop();
 }
 
-bool DoipTcpChannel::IsConnectToHost() {
-  return (tcp_socket_handler_.GetSocketHandlerState() == TcpSocketHandler::SocketHandlerState::kSocketConnected);
-}
+bool DoipTcpChannel::IsConnectedToHost() { return tcp_socket_handler_.IsConnectedToHost(); }
 
 uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::ConnectToHost(
     uds_transport::UdsMessageConstPtr message) {
@@ -49,7 +51,7 @@ uds_transport::UdsTransportProtocolMgr::ConnectionResult DoipTcpChannel::Connect
     ret_val = tcp_channel_handler_.SendRoutingActivationRequest(std::move(message));
   } else {  // failure
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__, [&kHostIpAddress, &kHostPortNumber](std::stringstream &msg) {
+        FILE_NAME, __LINE__, __func__, [&kHostIpAddress, &kHostPortNumber](std::stringstream &msg) {
           msg << "Doip Tcp socket connect failed for remote endpoints : "
               << "<Ip: " << kHostIpAddress << ", Port: " << kHostPortNumber << ">";
         });
@@ -83,8 +85,9 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
     ret_val = tcp_channel_handler_.SendDiagnosticRequest(std::move(message));
   } else {
     logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-        __FILE__, __LINE__, __func__,
-        [](std::stringstream &msg) { msg << "Routing Activation required, please connect to server first"; });
+        FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {
+          msg << "Routing Activation required, please connect to server first";
+        });
   }
   return ret_val;
 }
@@ -92,11 +95,13 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
 DoipTcpChannel::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
                                 uds_transport::UdsMessage::Address target_addr,
-                                uds_transport::UdsMessage::TargetAddressType type, uds_transport::ChannelID channel_id,
-                                std::size_t size, uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind, core_type::Span<std::uint8_t> payload_info) {
-  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority, protocol_kind,
-                                     payload_info);
+                                uds_transport::UdsMessage::TargetAddressType type,
+                                uds_transport::ChannelID channel_id, std::size_t size,
+                                uds_transport::Priority priority,
+                                uds_transport::ProtocolKind protocol_kind,
+                                core_type::Span<std::uint8_t const> payload_info) {
+  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
+                                     protocol_kind, payload_info);
 }
 
 void DoipTcpChannel::HandleMessage(uds_transport::UdsMessagePtr message) {

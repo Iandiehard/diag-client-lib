@@ -8,10 +8,12 @@
 #ifndef DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_HANDLER_H_
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_UDP_CHANNEL_HANDLER_H_
 
+#include <mutex>
+
 #include "channel/udp_channel/doip_vehicle_discovery_handler.h"
 #include "channel/udp_channel/doip_vehicle_identification_handler.h"
 #include "common/doip_message.h"
-#include "sockets/udp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 
@@ -30,7 +32,7 @@ class DoipUdpChannelHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using UdpMessagePtr = sockets::UdpSocketHandler::UdpMessagePtr;
+  using UdpMessagePtr = sockets::UdpSocketHandler::MessagePtr;
 
   /**
    * @brief         Constructs an instance of DoipUdpChannelHandler
@@ -42,7 +44,8 @@ class DoipUdpChannelHandler final {
    *                The reference to tcp transport handler
    */
   DoipUdpChannelHandler(sockets::UdpSocketHandler &udp_socket_handler_broadcast,
-                        sockets::UdpSocketHandler &udp_socket_handler_unicast, DoipUdpChannel &channel);
+                        sockets::UdpSocketHandler &udp_socket_handler_unicast,
+                        DoipUdpChannel &channel);
 
   /**
    * @brief         Function to vehicle identification request to the connected network
@@ -51,7 +54,8 @@ class DoipUdpChannelHandler final {
    * @return        TransmissionResult
    *                The transmission result
    */
-  auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto SendVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   /**
@@ -85,15 +89,16 @@ class DoipUdpChannelHandler final {
    * @param[in]     payload_type
    *                The type of payload
    */
-  static auto ProcessDoIPPayloadLength(std::uint32_t payload_len, std::uint16_t payload_type) noexcept -> bool;
+  static auto ProcessDoIPPayloadLength(std::uint32_t payload_len,
+                                       std::uint16_t payload_type) noexcept -> bool;
 
   /**
    * @brief         Function to process the doip payload
    * @param[in]     doip_payload
    *                The reference to received payload
    */
-  void ProcessDoIPPayload(DoipMessage &doip_payload,
-                          DoipMessage::RxSocketType socket_type = DoipMessage::RxSocketType::kUnicast);
+  void ProcessDoIPPayload(DoipMessage &doip_payload, DoipMessage::RxSocketType socket_type =
+                                                         DoipMessage::RxSocketType::kUnicast);
 
   /**
    * @brief         Handler to process vehicle discovery messages

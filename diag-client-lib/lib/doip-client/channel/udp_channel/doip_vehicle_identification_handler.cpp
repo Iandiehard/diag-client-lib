@@ -60,14 +60,16 @@ class kIdle final : public utility::state::State<VehicleIdentificationState> {
 /**
 * @brief       Class implements sending of vehicle identification request state
 */
-class kSendVehicleIdentificationReq final : public utility::state::State<VehicleIdentificationState> {
+class kSendVehicleIdentificationReq final
+    : public utility::state::State<VehicleIdentificationState> {
  public:
   /**
   * @brief         Constructs an instance of kSendVehicleIdentificationReq
   * @param[in]     state
   *                The kSendVehicleIdentificationReq state
   */
-  explicit kSendVehicleIdentificationReq(VehicleIdentificationState state) : State<VehicleIdentificationState>(state) {}
+  explicit kSendVehicleIdentificationReq(VehicleIdentificationState state)
+      : State<VehicleIdentificationState>(state) {}
 
   /**
   * @brief         Function to start the current state
@@ -83,7 +85,8 @@ class kSendVehicleIdentificationReq final : public utility::state::State<Vehicle
 /**
 * @brief       Class implements wait for vehicle identification response state
 */
-class kWaitForVehicleIdentificationRes final : public utility::state::State<VehicleIdentificationState> {
+class kWaitForVehicleIdentificationRes final
+    : public utility::state::State<VehicleIdentificationState> {
  public:
   /**
   * @brief         Constructs an instance of kWaitForVehicleIdentificationRes
@@ -114,7 +117,8 @@ class kDoIPCtrlTimeout final : public utility::state::State<VehicleIdentificatio
   * @param[in]     state
   *                The kDoIPCtrlTimeout state
   */
-  explicit kDoIPCtrlTimeout(VehicleIdentificationState state) : State<VehicleIdentificationState>(state) {}
+  explicit kDoIPCtrlTimeout(VehicleIdentificationState state)
+      : State<VehicleIdentificationState>(state) {}
 
   /**
   * @brief         Function to start the current state
@@ -128,18 +132,24 @@ class kDoIPCtrlTimeout final : public utility::state::State<VehicleIdentificatio
 };
 
 /**
- * @brief         Create the doip generic header
+ * @brief            Function to create doip generic header
+ * @param[in]        payload_type
+ *                   The type of payload
+ * @param[in]        payload_len
+ *                   The length of payload
  */
-void CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer, std::uint16_t payload_type,
-                             std::uint32_t payload_len) {
-  doip_header_buffer.emplace_back(kDoip_ProtocolVersion);
-  doip_header_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
-  doip_header_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
+    -> std::vector<std::uint8_t> {
+  std::vector<std::uint8_t> output_buffer{};
+  output_buffer.emplace_back(kDoip_ProtocolVersion);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x00FF0000) >> 16));
+  output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0x0000FF00) >> 8));
+  output_buffer.emplace_back(static_cast<std::uint8_t>(payload_len & 0x000000FF));
+  return output_buffer;
 }
 
 /**
@@ -148,7 +158,8 @@ void CreateDoipGenericHeader(std::vector<std::uint8_t> &doip_header_buffer, std:
  *                The preselection mode
  * @return        The payload type with request type and request length
  */
-auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept -> VehiclePayloadType {
+auto GetVehicleIdentificationPayloadType(std::uint8_t preselection_mode) noexcept
+    -> VehiclePayloadType {
   std::uint16_t vehicle_identification_type{0u};
   std::uint8_t vehicle_identification_length{0u};
   switch (preselection_mode) {
@@ -180,7 +191,8 @@ class VehicleIdentificationHandler::VehicleIdentificationHandlerImpl final {
   /**
    * @brief  Type alias for state context
    */
-  using VehicleIdentificationStateContext = utility::state::StateContext<VehicleIdentificationState>;
+  using VehicleIdentificationStateContext =
+      utility::state::StateContext<VehicleIdentificationState>;
 
   /**
    * @brief  Type alias for Sync timer
@@ -192,7 +204,8 @@ class VehicleIdentificationHandler::VehicleIdentificationHandlerImpl final {
    * @param[in]     udp_socket_handler
    *                The reference to socket handler
    */
-  explicit VehicleIdentificationHandlerImpl(sockets::UdpSocketHandler &udp_socket_handler, DoipUdpChannel &channel)
+  explicit VehicleIdentificationHandlerImpl(sockets::UdpSocketHandler &udp_socket_handler,
+                                            DoipUdpChannel &channel)
       : udp_socket_handler_{udp_socket_handler},
         channel_{channel},
         state_context_{} {
@@ -201,16 +214,17 @@ class VehicleIdentificationHandler::VehicleIdentificationHandlerImpl final {
     state_context_.AddState(VehicleIdentificationState::kIdle,
                             std::make_unique<kIdle>(VehicleIdentificationState::kIdle));
     // kSendVehicleIdentificationReq
-    state_context_.AddState(
-        VehicleIdentificationState::kSendVehicleIdentificationReq,
-        std::make_unique<kSendVehicleIdentificationReq>(VehicleIdentificationState::kSendVehicleIdentificationReq));
+    state_context_.AddState(VehicleIdentificationState::kSendVehicleIdentificationReq,
+                            std::make_unique<kSendVehicleIdentificationReq>(
+                                VehicleIdentificationState::kSendVehicleIdentificationReq));
     // kWaitForVehicleIdentificationRes
     state_context_.AddState(VehicleIdentificationState::kWaitForVehicleIdentificationRes,
                             std::make_unique<kWaitForVehicleIdentificationRes>(
                                 VehicleIdentificationState::kWaitForVehicleIdentificationRes));
     // kDoIPCtrlTimeout
-    state_context_.AddState(VehicleIdentificationState::kDoIPCtrlTimeout,
-                            std::make_unique<kDoIPCtrlTimeout>(VehicleIdentificationState::kDoIPCtrlTimeout));
+    state_context_.AddState(
+        VehicleIdentificationState::kDoIPCtrlTimeout,
+        std::make_unique<kDoIPCtrlTimeout>(VehicleIdentificationState::kDoIPCtrlTimeout));
     // Transit to idle state
     state_context_.TransitionTo(VehicleIdentificationState::kIdle);
   }
@@ -261,9 +275,10 @@ class VehicleIdentificationHandler::VehicleIdentificationHandlerImpl final {
   SyncTimer sync_timer_;
 };
 
-VehicleIdentificationHandler::VehicleIdentificationHandler(sockets::UdpSocketHandler &udp_socket_handler,
-                                                           DoipUdpChannel &channel)
-    : handler_impl_{std::make_unique<VehicleIdentificationHandlerImpl>(udp_socket_handler, channel)} {}
+VehicleIdentificationHandler::VehicleIdentificationHandler(
+    sockets::UdpSocketHandler &udp_socket_handler, DoipUdpChannel &channel)
+    : handler_impl_{
+          std::make_unique<VehicleIdentificationHandlerImpl>(udp_socket_handler, channel)} {}
 
 VehicleIdentificationHandler::~VehicleIdentificationHandler() = default;
 
@@ -272,17 +287,20 @@ auto VehicleIdentificationHandler::HandleVehicleIdentificationRequest(
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  if (handler_impl_->GetStateContext().GetActiveState().GetState() == VehicleIdentificationState::kIdle) {
+  if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
+      VehicleIdentificationState::kIdle) {
     // change state before sending if SendVehicleIdentificationRequest call takes more time to return and in the
     // same time async reception starts
-    handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kWaitForVehicleIdentificationRes);
+    handler_impl_->GetStateContext().TransitionTo(
+        VehicleIdentificationState::kWaitForVehicleIdentificationRes);
     if (SendVehicleIdentificationRequest(std::move(vehicle_identification_request)) ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
       // Wait for 2 sec to collect all the vehicle identification response
       handler_impl_->GetSyncTimer().WaitForTimeout(
           [&]() {
-            handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kDoIPCtrlTimeout);
+            handler_impl_->GetStateContext().TransitionTo(
+                VehicleIdentificationState::kDoIPCtrlTimeout);
             // Todo: Send data to upper layer here
           },
           [&]() {
@@ -294,8 +312,9 @@ auto VehicleIdentificationHandler::HandleVehicleIdentificationRequest(
       // failed, do nothing
       handler_impl_->GetStateContext().TransitionTo(VehicleIdentificationState::kIdle);
       logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogError(
-          __FILE__, __LINE__, "",
-          [](std::stringstream &msg) { msg << "Vehicle Identification request transmission Failed"; });
+          FILE_NAME, __LINE__, "", [](std::stringstream &msg) {
+            msg << "Vehicle Identification request transmission Failed";
+          });
     }
   } else {
     // not free, state already in idle state
@@ -303,21 +322,26 @@ auto VehicleIdentificationHandler::HandleVehicleIdentificationRequest(
   return ret_val;
 }
 
-void VehicleIdentificationHandler::ProcessVehicleIdentificationResponse(DoipMessage &doip_payload) noexcept {
+void VehicleIdentificationHandler::ProcessVehicleIdentificationResponse(
+    DoipMessage &doip_payload) noexcept {
   if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
       VehicleIdentificationState::kWaitForVehicleIdentificationRes) {
     // Deserialize data to indicate to upper layer
-    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr> ret_val{
-        handler_impl_->GetDoipChannel().IndicateMessage(
-            static_cast<uds_transport::UdsMessage::Address>(0U), static_cast<uds_transport::UdsMessage::Address>(0U),
-            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U, doip_payload.GetPayload().size(), 0U,
-            "DoIPUdp", doip_payload.GetPayload())};
-    if ((ret_val.first == uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
+    std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult,
+              uds_transport::UdsMessagePtr>
+        ret_val{handler_impl_->GetDoipChannel().IndicateMessage(
+            static_cast<uds_transport::UdsMessage::Address>(0U),
+            static_cast<uds_transport::UdsMessage::Address>(0U),
+            uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
+            doip_payload.GetPayload().size(), 0U, "DoIPUdp", doip_payload.GetPayload())};
+    if ((ret_val.first ==
+         uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk) &&
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
       uds_transport::UdsMessage::MetaInfoMap meta_info_map{
           {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}}};
-      ret_val.second->AddMetaInfo(std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
+      ret_val.second->AddMetaInfo(
+          std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
       // copy to application buffer
       (void) std::copy(doip_payload.GetPayload().begin(), doip_payload.GetPayload().end(),
                        ret_val.second->GetPayload().begin());
@@ -333,23 +357,27 @@ auto VehicleIdentificationHandler::SendVehicleIdentificationRequest(
     -> uds_transport::UdsTransportProtocolMgr::TransmissionResult {
   uds_transport::UdsTransportProtocolMgr::TransmissionResult ret_val{
       uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitFailed};
-  UdpMessagePtr doip_vehicle_identification_req{std::make_unique<UdpMessage>(
-      vehicle_identification_request->GetHostIpAddress(), vehicle_identification_request->GetHostPortNumber())};
-
   // Get preselection mode
-  std::uint8_t preselection_mode{vehicle_identification_request->GetPayload()[BYTE_POS_ONE]};
+  std::uint8_t const preselection_mode{vehicle_identification_request->GetPayload()[1u]};
   // Get the payload type & length from preselection mode
-  VehiclePayloadType const doip_vehicle_payload_type{GetVehicleIdentificationPayloadType(preselection_mode)};
+  VehiclePayloadType const doip_vehicle_payload_type{
+      GetVehicleIdentificationPayloadType(preselection_mode)};
 
   // create header
-  CreateDoipGenericHeader(doip_vehicle_identification_req->GetTxBuffer(), doip_vehicle_payload_type.first,
-                          doip_vehicle_payload_type.second);
+  UdpMessage::BufferType compose_vehicle_identification_req{
+      CreateDoipGenericHeader(doip_vehicle_payload_type.first, doip_vehicle_payload_type.second)};
   // Copy only if containing VIN / EID
   if (doip_vehicle_payload_type.first != kDoip_VehicleIdentification_ReqType) {
-    doip_vehicle_identification_req->GetTxBuffer().insert(
-        doip_vehicle_identification_req->GetTxBuffer().begin() + kDoipheadrSize,
-        vehicle_identification_request->GetPayload().begin() + 2U, vehicle_identification_request->GetPayload().end());
+    compose_vehicle_identification_req.insert(
+        compose_vehicle_identification_req.begin() + kDoipheadrSize,
+        vehicle_identification_request->GetPayload().begin() + 2U,
+        vehicle_identification_request->GetPayload().end());
   }
+
+  UdpMessagePtr doip_vehicle_identification_req{
+      std::make_unique<UdpMessage>(vehicle_identification_request->GetHostIpAddress(),
+                                   vehicle_identification_request->GetHostPortNumber(),
+                                   std::move(compose_vehicle_identification_req))};
   if (handler_impl_->GetSocketHandler().Transmit(std::move(doip_vehicle_identification_req))) {
     ret_val = uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk;
   }

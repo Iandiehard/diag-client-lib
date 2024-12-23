@@ -9,7 +9,7 @@
 #define DIAG_CLIENT_LIB_LIB_DOIP_CLIENT_CHANNEL_UDP_CHANNEL_DOIP_VEHICLE_IDENTIFICATION_HANDLER_H_
 
 #include "common/doip_message.h"
-#include "sockets/udp_socket_handler.h"
+#include "sockets/socket_handler.h"
 #include "uds_transport/protocol_mgr.h"
 #include "uds_transport/uds_message.h"
 
@@ -28,12 +28,12 @@ class VehicleIdentificationHandler final {
   /**
    * @brief  Type alias for Tcp message pointer
    */
-  using UdpMessagePtr = sockets::UdpSocketHandler::UdpMessagePtr;
+  using UdpMessagePtr = sockets::UdpSocketHandler::MessagePtr;
 
   /**
    * @brief  Type alias for Udp message
    */
-  using UdpMessage = sockets::UdpSocketHandler::UdpMessage;
+  using UdpMessage = sockets::UdpSocketHandler::Message;
 
  public:
   /**
@@ -43,7 +43,8 @@ class VehicleIdentificationHandler final {
    * @param[in]     channel
    *                The reference to doip udp channel
    */
-  VehicleIdentificationHandler(sockets::UdpSocketHandler &udp_socket_handler, DoipUdpChannel &channel);
+  VehicleIdentificationHandler(sockets::UdpSocketHandler &udp_socket_handler,
+                               DoipUdpChannel &channel);
 
   /**
    * @brief         Destruct an instance of VehicleIdentificationHandler
@@ -56,7 +57,8 @@ class VehicleIdentificationHandler final {
    *              The vehicle identification request
    * @return      Transmission result
    */
-  auto HandleVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto HandleVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
   /**
@@ -73,7 +75,8 @@ class VehicleIdentificationHandler final {
    *              The vehicle identification request
    * @return      Transmission result
    */
-  auto SendVehicleIdentificationRequest(uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
+  auto SendVehicleIdentificationRequest(
+      uds_transport::UdsMessageConstPtr vehicle_identification_request) noexcept
       -> uds_transport::UdsTransportProtocolMgr::TransmissionResult;
 
  private:

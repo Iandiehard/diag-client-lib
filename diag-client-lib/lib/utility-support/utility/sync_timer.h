@@ -8,12 +8,13 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_SYNC_TIMER_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_SYNC_TIMER_H
 
-namespace utility {
-namespace sync_timer {
-
 #include <chrono>
 #include <condition_variable>
+#include <cstdint>
 #include <mutex>
+
+namespace utility {
+namespace sync_timer {
 
 /**
  * @brief       Timer class for timeout monitoring
