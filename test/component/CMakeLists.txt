@@ -27,6 +27,10 @@ target_link_libraries(${PROJECT_NAME}
         GTest::gmock_main
 )
 
+if (WIN32)
+    target_link_libraries(${PROJECT_NAME} ws2_32)
+endif (WIN32)
+
 gtest_discover_tests(${PROJECT_NAME})
 
 # Copy etc directory

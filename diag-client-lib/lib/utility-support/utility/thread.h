@@ -36,7 +36,7 @@ class Thread final {
   Thread(std::string const &thread_name, Callable &&callable, Args &&...args) noexcept
       : thread_{std::forward<Callable>(callable), std::forward<Args>(args)...} {
     // Set thread name
-    pthread_setname_np(thread_.native_handle(), thread_name.c_str());
+    pthread_setname_np((pthread_t)thread_.native_handle(), thread_name.c_str());
   }
 
   /**
