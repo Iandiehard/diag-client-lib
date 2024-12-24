@@ -65,7 +65,7 @@ $(function() {
 <div class="title">Diagnostic Client Library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__home_runner_work_diag_client_lib_diag_client_lib_README"></a> <a href="https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml"><img src="https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml/badge.svg" alt="Clang14" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9.yml"><img src="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9.yml/badge.svg" alt="Gcc9" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9_with_test.yml"><img src="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc9_with_test.yml/badge.svg" alt="Gcc9_GTest" style="pointer-events: none;" class="inline"/></a></p>
+<div class="textblock"><p><a class="anchor" id="md__home_runner_work_diag_client_lib_diag_client_lib_README"></a> <a href="https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml"><img src="https://github.com/Iandiehard/diag-client-lib/actions/workflows/clang14.yml/badge.svg" alt="Clang14" style="pointer-events: none;" class="inline"/></a> <a href="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc11.yml"><img src="https://github.com/Iandiehard/diag-client-lib/actions/workflows/gcc11.yml/badge.svg" alt="Gcc11" style="pointer-events: none;" class="inline"/></a></p>
 <ul>
 <li><a href="#diagnostic-client-library">Diagnostic Client Library</a><ul>
 <li><a href="#diagnostic-client-library-1">Diagnostic Client Library</a></li>
@@ -125,8 +125,9 @@ In Linux :-</h3>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><a href="https://www.boost.org/">Boost</a>   </td><td class="markdownTableBodyNone">asio operation   </td><td class="markdownTableBodyNone">&gt;= 1.79.0   </td></tr>
 </table>
-<p>You can also execute to install dependencies :- </p><div class="fragment"><div class="line">sh .github/setup.sh </div>
-</div><!-- fragment --> <h3><a class="anchor" id="autotoc_md7"></a>
+<p>You can also execute to install dependencies :-</p>
+<div class="fragment"><div class="line">sh .github/setup.sh </div>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md7"></a>
 In Windows :-</h3>
 <p>The following packages are needed to build and install Diagnostic Client library:-</p>
 <table class="markdownTable">
@@ -140,27 +141,45 @@ In Windows :-</h3>
 <p>Note: Covesa DLT is not directly supported in Windows. For more information see <a href="https://github.com/COVESA/dlt-daemon/issues/136">Dlt Issue</a></p>
 <h2><a class="anchor" id="autotoc_md8"></a>
 How to use diag-client-lib</h2>
-<p>Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage. Diagnostic Client library can be built as shared library by setting the below CMake Flag to ON </p><div class="fragment"><div class="line">BUILD_SHARED_LIBS : ON</div>
-</div><!-- fragment --><p>Main instance of Diagnostic Client Library must be created using <code>CreateDiagnosticClient</code> method call by passing the path to <a href="diag-client-lib/appl/etc/diag_client_config.json">diag-client config json</a> file as parameter. </p><div class="fragment"><div class="line"><span class="comment">// Create the Diagnostic client and pass the config for creating internal properties</span></div>
+<p>Diagnostic Client Library has to be linked first either statically or dynamically with executable before usage. Diagnostic Client library can be built as shared library by setting the below CMake Flag to ON</p>
+<div class="fragment"><div class="line">BUILD_SHARED_LIBS : ON</div>
+</div><!-- fragment --><p>Main instance of Diagnostic Client Library must be created using <code>CreateDiagnosticClient</code> method call by passing the path to <a href="diag-client-lib/appl/etc/diag_client_config.json">diag-client config json</a> file as parameter.</p>
+<div class="fragment"><div class="line"><span class="comment">// Create the Diagnostic client and pass the config for creating internal properties</span></div>
 <div class="line">std::unique_ptr&lt;diag::client::DiagClient&gt; diag_client{</div>
 <div class="line">    <a class="code" href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">diag::client::CreateDiagnosticClient</a>(<span class="stringliteral">&quot;etc/diag_client_config.json&quot;</span>)};</div>
 <div class="ttc" id="anamespacediag_1_1client_html_a853dba625cddf0a23aefe9ec7da74ce4"><div class="ttname"><a href="namespacediag_1_1client.html#a853dba625cddf0a23aefe9ec7da74ce4">diag::client::CreateDiagnosticClient</a></div><div class="ttdeci">std::unique_ptr&lt; DiagClient &gt; CreateDiagnosticClient(std::string_view diag_client_config_path)</div><div class="ttdoc">Creates a diagnostic client to communicate with diagnostic server.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8cpp_source.html#l00189">diagnostic_client.cpp:189</a></div></div>
-</div><!-- fragment --><p> <a href="diag-client-lib/appl/etc/diag_client_config.json">diag-client config json</a> file can be modified as per user requirements.</p>
-<p>Once Diagnostic Client Library is instantiated and initialized, <code>GetDiagnosticClientConversation</code> can be used to get the tester/conversation instance by passing the tester/conversation name. </p><div class="fragment"><div class="line"><span class="comment">// Get conversation for tester one by providing the conversation name configured</span></div>
+</div><!-- fragment --><p><a href="diag-client-lib/appl/etc/diag_client_config.json">diag-client config json</a> file can be modified as per user requirements.</p>
+<p>Once Diagnostic Client Library is instantiated and initialized, <code>GetDiagnosticClientConversation</code> can be used to get the tester/conversation instance by passing the tester/conversation name.</p>
+<div class="fragment"><div class="line"><span class="comment">// Get conversation for tester one by providing the conversation name configured</span></div>
 <div class="line"><span class="comment">// in diag_client_config file passed while creating the diag client</span></div>
 <div class="line"><a class="code" href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">diag::client::conversation::DiagClientConversation</a> diag_client_conversation {</div>
 <div class="line">    diag_client-&gt;GetDiagnosticClientConversation(<span class="stringliteral">&quot;DiagTesterOne&quot;</span>)};</div>
 <div class="ttc" id="aclassdiag_1_1client_1_1conversation_1_1DiagClientConversation_html"><div class="ttname"><a href="classdiag_1_1client_1_1conversation_1_1DiagClientConversation.html">diag::client::conversation::DiagClientConversation</a></div><div class="ttdoc">Conversation class to establish connection with a Diagnostic Server.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__conversation_8h_source.html#l00024">diagnostic_client_conversation.h:24</a></div></div>
-</div><!-- fragment --><p> Multiple tester instance can be created using these method as provided in the configuration json file.</p>
-<p>Check the example application [Examples](examples) on how Diagnostic Client Library can be linked and used. Example can be built too by enabling CMake Flag:- </p><div class="fragment"><div class="line">BUILD_EXAMPLES : ON</div>
+</div><!-- fragment --><p>Multiple tester instance can be created using these method as provided in the configuration json file.</p>
+<p>It also supports finding the available Diagnostic ECUs in the whole network through vehicle discovery.</p>
+<div class="fragment"><div class="line"><span class="comment">// Create a vehicle info request for finding available ECU in the whole network,</span></div>
+<div class="line"><span class="comment">// Use preselection mode `0` for broadcasting vehicle identification request to the whole network</span></div>
+<div class="line"><a class="code" href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleInfoListRequestType</a> <span class="keyword">const</span> vehicle_info_request{0u, <span class="stringliteral">&quot;&quot;</span>};</div>
+<div class="line"><span class="comment">// Send Vehicle Identification request and get the response with available ECU information</span></div>
+<div class="line"><a class="code" href="classcore__type_1_1Result.html">diag::client::Result</a>&lt;<a class="code" href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a>,</div>
+<div class="line">                     <a class="code" href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">diag::client::DiagClient::VehicleInfoResponseError</a>&gt; <span class="keyword">const</span></div>
+<div class="line">    vehicle_response_result{diag_client-&gt;SendVehicleIdentificationRequest(vehicle_info_request)};</div>
+<div class="ttc" id="aclasscore__type_1_1Result_html"><div class="ttname"><a href="classcore__type_1_1Result.html">core_type::Result</a></div><div class="ttdoc">Class type to contains a value (of type ValueType), or an error (of type ErrorType)</div><div class="ttdef"><b>Definition:</b> <a href="result_8h_source.html#l00029">result.h:29</a></div></div>
+<div class="ttc" id="aclassdiag_1_1client_1_1DiagClient_html_a0c8616e98d9c476446749a84f83a7db5"><div class="ttname"><a href="classdiag_1_1client_1_1DiagClient.html#a0c8616e98d9c476446749a84f83a7db5">diag::client::DiagClient::VehicleInfoResponseError</a></div><div class="ttdeci">VehicleInfoResponseError</div><div class="ttdoc">Definitions of Vehicle Identification response error code.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client_8h_source.html#l00030">diagnostic_client.h:30</a></div></div>
+<div class="ttc" id="anamespacediag_1_1client_1_1vehicle__info_html_a703d0b79cc8bd761b81b93b682925648"><div class="ttname"><a href="namespacediag_1_1client_1_1vehicle__info.html#a703d0b79cc8bd761b81b93b682925648">diag::client::vehicle_info::VehicleInfoMessageResponseUniquePtr</a></div><div class="ttdeci">std::unique_ptr&lt; VehicleInfoMessage &gt; VehicleInfoMessageResponseUniquePtr</div><div class="ttdoc">The unique_ptr for Vehicle Identification Response Message.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__vehicle__info__message__type_8h_source.html#l00116">diagnostic_client_vehicle_info_message_type.h:116</a></div></div>
+<div class="ttc" id="astructdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest_html"><div class="ttname"><a href="structdiag_1_1client_1_1vehicle__info_1_1VehicleAddrInfoRequest.html">diag::client::vehicle_info::VehicleAddrInfoRequest</a></div><div class="ttdoc">Struct containing Vehicle selection mode.</div><div class="ttdef"><b>Definition:</b> <a href="diagnostic__client__vehicle__info__message__type_8h_source.html#l00061">diagnostic_client_vehicle_info_message_type.h:61</a></div></div>
+</div><!-- fragment --><p>Check the [example](examples) application on how Diagnostic Client Library can be linked and used. Example can be built too by enabling CMake Flag:-</p>
+<div class="fragment"><div class="line">BUILD_EXAMPLES : ON</div>
 </div><!-- fragment --><h2><a class="anchor" id="autotoc_md9"></a>
 Logging in diag-client-lib</h2>
-<p>Diagnostic Client Library supports logging and tracing by using the logging infrastructure from <a href="https://github.com/COVESA/dlt-daemon">COVESA DLT</a>. Logging is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:- </p><div class="fragment"><div class="line">BUILD_WITH_DLT : ON</div>
-</div><!-- fragment --><p> Note: DLT logging is not supported in Windows. So, CMake Flag must be switched OFF.</p>
+<p>Diagnostic Client Library supports logging and tracing by using the logging infrastructure from <a href="https://github.com/COVESA/dlt-daemon">COVESA DLT</a>. Logging is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:-</p>
+<div class="fragment"><div class="line">BUILD_WITH_DLT : ON</div>
+</div><!-- fragment --><p>Note: DLT logging is not supported in Windows. So, CMake Flag must be switched OFF.</p>
 <h2><a class="anchor" id="autotoc_md10"></a>
 Documentation in diag-client-lib</h2>
-<p>Diagnostic Client Library uses doxygen to generate the documentation of the public api's. Doxygen build is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:- </p><div class="fragment"><div class="line">BUILD_DOXYGEN : ON</div>
-</div><!-- fragment --><p> In the future, we will have internal code documentation too.</p>
+<p>Diagnostic Client Library uses doxygen to generate the documentation of the public api's. Doxygen build is switched OFF by default using the CMake Flag, can be switched ON by enabling the flag:-</p>
+<div class="fragment"><div class="line">BUILD_DOXYGEN : ON</div>
+</div><!-- fragment --><p>In the future, we will have internal code documentation too.</p>
 <h1><a class="anchor" id="autotoc_md11"></a>
 Requirements</h1>
 <p>Component requirements implemented are documented <a class="el" href="md__home_runner_work_diag_client_lib_diag_client_lib_docs_requirement_requirements.html">REQ</a></p>
