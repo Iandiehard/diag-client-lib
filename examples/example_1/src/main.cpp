@@ -24,7 +24,7 @@ int main() {
   using DiagClientConversation = diag::client::conversation::DiagClientConversation;
 
   // Create the Diagnostic client and pass the config for creating internal properties
-  std::unique_ptr<diag::client::DiagClient> diag_client{
+  std::unique_ptr const diag_client{
       diag::client::CreateDiagnosticClient("etc/diag_client_config.json")};
 
   // Initialize the Diagnostic Client library
@@ -114,5 +114,5 @@ int main() {
 
   // important to release all the resources by calling de-initialize
   diag_client->DeInitialize();
-  return (0);
+  return 0;
 }
