@@ -62,6 +62,8 @@ int main() {
     diag::client::uds_message::UdsRequestMessagePtr uds_message{
         std::make_unique<UdsMessage>(remote_ecu_ip_address, uds_payload)};
 
+    diag_client_conversation.SetDoIpProtocol(vehicle_response_collection[0u].doip_protocol_version);
+
     // Connect Tester One to remote ECU
     diag::client::conversation::DiagClientConversation::ConnectResult const connect_result{
         diag_client_conversation.ConnectToDiagServer(remote_ecu_server_logical_address,
