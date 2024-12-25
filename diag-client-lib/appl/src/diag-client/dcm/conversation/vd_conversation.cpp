@@ -365,7 +365,8 @@ VdConversation::DeserializeVehicleInfoResponse(uds_transport::UdsMessagePtr mess
       logical_address,                           // logical address
       vehicle_info_data_vin,                     // vin
       vehicle_info_data_eid,                     // eid
-      vehicle_info_data_gid};                    // gid
+      vehicle_info_data_gid,                     // gid
+      message->GetProtocolVersion()};            // protocol
 
   return std::pair<std::uint16_t, VdConversation::VehicleAddrInfoResponseStruct>{logical_address,
                                                                                  vehicle_addr_info};
