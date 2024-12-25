@@ -133,6 +133,18 @@ class DiagClientConversation final {
   DisconnectResult DisconnectFromDiagServer() noexcept;
 
   /**
+   * @brief         Function to get currently used DoIP protocol version
+   * @return        DoIpProtocol
+   *                Version of DoIP protocol used for messages
+   */
+  DoIpProtocol GetDoIpProtocol() const noexcept;
+
+  /**
+   * @brief         Function to set DoIP protocol version for messages
+   */
+  void SetDoIpProtocol(DoIpProtocol protocol) noexcept;
+
+  /**
    * @brief         Function to send Diagnostic Request and get Diagnostic Response
    * @details       This is a blocking function i.e. function call either returns with final diagnostic response (Positive/Negative)
    *                or with error. It also handles reception of pending response(NRC 0x78) internally within this function call
