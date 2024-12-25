@@ -40,3 +40,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         platform-core
         Threads::Threads
         )
+
+if (WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+endif (WIN32)
