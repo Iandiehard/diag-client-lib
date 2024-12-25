@@ -198,6 +198,7 @@ VdConversation::VdConversation(std::string_view conversion_name,
     : vd_conversion_handler_{std::make_unique<VdConversationHandler>(
           conversion_identifier.handler_id, *this)},
       conversation_name_{conversion_name},
+      protocol_ver_{doip_client::kDoip_ProtocolVersion},
       broadcast_address_{conversion_identifier.udp_broadcast_address},
       connection_ptr_{},
       vehicle_info_collection_{},
@@ -372,6 +373,12 @@ VdConversation::DeserializeVehicleInfoResponse(uds_transport::UdsMessagePtr mess
 
 ::uds_transport::ConversionHandler &VdConversation::GetConversationHandler() noexcept {
   return *vd_conversion_handler_;
+}
+
+void VdConversation::SetDoIpProtocol(DoIpProtocol version) noexcept { protocol_ver_ = version; }
+
+Conversation::DoIpProtocol VdConversation::GetDoIpProtocol() const noexcept {
+  return protocol_ver_;
 }
 
 std::pair<VdConversation::PreselectionMode, VdConversation::PreselectionValue>

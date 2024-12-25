@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -115,6 +115,7 @@ DmConversation::DmConversation(std::string_view conversion_name,
       source_address_{conversion_identifier.source_address},
       target_address_{},
       conversation_name_{conversion_name},
+      protocol_ver_{doip_client::kDoip_ProtocolVersion},
       dm_conversion_handler_{
           std::make_unique<DmConversationHandler>(conversion_identifier.handler_id, *this)} {}
 
@@ -159,7 +160,7 @@ DiagClientConversation::ConnectResult DmConversation::ConnectToDiagServer(
   DiagClientConversation::ConnectResult const connection_result{
       static_cast<DiagClientConversation::ConnectResult>(
           connection_->ConnectToHost(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-              source_address_, target_address, host_ip_addr, payload)))};
+              protocol_ver_, source_address_, target_address, host_ip_addr, payload)))};
   remote_address_ = host_ip_addr;
   target_address_ = target_address;
   if (connection_result == DiagClientConversation::ConnectResult::kConnectSuccess) {
@@ -223,7 +224,8 @@ DmConversation::SendDiagnosticRequest(uds_message::UdsRequestMessageConstPtr mes
     // Initiate Sending of diagnostic request
     uds_transport::UdsTransportProtocolMgr::TransmissionResult const transmission_result{
         connection_->Transmit(std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, message->GetHostIpAddress(), payload))};
+            protocol_ver_, source_address_, target_address_, message->GetHostIpAddress(),
+            payload))};
     if (transmission_result ==
         uds_transport::UdsTransportProtocolMgr::TransmissionResult::kTransmitOk) {
       // Diagnostic Request Sent successful
@@ -345,6 +347,12 @@ void DmConversation::RegisterConnection(
   return *dm_conversion_handler_;
 }
 
+void DmConversation::SetDoIpProtocol(DoIpProtocol version) noexcept { protocol_ver_ = version; }
+
+Conversation::DoIpProtocol DmConversation::GetDoIpProtocol() const noexcept {
+  return protocol_ver_;
+}
+
 std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
 DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
                                 uds_transport::UdsMessage::Address,
@@ -383,7 +391,7 @@ DmConversation::IndicateMessage(uds_transport::UdsMessage::Address,
         payload_rx_buffer_.resize(size);
         ret_val.first = uds_transport::UdsTransportProtocolMgr::IndicationResult::kIndicationOk;
         ret_val.second = std::make_unique<diag::client::uds_message::DmUdsMessage>(
-            source_address_, target_address_, "", payload_rx_buffer_);
+            protocol_ver_, source_address_, target_address_, "", payload_rx_buffer_);
         conversation_state_.GetConversationStateContext().TransitionTo(
             ConversationState::kDiagRecvdFinalRes);
       }

@@ -339,7 +339,8 @@ void VehicleIdentificationHandler::ProcessVehicleIdentificationResponse(
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
       uds_transport::UdsMessage::MetaInfoMap meta_info_map{
-          {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}}};
+          {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}},
+          {"kDoipVersion", std::to_string(doip_payload.GetProtocolVersion())}};
       ret_val.second->AddMetaInfo(
           std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
       // copy to application buffer

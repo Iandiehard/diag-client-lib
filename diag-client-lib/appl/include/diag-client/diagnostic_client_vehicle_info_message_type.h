@@ -53,6 +53,11 @@ struct VehicleAddrInfoResponse {
    *              Bytes are separated by a “:”-character
    */
   std::string gid{};
+
+  /**
+   * @brief       Version of DoIP protocol used by vehicle
+   */
+  std::uint8_t doip_protocol_version{};
 };
 
 /**

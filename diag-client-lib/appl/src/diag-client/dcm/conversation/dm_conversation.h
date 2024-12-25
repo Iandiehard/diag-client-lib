@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -106,6 +106,18 @@ class DmConversation final : public Conversation {
    *              Disconnection result returned
    */
   DisconnectResult DisconnectFromDiagServer() noexcept override;
+
+  /**
+   * @brief       Function to set DoIP protocol version for messages
+   */
+  void SetDoIpProtocol(DoIpProtocol version) noexcept override;
+
+  /**
+   * @brief       Function to get used DoIP protocol version
+   * @return      DoIpProtocol
+   *              Currently used protool version
+   */
+  DoIpProtocol GetDoIpProtocol() const noexcept override;
 
   /**
    * @brief       Function to indicate a start of reception of message
@@ -235,6 +247,11 @@ class DmConversation final : public Conversation {
    * @brief       Store the conversation name
    */
   std::string conversation_name_;
+
+  /**
+   * @brief       Store the DoIP protocol version for messages
+   */
+  DoIpProtocol protocol_ver_;
 
   /**
    * @brief       Store the dm conversation handler

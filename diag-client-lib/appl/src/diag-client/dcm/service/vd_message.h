@@ -8,6 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_VD_MESSAGE_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_SERVICE_VD_MESSAGE_H
 /* includes */
+#include "common/common_doip_types.h"
 #include "diag-client/diagnostic_client_uds_message_type.h"
 #include "diag-client/diagnostic_client_vehicle_info_message_type.h"
 #include "uds_transport/uds_message.h"
@@ -44,8 +45,11 @@ class VdMessage final : public uds_transport::UdsMessage {
   // store the vehicle info payload
   uds_transport::ByteVector vehicle_info_payload_;
 
-  // store the
+  // store the MetaInfo
   std::shared_ptr<const MetaInfoMap> meta_info_{};
+
+  // Protocol version
+  Protocol protocol_ver_{doip_client::kDoip_ProtocolVersion};
 
   // add new metaInfo to this message.
   void AddMetaInfo(std::shared_ptr<const MetaInfoMap> meta_info) override {
@@ -53,6 +57,11 @@ class VdMessage final : public uds_transport::UdsMessage {
     if (meta_info != nullptr) {
       meta_info_ = meta_info;
       host_ip_address_ = meta_info_->at("kRemoteIpAddress");
+
+      std::string str_ver = meta_info_->at("kDoipVersion");
+      if (!str_ver.empty()) {
+        protocol_ver_ = std::stoi(str_ver);
+      }
     }
   }
 
@@ -75,7 +84,10 @@ class VdMessage final : public uds_transport::UdsMessage {
   IpAddress GetHostIpAddress() const noexcept override { return host_ip_address_; }
 
   // Get Host port number
-  PortNumber GetHostPortNumber() const noexcept override { return 13400U; }
+  PortNumber GetHostPortNumber() const noexcept override { return doip_client::kDoipPort; }
+
+  // Get DoIP protocol version
+  Protocol GetProtocolVersion() const noexcept override { return protocol_ver_; }
 };
 
 }  // namespace vd_message

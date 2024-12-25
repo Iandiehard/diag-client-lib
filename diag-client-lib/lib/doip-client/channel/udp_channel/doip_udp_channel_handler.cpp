@@ -84,9 +84,12 @@ auto DoipUdpChannelHandler::ProcessDoIPHeader(DoipMessage &doip_rx_message,
                                               std::uint8_t &nack_code) noexcept -> bool {
   bool ret_val{false};
   /* Check the header synchronisation pattern */
-  if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion) &&
+  if (((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_2012) &&
        (doip_rx_message.GetInverseProtocolVersion() ==
-        static_cast<std::uint8_t>(~kDoip_ProtocolVersion))) ||
+        static_cast<std::uint8_t>(~kDoip_ProtocolVersion_2012))) ||
+      ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_2019) &&
+       (doip_rx_message.GetInverseProtocolVersion() ==
+        static_cast<std::uint8_t>(~kDoip_ProtocolVersion_2019))) ||
       ((doip_rx_message.GetProtocolVersion() == kDoip_ProtocolVersion_Def) &&
        (doip_rx_message.GetInverseProtocolVersion() ==
         static_cast<std::uint8_t>(~kDoip_ProtocolVersion_Def)))) {

@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -24,6 +24,8 @@ class UdsMessage {
   using IpAddress = std::string_view;
   // Port Number
   using PortNumber = std::uint16_t;
+  // Protocol Version
+  using Protocol = std::uint8_t;
   // Type for the meta information attached to a UdsMessage
   using MetaInfoMap = std::map<std::string, std::string>;
   // type of target address in UdsMessage
@@ -63,6 +65,9 @@ class UdsMessage {
 
   // Get Host port number
   virtual PortNumber GetHostPortNumber() const noexcept = 0;
+
+  // Get DoIP protocol version
+  virtual Protocol GetProtocolVersion() const noexcept = 0;
 };
 
 // This is the unique_ptr for constant UdsMessages

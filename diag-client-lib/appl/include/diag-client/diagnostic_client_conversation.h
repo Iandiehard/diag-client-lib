@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,6 +27,11 @@ class DiagClientConversation final {
    * @brief         Type alias of ip address type
    */
   using IpAddress = uds_message::UdsMessage::IpAddress;
+
+  /**
+   * @brief         Type alias for DoIP protocol version
+   */
+  using DoIpProtocol = std::uint8_t;
 
  public:
   /**
