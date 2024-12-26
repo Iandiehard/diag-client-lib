@@ -148,7 +148,7 @@ class Result final {
    * @param[in]   other
    *              The other instance
    * @return      Result &
-   *              *this, containing the contents of other 
+   *              *this, containing the contents of other
    */
   Result &operator=(const Result &other) = default;
 
@@ -374,7 +374,7 @@ class Result final {
    */
   template<typename U>
   T ValueOr(U &&defaultValue) const &noexcept {
-    return HasValue() ? Result{*this} : static_cast<T>(defaultValue);
+    return HasValue() ? Value() : static_cast<T>(std::forward<U>(defaultValue));
   }
 
   /**
@@ -389,7 +389,7 @@ class Result final {
    */
   template<typename U>
   T ValueOr(U &&defaultValue) &&noexcept {
-    return HasValue() ? Result{std::move(*this)} : static_cast<T>(defaultValue);
+    return HasValue() ? std::move(Value()) : static_cast<T>(std::forward<U>(defaultValue));
   }
 
   /**
@@ -404,7 +404,7 @@ class Result final {
    */
   template<typename G>
   E ErrorOr(G &&defaultError) const &noexcept {
-    return !HasValue() ? Result{*this} : static_cast<E>(defaultError);
+    return !HasValue() ? Error() : static_cast<E>(std::forward<G>(defaultError));
   }
 
   /**
@@ -419,12 +419,12 @@ class Result final {
    */
   template<typename G>
   E ErrorOr(G &&defaultError) &&noexcept {
-    return !HasValue() ? Result{std::move(*this)} : static_cast<E>(defaultError);
+    return !HasValue() ? std::move(Error()) : static_cast<E>(std::forward<G>(defaultError));
   }
 
   /**
    * @brief       Return the contained value or return the result of a function call
-   * @details     If *this contains a value, it is returned. Otherwise, the specified callable is invoked and its return value 
+   * @details     If *this contains a value, it is returned. Otherwise, the specified callable is invoked and its return value
    *              which is to be compatible to type T is returned from this function.
    *              The Callable is expected to be compatible to this interface: T f(const E&)
    * @tparam      F
@@ -436,8 +436,23 @@ class Result final {
    */
   template<typename F>
   T Resolve(F &&f) const {
-    return HasValue() ? Result{*this} : f(Error());
+    return HasValue() ? Value() : std::forward<F>(f)(Error());
   }
+
+  /**
+   * @brief Exchange the contents of this instance with those of other
+   * @param[inout] other
+   *               The other instance
+   */
+  void Swap(Result &other) noexcept(
+      std::is_nothrow_move_constructible<T>::value
+      && std::is_nothrow_move_assignable<T>::value
+      && std::is_nothrow_move_constructible<E>::value
+      && std::is_nothrow_move_assignable<E>::value)
+  {
+    storage_.swap(other.storage_);
+  }
+
 
  private:
   /**
@@ -538,7 +553,7 @@ class Result<void, E> final {
    * @param[in]   other
    *              The other instance
    * @return      Result &
-   *              *this, containing the contents of other 
+   *              *this, containing the contents of other
    */
   Result &operator=(const Result &other) = default;
 
