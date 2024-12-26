@@ -74,6 +74,16 @@ class ErrorCode final {
    */
   std::string_view Message() noexcept;
 
+  constexpr bool operator==(ErrorCode &other) const noexcept
+  {
+    return domain_ == other.domain_ && code_value_ == other.code_value_;
+  }
+
+  constexpr bool operator!=(ErrorCode &other) const noexcept
+  {
+    return domain_ != other.domain_ || code_value_ != other.code_value_;
+  }
+
  private:
   /**
    * @brief       Store the domain error code value

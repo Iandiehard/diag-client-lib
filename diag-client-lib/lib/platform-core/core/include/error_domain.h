@@ -74,6 +74,16 @@ class ErrorDomain {
    */
   virtual const char *Message(CodeType error_code) noexcept = 0;
 
+  constexpr bool operator==(ErrorDomain &other) const noexcept
+  {
+    return id_ == other.id_;
+  }
+
+  constexpr bool operator!=(ErrorDomain &other) const noexcept
+  {
+    return id_ != other.id_;
+  }
+
  protected:
   /**
    * @brief       Construct a new instance with the given identifier. Identifiers are expected to be system-wide unique.
