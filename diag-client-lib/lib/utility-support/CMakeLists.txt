@@ -15,11 +15,13 @@ if (BUILD_WITH_DLT)
     find_package(automotive-dlt REQUIRED)
 endif (BUILD_WITH_DLT)
 
-file(GLOB SRCS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
+file(GLOB HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.h")
+file(GLOB SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/utility/*.cpp")
 
 add_library(
         ${PROJECT_NAME}
-        ${SRCS}
+        ${HEADERS}
+        ${SOURCES}
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
