@@ -272,7 +272,7 @@ class Logger final {
                      const std::string_view func_name, int line_no, Func &&func) {
     DLT_LOG(
         contxt_, log_level,
-        DLT_CSTRING(CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func))
+        DLT_CSTRING(internal::CreateLoggingMessage(file_name, func_name, line_no, std::forward<Func>(func))
                         .str()
                         .c_str()));
   }
