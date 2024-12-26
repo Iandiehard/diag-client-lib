@@ -157,8 +157,8 @@ class Result final {
    * @param[in]   other
    *              The other instance
    */
-  Result(Result &&other) noexcept(std::is_nothrow_move_constructible<T>::value
-                                      &&std::is_nothrow_move_constructible<E>::value) = default;
+  Result(Result &&other) noexcept(std::is_nothrow_move_constructible<T>::value &&
+                                  std::is_nothrow_move_constructible<E>::value) = default;
 
   /**
    * @brief       Move-assign another Result to this instance
@@ -167,10 +167,10 @@ class Result final {
    * @return      Result &
    *              *this, containing the contents of other
    */
-  Result &operator=(Result &&other) noexcept(
-      std::is_nothrow_move_constructible<T>::value &&std::is_nothrow_move_assignable<T>::value
-          &&std::is_nothrow_move_constructible<E>::value
-              &&std::is_nothrow_move_assignable<E>::value) = default;
+  Result &operator=(Result &&other) noexcept(std::is_nothrow_move_constructible<T>::value &&
+                                             std::is_nothrow_move_assignable<T>::value &&
+                                             std::is_nothrow_move_constructible<E>::value &&
+                                             std::is_nothrow_move_assignable<E>::value) = default;
 
   /**
    * @brief      Destruct an instance of Result
@@ -221,7 +221,7 @@ class Result final {
    * @return      const T &
    *              A const_reference to the contained value
    */
-  const T &operator*() const &noexcept { return std::get<value_type>(storage_); }
+  const T &operator*() const & noexcept { return std::get<value_type>(storage_); }
 
   /**
    * @brief       Access the contained value
@@ -229,7 +229,7 @@ class Result final {
    * @return      T &&
    *              An rvalue reference to the contained value
    */
-  T &&operator*() &&noexcept { return std::move(std::get<value_type>(storage_)); }
+  T &&operator*() && noexcept { return std::move(std::get<value_type>(storage_)); }
 
   /**
    * @brief       Access the contained value
@@ -245,7 +245,7 @@ class Result final {
    * @return      const T &
    *              A const reference to the contained value
    */
-  const T &Value() const &noexcept { return std::get<value_type>(storage_); }
+  const T &Value() const & noexcept { return std::get<value_type>(storage_); }
 
   /**
    * @brief       Access the contained value
@@ -253,7 +253,7 @@ class Result final {
    * @return      T &&
    *              An rvalue reference to the contained value
    */
-  T &&Value() &&noexcept { return std::move(std::get<value_type>(storage_)); }
+  T &&Value() && noexcept { return std::move(std::get<value_type>(storage_)); }
 
   /**
    * @brief       Access the contained error
@@ -261,7 +261,7 @@ class Result final {
    * @return      const E &
    *              A const reference to the contained error
    */
-  const E &Error() const &noexcept { return std::get<error_type>(storage_); }
+  const E &Error() const & noexcept { return std::get<error_type>(storage_); }
 
   /**
    * @brief       Access the contained error
@@ -269,14 +269,14 @@ class Result final {
    * @return      E &&
    *              An rvalue reference to the contained error
    */
-  E &&Error() &&noexcept { return std::move(std::get<error_type>(storage_)); }
+  E &&Error() && noexcept { return std::move(std::get<error_type>(storage_)); }
 
   /**
    * @brief       Return the contained value as an Optional
    * @return      std::optional<T>
    *              An Optional with the value, if present
    */
-  std::optional<T> Ok() const &noexcept {
+  std::optional<T> Ok() const & noexcept {
     std::optional<T> opt_val{};
     if (HasValue()) { opt_val.emplace(Value()); }
     return opt_val;
@@ -287,7 +287,7 @@ class Result final {
    * @return      std::optional<T>
    *              An Optional with the value, if present
    */
-  std::optional<T> Ok() &&noexcept {
+  std::optional<T> Ok() && noexcept {
     std::optional<T> opt_val{};
     if (HasValue()) { opt_val.emplace(std::move(Value())); }
     return opt_val;
@@ -298,7 +298,7 @@ class Result final {
    * @return      std::optional<E>
    *              An Optional with the error, if present
    */
-  std::optional<E> Err() const &noexcept {
+  std::optional<E> Err() const & noexcept {
     std::optional<E> opt_err{};
     if (!HasValue()) { opt_err.emplace(Error()); }
     return opt_err;
@@ -309,7 +309,7 @@ class Result final {
    * @return      std::optional<E>
    *              An Optional with the error, if present
    */
-  std::optional<E> Err() &&noexcept {
+  std::optional<E> Err() && noexcept {
     std::optional<E> opt_err{};
     if (!HasValue()) { opt_err.emplace(std::move(Error())); }
     return opt_err;
@@ -326,7 +326,7 @@ class Result final {
    *              An Result
    */
   template<typename F, typename R2 = typename std::invoke_result_t<F, value_type &&>>
-  auto AndThen(F &&fn) &&noexcept -> R2 {
+  auto AndThen(F &&fn) && noexcept -> R2 {
     return HasValue() ? std::forward<F>(fn)(std::move(*this).Value())
                       : R2{std::move(*this).Error()};
   }
@@ -358,7 +358,7 @@ class Result final {
    *              An Result
    */
   template<typename F>
-  Result OrElse(F &&fn) &&noexcept {
+  Result OrElse(F &&fn) && noexcept {
     return HasValue() ? Result{std::move(*this)} : Result{fn(std::move(*this).Error())};
   }
 
@@ -373,7 +373,7 @@ class Result final {
    *              The value
    */
   template<typename U>
-  T ValueOr(U &&defaultValue) const &noexcept {
+  T ValueOr(U &&defaultValue) const & noexcept {
     return HasValue() ? Value() : static_cast<T>(std::forward<U>(defaultValue));
   }
 
@@ -388,7 +388,7 @@ class Result final {
    *              The value
    */
   template<typename U>
-  T ValueOr(U &&defaultValue) &&noexcept {
+  T ValueOr(U &&defaultValue) && noexcept {
     return HasValue() ? std::move(Value()) : static_cast<T>(std::forward<U>(defaultValue));
   }
 
@@ -403,7 +403,7 @@ class Result final {
    *              The error
    */
   template<typename G>
-  E ErrorOr(G &&defaultError) const &noexcept {
+  E ErrorOr(G &&defaultError) const & noexcept {
     return !HasValue() ? Error() : static_cast<E>(std::forward<G>(defaultError));
   }
 
@@ -418,7 +418,7 @@ class Result final {
    *              The error
    */
   template<typename G>
-  E ErrorOr(G &&defaultError) &&noexcept {
+  E ErrorOr(G &&defaultError) && noexcept {
     return !HasValue() ? std::move(Error()) : static_cast<E>(std::forward<G>(defaultError));
   }
 
@@ -444,15 +444,12 @@ class Result final {
    * @param[inout] other
    *               The other instance
    */
-  void Swap(Result &other) noexcept(
-      std::is_nothrow_move_constructible<T>::value
-      && std::is_nothrow_move_assignable<T>::value
-      && std::is_nothrow_move_constructible<E>::value
-      && std::is_nothrow_move_assignable<E>::value)
-  {
+  void Swap(Result &other) noexcept(std::is_nothrow_move_constructible<T>::value &&
+                                    std::is_nothrow_move_assignable<T>::value &&
+                                    std::is_nothrow_move_constructible<E>::value &&
+                                    std::is_nothrow_move_assignable<E>::value) {
     storage_.swap(other.storage_);
   }
-
 
  private:
   /**
@@ -571,9 +568,8 @@ class Result<void, E> final {
    * @return      Result &
    *              *this, containing the contents of other
    */
-  Result &operator=(Result &&other) noexcept(
-      std::is_nothrow_move_constructible<E>::value &&std::is_nothrow_move_assignable<E>::value) =
-      default;
+  Result &operator=(Result &&other) noexcept(std::is_nothrow_move_constructible<E>::value &&
+                                             std::is_nothrow_move_assignable<E>::value) = default;
 
   /**
    * @brief      Destruct an instance of Result
@@ -617,7 +613,7 @@ class Result<void, E> final {
    * @return      const E &
    *              A const reference to the contained error
    */
-  const E &Error() const &noexcept { return storage_.Error(); }
+  const E &Error() const & noexcept { return storage_.Error(); }
 
   /**
    * @brief       Access the contained error
@@ -625,14 +621,14 @@ class Result<void, E> final {
    * @return      E &&
    *              An rvalue reference to the contained error
    */
-  E &&Error() &&noexcept { return std::move(storage_.Error()); }
+  E &&Error() && noexcept { return std::move(storage_.Error()); }
 
   /**
    * @brief       Return the contained error as an Optional
    * @return      std::optional<E>
    *              An Optional with the error, if present
    */
-  std::optional<E> Err() const &noexcept {
+  std::optional<E> Err() const & noexcept {
     std::optional<E> opt_err{};
     if (!HasValue()) { opt_err.emplace(Error()); }
     return opt_err;
@@ -643,7 +639,7 @@ class Result<void, E> final {
    * @return      std::optional<E>
    *              An Optional with the error, if present
    */
-  std::optional<E> Err() &&noexcept {
+  std::optional<E> Err() && noexcept {
     std::optional<E> opt_err{};
     if (!HasValue()) { opt_err.emplace(std::move(Error())); }
     return opt_err;
@@ -690,7 +686,7 @@ class Result<void, E> final {
    *              An Result
    */
   template<typename F>
-  Result AndThen(F &&fn) &&noexcept {
+  Result AndThen(F &&fn) && noexcept {
     if (HasValue()) { fn(); }
     return Result{std::move(*this)};
   }
@@ -706,7 +702,7 @@ class Result<void, E> final {
    *              An Result
    */
   template<typename F>
-  Result OrElse(F &&fn) &&noexcept {
+  Result OrElse(F &&fn) && noexcept {
     return HasValue() ? Result{std::move(*this)} : Result{fn(Error())};
   }
 
@@ -721,8 +717,8 @@ class Result<void, E> final {
    *              The error
    */
   template<typename G>
-  E ErrorOr(G &&defaultError) const &noexcept {
-    return !HasValue() ? Result{*this} : static_cast<E>(defaultError);
+  E ErrorOr(G &&defaultError) const & noexcept {
+    return !HasValue() ? Error() : static_cast<E>(std::forward<G>(defaultError));
   }
 
   /**
@@ -736,8 +732,8 @@ class Result<void, E> final {
    *              The error
    */
   template<typename G>
-  E ErrorOr(G &&defaultError) &&noexcept {
-    return !HasValue() ? Result{std::move(*this)} : static_cast<E>(defaultError);
+  E ErrorOr(G &&defaultError) && noexcept {
+    return !HasValue() ? std::move(Error()) : static_cast<E>(std::forward<G>(defaultError));
   }
 
   /**
@@ -753,7 +749,7 @@ class Result<void, E> final {
    */
   template<typename F>
   void Resolve(F &&f) const {
-    f(Error());
+    std::forward<F>(f)(Error());
   }
 
  private:
