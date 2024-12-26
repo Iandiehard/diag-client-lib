@@ -1,0 +1,41 @@
+name: Gcc11_Gtest
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Debug
+  COMPILER_NAME: gcc11
+jobs:
+  Gtest-gcc-11:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: sudo sh .github/setup.sh
+
+    - name: Configure CMake
+      run: cmake -B ${{github.workspace}}/build/${{env.COMPILER_NAME}} -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_WITH_LOG_TO_DLT:BOOL=ON -DBUILD_WITH_TEST:BOOL=ON -DBUILD_SHARED_LIBS:BOOL=OFF -DBUILD_EXAMPLES:BOOL=ON -DCMAKE_TOOLCHAIN_FILE=toolchains/linux_gcc_11.cmake
+
+    - name: Build
+      run: cmake --build ${{github.workspace}}/build/${{env.COMPILER_NAME}} --config ${{env.BUILD_TYPE}}
+
+    - name: Network Setup
+      run: sudo sh tools/setup_network_interface.sh
+
+    - name: Test
+      working-directory: ${{github.workspace}}/build/${{env.COMPILER_NAME}}/test/component
+      run: |
+        export DLT_LOCAL_PRINT_MODE=FORCE_ON
+        export DLT_INITIAL_LOG_LEVEL="::6"
+        ./diag-client-lib-component-test --gtest_output="xml:test-report.xml"
+
+    - name: Archive test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-run-report
+        path: ${{github.workspace}}/build/${{env.COMPILER_NAME}}/test/test-report.xml

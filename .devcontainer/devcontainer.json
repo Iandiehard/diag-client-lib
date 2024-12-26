@@ -1,0 +1,23 @@
+{
+    "name": "diag-client",
+    "runArgs": [
+        "--privileged",
+        "--network=host"
+      ],
+    "image": "dev-build-env:latest",
+    "settings": {},
+    "extensions": [
+		"ms-vscode.cpptools",
+		"mhutchie.git-graph",
+		"twxs.cmake",
+		"ms-vscode.cmake-tools",
+		"ms-vscode.cpptools-extension-pack",
+		"austin.code-gnu-global",
+		"BazelBuild.vscode-bazel",
+		"piotrkosek.vscode-gtest-test-adapter-with-code-lens",
+		"cfcluan.project-scopes",
+		"GitHub.vscode-pull-request-github",
+		"matepek.vscode-catch2-test-adapter",
+		"github.vscode-github-actions"
+	]
+}
