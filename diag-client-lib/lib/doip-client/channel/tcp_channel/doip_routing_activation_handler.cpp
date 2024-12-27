@@ -217,11 +217,11 @@ std::ostream &operator<<(std::ostream &msg, RoutingActivationAckType act_type) {
  * @param[in]        payload_len
  *                   The length of payload
  */
-auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
-    -> std::vector<std::uint8_t> {
+auto CreateDoipGenericHeader(std::uint8_t protocol, std::uint16_t payload_type,
+                             std::uint32_t payload_len) noexcept -> std::vector<std::uint8_t> {
   std::vector<std::uint8_t> output_buffer{};
-  output_buffer.emplace_back(kDoip_ProtocolVersion);
-  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(protocol);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(protocol)));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
   output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
@@ -455,7 +455,8 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(
 
   // Create header
   TcpMessage::BufferType compose_routing_activation_req{
-      CreateDoipGenericHeader(kDoip_RoutingActivation_ReqType, kDoipRoutingActivationReqMinLen)};
+      CreateDoipGenericHeader(message->GetProtocolVersion(), kDoip_RoutingActivation_ReqType,
+                              kDoipRoutingActivationReqMinLen)};
   compose_routing_activation_req.reserve(kDoipheadrSize + kDoipRoutingActivationReqMinLen);
 
   // Add source address

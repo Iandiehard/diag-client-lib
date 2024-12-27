@@ -5,15 +5,15 @@
     "NumberOfConversation": 2,
     "ConversationProperty": [
       {
-        "p2ClientMax": 1000,
-        "p2StarClientMax": 5000,
+        "P2ClientMax": 1000,
+        "P2StarClientMax": 5000,
         "RxBufferSize": 4095,
         "SourceAddress": 1,
         "TargetAddressType": "Physical",
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false
+          "TlsHandling": false
         },
         "ConversationName": "DiagTesterOne"
       },
@@ -26,7 +26,7 @@
         "Network": {
           "ProtocolKind": "DoIP",
           "TcpIpAddress": "172.16.25.127",
-          "TLS": false
+          "TlsHandling": false
         },
         "ConversationName": "DiagTesterTwo"
       }

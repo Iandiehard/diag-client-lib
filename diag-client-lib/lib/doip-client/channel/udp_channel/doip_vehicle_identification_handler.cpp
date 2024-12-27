@@ -141,8 +141,8 @@ class kDoIPCtrlTimeout final : public utility::state::State<VehicleIdentificatio
 auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
     -> std::vector<std::uint8_t> {
   std::vector<std::uint8_t> output_buffer{};
-  output_buffer.emplace_back(kDoip_ProtocolVersion);
-  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(kDoip_ProtocolVersion_Def);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion_Def)));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
   output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
@@ -339,7 +339,8 @@ void VehicleIdentificationHandler::ProcessVehicleIdentificationResponse(
         (ret_val.second != nullptr)) {
       // Add meta info about ip address
       uds_transport::UdsMessage::MetaInfoMap meta_info_map{
-          {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}}};
+          {"kRemoteIpAddress", std::string{doip_payload.GetHostIpAddress()}},
+          {"kDoipVersion", std::to_string(doip_payload.GetProtocolVersion())}};
       ret_val.second->AddMetaInfo(
           std::make_shared<uds_transport::UdsMessage::MetaInfoMap>(meta_info_map));
       // copy to application buffer

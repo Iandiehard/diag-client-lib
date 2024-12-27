@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -27,6 +27,11 @@ class DiagClientConversation final {
    * @brief         Type alias of ip address type
    */
   using IpAddress = uds_message::UdsMessage::IpAddress;
+
+  /**
+   * @brief         Type alias for DoIP protocol version
+   */
+  using DoIpProtocol = std::uint8_t;
 
  public:
   /**
@@ -126,6 +131,18 @@ class DiagClientConversation final {
    * @implements    DiagClientLib-Conversation-Disconnect
    */
   DisconnectResult DisconnectFromDiagServer() noexcept;
+
+  /**
+   * @brief         Function to get currently used DoIP protocol version
+   * @return        DoIpProtocol
+   *                Version of DoIP protocol used for messages
+   */
+  DoIpProtocol GetDoIpProtocol() const noexcept;
+
+  /**
+   * @brief         Function to set DoIP protocol version for messages
+   */
+  void SetDoIpProtocol(DoIpProtocol protocol) noexcept;
 
   /**
    * @brief         Function to send Diagnostic Request and get Diagnostic Response

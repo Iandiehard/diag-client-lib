@@ -105,6 +105,18 @@ class VdConversation final : public Conversation {
   ::uds_transport::ConversionHandler &GetConversationHandler() noexcept override;
 
   /**
+   * @brief       Function to set DoIP protocol version for messages
+   */
+  void SetDoIpProtocol(DoIpProtocol version) noexcept override;
+
+  /**
+   * @brief       Function to get used DoIP protocol version
+   * @return      DoIpProtocol
+   *              Currently used protool version
+   */
+  DoIpProtocol GetDoIpProtocol() const noexcept override;
+
+  /**
    * @brief       Function to indicate a start of reception of message
    * @details     This is called to indicate the reception of new message by underlying transport protocol handler
    * @param[in]   source_addr
@@ -202,6 +214,11 @@ class VdConversation final : public Conversation {
    * @brief       Store the conversation name
    */
   std::string conversation_name_;
+
+  /**
+   * @brief       Store the DoIP protocol version for messages
+   */
+  DoIpProtocol protocol_ver_;
 
   /**
    * @brief       Store the broadcast Ip address of the conversation

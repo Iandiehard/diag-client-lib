@@ -68,6 +68,20 @@ class DiagClientConversation::DiagClientConversationImpl final {
   }
 
   /**
+   * @brief         Function to get currently used DoIP protocol version
+   * @return        DoIpProtocol
+   *                Version of DoIP protocol used for messages
+   */
+  DoIpProtocol GetDoIpProtocol() const noexcept { return internal_conversation_.GetDoIpProtocol(); }
+
+  /**
+   * @brief         Function to set DoIP protocol version for messages
+   */
+  void SetDoIpProtocol(DoIpProtocol protocol) noexcept {
+    internal_conversation_.SetDoIpProtocol(protocol);
+  }
+
+  /**
    * @brief         Function to send Diagnostic Request and get Diagnostic Response
    * @param[in]     message
    *                The diagnostic request message wrapped in a unique pointer
@@ -97,6 +111,14 @@ DiagClientConversation::~DiagClientConversation() noexcept = default;
 void DiagClientConversation::Startup() noexcept { diag_client_conversation_impl_->Startup(); }
 
 void DiagClientConversation::Shutdown() noexcept { diag_client_conversation_impl_->Shutdown(); }
+
+void DiagClientConversation::SetDoIpProtocol(DoIpProtocol protocol) noexcept {
+  diag_client_conversation_impl_->SetDoIpProtocol(protocol);
+}
+
+DiagClientConversation::DoIpProtocol DiagClientConversation::GetDoIpProtocol() const noexcept {
+  return diag_client_conversation_impl_->GetDoIpProtocol();
+}
 
 DiagClientConversation::ConnectResult DiagClientConversation::ConnectToDiagServer(
     std::uint16_t target_address, DiagClientConversation::IpAddress host_ip_addr) noexcept {

@@ -1,6 +1,6 @@
 /* Diagnostic Client library
  * Copyright (C) 2024  Avijit Dey
- * 
+ *
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -76,7 +76,8 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Connect(
 
   // Connect to provided Ip address
   tcp_socket_.connect(
-      Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
+      Tcp::endpoint(boost::asio::ip::make_address(std::string{host_ip_address}), host_port_num),
+      ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {

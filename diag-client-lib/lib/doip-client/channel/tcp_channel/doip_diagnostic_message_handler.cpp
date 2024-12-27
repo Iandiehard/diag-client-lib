@@ -265,11 +265,11 @@ std::ostream &operator<<(std::ostream &msg, DiagAckType diag_ack_type) {
  * @param[in]        payload_len
  *                   The length of payload
  */
-auto CreateDoipGenericHeader(std::uint16_t payload_type, std::uint32_t payload_len) noexcept
-    -> std::vector<std::uint8_t> {
+auto CreateDoipGenericHeader(std::uint8_t protocol, std::uint16_t payload_type,
+                             std::uint32_t payload_len) noexcept -> std::vector<std::uint8_t> {
   std::vector<std::uint8_t> output_buffer{};
-  output_buffer.emplace_back(kDoip_ProtocolVersion);
-  output_buffer.emplace_back(~(static_cast<std::uint8_t>(kDoip_ProtocolVersion)));
+  output_buffer.emplace_back(protocol);
+  output_buffer.emplace_back(~(static_cast<std::uint8_t>(protocol)));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_type & 0xFF00) >> 8));
   output_buffer.emplace_back(static_cast<std::uint8_t>(payload_type & 0x00FF));
   output_buffer.emplace_back(static_cast<std::uint8_t>((payload_len & 0xFF000000) >> 24));
@@ -564,7 +564,8 @@ auto DiagnosticMessageHandler::SendDiagnosticRequest(
   std::uint32_t const total_diagnostic_response_length{static_cast<uint32_t>(
       kDoipDiagMessageReqResMinLen + diagnostic_request->GetPayload().size())};
   TcpMessage::BufferType compose_diag_req{
-      CreateDoipGenericHeader(kDoipDiagMessage, total_diagnostic_response_length)};
+      CreateDoipGenericHeader(diagnostic_request->GetProtocolVersion(), kDoipDiagMessage,
+                              total_diagnostic_response_length)};
   compose_diag_req.reserve(kDoipheadrSize + total_diagnostic_response_length);
 
   // Add source address

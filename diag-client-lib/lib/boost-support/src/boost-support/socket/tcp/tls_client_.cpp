@@ -129,7 +129,7 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::Open() {
     GetNativeTcpSocket().non_blocking(false);
     // Bind to local ip address and random port
     GetNativeTcpSocket().bind(
-        Tcp::endpoint(TcpIpAddress::from_string(local_ip_address_), local_port_num_), ec);
+        Tcp::endpoint(boost::asio::ip::make_address(local_ip_address_), local_port_num_), ec);
 
     if (ec.value() == boost::system::errc::success) {
       // Socket binding success
@@ -165,7 +165,8 @@ core_type::Result<void, TlsClientSocket::TlsErrorCode> TlsClientSocket::ConnectT
 
   // Connect to provided Ip address
   GetNativeTcpSocket().connect(
-      Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
+      Tcp::endpoint(boost::asio::ip::make_address(std::string{host_ip_address}), host_port_num),
+      ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {

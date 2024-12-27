@@ -44,6 +44,12 @@ class Conversation {
   using DiagError = DiagClientConversation::DiagError;
 
   /**
+   * @brief         Type alias for DoIP protocol version
+   */
+  using DoIpProtocol = DiagClientConversation::DoIpProtocol;
+
+
+  /**
    * @brief  Definitions of current activity status
    */
   enum class ActivityStatusType : uint8_t { kActive = 0x00, kInactive = 0x01 };
@@ -117,6 +123,18 @@ class Conversation {
   virtual DisconnectResult DisconnectFromDiagServer() noexcept {
     return DisconnectResult::kDisconnectFailed;
   }
+
+  /**
+   * @brief       Function to set DoIP protocol version for messages
+   */
+  virtual void SetDoIpProtocol(DoIpProtocol version) noexcept = 0;
+
+  /**
+   * @brief       Function to get used DoIP protocol version
+   * @return      DoIpProtocol
+   *              Currently used protool version
+   */
+  virtual DoIpProtocol GetDoIpProtocol() const noexcept = 0;
 
   /**
    * @brief       Function to indicate a start of reception of message
