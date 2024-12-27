@@ -58,7 +58,7 @@ class ErrorDomain {
    * @brief       Return the unique domain identifier.
    * @return      The unique identifier
    */
-  constexpr IdType Id() const noexcept;
+  constexpr IdType Id() const noexcept { return id_; };
 
   /**
    * @brief       Return the name of this error domain.
@@ -74,15 +74,9 @@ class ErrorDomain {
    */
   virtual const char *Message(CodeType error_code) noexcept = 0;
 
-  constexpr bool operator==(ErrorDomain &other) const noexcept
-  {
-    return id_ == other.id_;
-  }
+  constexpr bool operator==(const ErrorDomain &other) const noexcept { return id_ == other.id_; }
 
-  constexpr bool operator!=(ErrorDomain &other) const noexcept
-  {
-    return id_ != other.id_;
-  }
+  constexpr bool operator!=(const ErrorDomain &other) const noexcept { return id_ != other.id_; }
 
  protected:
   /**
@@ -90,7 +84,7 @@ class ErrorDomain {
    * @param[in]   id
    *              The unique identifier
    */
-  explicit ErrorDomain(IdType id) noexcept;
+  explicit constexpr ErrorDomain(IdType id) noexcept : id_{id} {}
 
   /**
    * @brief       Destructor.
