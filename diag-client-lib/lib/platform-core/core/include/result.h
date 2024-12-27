@@ -45,7 +45,7 @@ class Result final {
    * @return      Result
    *              A Result that contains the value t
    */
-  static Result FromValue(T &t) noexcept { return Result{t}; }
+  static Result FromValue(const T &t) noexcept { return Result{t}; }
 
   /**
    * @brief       Build a new Result from the specified value (given as rvalue)
@@ -70,7 +70,7 @@ class Result final {
    */
   template<typename... Args>
   static Result FromValue(Args &&...args) noexcept {
-    return Result{std::forward<Args>(args)...};
+    return Result{T{std::forward<Args>(args)...}};
   }
 
   /**
@@ -105,7 +105,7 @@ class Result final {
    */
   template<typename... Args>
   static Result FromError(Args &&...args) noexcept {
-    return Result{std::forward<Args>(args)...};
+    return Result{E{std::forward<Args>(args)...}};
   }
 
   /**
@@ -516,7 +516,7 @@ class Result<void, E> final {
    */
   template<typename... Args>
   static Result FromError(Args &&...args) noexcept {
-    return Result{std::forward<Args>(args)...};
+    return Result{E{std::forward<Args>(args)...}};
   }
 
   /**
@@ -763,6 +763,50 @@ class Result<void, E> final {
    */
   Result<empty_value, E> storage_;
 };
+
+// Compare Result with a T
+
+template<typename T, typename E>
+bool operator==(const Result<T, E> &lhs, const T &rhs) {
+  return lhs ? *lhs == rhs : false;
+}
+
+template<typename T, typename E>
+bool operator==(const T &lhs, const Result<T, E> &rhs) {
+  return rhs ? lhs == *rhs : false;
+}
+
+template<typename T, typename E>
+bool operator!=(const Result<T, E> &lhs, const T &rhs) {
+  return lhs ? *lhs != rhs : true;
+}
+
+template<typename T, typename E>
+bool operator!=(const T &lhs, const Result<T, E> &rhs) {
+  return rhs ? lhs != *rhs : true;
+}
+
+// Compare Result with an E
+
+template<typename T, typename E>
+bool operator==(const Result<T, E> &lhs, const E &rhs) {
+  return lhs ? false : lhs.Error() == rhs;
+}
+
+template<typename T, typename E>
+bool operator==(const E &lhs, const Result<T, E> &rhs) {
+  return rhs ? false : lhs == rhs.Error();
+}
+
+template<typename T, typename E>
+bool operator!=(const Result<T, E> &lhs, const E &rhs) {
+  return lhs ? true : lhs.Error() != rhs;
+}
+
+template<typename T, typename E>
+bool operator!=(const E &lhs, const Result<T, E> &rhs) {
+  return rhs ? true : lhs != rhs.Error();
+}
 
 }  // namespace core_type
 
