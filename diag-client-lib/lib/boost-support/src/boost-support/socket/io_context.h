@@ -11,7 +11,7 @@
 #include <boost/asio.hpp>
 #include <string_view>
 
-#include "utility/thread.h"
+#include "utility-support/thread.h"
 
 namespace boost_support {
 namespace socket {
@@ -99,7 +99,7 @@ class IoContext final {
   /**
    * @brief  The thread itself
    */
-  utility::thread::Thread thread_;
+  utility_support::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section

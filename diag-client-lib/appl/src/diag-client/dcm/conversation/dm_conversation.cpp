@@ -10,7 +10,7 @@
 
 #include "diag-client/common/logger.h"
 #include "diag-client/dcm/service/dm_uds_message.h"
-#include "uds_transport/conversation_handler.h"
+#include "uds_transport-layer-api/conversation_handler.h"
 
 namespace diag {
 namespace client {
@@ -75,8 +75,7 @@ class DmConversationHandler final : public ::uds_transport::ConversionHandler {
    *              The pair of IndicationResult and a pointer to UdsMessage owned/created by DM core and returned
    *              to the handler to get filled
    */
-  std::pair<::uds_transport::UdsTransportProtocolMgr::IndicationResult,
-            ::uds_transport::UdsMessagePtr>
+  std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
   IndicateMessage(::uds_transport::UdsMessage::Address source_addr,
                   ::uds_transport::UdsMessage::Address target_addr,
                   ::uds_transport::UdsMessage::TargetAddressType type,

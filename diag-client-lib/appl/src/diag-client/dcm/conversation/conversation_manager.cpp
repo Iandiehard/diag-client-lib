@@ -61,10 +61,10 @@ void ConversationManager::Shutdown() noexcept {
 diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClientConversation(
     std::string_view conversation_name) noexcept {
   // find the conversation from config stored
-  auto it = conversation_map_.find(std::string{conversation_name});
-  if (it != conversation_map_.end()) {
-    std::string const conversation_name_in_map{it->first};
-    it->second.conversation =
+  auto conversation_iterator{conversation_map_.find(std::string{conversation_name})};
+  if (conversation_iterator != conversation_map_.end()) {
+    std::string const conversation_name_in_map{conversation_iterator->first};
+    conversation_iterator->second.conversation =
         std::visit(core_type::visit::overloaded{
                        [this, &conversation_name_in_map](
                            conversation::DMConversationType conversation_type) noexcept {
@@ -92,7 +92,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
                                  conversation_type.udp_address, conversation_type.port_num));
                          return conversation;
                        }},
-                   it->second.conversation_type);
+                   conversation_iterator->second.conversation_type);
   } else {
     logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogFatalAndTerminate(
         FILE_NAME, __LINE__, __func__, [conversation_name](std::stringstream &msg) {
@@ -100,7 +100,7 @@ diag::client::conversation::Conversation &ConversationManager::GetDiagnosticClie
               << "', provide correct name as per config file";
         });
   }
-  return *(it->second.conversation);
+  return *conversation_iterator->second.conversation;
 }
 
 void ConversationManager::StoreConversationConfig(

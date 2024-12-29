@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONNECTION_UDS_TRANSPORT_PROTOCOL_MANAGER_H
 
-#include "uds_transport/protocol_handler.h"
+#include "uds_transport-layer-api/protocol_handler.h"
 
 namespace diag {
 namespace client {

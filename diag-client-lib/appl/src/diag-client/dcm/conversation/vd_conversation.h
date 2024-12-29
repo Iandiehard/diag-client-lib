@@ -19,9 +19,9 @@
 #include "diag-client/diagnostic_client.h"
 #include "diag-client/diagnostic_client_uds_message_type.h"
 #include "diag-client/diagnostic_client_vehicle_info_message_type.h"
-#include "uds_transport/connection.h"
-#include "uds_transport/conversation_handler.h"
-#include "uds_transport/protocol_types.h"
+#include "uds_transport-layer-api/connection.h"
+#include "uds_transport-layer-api/conversation_handler.h"
+#include "uds_transport-layer-api/protocol_types.h"
 
 namespace diag {
 namespace client {

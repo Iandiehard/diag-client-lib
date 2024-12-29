@@ -8,7 +8,7 @@
 #ifndef DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_LOGGER_H
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_COMMON_LOGGER_H
 
-#include "utility/logger.h"
+#include "utility-support/logger/logger.h"
 
 namespace diag {
 namespace client {
@@ -22,7 +22,7 @@ class DiagClientLogger final {
   /**
    * @brief    Type alias of logger
    */
-  using Logger = utility::logger::Logger;
+  using Logger = utility_support::logger::Logger;
 
   /**
    * @brief       Get the diag client logger instance

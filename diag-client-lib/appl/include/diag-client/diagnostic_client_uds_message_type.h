@@ -10,7 +10,6 @@
 
 #include <cstdint>
 #include <memory>
-#include <string>
 #include <string_view>
 #include <vector>
 
@@ -19,7 +18,7 @@ namespace client {
 namespace uds_message {
 
 /**
- * @brief    Class represents an UDS message exchanged between User of diag-client-lib and implementation of
+ * @brief    Class represents a UDS message exchanged between User of diag-client-lib and implementation of
  *           diag-client-lib on diagnostic request reception path or diagnostic response transmission path.
  *           UdsMessage provides the storage for UDS requests/responses.
  */
@@ -91,7 +90,7 @@ class UdsMessage {
 /**
  * @brief         Type alias of unique_ptr for constant UdsRequestMessage
  */
-using UdsRequestMessageConstPtr = std::unique_ptr<const UdsMessage>;
+using UdsRequestMessageConstPtr = std::unique_ptr<UdsMessage const>;
 
 /**
  * @brief         Type alias of unique_ptr for Request Message

@@ -8,12 +8,12 @@
 #ifndef DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_COMMON_LOGGER_H_
 #define DIAG_CLIENT_LIB_LIB_BOOST_SUPPORT_COMMON_LOGGER_H_
 
-#include "utility/logger.h"
+#include "utility-support/logger/logger.h"
 
 namespace boost_support {
 namespace common {
 namespace logger {
-using Logger = utility::logger::Logger;
+using Logger = utility_support::logger::Logger;
 
 class LibBoostLogger final {
  public:

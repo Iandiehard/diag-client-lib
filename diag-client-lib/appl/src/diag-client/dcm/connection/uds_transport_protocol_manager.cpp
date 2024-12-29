@@ -8,7 +8,7 @@
 
 #include "diag-client/dcm/connection/uds_transport_protocol_manager.h"
 
-#include "doip_transport_protocol_handler.h"
+#include "doip-client/transport_protocol_handler/doip_transport_protocol_handler.h"
 
 namespace diag {
 namespace client {

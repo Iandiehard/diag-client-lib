@@ -12,7 +12,7 @@
 #include "diag-client/diagnostic_client.h"
 #include "diag-client/diagnostic_client_conversation.h"
 #include "diag-client/diagnostic_client_vehicle_info_message_type.h"
-#include "uds_transport/connection.h"
+#include "uds_transport-layer-api/connection.h"
 
 namespace diag {
 namespace client {

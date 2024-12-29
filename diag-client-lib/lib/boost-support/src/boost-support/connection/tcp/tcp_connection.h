@@ -19,7 +19,7 @@
 
 #include "boost-support/error_domain/boost_support_error_domain.h"
 #include "core/include/result.h"
-#include "utility/thread.h"
+#include "utility-support/thread.h"
 
 namespace boost_support {
 namespace connection {
@@ -116,7 +116,7 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
     // Open socket
     socket_.Open();
     // Start thread to receive messages
-    thread_ = utility::thread::Thread{
+    thread_ = utility_support::thread::Thread{
         connection_name_, [this]() {
           std::unique_lock<std::mutex> lck(mutex_);
           while (!exit_request_) {
@@ -227,7 +227,7 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
   /**
    * @brief  Store the thread
    */
-  utility::thread::Thread thread_;
+  utility_support::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section
@@ -340,7 +340,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    */
   void Initialize() noexcept {
     // Start thread to receive messages
-    thread_ = utility::thread::Thread(connection_name_, [this]() {
+    thread_ = utility_support::thread::Thread(connection_name_, [this]() {
       std::unique_lock<std::mutex> lck(mutex_);
       while (!exit_request_) {
         if (!running_) {
@@ -422,7 +422,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   /**
    * @brief  Store the thread
    */
-  utility::thread::Thread thread_;
+  utility_support::thread::Thread thread_;
 
   /**
    * @brief  mutex to lock critical section

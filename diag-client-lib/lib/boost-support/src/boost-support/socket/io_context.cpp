@@ -27,7 +27,7 @@ IoContext::IoContext(std::string_view context_name) noexcept
       thread_{},
       mutex_{} {
   // start thread to execute async tasks
-  thread_ = utility::thread::Thread(context_name_, [this]() {
+  thread_ = utility_support::thread::Thread(context_name_, [this]() {
     std::unique_lock<std::mutex> lck(mutex_);
     while (!exit_request_) {
       if (!running_) {

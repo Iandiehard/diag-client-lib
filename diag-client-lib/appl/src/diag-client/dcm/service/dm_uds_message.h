@@ -10,7 +10,7 @@
 /* includes */
 #include "diag-client/diagnostic_client_uds_message_type.h"
 #include "diag-client/diagnostic_client_vehicle_info_message_type.h"
-#include "uds_transport/uds_message.h"
+#include "uds_transport-layer-api/uds_message.h"
 
 namespace diag {
 namespace client {
