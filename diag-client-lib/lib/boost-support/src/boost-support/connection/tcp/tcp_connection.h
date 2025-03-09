@@ -71,6 +71,8 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
  public:
   /**
    * @brief         Constructs an instance of TcpConnection
+   * @param[in]     connection_name
+   *                The name of the connection
    * @param[in]     socket
    *                The socket used for read and writing messages
    */
@@ -88,13 +90,13 @@ class TcpConnection<ConnectionType::kClient, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
 
   /**
    * @brief  Move assignment and move constructor
    */
   TcpConnection(TcpConnection &&other) noexcept = default;
-  TcpConnection &operator=(TcpConnection &&other) &noexcept = default;
+  TcpConnection &operator=(TcpConnection &&other) & noexcept = default;
 
   /**
    * @brief         Destruct an instance of TcpConnection
@@ -298,7 +300,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
    * @brief  Deleted copy assignment and copy constructor
    */
   TcpConnection(const TcpConnection &other) noexcept = delete;
-  TcpConnection &operator=(const TcpConnection &other) &noexcept = delete;
+  TcpConnection &operator=(const TcpConnection &other) & noexcept = delete;
 
   /**
    * @brief  Move assignment
@@ -313,7 +315,7 @@ class TcpConnection<ConnectionType::kServer, Socket> final {
   /**
    * @brief  Move constructor
    */
-  TcpConnection &operator=(TcpConnection &&other) &noexcept {
+  TcpConnection &operator=(TcpConnection &&other) & noexcept {
     socket_ = std::move(other.socket_);
     handler_read_ = std::move(other.handler_read_);
     exit_request_.store(other.exit_request_.load());

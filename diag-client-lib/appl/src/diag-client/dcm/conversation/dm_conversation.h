@@ -16,7 +16,7 @@
 #include "diag-client/diagnostic_client_conversation.h"
 #include "uds_transport-layer-api/connection.h"
 #include "uds_transport-layer-api/protocol_types.h"
-#include "utility/sync_timer.h"
+#include "utility-support/sync_timer.h"
 
 namespace diag {
 namespace client {
@@ -34,7 +34,7 @@ class DmConversation final : public Conversation {
   /**
    * @brief         Type alias for synchronous timer
    */
-  using SyncTimer = utility::sync_timer::SyncTimer<std::chrono::steady_clock>;
+  using SyncTimer = utility_support::sync_timer::SyncTimer<std::chrono::steady_clock>;
 
  public:
   /**

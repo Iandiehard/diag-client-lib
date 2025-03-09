@@ -39,9 +39,9 @@ RUN apt-get update && \
 
 # Install Boost libraries and compile it for x86_64 linux
 ARG BOOST_MAJOR_VERSION="1"
-ARG BOOST_MINOR_VERSION="79"
+ARG BOOST_MINOR_VERSION="87"
 
-RUN wget "https://boostorg.jfrog.io/artifactory/main/release/"${BOOST_MAJOR_VERSION}"."${BOOST_MINOR_VERSION}".0/source/boost_"${BOOST_MAJOR_VERSION}"_"${BOOST_MINOR_VERSION}"_0.tar.gz" && \
+RUN wget "https://sourceforge.net/projects/boost/files/boost/${BOOST_MAJOR_VERSION}.${BOOST_MINOR_VERSION}.0/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz" && \
     mkdir /opt/boost && \
     tar -zxvf boost_"${BOOST_MAJOR_VERSION}"_"${BOOST_MINOR_VERSION}"_0.tar.gz -C /opt/boost  && \
     rm -rf boost_"${BOOST_MAJOR_VERSION}"_"${BOOST_MINOR_VERSION}"_0.tar.gz && \

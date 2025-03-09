@@ -49,7 +49,7 @@ class DoipTcpConnection final : public uds_transport::Connection {
   /**
    * @brief         Destruct an instance of DoipTcpConnection
    */
-  ~DoipTcpConnection() final = default;
+  ~DoipTcpConnection() override = default;
 
   /**
    * @brief        Function to initialize the connection

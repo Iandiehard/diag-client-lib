@@ -36,6 +36,7 @@ class DoipTcpChannel final {
    */
   using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
+ public:
   /**
    * @brief         Constructs an instance of TcpChannel
    * @param[in]     tcp_socket_handler

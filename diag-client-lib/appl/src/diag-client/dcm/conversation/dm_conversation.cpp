@@ -96,6 +96,8 @@ class DmConversationHandler final : public ::uds_transport::ConversionHandler {
     dm_conversation_.HandleMessage(std::move(message));
   }
 
+  bool IsConversationAlive() const noexcept override { return true; }
+
  private:
   /**
    * @brief         Store the reference of dm conversation

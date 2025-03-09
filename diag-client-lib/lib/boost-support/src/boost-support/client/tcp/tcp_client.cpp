@@ -165,7 +165,7 @@ class TcpClient::TcpClientImpl final {
    * @return        True if connected, False otherwise
    */
   auto IsConnectedToHost() const noexcept -> bool {
-    return (connection_state_.load(std::memory_order_seq_cst) == State::kConnected);
+    return connection_state_.load(std::memory_order_seq_cst) == State::kConnected;
   }
 
   /**

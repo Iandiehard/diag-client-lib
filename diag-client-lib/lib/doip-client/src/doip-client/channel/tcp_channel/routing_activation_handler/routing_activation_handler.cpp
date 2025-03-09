@@ -347,7 +347,7 @@ void RoutingActivationHandler::Stop() const { handler_impl_->Stop(); }
 void RoutingActivationHandler::Reset() const { handler_impl_->Reset(); }
 
 auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
-    DoipMessage &doip_payload) const noexcept -> void {
+    DoipMessage const &doip_payload) const noexcept -> void {
   RoutingActivationState final_state{RoutingActivationState::kRoutingActivationFailed};
   if (handler_impl_->GetStateContext().GetActiveState().GetState() ==
       RoutingActivationState::kWaitForRoutingActivationRes) {
@@ -389,7 +389,7 @@ auto RoutingActivationHandler::ProcessDoIPRoutingActivationResponse(
 }
 
 auto RoutingActivationHandler::HandleRoutingActivationRequest(
-    uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
+    uds_transport::UdsMessageConstPtr routing_activation_request) const noexcept
     -> uds_transport::UdsTransportProtocolMgr::ConnectionResult {
   uds_transport::UdsTransportProtocolMgr::ConnectionResult result{
       uds_transport::UdsTransportProtocolMgr::ConnectionResult::kConnectionFailed};
@@ -446,7 +446,7 @@ auto RoutingActivationHandler::HandleRoutingActivationRequest(
   return result;
 }
 
-auto RoutingActivationHandler::IsRoutingActivated() noexcept -> bool {
+auto RoutingActivationHandler::IsRoutingActivated() const noexcept -> bool {
   return (handler_impl_->GetStateContext().GetActiveState().GetState() ==
           RoutingActivationState::kRoutingActivationSuccessful);
 }
@@ -463,7 +463,7 @@ auto RoutingActivationHandler::SendRoutingActivationRequest(
   compose_routing_activation_req.reserve(message::kDoipHeaderSize +
                                          kDoipRoutingActivationReqMinLen);
 
-  // Add source address
+  // Add source address of client
   compose_routing_activation_req.emplace_back(
       static_cast<std::uint8_t>((message->GetSa() & 0xFF00) >> 8u));
   compose_routing_activation_req.emplace_back(static_cast<std::uint8_t>(message->GetSa() & 0x00FF));

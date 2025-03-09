@@ -1,10 +1,10 @@
 /* Diagnostic Client library
-* Copyright (C) 2024  Avijit Dey
-*
-* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/.
-*/
+ * Copyright (C) 2024  Avijit Dey
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
 
 #ifndef DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_THREAD_H
 #define DIAGNOSTIC_CLIENT_LIB_LIB_UTILITY_UTILITY_THREAD_H
@@ -30,7 +30,10 @@ class Thread final {
    * @tparam    Args
    *            The arguments passed to the callable
    * @brief     Constructor to start the thread with passed callable and arguments
-   *
+   * @param[in] thread_name
+   *            The name of thread to be set
+   * @param[in] callable
+   *            The callable that is invoked by created thread
    */
   template<typename Callable, typename... Args>
   Thread(std::string const &thread_name, Callable &&callable, Args &&...args) noexcept

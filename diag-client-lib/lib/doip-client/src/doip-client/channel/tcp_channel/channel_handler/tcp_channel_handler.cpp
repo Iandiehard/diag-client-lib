@@ -138,10 +138,7 @@ auto TcpChannelHandler::HandleMessage(TcpMessagePtr tcp_rx_message) noexcept -> 
   // Process the Doip Generic header check
   if (ProcessDoIPHeader(doip_rx_message, nack_code)) {
     ProcessDoIPPayload(doip_rx_message);
-  } else {
-    // send NACK or ignore
-    (void) nack_code;
-  }
+  }  // else send NACK or ignore
 }
 
 auto TcpChannelHandler::IsRoutingActivated() noexcept -> bool {

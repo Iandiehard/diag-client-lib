@@ -7,7 +7,7 @@ apt-get install g++-11
 
 # Install Boost library
 BOOST_MAJOR_VERSION="1"
-BOOST_MINOR_VERSION="79"
+BOOST_MINOR_VERSION="87"
 
 # Jfrog boost link is broken
 # wget "https://boostorg.jfrog.io/artifactory/main/release/${BOOST_MAJOR_VERSION}.${BOOST_MINOR_VERSION}.0/source/boost_${BOOST_MAJOR_VERSION}_${BOOST_MINOR_VERSION}_0.tar.gz"

@@ -82,6 +82,8 @@ class ConversionHandler {
    */
   virtual void HandleMessage(UdsMessagePtr message) const noexcept = 0;
 
+  virtual bool IsConversationAlive() const noexcept = 0;
+
  protected:
   /**
    * @brief         Store the conversation handle id

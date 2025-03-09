@@ -8,7 +8,7 @@
 #ifndef TEST_COMPONENT_COMMON_LOGGER_H_
 #define TEST_COMPONENT_COMMON_LOGGER_H_
 
-#include "utility/logger.h"
+#include "utility-support/logger/logger.h"
 
 namespace test {
 namespace component {
@@ -16,7 +16,7 @@ namespace common {
 
 class ComponentTestLogger {
  public:
-  using Logger = utility::logger::Logger;
+  using Logger = utility_support::logger::Logger;
 
   auto static GetComponentTestLogger() noexcept -> ComponentTestLogger& {
     static ComponentTestLogger logger{};

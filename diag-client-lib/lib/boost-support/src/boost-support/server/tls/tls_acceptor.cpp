@@ -73,8 +73,7 @@ class TlsAcceptor<TlsVersion>::TlsAcceptorImpl final {
         server_count_{0u},
         acceptor_name_{acceptor_name},
         acceptor_{io_context_,
-                  Tcp::endpoint(TcpIpAddress::from_string(std::string{local_ip_address}.c_str()),
-                                local_port_num)} {
+                  Tcp::endpoint(boost::asio::ip::make_address(local_ip_address), local_port_num)} {
     acceptor_.listen(maximum_connection);
   }
 

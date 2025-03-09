@@ -28,31 +28,31 @@ namespace routing_activation_handler {
 class RoutingActivationHandler final {
  public:
   /**
-  * @brief  Type alias for Tcp message pointer
-  */
+   * @brief  Type alias for Tcp message pointer
+   */
   using TcpMessagePtr = sockets::TcpSocketHandler::MessagePtr;
 
   /**
-  * @brief  Type alias for Tcp message
-  */
+   * @brief  Type alias for Tcp message
+   */
   using TcpMessage = sockets::TcpSocketHandler::Message;
 
   /**
- * @brief  Type alias for Doip message
- */
+   * @brief  Type alias for Doip message
+   */
   using DoipMessage = message::DoipMessage;
 
  public:
   /**
-  * @brief         Constructs an instance of RoutingActivationHandler
-  * @param[in]     tcp_socket_handler
-  *                The reference to socket handler
-  */
+   * @brief         Constructs an instance of RoutingActivationHandler
+   * @param[in]     tcp_socket_handler
+   *                The reference to socket handler
+   */
   explicit RoutingActivationHandler(sockets::TcpSocketHandler &tcp_socket_handler);
 
   /**
-  * @brief         Destruct an instance of RoutingActivationHandler
-  */
+   * @brief         Destruct an instance of RoutingActivationHandler
+   */
   ~RoutingActivationHandler();
 
   /**
@@ -77,7 +77,7 @@ class RoutingActivationHandler final {
   * @param[in]   doip_payload
   *              The doip message received
   */
-  void ProcessDoIPRoutingActivationResponse(DoipMessage &doip_payload) const noexcept;
+  void ProcessDoIPRoutingActivationResponse(DoipMessage const &doip_payload) const noexcept;
 
   /**
   * @brief       Function to handle sending of routing activation request
@@ -85,15 +85,14 @@ class RoutingActivationHandler final {
   *              The routing activation request
   * @return      Transmission result
   */
-  auto HandleRoutingActivationRequest(
-      uds_transport::UdsMessageConstPtr routing_activation_request) noexcept
-      -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
+  auto HandleRoutingActivationRequest(uds_transport::UdsMessageConstPtr routing_activation_request)
+      const noexcept -> uds_transport::UdsTransportProtocolMgr::ConnectionResult;
 
   /**
   * @brief       Check if routing activation is active for this handler
   * @return      True if activated, otherwise False
   */
-  auto IsRoutingActivated() noexcept -> bool;
+  auto IsRoutingActivated() const noexcept -> bool;
 
  private:
   /**

@@ -185,6 +185,8 @@ class VdConversationHandler final : public ::uds_transport::ConversionHandler {
     vd_conversation_.HandleMessage(std::move(message));
   }
 
+  bool IsConversationAlive() const noexcept override { return true; }
+
  private:
   /**
    * @brief         Store the reference of vd conversation

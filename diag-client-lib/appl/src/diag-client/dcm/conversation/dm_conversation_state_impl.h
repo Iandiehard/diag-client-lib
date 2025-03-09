@@ -9,7 +9,7 @@
 #define DIAGNOSTIC_CLIENT_LIB_APPL_SRC_DCM_CONVERSATION_DM_CONVERSATION_STATE_IMPL_H
 /* includes */
 #include "core/include/common_header.h"
-#include "utility/state.h"
+#include "utility-support/state.h"
 
 namespace diag {
 namespace client {

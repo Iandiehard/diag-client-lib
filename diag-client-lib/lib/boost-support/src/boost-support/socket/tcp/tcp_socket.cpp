@@ -75,8 +75,8 @@ core_type::Result<void, TcpSocket::SocketError> TcpSocket::Connect(
   TcpErrorCodeType ec{};
 
   // Connect to provided Ip address
-  tcp_socket_.connect(
-      Tcp::endpoint(TcpIpAddress::from_string(std::string{host_ip_address}), host_port_num), ec);
+  tcp_socket_.connect(Tcp::endpoint(boost::asio::ip::make_address(host_ip_address), host_port_num),
+                      ec);
   if (ec.value() == boost::system::errc::success) {
     common::logger::LibBoostLogger::GetLibBoostLogger().GetLogger().LogDebug(
         FILE_NAME, __LINE__, __func__, [this](std::stringstream &msg) {

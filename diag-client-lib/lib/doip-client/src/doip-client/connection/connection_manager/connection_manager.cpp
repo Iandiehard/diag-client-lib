@@ -8,6 +8,8 @@
 
 #include "doip-client/connection/connection_manager/connection_manager.h"
 
+#include <string_view>
+
 #include "doip-client/connection/tcp_connection/tcp_connection.h"
 #include "doip-client/connection/udp_connection/udp_connection.h"
 #include "doip-client/logger/logger.h"
@@ -15,7 +17,21 @@
 namespace doip_client {
 namespace connection {
 namespace connection_manager {
-ConnectionManager::ConnectionManager() noexcept : io_context_{} {}
+namespace {
+/**
+ * @brief  Name of threads running in thread pool
+ */
+constexpr std::string_view kThreadPoolName{"DoipClient_"};
+
+/**
+ * @brief  The maximum number of threads in thread pool
+ */
+constexpr std::uint32_t kMaxThreads{5U};
+}  // namespace
+
+ConnectionManager::ConnectionManager() noexcept
+    : io_context_{},
+      thread_pool_{kThreadPoolName, kMaxThreads} {}
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address,

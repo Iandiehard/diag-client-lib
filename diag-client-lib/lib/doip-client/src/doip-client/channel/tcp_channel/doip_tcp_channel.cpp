@@ -25,6 +25,7 @@ DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler,
 void DoipTcpChannel::Start() {
   // Set the handler to receive data from socket handler
   tcp_socket_handler_.SetReadHandler(
+      // Todo: Submit task to thread pool
       [this](TcpMessagePtr tcp_message) { ProcessReceivedTcpMessage(std::move(tcp_message)); });
   // Start the socket and channel handler
   tcp_socket_handler_.Initialize();

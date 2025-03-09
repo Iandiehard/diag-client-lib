@@ -12,6 +12,7 @@
 #include <string_view>
 
 #include "uds_transport-layer-api/connection.h"
+#include "utility-support/thread_pool/thread_pool.h"
 
 namespace doip_client {
 namespace connection {
@@ -71,6 +72,11 @@ class ConnectionManager final {
    * @brief  Stores the io context
    */
   IoContext io_context_;
+
+  /**
+   * @brief  Stores the Thread pool
+   */
+  utility_support::thread_pool::ThreadPool thread_pool_;
 };
 
 }  // namespace connection_manager

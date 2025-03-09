@@ -18,7 +18,7 @@
 #include "diag-client/common/logger.h"
 #include "diag-client/dcm/dcm_client.h"
 #include "diag-client/dcm/error_domain/dm_error_domain.h"
-#include "utility/thread.h"
+#include "utility-support/thread.h"
 
 namespace diag {
 namespace client {
@@ -75,8 +75,8 @@ class DiagClient::DiagClientImpl final {
           dcm_instance_ = std::make_unique<diag::client::dcm::DCMClient>(
               config_parser::ReadDcmClientConfig(config));
           // Start dcm client main thread
-          dcm_thread_ = utility::thread::Thread{"DcmClientMain",
-                                                [this]() noexcept { dcm_instance_->Main(); }};
+          dcm_thread_ = utility_support::thread::Thread{
+              "DcmClientMain", [this]() noexcept { dcm_instance_->Main(); }};
           logger::DiagClientLogger::GetDiagClientLogger().GetLogger().LogInfo(
               FILE_NAME, __LINE__, "",
               [](std::stringstream &msg) { msg << "DiagClient Initialization completed"; });
@@ -158,7 +158,7 @@ class DiagClient::DiagClientImpl final {
   /**
    * @brief    Thread to handle dcm client lifecycle
    */
-  utility::thread::Thread dcm_thread_;
+  utility_support::thread::Thread dcm_thread_;
 
   /**
    * @brief    Store the diag client config path
