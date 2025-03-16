@@ -18,31 +18,34 @@
 namespace utility_support {
 namespace thread_pool {
 
-ThreadPool::ThreadPool(std::string_view const worker_thread_name_prefix,
-                       std::uint32_t const num_of_worker_threads) noexcept
+ThreadPool::ThreadPool() noexcept
     : exit_request_{false},
       cond_var_{},
       mutex_{},
       task_queue_{},
-      threads_{},
-      thread_name_prefix_{worker_thread_name_prefix},
-      num_of_worker_threads_{num_of_worker_threads} {}
+      threads_{} {}
 
-ThreadPool::~ThreadPool() noexcept {
-  {
-    std::lock_guard lck(mutex_);
-    exit_request_ = true;
-  }
-  for (thread::Thread& thread: threads_) { thread.Join(); }
-}
+ThreadPool::~ThreadPool() noexcept { Shutdown(); }
 
-void ThreadPool::Initialize() noexcept {
-  threads_.reserve(num_of_worker_threads_);
-  for (std::uint32_t thread_count = 0; thread_count < num_of_worker_threads_; thread_count++) {
-    std::string thread_name{thread_name_prefix_};
+void ThreadPool::Initialize(std::string_view const worker_thread_name_prefix,
+                            std::uint32_t const num_of_worker_threads) noexcept {
+  threads_.reserve(num_of_worker_threads);
+  for (std::uint32_t thread_count = 0u; thread_count < num_of_worker_threads; thread_count++) {
+    std::string thread_name{worker_thread_name_prefix};
     thread_name.append("_");
     thread_name.append(std::to_string(thread_count));
     threads_.emplace_back(thread::Thread(thread_name, [this]() noexcept { this->Run(); }));
+  }
+}
+
+void ThreadPool::Shutdown() noexcept {
+  if (!exit_request_) {
+    {
+      std::lock_guard lck(mutex_);
+      exit_request_ = true;
+    }
+    // Join all thread
+    for (thread::Thread& thread: threads_) { thread.Join(); }
   }
 }
 

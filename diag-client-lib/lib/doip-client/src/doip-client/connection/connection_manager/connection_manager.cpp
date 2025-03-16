@@ -21,7 +21,7 @@ namespace {
 /**
  * @brief  Name of threads running in thread pool
  */
-constexpr std::string_view kThreadPoolName{"DoipClient_"};
+constexpr std::string_view kThreadPoolName{"DoipCtWTh"};
 
 /**
  * @brief  The maximum number of threads in thread pool
@@ -29,9 +29,11 @@ constexpr std::string_view kThreadPoolName{"DoipClient_"};
 constexpr std::uint32_t kMaxThreads{5U};
 }  // namespace
 
-ConnectionManager::ConnectionManager() noexcept
-    : io_context_{},
-      thread_pool_{kThreadPoolName, kMaxThreads} {}
+ConnectionManager::ConnectionManager() noexcept : io_context_{}, thread_pool_{} {}
+
+void ConnectionManager::Start() noexcept { thread_pool_.Initialize(kThreadPoolName, kMaxThreads); }
+
+void ConnectionManager::Stop() noexcept { thread_pool_.Shutdown(); }
 
 std::unique_ptr<uds_transport::Connection> ConnectionManager::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address,

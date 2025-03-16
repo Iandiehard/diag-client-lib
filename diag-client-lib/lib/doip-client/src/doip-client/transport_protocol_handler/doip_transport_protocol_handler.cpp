@@ -17,6 +17,16 @@ class DoipTransportProtocolHandler::DoipTransportProtocolHandlerImpl final {
   DoipTransportProtocolHandlerImpl() noexcept : doip_client_{} {}
 
   /**
+ * @brief        Function to start the protocol handler
+ */
+  void Start() { doip_client_.Start(); }
+
+  /**
+   * @brief        Function to stop the protocol handler
+   */
+  void Stop() { doip_client_.Stop(); }
+
+  /**
    * @brief       Function to create a new Tcp connection
    * @param[in]   conversation
    *              The conversation handler used by tcp connection to communicate
@@ -29,7 +39,7 @@ class DoipTransportProtocolHandler::DoipTransportProtocolHandlerImpl final {
   std::unique_ptr<uds_transport::Connection> CreateTcpConnection(
       uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address,
       std::uint16_t port_num) {
-    return doip_client_->CreateTcpConnection(conversation, tcp_ip_address, port_num);
+    return doip_client_.CreateTcpConnection(conversation, tcp_ip_address, port_num);
   }
 
   /**
@@ -45,11 +55,11 @@ class DoipTransportProtocolHandler::DoipTransportProtocolHandlerImpl final {
   std::unique_ptr<uds_transport::Connection> CreateUdpConnection(
       uds_transport::ConversionHandler const &conversation, std::string_view udp_ip_address,
       std::uint16_t port_num) {
-    return doip_client_->CreateUdpConnection(conversation, udp_ip_address, port_num);
+    return doip_client_.CreateUdpConnection(conversation, udp_ip_address, port_num);
   }
 
  private:
-  std::unique_ptr<DoipClient> doip_client_;
+  DoipClient doip_client_;
 };
 
 DoipTransportProtocolHandler::DoipTransportProtocolHandler(
@@ -64,9 +74,9 @@ DoipTransportProtocolHandler::InitializationResult DoipTransportProtocolHandler:
   return InitializationResult::kInitializeOk;
 }
 
-void DoipTransportProtocolHandler::Start() {}
+void DoipTransportProtocolHandler::Start() { doip_transport_protocol_handler_impl_->Start(); }
 
-void DoipTransportProtocolHandler::Stop() {}
+void DoipTransportProtocolHandler::Stop() { doip_transport_protocol_handler_impl_->Stop(); }
 
 std::unique_ptr<uds_transport::Connection> DoipTransportProtocolHandler::CreateTcpConnection(
     uds_transport::ConversionHandler &conversation, std::string_view tcp_ip_address,

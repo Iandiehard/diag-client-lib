@@ -12,6 +12,10 @@ namespace doip_client {
 
 DoipClient::DoipClient() noexcept : connection_mgr_{} {}
 
+void DoipClient::Start() noexcept { connection_mgr_.Start(); }
+
+void DoipClient::Stop() noexcept { connection_mgr_.Stop(); }
+
 std::unique_ptr<uds_transport::Connection> DoipClient::CreateTcpConnection(
     uds_transport::ConversionHandler const &conversation, std::string_view tcp_ip_address,
     std::uint16_t port_num) {

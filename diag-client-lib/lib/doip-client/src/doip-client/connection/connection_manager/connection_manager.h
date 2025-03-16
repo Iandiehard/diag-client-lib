@@ -40,6 +40,16 @@ class ConnectionManager final {
   ~ConnectionManager() noexcept = default;
 
   /**
+   * @brief        Function to start the manager
+   */
+  void Start() noexcept;
+
+  /**
+   * @brief        Function to stop the manager
+   */
+  void Stop() noexcept;
+
+  /**
    * @brief       Function to find or create a new Tcp connection
    * @param[in]   conversation
    *              The conversation handler used by tcp connection to communicate

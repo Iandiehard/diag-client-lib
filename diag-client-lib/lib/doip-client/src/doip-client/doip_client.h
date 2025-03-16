@@ -39,6 +39,16 @@ class DoipClient final {
   ~DoipClient() noexcept = default;
 
   /**
+   * @brief        Function to start the client
+   */
+  void Start() noexcept;
+
+  /**
+   * @brief        Function to stop the client
+   */
+  void Stop() noexcept;
+
+  /**
    * @brief       Function to create a new Tcp connection
    * @param[in]   conversation
    *              The conversation handler used by tcp connection to communicate

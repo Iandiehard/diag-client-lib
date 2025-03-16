@@ -27,12 +27,12 @@ namespace thread_pool {
  */
 class ThreadPool final {
  public:
-  explicit ThreadPool(std::string_view worker_thread_name_prefix,
-                      std::uint32_t num_of_worker_threads) noexcept;
+  explicit ThreadPool() noexcept;
 
   ~ThreadPool() noexcept;
 
-  void Initialize() noexcept;
+  void Initialize(std::string_view worker_thread_name_prefix,
+                  std::uint32_t num_of_worker_threads) noexcept;
 
   void Shutdown() noexcept;
   /*
@@ -56,6 +56,9 @@ class ThreadPool final {
    */
   std::condition_variable cond_var_;
 
+  /**
+   * @brief  mutex to protect the thread wake up
+   */
   std::mutex mutex_;
 
   /**
@@ -67,10 +70,6 @@ class ThreadPool final {
    * @brief  Storage for all worker threads in the pool
    */
   std::vector<thread::Thread> threads_;
-
-  std::string thread_name_prefix_;
-
-  std::uint32_t num_of_worker_threads_;
 };
 
 }  // namespace thread_pool
