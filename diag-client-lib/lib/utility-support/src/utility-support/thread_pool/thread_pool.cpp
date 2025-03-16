@@ -9,18 +9,63 @@
 #ifndef UTILITY_SUPPORT_INCLUDE_UTILITY_SUPPORT_THREAD_POOL_THREAD_TASK_H_
 #define UTILITY_SUPPORT_INCLUDE_UTILITY_SUPPORT_THREAD_POOL_THREAD_TASK_H_
 
+#include "utility-support/thread_pool/thread_pool.h"
+
+#include <optional>
+
+#include "utility-support/thread_pool/task_wrapper.h"
+
 namespace utility_support {
 namespace thread_pool {
 
-class ThreadTask final {
- public:
-  explicit ThreadTask(Callable&& callable) noexcept : callable_{std::forward<Callable>(callable)} {}
+ThreadPool::ThreadPool(std::string_view const worker_thread_name_prefix,
+                       std::uint32_t const num_of_worker_threads) noexcept
+    : exit_request_{false},
+      cond_var_{},
+      mutex_{},
+      task_queue_{},
+      threads_{},
+      thread_name_prefix_{worker_thread_name_prefix},
+      num_of_worker_threads_{num_of_worker_threads} {}
 
-  void operator()() const noexcept { callable_(); }
+ThreadPool::~ThreadPool() noexcept {
+  {
+    std::lock_guard lck(mutex_);
+    exit_request_ = true;
+  }
+  for (thread::Thread& thread: threads_) { thread.Join(); }
+}
 
- private:
-  Callable callable_;
-};
+void ThreadPool::Initialize() noexcept {
+  threads_.reserve(num_of_worker_threads_);
+  for (std::uint32_t thread_count = 0; thread_count < num_of_worker_threads_; thread_count++) {
+    std::string thread_name{thread_name_prefix_};
+    thread_name.append("_");
+    thread_name.append(std::to_string(thread_count));
+    threads_.emplace_back(thread::Thread(thread_name, [this]() noexcept { this->Run(); }));
+  }
+}
+
+template<typename FunctionType, typename ResultType>
+auto ThreadPool::SubmitTask(FunctionType&& task) noexcept -> std::future<ResultType> {
+  std::packaged_task<ResultType()> packaged_task{std::forward<FunctionType>(task)};
+  std::future<ResultType> result{packaged_task.get_future()};
+  task_queue_.Push(std::move(packaged_task));
+  cond_var_.notify_all();
+  return result;
+}
+
+void ThreadPool::Run() noexcept {
+  while (!exit_request_) {
+    std::optional<TaskWrapper> task{};
+    {
+      std::unique_lock lck(mutex_);
+      cond_var_.wait(lck, [this]() { return !task_queue_.IsEmpty() || exit_request_; });
+      if (!exit_request_) { task = std::move(task_queue_.TryPop()); }
+    }
+    if (task.has_value()) { task->operator()(); }
+  }
+}
 
 }  // namespace thread_pool
 }  // namespace utility_support
