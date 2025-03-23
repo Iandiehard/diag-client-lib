@@ -12,6 +12,7 @@
 
 #include "doip-client/message/doip_message.h"
 #include "doip-client/sockets/tcp_socket_handler.h"
+#include "uds_transport-layer-api/connection.h"
 #include "uds_transport-layer-api/protocol_mgr.h"
 #include "uds_transport-layer-api/uds_message.h"
 
@@ -47,10 +48,11 @@ class DiagnosticMessageHandler final {
   * @brief         Constructs an instance of DiagnosticMessageHandler
   * @param[in]     tcp_socket_handler
   *                The reference to socket handler
-  * @param[in]     channel
-  *                The reference to doip channel
+  * @param[in]     connection
+  *                The reference to upper layer connection
   */
-  DiagnosticMessageHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel);
+  DiagnosticMessageHandler(sockets::TcpSocketHandler &tcp_socket_handler,
+                           uds_transport::Connection &connection);
 
   /**
   * @brief         Destruct an instance of DiagnosticMessageHandler

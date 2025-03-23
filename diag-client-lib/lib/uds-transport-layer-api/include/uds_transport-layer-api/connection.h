@@ -159,6 +159,12 @@ class Connection {
    */
   virtual void HandleMessage(UdsMessagePtr message) = 0;
 
+  /**
+   * @brief       Function to check if the current connection is still used by the conversation
+   * @return      True if conversation is alive, otherwise False
+   */
+  virtual bool IsConversationAlive() const = 0;
+
  protected:
   /**
    * @brief        Store the conversation handler

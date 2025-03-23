@@ -11,6 +11,7 @@
 #include <cstdint>
 
 #include "utility-support/state_machine/base_state/base_state.h"
+#include "utility-support/state_machine/state_context.h"
 
 namespace doip_client {
 namespace channel {
@@ -29,10 +30,14 @@ enum class ChannelStateHandle : std::uint8_t {
 };
 
 /**
+ * @brief  Type alias of state context
+ */
+using ChannelStateContext = utility_support::state_machine::StateContext<ChannelStateHandle>;
+
+/**
  * @brief  Type alias of base state
  */
-using ChannelStateBaseState =
-    utility_support::state_machine::base_state::BaseState<ChannelStateHandle>;
+using ChannelStateBaseState = ChannelStateContext::State;
 
 }  // namespace states
 }  // namespace state_machine

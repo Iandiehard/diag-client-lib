@@ -17,8 +17,7 @@ namespace channel {
 namespace tcp_channel {
 namespace state_machine {
 
-class DoipTcpChannelStateContext final
-    : public utility_support::state_machine::StateContext<states::ChannelStateHandle> {
+class DoipTcpChannelStateContext final : public states::ChannelStateContext {
  public:
   DoipTcpChannelStateContext() noexcept;
 

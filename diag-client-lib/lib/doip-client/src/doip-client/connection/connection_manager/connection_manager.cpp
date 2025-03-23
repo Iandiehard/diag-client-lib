@@ -26,7 +26,7 @@ constexpr std::string_view kThreadPoolName{"DoipCtWTh"};
 /**
  * @brief  The maximum number of threads in thread pool
  */
-constexpr std::uint32_t kMaxThreads{5U};
+constexpr std::uint32_t kMaxThreads{2U};
 }  // namespace
 
 ConnectionManager::ConnectionManager() noexcept : io_context_{}, thread_pool_{} {}

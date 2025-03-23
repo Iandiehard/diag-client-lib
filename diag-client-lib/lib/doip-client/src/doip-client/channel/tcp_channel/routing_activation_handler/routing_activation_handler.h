@@ -18,8 +18,6 @@
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
-// Forward declaration
-class DoipTcpChannel;
 
 namespace routing_activation_handler {
 /**

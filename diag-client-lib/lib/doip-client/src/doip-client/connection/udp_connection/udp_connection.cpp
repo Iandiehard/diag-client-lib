@@ -72,6 +72,10 @@ void DoipUdpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   conversation_handler_.HandleMessage(std::move(message));
 }
 
+bool DoipUdpConnection::IsConversationAlive() const {
+  return conversation_handler_.IsConversationAlive();
+}
+
 }  // namespace udp_connection
 }  // namespace connection
 }  // namespace doip_client

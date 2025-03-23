@@ -135,6 +135,12 @@ class DoipTcpConnection final : public uds_transport::Connection {
    */
   void HandleMessage(uds_transport::UdsMessagePtr message) override;
 
+  /**
+   * @brief       Function to check if the current connection is still used by the conversation
+   * @return      True if conversation is alive, otherwise False
+   */
+  bool IsConversationAlive() const override;
+
  private:
   /**
    * @brief        Store the doip tcp channel

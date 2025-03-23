@@ -19,8 +19,8 @@ template<typename T>
 class ProtectedQueue {
  public:
   ProtectedQueue() = default;
-
   ~ProtectedQueue() = default;
+
 
   void Push(T value) noexcept {
     std::lock_guard const lock{mutex_};
@@ -37,7 +37,14 @@ class ProtectedQueue {
     return value;
   }
 
-  bool IsEmpty() const noexcept { return queue_.empty(); }
+  bool IsEmpty() noexcept {
+    bool is_empty{false};
+    {
+      std::lock_guard const lock{mutex_};
+      is_empty = queue_.empty();
+    }
+    return is_empty;
+  }
 
  private:
   std::mutex mutex_;

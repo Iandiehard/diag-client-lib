@@ -19,8 +19,7 @@ namespace tcp_channel {
 DoipTcpChannel::DoipTcpChannel(TcpSocketHandler tcp_socket_handler,
                                uds_transport::Connection &connection)
     : tcp_socket_handler_{std::move(tcp_socket_handler)},
-      tcp_channel_handler_{tcp_socket_handler_, *this},
-      connection_{connection} {}
+      tcp_channel_handler_{tcp_socket_handler_, connection} {}
 
 void DoipTcpChannel::Start() {
   // Set the handler to receive data from socket handler
@@ -91,22 +90,6 @@ uds_transport::UdsTransportProtocolMgr::TransmissionResult DoipTcpChannel::Trans
         });
   }
   return ret_val;
-}
-
-std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult, uds_transport::UdsMessagePtr>
-DoipTcpChannel::IndicateMessage(uds_transport::UdsMessage::Address source_addr,
-                                uds_transport::UdsMessage::Address target_addr,
-                                uds_transport::UdsMessage::TargetAddressType type,
-                                uds_transport::ChannelID channel_id, std::size_t size,
-                                uds_transport::Priority priority,
-                                uds_transport::ProtocolKind protocol_kind,
-                                core_type::Span<std::uint8_t const> payload_info) {
-  return connection_.IndicateMessage(source_addr, target_addr, type, channel_id, size, priority,
-                                     protocol_kind, payload_info);
-}
-
-void DoipTcpChannel::HandleMessage(uds_transport::UdsMessagePtr message) {
-  connection_.HandleMessage(std::move(message));
 }
 
 }  // namespace tcp_channel

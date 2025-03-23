@@ -82,6 +82,10 @@ class ConversionHandler {
    */
   virtual void HandleMessage(UdsMessagePtr message) const noexcept = 0;
 
+  /**
+   * @brief       Function to check if the current connection is still used by the conversation
+   * @return      True if conversation is alive, otherwise False
+   */
   virtual bool IsConversationAlive() const noexcept = 0;
 
  protected:

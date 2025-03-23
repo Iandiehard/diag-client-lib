@@ -299,9 +299,9 @@ class DiagnosticMessageHandler::DiagnosticMessageHandlerImpl {
    *                The reference to doip channel
    */
   DiagnosticMessageHandlerImpl(sockets::TcpSocketHandler &tcp_socket_handler,
-                               DoipTcpChannel &channel)
+                               uds_transport::Connection &connection)
       : tcp_socket_handler_{tcp_socket_handler},
-        channel_{channel},
+        connection_{connection},
         state_context_{},
         sync_timer_{} {
     // create and add state for Diagnostic State
@@ -368,7 +368,9 @@ class DiagnosticMessageHandler::DiagnosticMessageHandlerImpl {
    * @brief       Function to get the doip channel
    * @return      The reference to channel
    */
-  auto GetDoipChannel() const noexcept -> DoipTcpChannel & { return channel_; }
+  auto GetUpperLayerConnection() const noexcept -> uds_transport::Connection & {
+    return connection_;
+  }
 
   /**
    * @brief       Function to get the sync timer
@@ -383,9 +385,9 @@ class DiagnosticMessageHandler::DiagnosticMessageHandlerImpl {
   sockets::TcpSocketHandler &tcp_socket_handler_;
 
   /**
-   * @brief  The reference to doip channel
+   * @brief  Store the reference to doip connection
    */
-  DoipTcpChannel &channel_;
+  uds_transport::Connection &connection_;
 
   /**
    * @brief  Stores the diagnostic message states
@@ -399,8 +401,9 @@ class DiagnosticMessageHandler::DiagnosticMessageHandlerImpl {
 };
 
 DiagnosticMessageHandler::DiagnosticMessageHandler(sockets::TcpSocketHandler &tcp_socket_handler,
-                                                   DoipTcpChannel &channel)
-    : handler_impl_{std::make_unique<DiagnosticMessageHandlerImpl>(tcp_socket_handler, channel)} {}
+                                                   uds_transport::Connection &connection)
+    : handler_impl_{
+          std::make_unique<DiagnosticMessageHandlerImpl>(tcp_socket_handler, connection)} {}
 
 DiagnosticMessageHandler::~DiagnosticMessageHandler() = default;
 
@@ -451,7 +454,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
     // Indicate upper layer about incoming data
     std::pair<uds_transport::UdsTransportProtocolMgr::IndicationResult,
               uds_transport::UdsMessagePtr>
-        ret_val{handler_impl_->GetDoipChannel().IndicateMessage(
+        ret_val{handler_impl_->GetUpperLayerConnection().IndicateMessage(
             doip_payload.GetServerAddress(), doip_payload.GetClientAddress(),
             uds_transport::UdsMessage::TargetAddressType::kPhysical, 0U,
             doip_payload.GetPayload().size(), 0u, "DoIPTcp", doip_payload.GetPayload())};
@@ -466,7 +469,7 @@ auto DiagnosticMessageHandler::ProcessDoIPDiagnosticMessageResponse(
         // copy to application buffer
         (void) std::copy(doip_payload.GetPayload().begin(), doip_payload.GetPayload().end(),
                          ret_val.second->GetPayload().begin());
-        handler_impl_->GetDoipChannel().HandleMessage(std::move(ret_val.second));
+        handler_impl_->GetUpperLayerConnection().HandleMessage(std::move(ret_val.second));
       } else {
         logger::DoipClientLogger::GetDiagClientLogger().GetLogger().LogVerbose(
             FILE_NAME, __LINE__, __func__, [](std::stringstream &msg) {

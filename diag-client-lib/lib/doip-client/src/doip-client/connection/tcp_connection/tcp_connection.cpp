@@ -73,6 +73,10 @@ void DoipTcpConnection::HandleMessage(uds_transport::UdsMessagePtr message) {
   conversation_handler_.HandleMessage(std::move(message));
 }
 
+bool DoipTcpConnection::IsConversationAlive() const {
+  return conversation_handler_.IsConversationAlive();
+}
+
 }  // namespace tcp_connection
 }  // namespace connection
 }  // namespace doip_client

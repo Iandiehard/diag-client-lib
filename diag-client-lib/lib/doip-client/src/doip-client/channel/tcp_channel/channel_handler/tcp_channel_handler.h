@@ -14,14 +14,13 @@
 #include "doip-client/channel/tcp_channel/routing_activation_handler/routing_activation_handler.h"
 #include "doip-client/message/doip_message.h"
 #include "doip-client/sockets/tcp_socket_handler.h"
+#include "uds_transport-layer-api/connection.h"
 #include "uds_transport-layer-api/protocol_mgr.h"
 #include "uds_transport-layer-api/uds_message.h"
 
 namespace doip_client {
 namespace channel {
 namespace tcp_channel {
-// Forward declaration
-class DoipTcpChannel;
 
 namespace channel_handler {
 /**
@@ -44,10 +43,11 @@ class TcpChannelHandler final {
    * @brief         Constructs an instance of TcpChannelHandler
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
-   * @param[in]     channel
-   *                The reference to tcp transport handler
+   * @param[in]     connection
+   *                The reference to the upper layer connection
    */
-  TcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler, DoipTcpChannel &channel);
+  TcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler,
+                    uds_transport::Connection &connection);
 
   /**
    * @brief        Function to start the handler

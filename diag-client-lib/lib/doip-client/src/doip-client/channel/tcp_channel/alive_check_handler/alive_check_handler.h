@@ -11,6 +11,7 @@
 
 #include "doip-client/message/doip_message.h"
 #include "doip-client/sockets/tcp_socket_handler.h"
+#include "uds_transport-layer-api/connection.h"
 
 namespace doip_client {
 namespace channel {
@@ -39,8 +40,11 @@ class AliveCheckHandler final {
    * @brief         Constructs an instance of RoutingActivationHandler
    * @param[in]     tcp_socket_handler
    *                The reference to socket handler
+   * @param[in]     connection
+   *                The reference to upper layer connection
    */
-  explicit AliveCheckHandler(sockets::TcpSocketHandler &tcp_socket_handler);
+  AliveCheckHandler(sockets::TcpSocketHandler &tcp_socket_handler,
+                    uds_transport::Connection &connection);
 
   /**
    * @brief         Destruct an instance of AliveCheckHandler
@@ -59,6 +63,11 @@ class AliveCheckHandler final {
    * @brief  The reference to socket handler
    */
   sockets::TcpSocketHandler &tcp_socket_handler_;
+
+  /**
+   * @brief  The reference to upper layer connection
+   */
+  uds_transport::Connection &connection_;
 };
 
 }  // namespace alive_check_handler

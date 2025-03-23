@@ -99,9 +99,9 @@ auto ProcessDoIPPayloadLength(std::uint32_t const payload_length,
 }  // namespace
 
 TcpChannelHandler::TcpChannelHandler(sockets::TcpSocketHandler &tcp_socket_handler,
-                                     DoipTcpChannel &channel)
+                                     uds_transport::Connection &connection)
     : routing_activation_handler_{tcp_socket_handler},
-      diagnostic_message_handler_{tcp_socket_handler, channel} {}
+      diagnostic_message_handler_{tcp_socket_handler, connection} {}
 
 void TcpChannelHandler::Start() {
   routing_activation_handler_.Start();

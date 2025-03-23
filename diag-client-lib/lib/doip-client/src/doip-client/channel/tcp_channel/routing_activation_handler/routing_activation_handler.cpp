@@ -11,6 +11,7 @@
 #include <utility>
 
 #include "doip-client/channel/tcp_channel/doip_tcp_channel.h"
+#include "doip-client/channel/tcp_channel/state_machine/doip_tcp_channel_state_context.h"
 #include "doip-client/logger/logger.h"
 #include "doip-client/message/doip_types.h"
 #include "utility-support/state.h"

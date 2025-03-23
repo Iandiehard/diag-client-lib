@@ -44,6 +44,7 @@ void ThreadPool::Shutdown() noexcept {
       std::lock_guard lck(mutex_);
       exit_request_ = true;
     }
+    cond_var_.notify_all();
     // Join all thread
     for (thread::Thread& thread: threads_) { thread.Join(); }
   }
@@ -64,8 +65,9 @@ void ThreadPool::Run() noexcept {
     {
       std::unique_lock lck(mutex_);
       cond_var_.wait(lck, [this]() { return !task_queue_.IsEmpty() || exit_request_; });
-      if (!exit_request_) { task = std::move(task_queue_.TryPop()); }
+      if (!exit_request_) { task = std::move(*task_queue_.TryPop()); }
     }
+    // Execute the task
     if (task.has_value()) { task->operator()(); }
   }
 }
